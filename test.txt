@@ -1,3 +1,0 @@
-git test
-test2
-and one more time
