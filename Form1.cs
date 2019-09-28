@@ -726,7 +726,7 @@ namespace Bot.v._0._04
             Rectangle HandSlot4 = new Rectangle(655, 725, 115, 60);
             Rectangle HandSlot5 = new Rectangle(845, 725, 115, 60);
             string carsDB = "finger";
-            int lastcar = 450;
+            int lastcar = 500;
             int[] carsid = new int[5];
 
             int n;
@@ -784,7 +784,6 @@ namespace Bot.v._0._04
             {
                 if(PixelIndicator(a[i]) == emptyslot)
                 {
-                    DoLog("Тачка " + (i + 1) + " отсутствует");
                     x = false;
                     break;
                 }
@@ -1653,8 +1652,804 @@ namespace Bot.v._0._04
                 UseFilter("f", f, usedhandslots, tires, condition);
             }
 
-            int[] carsid = RememberHand();
-            Saves(rq, condition, tires, carsid);
+            if (VerifyHand())//проверка руки, чтобы не сохранял пустые картинки
+            {
+                int[] carsid = RememberHand();
+                Saves(rq, condition, tires, carsid);
+            }
+        }
+
+        private void MakingHandwith1Condition(int rq, int condition)
+        {
+            int f = 6;
+            int e = 10;
+            int d = 14;
+            int c = 18;
+            int b = 22;
+            int a = 26;
+            int s = 30;
+            int[] rqclass = new int[] { f, e, d, c, b, a, s };
+            int[,] hand = new int[5, 7];
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    hand[i, j] = rqclass[j];
+                }
+            }
+
+            int[] finger = new int[5];
+            Random r = new Random();
+            int n;
+            int handrq;
+            switch (condition)
+            {
+                case 52://pontiac
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 1;
+                    finger[4] = 1;
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 102)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк понтиак 102");
+                    break;
+
+                case 51://opel
+                    finger[0] = 0;
+                    finger[1] = 1;
+                    finger[2] = 1;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 110)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк опель 110");
+                    break;
+
+                case 50://chevrolet
+                    finger[0] = 0;
+                    for (int x = 1; x < 5; x++)
+                    {
+                        finger[x] = 1;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк шеви 130");
+                    break;
+
+                case 49://bmw
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк бмв 140");
+                    break;
+
+                case 44://dodge
+                    finger[0] = 0;
+                    finger[1] = 1;
+                    finger[2] = 2;
+                    finger[3] = 2;
+                    finger[4] = 2;
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 110)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк додж 110");
+                    break;
+
+                case 42://citroen
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    finger[0] = 2;
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 76)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 3);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк ситроен 76");
+                    break;
+
+                case 38://alfa
+                    finger[0] = 1;
+                    finger[1] = 1;
+                    finger[2] = 2;
+                    finger[3] = 2;
+                    finger[4] = 2;
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 108)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк alfa 108");
+                    break;
+
+                case 36:
+                case 35:
+                case 34://cadillac
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 1;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 140)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк cadillac 140");
+                    break;
+
+                case 46:
+                case 33://french renaissance                    
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 1;
+                    }
+
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк фр ренесанса 130");
+                    break;
+
+                case 32:
+                case 31://Honda x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 110)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк хонды 110");
+                    break;
+
+                case 17://Style Icon
+                    finger[0] = 0;
+                    finger[1] = 2;
+                    for (int x = 2; x < 5; x++)
+                    {
+                        finger[x] = 1;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+
+                    while ((rq - handrq) > 3 && handrq != 106)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";    у икон стиля только 4 экстрима и одна обычная");
+                    break;
+
+                case 29://All Surface Tyres x5
+                case 27:
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 1;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+
+                    while ((rq - handrq) > 3 && handrq != 146)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 30://Subaru x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 126)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   У субару 4 эпика");
+                    break;
+
+                case 47:
+                case 28://5 Seaters x5
+                case 26:
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 14: //Super x3
+                    for (int x = 0; x < 5; x++)
+                    {
+                        if (x > 1)
+                        {
+                            finger[x] = 3; //выставляем 3 суперских
+                        }
+                        else
+                        {
+                            finger[x] = 0;
+                        }
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+
+                    while ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 2);//рандомим 2 твчки
+                        } while (finger[n] == 6);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 10://Common x3
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+
+                    while ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 2);// 3 обычных, остальное рандомим
+                        } while (finger[n] == 6);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 15://Uncommon x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 1;
+                    }
+                    DoLog("собрал необычные");
+                    break;
+
+                case 8://Common x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    DoLog("собрал обычные");
+                    break;
+
+                case 48:
+                case 2://Rare x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 2;
+                    }
+                    DoLog("собрал редкостные");
+                    break;
+                case 20://FWD x5
+                case 6:
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 90)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 3);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Максимальное рк переднего привода 110");
+
+                    break;
+
+                case 11://Hot hutch x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 122)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";  только 2 эпика");
+                    break;
+
+                case 12://Renault x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 122)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";  только 2 эпика");
+                    break;
+
+                case 13://Italy x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 110)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+
+                    if ((rq - handrq) > 7)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                    }
+
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+
+                    if ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";  только 1 эпик и 1 лега");
+                    break;
+
+                case 37://std x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Нет выше эпиков");
+                    break;
+
+                case 7://Japan x5
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq) + ";   Нет выше эпиков");
+                    break;
+
+                default:
+                    for (int x = 0; x < 5; x++)
+                    {
+                        finger[x] = 0;
+                    }
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+
+                    while ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+
+                        handrq = 0;
+                        for (int x = 0; x < 5; x++)
+                        {
+                            handrq += hand[x, finger[x]];
+                        }
+                    }
+                    DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+            }
+
+            int remember;
+            for (int l = 0; l < 4; l++)
+            {
+                for (int l1 = 0; l1 < (4 - l); l1++)
+                    if (finger[l1] > finger[l1 + 1])
+                    {
+                        remember = finger[l1];
+                        finger[l1] = finger[l1 + 1];
+                        finger[l1 + 1] = remember;
+                    }
+            }
+
+            for (int k = 0; k < 5; k++)
+            {
+                //отправляем условия первого трэка
+                ChooseCar(finger[k]);
+            }
+        }
+
+        private void ChooseCar(int cls)
+        {
+            while (!InGarage()) Thread.Sleep(2000);
+            Clk(940, 270);//filter
+            Thread.Sleep(3000);
+            while (!InGarage()) Thread.Sleep(2000);
+            Clk(250, 775);//сброс
+            Thread.Sleep(2000);
+            while (!InGarage()) Thread.Sleep(2000);
+            Clk(940, 270);//filter
+            Thread.Sleep(3000);
+            while (!InGarage()) Thread.Sleep(2000);
+            switch (cls)
+            {
+                case 0:
+                    Clk(110, 405);//выбрать f класс                    
+                    break;
+
+                case 1:
+                    Clk(110, 475);//выбрать e класс                    
+                    break;
+
+                case 2:
+                    Clk(110, 540);//выбрать d класс                    
+                    break;
+
+                case 3:
+                    Clk(110, 600);//выбрать c класс                    
+                    break;
+
+                case 4:
+                    Clk(110, 665);//выбрать b класс                    
+                    break;
+
+                case 5:
+                    Clk(110, 713);//выбрать a класс                    
+                    break;
+
+                case 6:
+                    Point a1 = new Point(200, 636);
+                    Point a2 = new Point(200, 470);
+                    SlowDragnDrop(a1, a2);
+                    Clk(113, 680);//выбрать s класс
+                    break;
+            }
         }
 
         private void ChooseTires(int eventN, string cls)
