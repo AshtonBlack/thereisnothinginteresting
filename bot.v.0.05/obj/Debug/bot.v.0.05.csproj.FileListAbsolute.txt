@@ -1,0 +1,10 @@
+C:\Bot\bot.v.0.05\bin\Debug\bot.v.0.05.exe.config
+C:\Bot\bot.v.0.05\bin\Debug\bot.v.0.05.exe
+C:\Bot\bot.v.0.05\bin\Debug\bot.v.0.05.pdb
+C:\Bot\bot.v.0.05\obj\Debug\bot.v.0.05.csprojAssemblyReference.cache
+C:\Bot\bot.v.0.05\obj\Debug\bot.v._0._05.Properties.Resources.resources
+C:\Bot\bot.v.0.05\obj\Debug\bot.v.0.05.csproj.GenerateResource.cache
+C:\Bot\bot.v.0.05\obj\Debug\bot.v.0.05.csproj.CoreCompileInputs.cache
+C:\Bot\bot.v.0.05\obj\Debug\bot.v.0.05.exe
+C:\Bot\bot.v.0.05\obj\Debug\bot.v.0.05.pdb
+C:\Bot\bot.v.0.05\obj\Debug\bot.v._0._05.Form1.resources
