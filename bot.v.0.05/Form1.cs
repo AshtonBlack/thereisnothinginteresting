@@ -400,7 +400,7 @@ namespace bot.v._0._05
                         {
                             se.ClearHand();
                             Thread.Sleep(500);
-                            NotePad.DoLog("Собираю пробную руку c 1 условием");
+                            NotePad.DoLog("Собираю пробную руку c 1 условием");                           
                             hm.MakingTryHandwith1Condition(rq, condition, tires);
                         }
 
@@ -2388,6 +2388,7 @@ namespace bot.v._0._05
 
         public void MakingTryHandwith1Condition(int rq, int condition, int tires)
         {
+            FastCheck fc = new FastCheck();
             Form1 f1 = new Form1();
             int f = 6;
             int e = 10;
@@ -2410,10 +2411,8 @@ namespace bot.v._0._05
 
             int var; //недобор
             int usedhandslots = 0;
-
             Thread.Sleep(1000);
-            if (condition != 0) f1.Clk(640, 265); //включить фильтр условия события
-            Thread.Sleep(1000);
+            if (condition != 0 && !fc.ConditionActivated()) f1.Clk(640, 265); //включить фильтр условия события                                   
 
             if (ar[0] > 0)
             {
@@ -3179,6 +3178,15 @@ namespace bot.v._0._05
             Rectangle ErrorBounds = new Rectangle(546, 794, 185, 25);            
             MasterOfPictures.BW2Capture(ErrorBounds, ErrorPath);
             if (MasterOfPictures.VerifyBW(ErrorPath, ErrorOriginal, 100)) x = true;
+            return x;
+        }
+        
+        public bool ConditionActivated()
+        {
+            bool x = false;
+            string active = "Color [A=255, R=56, G=56, B=56]";
+            Point p = new Point(415, 260);
+            if (MasterOfPictures.PixelIndicator(p) == active) x = true;
             return x;
         }
         /*
