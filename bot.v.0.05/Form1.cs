@@ -485,10 +485,11 @@ namespace bot.v._0._05
                             {
                                 NotePad.DoLog("Смотрю рекламу на прокачку");
                                 Clk(965, 745); //начать просмотр
-                                Thread.Sleep(60000);
+                                Thread.Sleep(60000);                                
                                 Clk(1205, 200);
                                 //AdsKiller();
                                 Thread.Sleep(12000);
+                                se.UniversalErrorDefense();
                                 Clk(635, 720); //подтвердить проркачку
                                 Thread.Sleep(5000);
                                 newflag = true;
@@ -934,6 +935,9 @@ namespace bot.v._0._05
                             case 5:
                                 b2[i] = "Снег";
                                 break;
+                            case 6:
+                                b2[i] = "Песок";
+                                break;
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -982,6 +986,9 @@ namespace bot.v._0._05
                                 break;
                             case 4:
                                 b2[i] = "Снег";
+                                break;
+                            case 5:
+                                b2[i] = "Песок";
                                 break;
                             default:
                                 b2[i] = "неизвестное покрытие";
@@ -1163,6 +1170,18 @@ namespace bot.v._0._05
                             case 15:
                                 a2[i] = "Перегрузка";
                                 break;
+                            case 16:
+                                a2[i] = "трасса для картинга";
+                                break;
+                            case 17:
+                                a2[i] = "Тестовый круг";
+                                break;
+                            case 18:
+                                a2[i] = "Быстрая трасса";
+                                break;
+                            case 19:
+                                a2[i] = "Мотокросс";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1219,6 +1238,33 @@ namespace bot.v._0._05
                                 break;
                             case 16:
                                 a2[i] = "Закрытый картинг";
+                                break;
+                            case 17:
+                                a2[i] = "Быстрая трасса";
+                                break;
+                            case 18:
+                                a2[i] = "Слалом";
+                                break;
+                            case 19:
+                                a2[i] = "Извилистая дорога";
+                                break;
+                            case 20:
+                                a2[i] = "Замерзшее озеро";
+                                break;
+                            case 21:
+                                a2[i] = "Подъем на холм";
+                                break;
+                            case 22:
+                                a2[i] = "0-100-0";
+                                break;
+                            case 23:
+                                a2[i] = "Тестовый круг";
+                                break;
+                            case 24:
+                                a2[i] = "Ралли-кросс мал";
+                                break;
+                            case 25:
+                                a2[i] = "Токио тест на перегрузки";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";
@@ -1282,6 +1328,18 @@ namespace bot.v._0._05
                             case 18:
                                 a2[i] = "Highway";
                                 break;
+                            case 19:
+                                a2[i] = "0-100-0";
+                                break;
+                            case 20:
+                                a2[i] = "Токио тест на перегрузки";
+                                break;
+                            case 21:
+                                a2[i] = "0-100";
+                                break;
+                            case 22:
+                                a2[i] = "1/4";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1337,6 +1395,24 @@ namespace bot.v._0._05
                                 break;
                             case 16:
                                 a2[i] = "0-100-0";
+                                break;
+                            case 17:
+                                a2[i] = "Слалом";
+                                break;
+                            case 18:
+                                a2[i] = "Тестовый круг";
+                                break;
+                            case 19:
+                                a2[i] = "1/2";
+                                break;
+                            case 20:
+                                a2[i] = "Ралли-кросс ср";
+                                break;
+                            case 21:
+                                a2[i] = "Токио петля";
+                                break;
+                            case 22:
+                                a2[i] = "Подъем на холм";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";
@@ -1394,6 +1470,21 @@ namespace bot.v._0._05
                             case 16:
                                 a2[i] = "Highway";
                                 break;
+                            case 17:
+                                a2[i] = "Слалом";
+                                break;
+                            case 18:
+                                a2[i] = "Перегрузка";
+                                break;
+                            case 19:
+                                a2[i] = "Перегрузка";
+                                break;
+                            case 20:
+                                a2[i] = "Токио мост";
+                                break;
+                            case 21:
+                                a2[i] = "Закрытый картинг";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1440,7 +1531,7 @@ namespace bot.v._0._05
                             "Грунтовая дорога",
                             "Лесная переправа",
                             "Ралли-кросс мал",
-                            "Ралли кросс ср",
+                            "Ралли-кросс ср",
                             "Крутой холм",
                             "Лесная дорога",
                             "Монако узкие улицы",
@@ -2208,6 +2299,13 @@ namespace bot.v._0._05
                     }
                     break;
                 case 7://stormchaser
+                    f1.Clk1(dynamic);
+                    f1.Clk1(standart);
+                    break;
+                case 8://speed of light
+                    f1.Clk1(dynamic);
+                    break;
+                case 9://city living
                     f1.Clk1(dynamic);
                     f1.Clk1(standart);
                     break;
@@ -3171,6 +3269,7 @@ namespace bot.v._0._05
 
     public class FastCheck
     {
+        SpecialEvents se = new SpecialEvents();
         Form1 f1 = new Form1();        
 
         public bool MissClick()
@@ -3292,6 +3391,7 @@ namespace bot.v._0._05
         public bool Ending()
         {
             bool x = false;
+            se.UniversalErrorDefense();
             string PointsForRacePath = "HeadPictures\\TestPointsForRace";
             string PointsForRaceOriginal = "HeadPictures\\OriginalPointsForRace";
             Rectangle PointsForRaceBounds = new Rectangle(723, 718, 189, 20);
