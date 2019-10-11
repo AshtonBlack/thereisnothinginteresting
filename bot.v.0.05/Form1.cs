@@ -1012,6 +1012,9 @@ namespace bot.v._0._05
                             case 3:
                                 c2[i] = "Солнечно";
                                 break;
+                            case 4:
+                                c2[i] = "Солнечно";
+                                break;
                             default:
                                 c2[i] = "неопределенная погода";
                                 break;
@@ -1071,6 +1074,9 @@ namespace bot.v._0._05
                                 break;
                             case 4:
                                 c2[i] = "Солнечно";
+                                break;
+                            case 5:
+                                c2[i] = "Дождь";
                                 break;
                             default:
                                 c2[i] = "неопределенная погода";
@@ -2218,6 +2224,15 @@ namespace bot.v._0._05
             int handrq;
             switch (condition)
             {
+                case 11://экстремальная х5
+                    finger[0] = 4;
+                    finger[1] = 4;
+                    finger[2] = 4;
+                    finger[3] = 4;
+                    finger[4] = 4;
+                    NotePad.DoLog("партия Экстремальных машин");
+                    break;
+
                 case 10://редкостная х5
                     finger[0] = 2;
                     finger[1] = 2;
@@ -2738,6 +2753,59 @@ namespace bot.v._0._05
             while (!fc.InGarage()) Thread.Sleep(2000);
             switch (condition)
             {
+                case 11:
+                    if (rq < 110)
+                    {
+                        NotePad.DoLog("сортирую по рк");
+                        Thread.Sleep(200);
+                        f1.Clk(1090, 265);//сортировка
+                        Thread.Sleep(1000);
+                        f1.Clk(240, 795);//сброс
+                        Thread.Sleep(1000);
+                        f1.Clk(1090, 265);//сортировка
+                        Thread.Sleep(1000);
+                        f1.Clk(100, 475);//сортировка по рк   
+                    }
+                    else
+                    {
+                        Thread.Sleep(200);
+                        f1.Clk(1090, 265);//сортировка
+                        Thread.Sleep(1000);
+                        switch (tires)
+                        {
+                            default:
+                                int r = rand.Next(10);
+                                p = a[r];
+                                switch (r + 1)
+                                {
+                                    case 1:
+                                    case 2:
+                                    case 3:
+                                    case 5:
+                                        f1.Clk(p.X, p.Y);//выбрать условие
+                                        Thread.Sleep(200);
+                                        f1.Clk(p.X, p.Y);//выбрать условие                                
+                                        break;
+
+                                    case 4:
+                                    case 9:
+                                    case 10:
+                                        f1.Clk(p.X, p.Y);//выбрать условие                                
+                                        break;
+
+                                    default:
+                                        if (rand.Next(2) == 1)
+                                        {
+                                            f1.Clk(p.X, p.Y);//выбрать условие
+                                            Thread.Sleep(200);
+                                        }
+                                        f1.Clk(p.X, p.Y);//выбрать условие                                
+                                        break;
+                                }
+                                break;
+                        }
+                    }
+                    break;
                 case 10:
                     if (rq < 70)
                     {
@@ -3363,6 +3431,7 @@ namespace bot.v._0._05
             Rectangle ClubMapBounds = new Rectangle(800, 720, 30, 30);
             do
             {
+                se.UniversalErrorDefense();
                 fc.Bounty();
                 MasterOfPictures.MakePicture(ClubMapBounds, ClubMapPath);
                 Thread.Sleep(2000);
@@ -3376,6 +3445,7 @@ namespace bot.v._0._05
             Rectangle GarageRaceButtonBounds = new Rectangle(1075, 795, 95, 20);
             do
             {
+                se.UniversalErrorDefense();
                 MasterOfPictures.MakePicture(GarageRaceButtonBounds, GarageRaceButtonPath);
                 Thread.Sleep(500);
             } while (!MasterOfPictures.Verify(GarageRaceButtonPath, GarageRaceButtonOriginal));
@@ -3439,6 +3509,7 @@ namespace bot.v._0._05
             FastCheck fc = new FastCheck();
             do
             {
+                se.UniversalErrorDefense();
                 Thread.Sleep(2000);
             } while (!fc.Ending());
         }
@@ -3448,7 +3519,7 @@ namespace bot.v._0._05
     {
         FastCheck fc = new FastCheck();
         Form1 f1 = new Form1();
-        public int c = 10;//known condition number
+        public int c = 11;//known condition number
 
         Rectangle Condition1Bounds = new Rectangle(990, 395, 205, 20);
         Rectangle Condition2Bounds = new Rectangle(990, 420, 205, 20);
@@ -3688,6 +3759,357 @@ namespace bot.v._0._05
             int carid = 0;
             switch (a)
             {
+                case 1:
+                    carid = 86;
+                    break;
+                case 2:
+                    carid = 1504;
+                    break;
+                case 3:
+                    carid = 988;
+                    break;
+                case 4:
+                    carid = 224;
+                    break;
+                case 5:
+                    carid = 1642;
+                    break;
+                case 6:
+                    carid = 985;
+                    break;
+                case 7:
+                    carid = 1228;
+                    break;
+                case 8:
+                    carid = 859;
+                    break;
+                case 9:
+                    carid = 254;
+                    break;
+                case 10:
+                    carid = 596;
+                    break;
+                case 11:
+                    carid = 1414;
+                    break;
+                case 12:
+                    carid = 898;
+                    break;
+                case 13:
+                    carid = 1287;
+                    break;
+                case 14:
+                    carid = 1016;
+                    break;
+                case 15:
+                    carid = 725;
+                    break;
+                case 16:
+                    carid = 686;
+                    break;
+                case 17:
+                    carid = 625;
+                    break;
+                case 18:
+                    carid = 749;
+                    break;
+                case 19:
+                    carid = 741;
+                    break;
+                case 20:
+                    carid = 865;
+                    break;
+                case 21:
+                    carid = 1399;
+                    break;
+                case 22:
+                    carid = 1042;
+                    break;
+                case 23:
+                    carid = 333;
+                    break;
+                case 24:
+                    carid = 953;
+                    break;
+                case 25:
+                    carid = 1187;
+                    break;
+                case 26:
+                    carid = 1380;
+                    break;
+                case 27:
+                    carid = 1229;
+                    break;
+                case 28:
+                    carid = 892;
+                    break;
+                case 29:
+                    carid = 748;
+                    break;
+                case 30:
+                    carid = 148;
+                    break;
+                case 31:
+                    carid = 287;
+                    break;
+                case 32:
+                    carid = 728;
+                    break;
+                case 33:
+                    carid = 170;
+                    break;
+                case 34:
+                    carid = 735;
+                    break;
+                case 35:
+                    carid = 349;
+                    break;
+                case 36:
+                    carid = 977;
+                    break;
+                case 37:
+                    carid = 281;
+                    break;
+                case 38:
+                    carid = 1138;
+                    break;
+                case 39:
+                    carid = 323;
+                    break;
+                case 40:
+                    carid = 665;
+                    break;
+                case 41:
+                    carid = 947;
+                    break;
+                case 42:
+                    carid = 1315;
+                    break;
+                case 43:
+                    carid = 938;
+                    break;
+                case 44:
+                    carid = 1068;
+                    break;
+                case 45:
+                    carid = 1071;
+                    break;
+                case 46:
+                    carid = 284;
+                    break;
+                case 47:
+                    carid = 117;
+                    break;
+                case 48:
+                    carid = 521;
+                    break;
+                case 49:
+                    carid = 937;
+                    break;
+                case 50:
+                    carid = 35;
+                    break;
+                case 51:
+                    carid = 1067;
+                    break;
+                case 52:
+                    carid = 513;
+                    break;
+                case 53:
+                    carid = 955;
+                    break;
+                case 54:
+                    carid = 1471;
+                    break;
+                case 55:
+                    carid = 724;
+                    break;
+                case 56:
+                    carid = 1451;
+                    break;
+                case 57:
+                    carid = 330;
+                    break;
+                case 58:
+                    carid = 389;
+                    break;
+                case 59:
+                    carid = 1480;
+                    break;
+                case 60:
+                    carid = 699;
+                    break;
+                case 61:
+                    carid = 1190;
+                    break;
+                case 62:
+                    carid = 1115;
+                    break;
+                case 63:
+                    carid = 597;
+                    break;
+                case 64:
+                    carid = 1186;
+                    break;
+                case 65:
+                    carid = 1209;
+                    break;
+                case 66:
+                    carid = 1385;
+                    break;
+                case 67:
+                    carid = 479;
+                    break;
+                case 68:
+                    carid = 1469;
+                    break;
+                case 69:
+                    carid = 1386;
+                    break;
+                case 70:
+                    carid = 868;
+                    break;
+                case 71:
+                    carid = 747;
+                    break;
+                case 72:
+                    carid = 1383;
+                    break;
+                case 73:
+                    carid = 742;
+                    break;
+                case 74:
+                    carid = 731;
+                    break;
+                case 75:
+                    carid = 744;
+                    break;
+                case 76:
+                    carid = 745;
+                    break;
+                case 77:
+                    carid = 156;
+                    break;
+                case 78:
+                    carid = 1377;
+                    break;
+                case 79:
+                    carid = 313;
+                    break;
+                case 80:
+                    carid = 240;
+                    break;
+                case 81:
+                    carid = 1378;
+                    break;
+                case 82:
+                    carid = 565;
+                    break;
+                case 83:
+                    carid = 485;
+                    break;
+                case 84:
+                    carid = 1638;
+                    break;
+                case 85:
+                    carid = 650;
+                    break;
+                case 86:
+                    carid = 642;
+                    break;
+                case 87:
+                    carid = 634;
+                    break;
+                case 88:
+                    carid = 1095;
+                    break;
+                case 89:
+                    carid = 258;
+                    break;
+                case 90:
+                    carid = 1121;
+                    break;
+                case 91:
+                    carid = 329;
+                    break;
+                case 92:
+                    carid = 1375;
+                    break;
+                case 93:
+                    carid = 289;
+                    break;
+                case 94:
+                    carid = 1110;
+                    break;
+                case 95:
+                    carid = 1404;
+                    break;
+                case 96:
+                    carid = 353;
+                    break;
+                case 97:
+                    carid = 334;
+                    break;
+                case 98:
+                    carid = 371;
+                    break;
+                case 99:
+                    carid = 455;
+                    break;
+                case 100:
+                    carid = 1236;
+                    break;
+                case 101:
+                    carid = 311;
+                    break;
+                case 102:
+                    carid = 633;
+                    break;
+                case 103:
+                    carid = 468;
+                    break;
+                case 104:
+                    carid = 232;
+                    break;
+                case 105:
+                    carid = 277;
+                    break;
+                case 106:
+                    carid = 370;
+                    break;
+                case 107:
+                    carid = 1584;
+                    break;
+                case 108:
+                    carid = 1168;
+                    break;
+                case 109:
+                    carid = 1610;
+                    break;
+                case 110:
+                    carid = 478;
+                    break;
+                case 111:
+                    carid = 1387;
+                    break;
+                case 112:
+                    carid = 588;
+                    break;
+                case 113:
+                    carid = 1376;
+                    break;
+                case 114:
+                    carid = 1536;
+                    break;
+                case 115:
+                    carid = 1313;
+                    break;
+                case 116:
+                    carid = 316;
+                    break;
+                case 117:
+                    carid = 667;
+                    break;
                 default:
                     break;
             }
