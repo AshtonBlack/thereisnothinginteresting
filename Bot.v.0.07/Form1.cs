@@ -913,6 +913,9 @@ namespace Bot.v._0._07
                             case 6:
                                 b2[i] = "Смешанное";
                                 break;
+                            case 7:
+                                b2[i] = "Снег";
+                                break;
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -1023,6 +1026,9 @@ namespace Bot.v._0._07
                             case 4:
                                 c2[i] = "Солнечно";
                                 break;
+                            case 5:
+                                c2[i] = "Дождь";
+                                break;
                             default:
                                 c2[i] = "неопределенная погода";
                                 break;
@@ -1042,6 +1048,12 @@ namespace Bot.v._0._07
                                 break;
                             case 4:
                                 c2[i] = "Солнечно";
+                                break;
+                            case 5:
+                                c2[i] = "Солнечно";
+                                break;
+                            case 6:
+                                c2[i] = "Дождь";
                                 break;
                             default:
                                 c2[i] = "неопределенная погода";
@@ -1086,6 +1098,9 @@ namespace Bot.v._0._07
                             case 5:
                                 c2[i] = "Дождь";
                                 break;
+                            case 6:
+                                c2[i] = "Солнечно";
+                                break;
                             default:
                                 c2[i] = "неопределенная погода";
                                 break;
@@ -1104,6 +1119,12 @@ namespace Bot.v._0._07
                                 c2[i] = "Солнечно";
                                 break;
                             case 4:
+                                c2[i] = "Солнечно";
+                                break;
+                            case 5:
+                                c2[i] = "Дождь";
+                                break;
+                            case 6:
                                 c2[i] = "Солнечно";
                                 break;
                             default:
@@ -1183,12 +1204,17 @@ namespace Bot.v._0._07
                             case 19:
                                 a2[i] = "Мотокросс";
                                 break;
+                            case 20:
+                                a2[i] = "Токио тест на перегрузки";
+                                break;
+                            case 21:
+                                a2[i] = "Токио петля";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
                         }
                         break;
-
                     case 1:
                         switch (a1[i])
                         {
@@ -1267,6 +1293,9 @@ namespace Bot.v._0._07
                             case 25:
                                 a2[i] = "Токио тест на перегрузки";
                                 break;
+                            case 26:
+                                a2[i] = "Токио мост";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1340,6 +1369,12 @@ namespace Bot.v._0._07
                                 break;
                             case 22:
                                 a2[i] = "1/4";
+                                break;
+                            case 23:
+                                a2[i] = "Тестовый круг";
+                                break;
+                            case 24:
+                                a2[i] = "Токио мост";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";
@@ -1415,6 +1450,12 @@ namespace Bot.v._0._07
                             case 22:
                                 a2[i] = "Подъем на холм";
                                 break;
+                            case 23:
+                                a2[i] = "Токио съезд";
+                                break;
+                            case 24:
+                                a2[i] = "Токио тест на перегрузки";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1485,6 +1526,12 @@ namespace Bot.v._0._07
                                 break;
                             case 21:
                                 a2[i] = "Закрытый картинг";
+                                break;
+                            case 22:
+                                a2[i] = "Слалом";
+                                break;
+                            case 23:
+                                a2[i] = "Токио съезд";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";
@@ -2265,6 +2312,7 @@ namespace Bot.v._0._07
                     switch (cls)
                     {
                         case "f":
+                            f1.Clk1(offroad);
                             f1.Clk1(standart);
                             break;
                         default:
@@ -2291,6 +2339,7 @@ namespace Bot.v._0._07
                     switch (cls)
                     {
                         case "f":
+                            f1.Clk1(offroad);
                             f1.Clk1(standart);
                             break;
                         default:
@@ -2310,6 +2359,19 @@ namespace Bot.v._0._07
                     f1.Clk1(dynamic);
                     f1.Clk1(standart);
                     break;
+                case 10://rising sun
+                    f1.Clk1(dynamic);
+                    f1.Clk1(standart);
+                    break;
+                case 11://circut breaker
+                    f1.Clk1(dynamic);
+                    f1.Clk1(standart);
+                    break;
+                case 12://scenic route
+                    f1.Clk1(standart);
+                    f1.Clk1(allsurface);
+                    f1.Clk1(offroad);
+                    break;
                 default:
                     break;
             }
@@ -2320,7 +2382,7 @@ namespace Bot.v._0._07
             int n;
             int[] finger = new int[5];
             Random r = new Random();
-            int handrq;
+            int handrq = 0;
             switch (condition)
             {
                 case 13://пикапы
@@ -2329,7 +2391,6 @@ namespace Bot.v._0._07
                     finger[2] = 1;
                     finger[3] = 1;
                     finger[4] = 1;
-                    handrq = 0;
                     for (int x = 0; x < 5; x++)
                     {
                         handrq += hand[x, finger[x]];
@@ -2370,7 +2431,6 @@ namespace Bot.v._0._07
                     finger[2] = 2;
                     finger[3] = 3;
                     finger[4] = 3;
-                    handrq = 0;
                     for (int x = 0; x < 5; x++)
                     {
                         handrq += hand[x, finger[x]];
@@ -2393,7 +2453,6 @@ namespace Bot.v._0._07
                     finger[2] = 0;
                     finger[3] = 0;
                     finger[4] = 0;
-                    handrq = 0;
                     for (int x = 0; x < 5; x++)
                     {
                         handrq += hand[x, finger[x]];
@@ -2425,8 +2484,7 @@ namespace Bot.v._0._07
                     finger[2] = 0;
                     finger[3] = 0;
                     finger[4] = 0;
-                    handrq = 0;
-                    for (int x = 0; x < 4; x++)
+                    for (int x = 0; x < 5; x++)
                     {
                         handrq += hand[x, finger[x]];
                     }
@@ -2448,8 +2506,7 @@ namespace Bot.v._0._07
                     finger[2] = 0;
                     finger[3] = 0;
                     finger[4] = 0;
-                    handrq = 0;
-                    for (int x = 0; x < 4; x++)
+                    for (int x = 0; x < 5; x++)
                     {
                         handrq += hand[x, finger[x]];
                     }
@@ -2471,8 +2528,7 @@ namespace Bot.v._0._07
                     finger[2] = 0;
                     finger[3] = 0;
                     finger[4] = 0;
-                    handrq = 0;
-                    for (int x = 0; x < 4; x++)
+                    for (int x = 0; x < 5; x++)
                     {
                         handrq += hand[x, finger[x]];
                     }
@@ -3313,7 +3369,7 @@ namespace Bot.v._0._07
             return x;
         }
 
-        public bool EmptyGarageSlot(int n)//Исправить величины
+        public bool EmptyGarageSlot(int n)
         {
             Point GarageSlot1 = new Point(535, 400);
             Point GarageSlot2 = new Point(535, 590);
@@ -3328,20 +3384,20 @@ namespace Bot.v._0._07
             Point[] a = { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6 };
             bool x = true;
             string[] b = {//с рамками
-                "Color [A=255, R=78, G=104, B=118]",//исправленно
-                "Color [A=255, R=80, G=105, B=119]",//исправленно
-                "Color [A=255, R=74, G=98, B=111]",//исправленно
-                "Color [A=255, R=72, G=95, B=106]",//исправленно
-                "Color [A=255, R=72, G=96, B=107]",//исправленно
-                "Color [A=255, R=74, G=94, B=105]"//исправленно
+                "Color [A=255, R=78, G=104, B=118]",
+                "Color [A=255, R=80, G=105, B=119]",
+                "Color [A=255, R=74, G=98, B=111]",
+                "Color [A=255, R=72, G=95, B=106]",
+                "Color [A=255, R=72, G=96, B=107]",
+                "Color [A=255, R=74, G=94, B=105]"
             };
 
             string[] c = {//без рамок
                 "Color [A=255, R=72, G=102, B=118]",
                 "Color [A=255, R=74, G=103, B=120]",
-                "Color [A=255, R=68, G=94, B=110]",
+                "Color [A=255, R=67, G=95, B=110]",
+                "Color [A=255, R=65, G=91, B=104]",
                 "Color [A=255, R=65, G=92, B=105]",
-                "Color [A=255, R=68, G=91, B=104]",
                 "Color [A=255, R=67, G=90, B=103]"
             };
 
@@ -3407,9 +3463,7 @@ namespace Bot.v._0._07
             if (MasterOfPictures.Verify(InGaragePath, InGarageOriginal))
             {
                 x = true;
-                NotePad.DoLog("нахожусь в гараже");
             }
-
             return x;
         }
 
@@ -30583,9 +30637,14 @@ namespace Bot.v._0._07
                     maxspeed = 100;
                     grip = 75;
                     weight = 1500;
+                    power = 50;
+                    torque = 50;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 10;
                     break;
             }
-            double[] stats = { clearance, tires, drive, acceleration, maxspeed, grip, weight };
+            double[] stats = { clearance, tires, drive, acceleration, maxspeed, grip, weight, power, torque, abs, tcs, MRA };
             return stats;
         }
     }
