@@ -303,8 +303,6 @@ namespace Bot.v._0._07
 
             Thread.Sleep(3000);
 
-            //отсутствует блок проверки рекламы
-
         }
 
         private void BranchClubs()
@@ -384,7 +382,6 @@ namespace Bot.v._0._07
             bool y = false;
 
             Thread.Sleep(2000);
-            NotePad.DoLog("начинаю играть");
 
             do
             {
@@ -405,7 +402,6 @@ namespace Bot.v._0._07
 
                 if (fc.ControlScreen())
                 {
-                    NotePad.DoLog("Перехожу в гараж");
                     Clk(820, 790);//Play
                     Thread.Sleep(5000);
 
@@ -450,29 +446,18 @@ namespace Bot.v._0._07
                         int[] c1 = ti.Weathers();//Weather info
 
                         Clk(640, 705);//ChooseanEnemy
-                        NotePad.DoLog("Выбрал противника");
                         Thread.Sleep(1000);
-
                         wait.ArrangementWindow();
                         Thread.Sleep(1000);
                         ga.Arrangement(a1, b1, c1);
-
                         wait.RaceOn();
-
                         Thread.Sleep(2000);
                         Clk(180, 580); //ускорить заезд, клик в пусой области
-                        NotePad.DoLog("ускорил");
-
                         wait.RaceOff();
-
                         Thread.Sleep(2000);
                         Clk(640, 215); //кнопка "пропустить"
-                        NotePad.DoLog("пропустить");
-
                         Thread.Sleep(2000);
                         Clk(890, 625);//подтвержение "пропуска"
-                        NotePad.DoLog("подтвержение пропуска");
-
                         Thread.Sleep(4000);
                         Clk(635, 570);//звезды  
 
@@ -502,7 +487,6 @@ namespace Bot.v._0._07
                         } while (!newflag);
 
                         se.UniversalErrorDefense();
-                        NotePad.DoLog("Просматриваю таблицу результатов");
                         Clk(820, 730);//Table
                         Thread.Sleep(5000);
                         bool flag1 = false;
@@ -883,6 +867,9 @@ namespace Bot.v._0._07
                             case 6:
                                 b2[i] = "Снег";
                                 break;
+                            case 7:
+                                b2[i] = "Лед";
+                                break;
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -911,6 +898,9 @@ namespace Bot.v._0._07
                                 break;
                             case 7:
                                 b2[i] = "Снег";
+                                break;
+                            case 8:
+                                b2[i] = "Лед";
                                 break;
                             default:
                                 b2[i] = "неизвестное покрытие";
@@ -941,6 +931,9 @@ namespace Bot.v._0._07
                             case 7:
                                 b2[i] = "Смешанное";
                                 break;
+                            case 8:
+                                b2[i] = "Лед";
+                                break;
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -970,6 +963,9 @@ namespace Bot.v._0._07
                             case 7:
                                 b2[i] = "Гравий";
                                 break;
+                            case 8:
+                                b2[i] = "Лед";
+                                break;
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -995,6 +991,9 @@ namespace Bot.v._0._07
                                 break;
                             case 6:
                                 b2[i] = "Смешанное";
+                                break;
+                            case 7:
+                                b2[i] = "Лед";
                                 break;
                             default:
                                 b2[i] = "неизвестное покрытие";
@@ -1101,6 +1100,9 @@ namespace Bot.v._0._07
                                 c2[i] = "Дождь";
                                 break;
                             case 6:
+                                c2[i] = "Солнечно";
+                                break;
+                            case 7:
                                 c2[i] = "Солнечно";
                                 break;
                             default:
@@ -1313,6 +1315,9 @@ namespace Bot.v._0._07
                             case 29:
                                 a2[i] = "Грунтовая дорога";
                                 break;
+                            case 30:
+                                a2[i] = "1/2";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1524,7 +1529,7 @@ namespace Bot.v._0._07
                                 a2[i] = "Улица ср";
                                 break;
                             case 9:
-                                a2[i] = "Улицы мал";
+                                a2[i] = "Улица мал";
                                 break;
                             case 10:
                                 a2[i] = "Подъем на холм";
@@ -2429,6 +2434,72 @@ namespace Bot.v._0._07
             int handrq = 0;
             switch (condition)
             {
+                case 16://полный привод
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 1;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 15://renault
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 1;
+                    finger[3] = 1;
+                    finger[4] = 1;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 118)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 14://mers
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 1;
+                    finger[3] = 1;
+                    finger[4] = 1;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
                 case 13://пикапы
                     finger[0] = 0;
                     finger[1] = 0;
@@ -2440,6 +2511,28 @@ namespace Bot.v._0._07
                         handrq += hand[x, finger[x]];
                     }
                     while ((rq - handrq) > 3 && handrq != 118)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 12://standart tyres x5
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
                     {
                         do
                         {
@@ -2866,7 +2959,7 @@ namespace Bot.v._0._07
             return carsid;
         }
 
-        private int UseFilter(string cls, int n, int uhl, int tires, int condition)//убрана проверка "в гараже"
+        private int UseFilter(string cls, int n, int uhl, int tires, int condition)
         {
             Point filter = new Point(945, 265);
             Point clear = new Point(340, 785);
@@ -2921,7 +3014,7 @@ namespace Bot.v._0._07
             }
 
             Thread.Sleep(500);
-            if (condition != 8 && condition != 13 && condition != 12) ChooseTires(tires, cls); //исключения для покрышек 
+            if (condition != 8 && condition != 15 && condition != 14 && condition != 13 && condition != 12) ChooseTires(tires, cls); //исключения для покрышек 
             Thread.Sleep(1000);
             f1.Clk1(accept);
             Thread.Sleep(2500);
@@ -3714,7 +3807,7 @@ namespace Bot.v._0._07
     {
         FastCheck fc = new FastCheck();
         Form1 f1 = new Form1();
-        public int c = 13;//known condition number
+        public int c = 16;//known condition number
 
         Rectangle Condition1Bounds = new Rectangle(990, 395, 205, 20);
         Rectangle Condition2Bounds = new Rectangle(990, 420, 205, 20);
@@ -3763,8 +3856,6 @@ namespace Bot.v._0._07
                 Thread.Sleep(2000);
             } while (flag == false);
 
-            GotRQ();//времянка для сбора рк
-
             MasterOfPictures.MakePicture(Condition1Bounds, Condition1);
             MasterOfPictures.MakePicture(Condition2Bounds, Condition2);
             if (MasterOfPictures.Verify(Condition2, "Condition2\\CC0"))
@@ -3776,7 +3867,6 @@ namespace Bot.v._0._07
                         break;
                     }
                 }
-                NotePad.DoLog("номер условия " + x);
                 if (x == (c + 1))
                 {
                     NotePad.DoLog("Неизвестное условие");
@@ -3799,7 +3889,7 @@ namespace Bot.v._0._07
                     x = 500;
                 }
 
-                if (x != 500) //Исключаю неизвестный
+                if (x != 500)//Исключаю неизвестный
                 {
                     int rq = GotRQ();
                     if (rq > 17)
@@ -3814,6 +3904,21 @@ namespace Bot.v._0._07
                         if (x == 13 && rq < 32)
                         {
                             NotePad.DoLog("выпало исключение пикап");
+                            x = 500;
+                        }
+                        if (x == 14 && rq < 33)
+                        {
+                            NotePad.DoLog("выпало исключение Mercedes");
+                            x = 500;
+                        }
+                        if (x == 15 && rq < 38)
+                        {
+                            NotePad.DoLog("выпало исключение Renault");
+                            x = 500;
+                        }
+                        if (x == 16 && rq < 32)
+                        {
+                            NotePad.DoLog("выпало исключение полный привод");
                             x = 500;
                         }
                     }
@@ -3945,7 +4050,7 @@ namespace Bot.v._0._07
 
     public class IdentifyCar
     {
-        public int Identify1Car(int a)//заполняем кейсы
+        public int Identify1Car(int a)
         {
             int carid = 0;
             switch (a)
@@ -4307,7 +4412,7 @@ namespace Bot.v._0._07
             return carid;
         }
 
-        public int Identify2Car(int a)//заполняем кейсы
+        public int Identify2Car(int a)
         {
             int carid = 0;
             switch (a)
@@ -4318,18 +4423,318 @@ namespace Bot.v._0._07
             return carid;
         }
 
-        public int Identify3Car(int a)//заполняем кейсы
+        public int Identify3Car(int a)
         {
             int carid = 0;
             switch (a)
             {
+                case 1:
+                    carid = 937;
+                    break;
+                case 2:
+                    carid = 1500;
+                    break;
+                case 3:
+                    carid = 1195;
+                    break;
+                case 4:
+                    carid = 1236;
+                    break;
+                case 5:
+                    carid = 892;
+                    break;
+                case 6:
+                    carid = 282;
+                    break;
+                case 7:
+                    carid = 872;
+                    break;
+                case 8:
+                    carid = 1504;
+                    break;
+                case 9:
+                    carid = 1378;
+                    break;
+                case 10:
+                    carid = 871;
+                    break;
+                case 11:
+                    carid = 870;
+                    break;
+                case 12:
+                    carid = 116;
+                    break;
+                case 13:
+                    carid = 725;
+                    break;
+                case 14:
+                    carid = 313;
+                    break;
+                case 15:
+                    carid = 947;
+                    break;
+                case 16:
+                    carid = 743;
+                    break;
+                case 17:
+                    carid = 378;
+                    break;
+                case 18:
+                    carid = 1399;
+                    break;
+                case 19:
+                    carid = 1337;
+                    break;
+                case 20:
+                    carid = 744;
+                    break;
+                case 21:
+                    carid = 1292;
+                    break;
+                case 22:
+                    carid = 1187;
+                    break;
+                case 23:
+                    carid = 108;
+                    break;
+                case 24:
+                    carid = 283;
+                    break;
+                case 25:
+                    carid = 287;
+                    break;
+                case 26:
+                    carid = 1304;
+                    break;
+                case 27:
+                    carid = 563;
+                    break;
+                case 28:
+                    carid = 1229;
+                    break;
+                case 29:
+                    carid = 361;
+                    break;
+                case 30:
+                    carid = 817;
+                    break;
+                case 31:
+                    carid = 349;
+                    break;
+                case 32:
+                    carid = 96;
+                    break;
+                case 33:
+                    carid = 368;
+                    break;
+                case 34:
+                    carid = 521;
+                    break;
+                case 35:
+                    carid = 343;
+                    break;
+                case 36:
+                    carid = 958;
+                    break;
+                case 37:
+                    carid = 972;
+                    break;
+                case 38:
+                    carid = 652;
+                    break;
+                case 39:
+                    carid = 1471;
+                    break;
+                case 40:
+                    carid = 1066;
+                    break;
+                case 41:
+                    carid = 842;
+                    break;
+                case 42:
+                    carid = 1071;
+                    break;
+                case 43:
+                    carid = 1451;
+                    break;
+                case 44:
+                    carid = 1203;
+                    break;
+                case 45:
+                    carid = 700;
+                    break;
+                case 46:
+                    carid = 1042;
+                    break;
+                case 47:
+                    carid = 1115;
+                    break;
+                case 48:
+                    carid = 41;
+                    break;
+                case 49:
+                    carid = 828;
+                    break;
+                case 50:
+                    carid = 20;
+                    break;
+                case 51:
+                    carid = 326;
+                    break;
+                case 52:
+                    carid = 1198;
+                    break;
+                case 53:
+                    carid = 949;
+                    break;
+                case 54:
+                    carid = 865;
+                    break;
+                case 55:
+                    carid = 381;
+                    break;
+                case 56:
+                    carid = 699;
+                    break;
+                case 57:
+                    carid = 1480;
+                    break;
+                case 58:
+                    carid = 321;
+                    break;
+                case 59:
+                    carid = 1001;
+                    break;
+                case 60:
+                    carid = 1073;
+                    break;
+                case 61:
+                    carid = 35;
+                    break;
+                case 62:
+                    carid = 1628;
+                    break;
+                case 63:
+                    carid = 1251;
+                    break;
+                case 64:
+                    carid = 944;
+                    break;
+                case 65:
+                    carid = 323;
+                    break;
+                case 66:
+                    carid = 1443;
+                    break;
+                case 67:
+                    carid = 1472;
+                    break;
+                case 68:
+                    carid = 1430;
+                    break;
+                case 69:
+                    carid = 333;
+                    break;
+                case 70:
+                    carid = 588;
+                    break;
+                case 71:
+                    carid = 1054;
+                    break;
+                case 72:
+                    carid = 372;
+                    break;
+                case 73:
+                    carid = 453;
+                    break;
+                case 74:
+                    carid = 315;
+                    break;
+                case 75:
+                    carid = 585;
+                    break;
+                case 76:
+                    carid = 89;
+                    break;
+                case 77:
+                    carid = 577;
+                    break;
+                case 78:
+                    carid = 1333;
+                    break;
+                case 79:
+                    carid = 1638;
+                    break;
+                case 80:
+                    carid = 729;
+                    break;
+                case 81:
+                    carid = 747;
+                    break;
+                case 82:
+                    carid = 1386;
+                    break;
+                case 83:
+                    carid = 726;
+                    break;
+                case 84:
+                    carid = 1210;
+                    break;
+                case 85:
+                    carid = 389;
+                    break;
+                case 86:
+                    carid = 597;
+                    break;
+                case 87:
+                    carid = 818;
+                    break;
+                case 88:
+                    carid = 1315;
+                    break;
+                case 89:
+                    carid = 1400;
+                    break;
+                case 90:
+                    carid = 666;
+                    break;
+                case 91:
+                    carid = 1469;
+                    break;
+                case 92:
+                    carid = 641;
+                    break;
+                case 93:
+                    carid = 460;
+                    break;
+                case 94:
+                    carid = 455;
+                    break;
+                case 95:
+                    carid = 1602;
+                    break;
+                case 96:
+                    carid = 50;
+                    break;
+                case 97:
+                    carid = 596;
+                    break;
+                case 98:
+                    carid = 339;
+                    break;
+                case 99:
+                    carid = 398;
+                    break;
+                case 100:
+                    carid = 565;
+                    break;
                 default:
                     break;
             }
             return carid;
         }
 
-        public int Identify4Car(int a)//заполняем кейсы
+        public int Identify4Car(int a)
         {
             int carid = 0;
             switch (a)
@@ -4670,7 +5075,7 @@ namespace Bot.v._0._07
             return carid;
         }
 
-        public int Identify5Car(int a)//заполняем кейсы
+        public int Identify5Car(int a)
         {
             int carid = 0;
             switch (a)
@@ -5293,7 +5698,7 @@ namespace Bot.v._0._07
             return carid;
         }
 
-        public double[] CarStats(int carid)//заполнить новым списком
+        public double[] CarStats(int carid)
         {
             int clearance;
             int tires;
