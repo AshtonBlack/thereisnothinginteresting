@@ -1,0 +1,9 @@
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\bin\Debug\MousePositionbyAshton.exe.config
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\bin\Debug\MousePositionbyAshton.exe
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\bin\Debug\MousePositionbyAshton.pdb
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.csprojAssemblyReference.cache
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.Form1.resources
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.Properties.Resources.resources
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.csproj.GenerateResource.cache
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.exe
+C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.pdb
