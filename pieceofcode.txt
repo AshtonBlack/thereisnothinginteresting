@@ -1,0 +1,42 @@
+public void BestPiece() 
+        {                
+            Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
+            Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
+
+            int x0 = 32;
+            int y0 = 7;            
+            int bestposx = 0;
+            int bestposy = 0;
+            int minshadesdifs = -1;
+            for(int zeroposx = 0; zeroposx < 114 - 50; zeroposx++)
+            {
+                for(int zeroposy = 0; zeroposy < 64 - 50; zeroposy++)
+                {
+                    int shadesdifs0 = 0;
+                    for(int x1 = 0; x1 < 50; x1++)
+                    {
+                        for(int y1 = 0; y1 < 50; y1++)
+                        {
+                            var colorValue0 = picture.GetPixel(x0 + x1, y0 + y1);
+                            var colorValue1 = picture.GetPixel(zeroposx + x1, zeroposy + y1);
+                            int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
+                                Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
+                                Math.Abs((int)colorValue0.B - (int)colorValue1.B));
+                            shadesdifs0 += shadesdifs1;
+                        }
+                    }
+                    NotePad.DoLog("стартовая позиция второй картинки " + zeroposx + " " + zeroposy + ", отличие " + shadesdifs0 + " оттенков");
+                    if(minshadesdifs == -1 || minshadesdifs > shadesdifs0)
+                    {
+                        minshadesdifs = shadesdifs0;
+                        bestposx = zeroposx;
+                        bestposy = zeroposy;
+                    }
+                }
+            }
+
+            NotePad.DoLog("наиболее подходящий кусок " + bestposx + " " + bestposy + " с отличием в " + minshadesdifs + " оттенков")
+                
+            picture.Dispose;
+            picturetest.Dispose;
+        }
