@@ -293,49 +293,49 @@ case 98:
 carid = 1280;
 break;
 case 99:
-carid = 0;
+carid = 591;
 break;
 case 100:
-carid = 0;
+carid = 1596;
 break;
 case 101:
-carid = 0;
+carid = 700;
 break;
 case 102:
-carid = 0;
+carid = 541;
 break;
 case 103:
-carid = 0;
+carid = 47;
 break;
 case 104:
-carid = 0;
+carid = 1823;
 break;
 case 105:
-carid = 0;
+carid = 351;
 break;
 case 106:
-carid = 0;
+carid = 1395;
 break;
 case 107:
-carid = 0;
+carid = 777;
 break;
 case 108:
-carid = 0;
+carid = 1755;
 break;
 case 109:
-carid = 0;
+carid = 632;
 break;
 case 110:
-carid = 0;
+carid = 1895;
 break;
 case 111:
-carid = 0;
+carid = 1594;
 break;
 case 112:
-carid = 0;
+carid = 1563;
 break;
 case 113:
-carid = 0;
+carid = 1040;
 break;
 case 114:
 carid = 0;
