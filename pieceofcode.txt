@@ -1,42 +1,77 @@
-public void BestPiece() 
-        {                
-            Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
-            Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
+public class Condition
+    {
+        //tires [0f, 1e, 2d, 3c, 4b, 5a, 6s]
+        int[] slikTires { get; set; }
+        int[] standartTires { get; set; }
+        int[] dynamicTires { get; set; }
+        int[] offroadTires { get; set; }
+        int[] allseasonTires { get; set; }
 
-            int x0 = 32;
-            int y0 = 7;            
-            int bestposx = 0;
-            int bestposy = 0;
-            int minshadesdifs = -1;
-            for(int zeroposx = 0; zeroposx < 114 - 50; zeroposx++)
+        int[] lowestCars { get; set; }
+        int[] highestCars { get; set; }
+
+        public int MinRq()
+        {
+            return CalculateRq.MinRq(lowestCars);
+        }
+
+        public int MaxRq()
+        {
+            return CalculateRq.MinRq(highestCars);
+        }
+
+        public int DynamicMinRq()
+        {
+            return CalculateRq.MinRq(dynamicTires);
+        }
+
+        public int StandartMinRq()
+        {
+            return CalculateRq.MinRq(standartTires);
+        }
+
+        public int SlikMinRq()
+        {
+            return CalculateRq.MinRq(slikTires);
+        }
+
+        public int OffroadMinRq()
+        {
+            return CalculateRq.MinRq(offroadTires);
+        }
+
+        public int AllseasonMinRq()
+        {
+            return CalculateRq.MinRq(allseasonTires);
+        }        
+    }
+
+    public class CalculateRq
+    {
+        public static int MinRq(int[] a)
+        {
+            int minrq = 0;
+            int carNumber = 0;
+            for (int i = 0; i < 7; i++)
             {
-                for(int zeroposy = 0; zeroposy < 64 - 50; zeroposy++)
-                {
-                    int shadesdifs0 = 0;
-                    for(int x1 = 0; x1 < 50; x1++)
-                    {
-                        for(int y1 = 0; y1 < 50; y1++)
-                        {
-                            var colorValue0 = picture.GetPixel(x0 + x1, y0 + y1);
-                            var colorValue1 = picture.GetPixel(zeroposx + x1, zeroposy + y1);
-                            int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
-                                Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
-                                Math.Abs((int)colorValue0.B - (int)colorValue1.B));
-                            shadesdifs0 += shadesdifs1;
-                        }
-                    }
-                    NotePad.DoLog("стартовая позиция второй картинки " + zeroposx + " " + zeroposy + ", отличие " + shadesdifs0 + " оттенков");
-                    if(minshadesdifs == -1 || minshadesdifs > shadesdifs0)
-                    {
-                        minshadesdifs = shadesdifs0;
-                        bestposx = zeroposx;
-                        bestposy = zeroposy;
-                    }
-                }
+                carNumber += a[i];
+                int overCars = 0;
+                if (carNumber > 5) overCars = 5 - carNumber;
+                minrq += (a[i] - overCars) * 6 + (a[i] - overCars) * i * 4;
+                if (carNumber > 4) break;
             }
 
-            NotePad.DoLog("наиболее подходящий кусок " + bestposx + " " + bestposy + " с отличием в " + minshadesdifs + " оттенков")
-                
-            picture.Dispose;
-            picturetest.Dispose;
+            return minrq;
         }
+
+        public static int LimRq(int[] a)
+        {
+            int rq = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                rq += a[i];
+            }
+
+            return rq;
+        }
+    }
