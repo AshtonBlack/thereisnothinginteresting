@@ -24,7 +24,7 @@ namespace Bot.v._0._07
             Thread.Sleep(1000);
             Clk(1165, 20); //Свернуть VS
             Thread.Sleep(2000);
-            
+
             DevKit dk = new DevKit();
             //dk.SortCarDB();
             Loading();
@@ -290,7 +290,7 @@ namespace Bot.v._0._07
         {
             Waiting wait = new Waiting();
             NotePad.ClearLog();
-            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_2");            
+            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_2");
 
             Thread.Sleep(10000);
 
@@ -340,7 +340,7 @@ namespace Bot.v._0._07
                     int[] a = NotePad.ReadSaves();
                     int[] b = new int[5];
                     Array.Copy(a, 3, b, 0, 5);
-                    while (i < 50)
+                    while (i < 100)
                     {
                         i++;
                         if (!PlayClubs(a[0], a[1], a[2], b, i)) break;
@@ -351,16 +351,13 @@ namespace Bot.v._0._07
                 {
                     NotePad.DoLog("Подбираю эвент с одним условием");
                     int condition = ce.ChooseNormalEvent();
-
                     NotePad.DoLog("Вычисляю РК эвента");
                     int rq = ce.GotRQ();
-
                     int eventname = ce.WhichEvent();
-
                     NotePad.DoLog("Вхожу в эвент  " + rq + " рк");
                     Clk(1060, 800);//ClubEventEnter   
 
-                    while (i < 50)
+                    while (i < 100)
                     {
                         int[] b = { 0, 0, 0, 0, 0 };
                         i++;
@@ -371,252 +368,253 @@ namespace Bot.v._0._07
                 }
             }
 
-        }
+        }        
 
         private bool PlayClubs(int rq, int condition, int eventname, int[] b, int i)
         {
             SpecialEvents se = new SpecialEvents();
-            GrandArrangement ga = new GrandArrangement();
-            TrackInfo ti = new TrackInfo();
-            HandMaking hm = new HandMaking();
             Waiting wait = new Waiting();
             FastCheck fc = new FastCheck();
-            bool x = true;
-            bool y = false;           
+            PlayClubsPositions pcp = new PlayClubsPositions();
 
-            do
-            {                
-                bool positionflag = false;
-                do
+            bool eventisactive = pcp.PathToGarage();
+            if (eventisactive)
+            {
+                pcp.InGarage(rq, condition, eventname, i);
+                wait.ReadytoRace();
+                Clk(1120, 800);//GarageRaceButton
+                Thread.Sleep(3000);
+                eventisactive = wait.ForEnemy();
+                if (eventisactive)
                 {
-                    if (fc.Bounty())
-                    {
-                        NotePad.DoLog("получил награду");
-                        x = false;
-                        y = true;
-                        positionflag = true;
-                    }
+                    pcp.TimeToRace();
 
-                    if (fc.ClubMap())
-                    {
-                        Thread.Sleep(2000);
-                       
-                        if (fc.ClubMap())
-                        {
-                            x = false;
-                            y = true;
-                            NotePad.DoLog("выкинуло на карту");
-                            positionflag = true;
-                        }                           
-                    }
+                    Thread.Sleep(5000);
+                    Clk(640, 215); //кнопка "пропустить"
+                    Thread.Sleep(4000);
+                    Clk(890, 625);//подтвержение "пропуска"
+                    Thread.Sleep(5000);
+                    Clk(635, 570);//звезды  
 
-                    if (fc.EventEnds())
-                    {
-                        NotePad.DoLog("эвент окончен");
-                        Clk(640, 590);//Accept Message                    
-                        Thread.Sleep(3000);
-                        x = false;
-                        y = true;
-                        positionflag = true;
-                    }
-
-                    if (fc.ControlScreen())
-                    {
-                        Thread.Sleep(2000);
-                        NotePad.DoLog("Перехожу в гараж");
-                        Clk(820, 790);//Play
-                        Thread.Sleep(1000);                        
-                    }
-
-                    if (fc.InGarage())
-                    {
-                        positionflag = true;
-                        NotePad.DoLog("Нахожусь в гараже");
-                    }
-                } while (!positionflag);
-                
-                if(x)
-                {                        
-                    int wronghandnumber = 0;
+                    bool foundplace = false;                    
                     do
                     {
-                        if(wronghandnumber == 3)
+                        se.UniversalErrorDefense();
+
+                        if (fc.Upgrade())
                         {
-                            se.RestartBot();
+                            NotePad.DoLog("реклама на апгрейд");
+                            se.UpgradeAdsKiller();
+                            Thread.Sleep(1000);
                         }
-                        else
+
+                        if (fc.Ending())
                         {
-                            wronghandnumber++;
+                            Clk(820, 730);//Table
+                            Thread.Sleep(1000);
+                        }
 
-                            if (i == 1)
-                            {
-                                se.ClearHand();
-                                Thread.Sleep(500);
-                                NotePad.DoLog("Собираю пробную руку c 1 условием");
-                                string weather = "с прояснением";
-                                hm.MakingHandwith1Condition(rq, condition, eventname, weather);
-                            }
+                        if (fc.Bounty())
+                        {
+                            eventisactive = false;
+                            foundplace = true;
+                            Thread.Sleep(1000);
+                        }
 
-                            if (i == 2)//пересборка по покрытию
+                        if (fc.ControlScreen())
+                        {
+                            foundplace = true;
+                            Thread.Sleep(1000);
+                        }
+
+                        if (fc.ClubMap())
+                        {
+                            eventisactive = false;
+                            foundplace = true;
+                            Thread.Sleep(1000);
+                        }
+                    } while (foundplace == false);//переход на экран контроля
+                }
+            }
+
+            return eventisactive;
+        }
+    }
+
+    public class PlayClubsPositions
+    {
+        public bool PathToGarage()
+        {
+            Form1 f1 = new Form1();
+            FastCheck fc = new FastCheck();
+            bool positionflag = false;
+            bool continuegame = false;
+            do
+            {
+                if (fc.Bounty())
+                {
+                    NotePad.DoLog("получил награду");
+                    positionflag = true;
+                }
+
+                if (fc.ClubMap())
+                {
+                    Thread.Sleep(2000);
+
+                    if (fc.ClubMap())
+                    {                        
+                        NotePad.DoLog("выкинуло на карту");
+                        positionflag = true;
+                    }
+                }
+
+                if (fc.EventEnds())
+                {
+                    NotePad.DoLog("эвент окончен");
+                    f1.Clk(640, 590);//Accept Message                    
+                    Thread.Sleep(3000);
+                    positionflag = true;
+                }
+
+                if (fc.ControlScreen())
+                {
+                    Thread.Sleep(2000);
+                    NotePad.DoLog("Перехожу в гараж");
+                    f1.Clk(820, 790);//Play
+                    Thread.Sleep(1000);
+                }
+
+                if (fc.InGarage())
+                {
+                    positionflag = true;
+                    NotePad.DoLog("Нахожусь в гараже");
+                    continuegame = true;
+                }
+            } while (!positionflag);
+
+            return continuegame;
+        }
+
+        public void InGarage(int rq, int condition, int eventname, int i)
+        {
+            SpecialEvents se = new SpecialEvents();
+            HandMaking hm = new HandMaking();
+            NotePad.DoLog("Rq = " + rq + ", условие: " + condition + ", название эвента: " + eventname + " заезд: " + i);
+
+            int wronghandnumber = 0;//счетчик неправильного сбора руки
+            do
+            {
+                if (wronghandnumber == 3)
+                {
+                    se.RestartBot();
+                }
+                else
+                {
+                    wronghandnumber++;
+
+                    if (i == 1)
+                    {
+                        se.ClearHand();
+                        Thread.Sleep(500);
+                        NotePad.DoLog("Собираю пробную руку");
+                        string weather = "с прояснением";
+                        hm.MakingHandwith1Condition(rq, condition, eventname, weather);
+                    }
+
+                    if (i == 2)//пересборка по покрытию
+                    {
+                        if (eventname == 1 ||
+                            eventname == 3 ||
+                            eventname == 4 ||
+                            eventname == 5 ||
+                            eventname == 8 ||
+                            eventname == 9 ||
+                            eventname == 10 ||
+                            eventname == 11 ||
+                            eventname == 12 ||
+                            eventname == 13 ||
+                            eventname == 15 ||
+                            eventname == 17 ||
+                            eventname == 18)
+                        {
+                            if (condition != 34 //недостаточное разнообразие покрышек
+                                && condition != 29
+                                && condition != 8
+                                && condition != 24
+                                && condition != 22
+                                && condition != 20
+                                && condition != 21
+                                && condition != 4
+                                && condition != 18
+                                && condition != 15
+                                && condition != 14
+                                && condition != 13
+                                && condition != 12
+                                && condition != 39
+                                && condition != 44
+                                && condition != 45
+                                && condition != 46
+                                && condition != 47
+                                && condition != 48)
                             {
-                                if (eventname == 1 ||
-                                    eventname == 3 ||
-                                    eventname == 4 ||
-                                    eventname == 5 ||
-                                    eventname == 8 ||
-                                    eventname == 9 ||
-                                    eventname == 10 ||
-                                    eventname == 11 ||
-                                    eventname == 12 ||
-                                    eventname == 13 ||
-                                    eventname == 15 ||
-                                    eventname == 17 ||
-                                    eventname == 18)
+                                if (NotePad.FindWeather() != "с прояснениями")
                                 {
-                                    if (condition != 34 //недостаточное разнообразие покрышек
-                                        && condition != 29
-                                        && condition != 8
-                                        && condition != 24
-                                        && condition != 22
-                                        && condition != 20
-                                        && condition != 21
-                                        && condition != 4
-                                        && condition != 18
-                                        && condition != 15
-                                        && condition != 14
-                                        && condition != 13
-                                        && condition != 12
-                                        && condition != 39
-                                        && condition != 44
-                                        && condition != 45
-                                        && condition != 46
-                                        && condition != 47
-                                        && condition != 48)
+                                    if (rq > 29)
                                     {
-                                        if (NotePad.FindWeather() != "с прояснениями")
-                                        {
-                                            if (rq > 29)
-                                            {
-                                                se.ClearHand();
-                                                Thread.Sleep(500);
-                                                NotePad.DoLog("Меняю руку");
-                                                string weather = NotePad.FindWeather();
-                                                hm.MakingHandwith1Condition(rq, condition, eventname, weather);
-                                            }
-                                        }
+                                        se.ClearHand();
+                                        Thread.Sleep(500);
+                                        NotePad.DoLog("Меняю руку с учетом покрытия");
+                                        string weather = NotePad.FindWeather();
+                                        hm.MakingHandwith1Condition(rq, condition, eventname, weather);
                                     }
-                                    
                                 }
                             }
 
-                            if (!hm.HandCarFixed() || !hm.VerifyHand())
-                            {
-                                se.ClearHand();
-                                Thread.Sleep(500);
-                                NotePad.DoLog("Меняю руку");
-                                string weather = NotePad.FindWeather();
-                                hm.MakingHandwith1Condition(rq, condition, eventname, weather);                               
-                            }
-                        }                        
-                    } while (!hm.VerifyHand());
-
-                    wait.ReadytoRace();
-                    Clk(1120, 800);//GarageRaceButton
-
-                    Thread.Sleep(3000);
-
-                    x = wait.ForEnemy();
-
-                    if (x)
-                    {
-                        int[] a1 = ti.Tracks();//Track info
-                        int[] b1 = ti.Grounds();//Ground info
-                        int[] c1 = ti.Weathers();//Weather info
-
-                        Clk(640, 705);//ChooseanEnemy
-                        NotePad.DoLog("противник выбран");
-                        Thread.Sleep(1000);
-                        wait.ArrangementWindow();
-                        NotePad.DoLog("загрузился экран расстановки");
-                        Thread.Sleep(1000);
-                        ga.Arrangement(a1, b1, c1);
-                        wait.RaceOn();
-                        Thread.Sleep(2000);
-                        Clk(180, 580); //ускорить заезд, клик в пусой области
-                        wait.RaceOff();
-
-                        //---------------------- Сделать проверки
-                        Thread.Sleep(5000);
-                        Clk(640, 215); //кнопка "пропустить"
-                        Thread.Sleep(4000);
-                        Clk(890, 625);//подтвержение "пропуска"
-                        Thread.Sleep(5000);
-                        Clk(635, 570);//звезды  
-                        //---------------------- 
-
-                        bool newflag = false;
-
-                        do
-                        {
-                            Thread.Sleep(2500);
-                            if (fc.Upgrade())
-                            {
-                                se.UpgradeAdsKiller();
-                                newflag = true;
-                            }
-                            se.UniversalErrorDefense();
-                            if (fc.Ending())
-                            {
-                                newflag = true;
-                            }
-                        } while (!newflag);
-
-                        se.UniversalErrorDefense();
-                        do
-                        {
-                            Clk(820, 730);//Table
-                            Thread.Sleep(2000);
-                        } while (fc.Ending());
-
-                        Thread.Sleep(1000);
-
-                        bool flag1 = false;
-                        do
-                        {
-                            Thread.Sleep(2000);
-                            if (fc.Bounty())
-                            {
-                                x = false;
-                                flag1 = true;
-                            }
-
-                            if (fc.ControlScreen())
-                            {
-                                flag1 = true;
-                            }
-
-                            if (fc.ClubMap())
-                            {
-                                x = false;
-                                flag1 = true;
-                            }
-                        } while (flag1 == false);
+                        }
                     }
-                    y = true;
-                }
-            } while (!y);
 
-            return x;
+                    if (!hm.HandCarFixed() || !hm.VerifyHand())
+                    {
+                        se.ClearHand();
+                        Thread.Sleep(500);
+                        NotePad.DoLog("Меняю руку");
+                        string weather = NotePad.FindWeather();
+                        hm.MakingHandwith1Condition(rq, condition, eventname, weather);
+                    }
+                }
+            } while (!hm.VerifyHand());
+
         }
-                
-        public string Dump1Path = "Dump\\1Unsorted";
-        public string Dump2Path = "Dump\\2Unsorted";
+
+        public void TimeToRace()
+        {
+            Form1 f1 = new Form1();
+            Waiting wait = new Waiting();
+            TrackInfo ti = new TrackInfo();
+            GrandArrangement ga = new GrandArrangement();
+
+            int[] a1 = ti.Tracks();//Track info
+            int[] b1 = ti.Grounds();//Ground info
+            int[] c1 = ti.Weathers();//Weather info
+
+            f1.Clk(640, 705);//ChooseanEnemy
+            NotePad.DoLog("противник выбран");
+            Thread.Sleep(1000);
+            wait.ArrangementWindow();
+            NotePad.DoLog("загрузился экран расстановки");
+            Thread.Sleep(1000);
+            ga.Arrangement(a1, b1, c1);
+            wait.RaceOn();
+            Thread.Sleep(2000);
+            f1.Clk(180, 580); //ускорить заезд, клик в пусой области
+            wait.RaceOff();
+        }
     }
 
     public class SpecialEvents
-    {        
+    {
         Form1 f1 = new Form1();
-       
+
         public void UpgradeAdsKiller()
         {
             FastCheck fc = new FastCheck();
@@ -686,7 +684,7 @@ namespace Bot.v._0._07
             f1.Clk(905, 610);
             Thread.Sleep(3000);
         }
-        
+
         public void DragMap()
         {
             FastCheck fc = new FastCheck();
@@ -2084,7 +2082,7 @@ namespace Bot.v._0._07
                             "Быстрая трасса",
                             "Highway",
                             "Монако длинные городские улицы",
-                            "Каньон экспедиция",                            
+                            "Каньон экспедиция",
                             "Серпантин",
                             "Монако серпантин",
                             "Извилистая трасса",
@@ -2125,7 +2123,7 @@ namespace Bot.v._0._07
                     }
                 }
                 if (flag == 0)
-                {                    
+                {
                     NotePad.DoErrorLog("Исправить название " + a2[i]);
                     a3[i] = 100;
                 }
@@ -2868,18 +2866,18 @@ namespace Bot.v._0._07
 
             Form1 f1 = new Form1();
 
-            if (condition != 34 
-                && condition != 29 
-                && condition != 8 
-                && condition != 24 
-                && condition != 22 
-                && condition != 20 
-                && condition != 21 
-                && condition != 4 
-                && condition != 18 
-                && condition != 15 
-                && condition != 14 
-                && condition != 13 
+            if (condition != 34
+                && condition != 29
+                && condition != 8
+                && condition != 24
+                && condition != 22
+                && condition != 20
+                && condition != 21
+                && condition != 4
+                && condition != 18
+                && condition != 15
+                && condition != 14
+                && condition != 13
                 && condition != 12
                 && condition != 39
                 && condition != 44
@@ -3179,7 +3177,7 @@ namespace Bot.v._0._07
                                 break;
                         }
                         break;
-                }                
+                }
             }
         }
 
@@ -3311,7 +3309,7 @@ namespace Bot.v._0._07
                     {
                         handrq += hand[x, finger[x]];
                     }
-                    while((rq - handrq) > 3 && handrq != 138)
+                    while ((rq - handrq) > 3 && handrq != 138)
                     {
                         do
                         {
@@ -3320,7 +3318,7 @@ namespace Bot.v._0._07
                         finger[n]++;
                         handrq += 4;
                     }
-                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));                    
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
                     break;
 
                 case 42://2000 4wd x5
@@ -3351,7 +3349,7 @@ namespace Bot.v._0._07
                     finger[2] = 3;
                     finger[3] = 3;
                     finger[4] = 3;
-                    NotePad.DoLog("партия Суперских машин");            
+                    NotePad.DoLog("партия Суперских машин");
                     break;
 
                 case 39://Opel x5
@@ -3484,7 +3482,7 @@ namespace Bot.v._0._07
                         handrq += 4;
                     }
                     NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
-                    break;                
+                    break;
 
                 case 29://Mazda
                     finger[0] = 1;
@@ -4106,13 +4104,13 @@ namespace Bot.v._0._07
             int usedhandslots = 0;
             Thread.Sleep(1000);
             if (condition != 0 && condition != 3 && condition != 36 && !fc.ConditionActivated()) f1.Clk(640, 265); //включить фильтр условия события. Исключения: нет условий, 3 машины одной редкости, фильтр включен                                   
-            char[] lit = { 's', 'a', 'b', 'c', 'd', 'e', 'f'};
+            char[] lit = { 's', 'a', 'b', 'c', 'd', 'e', 'f' };
 
-            for(int it = 0; it < 7; it++)
+            for (int it = 0; it < 7; it++)
             {
                 if (ar[it] > 0)
                 {
-                    if(it == 6)
+                    if (it == 6)
                     {
                         Randomizer(condition, rq);
                         UseFilter(lit[it], ar[it], usedhandslots, eventname, condition, weather);
@@ -4122,8 +4120,8 @@ namespace Bot.v._0._07
                         Randomizer(condition, rq);
                         var = UseFilter(lit[it], ar[it], usedhandslots, eventname, condition, weather);
                         usedhandslots += ar[it] - var;
-                        ar[it+1] += var;
-                    }                    
+                        ar[it + 1] += var;
+                    }
                 }
             }
 
@@ -4209,12 +4207,17 @@ namespace Bot.v._0._07
             {
                 if (MasterOfPictures.PixelIndicator(a[i]) == emptyslot)
                 {
+                    NotePad.DoLog("Тачка на " + a[i] + " позиции отсутствует");
                     x = false;
                     break;
                 }
             }
 
-            if (fc.RedReadytoRace()) x = false;
+            if (fc.RedReadytoRace())
+            {
+                NotePad.DoLog("Рука не соответствует условию");
+                x = false;
+            }                
 
             return x;
         }
@@ -4253,7 +4256,7 @@ namespace Bot.v._0._07
                                 flag = false;
                                 break;
                             }
-                        }                        
+                        }
                     }
                     if (flag == true)
                     {
@@ -4263,7 +4266,7 @@ namespace Bot.v._0._07
                     }
                 }
                 else
-                {                    
+                {
                     for (int i2 = 1; i2 < lastcar; i2++)
                     {
                         if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i2 + ".jpg")) //поиск в сортированных
@@ -4278,7 +4281,7 @@ namespace Bot.v._0._07
                             }
                         }
                     }
-                        
+
                     if (flag == true)
                     {
                         int emptySpaceForCar = 0;
@@ -4304,7 +4307,7 @@ namespace Bot.v._0._07
                             File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + emptySpaceForCar + ".jpg");
                         }
                     }
-                }          
+                }
             }
 
             return carsid;
@@ -4395,8 +4398,8 @@ namespace Bot.v._0._07
             Point p = new Point();
             while (!fc.InGarage()) Thread.Sleep(2000);
 
-            if((condition == 11 && rq < 110) 
-                || (condition == 10 && rq < 70) 
+            if ((condition == 11 && rq < 110)
+                || (condition == 10 && rq < 70)
                 || (condition == 6 && rq < 50)
                 || (condition == 40 && rq < 90)
                 || rq < 30)
@@ -4690,7 +4693,7 @@ namespace Bot.v._0._07
                 x = true;
             }
             //запас на 20 вариантов
-            for(int i = 1; i < 20; i++)
+            for (int i = 1; i < 20; i++)
             {
                 if (!x)
                 {
@@ -4751,7 +4754,7 @@ namespace Bot.v._0._07
 
             return x;
         }
-        
+
         public bool TypeIsOpenned()
         {
             bool x = false;
@@ -4821,18 +4824,18 @@ namespace Bot.v._0._07
             Rectangle ClubBountyBounds = new Rectangle(520, 740, 240, 25);
             MasterOfPictures.MakePicture(ClubBountyBounds, ClubBounty);
             if (MasterOfPictures.Verify(ClubBountyOriginal, ClubBounty))
-            {                
+            {
                 if (NoActiveBooster())
                 {
                     se.ActivateClubBooster();
                 }
-                
+
                 Thread.Sleep(200);
                 f1.Clk(635, 750);
                 x = true;
             }
             return x;
-        }
+        }//принимает награду
 
         public bool ActiveEvent()
         {
@@ -4910,7 +4913,7 @@ namespace Bot.v._0._07
                 NotePad.DoLog("карта клубов");
                 x = true;
             }
-               
+
             return x;
         }
 
@@ -5064,7 +5067,7 @@ namespace Bot.v._0._07
         public void Filter()
         {
             do
-            {                
+            {
                 Thread.Sleep(500);
             } while (!fc.FilterIsOpenned());
         }
@@ -5187,7 +5190,7 @@ namespace Bot.v._0._07
                 {
                     se.UniversalErrorDefense();
                     MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
-                    if(MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
+                    if (MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
                     {
                         flag = true;
                         x = true;
@@ -5373,7 +5376,7 @@ namespace Bot.v._0._07
                         {
                             NotePad.DoLog("выпало исключение French Renaissance");
                             x = 500;
-                        }                        
+                        }
                         if (x == 24 && rq < 58)
                         {
                             NotePad.DoLog("выпало исключение всесезон");
@@ -5393,7 +5396,7 @@ namespace Bot.v._0._07
                         {
                             NotePad.DoLog("выпало исключение mazda");
                             x = 500;
-                        }                    
+                        }
                         if (x == 34 && rq < 54)
                         {
                             NotePad.DoLog("выпало исключение dodge");
@@ -5476,7 +5479,7 @@ namespace Bot.v._0._07
                         fc.MissClick();
                         Thread.Sleep(100);
                         fc.Bounty();
-                        if(fc.EventPage()) f1.Clk(240, 500);
+                        if (fc.EventPage()) f1.Clk(240, 500);
                     } while (!fc.ClubMap());
 
                     x = Selection(i);
@@ -6412,12 +6415,105 @@ namespace Bot.v._0._07
                 case 281:
                     carid = 1385;
                     break;
+                case 282:
+                    carid = 1105;
+                    break;
+                case 283:
+                    carid = 1245;
+                    break;
+                case 284:
+                    carid = 1286;
+                    break;
+                case 285:
+                    carid = 46;
+                    break;
+                case 286:
+                    carid = 1248;
+                    break;
+                case 287:
+                    carid = 486;
+                    break;
+                case 288:
+                    carid = 582;
+                    break;
+                case 289:
+                    carid = 1541;
+                    break;
+                case 290:
+                    carid = 1262;
+                    break;
+                case 291:
+                    carid = 219;
+                    break;
+                case 292:
+                    carid = 1295;
+                    break;
+                case 293:
+                    carid = 429;
+                    break;
+                case 294:
+                    carid = 1894;
+                    break;
+                case 295:
+                    carid = 1270;
+                    break;
+                case 296:
+                    carid = 1330;
+                    break;
+                case 297:
+                    carid = 1406;
+                    break;
+                case 298:
+                    carid = 1416;
+                    break;
+                case 299:
+                    carid = 465;
+                    break;
+                case 300:
+                    carid = 1562;
+                    break;
+                case 301:
+                    carid = 1019;
+                    break;
+                case 302:
+                    carid = 1050;
+                    break;
+                case 303:
+                    carid = 623;
+                    break;
+                case 304:
+                    carid = 443;
+                    break;
+                case 305:
+                    carid = 337;
+                    break;
+                case 306:
+                    carid = 873;
+                    break;
+                case 307:
+                    carid = 1091;
+                    break;
+                case 308:
+                    carid = 1320;
+                    break;
+                case 309:
+                    carid = 860;
+                    break;
+                case 310:
+                    carid = 100;
+                    break;
+                case 311:
+                    carid = 543;
+                    break;
+                case 312:
+                    carid = 1404;
+                    break;
                 default:
                     break;
             }
             return carid;
         }
-        
+
         public double[] CarStats(int carid)
         {
             int clearance;
@@ -36906,10 +37002,10 @@ namespace Bot.v._0._07
                 "Color [A=255, R=92, G=150, B=183]"//PL11
             };
 
-            for(int n = 0; n < 6; n++)
+            for (int n = 0; n < 6; n++)
             {
                 NotePad.DoLog(MasterOfPictures.PixelIndicator(a[n]));
-            }            
+            }
         }
 
         public void BestPiece()
@@ -36981,15 +37077,15 @@ namespace Bot.v._0._07
                 {
                     var colorValue0 = picture.GetPixel(x, y);
                     var colorValue1 = picturetest.GetPixel(x, y);
-                    Rmap.SetPixel(x, y, (Color.FromArgb(Math.Abs((int)colorValue0.R - (int)colorValue1.R)*10, 255, 255)));
+                    Rmap.SetPixel(x, y, (Color.FromArgb(Math.Abs((int)colorValue0.R - (int)colorValue1.R) * 10, 255, 255)));
                     if (rMaxShadesDifs < Math.Abs((int)colorValue0.R - (int)colorValue1.R)) rMaxShadesDifs = Math.Abs((int)colorValue0.R - (int)colorValue1.R);
-                    if((int)colorValue0.R - (int)colorValue1.R == 0) rIdentical++;
+                    if ((int)colorValue0.R - (int)colorValue1.R == 0) rIdentical++;
 
-                    Gmap.SetPixel(x, y, (Color.FromArgb(255, Math.Abs((int)colorValue0.G - (int)colorValue1.G)*10, 255)));
+                    Gmap.SetPixel(x, y, (Color.FromArgb(255, Math.Abs((int)colorValue0.G - (int)colorValue1.G) * 10, 255)));
                     if (gMaxShadesDifs < Math.Abs((int)colorValue0.G - (int)colorValue1.G)) gMaxShadesDifs = Math.Abs((int)colorValue0.G - (int)colorValue1.G);
                     if ((int)colorValue0.G - (int)colorValue1.G == 0) gIdentical++;
 
-                    Bmap.SetPixel(x, y, (Color.FromArgb(255, 255, Math.Abs((int)colorValue0.B - (int)colorValue1.B)*10)));
+                    Bmap.SetPixel(x, y, (Color.FromArgb(255, 255, Math.Abs((int)colorValue0.B - (int)colorValue1.B) * 10)));
                     if (bMaxShadesDifs < Math.Abs((int)colorValue0.B - (int)colorValue1.B)) bMaxShadesDifs = Math.Abs((int)colorValue0.B - (int)colorValue1.B);
                     if ((int)colorValue0.B - (int)colorValue1.B == 0) bIdentical++;
 
@@ -37032,14 +37128,14 @@ namespace Bot.v._0._07
             Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
             Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
 
-            string carsDB = "testcars"; 
+            string carsDB = "testcars";
             Rectangle[] b = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
             for (int i = 0; i < 5; i++)
             {
                 MasterOfPictures.MakePicture(b[i], (carsDB + (i + 1) + "\\test1"));
             }
         }
-                
+
         public void MakeCases()
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\cases.txt", false, System.Text.Encoding.Default))//true для дописывания             
@@ -37265,7 +37361,7 @@ namespace Bot.v._0._07
                 string line;
                 i = 0;
                 while ((line = sr.ReadLine()) != null)
-                {     
+                {
                     acceleration[i] = line;
                     i++;
                 }
@@ -37531,7 +37627,7 @@ namespace Bot.v._0._07
         public int AllseasonMinRq()
         {
             return CalculateRq.MinRq(allseasonTires);
-        }        
+        }
     }
 
     public class CalculateRq
