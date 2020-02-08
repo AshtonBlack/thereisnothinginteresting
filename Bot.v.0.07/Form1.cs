@@ -24,7 +24,9 @@ namespace Bot.v._0._07
             Thread.Sleep(1000);
             Clk(1165, 20); //Свернуть VS
             Thread.Sleep(2000);
-
+            
+            DevKit dk = new DevKit();
+            //dk.SortCarDB();
             Loading();
 
             BranchClubs();
@@ -182,7 +184,7 @@ namespace Bot.v._0._07
             Point[] a = new Point[] { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
             Point[] b = new Point[] { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6, GarageSlot7, GarageSlot8, GarageSlot9, GarageSlot10 };
             int emptyCars = 0;
-            int newN = 0;
+            int newN;
             int x = 0;
             int h = 0;
             int drag = 0;
@@ -288,7 +290,8 @@ namespace Bot.v._0._07
         {
             Waiting wait = new Waiting();
             NotePad.ClearLog();
-            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe");
+            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_2");            
+
             Thread.Sleep(10000);
 
             wait.StartIcon();
@@ -370,7 +373,7 @@ namespace Bot.v._0._07
 
         }
 
-        private bool PlayClubs(int rq, int condition, int tires, int[] b, int i)
+        private bool PlayClubs(int rq, int condition, int eventname, int[] b, int i)
         {
             SpecialEvents se = new SpecialEvents();
             GrandArrangement ga = new GrandArrangement();
@@ -379,55 +382,142 @@ namespace Bot.v._0._07
             Waiting wait = new Waiting();
             FastCheck fc = new FastCheck();
             bool x = true;
-            bool y = false;
-
-            Thread.Sleep(2000);
+            bool y = false;           
 
             do
-            {
-                if (fc.Bounty())
+            {                
+                bool positionflag = false;
+                do
                 {
-                    x = false;
-                    y = true;
-                }
+                    if (fc.Bounty())
+                    {
+                        NotePad.DoLog("получил награду");
+                        x = false;
+                        y = true;
+                        positionflag = true;
+                    }
 
-                if (fc.EventEnds())
-                {
-                    NotePad.DoLog("эвент окончен");
-                    Clk(640, 590);//Accept Message                    
-                    Thread.Sleep(3000);
-                    x = false;
-                    y = true;
-                }
+                    if (fc.ClubMap())
+                    {
+                        Thread.Sleep(2000);
+                       
+                        if (fc.ClubMap())
+                        {
+                            x = false;
+                            y = true;
+                            NotePad.DoLog("выкинуло на карту");
+                            positionflag = true;
+                        }                           
+                    }
 
-                if (fc.ControlScreen())
-                {
-                    Clk(820, 790);//Play
-                    Thread.Sleep(5000);
+                    if (fc.EventEnds())
+                    {
+                        NotePad.DoLog("эвент окончен");
+                        Clk(640, 590);//Accept Message                    
+                        Thread.Sleep(3000);
+                        x = false;
+                        y = true;
+                        positionflag = true;
+                    }
 
+                    if (fc.ControlScreen())
+                    {
+                        Thread.Sleep(2000);
+                        NotePad.DoLog("Перехожу в гараж");
+                        Clk(820, 790);//Play
+                        Thread.Sleep(1000);                        
+                    }
+
+                    if (fc.InGarage())
+                    {
+                        positionflag = true;
+                        NotePad.DoLog("Нахожусь в гараже");
+                    }
+                } while (!positionflag);
+                
+                if(x)
+                {                        
+                    int wronghandnumber = 0;
                     do
                     {
-                        if (i == 1)
+                        if(wronghandnumber == 3)
                         {
-                            se.ClearHand();
-                            Thread.Sleep(500);
-                            NotePad.DoLog("Собираю пробную руку c 1 условием");
-                            hm.MakingTryHandwith1Condition(rq, condition, tires);
+                            se.RestartBot();
                         }
-
-                        if (i != 1)
+                        else
                         {
-                            if (!hm.HandCarFixed() || !hm.VerifyHand())
+                            wronghandnumber++;
+
+                            if (i == 1)
                             {
-                                if (rq != 0)
+                                se.ClearHand();
+                                Thread.Sleep(500);
+                                NotePad.DoLog("Собираю пробную руку c 1 условием");
+                                string weather = "с прояснением";
+                                hm.MakingHandwith1Condition(rq, condition, eventname, weather);
+                            }
+
+                            if (i == 2)//пересборка по покрытию
+                            {
+                                if (eventname == 1 ||
+                                    eventname == 3 ||
+                                    eventname == 4 ||
+                                    eventname == 5 ||
+                                    eventname == 8 ||
+                                    eventname == 9 ||
+                                    eventname == 10 ||
+                                    eventname == 11 ||
+                                    eventname == 12 ||
+                                    eventname == 13 ||
+                                    eventname == 15 ||
+                                    eventname == 17 ||
+                                    eventname == 18)
                                 {
-                                    se.ClearHand();
-                                    Thread.Sleep(500);
-                                    NotePad.DoLog("Меняю руку");
-                                    hm.MakingTryHandwith1Condition(rq, condition, tires);
+                                    if (condition != 34 //недостаточное разнообразие покрышек
+                                        && condition != 29
+                                        && condition != 8
+                                        && condition != 24
+                                        && condition != 22
+                                        && condition != 20
+                                        && condition != 21
+                                        && condition != 4
+                                        && condition != 18
+                                        && condition != 15
+                                        && condition != 14
+                                        && condition != 13
+                                        && condition != 12
+                                        && condition != 39
+                                        && condition != 44
+                                        && condition != 45
+                                        && condition != 46
+                                        && condition != 47
+                                        && condition != 48)
+                                    {
+                                        if (NotePad.FindWeather() != "с прояснениями")
+                                        {
+                                            if (rq > 29)
+                                            {
+                                                se.ClearHand();
+                                                Thread.Sleep(500);
+                                                NotePad.DoLog("Меняю руку");
+                                                string weather = NotePad.FindWeather();
+                                                hm.MakingHandwith1Condition(rq, condition, eventname, weather);
+                                            }
+                                        }
+                                    }
+                                    
                                 }
                             }
-                        }
+
+                            if (!hm.HandCarFixed() || !hm.VerifyHand())
+                            {
+                                se.ClearHand();
+                                Thread.Sleep(500);
+                                NotePad.DoLog("Меняю руку");
+                                string weather = NotePad.FindWeather();
+                                hm.MakingHandwith1Condition(rq, condition, eventname, weather);                               
+                            }
+                        }                        
                     } while (!hm.VerifyHand());
 
                     wait.ReadytoRace();
@@ -435,31 +525,34 @@ namespace Bot.v._0._07
 
                     Thread.Sleep(3000);
 
-                    x = se.UnavailableEvent();
+                    x = wait.ForEnemy();
 
                     if (x)
                     {
-                        wait.ForEnemy();
-
                         int[] a1 = ti.Tracks();//Track info
                         int[] b1 = ti.Grounds();//Ground info
                         int[] c1 = ti.Weathers();//Weather info
 
                         Clk(640, 705);//ChooseanEnemy
+                        NotePad.DoLog("противник выбран");
                         Thread.Sleep(1000);
                         wait.ArrangementWindow();
+                        NotePad.DoLog("загрузился экран расстановки");
                         Thread.Sleep(1000);
                         ga.Arrangement(a1, b1, c1);
                         wait.RaceOn();
                         Thread.Sleep(2000);
                         Clk(180, 580); //ускорить заезд, клик в пусой области
                         wait.RaceOff();
-                        Thread.Sleep(2000);
+
+                        //---------------------- Сделать проверки
+                        Thread.Sleep(5000);
                         Clk(640, 215); //кнопка "пропустить"
-                        Thread.Sleep(2000);
-                        Clk(890, 625);//подтвержение "пропуска"
                         Thread.Sleep(4000);
+                        Clk(890, 625);//подтвержение "пропуска"
+                        Thread.Sleep(5000);
                         Clk(635, 570);//звезды  
+                        //---------------------- 
 
                         bool newflag = false;
 
@@ -468,18 +561,10 @@ namespace Bot.v._0._07
                             Thread.Sleep(2500);
                             if (fc.Upgrade())
                             {
-                                NotePad.DoLog("Смотрю рекламу на прокачку");
-                                Clk(965, 745); //начать просмотр
-                                Thread.Sleep(60000);
-                                Clk(1205, 200);
-                                //AdsKiller();
-                                Thread.Sleep(12000);
-                                se.UniversalErrorDefense();
-                                Clk(635, 720); //подтвердить проркачку
-                                Thread.Sleep(5000);
+                                se.UpgradeAdsKiller();
                                 newflag = true;
                             }
-
+                            se.UniversalErrorDefense();
                             if (fc.Ending())
                             {
                                 newflag = true;
@@ -487,10 +572,15 @@ namespace Bot.v._0._07
                         } while (!newflag);
 
                         se.UniversalErrorDefense();
-                        Clk(820, 730);//Table
-                        Thread.Sleep(5000);
-                        bool flag1 = false;
+                        do
+                        {
+                            Clk(820, 730);//Table
+                            Thread.Sleep(2000);
+                        } while (fc.Ending());
 
+                        Thread.Sleep(1000);
+
+                        bool flag1 = false;
                         do
                         {
                             Thread.Sleep(2000);
@@ -518,22 +608,85 @@ namespace Bot.v._0._07
 
             return x;
         }
-
-        public Rectangle GoldRewardBounds = new Rectangle(725, 487, 30, 35);
-        public Rectangle ADSBounds = new Rectangle(220, 770, 15, 30);
-        public string GoldRewardPath = "TestGoldReward";
-        public string GoldRewardOriginal = "OriginalGoldReward";
-        public string ADSPath = "TestADS";
-        public string ADSOriginal = "OriginalADS";
+                
         public string Dump1Path = "Dump\\1Unsorted";
         public string Dump2Path = "Dump\\2Unsorted";
     }
 
     public class SpecialEvents
-    {
-        FastCheck fc = new FastCheck();
+    {        
         Form1 f1 = new Form1();
+       
+        public void UpgradeAdsKiller()
+        {
+            FastCheck fc = new FastCheck();
+            Waiting wait = new Waiting();
 
+            NotePad.DoLog("Смотрю рекламу на прокачку");
+            f1.Clk(965, 745); //начать просмотр
+            Thread.Sleep(60000);
+            if (fc.NoxPosition())
+            {
+                if (fc.WrongADS())
+                {
+                    f1.Clk(75, 208);
+                    Thread.Sleep(2000);
+                }
+                else
+                {
+                    f1.Clk(1205, 200);
+                    Thread.Sleep(2000);
+                }
+            }
+            else
+            {
+                f1.Clk(805, 55);
+                Thread.Sleep(2000);
+                RepairNoxPosition();
+                NotePad.DoErrorLog("ебучая реклама");
+            }
+            if (fc.ClickedWrongADS())
+            {
+                f1.Clk(73, 203);
+                NotePad.DoErrorLog("новое исключение рекламы");
+                for (int avN = 1; avN < 20; avN++)
+                {
+                    if (!File.Exists("C:\\Bot\\HeadPictures\\OriginalWrongADS" + avN + ".jpg"))
+                    {
+                        File.Move("C:\\Bot\\HeadPictures\\TestWrongADS.jpg",
+                            "C:\\Bot\\HeadPictures\\OriginalWrongADS" + avN + ".jpg");
+                        break;
+                    }
+                }
+                Thread.Sleep(2000);
+                f1.Clk(73, 203);
+                Thread.Sleep(2000);
+            }
+            wait.CarIsUpgraded();
+            f1.Clk(635, 720); //подтвердить проркачку
+            Thread.Sleep(3000);
+        }
+
+        public void RepairNoxPosition()
+        {
+            f1.Clk(1102, 142);
+            Thread.Sleep(500);
+            f1.Clk(335, 325);
+            Thread.Sleep(500);
+            f1.Clk(790, 600);
+            Thread.Sleep(500);
+            f1.Clk(740, 740);
+            Thread.Sleep(500);
+        }
+
+        public void ActivateClubBooster()
+        {
+            f1.Clk(1025, 665);
+            Thread.Sleep(2000);
+            f1.Clk(905, 610);
+            Thread.Sleep(3000);
+        }
+        
         public void DragMap()
         {
             FastCheck fc = new FastCheck();
@@ -554,23 +707,37 @@ namespace Bot.v._0._07
             Thread.Sleep(1000);
         }
 
+        public void RestartBot()
+        {
+            f1.Clk(1230, 150);//close Nox
+            Thread.Sleep(1000);
+            f1.Clk(670, 560);// accept Nox close
+            Thread.Sleep(1000);
+            Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
+
+            /*
+            f1.Clk(20, 1000);
+            Thread.Sleep(1000);
+            f1.Clk(20, 960);
+            Thread.Sleep(3000);
+            f1.Clk(40, 910);
+            Thread.Sleep(1000);
+            f1.Clk(40, 910);//reloading
+            */
+
+            Application.Exit();
+        }
+
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();
             if (fc.ServerError())
             {
-                f1.Clk(1230, 150);//close memu
-                Thread.Sleep(1000);
-                f1.Clk(670, 560);// accept memu close
-                Thread.Sleep(1000);
-                f1.Clk(20, 1000);
-                Thread.Sleep(1000);
-                f1.Clk(20, 960);
-                Thread.Sleep(3000);
-                f1.Clk(40, 910);
-                Thread.Sleep(1000);
-                f1.Clk(40, 910);//reloading
-                Application.Exit();
+                Thread.Sleep(5000);
+                if (fc.ServerError())
+                {
+                    RestartBot();
+                }
             }
         }
 
@@ -604,6 +771,7 @@ namespace Bot.v._0._07
 
         public bool UnavailableEvent()
         {
+            FastCheck fc = new FastCheck();
             bool x = true;
 
             if (fc.EventEnds())
@@ -831,6 +999,21 @@ namespace Bot.v._0._07
                             case 8:
                                 b2[i] = "Смешанное";
                                 break;
+                            case 9:
+                                b2[i] = "Смешанное";
+                                break;
+                            case 12:
+                                b2[i] = "Асфальт";
+                                break;
+                            case 14:
+                                b2[i] = "Асфальт";
+                                break;
+                            case 15:
+                                b2[i] = "Асфальт";
+                                break;
+                            case 16:
+                                b2[i] = "Снег";
+                                break;
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -864,6 +1047,9 @@ namespace Bot.v._0._07
                                 b2[i] = "Лед";
                                 break;
                             case 9:
+                                b2[i] = "Асфальт";
+                                break;
+                            case 10:
                                 b2[i] = "Асфальт";
                                 break;
                             default:
@@ -900,6 +1086,9 @@ namespace Bot.v._0._07
                                 break;
                             case 9:
                                 b2[i] = "Асфальт";
+                                break;
+                            case 10:
+                                b2[i] = "Песок";
                                 break;
                             default:
                                 b2[i] = "неизвестное покрытие";
@@ -1123,6 +1312,31 @@ namespace Bot.v._0._07
                         break;
                 }
             }
+
+            bool dry = false;
+            bool wet = false;
+
+            foreach (string x in c2)
+            {
+                if (x == "Дождь")
+                {
+                    wet = true;
+                }
+
+                if (x == "Солнечно")
+                {
+                    dry = true;
+                }
+            }
+
+            string weather = "солнечно";
+            if (wet)
+            {
+                if (dry) weather = "с прояснениями";
+                else weather = "мокро";
+            }
+            NotePad.LastWeather(weather);
+
             return c2;
         }
 
@@ -1231,6 +1445,30 @@ namespace Bot.v._0._07
                                 break;
                             case 32:
                                 a2[i] = "Ралли-кросс ср";
+                                break;
+                            case 33:
+                                a2[i] = "Каньон крутой холм";
+                                break;
+                            case 34:
+                                a2[i] = "Лесная переправа";
+                                break;
+                            case 35:
+                                a2[i] = "Монако узкие улицы";
+                                break;
+                            case 36:
+                                a2[i] = "Горная экспедиция";
+                                break;
+                            case 37:
+                                a2[i] = "Горы извилистая дорога";
+                                break;
+                            case 38:
+                                a2[i] = "Нюрбург 1";
+                                break;
+                            case 39:
+                                a2[i] = "Горы извилистая дорога";
+                                break;
+                            case 40:
+                                a2[i] = "Горы слалом";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";
@@ -1363,6 +1601,24 @@ namespace Bot.v._0._07
                             case 41:
                                 a2[i] = "Ралли-кросс ср";
                                 break;
+                            case 42:
+                                a2[i] = "Замерзшее озеро";
+                                break;
+                            case 43:
+                                a2[i] = "Лесная переправа";
+                                break;
+                            case 44:
+                                a2[i] = "Горы слалом";
+                                break;
+                            case 45:
+                                a2[i] = "Нюрбург 2";
+                                break;
+                            case 46:
+                                a2[i] = "Горы серпантин";
+                                break;
+                            case 47:
+                                a2[i] = "Горы извилистая дорога";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1476,6 +1732,30 @@ namespace Bot.v._0._07
                             case 35:
                                 a2[i] = "Монако длинные городские улицы";
                                 break;
+                            case 36:
+                                a2[i] = "Каньон грунтовая дорога";
+                                break;
+                            case 37:
+                                a2[i] = "Лесная переправа";
+                                break;
+                            case 38:
+                                a2[i] = "Закрытый картинг";
+                                break;
+                            case 39:
+                                a2[i] = "Монако городские";
+                                break;
+                            case 40:
+                                a2[i] = "Горы слалом";
+                                break;
+                            case 41:
+                                a2[i] = "Нюрбург 3";
+                                break;
+                            case 42:
+                                a2[i] = "1/4";
+                                break;
+                            case 43:
+                                a2[i] = "Горы извилистая дорога";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1588,6 +1868,24 @@ namespace Bot.v._0._07
                                 break;
                             case 35:
                                 a2[i] = "Мотокросс";
+                                break;
+                            case 36:
+                                a2[i] = "75-125";
+                                break;
+                            case 37:
+                                a2[i] = "Слалом";
+                                break;
+                            case 38:
+                                a2[i] = "Перегрузка";
+                                break;
+                            case 39:
+                                a2[i] = "Горы серпантин";
+                                break;
+                            case 40:
+                                a2[i] = "Нюрбург 4";
+                                break;
+                            case 41:
+                                a2[i] = "Горы слалом";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";
@@ -1714,6 +2012,36 @@ namespace Bot.v._0._07
                             case 39:
                                 a2[i] = "Мотокросс";
                                 break;
+                            case 40:
+                                a2[i] = "Обзор";
+                                break;
+                            case 41:
+                                a2[i] = "Извилистая трасса";
+                                break;
+                            case 42:
+                                a2[i] = "Лесная переправа";
+                                break;
+                            case 43:
+                                a2[i] = "Монако длинные городские улицы";
+                                break;
+                            case 44:
+                                a2[i] = "Лесная переправа";
+                                break;
+                            case 45:
+                                a2[i] = "Подъем на холм";
+                                break;
+                            case 46:
+                                a2[i] = "Горы извилистая дорога";
+                                break;
+                            case 47:
+                                a2[i] = "Горы слалом";
+                                break;
+                            case 48:
+                                a2[i] = "Нюрбург 5";
+                                break;
+                            case 49:
+                                a2[i] = "1";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1742,13 +2070,21 @@ namespace Bot.v._0._07
                             "Трасса набережная",
                             "Тестовый круг",
                             "Токио мостик",
+                            "Нюрбург 1",
+                            "Нюрбург 2",
+                            "Нюрбург 3",
+                            "Нюрбург 4",
+                            "Нюрбург 5",
                             "Токио петля",
+                            "Горная экспедиция",
                             "Замерзшее озеро",
+                            "Горы серпантин",
+                            "Горы извилистая дорога",
                             "Извилистая дорога",
                             "Быстрая трасса",
                             "Highway",
                             "Монако длинные городские улицы",
-                            "Каньон экспедиция",
+                            "Каньон экспедиция",                            
                             "Серпантин",
                             "Монако серпантин",
                             "Извилистая трасса",
@@ -1758,6 +2094,7 @@ namespace Bot.v._0._07
                             "Обзор",
                             "Каньон грунтовая дорога",
                             "Грунтовая дорога",
+                            "Каньон крутой холм",
                             "Лесная переправа",
                             "Ралли-кросс мал",
                             "Ралли-кросс ср",
@@ -1770,6 +2107,7 @@ namespace Bot.v._0._07
                             "Парковка",
                             "Лесной слалом",
                             "Закрытый картинг",
+                            "Горы слалом",
                             "Слалом",
                             "Перегрузка",
                             "Неизвестная трасса"
@@ -1787,8 +2125,8 @@ namespace Bot.v._0._07
                     }
                 }
                 if (flag == 0)
-                {
-                    NotePad.DoLog("Исправить название " + a2[i]);
+                {                    
+                    NotePad.DoErrorLog("Исправить название " + a2[i]);
                     a3[i] = 100;
                 }
             }
@@ -1800,7 +2138,7 @@ namespace Bot.v._0._07
     {
         public double CalculateCompatibility(string track, string coverage, string weather, double[] carstats)
         {
-            //carstats[клиренс, резина, привод, разгон до сотки, максималка, управление, масса]
+            //carstats[0клиренс, 1резина, 2привод, 3разгон до сотки, 4максималка, 5управление, 6масса]
             /*
             1 - slk
             2 - dyn
@@ -2185,6 +2523,20 @@ namespace Bot.v._0._07
                             break;
                     }
                     break;
+                case "Мотокросс":
+                    switch (carstats[0])
+                    {
+                        case 1:
+                            x += 0;
+                            break;
+                        case 2:
+                            x += 200;
+                            break;
+                        case 3:
+                            x += 500;
+                            break;
+                    }
+                    break;
                 case "50-150":
                     x -= carstats[3] * 200;
                     x -= carstats[5];
@@ -2266,11 +2618,41 @@ namespace Bot.v._0._07
                     x += carstats[4] * 3;
                     x -= carstats[3] * 6;
                     break;
+                case "Нюрбург 1":
+                    x -= carstats[3] * 60;
+                    x += carstats[4] * 3;
+                    x += carstats[5];
+                    break;
+                case "Нюрбург 2":
+                    x -= carstats[3] * 60;
+                    x += carstats[4] * 3;
+                    x += carstats[5];
+                    break;
+                case "Нюрбург 3":
+                    x -= carstats[3] * 60;
+                    x += carstats[4] * 3;
+                    x += carstats[5];
+                    break;
+                case "Нюрбург 4":
+                    x -= carstats[3] * 60;
+                    x += carstats[4] * 3;
+                    x += carstats[5];
+                    break;
+                case "Нюрбург 5":
+                    x -= carstats[3] * 60;
+                    x += carstats[4] * 3;
+                    x += carstats[5];
+                    break;
                 case "Токио петля":
                     x += carstats[4] * 2;
-                    x -= carstats[3] * 8;
+                    x -= carstats[3] * 80;
                     break;
                 case "Замерзшее озеро":
+                    break;
+                case "Горы серпантин":
+                    if (carstats[2] == 4) x += 100;
+                    break;
+                case "Горы извилистая дорога":
                     break;
                 case "Извилистая дорога":
                     if (coverage != "Асфальт")
@@ -2330,6 +2712,8 @@ namespace Bot.v._0._07
                     break;
                 case "Грунтовая дорога":
                     break;
+                case "Каньон крутой холм":
+                    break;
                 case "Лесная переправа":
                     break;
                 case "Ралли-кросс мал":
@@ -2344,7 +2728,7 @@ namespace Bot.v._0._07
                     break;
                 case "Монако тест на перегрузки":
                     break;
-                case "Токио тест на перегрузки ":
+                case "Токио тест на перегрузки":
                     break;
                 case "Трасса для картинга":
                     break;
@@ -2354,6 +2738,8 @@ namespace Bot.v._0._07
                     break;
                 case "Закрытый картинг":
                     break;
+                case "Горы слалом":
+                    break;
                 case "Слалом":
                     break;
                 case "Перегрузка":
@@ -2361,6 +2747,7 @@ namespace Bot.v._0._07
                 case "Неизвестная трасса":
                     break;
                 default:
+                    NotePad.DoErrorLog("Написать логику для " + track);
                     break;
             }
 
@@ -2394,10 +2781,10 @@ namespace Bot.v._0._07
             int[] carsid = new int[5];
             Array.Copy(saves, 3, carsid, 0, 5);
             carsid[0] = idcar.Identify1Car(carsid[0]);//converting picture id to car id
-            carsid[1] = idcar.Identify2Car(carsid[1]);
-            carsid[2] = idcar.Identify3Car(carsid[2]);
-            carsid[3] = idcar.Identify4Car(carsid[3]);
-            carsid[4] = idcar.Identify5Car(carsid[4]);
+            carsid[1] = idcar.Identify1Car(carsid[1]);
+            carsid[2] = idcar.Identify1Car(carsid[2]);
+            carsid[3] = idcar.Identify1Car(carsid[3]);
+            carsid[4] = idcar.Identify1Car(carsid[4]);
             double[] emptycar = { 0, 0, 0, 0, 0, 0, 0 };
 
             double[][] carstats = new double[5][];
@@ -2437,7 +2824,7 @@ namespace Bot.v._0._07
             for (int j = 0; j < 5; j++)//logic for dragndrop
             {
                 Thread.Sleep(1000);
-                double empty = -7000;
+                double empty = -20000;
                 double x;
                 int usingfinger = 0;
                 for (int n = 0; n < 5; n++)
@@ -2465,7 +2852,7 @@ namespace Bot.v._0._07
 
     public class HandMaking
     {
-        private void ChooseTires(int eventN, char cls)
+        private void ChooseTires(int eventname, char cls, int condition, string weather)
         {
             Point tires = new Point(200, 635);
 
@@ -2481,84 +2868,318 @@ namespace Bot.v._0._07
 
             Form1 f1 = new Form1();
 
-            Thread.Sleep(500);
-            f1.Clk1(tires);
-            switch (eventN)
+            if (condition != 34 
+                && condition != 29 
+                && condition != 8 
+                && condition != 24 
+                && condition != 22 
+                && condition != 20 
+                && condition != 21 
+                && condition != 4 
+                && condition != 18 
+                && condition != 15 
+                && condition != 14 
+                && condition != 13 
+                && condition != 12
+                && condition != 39
+                && condition != 44
+                && condition != 45
+                && condition != 46
+                && condition != 47
+                && condition != 48)
             {
-                case 1://twists n turns
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                case 2://off-road outlaws
-                    switch (cls)
-                    {
-                        case 'f':
-                            f1.Clk1(offroad);
-                            f1.Clk1(standart);
-                            break;
-                        default:
-                            f1.Clk1(allsurface);
-                            f1.Clk1(offroad);
-                            break;
-                    }
-                    break;
-                case 3://drag n city
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                case 4://goldem sun
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                case 5://black forest
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    f1.Clk1(allsurface);
-                    f1.Clk1(offroad);
-                    break;
-                case 6://winter warriors
-                    switch (cls)
-                    {
-                        case 'f':
-                            f1.Clk1(offroad);
-                            f1.Clk1(standart);
-                            break;
-                        default:
-                            f1.Clk1(allsurface);
-                            f1.Clk1(offroad);
-                            break;
-                    }
-                    break;
-                case 7://stormchaser
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                case 8://speed of light
-                    f1.Clk1(dynamic);
-                    break;
-                case 9://city living
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                case 10://rising sun
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                case 11://circut breaker
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                case 12://scenic route
-                    f1.Clk1(standart);
-                    f1.Clk1(allsurface);
-                    f1.Clk1(offroad);
-                    break;
-                case 13://monte carlo
-                    f1.Clk1(dynamic);
-                    f1.Clk1(standart);
-                    break;
-                default:
-                    break;
+                Thread.Sleep(500);
+                f1.Clk1(tires);
+                switch (weather)
+                {
+                    case "с прояснениями":
+                        switch (eventname)
+                        {
+                            case 1://twists n turns
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 2://off-road outlaws
+                                switch (cls)
+                                {
+                                    case 'f':
+                                        f1.Clk1(offroad);
+                                        f1.Clk1(standart);
+                                        break;
+                                    default:
+                                        f1.Clk1(allsurface);
+                                        f1.Clk1(offroad);
+                                        break;
+                                }
+                                break;
+                            case 3://drag n city
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 4://goldem sun
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 5://black forest
+                                break;
+                            case 6://winter warriors
+                                switch (cls)
+                                {
+                                    case 'f':
+                                        f1.Clk1(offroad);
+                                        f1.Clk1(standart);
+                                        break;
+                                    default:
+                                        f1.Clk1(allsurface);
+                                        f1.Clk1(offroad);
+                                        break;
+                                }
+                                break;
+                            case 7://stormchaser
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 8://speed of light
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 9://city living
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 10://rising sun
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 11://circut breaker
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 12://scenic route
+                                break;
+                            case 13://monte carlo
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 15://the road less taken
+                                break;
+                            case 16://california storm
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 17://mountain pass                        
+                                break;
+                            case 18://scattered showers              
+                                break;
+                            case 19://rising storm
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "солнечно":
+                        switch (eventname)
+                        {
+                            case 1://twists n turns
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 2://off-road outlaws
+                                switch (cls)
+                                {
+                                    case 'f':
+                                        f1.Clk1(offroad);
+                                        f1.Clk1(standart);
+                                        break;
+                                    default:
+                                        f1.Clk1(allsurface);
+                                        f1.Clk1(offroad);
+                                        break;
+                                }
+                                break;
+                            case 3://drag n city
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 4://goldem sun
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 5://black forest
+                                break;
+                            case 6://winter warriors
+                                switch (cls)
+                                {
+                                    case 'f':
+                                        f1.Clk1(offroad);
+                                        f1.Clk1(standart);
+                                        break;
+                                    default:
+                                        f1.Clk1(allsurface);
+                                        f1.Clk1(offroad);
+                                        break;
+                                }
+                                break;
+                            case 7://stormchaser
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 8://speed of light
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 9://city living
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 10://rising sun
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 11://circut breaker
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 12://scenic route
+                                break;
+                            case 13://monte carlo
+                                f1.Clk1(slik);
+                                f1.Clk1(dynamic);
+                                break;
+                            case 15://the road less taken
+                                break;
+                            case 16://california storm
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 17://mountain pass                        
+                                break;
+                            case 18://scattered showers              
+                                break;
+                            case 19://rising storm
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "мокро":
+                        switch (eventname)
+                        {
+                            case 1://twists n turns
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 2://off-road outlaws
+                                switch (cls)
+                                {
+                                    case 'f':
+                                        f1.Clk1(offroad);
+                                        f1.Clk1(standart);
+                                        break;
+                                    default:
+                                        f1.Clk1(allsurface);
+                                        f1.Clk1(offroad);
+                                        break;
+                                }
+                                break;
+                            case 3://drag n city
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 4://goldem sun
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 5://black forest
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                f1.Clk1(allsurface);
+                                f1.Clk1(offroad);
+                                break;
+                            case 6://winter warriors
+                                switch (cls)
+                                {
+                                    case 'f':
+                                        f1.Clk1(offroad);
+                                        f1.Clk1(standart);
+                                        break;
+                                    default:
+                                        f1.Clk1(allsurface);
+                                        f1.Clk1(offroad);
+                                        break;
+                                }
+                                break;
+                            case 7://stormchaser
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 8://speed of light
+                                f1.Clk1(dynamic);
+                                break;
+                            case 9://city living
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 10://rising sun
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 11://circut breaker
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 12://scenic route
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                f1.Clk1(allsurface);
+                                f1.Clk1(offroad);
+                                break;
+                            case 13://monte carlo
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 15://the road less taken
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                f1.Clk1(allsurface);
+                                f1.Clk1(offroad);
+                                break;
+                            case 16://california storm
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            case 17://mountain pass 
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                f1.Clk1(allsurface);
+                                f1.Clk1(offroad);
+                                break;
+                            case 18://scattered showers   
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                f1.Clk1(allsurface);
+                                f1.Clk1(offroad);
+                                break;
+                            case 19://rising storm
+                                f1.Clk1(dynamic);
+                                f1.Clk1(standart);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                }                
             }
         }
 
@@ -2570,6 +3191,456 @@ namespace Bot.v._0._07
             int handrq = 0;
             switch (condition)
             {
+                case 48://citroen
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 90)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 47://cadillac
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 2;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 134)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 46://italian renaissance
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 45://eco x5
+                    finger[0] = 0;
+                    finger[1] = 1;
+                    finger[2] = 1;
+                    finger[3] = 1;
+                    finger[4] = 1;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 110)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 44://hot hutch x5
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 1;
+                    finger[3] = 1;
+                    finger[4] = 1;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 118)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 43://saloon x5
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while((rq - handrq) > 3 && handrq != 138)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));                    
+                    break;
+
+                case 42://2000 4wd x5
+                    finger[0] = 1;
+                    finger[1] = 2;
+                    finger[2] = 3;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 138)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 40://super x5
+                    finger[0] = 3;
+                    finger[1] = 3;
+                    finger[2] = 3;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    NotePad.DoLog("партия Суперских машин");            
+                    break;
+
+                case 39://Opel x5
+                    finger[0] = 0;
+                    finger[1] = 1;
+                    finger[2] = 1;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 110)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 4);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 38://Porsche x5
+                    finger[0] = 1;
+                    finger[1] = 2;
+                    finger[2] = 2;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 37://1980 x5
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 138)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 36://Super x3
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 3;
+                    finger[3] = 3;
+                    finger[4] = 3;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 2);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 34://Dodge
+                    finger[0] = 0;
+                    finger[1] = 1;
+                    finger[2] = 2;
+                    finger[3] = 2;
+                    finger[4] = 2;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 114)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 33://American dream
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 138)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;                
+
+                case 29://Mazda
+                    finger[0] = 1;
+                    finger[1] = 1;
+                    finger[2] = 1;
+                    finger[3] = 1;
+                    finger[4] = 2;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 114)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 31:
+                case 28://5-seaters
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 142)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 27://italy
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 142)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 26://bmw
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 1;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 130)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 5);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 25://ford
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 1;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 134)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 24://All-surface
+                    finger[0] = 1;
+                    finger[1] = 1;
+                    finger[2] = 1;
+                    finger[3] = 2;
+                    finger[4] = 2;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 142)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
+                case 23://French
+                    finger[0] = 0;
+                    finger[1] = 0;
+                    finger[2] = 0;
+                    finger[3] = 0;
+                    finger[4] = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += hand[x, finger[x]];
+                    }
+                    while ((rq - handrq) > 3 && handrq != 142)
+                    {
+                        do
+                        {
+                            n = r.Next(0, 5);
+                        } while (finger[n] == 6);
+                        finger[n]++;
+                        handrq += 4;
+                    }
+                    NotePad.DoLog("требуемое рк: " + rq + ";   рк руки: " + handrq + ";   разница в рк: " + (rq - handrq));
+                    break;
+
                 case 22://French Renaissance
                     finger[0] = 0;
                     finger[1] = 1;
@@ -3008,7 +4079,7 @@ namespace Bot.v._0._07
             return ar;
         }
 
-        public void MakingTryHandwith1Condition(int rq, int condition, int tires)
+        public void MakingHandwith1Condition(int rq, int condition, int eventname, string weather)
         {
             FastCheck fc = new FastCheck();
             Form1 f1 = new Form1();
@@ -3034,7 +4105,7 @@ namespace Bot.v._0._07
             int var; //недобор
             int usedhandslots = 0;
             Thread.Sleep(1000);
-            if (condition != 0 && !fc.ConditionActivated()) f1.Clk(640, 265); //включить фильтр условия события                                   
+            if (condition != 0 && condition != 3 && condition != 36 && !fc.ConditionActivated()) f1.Clk(640, 265); //включить фильтр условия события. Исключения: нет условий, 3 машины одной редкости, фильтр включен                                   
             char[] lit = { 's', 'a', 'b', 'c', 'd', 'e', 'f'};
 
             for(int it = 0; it < 7; it++)
@@ -3044,12 +4115,12 @@ namespace Bot.v._0._07
                     if(it == 6)
                     {
                         Randomizer(condition, rq);
-                        UseFilter(lit[it], ar[it], usedhandslots, tires, condition);
+                        UseFilter(lit[it], ar[it], usedhandslots, eventname, condition, weather);
                     }
                     else
                     {
                         Randomizer(condition, rq);
-                        var = UseFilter(lit[it], ar[it], usedhandslots, tires, condition);
+                        var = UseFilter(lit[it], ar[it], usedhandslots, eventname, condition, weather);
                         usedhandslots += ar[it] - var;
                         ar[it+1] += var;
                     }                    
@@ -3059,7 +4130,7 @@ namespace Bot.v._0._07
             if (VerifyHand())//проверка руки, чтобы не сохранял пустые картинки
             {
                 int[] carsid = RememberHand();
-                NotePad.Saves(rq, condition, tires, carsid);
+                NotePad.Saves(rq, condition, eventname, carsid);
             }
         }
 
@@ -3102,7 +4173,7 @@ namespace Bot.v._0._07
             {
                 MasterOfPictures.MakePicture(bounds[i], path + n[i] + "0");
             }
-            Thread.Sleep(1700); //1100 мало
+            Thread.Sleep(1700);
             for (int j = 0; j < 5; j++)
             {
                 MasterOfPictures.MakePicture(bounds[j], path + n[j] + "1");
@@ -3122,6 +4193,8 @@ namespace Bot.v._0._07
 
         public bool VerifyHand()
         {
+            FastCheck fc = new FastCheck();
+
             Point HandSlot1 = new Point(160, 775);
             Point HandSlot2 = new Point(355, 775);
             Point HandSlot3 = new Point(545, 775);
@@ -3130,6 +4203,7 @@ namespace Bot.v._0._07
             Point[] a = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
             bool x = true;
             string emptyslot = "Color [A=255, R=200, G=200, B=200]";
+            Thread.Sleep(2000);
 
             for (int i = 0; i < 5; i++)
             {
@@ -3140,62 +4214,106 @@ namespace Bot.v._0._07
                 }
             }
 
+            if (fc.RedReadytoRace()) x = false;
+
             return x;
         }
 
-        private int[] RememberHand()
+        public int[] RememberHand()
         {
             Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
-            Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);
-            Rectangle HandSlot3 = new Rectangle(470, 725, 115, 65);
-            Rectangle HandSlot4 = new Rectangle(660, 725, 115, 65);
-            Rectangle HandSlot5 = new Rectangle(850, 725, 115, 65);
+            Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
+            Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
+            Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
+            Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
             string carsDB = "Finger";
-            int lastcar = 700;
+            int lastcar = 1000;
             int[] carsid = new int[5];
-
-            int n;
             bool flag;
             Rectangle[] b = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
+
             for (int i = 0; i < 5; i++)
             {
                 MasterOfPictures.MakePicture(b[i], (carsDB + (i + 1) + "\\test"));
                 flag = true;
-                n = 0;
-                for (int i1 = 1; i1 < lastcar; i1++)
-                {
-                    if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i1 + ".jpg"))
-                    {
-                        n = i1;
-                    }
-                    else break;
-                }
 
-                for (int i2 = 1; i2 < (n + 1); i2++)
+                if (i == 0)//для первого пальца
                 {
-                    if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\" + i2), ("Finger" + (i + 1) + "\\test")))
+                    int maxknowncar = 0;
+                    for (int i2 = 1; i2 < lastcar + 1; i2++)
                     {
-                        NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " тачка");
-                        carsid[i] = i2;
-                        File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg");
-                        flag = false;
-                        break;
+                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i2 + ".jpg"))
+                        {
+                            maxknowncar = i2;
+                            if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\" + i2), ("Finger" + (i + 1) + "\\test")))
+                            {
+                                NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " тачка");
+                                carsid[i] = i2;
+                                File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg");
+                                flag = false;
+                                break;
+                            }
+                        }                        
+                    }
+                    if (flag == true)
+                    {
+                        NotePad.DoLog("Добавляю новую тачку");
+                        carsid[i] = maxknowncar + 1;
+                        File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\" + carsid[i] + ".jpg");
                     }
                 }
-
-                if (flag == true)
-                {
-                    NotePad.DoLog("Добавляю новую тачку");
-                    carsid[i] = n + 1;
-                    File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\" + (n + 1) + ".jpg");
-                }
+                else
+                {                    
+                    for (int i2 = 1; i2 < lastcar; i2++)
+                    {
+                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i2 + ".jpg")) //поиск в сортированных
+                        {
+                            if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\" + i2), ("Finger" + (i + 1) + "\\test")))
+                            {
+                                NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " тачка");
+                                carsid[i] = i2;
+                                File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg");
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                        
+                    if (flag == true)
+                    {
+                        int emptySpaceForCar = 0;
+                        for (int i2 = 1; i2 < lastcar; i2++)
+                        {
+                            if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i2 + ".jpg")) //поиск в сортированных
+                            {
+                                if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\unsorted" + i2), ("Finger" + (i + 1) + "\\test")))
+                                {
+                                    NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " неотсортированная тачка");
+                                    carsid[i] = 10000; //неотсортированная
+                                    File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg");
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            else if (emptySpaceForCar == 0) emptySpaceForCar = i2;
+                        }
+                        if (flag == true)
+                        {
+                            NotePad.DoLog("Добавляю новую тачку");
+                            carsid[i] = 10000; //неотсортированная
+                            File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + emptySpaceForCar + ".jpg");
+                        }
+                    }
+                }          
             }
 
             return carsid;
         }
 
-        private int UseFilter(char cls, int n, int uhl, int tires, int condition)
+        private int UseFilter(char cls, int n, int uhl, int eventname, int condition, string weather)
         {
+            Waiting wait = new Waiting();
+
             Point filter = new Point(945, 265);
             Point clear = new Point(340, 785);
             Point accept = new Point(940, 785);
@@ -3211,11 +4329,11 @@ namespace Bot.v._0._07
 
             Form1 f1 = new Form1();
             f1.Clk1(filter);
-            Thread.Sleep(1500);
+            wait.Filter();
             f1.Clk1(clear);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
             f1.Clk1(rarity);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
             switch (cls)
             {
                 case 'f':
@@ -3248,7 +4366,7 @@ namespace Bot.v._0._07
             }
 
             Thread.Sleep(500);
-            if (condition != 8 && condition != 22 && condition != 20 && condition != 21 && condition != 4 && condition != 18 && condition != 15 && condition != 14 && condition != 13 && condition != 12) ChooseTires(tires, cls); //исключения для покрышек 
+            ChooseTires(eventname, cls, condition, weather); //исключения для покрышек 
             Thread.Sleep(1000);
             f1.Clk1(accept);
             Thread.Sleep(2000);
@@ -3259,6 +4377,7 @@ namespace Bot.v._0._07
 
         private void Randomizer(int condition, int rq)
         {
+            Waiting wait = new Waiting();
             Form1 f1 = new Form1();
             FastCheck fc = new FastCheck();
             Point r1 = new Point(100, 410);//rarity
@@ -3276,8 +4395,11 @@ namespace Bot.v._0._07
             Point p = new Point();
             while (!fc.InGarage()) Thread.Sleep(2000);
 
-
-            if((condition == 11 && rq < 110) || (condition == 10 && rq < 70) || (condition == 6 && rq < 50) || rq < 30)
+            if((condition == 11 && rq < 110) 
+                || (condition == 10 && rq < 70) 
+                || (condition == 6 && rq < 50)
+                || (condition == 40 && rq < 90)
+                || rq < 30)
             {
                 NotePad.DoLog("сортирую по рк");
                 Thread.Sleep(200);
@@ -3293,7 +4415,7 @@ namespace Bot.v._0._07
             {
                 Thread.Sleep(200);
                 f1.Clk(1090, 265);//сортировка
-                Thread.Sleep(1000);
+                wait.Type();
                 int r = rand.Next(10);
                 p = a[r];
                 if (rand.Next(2) == 1)
@@ -3312,6 +4434,15 @@ namespace Bot.v._0._07
 
     public class NotePad
     {
+        public static void DoErrorLog(string text)
+        {
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, System.Text.Encoding.Default))//true для дописывания 
+            {
+                sw.WriteLine(text);
+                sw.Close();
+            }
+        }
+
         public static void DoLog(string text)
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, System.Text.Encoding.Default))//true для дописывания 
@@ -3357,6 +4488,26 @@ namespace Bot.v._0._07
                 sw.WriteLine("Начинаю новую сессию");
                 sw.Close();
             }
+        }
+
+        public static void LastWeather(string weather)
+        {
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Weather.txt", false, System.Text.Encoding.Default))
+            {
+                sw.WriteLine(weather);
+                sw.Close();
+            }
+        }
+
+        public static string FindWeather()
+        {
+            string weather;
+            using (StreamReader sr = new StreamReader(@"C:\Bot\Weather.txt", System.Text.Encoding.Default))
+            {
+                weather = sr.ReadLine();
+                sr.Close();
+            }
+            return weather;
         }
     }
 
@@ -3509,6 +4660,142 @@ namespace Bot.v._0._07
     public class FastCheck
     {
         Form1 f1 = new Form1();
+        SpecialEvents se = new SpecialEvents();
+
+        public bool ClickedWrongADS()
+        {
+            bool x = false;
+            string ClickedWrongADSPath = "HeadPictures\\TestClickedWrongADS";
+            string ClickedWrongADSOriginal = "HeadPictures\\OriginalClickedWrongADS";
+            Rectangle ClickedWrongADSBounds = new Rectangle(64, 194, 17, 17);
+            MasterOfPictures.MakePicture(ClickedWrongADSBounds, ClickedWrongADSPath);
+            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
+        public bool WrongADS()
+        {
+            bool x = false;
+            string WrongADSPath = "HeadPictures\\TestWrongADS";
+            string WrongADSOriginal = "HeadPictures\\OriginalWrongADS";
+            Rectangle WrongADSBounds = new Rectangle(63, 193, 25, 25);
+            MasterOfPictures.MakePicture(WrongADSBounds, WrongADSPath);
+
+            if (MasterOfPictures.Verify(WrongADSPath, WrongADSOriginal))
+            {
+                x = true;
+            }
+            //запас на 20 вариантов
+            for(int i = 1; i < 20; i++)
+            {
+                if (!x)
+                {
+                    if (File.Exists("C:\\Bot\\" + WrongADSOriginal + i + ".jpg"))
+                    {
+                        if (MasterOfPictures.Verify(WrongADSPath, WrongADSOriginal + i))
+                        {
+                            x = true;
+                        }
+                    }
+                }
+                else break;
+            }
+            return x;
+        }
+
+        public bool CarIsUpgraded()
+        {
+            bool x = false;
+            string CarIsUpgradedPath = "HeadPictures\\TestCarIsUpgraded";
+            string CarIsUpgradedOriginal = "HeadPictures\\OriginalCarIsUpgraded";
+            Rectangle CarIsUpgradedBounds = new Rectangle(576, 707, 128, 27);
+            MasterOfPictures.MakePicture(CarIsUpgradedBounds, CarIsUpgradedPath);
+            if (MasterOfPictures.Verify(CarIsUpgradedPath, CarIsUpgradedOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
+        public bool NoActiveBooster()
+        {
+            bool x = false;
+            string BoosterPath = "HeadPictures\\TestBooster";
+            string BoosterOriginal = "HeadPictures\\OriginalBooster";
+            Rectangle BoosterBounds = new Rectangle(1023, 657, 43, 19);
+            MasterOfPictures.MakePicture(BoosterBounds, BoosterPath);
+            if (MasterOfPictures.Verify(BoosterPath, BoosterOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
+        public bool NoxPosition()
+        {
+            bool x = false;
+            string NoxPositionPath = "HeadPictures\\TestNoxPosition";
+            string NoxPositionOriginal = "HeadPictures\\OriginalNoxPosition";
+            Rectangle NoxPositionBounds = new Rectangle(1221, 143, 18, 15);
+            MasterOfPictures.MakePicture(NoxPositionBounds, NoxPositionPath);
+            if (MasterOfPictures.Verify(NoxPositionPath, NoxPositionOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+        
+        public bool TypeIsOpenned()
+        {
+            bool x = false;
+            string TypeIsOpennedPath = "HeadPictures\\TestTypeIsOpenned";
+            string TypeIsOpennedOriginal = "HeadPictures\\OriginalTypeIsOpenned";
+            Rectangle TypeIsOpennedBounds = new Rectangle(1082, 250, 25, 20);
+            MasterOfPictures.MakePicture(TypeIsOpennedBounds, TypeIsOpennedPath);
+            if (MasterOfPictures.Verify(TypeIsOpennedPath, TypeIsOpennedOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
+        public bool FilterIsOpenned()
+        {
+            bool x = false;
+            string FilterIsOpennedPath = "HeadPictures\\TestFilterIsOpenned";
+            string FilterIsOpennedOriginal = "HeadPictures\\OriginalFilterIsOpenned";
+            Rectangle FilterIsOpennedBounds = new Rectangle(935, 250, 25, 20);
+            MasterOfPictures.MakePicture(FilterIsOpennedBounds, FilterIsOpennedPath);
+            if (MasterOfPictures.Verify(FilterIsOpennedPath, FilterIsOpennedOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
+        public bool EventPage()
+        {
+            bool x = false;
+            string EventPath = "HeadPictures\\TestEvent";
+            string EventOriginal = "HeadPictures\\OriginalEvent";
+            Rectangle EventBounds = new Rectangle(196, 187, 134, 30);
+            MasterOfPictures.MakePicture(EventBounds, EventPath);
+            if (MasterOfPictures.Verify(EventPath, EventOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
 
         public bool MissClick()
         {
@@ -3534,7 +4821,13 @@ namespace Bot.v._0._07
             Rectangle ClubBountyBounds = new Rectangle(520, 740, 240, 25);
             MasterOfPictures.MakePicture(ClubBountyBounds, ClubBounty);
             if (MasterOfPictures.Verify(ClubBountyOriginal, ClubBounty))
-            {
+            {                
+                if (NoActiveBooster())
+                {
+                    se.ActivateClubBooster();
+                }
+                
+                Thread.Sleep(200);
                 f1.Clk(635, 750);
                 x = true;
             }
@@ -3544,11 +4837,12 @@ namespace Bot.v._0._07
         public bool ActiveEvent()
         {
             bool x = false;
-            string ButtonToEventTest = "HeadPictures\\TestButtonToEventBounds";
-            string ButtonToEventOriginal = "HeadPictures\\OriginalButtonToEventBounds";
+            string ButtonToEventTest = "HeadPictures\\TestButtonToEvent";
+            string ButtonToEventOriginal = "HeadPictures\\OriginalButtonToEvent";
+            string ButtonToEventOriginal1 = "HeadPictures\\OriginalButtonToEvent1";
             Rectangle ButtonToEventBounds = new Rectangle(1055, 790, 20, 20);
             MasterOfPictures.MakePicture(ButtonToEventBounds, ButtonToEventTest);
-            if (MasterOfPictures.Verify(ButtonToEventOriginal, ButtonToEventTest)) x = true;
+            if (MasterOfPictures.Verify(ButtonToEventOriginal, ButtonToEventTest) || MasterOfPictures.Verify(ButtonToEventOriginal1, ButtonToEventTest)) x = true;
 
             return x;
         }
@@ -3567,11 +4861,12 @@ namespace Bot.v._0._07
             Point GarageSlot10 = new Point(810, 590);*/
             Point[] a = { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6 };
             bool x = true;
+
             string[] b = {//с рамками
-                "Color [A=255, R=78, G=104, B=118]",
-                "Color [A=255, R=80, G=105, B=119]",
-                "Color [A=255, R=74, G=98, B=111]",
-                "Color [A=255, R=72, G=95, B=106]",
+                "Color [A=255, R=107, G=170, B=205]",//PL11
+                "Color [A=255, R=110, G=173, B=208]",//PL11
+                "Color [A=255, R=96, G=156, B=188]",//PL11
+                "Color [A=255, R=91, G=148, B=176]",//PL11
                 "Color [A=255, R=72, G=96, B=107]",
                 "Color [A=255, R=74, G=94, B=105]"
             };
@@ -3581,8 +4876,8 @@ namespace Bot.v._0._07
                 "Color [A=255, R=74, G=103, B=120]",
                 "Color [A=255, R=67, G=95, B=110]",
                 "Color [A=255, R=65, G=91, B=104]",
-                "Color [A=255, R=65, G=92, B=105]",
-                "Color [A=255, R=67, G=90, B=103]"
+                "Color [A=255, R=88, G=154, B=187]",//PL11
+                "Color [A=255, R=92, G=150, B=183]"//PL11
             };
 
             if (MasterOfPictures.PixelIndicator(a[n]) == b[n] || MasterOfPictures.PixelIndicator(a[n]) == c[n])
@@ -3596,11 +4891,10 @@ namespace Bot.v._0._07
         {
             string ControlScreenPath = "HeadPictures\\TestControlScreen";
             string ControlScreenOriginal = "HeadPictures\\OriginalControlScreen";
-            string ControlScreenOriginal1 = "HeadPictures\\OriginalControlScreen1";
             Rectangle ControlScreenBounds = new Rectangle(790, 790, 85, 25);
             bool x = false;
             MasterOfPictures.MakePicture(ControlScreenBounds, ControlScreenPath);
-            if (MasterOfPictures.Verify(ControlScreenPath, ControlScreenOriginal) || MasterOfPictures.Verify(ControlScreenPath, ControlScreenOriginal1)) x = true;
+            if (MasterOfPictures.Verify(ControlScreenPath, ControlScreenOriginal)) x = true;
             return x;
         }
 
@@ -3611,7 +4905,12 @@ namespace Bot.v._0._07
             Rectangle ClubMapBounds = new Rectangle(800, 720, 30, 30);
             bool x = false;
             MasterOfPictures.MakePicture(ClubMapBounds, ClubMapPath);
-            if (MasterOfPictures.Verify(ClubMapPath, ClubMapOriginal)) x = true;
+            if (MasterOfPictures.Verify(ClubMapPath, ClubMapOriginal))
+            {
+                NotePad.DoLog("карта клубов");
+                x = true;
+            }
+               
             return x;
         }
 
@@ -3703,13 +5002,33 @@ namespace Bot.v._0._07
             if (MasterOfPictures.Verify(FullEventPath, FullEventOriginal)) x = true;
             return x;
         }
+
+        public bool RedReadytoRace()
+        {
+            bool x = false;
+            string GarageRedRaceButtonPath = "HeadPictures\\TestRedRaceButton";
+            string GarageRedRaceButtonOriginal = "HeadPictures\\OriginalRedRaceButton";
+            Rectangle GarageRedRaceButtonBounds = new Rectangle(1075, 795, 95, 20);
+            MasterOfPictures.MakePicture(GarageRedRaceButtonBounds, GarageRedRaceButtonPath);
+            if (MasterOfPictures.Verify(GarageRedRaceButtonPath, GarageRedRaceButtonOriginal)) x = true;
+            return x;
+        }
     }
 
     public class Waiting
     {
         SpecialEvents se = new SpecialEvents();
         FastCheck fc = new FastCheck();
-        Form1 f1 = new Form1();
+
+        public void CarIsUpgraded()
+        {
+            do
+            {
+                Thread.Sleep(1000);
+            } while (!fc.CarIsUpgraded());
+            Thread.Sleep(3000);
+        }
+
         public void StartIcon()
         {
             Rectangle IcBounds = new Rectangle(805, 350, 50, 40);
@@ -3732,6 +5051,22 @@ namespace Bot.v._0._07
                 MasterOfPictures.MakePicture(AlcBounds, AlcPath);
                 Thread.Sleep(2000);
             } while (!MasterOfPictures.Verify(AlcPath, AlcOriginal));
+        }
+
+        public void Type()
+        {
+            do
+            {
+                Thread.Sleep(500);
+            } while (!fc.TypeIsOpenned());
+        }
+
+        public void Filter()
+        {
+            do
+            {                
+                Thread.Sleep(500);
+            } while (!fc.FilterIsOpenned());
         }
 
         public void HeadPage()
@@ -3813,6 +5148,18 @@ namespace Bot.v._0._07
             } while (!MasterOfPictures.Verify(RacePath, RaceOriginal) && !MasterOfPictures.Verify(RacePath, RaceOriginal1));
         }
 
+        public void PointsForRace()
+        {
+            string RacePointsPath = "HeadPictures\\TestRace";
+            string RacePointsOriginal = "HeadPictures\\OriginalRace";
+            Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
+            do
+            {
+                MasterOfPictures.MakePicture(RaceBounds, RacePointsPath);
+                Thread.Sleep(500);
+            } while (!MasterOfPictures.Verify(RacePointsPath, RacePointsOriginal));
+        }
+
         public void RaceOff()
         {
             string RacePath = "HeadPictures\\TestRace";
@@ -3826,17 +5173,39 @@ namespace Bot.v._0._07
             } while (MasterOfPictures.Verify(RacePath, RaceOriginal) || MasterOfPictures.Verify(RacePath, RaceOriginal1));
         }
 
-        public void ForEnemy()
+        public bool ForEnemy()
         {
+            bool x = false;
             string ChooseanEnemyPath = "HeadPictures\\TestChooseanEnemy";
             string ChooseanEnemyOriginal = "HeadPictures\\OriginalChooseanEnemy";
-            Rectangle ChooseanEnemyBounds = new Rectangle(155, 620, 7, 7);
+            Rectangle ChooseanEnemyBounds = new Rectangle(154, 605, 35, 35);
+
+            bool flag = false;
             do
             {
-                se.UniversalErrorDefense();
-                MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
-                Thread.Sleep(1500);
-            } while (!MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 10));
+                if (se.UnavailableEvent())
+                {
+                    se.UniversalErrorDefense();
+                    MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
+                    if(MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
+                    {
+                        flag = true;
+                        x = true;
+                        NotePad.DoLog("противник загрузился, готов фотать трассы");
+                    }
+                    if (fc.ClubMap() || fc.Bounty())
+                    {
+                        flag = true;
+                    }
+                }
+                else
+                {
+                    flag = true;
+                }
+                Thread.Sleep(1000);
+            } while (!flag);
+
+            return x;
         }
 
         public void Table()
@@ -3909,6 +5278,13 @@ namespace Bot.v._0._07
                 {
                     f1.Clk(1150, 240);
                     flag = false;
+                    Thread.Sleep(1000);
+                }
+                if (fc.EventPage())
+                {
+                    f1.Clk(240, 500);//Clubs
+                    flag = false;
+                    Thread.Sleep(15000);
                 }
                 Thread.Sleep(2000);
             } while (flag == false);
@@ -3993,9 +5369,69 @@ namespace Bot.v._0._07
                             NotePad.DoLog("выпало исключение Peugeot");
                             x = 500;
                         }
-                        if (x == 22 && rq < 50)//очень мало машин
+                        if (x == 22 && rq < 50)
                         {
                             NotePad.DoLog("выпало исключение French Renaissance");
+                            x = 500;
+                        }                        
+                        if (x == 24 && rq < 58)
+                        {
+                            NotePad.DoLog("выпало исключение всесезон");
+                            x = 500;
+                        }
+                        if (x == 25 && rq < 34)
+                        {
+                            NotePad.DoLog("выпало исключение ford");
+                            x = 500;
+                        }
+                        if (x == 26 && rq < 34)
+                        {
+                            NotePad.DoLog("выпало исключение bmw");
+                            x = 500;
+                        }
+                        if (x == 29 && rq < 54)
+                        {
+                            NotePad.DoLog("выпало исключение mazda");
+                            x = 500;
+                        }                    
+                        if (x == 34 && rq < 54)
+                        {
+                            NotePad.DoLog("выпало исключение dodge");
+                            x = 500;
+                        }
+                        if (x == 38 && rq < 74)
+                        {
+                            NotePad.DoLog("выпало исключение porsche");
+                            x = 500;
+                        }
+                        if (x == 39 && rq < 61)
+                        {
+                            NotePad.DoLog("выпало исключение opel");
+                            x = 500;
+                        }
+                        if (x == 42 && rq < 76)
+                        {
+                            NotePad.DoLog("выпало исключение 2000 4wd");
+                            x = 500;
+                        }
+                        if (x == 44 && rq < 42)
+                        {
+                            NotePad.DoLog("выпало исключение hot hutch");
+                            x = 500;
+                        }
+                        if (x == 45 && rq < 46)
+                        {
+                            NotePad.DoLog("выпало исключение Экологичная");
+                            x = 500;
+                        }
+                        if (x == 47 && rq < 62)
+                        {
+                            NotePad.DoLog("выпало исключение cadillac");
+                            x = 500;
+                        }
+                        if (x == 48 && rq < 25)
+                        {
+                            NotePad.DoLog("выпало исключение citroen");
                             x = 500;
                         }
                     }
@@ -4040,6 +5476,7 @@ namespace Bot.v._0._07
                         fc.MissClick();
                         Thread.Sleep(100);
                         fc.Bounty();
+                        if(fc.EventPage()) f1.Clk(240, 500);
                     } while (!fc.ClubMap());
 
                     x = Selection(i);
@@ -4133,2008 +5570,854 @@ namespace Bot.v._0._07
             switch (a)
             {
                 case 1:
-                    carid = 86;
+                    carid = 1509;
                     break;
                 case 2:
-                    carid = 1504;
+                    carid = 642;
                     break;
                 case 3:
-                    carid = 988;
+                    carid = 830;
                     break;
                 case 4:
+                    carid = 1389;
+                    break;
+                case 5:
+                    carid = 843;
+                    break;
+                case 6:
+                    carid = 1510;
+                    break;
+                case 7:
+                    carid = 1206;
+                    break;
+                case 8:
                     carid = 224;
                     break;
-                case 5:
-                    carid = 1642;
-                    break;
-                case 6:
-                    carid = 985;
-                    break;
-                case 7:
-                    carid = 1228;
-                    break;
-                case 8:
-                    carid = 859;
-                    break;
                 case 9:
-                    carid = 254;
+                    carid = 1896;
                     break;
                 case 10:
-                    carid = 596;
+                    carid = 437;
                     break;
                 case 11:
-                    carid = 1414;
+                    carid = 528;
                     break;
                 case 12:
-                    carid = 898;
+                    carid = 399;
                     break;
                 case 13:
-                    carid = 1287;
+                    carid = 1623;
                     break;
                 case 14:
-                    carid = 1016;
+                    carid = 480;
                     break;
                 case 15:
-                    carid = 725;
+                    carid = 424;
                     break;
                 case 16:
-                    carid = 686;
-                    break;
-                case 17:
-                    carid = 625;
-                    break;
-                case 18:
-                    carid = 749;
-                    break;
-                case 19:
-                    carid = 741;
-                    break;
-                case 20:
-                    carid = 865;
-                    break;
-                case 21:
-                    carid = 1399;
-                    break;
-                case 22:
-                    carid = 1042;
-                    break;
-                case 23:
-                    carid = 333;
-                    break;
-                case 24:
-                    carid = 953;
-                    break;
-                case 25:
-                    carid = 1187;
-                    break;
-                case 26:
-                    carid = 1380;
-                    break;
-                case 27:
-                    carid = 1229;
-                    break;
-                case 28:
-                    carid = 892;
-                    break;
-                case 29:
-                    carid = 748;
-                    break;
-                case 30:
-                    carid = 148;
-                    break;
-                case 31:
-                    carid = 287;
-                    break;
-                case 32:
-                    carid = 728;
-                    break;
-                case 33:
-                    carid = 170;
-                    break;
-                case 34:
                     carid = 735;
                     break;
-                case 35:
-                    carid = 349;
-                    break;
-                case 36:
-                    carid = 977;
-                    break;
-                case 37:
-                    carid = 281;
-                    break;
-                case 38:
-                    carid = 1138;
-                    break;
-                case 39:
-                    carid = 323;
-                    break;
-                case 40:
-                    carid = 665;
-                    break;
-                case 41:
-                    carid = 947;
-                    break;
-                case 42:
-                    carid = 1315;
-                    break;
-                case 43:
-                    carid = 938;
-                    break;
-                case 44:
-                    carid = 1068;
-                    break;
-                case 45:
-                    carid = 1071;
-                    break;
-                case 46:
-                    carid = 284;
-                    break;
-                case 47:
-                    carid = 117;
-                    break;
-                case 48:
-                    carid = 521;
-                    break;
-                case 49:
-                    carid = 937;
-                    break;
-                case 50:
-                    carid = 35;
-                    break;
-                case 51:
-                    carid = 1067;
-                    break;
-                case 52:
-                    carid = 513;
-                    break;
-                case 53:
-                    carid = 955;
-                    break;
-                case 54:
-                    carid = 1471;
-                    break;
-                case 55:
-                    carid = 724;
-                    break;
-                case 56:
-                    carid = 1451;
-                    break;
-                case 57:
-                    carid = 330;
-                    break;
-                case 58:
-                    carid = 389;
-                    break;
-                case 59:
-                    carid = 1480;
-                    break;
-                case 60:
-                    carid = 699;
-                    break;
-                case 61:
-                    carid = 1190;
-                    break;
-                case 62:
-                    carid = 1115;
-                    break;
-                case 63:
-                    carid = 597;
-                    break;
-                case 64:
-                    carid = 1186;
-                    break;
-                case 65:
-                    carid = 1209;
-                    break;
-                case 66:
-                    carid = 1385;
-                    break;
-                case 67:
-                    carid = 479;
-                    break;
-                case 68:
-                    carid = 1469;
-                    break;
-                case 69:
-                    carid = 1386;
-                    break;
-                case 70:
-                    carid = 868;
-                    break;
-                case 71:
-                    carid = 747;
-                    break;
-                case 72:
-                    carid = 1383;
-                    break;
-                case 73:
-                    carid = 742;
-                    break;
-                case 74:
-                    carid = 731;
-                    break;
-                case 75:
-                    carid = 744;
-                    break;
-                case 76:
-                    carid = 745;
-                    break;
-                case 77:
-                    carid = 156;
-                    break;
-                case 78:
-                    carid = 1377;
-                    break;
-                case 79:
-                    carid = 313;
-                    break;
-                case 80:
-                    carid = 240;
-                    break;
-                case 81:
-                    carid = 1378;
-                    break;
-                case 82:
-                    carid = 565;
-                    break;
-                case 83:
-                    carid = 485;
-                    break;
-                case 84:
-                    carid = 1638;
-                    break;
-                case 85:
-                    carid = 650;
-                    break;
-                case 86:
-                    carid = 642;
-                    break;
-                case 87:
-                    carid = 634;
-                    break;
-                case 88:
-                    carid = 1095;
-                    break;
-                case 89:
-                    carid = 258;
-                    break;
-                case 90:
-                    carid = 1121;
-                    break;
-                case 91:
-                    carid = 329;
-                    break;
-                case 92:
-                    carid = 1375;
-                    break;
-                case 93:
-                    carid = 289;
-                    break;
-                case 94:
-                    carid = 1110;
-                    break;
-                case 95:
-                    carid = 1404;
-                    break;
-                case 96:
-                    carid = 353;
-                    break;
-                case 97:
-                    carid = 334;
-                    break;
-                case 98:
-                    carid = 371;
-                    break;
-                case 99:
-                    carid = 455;
-                    break;
-                case 100:
-                    carid = 1236;
-                    break;
-                case 101:
-                    carid = 311;
-                    break;
-                case 102:
-                    carid = 633;
-                    break;
-                case 103:
-                    carid = 468;
-                    break;
-                case 104:
-                    carid = 232;
-                    break;
-                case 105:
-                    carid = 277;
-                    break;
-                case 106:
-                    carid = 370;
-                    break;
-                case 107:
-                    carid = 1584;
-                    break;
-                case 108:
-                    carid = 1168;
-                    break;
-                case 109:
-                    carid = 1610;
-                    break;
-                case 110:
-                    carid = 478;
-                    break;
-                case 111:
-                    carid = 1387;
-                    break;
-                case 112:
-                    carid = 588;
-                    break;
-                case 113:
-                    carid = 1376;
-                    break;
-                case 114:
-                    carid = 1536;
-                    break;
-                case 115:
-                    carid = 1313;
-                    break;
-                case 116:
-                    carid = 316;
-                    break;
-                case 117:
-                    carid = 667;
-                    break;
-                default:
-                    break;
-            }
-            return carid;
-        }
-
-        public int Identify2Car(int a)
-        {
-            int carid = 0;
-            switch (a)
-            {
-                default:
-                    break;
-            }
-            return carid;
-        }
-
-        public int Identify3Car(int a)
-        {
-            int carid = 0;
-            switch (a)
-            {
-                case 1:
-                    carid = 937;
-                    break;
-                case 2:
-                    carid = 1500;
-                    break;
-                case 3:
-                    carid = 1195;
-                    break;
-                case 4:
-                    carid = 1236;
-                    break;
-                case 5:
-                    carid = 892;
-                    break;
-                case 6:
-                    carid = 282;
-                    break;
-                case 7:
-                    carid = 872;
-                    break;
-                case 8:
-                    carid = 1504;
-                    break;
-                case 9:
-                    carid = 1378;
-                    break;
-                case 10:
-                    carid = 871;
-                    break;
-                case 11:
-                    carid = 870;
-                    break;
-                case 12:
-                    carid = 116;
-                    break;
-                case 13:
-                    carid = 725;
-                    break;
-                case 14:
-                    carid = 313;
-                    break;
-                case 15:
-                    carid = 947;
-                    break;
-                case 16:
-                    carid = 743;
-                    break;
                 case 17:
-                    carid = 378;
+                    carid = 758;
                     break;
                 case 18:
-                    carid = 1399;
+                    carid = 1517;
                     break;
                 case 19:
-                    carid = 1337;
-                    break;
-                case 20:
-                    carid = 744;
-                    break;
-                case 21:
-                    carid = 1292;
-                    break;
-                case 22:
-                    carid = 1187;
-                    break;
-                case 23:
-                    carid = 108;
-                    break;
-                case 24:
-                    carid = 283;
-                    break;
-                case 25:
-                    carid = 287;
-                    break;
-                case 26:
-                    carid = 1304;
-                    break;
-                case 27:
-                    carid = 563;
-                    break;
-                case 28:
-                    carid = 1229;
-                    break;
-                case 29:
-                    carid = 361;
-                    break;
-                case 30:
-                    carid = 817;
-                    break;
-                case 31:
-                    carid = 349;
-                    break;
-                case 32:
-                    carid = 96;
-                    break;
-                case 33:
-                    carid = 368;
-                    break;
-                case 34:
-                    carid = 521;
-                    break;
-                case 35:
-                    carid = 343;
-                    break;
-                case 36:
-                    carid = 958;
-                    break;
-                case 37:
-                    carid = 972;
-                    break;
-                case 38:
-                    carid = 652;
-                    break;
-                case 39:
-                    carid = 1471;
-                    break;
-                case 40:
-                    carid = 1066;
-                    break;
-                case 41:
-                    carid = 842;
-                    break;
-                case 42:
-                    carid = 1071;
-                    break;
-                case 43:
-                    carid = 1451;
-                    break;
-                case 44:
-                    carid = 1203;
-                    break;
-                case 45:
-                    carid = 700;
-                    break;
-                case 46:
-                    carid = 1042;
-                    break;
-                case 47:
-                    carid = 1115;
-                    break;
-                case 48:
-                    carid = 41;
-                    break;
-                case 49:
-                    carid = 828;
-                    break;
-                case 50:
-                    carid = 20;
-                    break;
-                case 51:
-                    carid = 326;
-                    break;
-                case 52:
-                    carid = 1198;
-                    break;
-                case 53:
-                    carid = 949;
-                    break;
-                case 54:
-                    carid = 865;
-                    break;
-                case 55:
-                    carid = 381;
-                    break;
-                case 56:
-                    carid = 699;
-                    break;
-                case 57:
-                    carid = 1480;
-                    break;
-                case 58:
-                    carid = 321;
-                    break;
-                case 59:
-                    carid = 1001;
-                    break;
-                case 60:
-                    carid = 1073;
-                    break;
-                case 61:
-                    carid = 35;
-                    break;
-                case 62:
-                    carid = 1628;
-                    break;
-                case 63:
-                    carid = 1251;
-                    break;
-                case 64:
-                    carid = 944;
-                    break;
-                case 65:
-                    carid = 323;
-                    break;
-                case 66:
-                    carid = 1443;
-                    break;
-                case 67:
-                    carid = 1472;
-                    break;
-                case 68:
-                    carid = 1430;
-                    break;
-                case 69:
-                    carid = 333;
-                    break;
-                case 70:
-                    carid = 588;
-                    break;
-                case 71:
-                    carid = 1054;
-                    break;
-                case 72:
-                    carid = 372;
-                    break;
-                case 73:
-                    carid = 453;
-                    break;
-                case 74:
-                    carid = 315;
-                    break;
-                case 75:
-                    carid = 585;
-                    break;
-                case 76:
-                    carid = 89;
-                    break;
-                case 77:
-                    carid = 577;
-                    break;
-                case 78:
-                    carid = 1333;
-                    break;
-                case 79:
-                    carid = 1638;
-                    break;
-                case 80:
-                    carid = 729;
-                    break;
-                case 81:
-                    carid = 747;
-                    break;
-                case 82:
-                    carid = 1386;
-                    break;
-                case 83:
-                    carid = 726;
-                    break;
-                case 84:
-                    carid = 1210;
-                    break;
-                case 85:
-                    carid = 389;
-                    break;
-                case 86:
-                    carid = 597;
-                    break;
-                case 87:
-                    carid = 818;
-                    break;
-                case 88:
-                    carid = 1315;
-                    break;
-                case 89:
-                    carid = 1400;
-                    break;
-                case 90:
-                    carid = 666;
-                    break;
-                case 91:
-                    carid = 1469;
-                    break;
-                case 92:
-                    carid = 641;
-                    break;
-                case 93:
-                    carid = 460;
-                    break;
-                case 94:
-                    carid = 455;
-                    break;
-                case 95:
-                    carid = 1602;
-                    break;
-                case 96:
-                    carid = 50;
-                    break;
-                case 97:
-                    carid = 596;
-                    break;
-                case 98:
-                    carid = 339;
-                    break;
-                case 99:
-                    carid = 398;
-                    break;
-                case 100:
-                    carid = 565;
-                    break;
-                case 101:
-                    carid = 370;
-                    break;
-                case 102:
-                    carid = 475;
-                    break;
-                case 103:
-                    carid = 634;
-                    break;
-                case 104:
-                    carid = 277;
-                    break;
-                case 105:
-                    carid = 706;
-                    break;
-                case 106:
-                    carid = 318;
-                    break;
-                case 107:
-                    carid = 367;
-                    break;
-                case 108:
-                    carid = 350;
-                    break;
-                case 109:
-                    carid = 633;
-                    break;
-                case 110:
-                    carid = 1489;
-                    break;
-                case 111:
-                    carid = 479;
-                    break;
-                case 112:
-                    carid = 1353;
-                    break;
-                case 113:
-                    carid = 311;
-                    break;
-                case 114:
-                    carid = 604;
-                    break;
-                case 115:
-                    carid = 289;
-                    break;
-                case 116:
-                    carid = 263;
-                    break;
-                case 117:
-                    carid = 562;
-                    break;
-                case 118:
-                    carid = 1385;
-                    break;
-                case 119:
-                    carid = 858;
-                    break;
-                case 120:
-                    carid = 798;
-                    break;
-                case 121:
-                    carid = 386;
-                    break;
-                case 122:
-                    carid = 1194;
-                    break;
-                case 123:
-                    carid = 611;
-                    break;
-                case 124:
-                    carid = 1387;
-                    break;
-                case 125:
-                    carid = 1314;
-                    break;
-                case 126:
-                    carid = 294;
-                    break;
-                case 127:
-                    carid = 705;
-                    break;
-                case 128:
-                    carid = 485;
-                    break;
-                case 129:
-                    carid = 538;
-                    break;
-                case 130:
-                    carid = 358;
-                    break;
-                case 131:
-                    carid = 1367;
-                    break;
-                case 132:
-                    carid = 490;
-                    break;
-                case 133:
-                    carid = 27;
-                    break;
-                case 134:
-                    carid = 1316;
-                    break;
-                case 135:
-                    carid = 371;
-                    break;
-                case 136:
-                    carid = 317;
-                    break;
-                case 137:
-                    carid = 1199;
-                    break;
-                case 138:
-                    carid = 976;
-                    break;
-                case 139:
-                    carid = 644;
-                    break;
-                case 140:
-                    carid = 254;
-                    break;
-                case 141:
-                    carid = 867;
-                    break;
-                case 142:
-                    carid = 471;
-                    break;
-                case 143:
-                    carid = 415;
-                    break;
-                case 144:
-                    carid = 531;
-                    break;
-                case 145:
-                    carid = 270;
-                    break;
-                case 146:
-                    carid = 754;
-                    break;
-                case 147:
-                    carid = 528;
-                    break;
-                case 148:
-                    carid = 667;
-                    break;
-                case 149:
-                    carid = 559;
-                    break;
-                case 150:
-                    carid = 844;
-                    break;
-                default:
-                    break;
-            }
-            return carid;
-        }
-
-        public int Identify4Car(int a)
-        {
-            int carid = 0;
-            switch (a)
-            {
-                case 1:
-                    carid = 947;
-                    break;
-                case 2:
-                    carid = 1472;
-                    break;
-                case 3:
-                    carid = 282;
-                    break;
-                case 4:
-                    carid = 1370;
-                    break;
-                case 5:
-                    carid = 1378;
-                    break;
-                case 6:
-                    carid = 1480;
-                    break;
-                case 7:
-                    carid = 667;
-                    break;
-                case 8:
-                    carid = 265;
-                    break;
-                case 9:
-                    carid = 349;
-                    break;
-                case 10:
-                    carid = 944;
-                    break;
-                case 11:
-                    carid = 1195;
-                    break;
-                case 12:
-                    carid = 392;
-                    break;
-                case 13:
-                    carid = 652;
-                    break;
-                case 14:
-                    carid = 937;
-                    break;
-                case 15:
-                    carid = 1398;
-                    break;
-                case 16:
-                    carid = 302;
-                    break;
-                case 17:
-                    carid = 952;
-                    break;
-                case 18:
-                    carid = 1203;
-                    break;
-                case 19:
-                    carid = 1399;
-                    break;
-                case 20:
-                    carid = 323;
-                    break;
-                case 21:
-                    carid = 1442;
-                    break;
-                case 22:
-                    carid = 96;
-                    break;
-                case 23:
-                    carid = 95;
-                    break;
-                case 24:
-                    carid = 366;
-                    break;
-                case 25:
-                    carid = 116;
-                    break;
-                case 26:
-                    carid = 744;
-                    break;
-                case 27:
-                    carid = 1346;
-                    break;
-                case 28:
-                    carid = 459;
-                    break;
-                case 29:
-                    carid = 108;
-                    break;
-                case 30:
-                    carid = 473;
-                    break;
-                case 31:
-                    carid = 148;
-                    break;
-                case 32:
-                    carid = 972;
-                    break;
-                case 33:
-                    carid = 1202;
-                    break;
-                case 34:
-                    carid = 926;
-                    break;
-                case 35:
-                    carid = 892;
-                    break;
-                case 36:
-                    carid = 92;
-                    break;
-                case 37:
-                    carid = 748;
-                    break;
-                case 38:
-                    carid = 1065;
-                    break;
-                case 39:
-                    carid = 18;
-                    break;
-                case 40:
-                    carid = 1119;
-                    break;
-                case 41:
-                    carid = 1471;
-                    break;
-                case 42:
-                    carid = 1066;
-                    break;
-                case 43:
-                    carid = 1036;
-                    break;
-                case 44:
-                    carid = 161;
-                    break;
-                case 45:
-                    carid = 1115;
-                    break;
-                case 46:
-                    carid = 217;
-                    break;
-                case 47:
-                    carid = 635;
-                    break;
-                case 48:
-                    carid = 609;
-                    break;
-                case 49:
-                    carid = 1082;
-                    break;
-                case 50:
-                    carid = 700;
-                    break;
-                case 51:
-                    carid = 1090;
-                    break;
-                case 52:
-                    carid = 1315;
-                    break;
-                case 53:
-                    carid = 939;
-                    break;
-                case 54:
-                    carid = 1139;
-                    break;
-                case 55:
-                    carid = 521;
-                    break;
-                case 56:
-                    carid = 825;
-                    break;
-                case 57:
-                    carid = 1284;
-                    break;
-                case 58:
-                    carid = 280;
-                    break;
-                case 59:
-                    carid = 686;
-                    break;
-                case 60:
-                    carid = 1436;
-                    break;
-                case 61:
-                    carid = 585;
-                    break;
-                case 62:
-                    carid = 513;
-                    break;
-                case 63:
-                    carid = 35;
-                    break;
-                case 64:
-                    carid = 1121;
-                    break;
-                case 65:
-                    carid = 948;
-                    break;
-                case 66:
-                    carid = 865;
-                    break;
-                case 67:
-                    carid = 1489;
-                    break;
-                case 68:
-                    carid = 648;
-                    break;
-                case 69:
-                    carid = 485;
-                    break;
-                case 70:
-                    carid = 1210;
-                    break;
-                case 71:
-                    carid = 519;
-                    break;
-                case 72:
-                    carid = 450;
-                    break;
-                case 73:
-                    carid = 93;
-                    break;
-                case 74:
-                    carid = 478;
-                    break;
-                case 75:
-                    carid = 479;
-                    break;
-                case 76:
-                    carid = 831;
-                    break;
-                case 77:
-                    carid = 50;
-                    break;
-                case 78:
-                    carid = 371;
-                    break;
-                case 79:
-                    carid = 732;
-                    break;
-                case 80:
-                    carid = 258;
-                    break;
-                case 81:
-                    carid = 743;
-                    break;
-                case 82:
-                    carid = 726;
-                    break;
-                case 83:
-                    carid = 373;
-                    break;
-                case 84:
-                    carid = 386;
-                    break;
-                case 85:
-                    carid = 596;
-                    break;
-                case 86:
-                    carid = 330;
-                    break;
-                case 87:
-                    carid = 1580;
-                    break;
-                case 88:
-                    carid = 567;
-                    break;
-                case 89:
-                    carid = 471;
-                    break;
-                case 90:
-                    carid = 1598;
-                    break;
-                case 91:
-                    carid = 254;
-                    break;
-                case 92:
-                    carid = 641;
-                    break;
-                case 93:
-                    carid = 644;
-                    break;
-                case 94:
-                    carid = 274;
-                    break;
-                case 95:
-                    carid = 455;
-                    break;
-                case 96:
-                    carid = 630;
-                    break;
-                case 97:
-                    carid = 695;
-                    break;
-                case 98:
-                    carid = 578;
-                    break;
-                case 99:
-                    carid = 389;
-                    break;
-                case 100:
-                    carid = 1353;
-                    break;
-                case 101:
-                    carid = 1534;
-                    break;
-                case 102:
-                    carid = 370;
-                    break;
-                case 103:
-                    carid = 468;
-                    break;
-                case 104:
-                    carid = 380;
-                    break;
-                case 105:
-                    carid = 240;
-                    break;
-                case 106:
-                    carid = 312;
-                    break;
-                case 107:
-                    carid = 1314;
-                    break;
-                case 108:
-                    carid = 633;
-                    break;
-                case 109:
-                    carid = 1316;
-                    break;
-                case 110:
-                    carid = 398;
-                    break;
-                default:
-                    break;
-            }
-            return carid;
-        }
-
-        public int Identify5Car(int a)
-        {
-            int carid = 0;
-            switch (a)
-            {
-                case 1:
-                    carid = 1456;
-                    break;
-                case 2:
-                    carid = 1039;
-                    break;
-                case 3:
-                    carid = 35;
-                    break;
-                case 4:
-                    carid = 282;
-                    break;
-                case 5:
-                    carid = 1443;
-                    break;
-                case 6:
-                    carid = 1236;
-                    break;
-                case 7:
-                    carid = 744;
-                    break;
-                case 8:
-                    carid = 473;
-                    break;
-                case 9:
-                    carid = 148;
-                    break;
-                case 10:
-                    carid = 947;
-                    break;
-                case 11:
-                    carid = 1638;
-                    break;
-                case 12:
-                    carid = 944;
-                    break;
-                case 13:
-                    carid = 652;
-                    break;
-                case 14:
-                    carid = 926;
-                    break;
-                case 15:
-                    carid = 799;
-                    break;
-                case 16:
-                    carid = 384;
-                    break;
-                case 17:
-                    carid = 1399;
-                    break;
-                case 18:
-                    carid = 501;
-                    break;
-                case 19:
-                    carid = 108;
-                    break;
-                case 20:
-                    carid = 1398;
-                    break;
-                case 21:
-                    carid = 898;
-                    break;
-                case 22:
-                    carid = 468;
-                    break;
-                case 23:
-                    carid = 365;
-                    break;
-                case 24:
-                    carid = 972;
-                    break;
-                case 25:
-                    carid = 378;
-                    break;
-                case 26:
-                    carid = 91;
-                    break;
-                case 27:
-                    carid = 635;
-                    break;
-                case 28:
-                    carid = 92;
-                    break;
-                case 29:
-                    carid = 1275;
-                    break;
-                case 30:
-                    carid = 1187;
-                    break;
-                case 31:
-                    carid = 665;
-                    break;
-                case 32:
-                    carid = 937;
-                    break;
-                case 33:
-                    carid = 44;
-                    break;
-                case 34:
-                    carid = 1471;
-                    break;
-                case 35:
-                    carid = 1442;
-                    break;
-                case 36:
-                    carid = 1121;
-                    break;
-                case 37:
-                    carid = 842;
-                    break;
-                case 38:
-                    carid = 825;
-                    break;
-                case 39:
-                    carid = 521;
-                    break;
-                case 40:
-                    carid = 1190;
-                    break;
-                case 41:
-                    carid = 958;
-                    break;
-                case 42:
-                    carid = 892;
-                    break;
-                case 43:
-                    carid = 650;
-                    break;
-                case 44:
-                    carid = 745;
-                    break;
-                case 45:
-                    carid = 280;
-                    break;
-                case 46:
-                    carid = 1472;
-                    break;
-                case 47:
-                    carid = 1458;
-                    break;
-                case 48:
-                    carid = 20;
-                    break;
-                case 49:
-                    carid = 1469;
-                    break;
-                case 50:
-                    carid = 1202;
-                    break;
-                case 51:
-                    carid = 6;
-                    break;
-                case 52:
-                    carid = 724;
-                    break;
-                case 53:
-                    carid = 725;
-                    break;
-                case 54:
-                    carid = 1489;
-                    break;
-                case 55:
-                    carid = 1333;
-                    break;
-                case 56:
-                    carid = 679;
-                    break;
-                case 57:
-                    carid = 565;
-                    break;
-                case 58:
-                    carid = 450;
-                    break;
-                case 59:
-                    carid = 270;
-                    break;
-                case 60:
-                    carid = 315;
-                    break;
-                case 61:
-                    carid = 844;
-                    break;
-                case 62:
-                    carid = 585;
-                    break;
-                case 63:
-                    carid = 386;
-                    break;
-                case 64:
-                    carid = 50;
-                    break;
-                case 65:
-                    carid = 726;
-                    break;
-                case 66:
-                    carid = 373;
-                    break;
-                case 67:
-                    carid = 95;
-                    break;
-                case 68:
-                    carid = 372;
-                    break;
-                case 69:
-                    carid = 695;
-                    break;
-                case 70:
-                    carid = 634;
-                    break;
-                case 71:
-                    carid = 466;
-                    break;
-                case 72:
-                    carid = 1558;
-                    break;
-                case 73:
-                    carid = 1492;
-                    break;
-                case 74:
-                    carid = 398;
-                    break;
-                case 75:
-                    carid = 88;
-                    break;
-                case 76:
-                    carid = 331;
-                    break;
-                case 77:
-                    carid = 252;
-                    break;
-                case 78:
-                    carid = 239;
-                    break;
-                case 79:
-                    carid = 289;
-                    break;
-                case 80:
-                    carid = 318;
-                    break;
-                case 81:
-                    carid = 1214;
-                    break;
-                case 82:
-                    carid = 1191;
-                    break;
-                case 83:
-                    carid = 1353;
-                    break;
-                case 84:
-                    carid = 644;
-                    break;
-                case 85:
-                    carid = 277;
-                    break;
-                case 86:
-                    carid = 823;
-                    break;
-                case 87:
-                    carid = 93;
-                    break;
-                case 88:
-                    carid = 312;
-                    break;
-                case 89:
-                    carid = 645;
-                    break;
-                case 90:
-                    carid = 1315;
-                    break;
-                case 91:
-                    carid = 311;
-                    break;
-                case 92:
-                    carid = 294;
-                    break;
-                case 93:
-                    carid = 569;
-                    break;
-                case 94:
-                    carid = 302;
-                    break;
-                case 95:
-                    carid = 343;
-                    break;
-                case 96:
-                    carid = 1197;
-                    break;
-                case 97:
-                    carid = 562;
-                    break;
-                case 98:
-                    carid = 604;
-                    break;
-                case 99:
-                    carid = 1110;
-                    break;
-                case 100:
-                    carid = 339;
-                    break;
-                case 101:
-                    carid = 1219;
-                    break;
-                case 102:
-                    carid = 1314;
-                    break;
-                case 103:
-                    carid = 818;
-                    break;
-                case 104:
-                    carid = 257;
-                    break;
-                case 105:
-                    carid = 705;
-                    break;
-                case 106:
-                    carid = 321;
-                    break;
-                case 107:
-                    carid = 1192;
-                    break;
-                case 108:
-                    carid = 1085;
-                    break;
-                case 109:
-                    carid = 559;
-                    break;
-                case 110:
-                    carid = 1354;
-                    break;
-                case 111:
-                    carid = 1129;
-                    break;
-                case 112:
-                    carid = 1541;
-                    break;
-                case 113:
-                    carid = 601;
-                    break;
-                case 114:
-                    carid = 642;
-                    break;
-                case 115:
-                    carid = 1317;
-                    break;
-                case 116:
-                    carid = 1074;
-                    break;
-                case 117:
-                    carid = 359;
-                    break;
-                case 118:
-                    carid = 478;
-                    break;
-                case 119:
-                    carid = 263;
-                    break;
-                case 120:
-                    carid = 476;
-                    break;
-                case 121:
-                    carid = 615;
-                    break;
-                case 122:
-                    carid = 630;
-                    break;
-                case 123:
-                    carid = 980;
-                    break;
-                case 124:
-                    carid = 1628;
-                    break;
-                case 125:
-                    carid = 89;
-                    break;
-                case 126:
-                    carid = 410;
-                    break;
-                case 127:
-                    carid = 831;
-                    break;
-                case 128:
-                    carid = 1167;
-                    break;
-                case 129:
-                    carid = 414;
-                    break;
-                case 130:
-                    carid = 828;
-                    break;
-                case 131:
-                    carid = 1532;
-                    break;
-                case 132:
-                    carid = 1524;
-                    break;
-                case 133:
-                    carid = 704;
-                    break;
-                case 134:
-                    carid = 949;
-                    break;
-                case 135:
-                    carid = 1195;
-                    break;
-                case 136:
-                    carid = 867;
-                    break;
-                case 137:
-                    carid = 539;
-                    break;
-                case 138:
-                    carid = 352;
-                    break;
-                case 139:
-                    carid = 349;
-                    break;
-                case 140:
-                    carid = 323;
-                    break;
-                case 141:
-                    carid = 1602;
-                    break;
-                case 142:
-                    carid = 1377;
-                    break;
-                case 143:
-                    carid = 207;
-                    break;
-                case 144:
-                    carid = 1604;
-                    break;
-                case 145:
-                    carid = 1168;
-                    break;
-                case 146:
-                    carid = 467;
-                    break;
-                case 147:
-                    carid = 1637;
-                    break;
-                case 148:
-                    carid = 995;
-                    break;
-                case 149:
-                    carid = 284;
-                    break;
-                case 150:
-                    carid = 1500;
-                    break;
-                case 151:
-                    carid = 1387;
-                    break;
-                case 152:
-                    carid = 1305;
-                    break;
-                case 153:
-                    carid = 1385;
-                    break;
-                case 154:
-                    carid = 860;
-                    break;
-                case 155:
-                    carid = 485;
-                    break;
-                case 156:
-                    carid = 1644;
-                    break;
-                case 157:
-                    carid = 1135;
-                    break;
-                case 158:
-                    carid = 1027;
-                    break;
-                case 159:
-                    carid = 1222;
-                    break;
-                case 160:
-                    carid = 1386;
-                    break;
-                case 161:
-                    carid = 1346;
-                    break;
-                case 162:
-                    carid = 835;
-                    break;
-                case 163:
-                    carid = 924;
-                    break;
-                case 164:
-                    carid = 1409;
-                    break;
-                case 165:
-                    carid = 316;
-                    break;
-                case 166:
-                    carid = 587;
-                    break;
-                case 167:
-                    carid = 1028;
-                    break;
-                case 168:
-                    carid = 1552;
-                    break;
-                case 169:
-                    carid = 589;
-                    break;
-                case 170:
-                    carid = 1534;
-                    break;
-                case 171:
-                    carid = 240;
-                    break;
-                case 172:
-                    carid = 1376;
-                    break;
-                case 173:
-                    carid = 520;
-                    break;
-                case 174:
-                    carid = 445;
-                    break;
-                case 175:
-                    carid = 951;
-                    break;
-                case 176:
-                    carid = 1400;
-                    break;
-                case 177:
-                    carid = 1627;
-                    break;
-                case 178:
-                    carid = 619;
-                    break;
-                case 179:
-                    carid = 471;
-                    break;
-                case 180:
-                    carid = 1423;
-                    break;
-                case 181:
-                    carid = 699;
-                    break;
-                case 182:
-                    carid = 1444;
-                    break;
-                case 183:
-                    carid = 977;
-                    break;
-                case 184:
-                    carid = 1194;
-                    break;
-                case 185:
-                    carid = 294;
-                    break;
-                case 186:
-                    carid = 1598;
-                    break;
-                case 187:
-                    carid = 435;
-                    break;
-                case 188:
-                    carid = 618;
-                    break;
-                case 189:
-                    carid = 363;
-                    break;
-                case 190:
-                    carid = 622;
-                    break;
-                case 191:
-                    carid = 1451;
-                    break;
-                case 192:
-                    carid = 1480;
-                    break;
-                case 193:
-                    carid = 353;
-                    break;
-                case 194:
-                    carid = 1370;
-                    break;
-                case 195:
-                    carid = 1281;
-                    break;
-                case 196:
-                    carid = 96;
-                    break;
-                case 197:
-                    carid = 1620;
-                    break;
-                case 198:
-                    carid = 1073;
-                    break;
-                case 199:
-                    carid = 1138;
-                    break;
-                case 200:
-                    carid = 712;
-                    break;
-                case 201:
-                    carid = 1090;
-                    break;
-                case 202:
-                    carid = 1056;
-                    break;
-                case 203:
-                    carid = 368;
-                    break;
-                case 204:
-                    carid = 706;
-                    break;
-                case 205:
-                    carid = 104;
-                    break;
-                case 206:
-                    carid = 1196;
-                    break;
-                case 207:
-                    carid = 528;
-                    break;
-                case 208:
                     carid = 1113;
                     break;
-                case 209:
-                    carid = 1115;
+                case 20:
+                    carid = 456;
                     break;
-                case 210:
-                    carid = 1044;
+                case 21:
+                    carid = 840;
                     break;
-                case 211:
-                    carid = 693;
+                case 22:
+                    carid = 780;
                     break;
-                case 212:
-                    carid = 540;
+                case 23:
+                    carid = 1674;
                     break;
-                case 213:
-                    carid = 1095;
+                case 24:
+                    carid = 710;
                     break;
-                case 214:
-                    carid = 1487;
+                case 25:
+                    carid = 380;
                     break;
-                case 215:
-                    carid = 371;
+                case 26:
+                    carid = 1204;
                     break;
-                case 216:
-                    carid = 1496;
+                case 27:
+                    carid = 1707;
                     break;
-                case 217:
-                    carid = 1229;
+                case 28:
+                    carid = 1143;
                     break;
-                case 218:
-                    carid = 721;
+                case 29:
+                    carid = 1687;
                     break;
-                case 219:
-                    carid = 112;
+                case 30:
+                    carid = 1798;
                     break;
-                case 220:
-                    carid = 1635;
+                case 31:
+                    carid = 653;
                     break;
-                case 221:
-                    carid = 1071;
+                case 32:
+                    carid = 426;
                     break;
-                case 222:
-                    carid = 1470;
+                case 33:
+                    carid = 1873;
                     break;
-                case 223:
+                case 34:
+                    carid = 1304;
+                    break;
+                case 35:
+                    carid = 1795;
+                    break;
+                case 36:
+                    carid = 400;
+                    break;
+                case 37:
+                    carid = 1689;
+                    break;
+                case 38:
+                    carid = 1289;
+                    break;
+                case 39:
+                    carid = 1068;
+                    break;
+                case 40:
+                    carid = 395;
+                    break;
+                case 41:
+                    carid = 1352;
+                    break;
+                case 42:
+                    carid = 1901;
+                    break;
+                case 43:
+                    carid = 394;
+                    break;
+                case 44:
+                    carid = 747;
+                    break;
+                case 45:
+                    carid = 1355;
+                    break;
+                case 46:
+                    carid = 1661;
+                    break;
+                case 47:
+                    carid = 1345;
+                    break;
+                case 48:
+                    carid = 1721;
+                    break;
+                case 49:
+                    carid = 1441;
+                    break;
+                case 50:
+                    carid = 908;
+                    break;
+                case 51:
+                    carid = 436;
+                    break;
+                case 52:
+                    carid = 757;
+                    break;
+                case 53:
+                    carid = 20;
+                    break;
+                case 54:
+                    carid = 1524;
+                    break;
+                case 55:
+                    carid = 778;
+                    break;
+                case 56:
+                    carid = 1263;
+                    break;
+                case 57:
+                    carid = 703;
+                    break;
+                case 58:
+                    carid = 566;
+                    break;
+                case 59:
+                    carid = 701;
+                    break;
+                case 60:
+                    carid = 702;
+                    break;
+                case 61:
+                    carid = 1677;
+                    break;
+                case 62:
+                    carid = 491;
+                    break;
+                case 63:
+                    carid = 1241;
+                    break;
+                case 64:
+                    carid = 368;
+                    break;
+                case 65:
+                    carid = 699;
+                    break;
+                case 66:
+                    carid = 121;
+                    break;
+                case 67:
+                    carid = 1660;
+                    break;
+                case 68:
+                    carid = 825;
+                    break;
+                case 69:
+                    carid = 1228;
+                    break;
+                case 70:
+                    carid = 824;
+                    break;
+                case 71:
+                    carid = 261;
+                    break;
+                case 72:
+                    carid = 1673;
+                    break;
+                case 73:
                     carid = 1186;
                     break;
-                case 224:
-                    carid = 1464;
+                case 74:
+                    carid = 1147;
                     break;
-                case 225:
-                    carid = 36;
+                case 75:
+                    carid = 1859;
                     break;
-                case 226:
-                    carid = 870;
+                case 76:
+                    carid = 765;
                     break;
-                case 227:
-                    carid = 980;
+                case 77:
+                    carid = 1881;
                     break;
-                case 228:
-                    carid = 27;
+                case 78:
+                    carid = 1882;
                     break;
-                case 229:
-                    carid = 490;
+                case 79:
+                    carid = 627;
                     break;
-                case 230:
-                    carid = 648;
+                case 80:
+                    carid = 1607;
                     break;
-                case 231:
+                case 81:
+                    carid = 691;
+                    break;
+                case 82:
+                    carid = 991;
+                    break;
+                case 83:
+                    carid = 330;
+                    break;
+                case 84:
+                    carid = 1399;
+                    break;
+                case 85:
+                    carid = 1761;
+                    break;
+                case 86:
+                    carid = 808;
+                    break;
+                case 87:
+                    carid = 745;
+                    break;
+                case 88:
+                    carid = 56;
+                    break;
+                case 89:
+                    carid = 586;
+                    break;
+                case 90:
                     carid = 743;
                     break;
-                case 232:
+                case 91:
+                    carid = 221;
+                    break;
+                case 92:
+                    carid = 1733;
+                    break;
+                case 93:
+                    carid = 1576;
+                    break;
+                case 94:
+                    carid = 11;
+                    break;
+                case 95:
+                    carid = 1670;
+                    break;
+                case 96:
+                    carid = 798;
+                    break;
+                case 97:
+                    carid = 829;
+                    break;
+                case 98:
+                    carid = 1280;
+                    break;
+                case 99:
+                    carid = 591;
+                    break;
+                case 100:
                     carid = 1596;
                     break;
-                case 233:
-                    carid = 941;
+                case 101:
+                    carid = 700;
                     break;
-                case 234:
-                    carid = 1203;
+                case 102:
+                    carid = 541;
                     break;
-                case 235:
-                    carid = 1042;
+                case 103:
+                    carid = 47;
                     break;
-                case 236:
-                    carid = 106;
+                case 104:
+                    carid = 1823;
                     break;
-                case 237:
-                    carid = 313;
+                case 105:
+                    carid = 351;
                     break;
-                case 238:
-                    carid = 90;
+                case 106:
+                    carid = 1395;
                     break;
-                case 239:
-                    carid = 356;
+                case 107:
+                    carid = 777;
                     break;
-                case 240:
-                    carid = 265;
+                case 108:
+                    carid = 1755;
                     break;
-                case 241:
-                    carid = 552;
-                    break;
-                case 242:
-                    carid = 1580;
-                    break;
-                case 243:
-                    carid = 153;
-                    break;
-                case 244:
+                case 109:
                     carid = 632;
                     break;
+                case 110:
+                    carid = 1895;
+                    break;
+                case 111:
+                    carid = 1594;
+                    break;
+                case 112:
+                    carid = 1563;
+                    break;
+                case 113:
+                    carid = 1040;
+                    break;
+                case 114:
+                    carid = 682;
+                    break;
+                case 115:
+                    carid = 1595;
+                    break;
+                case 116:
+                    carid = 631;
+                    break;
+                case 117:
+                    carid = 634;
+                    break;
+                case 118:
+                    carid = 1839;
+                    break;
+                case 119:
+                    carid = 527;
+                    break;
+                case 120:
+                    carid = 471;
+                    break;
+                case 121:
+                    carid = 604;
+                    break;
+                case 122:
+                    carid = 1542;
+                    break;
+                case 123:
+                    carid = 1257;
+                    break;
+                case 124:
+                    carid = 584;
+                    break;
+                case 125:
+                    carid = 602;
+                    break;
+                case 126:
+                    carid = 492;
+                    break;
+                case 127:
+                    carid = 296;
+                    break;
+                case 128:
+                    carid = 1146;
+                    break;
+                case 129:
+                    carid = 1207;
+                    break;
+                case 130:
+                    carid = 1119;
+                    break;
+                case 131:
+                    carid = 831;
+                    break;
+                case 132:
+                    carid = 1057;
+                    break;
+                case 133:
+                    carid = 61;
+                    break;
+                case 134:
+                    carid = 1555;
+                    break;
+                case 135:
+                    carid = 867;
+                    break;
+                case 136:
+                    carid = 435;
+                    break;
+                case 137:
+                    carid = 305;
+                    break;
+                case 138:
+                    carid = 387;
+                    break;
+                case 139:
+                    carid = 157;
+                    break;
+                case 140:
+                    carid = 398;
+                    break;
+                case 141:
+                    carid = 1290;
+                    break;
+                case 142:
+                    carid = 1049;
+                    break;
+                case 143:
+                    carid = 782;
+                    break;
+                case 144:
+                    carid = 1094;
+                    break;
+                case 145:
+                    carid = 740;
+                    break;
+                case 146:
+                    carid = 847;
+                    break;
+                case 147:
+                    carid = 775;
+                    break;
+                case 148:
+                    carid = 799;
+                    break;
+                case 149:
+                    carid = 783;
+                    break;
+                case 150:
+                    carid = 811;
+                    break;
+                case 151:
+                    carid = 814;
+                    break;
+                case 152:
+                    carid = 763;
+                    break;
+                case 153:
+                    carid = 288;
+                    break;
+                case 154:
+                    carid = 806;
+                    break;
+                case 155:
+                    carid = 35;
+                    break;
+                case 156:
+                    carid = 954;
+                    break;
+                case 157:
+                    carid = 1188;
+                    break;
+                case 158:
+                    carid = 200;
+                    break;
+                case 159:
+                    carid = 813;
+                    break;
+                case 160:
+                    carid = 781;
+                    break;
+                case 161:
+                    carid = 1150;
+                    break;
+                case 162:
+                    carid = 590;
+                    break;
+                case 163:
+                    carid = 33;
+                    break;
+                case 164:
+                    carid = 762;
+                    break;
+                case 165:
+                    carid = 1215;
+                    break;
+                case 166:
+                    carid = 827;
+                    break;
+                case 167:
+                    carid = 481;
+                    break;
+                case 168:
+                    carid = 1651;
+                    break;
+                case 169:
+                    carid = 502;
+                    break;
+                case 170:
+                    carid = 1728;
+                    break;
+                case 171:
+                    carid = 333;
+                    break;
+                case 172:
+                    carid = 1054;
+                    break;
+                case 173:
+                    carid = 878;
+                    break;
+                case 174:
+                    carid = 898;
+                    break;
+                case 175:
+                    carid = 283;
+                    break;
+                case 176:
+                    carid = 249;
+                    break;
+                case 177:
+                    carid = 1358;
+                    break;
+                case 178:
+                    carid = 1504;
+                    break;
+                case 179:
+                    carid = 1437;
+                    break;
+                case 180:
+                    carid = 273;
+                    break;
+                case 181:
+                    carid = 1396;
+                    break;
+                case 182:
+                    carid = 1645;
+                    break;
+                case 183:
+                    carid = 251;
+                    break;
+                case 184:
+                    carid = 1771;
+                    break;
+                case 185:
+                    carid = 1125;
+                    break;
+                case 186:
+                    carid = 1730;
+                    break;
+                case 187:
+                    carid = 1496;
+                    break;
+                case 188:
+                    carid = 570;
+                    break;
+                case 189:
+                    carid = 1043;
+                    break;
+                case 190:
+                    carid = 462;
+                    break;
+                case 191:
+                    carid = 1148;
+                    break;
+                case 192:
+                    carid = 59;
+                    break;
+                case 193:
+                    carid = 1177;
+                    break;
+                case 194:
+                    carid = 978;
+                    break;
+                case 195:
+                    carid = 1407;
+                    break;
+                case 196:
+                    carid = 971;
+                    break;
+                case 197:
+                    carid = 1136;
+                    break;
+                case 198:
+                    carid = 448;
+                    break;
+                case 199:
+                    carid = 1632;
+                    break;
+                case 200:
+                    carid = 396;
+                    break;
+                case 201:
+                    carid = 269;
+                    break;
+                case 202:
+                    carid = 386;
+                    break;
+                case 203:
+                    carid = 1457;
+                    break;
+                case 204:
+                    carid = 709;
+                    break;
+                case 205:
+                    carid = 1181;
+                    break;
+                case 206:
+                    carid = 1093;
+                    break;
+                case 207:
+                    carid = 479;
+                    break;
+                case 208:
+                    carid = 1277;
+                    break;
+                case 209:
+                    carid = 977;
+                    break;
+                case 210:
+                    carid = 1151;
+                    break;
+                case 211:
+                    carid = 812;
+                    break;
+                case 212:
+                    carid = 1347;
+                    break;
+                case 213:
+                    carid = 1282;
+                    break;
+                case 214:
+                    carid = 1403;
+                    break;
+                case 215:
+                    carid = 1278;
+                    break;
+                case 216:
+                    carid = 1419;
+                    break;
+                case 217:
+                    carid = 1680;
+                    break;
+                case 218:
+                    carid = 1841;
+                    break;
+                case 219:
+                    carid = 1157;
+                    break;
+                case 220:
+                    carid = 598;
+                    break;
+                case 221:
+                    carid = 1817;
+                    break;
+                case 222:
+                    carid = 1662;
+                    break;
+                case 223:
+                    carid = 1275;
+                    break;
+                case 224:
+                    carid = 1793;
+                    break;
+                case 225:
+                    carid = 1274;
+                    break;
+                case 226:
+                    carid = 1653;
+                    break;
+                case 227:
+                    carid = 1135;
+                    break;
+                case 228:
+                    carid = 1656;
+                    break;
+                case 229:
+                    carid = 199;
+                    break;
+                case 230:
+                    carid = 1585;
+                    break;
+                case 231:
+                    carid = 609;
+                    break;
+                case 232:
+                    carid = 987;
+                    break;
+                case 233:
+                    carid = 1617;
+                    break;
+                case 234:
+                    carid = 739;
+                    break;
+                case 235:
+                    carid = 125;
+                    break;
+                case 236:
+                    carid = 1238;
+                    break;
+                case 237:
+                    carid = 265;
+                    break;
+                case 238:
+                    carid = 138;
+                    break;
+                case 239:
+                    carid = 362;
+                    break;
+                case 240:
+                    carid = 861;
+                    break;
+                case 241:
+                    carid = 1184;
+                    break;
+                case 242:
+                    carid = 236;
+                    break;
+                case 243:
+                    carid = 1197;
+                    break;
+                case 244:
+                    carid = 132;
+                    break;
                 case 245:
-                    carid = 538;
+                    carid = 1897;
                     break;
                 case 246:
-                    carid = 345;
+                    carid = 1618;
                     break;
                 case 247:
-                    carid = 166;
+                    carid = 660;
                     break;
                 case 248:
-                    carid = 459;
+                    carid = 1137;
                     break;
                 case 249:
-                    carid = 19;
+                    carid = 1586;
                     break;
                 case 250:
-                    carid = 976;
+                    carid = 485;
                     break;
                 case 251:
-                    carid = 1036;
+                    carid = 1328;
                     break;
                 case 252:
-                    carid = 26;
+                    carid = 1321;
                     break;
                 case 253:
-                    carid = 578;
+                    carid = 1867;
                     break;
                 case 254:
-                    carid = 1639;
+                    carid = 1587;
                     break;
                 case 255:
-                    carid = 608;
+                    carid = 1885;
                     break;
                 case 256:
-                    carid = 698;
+                    carid = 1613;
                     break;
                 case 257:
-                    carid = 1172;
+                    carid = 1315;
                     break;
                 case 258:
-                    carid = 453;
+                    carid = 592;
                     break;
                 case 259:
-                    carid = 1329;
+                    carid = 1201;
                     break;
                 case 260:
-                    carid = 1383;
+                    carid = 428;
                     break;
                 case 261:
-                    carid = 1341;
+                    carid = 1243;
                     break;
                 case 262:
-                    carid = 1436;
+                    carid = 1196;
                     break;
                 case 263:
-                    carid = 952;
+                    carid = 476;
                     break;
                 case 264:
-                    carid = 110;
+                    carid = 1357;
                     break;
                 case 265:
-                    carid = 303;
+                    carid = 256;
                     break;
                 case 266:
-                    carid = 1337;
+                    carid = 722;
                     break;
                 case 267:
-                    carid = 115;
+                    carid = 1198;
                     break;
                 case 268:
-                    carid = 60;
+                    carid = 1230;
                     break;
                 case 269:
-                    carid = 160;
+                    carid = 1231;
                     break;
                 case 270:
-                    carid = 754;
+                    carid = 1217;
                     break;
                 case 271:
-                    carid = 939;
+                    carid = 1227;
                     break;
                 case 272:
-                    carid = 38;
+                    carid = 1216;
                     break;
                 case 273:
-                    carid = 748;
+                    carid = 314;
                     break;
                 case 274:
-                    carid = 1594;
+                    carid = 1233;
+                    break;
+                case 275:
+                    carid = 1236;
+                    break;
+                case 276:
+                    carid = 1456;
+                    break;
+                case 277:
+                    carid = 1185;
+                    break;
+                case 278:
+                    carid = 1139;
+                    break;
+                case 279:
+                    carid = 779;
+                    break;
+                case 280:
+                    carid = 761;
+                    break;
+                case 281:
+                    carid = 1385;
                     break;
                 default:
                     break;
             }
             return carid;
         }
-
+        
         public double[] CarStats(int carid)
         {
             int clearance;
@@ -6361,7 +6644,7 @@ namespace Bot.v._0._07
                     break;
 
                 case 14:
-                    NotePad.DoLog("Alfa Romeo 155 TS BTCC 1994 a24");
+                    NotePad.DoLog("Alfa Romeo 155 TS BTCC 1994 a23");
                     clearance = 1;
                     tires = 1;
                     drive = 1;
@@ -6373,7 +6656,7 @@ namespace Bot.v._0._07
                     torque = 200;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 88.46;
                     break;
 
                 case 15:
@@ -6397,7 +6680,7 @@ namespace Bot.v._0._07
                     clearance = 1;
                     tires = 1;
                     drive = 2;
-                    acceleration = 2;
+                    acceleration = 2.1;
                     maxspeed = 215;
                     grip = 91;
                     weight = 750;
@@ -6437,7 +6720,7 @@ namespace Bot.v._0._07
                     torque = 137;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 62.42;
                     break;
 
                 case 19:
@@ -6453,7 +6736,7 @@ namespace Bot.v._0._07
                     torque = 134;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 53.42;
                     break;
 
                 case 20:
@@ -6469,7 +6752,7 @@ namespace Bot.v._0._07
                     torque = 120;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 56.07;
                     break;
 
                 case 21:
@@ -6485,7 +6768,7 @@ namespace Bot.v._0._07
                     torque = 159;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 54.91;
                     break;
 
                 case 22:
@@ -6517,7 +6800,7 @@ namespace Bot.v._0._07
                     torque = 152;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 34.07;
                     break;
 
                 case 24:
@@ -6549,7 +6832,7 @@ namespace Bot.v._0._07
                     torque = 347;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 95.74;
                     break;
 
                 case 26:
@@ -6565,7 +6848,7 @@ namespace Bot.v._0._07
                     torque = 162;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 56.83;
                     break;
 
                 case 27:
@@ -6613,7 +6896,7 @@ namespace Bot.v._0._07
                     torque = 199;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 72.94;
                     break;
 
                 case 30:
@@ -6645,7 +6928,7 @@ namespace Bot.v._0._07
                     torque = 300;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 89.57;
                     break;
 
                 case 32:
@@ -6677,7 +6960,7 @@ namespace Bot.v._0._07
                     torque = 135;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 53.55;
                     break;
 
                 case 34:
@@ -6693,7 +6976,7 @@ namespace Bot.v._0._07
                     torque = 347;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 89.73;
                     break;
 
                 case 35:
@@ -6709,7 +6992,7 @@ namespace Bot.v._0._07
                     torque = 125;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.38;
                     break;
 
                 case 36:
@@ -6725,7 +7008,7 @@ namespace Bot.v._0._07
                     torque = 105;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 52.26;
                     break;
 
                 case 37:
@@ -6741,7 +7024,7 @@ namespace Bot.v._0._07
                     torque = 443;
                     abs = 1;
                     tcs = 1;
-                    MRA = 90.67;
+                    MRA = 90.92;
                     break;
 
                 case 38:
@@ -6757,7 +7040,7 @@ namespace Bot.v._0._07
                     torque = 98;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 49.32;
                     break;
 
                 case 39:
@@ -6805,7 +7088,7 @@ namespace Bot.v._0._07
                     torque = 83;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 26.36;
                     break;
 
                 case 42:
@@ -6837,7 +7120,7 @@ namespace Bot.v._0._07
                     torque = 115;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 57.11;
                     break;
 
                 case 44:
@@ -6853,7 +7136,7 @@ namespace Bot.v._0._07
                     torque = 101;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 41.91;
                     break;
 
                 case 45:
@@ -6901,7 +7184,7 @@ namespace Bot.v._0._07
                     torque = 251;
                     abs = 1;
                     tcs = 1;
-                    MRA = 49.15;
+                    MRA = 50.46;
                     break;
 
                 case 48:
@@ -6997,7 +7280,7 @@ namespace Bot.v._0._07
                     torque = 116;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 57.29;
                     break;
 
                 case 54:
@@ -7029,7 +7312,7 @@ namespace Bot.v._0._07
                     torque = 88;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 46.94;
                     break;
 
                 case 56:
@@ -7045,7 +7328,7 @@ namespace Bot.v._0._07
                     torque = 103;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 56.19;
                     break;
 
                 case 57:
@@ -7061,7 +7344,7 @@ namespace Bot.v._0._07
                     torque = 443;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 67.46;
                     break;
 
                 case 58:
@@ -7093,10 +7376,970 @@ namespace Bot.v._0._07
                     torque = 152;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 67.95;
                     break;
 
                 case 60:
+                    NotePad.DoLog("Ariel Atom 1 1999 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.5;
+                    maxspeed = 130;
+                    grip = 84;
+                    weight = 456;
+                    power = 111;
+                    torque = 107;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 61:
+                    NotePad.DoLog("Ariel Atom 2 Supercharged 2003 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 150;
+                    grip = 86;
+                    weight = 500;
+                    power = 300;
+                    torque = 191;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 62:
+                    NotePad.DoLog("Ariel Atom 3 2008 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.2;
+                    maxspeed = 150;
+                    grip = 87;
+                    weight = 462;
+                    power = 245;
+                    torque = 155;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 63:
+                    NotePad.DoLog("Ariel Atom 3 Supercharged 2008 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 155;
+                    grip = 87;
+                    weight = 510;
+                    power = 300;
+                    torque = 191;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 64:
+                    NotePad.DoLog("Ariel Atom 3.5 2008 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 155;
+                    grip = 88;
+                    weight = 510;
+                    power = 310;
+                    torque = 195;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 65:
+                    NotePad.DoLog("Ariel Atom 4 2018 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 162;
+                    grip = 90;
+                    weight = 595;
+                    power = 320;
+                    torque = 310;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 66:
+                    NotePad.DoLog("Ariel Atom 500 V8 2011 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.3;
+                    maxspeed = 168;
+                    grip = 91;
+                    weight = 550;
+                    power = 475;
+                    torque = 267;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 67:
+                    NotePad.DoLog("Ariel Nomad 2018 a24");
+                    clearance = 3;
+                    tires = 5;
+                    drive = 2;
+                    acceleration = 3.4;
+                    maxspeed = 125;
+                    grip = 80;
+                    weight = 670;
+                    power = 235;
+                    torque = 221;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 68:
+                    NotePad.DoLog("Aston Martin Bulldog 1980 b19");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.1;
+                    maxspeed = 191;
+                    grip = 73;
+                    weight = 1727;
+                    power = 600;
+                    torque = 500;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 69:
+                    NotePad.DoLog("Aston Martin CC100 Speedster 2013 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 180;
+                    grip = 88;
+                    weight = 1550;
+                    power = 585;
+                    torque = 450;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 99.74;
+                    break;
+
+                case 70:
+                    NotePad.DoLog("Aston Martin Cygnet 2011 f6");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.2;
+                    maxspeed = 106;
+                    grip = 68;
+                    weight = 988;
+                    power = 97;
+                    torque = 92;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 71:
+                    NotePad.DoLog("Aston Martin DB AR1 2002 b19");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.9;
+                    maxspeed = 185;
+                    grip = 77;
+                    weight = 1740;
+                    power = 435;
+                    torque = 400;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 72:
+                    NotePad.DoLog("Aston Martin DB10 2015 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.3;
+                    maxspeed = 190;
+                    grip = 87;
+                    weight = 1560;
+                    power = 430;
+                    torque = 361;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 73:
+                    NotePad.DoLog("Aston Martin DB11 2016 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.6;
+                    maxspeed = 200;
+                    grip = 89;
+                    weight = 1770;
+                    power = 600;
+                    torque = 516;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 74:
+                    NotePad.DoLog("Aston Martin DB3S 1953 b21");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 170;
+                    grip = 80;
+                    weight = 801;
+                    power = 250;
+                    torque = 200;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 75:
+                    NotePad.DoLog("Aston Martin DB4 1958 e8");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 8.5;
+                    maxspeed = 141;
+                    grip = 62;
+                    weight = 1308;
+                    power = 240;
+                    torque = 240;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 81.34;
+                    break;
+
+                case 76:
+                    NotePad.DoLog("Aston Martin DB4 GT Zagato 1961 d14");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.1;
+                    maxspeed = 153;
+                    grip = 69;
+                    weight = 1251;
+                    power = 314;
+                    torque = 278;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 77:
+                    NotePad.DoLog("Aston Martin DB5 1963 e8");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 8.1;
+                    maxspeed = 142;
+                    grip = 63;
+                    weight = 1465;
+                    power = 282;
+                    torque = 288;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 78:
+                    NotePad.DoLog("Aston Martin DB6 1965 e9");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.9;
+                    maxspeed = 142;
+                    grip = 63;
+                    weight = 1550;
+                    power = 282;
+                    torque = 288;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 79:
+                    NotePad.DoLog("Aston Martin DB7 1993 c17");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.8;
+                    maxspeed = 157;
+                    grip = 77;
+                    weight = 1650;
+                    power = 335;
+                    torque = 360;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 80:
+                    NotePad.DoLog("Aston Martin DB7 GT 2002 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.5;
+                    maxspeed = 188;
+                    grip = 79;
+                    weight = 1800;
+                    power = 435;
+                    torque = 410;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 81:
+                    NotePad.DoLog("Aston Martin DB7 Vantage 1999 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.7;
+                    maxspeed = 185;
+                    grip = 78;
+                    weight = 1780;
+                    power = 414;
+                    torque = 400;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 82:
+                    NotePad.DoLog("Aston Martin DB7 Zagato 2002 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 190;
+                    grip = 79;
+                    weight = 1740;
+                    power = 440;
+                    torque = 410;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 83:
+                    NotePad.DoLog("Aston Martin DB9 2004 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 186;
+                    grip = 81;
+                    weight = 1790;
+                    power = 450;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 84:
+                    NotePad.DoLog("Aston Martin DBS 1967 e8");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 8.6;
+                    maxspeed = 141;
+                    grip = 67;
+                    weight = 1588;
+                    power = 282;
+                    torque = 288;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 81.85;
+                    break;
+
+                case 85:
+                    NotePad.DoLog("Aston Martin DBS Carbon Black Edition 2010 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 174;
+                    grip = 85;
+                    weight = 1695;
+                    power = 510;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 86:
+                    NotePad.DoLog("Aston Martin DBS Superleggera 2019 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.2;
+                    maxspeed = 211;
+                    grip = 89;
+                    weight = 1693;
+                    power = 715;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 87:
+                    NotePad.DoLog("Aston Martin DBS Superleggera Volante 2019 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.4;
+                    maxspeed = 211;
+                    grip = 88;
+                    weight = 1863;
+                    power = 715;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 88:
+                    NotePad.DoLog("Aston Martin DBS V12 2007 a24");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 188;
+                    grip = 85;
+                    weight = 1695;
+                    power = 510;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 89:
+                    NotePad.DoLog("Aston Martin Lagonda 1976 e8");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 8.8;
+                    maxspeed = 143;
+                    grip = 67;
+                    weight = 2025;
+                    power = 280;
+                    torque = 360;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 90:
+                    NotePad.DoLog("Aston Martin Lagonda Vignale 1993 d14");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 8.1;
+                    maxspeed = 140;
+                    grip = 76;
+                    weight = 1790;
+                    power = 190;
+                    torque = 260;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 91:
+                    NotePad.DoLog("Aston Martin One-77 2009 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.7;
+                    maxspeed = 220;
+                    grip = 90;
+                    weight = 1630;
+                    power = 750;
+                    torque = 553;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 92:
+                    NotePad.DoLog("Aston Martin Rapide 2010 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.1;
+                    maxspeed = 188;
+                    grip = 83;
+                    weight = 1950;
+                    power = 470;
+                    torque = 443;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 93:
+                    NotePad.DoLog("Aston Martin Rapide Bertone Jet 2+2 2013 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.1;
+                    maxspeed = 188;
+                    grip = 83;
+                    weight = 1950;
+                    power = 470;
+                    torque = 443;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 94:
+                    NotePad.DoLog("Aston Martin Rapide S 2013 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.7;
+                    maxspeed = 190;
+                    grip = 84;
+                    weight = 1990;
+                    power = 550;
+                    torque = 457;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 95:
+                    NotePad.DoLog("Aston Martin V12 Vanquish 2001 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.4;
+                    maxspeed = 196;
+                    grip = 81;
+                    weight = 1820;
+                    power = 460;
+                    torque = 400;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 96:
+                    NotePad.DoLog("Aston Martin V12 Vanquish S 2004 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.3;
+                    maxspeed = 199;
+                    grip = 82;
+                    weight = 1875;
+                    power = 520;
+                    torque = 426;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 97:
+                    NotePad.DoLog("Aston Martin V12 Vantage 2009 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 190;
+                    grip = 87;
+                    weight = 1680;
+                    power = 510;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 98:
+                    NotePad.DoLog("Aston Martin V12 Vantage Carbon Black Edition 2010 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 190;
+                    grip = 87;
+                    weight = 1663;
+                    power = 510;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 99:
+                    NotePad.DoLog("Aston Martin V12 Vantage RS 2007 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4;
+                    maxspeed = 200;
+                    grip = 90;
+                    weight = 1600;
+                    power = 600;
+                    torque = 509;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 100:
+                    NotePad.DoLog("Aston Martin V12 Zagato 2012 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4;
+                    maxspeed = 190;
+                    grip = 88;
+                    weight = 1680;
+                    power = 510;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 101:
+                    NotePad.DoLog("Aston Martin V8 1972 d13");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6;
+                    maxspeed = 155;
+                    grip = 68;
+                    weight = 1700;
+                    power = 315;
+                    torque = 350;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 67.65;
+                    break;
+
+                case 102:
+                    NotePad.DoLog("Aston Martin V8 Coupe 1996 c17");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.6;
+                    maxspeed = 160;
+                    grip = 75;
+                    weight = 1950;
+                    power = 349;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 76.71;
+                    break;
+
+                case 103:
+                    NotePad.DoLog("Aston Martin V8 Vantage 1977 c17");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.4;
+                    maxspeed = 174;
+                    grip = 73;
+                    weight = 1815;
+                    power = 390;
+                    torque = 385;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 104:
+                    NotePad.DoLog("Aston Martin V8 Vantage 2005 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.9;
+                    maxspeed = 174;
+                    grip = 82;
+                    weight = 1630;
+                    power = 380;
+                    torque = 302;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 105:
+                    NotePad.DoLog("Aston Martin V8 Vantage N400 2007 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 177;
+                    grip = 83;
+                    weight = 1630;
+                    power = 400;
+                    torque = 310;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 106:
+                    NotePad.DoLog("Aston Martin V8 Vantage Volante 2000 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.9;
+                    maxspeed = 180;
+                    grip = 76;
+                    weight = 2100;
+                    power = 550;
+                    torque = 549;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 107:
+                    NotePad.DoLog("Aston Martin V8 Volante 1986 d11");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.7;
+                    maxspeed = 150;
+                    grip = 69;
+                    weight = 1814;
+                    power = 305;
+                    torque = 320;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 108:
+                    NotePad.DoLog("Aston Martin V8 Volante 1996 d12");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.5;
+                    maxspeed = 160;
+                    grip = 72;
+                    weight = 2050;
+                    power = 349;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 62.63;
+                    break;
+
+                case 109:
+                    NotePad.DoLog("Aston Martin V8 Zagato 1986 b19");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5;
+                    maxspeed = 186;
+                    grip = 75;
+                    weight = 1590;
+                    power = 432;
+                    torque = 395;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 110:
+                    NotePad.DoLog("Aston Martin Vanquish S 2012 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.3;
+                    maxspeed = 201;
+                    grip = 89;
+                    weight = 1739;
+                    power = 595;
+                    torque = 465;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 111:
+                    NotePad.DoLog("Aston Martin Vanquish Volante 2013 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.8;
+                    maxspeed = 197;
+                    grip = 86;
+                    weight = 1919;
+                    power = 565;
+                    torque = 457;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 88.37;
+                    break;
+
+                case 112:
+                    NotePad.DoLog("Aston Martin Vanquish Zagato 2017 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.3;
+                    maxspeed = 201;
+                    grip = 89;
+                    weight = 1739;
+                    power = 595;
+                    torque = 465;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 113:
+                    NotePad.DoLog("Aston Martin Vantage 1993 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.5;
+                    maxspeed = 186;
+                    grip = 78;
+                    weight = 1990;
+                    power = 550;
+                    torque = 549;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 114:
+                    NotePad.DoLog("Aston Martin Vantage 2018 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.5;
+                    maxspeed = 195;
+                    grip = 88;
+                    weight = 1530;
+                    power = 503;
+                    torque = 505;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 115:
+                    NotePad.DoLog("Aston Martin Virage 1989 d14");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.8;
+                    maxspeed = 157;
+                    grip = 74;
+                    weight = 1950;
+                    power = 330;
+                    torque = 350;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 90.55;
+                    break;
+
+                case 116:
+                    NotePad.DoLog("Aston Martin Virage 2011 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.6;
+                    maxspeed = 186;
+                    grip = 84;
+                    weight = 1785;
+                    power = 490;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 117:
+                    NotePad.DoLog("Aston Martin Virage Volante 1992 d13");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7;
+                    maxspeed = 155;
+                    grip = 72;
+                    weight = 2000;
+                    power = 330;
+                    torque = 350;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 118:
+                    NotePad.DoLog("Aston Martin Virage Volante 2011 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.4;
+                    maxspeed = 186;
+                    grip = 79;
+                    weight = 1890;
+                    power = 490;
+                    torque = 420;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 119:
+                    NotePad.DoLog("Aston Martin Vulcan 2018 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 205;
+                    grip = 91;
+                    weight = 1350;
+                    power = 820;
+                    torque = 590;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 120:
                     NotePad.DoLog("Audi quattro 1980 c15");
                     clearance = 2;
                     tires = 2;
@@ -7112,7 +8355,7 @@ namespace Bot.v._0._07
                     MRA = 50.94;
                     break;
 
-                case 61:
+                case 121:
                     NotePad.DoLog("Audi quattro 20V 1990 c18");
                     clearance = 2;
                     tires = 2;
@@ -7128,7 +8371,7 @@ namespace Bot.v._0._07
                     MRA = 53.85;
                     break;
 
-                case 62:
+                case 122:
                     NotePad.DoLog("Audi R8 Coupe V10 plus 2015 s30");
                     clearance = 1;
                     tires = 2;
@@ -7141,10 +8384,10 @@ namespace Bot.v._0._07
                     torque = 413;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 83.87;
                     break;
 
-                case 63:
+                case 123:
                     NotePad.DoLog("Audi R8 Spyder V10 2013 s28");
                     clearance = 1;
                     tires = 2;
@@ -7160,7 +8403,7 @@ namespace Bot.v._0._07
                     MRA = 76.6;
                     break;
 
-                case 64:
+                case 124:
                     NotePad.DoLog("Audi RS 2 Avant 1994 a23");
                     clearance = 2;
                     tires = 2;
@@ -7176,7 +8419,7 @@ namespace Bot.v._0._07
                     MRA = 63.75;
                     break;
 
-                case 65:
+                case 125:
                     NotePad.DoLog("Audi RS 3 Sportback 2015 a29");
                     clearance = 2;
                     tires = 2;
@@ -7192,23 +8435,7 @@ namespace Bot.v._0._07
                     MRA = 81.14;
                     break;
 
-                case 66:
-                    NotePad.DoLog("Audi RS 4 Avant 2006 a26");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 4.7;
-                    maxspeed = 155;
-                    grip = 84;
-                    weight = 1710;
-                    power = 414;
-                    torque = 317;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 82.09;
-                    break;
-
-                case 67:
+                case 126:
                     NotePad.DoLog("Audi RS 4 Avant 2000 a25");
                     clearance = 2;
                     tires = 2;
@@ -7224,7 +8451,23 @@ namespace Bot.v._0._07
                     MRA = 70;
                     break;
 
-                case 68:
+                case 127:
+                    NotePad.DoLog("Audi RS 4 Avant 2006 a26");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.7;
+                    maxspeed = 155;
+                    grip = 84;
+                    weight = 1710;
+                    power = 414;
+                    torque = 317;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 82.09;
+                    break;
+
+                case 128:
                     NotePad.DoLog("Audi RS 5 Cabriolet 2012 a26");
                     clearance = 2;
                     tires = 2;
@@ -7240,7 +8483,7 @@ namespace Bot.v._0._07
                     MRA = 82.45;
                     break;
 
-                case 69:
+                case 129:
                     NotePad.DoLog("Audi RS 6 Avant (delimited) 2013 a29");
                     clearance = 1;
                     tires = 2;
@@ -7256,7 +8499,7 @@ namespace Bot.v._0._07
                     MRA = 96.1;
                     break;
 
-                case 70:
+                case 130:
                     NotePad.DoLog("Audi RS 6 plus 2004 a24");
                     clearance = 1;
                     tires = 2;
@@ -7272,7 +8515,7 @@ namespace Bot.v._0._07
                     MRA = 70.33;
                     break;
 
-                case 71:
+                case 131:
                     NotePad.DoLog("Audi RS 7 Sportback 2015 a28");
                     clearance = 1;
                     tires = 2;
@@ -7288,7 +8531,7 @@ namespace Bot.v._0._07
                     MRA = 92.49;
                     break;
 
-                case 72:
+                case 132:
                     NotePad.DoLog("Audi RS Q3 2015 a26");
                     clearance = 3;
                     tires = 2;
@@ -7304,7 +8547,7 @@ namespace Bot.v._0._07
                     MRA = 83.64;
                     break;
 
-                case 73:
+                case 133:
                     NotePad.DoLog("Audi S1 2014 b22");
                     clearance = 2;
                     tires = 2;
@@ -7320,7 +8563,7 @@ namespace Bot.v._0._07
                     MRA = 64.07;
                     break;
 
-                case 74:
+                case 134:
                     NotePad.DoLog("Audi S2 Coupe 1993 b21");
                     clearance = 2;
                     tires = 2;
@@ -7336,7 +8579,7 @@ namespace Bot.v._0._07
                     MRA = 54.46;
                     break;
 
-                case 75:
+                case 135:
                     NotePad.DoLog("Audi S3 2006 a23");
                     clearance = 2;
                     tires = 2;
@@ -7352,7 +8595,7 @@ namespace Bot.v._0._07
                     MRA = 67.16;
                     break;
 
-                case 76:
+                case 136:
                     NotePad.DoLog("Audi S4 1998 b22");
                     clearance = 2;
                     tires = 2;
@@ -7368,7 +8611,7 @@ namespace Bot.v._0._07
                     MRA = 56.99;
                     break;
 
-                case 77:
+                case 137:
                     NotePad.DoLog("Audi S4 2012 a25");
                     clearance = 2;
                     tires = 2;
@@ -7384,7 +8627,7 @@ namespace Bot.v._0._07
                     MRA = 75.86;
                     break;
 
-                case 78:
+                case 138:
                     NotePad.DoLog("Audi S4 Avant 2004 a23");
                     clearance = 2;
                     tires = 2;
@@ -7400,7 +8643,7 @@ namespace Bot.v._0._07
                     MRA = 71.43;
                     break;
 
-                case 79:
+                case 139:
                     NotePad.DoLog("Audi S5 Coupe 2008 a25");
                     clearance = 2;
                     tires = 2;
@@ -7416,7 +8659,7 @@ namespace Bot.v._0._07
                     MRA = 73.21;
                     break;
 
-                case 80:
+                case 140:
                     NotePad.DoLog("Audi S6 1997 c17");
                     clearance = 2;
                     tires = 2;
@@ -7432,7 +8675,7 @@ namespace Bot.v._0._07
                     MRA = 61.11;
                     break;
 
-                case 81:
+                case 141:
                     NotePad.DoLog("Audi S6 2003 b22");
                     clearance = 2;
                     tires = 2;
@@ -7448,7 +8691,7 @@ namespace Bot.v._0._07
                     MRA = 78.57;
                     break;
 
-                case 82:
+                case 142:
                     NotePad.DoLog("Audi S8 2006 a23");
                     clearance = 2;
                     tires = 2;
@@ -7464,7 +8707,7 @@ namespace Bot.v._0._07
                     MRA = 80.54;
                     break;
 
-                case 83:
+                case 143:
                     NotePad.DoLog("Audi S8 plus 2015 a30");
                     clearance = 2;
                     tires = 2;
@@ -7480,8 +8723,8 @@ namespace Bot.v._0._07
                     MRA = 74.47;
                     break;
 
-                case 84:
-                    NotePad.DoLog("Audi Sport quattro S1 1986 s29");
+                case 144:
+                    NotePad.DoLog("Audi Sport quattro S1 1985 s29");
                     clearance = 2;
                     tires = 5;
                     drive = 4;
@@ -7493,11 +8736,11 @@ namespace Bot.v._0._07
                     torque = 354;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 90.91;
                     break;
 
-                case 85:
-                    NotePad.DoLog("Audi SQ 5 2015 a28");
+                case 145:
+                    NotePad.DoLog("Audi SQ5 2015 a28");
                     clearance = 3;
                     tires = 4;
                     drive = 4;
@@ -7512,7 +8755,7 @@ namespace Bot.v._0._07
                     MRA = 57.97;
                     break;
 
-                case 86:
+                case 146:
                     NotePad.DoLog("Audi TT RS plus Coupe 2012 a29");
                     clearance = 2;
                     tires = 2;
@@ -7528,7 +8771,7 @@ namespace Bot.v._0._07
                     MRA = 79.83;
                     break;
 
-                case 87:
+                case 147:
                     NotePad.DoLog("Audi TTS Coupe 2015 a26");
                     clearance = 2;
                     tires = 2;
@@ -7544,7 +8787,7 @@ namespace Bot.v._0._07
                     MRA = 70.97;
                     break;
 
-                case 88:
+                case 148:
                     NotePad.DoLog("Austin 1100 1963 f5");
                     clearance = 2;
                     tires = 3;
@@ -7560,7 +8803,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 89:
+                case 149:
                     NotePad.DoLog("Austin Allegro 1979 f4");
                     clearance = 2;
                     tires = 3;
@@ -7576,7 +8819,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 90:
+                case 150:
                     NotePad.DoLog("Austin Ambassador 1982 f5");
                     clearance = 2;
                     tires = 3;
@@ -7592,7 +8835,7 @@ namespace Bot.v._0._07
                     MRA = 32.86;
                     break;
 
-                case 91:
+                case 151:
                     NotePad.DoLog("Austin Healey 3000 1959 f5");
                     clearance = 1;
                     tires = 3;
@@ -7608,7 +8851,7 @@ namespace Bot.v._0._07
                     MRA = 58.03;
                     break;
 
-                case 92:
+                case 152:
                     NotePad.DoLog("Austin Healey Sprite 1958 f3");
                     clearance = 1;
                     tires = 3;
@@ -7624,7 +8867,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 93:
+                case 153:
                     NotePad.DoLog("Austin Maxi 1969 f4");
                     clearance = 2;
                     tires = 3;
@@ -7640,7 +8883,855 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 94:
+                case 154:
+                    NotePad.DoLog("Bentley Arnage 1999 d14");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.2;
+                    maxspeed = 149;
+                    grip = 73;
+                    weight = 2302;
+                    power = 350;
+                    torque = 413;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 62;
+                    break;
+
+                case 155:
+                    NotePad.DoLog("Bentley Arnage FInal Series 2009 b20");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.2;
+                    maxspeed = 179;
+                    grip = 76;
+                    weight = 2585;
+                    power = 500;
+                    torque = 738;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 156:
+                    NotePad.DoLog("Bentley Arnage T 2007 b20");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.2;
+                    maxspeed = 179;
+                    grip = 76;
+                    weight = 2585;
+                    power = 500;
+                    torque = 738;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 157:
+                    NotePad.DoLog("Bentley Azure 1995 d14");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6;
+                    maxspeed = 155;
+                    grip = 71;
+                    weight = 2450;
+                    power = 385;
+                    torque = 553;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 158:
+                    NotePad.DoLog("Bentley Azure 2006 c17");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.6;
+                    maxspeed = 168;
+                    grip = 75;
+                    weight = 2450;
+                    power = 450;
+                    torque = 645;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 159:
+                    NotePad.DoLog("Bentley Azure T 2009 b19");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.2;
+                    maxspeed = 179;
+                    grip = 76;
+                    weight = 2695;
+                    power = 500;
+                    torque = 738;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 160:
+                    NotePad.DoLog("Bentley Bentayga Diesel 2019 a25");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 4.2;
+                    maxspeed = 168;
+                    grip = 75;
+                    weight = 2505;
+                    power = 429;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 161:
+                    NotePad.DoLog("Bentley Bentayga V8 2019 s27");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 3.5;
+                    maxspeed = 180;
+                    grip = 78;
+                    weight = 2388;
+                    power = 542;
+                    torque = 568;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 162:
+                    NotePad.DoLog("Bentley Bentayga W12 2019 s28");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 3.5;
+                    maxspeed = 187;
+                    grip = 75;
+                    weight = 2440;
+                    power = 600;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 163:
+                    NotePad.DoLog("Bentley Brooklands 1992 e10");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 8;
+                    maxspeed = 130;
+                    grip = 71;
+                    weight = 2470;
+                    power = 300;
+                    torque = 446;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 72.93;
+                    break;
+
+                case 164:
+                    NotePad.DoLog("Bentley Brooklands 2008 b21");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5;
+                    maxspeed = 184;
+                    grip = 77;
+                    weight = 2651;
+                    power = 530;
+                    torque = 774;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 165:
+                    NotePad.DoLog("Bentley Continental 24 2017 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.4;
+                    maxspeed = 209;
+                    grip = 86;
+                    weight = 2280;
+                    power = 700;
+                    torque = 750;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 166:
+                    NotePad.DoLog("Bentley Continental Breitling Jet Team Series Limited Edition 2016 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4;
+                    maxspeed = 205;
+                    grip = 86;
+                    weight = 2320;
+                    power = 626;
+                    torque = 607;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 167:
+                    NotePad.DoLog("Bentley Continental Flying Spur 2005 a24");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.6;
+                    maxspeed = 199;
+                    grip = 79;
+                    weight = 2475;
+                    power = 552;
+                    torque = 479;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 168:
+                    NotePad.DoLog("Bentley Continental GT 2003 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.7;
+                    maxspeed = 198;
+                    grip = 82;
+                    weight = 2385;
+                    power = 552;
+                    torque = 479;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 169:
+                    NotePad.DoLog("Bentley Continental GT 2006 a24");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.7;
+                    maxspeed = 198;
+                    grip = 83;
+                    weight = 2350;
+                    power = 552;
+                    torque = 479;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 170:
+                    NotePad.DoLog("Bentley Continental GT 2012 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.4;
+                    maxspeed = 198;
+                    grip = 84;
+                    weight = 2320;
+                    power = 567;
+                    torque = 516;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 171:
+                    NotePad.DoLog("Bentley Continental GT 2019 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.3;
+                    maxspeed = 207;
+                    grip = 84;
+                    weight = 2244;
+                    power = 626;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 172:
+                    NotePad.DoLog("Bentley Continental GT Convertible 2020 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.5;
+                    maxspeed = 207;
+                    grip = 84;
+                    weight = 2414;
+                    power = 626;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 173:
+                    NotePad.DoLog("Bentley Continental GT Convertible Number 1 Edition by Mulliner 2020 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.7;
+                    maxspeed = 207;
+                    grip = 84;
+                    weight = 2414;
+                    power = 626;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 174:
+                    NotePad.DoLog("Bentley Continental GT Number 9 Edition by Mulliner 2019 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.3;
+                    maxspeed = 207;
+                    grip = 84;
+                    weight = 2244;
+                    power = 626;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 175:
+                    NotePad.DoLog("Bentley Continental GT Pikes Peak 2019 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.3;
+                    maxspeed = 207;
+                    grip = 84;
+                    weight = 2244;
+                    power = 626;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 176:
+                    NotePad.DoLog("Bentley Continental GT Speed Coupe 2015 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4;
+                    maxspeed = 205;
+                    grip = 85;
+                    weight = 2320;
+                    power = 616;
+                    torque = 590;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 177:
+                    NotePad.DoLog("Bentley Continental GT V8 2019 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.4;
+                    maxspeed = 198;
+                    grip = 85;
+                    weight = 2165;
+                    power = 542;
+                    torque = 568;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 178:
+                    NotePad.DoLog("Bentley Continental GT V8 S 2014 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.3;
+                    maxspeed = 192;
+                    grip = 83;
+                    weight = 2295;
+                    power = 521;
+                    torque = 502;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 179:
+                    NotePad.DoLog("Bentley Continental GT3 2013 s29");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 2.9;
+                    maxspeed = 183;
+                    grip = 95;
+                    weight = 1260;
+                    power = 600;
+                    torque = 600;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 180:
+                    NotePad.DoLog("Bentley Continental GT3 2018 s29");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 2.9;
+                    maxspeed = 183;
+                    grip = 97;
+                    weight = 1260;
+                    power = 600;
+                    torque = 600;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 181:
+                    NotePad.DoLog("Bentley Continental GT3-R 2015 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.6;
+                    maxspeed = 170;
+                    grip = 86;
+                    weight = 2195;
+                    power = 572;
+                    torque = 516;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 182:
+                    NotePad.DoLog("Bentley Continental R 1991 c15");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.1;
+                    maxspeed = 151;
+                    grip = 73;
+                    weight = 2402;
+                    power = 385;
+                    torque = 553;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 183:
+                    NotePad.DoLog("Bentley Continental Supersports 2010 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.7;
+                    maxspeed = 204;
+                    grip = 85;
+                    weight = 2240;
+                    power = 621;
+                    torque = 590;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 184:
+                    NotePad.DoLog("Bentley Continental Supersports 2017 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.4;
+                    maxspeed = 209;
+                    grip = 86;
+                    weight = 2280;
+                    power = 700;
+                    torque = 750;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 185:
+                    NotePad.DoLog("Bentley Continental Supersports Convertible 2011 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.8;
+                    maxspeed = 202;
+                    grip = 82;
+                    weight = 2395;
+                    power = 621;
+                    torque = 590;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 186:
+                    NotePad.DoLog("Bentley Continental Supersports Convertible ISR 2012 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.8;
+                    maxspeed = 202;
+                    grip = 84;
+                    weight = 2395;
+                    power = 621;
+                    torque = 590;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 187:
+                    NotePad.DoLog("Bentley Continental T 1999 c17");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.2;
+                    maxspeed = 168;
+                    grip = 74;
+                    weight = 2450;
+                    power = 420;
+                    torque = 650;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 188:
+                    NotePad.DoLog("Bentley EXP 100 GT 2019 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 2.4;
+                    maxspeed = 186;
+                    grip = 86;
+                    weight = 1900;
+                    power = 1340;
+                    torque = 1100;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 189:
+                    NotePad.DoLog("Bentley Flying Spur 2018 a23");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.9;
+                    maxspeed = 183;
+                    grip = 80;
+                    weight = 2425;
+                    power = 500;
+                    torque = 487;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 190:
+                    NotePad.DoLog("Bentley Flying Spur 2020 s28");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.6;
+                    maxspeed = 207;
+                    grip = 82;
+                    weight = 2400;
+                    power = 626;
+                    torque = 664;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 191:
+                    NotePad.DoLog("Bentley Flying Spur V8 S 2017 a25");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.3;
+                    maxspeed = 190;
+                    grip = 81;
+                    weight = 2425;
+                    power = 521;
+                    torque = 502;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 192:
+                    NotePad.DoLog("Bentley Flying Spur W12 2017 a25");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4;
+                    maxspeed = 200;
+                    grip = 80;
+                    weight = 2475;
+                    power = 626;
+                    torque = 605;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 193:
+                    NotePad.DoLog("Bentley Flying Spur W12 S 2017 a26");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.1;
+                    maxspeed = 202;
+                    grip = 81;
+                    weight = 2475;
+                    power = 626;
+                    torque = 605;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 194:
+                    NotePad.DoLog("Bentley HunaudiГЁres 1999 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.8;
+                    maxspeed = 217;
+                    grip = 90;
+                    weight = 1850;
+                    power = 623;
+                    torque = 561;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 195:
+                    NotePad.DoLog("Bentley Mulsanne 2019 b21");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.1;
+                    maxspeed = 184;
+                    grip = 80;
+                    weight = 2585;
+                    power = 505;
+                    torque = 752;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 196:
+                    NotePad.DoLog("Bentley Mulsanne Blue Train Limited Edition 2015 b22");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 190;
+                    grip = 81;
+                    weight = 2685;
+                    power = 530;
+                    torque = 811;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 197:
+                    NotePad.DoLog("Bentley Mulsanne Design Series 2017 b21");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.1;
+                    maxspeed = 184;
+                    grip = 80;
+                    weight = 2585;
+                    power = 505;
+                    torque = 752;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 198:
+                    NotePad.DoLog("Bentley Mulsanne Extended Wheelbase 2017 b20");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.3;
+                    maxspeed = 184;
+                    grip = 78;
+                    weight = 2730;
+                    power = 505;
+                    torque = 752;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 199:
+                    NotePad.DoLog("Bentley Mulsanne Grand Convertible 2014 b21");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 190;
+                    grip = 77;
+                    weight = 2685;
+                    power = 530;
+                    torque = 811;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 200:
+                    NotePad.DoLog("Bentley Mulsanne Grand Limousine 2019 c18");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.5;
+                    maxspeed = 184;
+                    grip = 75;
+                    weight = 2800;
+                    power = 505;
+                    torque = 752;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 75.78;
+                    break;
+
+                case 201:
+                    NotePad.DoLog("Bentley Mulsanne S 1987 f6");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 10;
+                    maxspeed = 127;
+                    grip = 71;
+                    weight = 2245;
+                    power = 215;
+                    torque = 339;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 57.99;
+                    break;
+
+                case 202:
+                    NotePad.DoLog("Bentley Mulsanne Speed 2019 b22");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 190;
+                    grip = 81;
+                    weight = 2685;
+                    power = 530;
+                    torque = 811;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 203:
+                    NotePad.DoLog("Bentley Mulsanne Turbo 1983 d12");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 7.5;
+                    maxspeed = 135;
+                    grip = 69;
+                    weight = 2250;
+                    power = 298;
+                    torque = 450;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 204:
+                    NotePad.DoLog("Bentley Mulsanne W.O. Edition 2018 b21");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 184;
+                    grip = 80;
+                    weight = 2585;
+                    power = 505;
+                    torque = 752;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 205:
+                    NotePad.DoLog("Bentley The Sir Peter Blake Continental GT 2016 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.9;
+                    maxspeed = 188;
+                    grip = 84;
+                    weight = 2320;
+                    power = 521;
+                    torque = 502;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 206:
+                    NotePad.DoLog("Bentley Turbo R 1985 d12");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.7;
+                    maxspeed = 137;
+                    grip = 71;
+                    weight = 2410;
+                    power = 300;
+                    torque = 455;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 207:
                     NotePad.DoLog("BMW 316 1975 f4");
                     clearance = 2;
                     tires = 3;
@@ -7656,7 +9747,7 @@ namespace Bot.v._0._07
                     MRA = 28.58;
                     break;
 
-                case 95:
+                case 208:
                     NotePad.DoLog("BMW 507 1956 f5");
                     clearance = 1;
                     tires = 2;
@@ -7672,7 +9763,7 @@ namespace Bot.v._0._07
                     MRA = 56.43;
                     break;
 
-                case 96:
+                case 209:
                     NotePad.DoLog("BMW 525 1973 f6");
                     clearance = 2;
                     tires = 3;
@@ -7685,10 +9776,10 @@ namespace Bot.v._0._07
                     torque = 153;
                     abs = 0;
                     tcs = 0;
-                    MRA = 61.07;
+                    MRA = 62.14;
                     break;
 
-                case 97:
+                case 210:
                     NotePad.DoLog("BMW 1800 1963 f4");
                     clearance = 2;
                     tires = 3;
@@ -7701,10 +9792,10 @@ namespace Bot.v._0._07
                     torque = 106;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 28;
                     break;
 
-                case 98:
+                case 211:
                     NotePad.DoLog("BMW 116d 2015 e9");
                     clearance = 2;
                     tires = 3;
@@ -7720,7 +9811,7 @@ namespace Bot.v._0._07
                     MRA = 56.98;
                     break;
 
-                case 99:
+                case 212:
                     NotePad.DoLog("BMW 123d 2007 c16");
                     clearance = 2;
                     tires = 2;
@@ -7736,23 +9827,7 @@ namespace Bot.v._0._07
                     MRA = 75.28;
                     break;
 
-                case 100:
-                    NotePad.DoLog("BMW 130i 2007 b20");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 5.7;
-                    maxspeed = 155;
-                    grip = 81;
-                    weight = 1400;
-                    power = 261;
-                    torque = 232;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 71.25;
-                    break;
-
-                case 101:
+                case 213:
                     NotePad.DoLog("BMW 130i 2005 b19");
                     clearance = 2;
                     tires = 2;
@@ -7768,7 +9843,23 @@ namespace Bot.v._0._07
                     MRA = 71.6;
                     break;
 
-                case 102:
+                case 214:
+                    NotePad.DoLog("BMW 130i 2007 b20");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.7;
+                    maxspeed = 155;
+                    grip = 81;
+                    weight = 1400;
+                    power = 261;
+                    torque = 232;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 71.25;
+                    break;
+
+                case 215:
                     NotePad.DoLog("BMW 135i Convertible 2008 b19");
                     clearance = 2;
                     tires = 2;
@@ -7784,7 +9875,7 @@ namespace Bot.v._0._07
                     MRA = 68.37;
                     break;
 
-                case 103:
+                case 216:
                     NotePad.DoLog("BMW 1-series M coupe 2011 a24");
                     clearance = 2;
                     tires = 2;
@@ -7800,10 +9891,10 @@ namespace Bot.v._0._07
                     MRA = 89.72;
                     break;
 
-                case 104:
+                case 217:
                     NotePad.DoLog("BMW 2002 Tii 1972 e8");
                     clearance = 2;
-                    tires = 2;
+                    tires = 3;
                     drive = 2;
                     acceleration = 9;
                     maxspeed = 120;
@@ -7816,7 +9907,7 @@ namespace Bot.v._0._07
                     MRA = 53.87;
                     break;
 
-                case 105:
+                case 218:
                     NotePad.DoLog("BMW 2002 turbo 1973 d12");
                     clearance = 2;
                     tires = 3;
@@ -7832,7 +9923,7 @@ namespace Bot.v._0._07
                     MRA = 59.42;
                     break;
 
-                case 106:
+                case 219:
                     NotePad.DoLog("BMW 220d Active Tourer 2014 d13");
                     clearance = 2;
                     tires = 3;
@@ -7848,7 +9939,7 @@ namespace Bot.v._0._07
                     MRA = 60.13;
                     break;
 
-                case 107:
+                case 220:
                     NotePad.DoLog("BMW 220d xDrive Gran Tourer 2015 c18");
                     clearance = 2;
                     tires = 3;
@@ -7864,7 +9955,7 @@ namespace Bot.v._0._07
                     MRA = 55.81;
                     break;
 
-                case 108:
+                case 221:
                     NotePad.DoLog("BMW 2800 CS 1968 f6");
                     clearance = 2;
                     tires = 2;
@@ -7880,7 +9971,7 @@ namespace Bot.v._0._07
                     MRA = 60.05;
                     break;
 
-                case 109:
+                case 222:
                     NotePad.DoLog("BMW 320d 2005 c17");
                     clearance = 2;
                     tires = 3;
@@ -7896,7 +9987,7 @@ namespace Bot.v._0._07
                     MRA = 66.67;
                     break;
 
-                case 110:
+                case 223:
                     NotePad.DoLog("BMW 320d Touring 2010 d14");
                     clearance = 2;
                     tires = 3;
@@ -7912,7 +10003,7 @@ namespace Bot.v._0._07
                     MRA = 52.38;
                     break;
 
-                case 111:
+                case 224:
                     NotePad.DoLog("BMW 320Si 2005 d11");
                     clearance = 2;
                     tires = 2;
@@ -7928,7 +10019,7 @@ namespace Bot.v._0._07
                     MRA = 53.7;
                     break;
 
-                case 112:
+                case 225:
                     NotePad.DoLog("BMW 323i 1995 d14");
                     clearance = 2;
                     tires = 3;
@@ -7944,7 +10035,7 @@ namespace Bot.v._0._07
                     MRA = 47.45;
                     break;
 
-                case 113:
+                case 226:
                     NotePad.DoLog("BMW 325i 1982 d14");
                     clearance = 2;
                     tires = 3;
@@ -7960,7 +10051,7 @@ namespace Bot.v._0._07
                     MRA = 58.65;
                     break;
 
-                case 114:
+                case 227:
                     NotePad.DoLog("BMW 325i Convertible 2009 c17");
                     clearance = 2;
                     tires = 3;
@@ -7976,7 +10067,7 @@ namespace Bot.v._0._07
                     MRA = 64.74;
                     break;
 
-                case 115:
+                case 228:
                     NotePad.DoLog("BMW 325iX 1988 d14");
                     clearance = 2;
                     tires = 3;
@@ -7992,7 +10083,7 @@ namespace Bot.v._0._07
                     MRA = 49.77;
                     break;
 
-                case 116:
+                case 229:
                     NotePad.DoLog("BMW 328i 1991 c18");
                     clearance = 2;
                     tires = 3;
@@ -8008,7 +10099,7 @@ namespace Bot.v._0._07
                     MRA = 85.07;
                     break;
 
-                case 117:
+                case 230:
                     NotePad.DoLog("BMW 328i Gran Turismo 2014 b20");
                     clearance = 2;
                     tires = 3;
@@ -8024,7 +10115,7 @@ namespace Bot.v._0._07
                     MRA = 65.17;
                     break;
 
-                case 118:
+                case 231:
                     NotePad.DoLog("BMW 330d 1998 d14");
                     clearance = 2;
                     tires = 2;
@@ -8040,7 +10131,7 @@ namespace Bot.v._0._07
                     MRA = 62.04;
                     break;
 
-                case 119:
+                case 232:
                     NotePad.DoLog("BMW 330d 2005 b19");
                     clearance = 2;
                     tires = 3;
@@ -8056,7 +10147,7 @@ namespace Bot.v._0._07
                     MRA = 58.33;
                     break;
 
-                case 120:
+                case 233:
                     NotePad.DoLog("BMW 330d Touring 2014 b22");
                     clearance = 2;
                     tires = 3;
@@ -8072,7 +10163,7 @@ namespace Bot.v._0._07
                     MRA = 67.95;
                     break;
 
-                case 121:
+                case 234:
                     NotePad.DoLog("BMW 330e 2016 b19");
                     clearance = 2;
                     tires = 3;
@@ -8088,7 +10179,7 @@ namespace Bot.v._0._07
                     MRA = 64.44;
                     break;
 
-                case 122:
+                case 235:
                     NotePad.DoLog("BMW 330i 1998 c16");
                     clearance = 2;
                     tires = 2;
@@ -8104,7 +10195,7 @@ namespace Bot.v._0._07
                     MRA = 68.54;
                     break;
 
-                case 123:
+                case 236:
                     NotePad.DoLog("BMW 335d 2016 a23");
                     clearance = 2;
                     tires = 2;
@@ -8120,7 +10211,7 @@ namespace Bot.v._0._07
                     MRA = 54.3;
                     break;
 
-                case 124:
+                case 237:
                     NotePad.DoLog("BMW 335i 2008 b20");
                     clearance = 2;
                     tires = 2;
@@ -8136,7 +10227,7 @@ namespace Bot.v._0._07
                     MRA = 71.83;
                     break;
 
-                case 125:
+                case 238:
                     NotePad.DoLog("BMW 435i Gran Coupe 2014 b19");
                     clearance = 2;
                     tires = 2;
@@ -8152,7 +10243,7 @@ namespace Bot.v._0._07
                     MRA = 81.51;
                     break;
 
-                case 126:
+                case 239:
                     NotePad.DoLog("BMW 440i 2018 b22");
                     clearance = 2;
                     tires = 2;
@@ -8165,26 +10256,10 @@ namespace Bot.v._0._07
                     torque = 332;
                     abs = 1;
                     tcs = 1;
-                    MRA = 61.97;
+                    MRA = 62.72;
                     break;
 
-                case 127:
-                    NotePad.DoLog("BMW 520d Touring 2017 c16");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 2;
-                    acceleration = 7.6;
-                    maxspeed = 143;
-                    grip = 76;
-                    weight = 1730;
-                    power = 188;
-                    torque = 295;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 59.38;
-                    break;
-
-                case 128:
+                case 240:
                     NotePad.DoLog("BMW 520d Touring 2012 c15");
                     clearance = 2;
                     tires = 3;
@@ -8200,7 +10275,23 @@ namespace Bot.v._0._07
                     MRA = 58.07;
                     break;
 
-                case 129:
+                case 241:
+                    NotePad.DoLog("BMW 520d Touring 2017 c16");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 7.6;
+                    maxspeed = 143;
+                    grip = 76;
+                    weight = 1730;
+                    power = 188;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 59.38;
+                    break;
+
+                case 242:
                     NotePad.DoLog("BMW 520d xDrive 2017 b20");
                     clearance = 2;
                     tires = 3;
@@ -8216,7 +10307,7 @@ namespace Bot.v._0._07
                     MRA = 63.16;
                     break;
 
-                case 130:
+                case 243:
                     NotePad.DoLog("BMW 520i 2016 c15");
                     clearance = 2;
                     tires = 3;
@@ -8232,7 +10323,7 @@ namespace Bot.v._0._07
                     MRA = 60.8;
                     break;
 
-                case 131:
+                case 244:
                     NotePad.DoLog("BMW 524td 1983 f4");
                     clearance = 2;
                     tires = 3;
@@ -8248,7 +10339,7 @@ namespace Bot.v._0._07
                     MRA = 58.58;
                     break;
 
-                case 132:
+                case 245:
                     NotePad.DoLog("BMW 525ix 1988 d13");
                     clearance = 2;
                     tires = 3;
@@ -8264,7 +10355,7 @@ namespace Bot.v._0._07
                     MRA = 54.28;
                     break;
 
-                case 133:
+                case 246:
                     NotePad.DoLog("BMW 530d 2004 b20");
                     clearance = 2;
                     tires = 3;
@@ -8280,7 +10371,7 @@ namespace Bot.v._0._07
                     MRA = 61.68;
                     break;
 
-                case 134:
+                case 247:
                     NotePad.DoLog("BMW 530i 1996 b19");
                     clearance = 2;
                     tires = 3;
@@ -8296,7 +10387,7 @@ namespace Bot.v._0._07
                     MRA = 65.01;
                     break;
 
-                case 135:
+                case 248:
                     NotePad.DoLog("BMW 535d Touring 2009 b21");
                     clearance = 2;
                     tires = 3;
@@ -8312,7 +10403,7 @@ namespace Bot.v._0._07
                     MRA = 62.3;
                     break;
 
-                case 136:
+                case 249:
                     NotePad.DoLog("BMW 535i 2010 a23");
                     clearance = 2;
                     tires = 3;
@@ -8328,7 +10419,7 @@ namespace Bot.v._0._07
                     MRA = 78.57;
                     break;
 
-                case 137:
+                case 250:
                     NotePad.DoLog("BMW 540i 1993 b20");
                     clearance = 2;
                     tires = 3;
@@ -8344,7 +10435,7 @@ namespace Bot.v._0._07
                     MRA = 62.22;
                     break;
 
-                case 138:
+                case 251:
                     NotePad.DoLog("BMW 540i 1996 b19");
                     clearance = 2;
                     tires = 3;
@@ -8360,7 +10451,7 @@ namespace Bot.v._0._07
                     MRA = 63.51;
                     break;
 
-                case 139:
+                case 252:
                     NotePad.DoLog("BMW 545i 2004 a23");
                     clearance = 2;
                     tires = 3;
@@ -8376,7 +10467,7 @@ namespace Bot.v._0._07
                     MRA = 80.88;
                     break;
 
-                case 140:
+                case 253:
                     NotePad.DoLog("BMW 635CSi 1980 d11");
                     clearance = 1;
                     tires = 2;
@@ -8392,23 +10483,7 @@ namespace Bot.v._0._07
                     MRA = 72.87;
                     break;
 
-                case 141:
-                    NotePad.DoLog("BMW 640d 2016 b20");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 5.5;
-                    maxspeed = 155;
-                    grip = 79;
-                    weight = 1790;
-                    power = 308;
-                    torque = 465;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 73.91;
-                    break;
-
-                case 142:
+                case 254:
                     NotePad.DoLog("BMW 640d 2011 b20");
                     clearance = 1;
                     tires = 2;
@@ -8424,7 +10499,23 @@ namespace Bot.v._0._07
                     MRA = 85.27;
                     break;
 
-                case 143:
+                case 255:
+                    NotePad.DoLog("BMW 640d 2016 b20");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.5;
+                    maxspeed = 155;
+                    grip = 79;
+                    weight = 1790;
+                    power = 308;
+                    torque = 465;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 73.91;
+                    break;
+
+                case 256:
                     NotePad.DoLog("BMW 640i xDrive 2012 b22");
                     clearance = 1;
                     tires = 2;
@@ -8440,7 +10531,7 @@ namespace Bot.v._0._07
                     MRA = 84.23;
                     break;
 
-                case 144:
+                case 257:
                     NotePad.DoLog("BMW 640i xDrive Gran Coupe 2017 s28");
                     clearance = 2;
                     tires = 3;
@@ -8456,7 +10547,7 @@ namespace Bot.v._0._07
                     MRA = 88.18;
                     break;
 
-                case 145:
+                case 258:
                     NotePad.DoLog("BMW 645ci 2003 b19");
                     clearance = 1;
                     tires = 2;
@@ -8472,23 +10563,7 @@ namespace Bot.v._0._07
                     MRA = 83.86;
                     break;
 
-                case 146:
-                    NotePad.DoLog("BMW 650i Convertible 2012 b21");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4.4;
-                    maxspeed = 155;
-                    grip = 80;
-                    weight = 2005;
-                    power = 400;
-                    torque = 450;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 74.58;
-                    break;
-
-                case 147:
+                case 259:
                     NotePad.DoLog("BMW 650i Convertible 2005 b19");
                     clearance = 1;
                     tires = 2;
@@ -8504,7 +10579,23 @@ namespace Bot.v._0._07
                     MRA = 82.09;
                     break;
 
-                case 148:
+                case 260:
+                    NotePad.DoLog("BMW 650i Convertible 2012 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.4;
+                    maxspeed = 155;
+                    grip = 80;
+                    weight = 2005;
+                    power = 400;
+                    torque = 450;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 74.58;
+                    break;
+
+                case 261:
                     NotePad.DoLog("BMW 728i 1977 e10");
                     clearance = 2;
                     tires = 3;
@@ -8520,23 +10611,7 @@ namespace Bot.v._0._07
                     MRA = 46.03;
                     break;
 
-                case 149:
-                    NotePad.DoLog("BMW 730d 2008 c18");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 2;
-                    acceleration = 6.9;
-                    maxspeed = 152;
-                    grip = 74;
-                    weight = 1840;
-                    power = 242;
-                    torque = 398;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 66.41;
-                    break;
-
-                case 150:
+                case 262:
                     NotePad.DoLog("BMW 730d 2002 c15");
                     clearance = 2;
                     tires = 3;
@@ -8552,7 +10627,23 @@ namespace Bot.v._0._07
                     MRA = 69.16;
                     break;
 
-                case 151:
+                case 263:
+                    NotePad.DoLog("BMW 730d 2008 c18");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 6.9;
+                    maxspeed = 152;
+                    grip = 74;
+                    weight = 1840;
+                    power = 242;
+                    torque = 398;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 66.41;
+                    break;
+
+                case 264:
                     NotePad.DoLog("BMW 730i 1986 e8");
                     clearance = 2;
                     tires = 3;
@@ -8568,7 +10659,7 @@ namespace Bot.v._0._07
                     MRA = 66.76;
                     break;
 
-                case 152:
+                case 265:
                     NotePad.DoLog("BMW 740d 2016 a25");
                     clearance = 2;
                     tires = 3;
@@ -8584,7 +10675,7 @@ namespace Bot.v._0._07
                     MRA = 55.05;
                     break;
 
-                case 153:
+                case 266:
                     NotePad.DoLog("BMW 740i 1994 c17");
                     clearance = 2;
                     tires = 3;
@@ -8600,7 +10691,7 @@ namespace Bot.v._0._07
                     MRA = 73.96;
                     break;
 
-                case 154:
+                case 267:
                     NotePad.DoLog("BMW 750d xDrive 2013 a26");
                     clearance = 2;
                     tires = 3;
@@ -8616,7 +10707,7 @@ namespace Bot.v._0._07
                     MRA = 69.81;
                     break;
 
-                case 155:
+                case 268:
                     NotePad.DoLog("BMW 750i 2016 a25");
                     clearance = 2;
                     tires = 3;
@@ -8632,8 +10723,8 @@ namespace Bot.v._0._07
                     MRA = 85.97;
                     break;
 
-                case 156:
-                    NotePad.DoLog("BMW 750Li 1995 c18");
+                case 269:
+                    NotePad.DoLog("BMW 750iL 1995 c18");
                     clearance = 2;
                     tires = 3;
                     drive = 2;
@@ -8648,7 +10739,7 @@ namespace Bot.v._0._07
                     MRA = 71.43;
                     break;
 
-                case 157:
+                case 270:
                     NotePad.DoLog("BMW 750Li 2009 a24");
                     clearance = 2;
                     tires = 3;
@@ -8664,7 +10755,7 @@ namespace Bot.v._0._07
                     MRA = 90.33;
                     break;
 
-                case 158:
+                case 271:
                     NotePad.DoLog("BMW 850CSi 1992 c17");
                     clearance = 1;
                     tires = 2;
@@ -8680,7 +10771,7 @@ namespace Bot.v._0._07
                     MRA = 77.94;
                     break;
 
-                case 159:
+                case 272:
                     NotePad.DoLog("BMW H2R 2004 b19");
                     clearance = 1;
                     tires = 2;
@@ -8696,7 +10787,7 @@ namespace Bot.v._0._07
                     MRA = 65.33;
                     break;
 
-                case 160:
+                case 273:
                     NotePad.DoLog("BMW i3 2013 d12");
                     clearance = 2;
                     tires = 3;
@@ -8712,7 +10803,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 161:
+                case 274:
                     NotePad.DoLog("BMW i3 S 2017 d13");
                     clearance = 2;
                     tires = 3;
@@ -8725,10 +10816,10 @@ namespace Bot.v._0._07
                     torque = 199;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 24;
                     break;
 
-                case 162:
+                case 275:
                     NotePad.DoLog("BMW i8 2014 a25");
                     clearance = 1;
                     tires = 2;
@@ -8744,7 +10835,7 @@ namespace Bot.v._0._07
                     MRA = 64.41;
                     break;
 
-                case 163:
+                case 276:
                     NotePad.DoLog("BMW i8 Roadster 2018 a25");
                     clearance = 1;
                     tires = 2;
@@ -8760,7 +10851,7 @@ namespace Bot.v._0._07
                     MRA = 72.73;
                     break;
 
-                case 164:
+                case 277:
                     NotePad.DoLog("BMW Isetta 250 1955 f3");
                     clearance = 2;
                     tires = 3;
@@ -8776,7 +10867,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 165:
+                case 278:
                     NotePad.DoLog("BMW M Coupe 1998 b21");
                     clearance = 1;
                     tires = 2;
@@ -8792,7 +10883,7 @@ namespace Bot.v._0._07
                     MRA = 60;
                     break;
 
-                case 166:
+                case 279:
                     NotePad.DoLog("BMW M1 1978 c16");
                     clearance = 1;
                     tires = 2;
@@ -8808,7 +10899,7 @@ namespace Bot.v._0._07
                     MRA = 61.98;
                     break;
 
-                case 167:
+                case 280:
                     NotePad.DoLog("BMW M1 Procar Group 4 1979 a25");
                     clearance = 1;
                     tires = 1;
@@ -8824,7 +10915,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 168:
+                case 281:
                     NotePad.DoLog("BMW M135i 2016 a23");
                     clearance = 2;
                     tires = 2;
@@ -8840,7 +10931,7 @@ namespace Bot.v._0._07
                     MRA = 78.95;
                     break;
 
-                case 169:
+                case 282:
                     NotePad.DoLog("BMW M140i 2017 a24");
                     clearance = 2;
                     tires = 2;
@@ -8853,10 +10944,10 @@ namespace Bot.v._0._07
                     torque = 369;
                     abs = 1;
                     tcs = 1;
-                    MRA = 78.57;
+                    MRA = 78.99;
                     break;
 
-                case 170:
+                case 283:
                     NotePad.DoLog("BMW M2 (delimited) 2016 a24");
                     clearance = 1;
                     tires = 2;
@@ -8872,7 +10963,7 @@ namespace Bot.v._0._07
                     MRA = 80.77;
                     break;
 
-                case 171:
+                case 284:
                     NotePad.DoLog("BMW M2 Competition (delimited) 2019 a25");
                     clearance = 1;
                     tires = 2;
@@ -8888,7 +10979,7 @@ namespace Bot.v._0._07
                     MRA = 78.43;
                     break;
 
-                case 172:
+                case 285:
                     NotePad.DoLog("BMW M240i 2017 a24");
                     clearance = 2;
                     tires = 2;
@@ -8904,7 +10995,7 @@ namespace Bot.v._0._07
                     MRA = 75.44;
                     break;
 
-                case 173:
+                case 286:
                     NotePad.DoLog("BMW M240i Convertible 2016 a23");
                     clearance = 2;
                     tires = 2;
@@ -8920,7 +11011,7 @@ namespace Bot.v._0._07
                     MRA = 81.03;
                     break;
 
-                case 174:
+                case 287:
                     NotePad.DoLog("BMW M3 1986 c15");
                     clearance = 2;
                     tires = 2;
@@ -8936,23 +11027,7 @@ namespace Bot.v._0._07
                     MRA = 54.56;
                     break;
 
-                case 175:
-                    NotePad.DoLog("BMW M3 2001 b20");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 5.2;
-                    maxspeed = 155;
-                    grip = 77;
-                    weight = 1655;
-                    power = 338;
-                    torque = 269;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 74.25;
-                    break;
-
-                case 176:
+                case 288:
                     NotePad.DoLog("BMW M3 1993 b20");
                     clearance = 2;
                     tires = 2;
@@ -8968,7 +11043,23 @@ namespace Bot.v._0._07
                     MRA = 71.05;
                     break;
 
-                case 177:
+                case 289:
+                    NotePad.DoLog("BMW M3 2001 b20");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.2;
+                    maxspeed = 155;
+                    grip = 77;
+                    weight = 1655;
+                    power = 338;
+                    torque = 269;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 74.25;
+                    break;
+
+                case 290:
                     NotePad.DoLog("BMW M3 2008 a24");
                     clearance = 2;
                     tires = 2;
@@ -8984,7 +11075,7 @@ namespace Bot.v._0._07
                     MRA = 90.53;
                     break;
 
-                case 178:
+                case 291:
                     NotePad.DoLog("BMW M3 CRT 2011 a26");
                     clearance = 2;
                     tires = 2;
@@ -9000,7 +11091,7 @@ namespace Bot.v._0._07
                     MRA = 83.37;
                     break;
 
-                case 179:
+                case 292:
                     NotePad.DoLog("BMW M3 CS 2018 a26");
                     clearance = 1;
                     tires = 2;
@@ -9016,7 +11107,7 @@ namespace Bot.v._0._07
                     MRA = 84.96;
                     break;
 
-                case 180:
+                case 293:
                     NotePad.DoLog("BMW M3 CSL 2003 a23");
                     clearance = 2;
                     tires = 2;
@@ -9032,7 +11123,7 @@ namespace Bot.v._0._07
                     MRA = 64.38;
                     break;
 
-                case 181:
+                case 294:
                     NotePad.DoLog("BMW M3 GTR 2001 a26");
                     clearance = 1;
                     tires = 1;
@@ -9048,7 +11139,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 182:
+                case 295:
                     NotePad.DoLog("BMW M3 GTS 2010 a26");
                     clearance = 2;
                     tires = 2;
@@ -9064,7 +11155,7 @@ namespace Bot.v._0._07
                     MRA = 88.64;
                     break;
 
-                case 183:
+                case 296:
                     NotePad.DoLog("BMW M4 2016 a26");
                     clearance = 2;
                     tires = 2;
@@ -9080,7 +11171,7 @@ namespace Bot.v._0._07
                     MRA = 85.49;
                     break;
 
-                case 184:
+                case 297:
                     NotePad.DoLog("BMW M4 GTS 2016 s27");
                     clearance = 1;
                     tires = 2;
@@ -9096,7 +11187,7 @@ namespace Bot.v._0._07
                     MRA = 81.28;
                     break;
 
-                case 185:
+                case 298:
                     NotePad.DoLog("BMW M5 1981 c17");
                     clearance = 2;
                     tires = 2;
@@ -9112,23 +11203,7 @@ namespace Bot.v._0._07
                     MRA = 74.7;
                     break;
 
-                case 186:
-                    NotePad.DoLog("BMW M5 1998 b21");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4.9;
-                    maxspeed = 155;
-                    grip = 79;
-                    weight = 1795;
-                    power = 400;
-                    torque = 369;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 76.49;
-                    break;
-
-                case 187:
+                case 299:
                     NotePad.DoLog("BMW M5 1988 b19");
                     clearance = 2;
                     tires = 2;
@@ -9144,23 +11219,23 @@ namespace Bot.v._0._07
                     MRA = 77.41;
                     break;
 
-                case 188:
-                    NotePad.DoLog("BMW M5 2016 a26");
+                case 300:
+                    NotePad.DoLog("BMW M5 1998 b21");
                     clearance = 2;
                     tires = 2;
                     drive = 2;
-                    acceleration = 3.7;
+                    acceleration = 4.9;
                     maxspeed = 155;
-                    grip = 82;
-                    weight = 1870;
-                    power = 552;
-                    torque = 501;
+                    grip = 79;
+                    weight = 1795;
+                    power = 400;
+                    torque = 369;
                     abs = 1;
                     tcs = 1;
-                    MRA = 82.45;
+                    MRA = 76.49;
                     break;
 
-                case 189:
+                case 301:
                     NotePad.DoLog("BMW M5 2004 a24");
                     clearance = 2;
                     tires = 2;
@@ -9176,7 +11251,23 @@ namespace Bot.v._0._07
                     MRA = 89.46;
                     break;
 
-                case 190:
+                case 302:
+                    NotePad.DoLog("BMW M5 2016 a26");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.7;
+                    maxspeed = 155;
+                    grip = 82;
+                    weight = 1870;
+                    power = 552;
+                    torque = 501;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 82.45;
+                    break;
+
+                case 303:
                     NotePad.DoLog("BMW M5 2018 s30");
                     clearance = 2;
                     tires = 2;
@@ -9192,7 +11283,7 @@ namespace Bot.v._0._07
                     MRA = 83.33;
                     break;
 
-                case 191:
+                case 304:
                     NotePad.DoLog("BMW M5 Competition (delimited) 2018 s30");
                     clearance = 2;
                     tires = 2;
@@ -9208,23 +11299,7 @@ namespace Bot.v._0._07
                     MRA = 81.82;
                     break;
 
-                case 192:
-                    NotePad.DoLog("BMW M6 2016 a25");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4.2;
-                    maxspeed = 155;
-                    grip = 86;
-                    weight = 1850;
-                    power = 552;
-                    torque = 501;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 91.35;
-                    break;
-
-                case 193:
+                case 305:
                     NotePad.DoLog("BMW M6 2006 a24");
                     clearance = 1;
                     tires = 2;
@@ -9240,7 +11315,23 @@ namespace Bot.v._0._07
                     MRA = 88.37;
                     break;
 
-                case 194:
+                case 306:
+                    NotePad.DoLog("BMW M6 2016 a25");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.2;
+                    maxspeed = 155;
+                    grip = 86;
+                    weight = 1850;
+                    power = 552;
+                    torque = 501;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 91.35;
+                    break;
+
+                case 307:
                     NotePad.DoLog("BMW M6 Convertible 2006 b22");
                     clearance = 1;
                     tires = 2;
@@ -9256,7 +11347,7 @@ namespace Bot.v._0._07
                     MRA = 91.55;
                     break;
 
-                case 195:
+                case 308:
                     NotePad.DoLog("BMW M6 Gran Coupe 2013 a25");
                     clearance = 2;
                     tires = 2;
@@ -9272,7 +11363,7 @@ namespace Bot.v._0._07
                     MRA = 91.35;
                     break;
 
-                case 196:
+                case 309:
                     NotePad.DoLog("BMW M760Li xDrive V12 2015 a26");
                     clearance = 2;
                     tires = 2;
@@ -9288,7 +11379,7 @@ namespace Bot.v._0._07
                     MRA = 70.21;
                     break;
 
-                case 197:
+                case 310:
                     NotePad.DoLog("BMW M8 GTE 2018 s29");
                     clearance = 1;
                     tires = 1;
@@ -9301,10 +11392,10 @@ namespace Bot.v._0._07
                     torque = 553;
                     abs = 0;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 106.01;
                     break;
 
-                case 198:
+                case 311:
                     NotePad.DoLog("BMW M850i xDrive 2018 s27");
                     clearance = 1;
                     tires = 2;
@@ -9320,7 +11411,7 @@ namespace Bot.v._0._07
                     MRA = 72.37;
                     break;
 
-                case 199:
+                case 312:
                     NotePad.DoLog("BMW M850i xDrive Convertible 2019 a26");
                     clearance = 1;
                     tires = 2;
@@ -9336,7 +11427,7 @@ namespace Bot.v._0._07
                     MRA = 73.51;
                     break;
 
-                case 200:
+                case 313:
                     NotePad.DoLog("BMW Nazca C2 1992 a24");
                     clearance = 1;
                     tires = 2;
@@ -9352,7 +11443,7 @@ namespace Bot.v._0._07
                     MRA = 63.23;
                     break;
 
-                case 201:
+                case 314:
                     NotePad.DoLog("BMW X1 2010 d13");
                     clearance = 3;
                     tires = 3;
@@ -9368,7 +11459,7 @@ namespace Bot.v._0._07
                     MRA = 49.55;
                     break;
 
-                case 202:
+                case 315:
                     NotePad.DoLog("BMW X1 2017 b22");
                     clearance = 3;
                     tires = 4;
@@ -9384,7 +11475,7 @@ namespace Bot.v._0._07
                     MRA = 53.49;
                     break;
 
-                case 203:
+                case 316:
                     NotePad.DoLog("BMW X2 2018 a24");
                     clearance = 3;
                     tires = 4;
@@ -9400,7 +11491,7 @@ namespace Bot.v._0._07
                     MRA = 61.68;
                     break;
 
-                case 204:
+                case 317:
                     NotePad.DoLog("BMW X3 2003 b21");
                     clearance = 3;
                     tires = 4;
@@ -9416,7 +11507,7 @@ namespace Bot.v._0._07
                     MRA = 50.82;
                     break;
 
-                case 205:
+                case 318:
                     NotePad.DoLog("BMW X3 35d 2014 a24");
                     clearance = 3;
                     tires = 4;
@@ -9432,7 +11523,7 @@ namespace Bot.v._0._07
                     MRA = 74.67;
                     break;
 
-                case 206:
+                case 319:
                     NotePad.DoLog("BMW X3 M40i 2018 a26");
                     clearance = 3;
                     tires = 4;
@@ -9448,7 +11539,7 @@ namespace Bot.v._0._07
                     MRA = 88.1;
                     break;
 
-                case 207:
+                case 320:
                     NotePad.DoLog("BMW X3 xDrive 28d 2016 b19");
                     clearance = 3;
                     tires = 4;
@@ -9464,7 +11555,7 @@ namespace Bot.v._0._07
                     MRA = 55.06;
                     break;
 
-                case 208:
+                case 321:
                     NotePad.DoLog("BMW X4 2018 a24");
                     clearance = 3;
                     tires = 4;
@@ -9480,7 +11571,7 @@ namespace Bot.v._0._07
                     MRA = 61.22;
                     break;
 
-                case 209:
+                case 322:
                     NotePad.DoLog("BMW X5 2008 b21");
                     clearance = 3;
                     tires = 4;
@@ -9496,7 +11587,7 @@ namespace Bot.v._0._07
                     MRA = 56.27;
                     break;
 
-                case 210:
+                case 323:
                     NotePad.DoLog("BMW X5 4.4i 2000 b20");
                     clearance = 3;
                     tires = 4;
@@ -9512,7 +11603,7 @@ namespace Bot.v._0._07
                     MRA = 73.02;
                     break;
 
-                case 211:
+                case 324:
                     NotePad.DoLog("BMW X5 40e (PHEV) 2016 b21");
                     clearance = 3;
                     tires = 4;
@@ -9528,7 +11619,7 @@ namespace Bot.v._0._07
                     MRA = 68.48;
                     break;
 
-                case 212:
+                case 325:
                     NotePad.DoLog("BMW X5 M 2009 s27");
                     clearance = 3;
                     tires = 4;
@@ -9544,7 +11635,7 @@ namespace Bot.v._0._07
                     MRA = 82.5;
                     break;
 
-                case 213:
+                case 326:
                     NotePad.DoLog("BMW X5 M50d 2016 a25");
                     clearance = 3;
                     tires = 4;
@@ -9560,7 +11651,7 @@ namespace Bot.v._0._07
                     MRA = 89.25;
                     break;
 
-                case 214:
+                case 327:
                     NotePad.DoLog("BMW X6 2012 b22");
                     clearance = 3;
                     tires = 4;
@@ -9576,7 +11667,7 @@ namespace Bot.v._0._07
                     MRA = 57.14;
                     break;
 
-                case 215:
+                case 328:
                     NotePad.DoLog("BMW X6 2015 a26");
                     clearance = 3;
                     tires = 4;
@@ -9592,7 +11683,7 @@ namespace Bot.v._0._07
                     MRA = 88.64;
                     break;
 
-                case 216:
+                case 329:
                     NotePad.DoLog("BMW X6 M 2009 s27");
                     clearance = 3;
                     tires = 4;
@@ -9608,7 +11699,7 @@ namespace Bot.v._0._07
                     MRA = 85.19;
                     break;
 
-                case 217:
+                case 330:
                     NotePad.DoLog("BMW Z1 1989 e10");
                     clearance = 1;
                     tires = 2;
@@ -9624,7 +11715,7 @@ namespace Bot.v._0._07
                     MRA = 53.15;
                     break;
 
-                case 218:
+                case 331:
                     NotePad.DoLog("BMW Z3 2.2l 2000 d14");
                     clearance = 1;
                     tires = 3;
@@ -9640,7 +11731,7 @@ namespace Bot.v._0._07
                     MRA = 80.85;
                     break;
 
-                case 219:
+                case 332:
                     NotePad.DoLog("BMW Z4 3.0si 2006 c18");
                     clearance = 1;
                     tires = 2;
@@ -9656,7 +11747,7 @@ namespace Bot.v._0._07
                     MRA = 61.11;
                     break;
 
-                case 220:
+                case 333:
                     NotePad.DoLog("BMW Z4 sDrive18i 2013 d12");
                     clearance = 1;
                     tires = 2;
@@ -9672,7 +11763,7 @@ namespace Bot.v._0._07
                     MRA = 61.83;
                     break;
 
-                case 221:
+                case 334:
                     NotePad.DoLog("BMW Z4 sDrive28i 2016 c18");
                     clearance = 1;
                     tires = 2;
@@ -9688,7 +11779,7 @@ namespace Bot.v._0._07
                     MRA = 67.64;
                     break;
 
-                case 222:
+                case 335:
                     NotePad.DoLog("BMW Z4M Coupe 2006 b21");
                     clearance = 1;
                     tires = 2;
@@ -9704,7 +11795,7 @@ namespace Bot.v._0._07
                     MRA = 65.75;
                     break;
 
-                case 223:
+                case 336:
                     NotePad.DoLog("BMW Z8 2000 b21");
                     clearance = 1;
                     tires = 2;
@@ -9720,7 +11811,7 @@ namespace Bot.v._0._07
                     MRA = 78.95;
                     break;
 
-                case 224:
+                case 337:
                     NotePad.DoLog("Bugatti Chiron 2017 s30");
                     clearance = 1;
                     tires = 2;
@@ -9736,7 +11827,7 @@ namespace Bot.v._0._07
                     MRA = 117.35;
                     break;
 
-                case 225:
+                case 338:
                     NotePad.DoLog("Bugatti Chiron Sport 2019 s30");
                     clearance = 1;
                     tires = 2;
@@ -9752,7 +11843,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 226:
+                case 339:
                     NotePad.DoLog("Bugatti EB110 GT 1992 s29");
                     clearance = 1;
                     tires = 2;
@@ -9768,7 +11859,7 @@ namespace Bot.v._0._07
                     MRA = 73.29;
                     break;
 
-                case 227:
+                case 340:
                     NotePad.DoLog("Bugatti EB110 Super Sport 1992 s30");
                     clearance = 1;
                     tires = 2;
@@ -9784,7 +11875,7 @@ namespace Bot.v._0._07
                     MRA = 81.46;
                     break;
 
-                case 228:
+                case 341:
                     NotePad.DoLog("Bugatti Veyron 16.4 2005 s30");
                     clearance = 1;
                     tires = 2;
@@ -9800,7 +11891,7 @@ namespace Bot.v._0._07
                     MRA = 101.85;
                     break;
 
-                case 229:
+                case 342:
                     NotePad.DoLog("Bugatti Veyron 16.4 Grand Sport 2009 s30");
                     clearance = 1;
                     tires = 2;
@@ -9816,7 +11907,7 @@ namespace Bot.v._0._07
                     MRA = 103.14;
                     break;
 
-                case 230:
+                case 343:
                     NotePad.DoLog("Bugatti Veyron 16.4 Super Sport 2010 s30");
                     clearance = 1;
                     tires = 2;
@@ -9832,7 +11923,7 @@ namespace Bot.v._0._07
                     MRA = 107.82;
                     break;
 
-                case 231:
+                case 344:
                     NotePad.DoLog("Buick Century Special Coupe 1973 e7");
                     clearance = 2;
                     tires = 3;
@@ -9848,7 +11939,7 @@ namespace Bot.v._0._07
                     MRA = 41.7;
                     break;
 
-                case 232:
+                case 345:
                     NotePad.DoLog("Buick Enclave 2008 b21");
                     clearance = 3;
                     tires = 4;
@@ -9864,7 +11955,7 @@ namespace Bot.v._0._07
                     MRA = 45.85;
                     break;
 
-                case 233:
+                case 346:
                     NotePad.DoLog("Buick GNX 1987 c18");
                     clearance = 2;
                     tires = 2;
@@ -9880,7 +11971,7 @@ namespace Bot.v._0._07
                     MRA = 68.75;
                     break;
 
-                case 234:
+                case 347:
                     NotePad.DoLog("Buick LaCrosse CXL 2005 d13");
                     clearance = 2;
                     tires = 3;
@@ -9896,7 +11987,7 @@ namespace Bot.v._0._07
                     MRA = 83.73;
                     break;
 
-                case 235:
+                case 348:
                     NotePad.DoLog("Buick LeSabre 2000 d12");
                     clearance = 2;
                     tires = 3;
@@ -9912,7 +12003,7 @@ namespace Bot.v._0._07
                     MRA = 74.17;
                     break;
 
-                case 236:
+                case 349:
                     NotePad.DoLog("Buick Park Avenue 2000 d11");
                     clearance = 2;
                     tires = 3;
@@ -9928,7 +12019,7 @@ namespace Bot.v._0._07
                     MRA = 74.02;
                     break;
 
-                case 237:
+                case 350:
                     NotePad.DoLog("Buick Reatta 1988 d11");
                     clearance = 2;
                     tires = 3;
@@ -9944,7 +12035,7 @@ namespace Bot.v._0._07
                     MRA = 68.46;
                     break;
 
-                case 238:
+                case 351:
                     NotePad.DoLog("Buick Regal GS 2011 c16");
                     clearance = 2;
                     tires = 2;
@@ -9960,7 +12051,7 @@ namespace Bot.v._0._07
                     MRA = 64.95;
                     break;
 
-                case 239:
+                case 352:
                     NotePad.DoLog("Buick Regal Turbo 2011 c17");
                     clearance = 2;
                     tires = 3;
@@ -9976,7 +12067,7 @@ namespace Bot.v._0._07
                     MRA = 62.63;
                     break;
 
-                case 240:
+                case 353:
                     NotePad.DoLog("Buick Rendezvous 2002 d11");
                     clearance = 3;
                     tires = 4;
@@ -9992,7 +12083,7 @@ namespace Bot.v._0._07
                     MRA = 65.33;
                     break;
 
-                case 241:
+                case 354:
                     NotePad.DoLog("Buick Riviera Coupe 1965 e9");
                     clearance = 2;
                     tires = 3;
@@ -10008,7 +12099,7 @@ namespace Bot.v._0._07
                     MRA = 62.77;
                     break;
 
-                case 242:
+                case 355:
                     NotePad.DoLog("Buick Roadmaster 1954 e9");
                     clearance = 2;
                     tires = 3;
@@ -10024,7 +12115,7 @@ namespace Bot.v._0._07
                     MRA = 61.03;
                     break;
 
-                case 243:
+                case 356:
                     NotePad.DoLog("Buick Skylark GS 1954 e9");
                     clearance = 2;
                     tires = 3;
@@ -10040,7 +12131,7 @@ namespace Bot.v._0._07
                     MRA = 63.28;
                     break;
 
-                case 244:
+                case 357:
                     NotePad.DoLog("Buick Verano 2012 e9");
                     clearance = 2;
                     tires = 3;
@@ -10056,7 +12147,7 @@ namespace Bot.v._0._07
                     MRA = 69.91;
                     break;
 
-                case 245:
+                case 358:
                     NotePad.DoLog("Cadillac Allante 1987 e9");
                     clearance = 2;
                     tires = 3;
@@ -10072,7 +12163,7 @@ namespace Bot.v._0._07
                     MRA = 48.41;
                     break;
 
-                case 246:
+                case 359:
                     NotePad.DoLog("Cadillac ATS-V 2016 s27");
                     clearance = 2;
                     tires = 2;
@@ -10088,7 +12179,7 @@ namespace Bot.v._0._07
                     MRA = 85.11;
                     break;
 
-                case 247:
+                case 360:
                     NotePad.DoLog("Cadillac Cien 2002 s28");
                     clearance = 1;
                     tires = 2;
@@ -10101,10 +12192,10 @@ namespace Bot.v._0._07
                     torque = 450;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 110.1;
                     break;
 
-                case 248:
+                case 361:
                     NotePad.DoLog("Cadillac Cimarron 1982 f3");
                     clearance = 2;
                     tires = 3;
@@ -10120,7 +12211,7 @@ namespace Bot.v._0._07
                     MRA = 41.69;
                     break;
 
-                case 249:
+                case 362:
                     NotePad.DoLog("Cadillac CT6 2016 a26");
                     clearance = 2;
                     tires = 3;
@@ -10136,7 +12227,7 @@ namespace Bot.v._0._07
                     MRA = 71.19;
                     break;
 
-                case 250:
+                case 363:
                     NotePad.DoLog("Cadillac CTS 2016 c18");
                     clearance = 2;
                     tires = 3;
@@ -10152,7 +12243,7 @@ namespace Bot.v._0._07
                     MRA = 60.23;
                     break;
 
-                case 251:
+                case 364:
                     NotePad.DoLog("Cadillac CTS Coupe 2016 b22");
                     clearance = 2;
                     tires = 3;
@@ -10168,7 +12259,7 @@ namespace Bot.v._0._07
                     MRA = 61.38;
                     break;
 
-                case 252:
+                case 365:
                     NotePad.DoLog("Cadillac CTS Sport Wagon 2014 b19");
                     clearance = 2;
                     tires = 3;
@@ -10184,7 +12275,7 @@ namespace Bot.v._0._07
                     MRA = 59.34;
                     break;
 
-                case 253:
+                case 366:
                     NotePad.DoLog("Cadillac CTS Vsport 2015 a23");
                     clearance = 2;
                     tires = 2;
@@ -10200,23 +12291,7 @@ namespace Bot.v._0._07
                     MRA = 75;
                     break;
 
-                case 254:
-                    NotePad.DoLog("Cadillac CTS-V 2016 s28");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 3.6;
-                    maxspeed = 200;
-                    grip = 87;
-                    weight = 1880;
-                    power = 640;
-                    torque = 631;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 255:
+                case 367:
                     NotePad.DoLog("Cadillac CTS-V 2004 a23");
                     clearance = 2;
                     tires = 2;
@@ -10232,7 +12307,23 @@ namespace Bot.v._0._07
                     MRA = 84.21;
                     break;
 
-                case 256:
+                case 368:
+                    NotePad.DoLog("Cadillac CTS-V 2016 s28");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.6;
+                    maxspeed = 200;
+                    grip = 87;
+                    weight = 1880;
+                    power = 640;
+                    torque = 631;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 91.89;
+                    break;
+
+                case 369:
                     NotePad.DoLog("Cadillac CTS-V Sport Wagon 2010 s27");
                     clearance = 2;
                     tires = 2;
@@ -10248,7 +12339,7 @@ namespace Bot.v._0._07
                     MRA = 102.56;
                     break;
 
-                case 257:
+                case 370:
                     NotePad.DoLog("Cadillac DeVille 1977 f5");
                     clearance = 2;
                     tires = 3;
@@ -10264,7 +12355,7 @@ namespace Bot.v._0._07
                     MRA = 45.38;
                     break;
 
-                case 258:
+                case 371:
                     NotePad.DoLog("Cadillac DTS 2006 c15");
                     clearance = 2;
                     tires = 3;
@@ -10280,7 +12371,7 @@ namespace Bot.v._0._07
                     MRA = 60.22;
                     break;
 
-                case 259:
+                case 372:
                     NotePad.DoLog("Cadillac Eldorado 1979 e8");
                     clearance = 2;
                     tires = 3;
@@ -10296,7 +12387,7 @@ namespace Bot.v._0._07
                     MRA = 48.41;
                     break;
 
-                case 260:
+                case 373:
                     NotePad.DoLog("Cadillac Eldorado 1986 e8");
                     clearance = 2;
                     tires = 3;
@@ -10312,7 +12403,7 @@ namespace Bot.v._0._07
                     MRA = 50.12;
                     break;
 
-                case 261:
+                case 374:
                     NotePad.DoLog("Cadillac Eldorado 1992 e10");
                     clearance = 2;
                     tires = 3;
@@ -10328,7 +12419,7 @@ namespace Bot.v._0._07
                     MRA = 53.72;
                     break;
 
-                case 262:
+                case 375:
                     NotePad.DoLog("Cadillac Elmiraj 2013 a24");
                     clearance = 2;
                     tires = 2;
@@ -10344,7 +12435,7 @@ namespace Bot.v._0._07
                     MRA = 92.2;
                     break;
 
-                case 263:
+                case 376:
                     NotePad.DoLog("Cadillac ELR 2016 c16");
                     clearance = 2;
                     tires = 3;
@@ -10360,23 +12451,7 @@ namespace Bot.v._0._07
                     MRA = 41.75;
                     break;
 
-                case 264:
-                    NotePad.DoLog("Cadillac Escalade 2011 b19");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 6.3;
-                    maxspeed = 112;
-                    grip = 65;
-                    weight = 2527;
-                    power = 403;
-                    torque = 417;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 59.54;
-                    break;
-
-                case 265:
+                case 377:
                     NotePad.DoLog("Cadillac Escalade 1999 d11");
                     clearance = 3;
                     tires = 3;
@@ -10392,7 +12467,7 @@ namespace Bot.v._0._07
                     MRA = 48.93;
                     break;
 
-                case 266:
+                case 378:
                     NotePad.DoLog("Cadillac Escalade 2002 d13");
                     clearance = 3;
                     tires = 3;
@@ -10408,7 +12483,23 @@ namespace Bot.v._0._07
                     MRA = 45.23;
                     break;
 
-                case 267:
+                case 379:
+                    NotePad.DoLog("Cadillac Escalade 2011 b19");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 6.3;
+                    maxspeed = 112;
+                    grip = 65;
+                    weight = 2527;
+                    power = 403;
+                    torque = 417;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 59.54;
+                    break;
+
+                case 380:
                     NotePad.DoLog("Cadillac Escalade ESV 2016 b21");
                     clearance = 3;
                     tires = 4;
@@ -10424,7 +12515,7 @@ namespace Bot.v._0._07
                     MRA = 55.89;
                     break;
 
-                case 268:
+                case 381:
                     NotePad.DoLog("Cadillac Escalade EXT 2011 b21");
                     clearance = 3;
                     tires = 4;
@@ -10440,7 +12531,7 @@ namespace Bot.v._0._07
                     MRA = 55.75;
                     break;
 
-                case 269:
+                case 382:
                     NotePad.DoLog("Cadillac Sedan De Ville 2000 e10");
                     clearance = 2;
                     tires = 3;
@@ -10456,7 +12547,7 @@ namespace Bot.v._0._07
                     MRA = 55.49;
                     break;
 
-                case 270:
+                case 383:
                     NotePad.DoLog("Cadillac Seville 1980 f4");
                     clearance = 2;
                     tires = 3;
@@ -10472,7 +12563,7 @@ namespace Bot.v._0._07
                     MRA = 58.33;
                     break;
 
-                case 271:
+                case 384:
                     NotePad.DoLog("Cadillac Sixteen 2003 s29");
                     clearance = 2;
                     tires = 3;
@@ -10488,7 +12579,7 @@ namespace Bot.v._0._07
                     MRA = 105.56;
                     break;
 
-                case 272:
+                case 385:
                     NotePad.DoLog("Cadillac SRX 2006 c16");
                     clearance = 3;
                     tires = 3;
@@ -10504,7 +12595,7 @@ namespace Bot.v._0._07
                     MRA = 62.44;
                     break;
 
-                case 273:
+                case 386:
                     NotePad.DoLog("Cadillac STS 2005 b22");
                     clearance = 2;
                     tires = 3;
@@ -10520,7 +12611,7 @@ namespace Bot.v._0._07
                     MRA = 66.58;
                     break;
 
-                case 274:
+                case 387:
                     NotePad.DoLog("Cadillac STS-V 2005 a24");
                     clearance = 2;
                     tires = 2;
@@ -10536,7 +12627,7 @@ namespace Bot.v._0._07
                     MRA = 90.13;
                     break;
 
-                case 275:
+                case 388:
                     NotePad.DoLog("Cadillac XLR roadster 2004 c15");
                     clearance = 1;
                     tires = 2;
@@ -10552,7 +12643,7 @@ namespace Bot.v._0._07
                     MRA = 65.48;
                     break;
 
-                case 276:
+                case 389:
                     NotePad.DoLog("Cadillac XLR-V 2006 b20");
                     clearance = 1;
                     tires = 2;
@@ -10568,7 +12659,7 @@ namespace Bot.v._0._07
                     MRA = 68.66;
                     break;
 
-                case 277:
+                case 390:
                     NotePad.DoLog("Cadillac XT5 2016 a23");
                     clearance = 3;
                     tires = 4;
@@ -10584,7 +12675,7 @@ namespace Bot.v._0._07
                     MRA = 54.65;
                     break;
 
-                case 278:
+                case 391:
                     NotePad.DoLog("Caterham 21 1995 d12");
                     clearance = 1;
                     tires = 2;
@@ -10600,7 +12691,7 @@ namespace Bot.v._0._07
                     MRA = 51.96;
                     break;
 
-                case 279:
+                case 392:
                     NotePad.DoLog("Caterham CSR 2005 a25");
                     clearance = 1;
                     tires = 2;
@@ -10616,7 +12707,7 @@ namespace Bot.v._0._07
                     MRA = 49.12;
                     break;
 
-                case 280:
+                case 393:
                     NotePad.DoLog("Caterham JPE 1992 a26");
                     clearance = 1;
                     tires = 2;
@@ -10632,7 +12723,7 @@ namespace Bot.v._0._07
                     MRA = 74.22;
                     break;
 
-                case 281:
+                case 394:
                     NotePad.DoLog("Caterham RS Levante 2008 s29");
                     clearance = 1;
                     tires = 2;
@@ -10648,7 +12739,7 @@ namespace Bot.v._0._07
                     MRA = 88.61;
                     break;
 
-                case 282:
+                case 395:
                     NotePad.DoLog("Caterham Seven 160 2013 d11");
                     clearance = 1;
                     tires = 3;
@@ -10664,7 +12755,7 @@ namespace Bot.v._0._07
                     MRA = 26.18;
                     break;
 
-                case 283:
+                case 396:
                     NotePad.DoLog("Caterham Seven 270 2015 b20");
                     clearance = 1;
                     tires = 3;
@@ -10680,7 +12771,7 @@ namespace Bot.v._0._07
                     MRA = 43.61;
                     break;
 
-                case 284:
+                case 397:
                     NotePad.DoLog("Caterham Seven 360 2015 b20");
                     clearance = 1;
                     tires = 2;
@@ -10696,7 +12787,7 @@ namespace Bot.v._0._07
                     MRA = 67.45;
                     break;
 
-                case 285:
+                case 398:
                     NotePad.DoLog("Caterham Seven 420 2015 a24");
                     clearance = 1;
                     tires = 2;
@@ -10712,7 +12803,7 @@ namespace Bot.v._0._07
                     MRA = 72.85;
                     break;
 
-                case 286:
+                case 399:
                     NotePad.DoLog("Caterham Seven 620R 2013 s28");
                     clearance = 1;
                     tires = 2;
@@ -10728,7 +12819,7 @@ namespace Bot.v._0._07
                     MRA = 68.18;
                     break;
 
-                case 287:
+                case 400:
                     NotePad.DoLog("Caterham Superlight R500 2008 a26");
                     clearance = 1;
                     tires = 2;
@@ -10744,7 +12835,7 @@ namespace Bot.v._0._07
                     MRA = 57.02;
                     break;
 
-                case 288:
+                case 401:
                     NotePad.DoLog("Chevrolet 454 SS 1990 e8");
                     clearance = 3;
                     tires = 2;
@@ -10760,7 +12851,7 @@ namespace Bot.v._0._07
                     MRA = 52.78;
                     break;
 
-                case 289:
+                case 402:
                     NotePad.DoLog("Chevrolet Aerovette 1977 b20");
                     clearance = 1;
                     tires = 2;
@@ -10776,7 +12867,7 @@ namespace Bot.v._0._07
                     MRA = 82.96;
                     break;
 
-                case 290:
+                case 403:
                     NotePad.DoLog("Chevrolet Aveo 2011 e9");
                     clearance = 2;
                     tires = 3;
@@ -10792,7 +12883,7 @@ namespace Bot.v._0._07
                     MRA = 39.38;
                     break;
 
-                case 291:
+                case 404:
                     NotePad.DoLog("Chevrolet Bel Air 1957 f5");
                     clearance = 2;
                     tires = 3;
@@ -10808,7 +12899,7 @@ namespace Bot.v._0._07
                     MRA = 53.47;
                     break;
 
-                case 292:
+                case 405:
                     NotePad.DoLog("Chevrolet Beretta GTZ 1991 d12");
                     clearance = 2;
                     tires = 2;
@@ -10824,7 +12915,7 @@ namespace Bot.v._0._07
                     MRA = 56.48;
                     break;
 
-                case 293:
+                case 406:
                     NotePad.DoLog("Chevrolet Blazer 2000 d11");
                     clearance = 3;
                     tires = 3;
@@ -10840,7 +12931,7 @@ namespace Bot.v._0._07
                     MRA = 39.33;
                     break;
 
-                case 294:
+                case 407:
                     NotePad.DoLog("Chevrolet Blazer S-10 1983 e8");
                     clearance = 3;
                     tires = 5;
@@ -10856,7 +12947,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 295:
+                case 408:
                     NotePad.DoLog("Chevrolet Camaro berlinetta 1983 e7");
                     clearance = 1;
                     tires = 3;
@@ -10872,7 +12963,7 @@ namespace Bot.v._0._07
                     MRA = 62.06;
                     break;
 
-                case 296:
+                case 409:
                     NotePad.DoLog("Chevrolet Camaro Convertible 2012 b20");
                     clearance = 1;
                     tires = 2;
@@ -10888,7 +12979,7 @@ namespace Bot.v._0._07
                     MRA = 47.84;
                     break;
 
-                case 297:
+                case 410:
                     NotePad.DoLog("Chevrolet Camaro IROC Z/28 1990 c16");
                     clearance = 1;
                     tires = 2;
@@ -10904,7 +12995,7 @@ namespace Bot.v._0._07
                     MRA = 69.51;
                     break;
 
-                case 298:
+                case 411:
                     NotePad.DoLog("Chevrolet Camaro IROC-Z 1984 c16");
                     clearance = 2;
                     tires = 2;
@@ -10920,23 +13011,7 @@ namespace Bot.v._0._07
                     MRA = 74.29;
                     break;
 
-                case 299:
-                    NotePad.DoLog("Chevrolet Camaro SS 2019 a23");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4.1;
-                    maxspeed = 165;
-                    grip = 85;
-                    weight = 1671;
-                    power = 455;
-                    torque = 455;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 71.7;
-                    break;
-
-                case 300:
+                case 412:
                     NotePad.DoLog("Chevrolet Camaro SS 2017 a23");
                     clearance = 1;
                     tires = 2;
@@ -10952,7 +13027,23 @@ namespace Bot.v._0._07
                     MRA = 74.14;
                     break;
 
-                case 301:
+                case 413:
+                    NotePad.DoLog("Chevrolet Camaro SS 2019 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 165;
+                    grip = 85;
+                    weight = 1671;
+                    power = 455;
+                    torque = 455;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 71.7;
+                    break;
+
+                case 414:
                     NotePad.DoLog("Chevrolet Camaro SS Coupe 2010 b22");
                     clearance = 1;
                     tires = 2;
@@ -10968,23 +13059,7 @@ namespace Bot.v._0._07
                     MRA = 80.25;
                     break;
 
-                case 302:
-                    NotePad.DoLog("Chevrolet Camaro Z/28 1977 e9");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 6.7;
-                    maxspeed = 119;
-                    grip = 63;
-                    weight = 1557;
-                    power = 255;
-                    torque = 280;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 63.07;
-                    break;
-
-                case 303:
+                case 415:
                     NotePad.DoLog("Chevrolet Camaro Z/28 1970 d12");
                     clearance = 2;
                     tires = 2;
@@ -11000,7 +13075,23 @@ namespace Bot.v._0._07
                     MRA = 81.52;
                     break;
 
-                case 304:
+                case 416:
+                    NotePad.DoLog("Chevrolet Camaro Z/28 1977 e9");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.7;
+                    maxspeed = 119;
+                    grip = 63;
+                    weight = 1557;
+                    power = 255;
+                    torque = 280;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 63.07;
+                    break;
+
+                case 417:
                     NotePad.DoLog("Chevrolet Camaro Z/28 1993 c15");
                     clearance = 2;
                     tires = 2;
@@ -11016,7 +13107,7 @@ namespace Bot.v._0._07
                     MRA = 84.66;
                     break;
 
-                case 305:
+                case 418:
                     NotePad.DoLog("Chevrolet Camaro Z/28 2016 a25");
                     clearance = 1;
                     tires = 2;
@@ -11032,7 +13123,7 @@ namespace Bot.v._0._07
                     MRA = 84.07;
                     break;
 
-                case 306:
+                case 419:
                     NotePad.DoLog("Chevrolet Camaro Z28 SS 1999 b19");
                     clearance = 1;
                     tires = 2;
@@ -11048,23 +13139,7 @@ namespace Bot.v._0._07
                     MRA = 73.44;
                     break;
 
-                case 307:
-                    NotePad.DoLog("Chevrolet Camaro ZL1 2015 a24");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4.3;
-                    maxspeed = 184;
-                    grip = 86;
-                    weight = 1869;
-                    power = 580;
-                    torque = 556;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 82.82;
-                    break;
-
-                case 308:
+                case 420:
                     NotePad.DoLog("Chevrolet Camaro ZL1 2012 a25");
                     clearance = 1;
                     tires = 2;
@@ -11080,7 +13155,23 @@ namespace Bot.v._0._07
                     MRA = 80;
                     break;
 
-                case 309:
+                case 421:
+                    NotePad.DoLog("Chevrolet Camaro ZL1 2015 a24");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.3;
+                    maxspeed = 184;
+                    grip = 86;
+                    weight = 1869;
+                    power = 580;
+                    torque = 556;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 82.82;
+                    break;
+
+                case 422:
                     NotePad.DoLog("Chevrolet Camaro ZL1 1LE 2018 a28");
                     clearance = 1;
                     tires = 2;
@@ -11096,7 +13187,7 @@ namespace Bot.v._0._07
                     MRA = 92.88;
                     break;
 
-                case 310:
+                case 423:
                     NotePad.DoLog("Chevrolet Caprice 1991 e7");
                     clearance = 2;
                     tires = 3;
@@ -11112,7 +13203,7 @@ namespace Bot.v._0._07
                     MRA = 63.42;
                     break;
 
-                case 311:
+                case 424:
                     NotePad.DoLog("Chevrolet Captiva 2007 d14");
                     clearance = 3;
                     tires = 4;
@@ -11128,7 +13219,7 @@ namespace Bot.v._0._07
                     MRA = 62.06;
                     break;
 
-                case 312:
+                case 425:
                     NotePad.DoLog("Chevrolet Captiva LTX 2008 c17");
                     clearance = 3;
                     tires = 4;
@@ -11144,7 +13235,7 @@ namespace Bot.v._0._07
                     MRA = 54.72;
                     break;
 
-                case 313:
+                case 426:
                     NotePad.DoLog("Chevrolet Chevelle SS 454 1970 d11");
                     clearance = 2;
                     tires = 3;
@@ -11160,7 +13251,7 @@ namespace Bot.v._0._07
                     MRA = 73.61;
                     break;
 
-                case 314:
+                case 427:
                     NotePad.DoLog("Chevrolet Chevette 1976 f4");
                     clearance = 2;
                     tires = 3;
@@ -11176,7 +13267,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 315:
+                case 428:
                     NotePad.DoLog("Chevrolet Cobalt SS S/C 2006 b19");
                     clearance = 2;
                     tires = 2;
@@ -11192,7 +13283,7 @@ namespace Bot.v._0._07
                     MRA = 83.05;
                     break;
 
-                case 316:
+                case 429:
                     NotePad.DoLog("Chevrolet Cobalt SS Turbo 2009 b21");
                     clearance = 2;
                     tires = 2;
@@ -11208,7 +13299,7 @@ namespace Bot.v._0._07
                     MRA = 74.32;
                     break;
 
-                case 317:
+                case 430:
                     NotePad.DoLog("Chevrolet Code 130R 2012 d14");
                     clearance = 1;
                     tires = 2;
@@ -11224,7 +13315,7 @@ namespace Bot.v._0._07
                     MRA = 74.23;
                     break;
 
-                case 318:
+                case 431:
                     NotePad.DoLog("Chevrolet Colorado ZR2 2018 b22");
                     clearance = 3;
                     tires = 5;
@@ -11240,23 +13331,7 @@ namespace Bot.v._0._07
                     MRA = 31.94;
                     break;
 
-                case 319:
-                    NotePad.DoLog("Chevrolet Copo Camaro 2018 a23");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 2.1;
-                    maxspeed = 185;
-                    grip = 60;
-                    weight = 1500;
-                    power = 580;
-                    torque = 560;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 320:
+                case 432:
                     NotePad.DoLog("Chevrolet COPO Camaro 2012 b22");
                     clearance = 1;
                     tires = 1;
@@ -11272,7 +13347,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 321:
+                case 433:
+                    NotePad.DoLog("Chevrolet Copo Camaro 2018 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.1;
+                    maxspeed = 185;
+                    grip = 60;
+                    weight = 1500;
+                    power = 580;
+                    torque = 560;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 434:
                     NotePad.DoLog("Chevrolet Corvette 1953 f5");
                     clearance = 1;
                     tires = 3;
@@ -11288,7 +13379,7 @@ namespace Bot.v._0._07
                     MRA = 45.73;
                     break;
 
-                case 322:
+                case 435:
                     NotePad.DoLog("Chevrolet Corvette 2009 a25");
                     clearance = 1;
                     tires = 2;
@@ -11304,7 +13395,7 @@ namespace Bot.v._0._07
                     MRA = 70.91;
                     break;
 
-                case 323:
+                case 436:
                     NotePad.DoLog("Chevrolet Corvette 396 1965 d13");
                     clearance = 1;
                     tires = 2;
@@ -11320,7 +13411,7 @@ namespace Bot.v._0._07
                     MRA = 84.71;
                     break;
 
-                case 324:
+                case 437:
                     NotePad.DoLog("Chevrolet Corvette C4 1984 c15");
                     clearance = 1;
                     tires = 2;
@@ -11336,7 +13427,7 @@ namespace Bot.v._0._07
                     MRA = 80.82;
                     break;
 
-                case 325:
+                case 438:
                     NotePad.DoLog("Chevrolet Corvette C5 1997 b21");
                     clearance = 1;
                     tires = 2;
@@ -11352,7 +13443,7 @@ namespace Bot.v._0._07
                     MRA = 73.17;
                     break;
 
-                case 326:
+                case 439:
                     NotePad.DoLog("Chevrolet Corvette Grand Sport 1996 b21");
                     clearance = 1;
                     tires = 2;
@@ -11368,7 +13459,7 @@ namespace Bot.v._0._07
                     MRA = 71.81;
                     break;
 
-                case 327:
+                case 440:
                     NotePad.DoLog("Chevrolet Corvette Grand Sport 2017 a26");
                     clearance = 1;
                     tires = 2;
@@ -11384,7 +13475,7 @@ namespace Bot.v._0._07
                     MRA = 70.39;
                     break;
 
-                case 328:
+                case 441:
                     NotePad.DoLog("Chevrolet Corvette LT-1 1970 d11");
                     clearance = 1;
                     tires = 2;
@@ -11400,7 +13491,7 @@ namespace Bot.v._0._07
                     MRA = 78.64;
                     break;
 
-                case 329:
+                case 442:
                     NotePad.DoLog("Chevrolet Corvette Stingray Z51 2016 a26");
                     clearance = 1;
                     tires = 2;
@@ -11416,23 +13507,7 @@ namespace Bot.v._0._07
                     MRA = 80;
                     break;
 
-                case 330:
-                    NotePad.DoLog("Chevrolet Corvette Z06 2005 a26");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 3.9;
-                    maxspeed = 199;
-                    grip = 88;
-                    weight = 1453;
-                    power = 505;
-                    torque = 470;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 78.57;
-                    break;
-
-                case 331:
+                case 443:
                     NotePad.DoLog("Chevrolet Corvette Z06 2001 a23");
                     clearance = 1;
                     tires = 2;
@@ -11448,7 +13523,23 @@ namespace Bot.v._0._07
                     MRA = 78.75;
                     break;
 
-                case 332:
+                case 444:
+                    NotePad.DoLog("Chevrolet Corvette Z06 2005 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 199;
+                    grip = 88;
+                    weight = 1453;
+                    power = 505;
+                    torque = 470;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 78.57;
+                    break;
+
+                case 445:
                     NotePad.DoLog("Chevrolet Corvette Z06 2016 s27");
                     clearance = 1;
                     tires = 2;
@@ -11464,7 +13555,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 333:
+                case 446:
                     NotePad.DoLog("Chevrolet Corvette Z06 Lingenfelter 2006 a26");
                     clearance = 1;
                     tires = 2;
@@ -11480,7 +13571,7 @@ namespace Bot.v._0._07
                     MRA = 85;
                     break;
 
-                case 334:
+                case 447:
                     NotePad.DoLog("Chevrolet Corvette ZR1 1971 d12");
                     clearance = 1;
                     tires = 2;
@@ -11496,7 +13587,7 @@ namespace Bot.v._0._07
                     MRA = 81.91;
                     break;
 
-                case 335:
+                case 448:
                     NotePad.DoLog("Chevrolet Corvette ZR1 1993 a23");
                     clearance = 1;
                     tires = 2;
@@ -11512,7 +13603,7 @@ namespace Bot.v._0._07
                     MRA = 79.66;
                     break;
 
-                case 336:
+                case 449:
                     NotePad.DoLog("Chevrolet Corvette ZR1 2019 s29");
                     clearance = 1;
                     tires = 2;
@@ -11528,7 +13619,7 @@ namespace Bot.v._0._07
                     MRA = 93.67;
                     break;
 
-                case 337:
+                case 450:
                     NotePad.DoLog("Chevrolet Corvette ZR2 1981 c17");
                     clearance = 1;
                     tires = 2;
@@ -11544,7 +13635,7 @@ namespace Bot.v._0._07
                     MRA = 72.33;
                     break;
 
-                case 338:
+                case 451:
                     NotePad.DoLog("Chevrolet Cruze LS 2009 e9");
                     clearance = 2;
                     tires = 3;
@@ -11560,7 +13651,7 @@ namespace Bot.v._0._07
                     MRA = 60.92;
                     break;
 
-                case 339:
+                case 452:
                     NotePad.DoLog("Chevrolet Cruze LT 2012 e7");
                     clearance = 2;
                     tires = 3;
@@ -11576,7 +13667,7 @@ namespace Bot.v._0._07
                     MRA = 51.09;
                     break;
 
-                case 340:
+                case 453:
                     NotePad.DoLog("Chevrolet Cruze SW 2012 e7");
                     clearance = 2;
                     tires = 3;
@@ -11592,7 +13683,7 @@ namespace Bot.v._0._07
                     MRA = 57.06;
                     break;
 
-                case 341:
+                case 454:
                     NotePad.DoLog("Chevrolet El Camino 1963 e9");
                     clearance = 2;
                     tires = 3;
@@ -11608,7 +13699,7 @@ namespace Bot.v._0._07
                     MRA = 58.44;
                     break;
 
-                case 342:
+                case 455:
                     NotePad.DoLog("Chevrolet El Camino 1981 e7");
                     clearance = 2;
                     tires = 3;
@@ -11621,10 +13712,10 @@ namespace Bot.v._0._07
                     torque = 209;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 22.18;
                     break;
 
-                case 343:
+                case 456:
                     NotePad.DoLog("Chevrolet El Camino SS 454 1970 c15");
                     clearance = 2;
                     tires = 2;
@@ -11640,7 +13731,7 @@ namespace Bot.v._0._07
                     MRA = 76.58;
                     break;
 
-                case 344:
+                case 457:
                     NotePad.DoLog("Chevrolet Fleetline 1948 f4");
                     clearance = 2;
                     tires = 3;
@@ -11656,7 +13747,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 345:
+                case 458:
                     NotePad.DoLog("Chevrolet HHR SS Turbocharged 2008 c17");
                     clearance = 2;
                     tires = 2;
@@ -11672,7 +13763,7 @@ namespace Bot.v._0._07
                     MRA = 86.68;
                     break;
 
-                case 346:
+                case 459:
                     NotePad.DoLog("Chevrolet Impala 1959 d11");
                     clearance = 2;
                     tires = 3;
@@ -11688,7 +13779,7 @@ namespace Bot.v._0._07
                     MRA = 54.01;
                     break;
 
-                case 347:
+                case 460:
                     NotePad.DoLog("Chevrolet Impala SS 1964 e10");
                     clearance = 2;
                     tires = 2;
@@ -11704,7 +13795,7 @@ namespace Bot.v._0._07
                     MRA = 63.03;
                     break;
 
-                case 348:
+                case 461:
                     NotePad.DoLog("Chevrolet Impala SS 1996 d12");
                     clearance = 2;
                     tires = 2;
@@ -11720,7 +13811,7 @@ namespace Bot.v._0._07
                     MRA = 83.92;
                     break;
 
-                case 349:
+                case 462:
                     NotePad.DoLog("Chevrolet Impala SS427 1967 e10");
                     clearance = 2;
                     tires = 2;
@@ -11736,7 +13827,7 @@ namespace Bot.v._0._07
                     MRA = 67.75;
                     break;
 
-                case 350:
+                case 463:
                     NotePad.DoLog("Chevrolet K5 Blazer 5.7L 1972 c16");
                     clearance = 3;
                     tires = 5;
@@ -11752,7 +13843,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 351:
+                case 464:
                     NotePad.DoLog("Chevrolet Lacetti 2004 e7");
                     clearance = 2;
                     tires = 3;
@@ -11768,7 +13859,7 @@ namespace Bot.v._0._07
                     MRA = 47.74;
                     break;
 
-                case 352:
+                case 465:
                     NotePad.DoLog("Chevrolet Lumina Z34 1991 d13");
                     clearance = 2;
                     tires = 2;
@@ -11784,7 +13875,7 @@ namespace Bot.v._0._07
                     MRA = 62.7;
                     break;
 
-                case 353:
+                case 466:
                     NotePad.DoLog("Chevrolet Malibu 2019 d14");
                     clearance = 2;
                     tires = 3;
@@ -11800,7 +13891,7 @@ namespace Bot.v._0._07
                     MRA = 56.96;
                     break;
 
-                case 354:
+                case 467:
                     NotePad.DoLog("Chevrolet Matiz 2005 f4");
                     clearance = 2;
                     tires = 3;
@@ -11816,7 +13907,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 355:
+                case 468:
                     NotePad.DoLog("Chevrolet Miray 2011 a24");
                     clearance = 1;
                     tires = 2;
@@ -11832,7 +13923,7 @@ namespace Bot.v._0._07
                     MRA = 49.63;
                     break;
 
-                case 356:
+                case 469:
                     NotePad.DoLog("Chevrolet Monte Carlo 1970 d13");
                     clearance = 2;
                     tires = 3;
@@ -11848,7 +13939,7 @@ namespace Bot.v._0._07
                     MRA = 86.5;
                     break;
 
-                case 357:
+                case 470:
                     NotePad.DoLog("Chevrolet Monte Carlo SS 1983 e7");
                     clearance = 2;
                     tires = 2;
@@ -11864,7 +13955,7 @@ namespace Bot.v._0._07
                     MRA = 52.46;
                     break;
 
-                case 358:
+                case 471:
                     NotePad.DoLog("Chevrolet Monte Carlo SS 2006 c18");
                     clearance = 2;
                     tires = 2;
@@ -11880,7 +13971,7 @@ namespace Bot.v._0._07
                     MRA = 80.99;
                     break;
 
-                case 359:
+                case 472:
                     NotePad.DoLog("Chevrolet Monte Carlo SS Jeff Gordon Edition 2003 d14");
                     clearance = 1;
                     tires = 2;
@@ -11896,7 +13987,7 @@ namespace Bot.v._0._07
                     MRA = 76.92;
                     break;
 
-                case 360:
+                case 473:
                     NotePad.DoLog("Chevrolet Orlando LTZ 2010 d11");
                     clearance = 3;
                     tires = 3;
@@ -11912,7 +14003,7 @@ namespace Bot.v._0._07
                     MRA = 64.41;
                     break;
 
-                case 361:
+                case 474:
                     NotePad.DoLog("Chevrolet S-10 Blazer Xtreme 1999 e9");
                     clearance = 3;
                     tires = 2;
@@ -11928,7 +14019,7 @@ namespace Bot.v._0._07
                     MRA = 43.48;
                     break;
 
-                case 362:
+                case 475:
                     NotePad.DoLog("Chevrolet Silverado 2016 c16");
                     clearance = 3;
                     tires = 4;
@@ -11944,7 +14035,7 @@ namespace Bot.v._0._07
                     MRA = 44.99;
                     break;
 
-                case 363:
+                case 476:
                     NotePad.DoLog("Chevrolet Silverado SS 2006 c16");
                     clearance = 3;
                     tires = 3;
@@ -11960,7 +14051,7 @@ namespace Bot.v._0._07
                     MRA = 48.8;
                     break;
 
-                case 364:
+                case 477:
                     NotePad.DoLog("Chevrolet Spark 2009 f6");
                     clearance = 2;
                     tires = 3;
@@ -11973,10 +14064,10 @@ namespace Bot.v._0._07
                     torque = 69;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 29.98;
                     break;
 
-                case 365:
+                case 478:
                     NotePad.DoLog("Chevrolet SSR 2003 d12");
                     clearance = 3;
                     tires = 2;
@@ -11992,7 +14083,7 @@ namespace Bot.v._0._07
                     MRA = 69.2;
                     break;
 
-                case 366:
+                case 479:
                     NotePad.DoLog("Chevrolet SSR 6.0L 2007 c17");
                     clearance = 2;
                     tires = 2;
@@ -12008,7 +14099,7 @@ namespace Bot.v._0._07
                     MRA = 65.38;
                     break;
 
-                case 367:
+                case 480:
                     NotePad.DoLog("Chevrolet Suburban 2016 c18");
                     clearance = 3;
                     tires = 4;
@@ -12024,7 +14115,7 @@ namespace Bot.v._0._07
                     MRA = 55.87;
                     break;
 
-                case 368:
+                case 481:
                     NotePad.DoLog("Chevrolet Tahoe 1995 e7");
                     clearance = 3;
                     tires = 3;
@@ -12040,7 +14131,7 @@ namespace Bot.v._0._07
                     MRA = 47.9;
                     break;
 
-                case 369:
+                case 482:
                     NotePad.DoLog("Chevrolet Tahoe Custom 2018 b22");
                     clearance = 3;
                     tires = 4;
@@ -12056,7 +14147,7 @@ namespace Bot.v._0._07
                     MRA = 43.61;
                     break;
 
-                case 370:
+                case 483:
                     NotePad.DoLog("Chevrolet Trailblazer SS 2006 b20");
                     clearance = 3;
                     tires = 4;
@@ -12072,7 +14163,7 @@ namespace Bot.v._0._07
                     MRA = 74.98;
                     break;
 
-                case 371:
+                case 484:
                     NotePad.DoLog("Chevrolet Tru 140S 2012 d12");
                     clearance = 1;
                     tires = 2;
@@ -12088,7 +14179,7 @@ namespace Bot.v._0._07
                     MRA = 76.92;
                     break;
 
-                case 372:
+                case 485:
                     NotePad.DoLog("Chevrolet Volt 2012 e10");
                     clearance = 2;
                     tires = 3;
@@ -12101,10 +14192,10 @@ namespace Bot.v._0._07
                     torque = 273;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 29.79;
                     break;
 
-                case 373:
+                case 486:
                     NotePad.DoLog("Chrysler 200 2017 c16");
                     clearance = 2;
                     tires = 3;
@@ -12120,7 +14211,7 @@ namespace Bot.v._0._07
                     MRA = 57.32;
                     break;
 
-                case 374:
+                case 487:
                     NotePad.DoLog("Chrysler 300 2018 c17");
                     clearance = 2;
                     tires = 3;
@@ -12136,7 +14227,7 @@ namespace Bot.v._0._07
                     MRA = 62.42;
                     break;
 
-                case 375:
+                case 488:
                     NotePad.DoLog("Chrysler 300 SRT8 2012 a23");
                     clearance = 2;
                     tires = 2;
@@ -12152,7 +14243,7 @@ namespace Bot.v._0._07
                     MRA = 77.59;
                     break;
 
-                case 376:
+                case 489:
                     NotePad.DoLog("Chrysler 300 SRT-8 2005 b21");
                     clearance = 2;
                     tires = 2;
@@ -12168,7 +14259,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 377:
+                case 490:
                     NotePad.DoLog("Chrysler 300 Touring 2005 d12");
                     clearance = 2;
                     tires = 3;
@@ -12184,7 +14275,7 @@ namespace Bot.v._0._07
                     MRA = 53.26;
                     break;
 
-                case 378:
+                case 491:
                     NotePad.DoLog("Chrysler 300H 1962 e7");
                     clearance = 2;
                     tires = 3;
@@ -12200,7 +14291,7 @@ namespace Bot.v._0._07
                     MRA = 39.11;
                     break;
 
-                case 379:
+                case 492:
                     NotePad.DoLog("Chrysler 300M Special Edition 2002 e10");
                     clearance = 2;
                     tires = 2;
@@ -12216,7 +14307,7 @@ namespace Bot.v._0._07
                     MRA = 54.75;
                     break;
 
-                case 380:
+                case 493:
                     NotePad.DoLog("Chrysler Aspen Hybrid 2009 b21");
                     clearance = 3;
                     tires = 4;
@@ -12232,7 +14323,7 @@ namespace Bot.v._0._07
                     MRA = 56.15;
                     break;
 
-                case 381:
+                case 494:
                     NotePad.DoLog("Chrysler Crossfire Coupe 2004 c16");
                     clearance = 1;
                     tires = 3;
@@ -12248,7 +14339,7 @@ namespace Bot.v._0._07
                     MRA = 64.81;
                     break;
 
-                case 382:
+                case 495:
                     NotePad.DoLog("Chrysler Crossfire Roadster 2004 c15");
                     clearance = 1;
                     tires = 3;
@@ -12264,7 +14355,7 @@ namespace Bot.v._0._07
                     MRA = 61.21;
                     break;
 
-                case 383:
+                case 496:
                     NotePad.DoLog("Chrysler Crossfire SRT-6 Coupe 2004 b19");
                     clearance = 1;
                     tires = 2;
@@ -12280,7 +14371,7 @@ namespace Bot.v._0._07
                     MRA = 68;
                     break;
 
-                case 384:
+                case 497:
                     NotePad.DoLog("Chrysler Drifter 1977 f5");
                     clearance = 2;
                     tires = 3;
@@ -12296,7 +14387,7 @@ namespace Bot.v._0._07
                     MRA = 37.19;
                     break;
 
-                case 385:
+                case 498:
                     NotePad.DoLog("Chrysler Imperial 1990 f3");
                     clearance = 2;
                     tires = 3;
@@ -12312,7 +14403,7 @@ namespace Bot.v._0._07
                     MRA = 43.48;
                     break;
 
-                case 386:
+                case 499:
                     NotePad.DoLog("Chrysler Laser XT 1984 e10");
                     clearance = 2;
                     tires = 2;
@@ -12328,7 +14419,7 @@ namespace Bot.v._0._07
                     MRA = 53.53;
                     break;
 
-                case 387:
+                case 500:
                     NotePad.DoLog("Chrysler LeBaron GTS Turbo 1985 d11");
                     clearance = 2;
                     tires = 3;
@@ -12344,7 +14435,7 @@ namespace Bot.v._0._07
                     MRA = 52.06;
                     break;
 
-                case 388:
+                case 501:
                     NotePad.DoLog("Chrysler LHS 1994 e9");
                     clearance = 2;
                     tires = 3;
@@ -12360,7 +14451,7 @@ namespace Bot.v._0._07
                     MRA = 57.82;
                     break;
 
-                case 389:
+                case 502:
                     NotePad.DoLog("Chrysler ME Four-Twelve 2004 s29");
                     clearance = 1;
                     tires = 2;
@@ -12376,7 +14467,7 @@ namespace Bot.v._0._07
                     MRA = 93.33;
                     break;
 
-                case 390:
+                case 503:
                     NotePad.DoLog("Chrysler Newport 1968 e10");
                     clearance = 2;
                     tires = 3;
@@ -12392,7 +14483,7 @@ namespace Bot.v._0._07
                     MRA = 57.98;
                     break;
 
-                case 391:
+                case 504:
                     NotePad.DoLog("Chrysler Pacifica 2018 e9");
                     clearance = 2;
                     tires = 3;
@@ -12408,7 +14499,7 @@ namespace Bot.v._0._07
                     MRA = 47.32;
                     break;
 
-                case 392:
+                case 505:
                     NotePad.DoLog("Chrysler Prowler 2001 d12");
                     clearance = 1;
                     tires = 2;
@@ -12424,7 +14515,7 @@ namespace Bot.v._0._07
                     MRA = 69.14;
                     break;
 
-                case 393:
+                case 506:
                     NotePad.DoLog("Chrysler PT Cruiser 2004 e8");
                     clearance = 2;
                     tires = 3;
@@ -12440,23 +14531,7 @@ namespace Bot.v._0._07
                     MRA = 49.01;
                     break;
 
-                case 394:
-                    NotePad.DoLog("Chrysler Sebring 2001 e7");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11;
-                    maxspeed = 135;
-                    grip = 70;
-                    weight = 1421;
-                    power = 142;
-                    torque = 155;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 60.14;
-                    break;
-
-                case 395:
+                case 507:
                     NotePad.DoLog("Chrysler Sebring 1995 e7");
                     clearance = 2;
                     tires = 3;
@@ -12472,7 +14547,23 @@ namespace Bot.v._0._07
                     MRA = 58.26;
                     break;
 
-                case 396:
+                case 508:
+                    NotePad.DoLog("Chrysler Sebring 2001 e7");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11;
+                    maxspeed = 135;
+                    grip = 70;
+                    weight = 1421;
+                    power = 142;
+                    torque = 155;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 60.14;
+                    break;
+
+                case 509:
                     NotePad.DoLog("Chrysler Sebring 2007 e8");
                     clearance = 2;
                     tires = 3;
@@ -12488,7 +14579,7 @@ namespace Bot.v._0._07
                     MRA = 57.37;
                     break;
 
-                case 397:
+                case 510:
                     NotePad.DoLog("Chrysler Sebring Convertible 1996 e7");
                     clearance = 2;
                     tires = 3;
@@ -12504,7 +14595,7 @@ namespace Bot.v._0._07
                     MRA = 50.1;
                     break;
 
-                case 398:
+                case 511:
                     NotePad.DoLog("Chrysler TC by Maserati 1990 f5");
                     clearance = 2;
                     tires = 2;
@@ -12520,39 +14611,7 @@ namespace Bot.v._0._07
                     MRA = 50.52;
                     break;
 
-                case 399:
-                    NotePad.DoLog("Chrysler Town and Country 2008 e7");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 9.8;
-                    maxspeed = 116;
-                    grip = 68;
-                    weight = 2115;
-                    power = 283;
-                    torque = 260;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 52.63;
-                    break;
-
-                case 400:
-                    NotePad.DoLog("Chrysler Town and Country 2001 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 10.2;
-                    maxspeed = 112;
-                    grip = 65;
-                    weight = 1769;
-                    power = 215;
-                    torque = 235;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 46.88;
-                    break;
-
-                case 401:
+                case 512:
                     NotePad.DoLog("Chrysler Town and Country 1990 f3");
                     clearance = 2;
                     tires = 3;
@@ -12568,23 +14627,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 402:
-                    NotePad.DoLog("Chrysler Town and Country 1996 f3");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 12.8;
-                    maxspeed = 108;
-                    grip = 61;
-                    weight = 1884;
-                    power = 163;
-                    torque = 225;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 53.19;
-                    break;
-
-                case 403:
+                case 513:
                     NotePad.DoLog("Chrysler Town and Country 1991 f3");
                     clearance = 2;
                     tires = 3;
@@ -12600,7 +14643,55 @@ namespace Bot.v._0._07
                     MRA = 44.9;
                     break;
 
-                case 404:
+                case 514:
+                    NotePad.DoLog("Chrysler Town and Country 1996 f3");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 12.8;
+                    maxspeed = 108;
+                    grip = 61;
+                    weight = 1884;
+                    power = 163;
+                    torque = 225;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 53.19;
+                    break;
+
+                case 515:
+                    NotePad.DoLog("Chrysler Town and Country 2001 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 10.2;
+                    maxspeed = 112;
+                    grip = 65;
+                    weight = 1769;
+                    power = 215;
+                    torque = 235;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 46.88;
+                    break;
+
+                case 516:
+                    NotePad.DoLog("Chrysler Town and Country 2008 e7");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 9.8;
+                    maxspeed = 116;
+                    grip = 68;
+                    weight = 2115;
+                    power = 283;
+                    torque = 260;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 52.63;
+                    break;
+
+                case 517:
                     NotePad.DoLog("Chrysler Turbine Car 1963 f4");
                     clearance = 2;
                     tires = 3;
@@ -12613,10 +14704,10 @@ namespace Bot.v._0._07
                     torque = 425;
                     abs = 0;
                     tcs = 0;
-                    MRA = 54.23;
+                    MRA = 54.27;
                     break;
 
-                case 405:
+                case 518:
                     NotePad.DoLog("Citroen 2CV 6 1979 f3");
                     clearance = 2;
                     tires = 3;
@@ -12632,7 +14723,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 406:
+                case 519:
                     NotePad.DoLog("Citroen Ami Super 1973 f3");
                     clearance = 2;
                     tires = 3;
@@ -12648,7 +14739,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 407:
+                case 520:
                     NotePad.DoLog("Citroen AX GTi 1993 e8");
                     clearance = 2;
                     tires = 2;
@@ -12664,7 +14755,7 @@ namespace Bot.v._0._07
                     MRA = 51.24;
                     break;
 
-                case 408:
+                case 521:
                     NotePad.DoLog("Citroen Axel 12 TRS 1984 f4");
                     clearance = 2;
                     tires = 3;
@@ -12680,7 +14771,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 409:
+                case 522:
                     NotePad.DoLog("Citroen BX 16v 1982 d12");
                     clearance = 2;
                     tires = 2;
@@ -12696,7 +14787,7 @@ namespace Bot.v._0._07
                     MRA = 74.34;
                     break;
 
-                case 410:
+                case 523:
                     NotePad.DoLog("Citroen BX 17 D Turbo Break 1982 f5");
                     clearance = 2;
                     tires = 3;
@@ -12712,7 +14803,7 @@ namespace Bot.v._0._07
                     MRA = 39.57;
                     break;
 
-                case 411:
+                case 524:
                     NotePad.DoLog("Citroen BX 4TC 1982 c18");
                     clearance = 2;
                     tires = 2;
@@ -12728,7 +14819,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 412:
+                case 525:
                     NotePad.DoLog("Citroen BX 4TC Group B 1986 a26");
                     clearance = 2;
                     tires = 5;
@@ -12741,10 +14832,10 @@ namespace Bot.v._0._07
                     torque = 340;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 84.68;
                     break;
 
-                case 413:
+                case 526:
                     NotePad.DoLog("Citroen C1 VTi 68 2015 e7");
                     clearance = 2;
                     tires = 3;
@@ -12760,7 +14851,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 414:
+                case 527:
                     NotePad.DoLog("Citroen C2 VTS 2003 d12");
                     clearance = 2;
                     tires = 2;
@@ -12776,7 +14867,7 @@ namespace Bot.v._0._07
                     MRA = 67.65;
                     break;
 
-                case 415:
+                case 528:
                     NotePad.DoLog("Citroen C2-R2 Max 2008 c15");
                     clearance = 1;
                     tires = 2;
@@ -12792,7 +14883,7 @@ namespace Bot.v._0._07
                     MRA = 50.52;
                     break;
 
-                case 416:
+                case 529:
                     NotePad.DoLog("Citroen C3 Aircross 2018 e9");
                     clearance = 3;
                     tires = 3;
@@ -12808,7 +14899,7 @@ namespace Bot.v._0._07
                     MRA = 50.9;
                     break;
 
-                case 417:
+                case 530:
                     NotePad.DoLog("Citroen C3 Picasso 2016 e7");
                     clearance = 2;
                     tires = 3;
@@ -12824,7 +14915,7 @@ namespace Bot.v._0._07
                     MRA = 51.13;
                     break;
 
-                case 418:
+                case 531:
                     NotePad.DoLog("Citroen C3 PureTech 110 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -12840,7 +14931,7 @@ namespace Bot.v._0._07
                     MRA = 46.36;
                     break;
 
-                case 419:
+                case 532:
                     NotePad.DoLog("Citroen C3-XR 2014 e8");
                     clearance = 3;
                     tires = 3;
@@ -12856,7 +14947,7 @@ namespace Bot.v._0._07
                     MRA = 51.15;
                     break;
 
-                case 420:
+                case 533:
                     NotePad.DoLog("Citroen C4 2.0 16v VTS 2004 d13");
                     clearance = 2;
                     tires = 2;
@@ -12872,7 +14963,7 @@ namespace Bot.v._0._07
                     MRA = 63.49;
                     break;
 
-                case 421:
+                case 534:
                     NotePad.DoLog("Citroen C4 Cactus 2.0 HDi 16v 2014 e8");
                     clearance = 2;
                     tires = 3;
@@ -12888,7 +14979,7 @@ namespace Bot.v._0._07
                     MRA = 47.22;
                     break;
 
-                case 422:
+                case 535:
                     NotePad.DoLog("Citroen C4 Picasso THP 165 2016 d12");
                     clearance = 2;
                     tires = 3;
@@ -12904,7 +14995,7 @@ namespace Bot.v._0._07
                     MRA = 55.18;
                     break;
 
-                case 423:
+                case 536:
                     NotePad.DoLog("Citroen C5 Aircross 2018 e10");
                     clearance = 3;
                     tires = 3;
@@ -12920,7 +15011,7 @@ namespace Bot.v._0._07
                     MRA = 62.32;
                     break;
 
-                case 424:
+                case 537:
                     NotePad.DoLog("Citroen C5 Crosstourer 2014 e10");
                     clearance = 3;
                     tires = 3;
@@ -12936,7 +15027,7 @@ namespace Bot.v._0._07
                     MRA = 42.79;
                     break;
 
-                case 425:
+                case 538:
                     NotePad.DoLog("Citroen C5 HPi 2001 e8");
                     clearance = 2;
                     tires = 3;
@@ -12952,7 +15043,7 @@ namespace Bot.v._0._07
                     MRA = 50.93;
                     break;
 
-                case 426:
+                case 539:
                     NotePad.DoLog("Citroen C5 Saloon 1.6 L 2004 e8");
                     clearance = 2;
                     tires = 3;
@@ -12968,7 +15059,7 @@ namespace Bot.v._0._07
                     MRA = 55.86;
                     break;
 
-                case 427:
+                case 540:
                     NotePad.DoLog("Citroen C5 Tourer 3.0 L 2016 d13");
                     clearance = 2;
                     tires = 3;
@@ -12984,7 +15075,7 @@ namespace Bot.v._0._07
                     MRA = 54.67;
                     break;
 
-                case 428:
+                case 541:
                     NotePad.DoLog("Citroen C5 V6 2003 d12");
                     clearance = 2;
                     tires = 3;
@@ -13000,7 +15091,7 @@ namespace Bot.v._0._07
                     MRA = 55.98;
                     break;
 
-                case 429:
+                case 542:
                     NotePad.DoLog("Citroen C6 3.0 L V6 HDi 2005 d13");
                     clearance = 2;
                     tires = 3;
@@ -13016,7 +15107,7 @@ namespace Bot.v._0._07
                     MRA = 85.9;
                     break;
 
-                case 430:
+                case 543:
                     NotePad.DoLog("Citroen C-Crosser 2.2 L HDi 2007 c17");
                     clearance = 3;
                     tires = 4;
@@ -13032,7 +15123,7 @@ namespace Bot.v._0._07
                     MRA = 68.47;
                     break;
 
-                case 431:
+                case 544:
                     NotePad.DoLog("Citroen CX GTi Turbo 1974 e10");
                     clearance = 2;
                     tires = 2;
@@ -13048,7 +15139,7 @@ namespace Bot.v._0._07
                     MRA = 80.69;
                     break;
 
-                case 432:
+                case 545:
                     NotePad.DoLog("Citroen CXperience 2016 a24");
                     clearance = 2;
                     tires = 3;
@@ -13064,7 +15155,7 @@ namespace Bot.v._0._07
                     MRA = 83.84;
                     break;
 
-                case 433:
+                case 546:
                     NotePad.DoLog("Citroen C-Zero 2016 f4");
                     clearance = 2;
                     tires = 3;
@@ -13080,7 +15171,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 434:
+                case 547:
                     NotePad.DoLog("Citroen Grand C4 Picasso 2015 d12");
                     clearance = 2;
                     tires = 3;
@@ -13096,7 +15187,7 @@ namespace Bot.v._0._07
                     MRA = 48.09;
                     break;
 
-                case 435:
+                case 548:
                     NotePad.DoLog("Citroen GSA 1970 f4");
                     clearance = 2;
                     tires = 3;
@@ -13112,7 +15203,7 @@ namespace Bot.v._0._07
                     MRA = 28.64;
                     break;
 
-                case 436:
+                case 549:
                     NotePad.DoLog("Citroen GT 2008 s27");
                     clearance = 1;
                     tires = 2;
@@ -13128,7 +15219,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 437:
+                case 550:
                     NotePad.DoLog("Citroen GZ 1973 f4");
                     clearance = 2;
                     tires = 3;
@@ -13144,7 +15235,7 @@ namespace Bot.v._0._07
                     MRA = 53.85;
                     break;
 
-                case 438:
+                case 551:
                     NotePad.DoLog("Citroen M35 1969 f3");
                     clearance = 1;
                     tires = 3;
@@ -13160,7 +15251,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 439:
+                case 552:
                     NotePad.DoLog("Citroen Mehari 4x4 1980 f4");
                     clearance = 3;
                     tires = 5;
@@ -13176,7 +15267,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 440:
+                case 553:
                     NotePad.DoLog("Citroen Metropolis 2010 b22");
                     clearance = 2;
                     tires = 3;
@@ -13192,7 +15283,7 @@ namespace Bot.v._0._07
                     MRA = 51.55;
                     break;
 
-                case 441:
+                case 554:
                     NotePad.DoLog("Citroen Saxo VTS 16V 1996 d12");
                     clearance = 2;
                     tires = 2;
@@ -13208,7 +15299,7 @@ namespace Bot.v._0._07
                     MRA = 72.23;
                     break;
 
-                case 442:
+                case 555:
                     NotePad.DoLog("Citroen SM 2.7 Injection 1970 e9");
                     clearance = 1;
                     tires = 2;
@@ -13224,7 +15315,7 @@ namespace Bot.v._0._07
                     MRA = 83.33;
                     break;
 
-                case 443:
+                case 556:
                     NotePad.DoLog("Citroen Traction Avant 1934 f3");
                     clearance = 2;
                     tires = 3;
@@ -13240,7 +15331,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 444:
+                case 557:
                     NotePad.DoLog("Citroen Visa GTi 1978 f6");
                     clearance = 2;
                     tires = 2;
@@ -13256,8 +15347,8 @@ namespace Bot.v._0._07
                     MRA = 51.53;
                     break;
 
-                case 445:
-                    NotePad.DoLog("Citroen Xantia Activia V6 1997 d12");
+                case 558:
+                    NotePad.DoLog("Citroen Xantia Activa V6 1997 d12");
                     clearance = 2;
                     tires = 3;
                     drive = 1;
@@ -13272,7 +15363,7 @@ namespace Bot.v._0._07
                     MRA = 55.73;
                     break;
 
-                case 446:
+                case 559:
                     NotePad.DoLog("Citroen Xantia VSX 1993 e10");
                     clearance = 2;
                     tires = 3;
@@ -13288,7 +15379,7 @@ namespace Bot.v._0._07
                     MRA = 74.81;
                     break;
 
-                case 447:
+                case 560:
                     NotePad.DoLog("Citroen XM V6 24V 1989 d11");
                     clearance = 2;
                     tires = 3;
@@ -13304,7 +15395,7 @@ namespace Bot.v._0._07
                     MRA = 83.67;
                     break;
 
-                case 448:
+                case 561:
                     NotePad.DoLog("Citroen Xsara Picasso 1997 f3");
                     clearance = 2;
                     tires = 3;
@@ -13320,7 +15411,7 @@ namespace Bot.v._0._07
                     MRA = 60.22;
                     break;
 
-                case 449:
+                case 562:
                     NotePad.DoLog("Citroen Xsara VTS 1997 d11");
                     clearance = 2;
                     tires = 2;
@@ -13336,7 +15427,7 @@ namespace Bot.v._0._07
                     MRA = 78.66;
                     break;
 
-                case 450:
+                case 563:
                     NotePad.DoLog("Citroen ZX Volcane TD 1991 f6");
                     clearance = 2;
                     tires = 2;
@@ -13352,7 +15443,7 @@ namespace Bot.v._0._07
                     MRA = 55.59;
                     break;
 
-                case 451:
+                case 564:
                     NotePad.DoLog("Dodge Avenger 1995 e8");
                     clearance = 2;
                     tires = 3;
@@ -13368,7 +15459,7 @@ namespace Bot.v._0._07
                     MRA = 53.05;
                     break;
 
-                case 452:
+                case 565:
                     NotePad.DoLog("Dodge Caliber R/T AWD 2007 c16");
                     clearance = 2;
                     tires = 3;
@@ -13384,7 +15475,7 @@ namespace Bot.v._0._07
                     MRA = 43.02;
                     break;
 
-                case 453:
+                case 566:
                     NotePad.DoLog("Dodge Caliber SRT4 2008 b20");
                     clearance = 2;
                     tires = 2;
@@ -13400,7 +15491,7 @@ namespace Bot.v._0._07
                     MRA = 72.84;
                     break;
 
-                case 454:
+                case 567:
                     NotePad.DoLog("Dodge Caravan Turbo 1989 e7");
                     clearance = 2;
                     tires = 3;
@@ -13416,7 +15507,7 @@ namespace Bot.v._0._07
                     MRA = 37.25;
                     break;
 
-                case 455:
+                case 568:
                     NotePad.DoLog("Dodge Challenger GT AWD 2018 b19");
                     clearance = 2;
                     tires = 2;
@@ -13432,8 +15523,8 @@ namespace Bot.v._0._07
                     MRA = 62.76;
                     break;
 
-                case 456:
-                    NotePad.DoLog("Dodge Challenger SRT Demon 2017 s28");
+                case 569:
+                    NotePad.DoLog("Dodge Challenger SRT Demon 2017 s29");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
@@ -13448,7 +15539,7 @@ namespace Bot.v._0._07
                     MRA = 77.74;
                     break;
 
-                case 457:
+                case 570:
                     NotePad.DoLog("Dodge Challenger SRT Hellcat 2015 a26");
                     clearance = 1;
                     tires = 2;
@@ -13461,10 +15552,10 @@ namespace Bot.v._0._07
                     torque = 650;
                     abs = 1;
                     tcs = 1;
-                    MRA = 100;
+                    MRA = 94.91;
                     break;
 
-                case 458:
+                case 571:
                     NotePad.DoLog("Dodge Challenger SRT Hellcat Widebody 2018 a26");
                     clearance = 1;
                     tires = 2;
@@ -13477,10 +15568,10 @@ namespace Bot.v._0._07
                     torque = 650;
                     abs = 1;
                     tcs = 1;
-                    MRA = 102.56;
+                    MRA = 95.24;
                     break;
 
-                case 459:
+                case 572:
                     NotePad.DoLog("Dodge Challenger T/A 1970 d12");
                     clearance = 2;
                     tires = 2;
@@ -13496,7 +15587,7 @@ namespace Bot.v._0._07
                     MRA = 55.37;
                     break;
 
-                case 460:
+                case 573:
                     NotePad.DoLog("Dodge Charger Daytona 2017 b20");
                     clearance = 2;
                     tires = 2;
@@ -13512,7 +15603,7 @@ namespace Bot.v._0._07
                     MRA = 65.12;
                     break;
 
-                case 461:
+                case 574:
                     NotePad.DoLog("Dodge Charger R/T Scat Pack 2015 a24");
                     clearance = 1;
                     tires = 2;
@@ -13528,7 +15619,7 @@ namespace Bot.v._0._07
                     MRA = 78.19;
                     break;
 
-                case 462:
+                case 575:
                     NotePad.DoLog("Dodge Charger SRT Hellcat 2015 a26");
                     clearance = 1;
                     tires = 2;
@@ -13544,7 +15635,7 @@ namespace Bot.v._0._07
                     MRA = 92.71;
                     break;
 
-                case 463:
+                case 576:
                     NotePad.DoLog("Dodge Charger SRT-8 2006 b20");
                     clearance = 2;
                     tires = 2;
@@ -13560,7 +15651,7 @@ namespace Bot.v._0._07
                     MRA = 49.32;
                     break;
 
-                case 464:
+                case 577:
                     NotePad.DoLog("Dodge Coronet Super Bee 1968 d11");
                     clearance = 2;
                     tires = 2;
@@ -13576,7 +15667,7 @@ namespace Bot.v._0._07
                     MRA = 59.86;
                     break;
 
-                case 465:
+                case 578:
                     NotePad.DoLog("Dodge Dakota R/T 1998 e10");
                     clearance = 3;
                     tires = 2;
@@ -13592,7 +15683,7 @@ namespace Bot.v._0._07
                     MRA = 57.77;
                     break;
 
-                case 466:
+                case 579:
                     NotePad.DoLog("Dodge Dart 2017 d12");
                     clearance = 2;
                     tires = 3;
@@ -13608,7 +15699,7 @@ namespace Bot.v._0._07
                     MRA = 52.3;
                     break;
 
-                case 467:
+                case 580:
                     NotePad.DoLog("Dodge Daytona IROC R/T 1992 c17");
                     clearance = 2;
                     tires = 2;
@@ -13624,7 +15715,7 @@ namespace Bot.v._0._07
                     MRA = 67.35;
                     break;
 
-                case 468:
+                case 581:
                     NotePad.DoLog("Dodge Durango GT 2018 c18");
                     clearance = 3;
                     tires = 4;
@@ -13640,7 +15731,7 @@ namespace Bot.v._0._07
                     MRA = 63.64;
                     break;
 
-                case 469:
+                case 582:
                     NotePad.DoLog("Dodge Grand Caravan 2018 d13");
                     clearance = 2;
                     tires = 3;
@@ -13656,7 +15747,7 @@ namespace Bot.v._0._07
                     MRA = 36.07;
                     break;
 
-                case 470:
+                case 583:
                     NotePad.DoLog("Dodge Intrepid 1993 e7");
                     clearance = 2;
                     tires = 3;
@@ -13672,7 +15763,7 @@ namespace Bot.v._0._07
                     MRA = 57.98;
                     break;
 
-                case 471:
+                case 584:
                     NotePad.DoLog("Dodge Journey 2018 e10");
                     clearance = 2;
                     tires = 3;
@@ -13688,7 +15779,7 @@ namespace Bot.v._0._07
                     MRA = 47.96;
                     break;
 
-                case 472:
+                case 585:
                     NotePad.DoLog("Dodge Magnum SRT-8 2006 b20");
                     clearance = 2;
                     tires = 2;
@@ -13704,7 +15795,7 @@ namespace Bot.v._0._07
                     MRA = 60.03;
                     break;
 
-                case 473:
+                case 586:
                     NotePad.DoLog("Dodge Monaco 1974 f4");
                     clearance = 2;
                     tires = 3;
@@ -13720,7 +15811,7 @@ namespace Bot.v._0._07
                     MRA = 49.99;
                     break;
 
-                case 474:
+                case 587:
                     NotePad.DoLog("Dodge Neon R/T Coupe 1998 d11");
                     clearance = 2;
                     tires = 2;
@@ -13736,7 +15827,7 @@ namespace Bot.v._0._07
                     MRA = 56.04;
                     break;
 
-                case 475:
+                case 588:
                     NotePad.DoLog("Dodge Nitro R/T 2007 b20");
                     clearance = 3;
                     tires = 4;
@@ -13752,7 +15843,7 @@ namespace Bot.v._0._07
                     MRA = 53.65;
                     break;
 
-                case 476:
+                case 589:
                     NotePad.DoLog("Dodge Spirit R/T 1991 c16");
                     clearance = 2;
                     tires = 2;
@@ -13768,7 +15859,7 @@ namespace Bot.v._0._07
                     MRA = 51.79;
                     break;
 
-                case 477:
+                case 590:
                     NotePad.DoLog("Dodge SRT Viper 2013 s28");
                     clearance = 1;
                     tires = 2;
@@ -13784,7 +15875,7 @@ namespace Bot.v._0._07
                     MRA = 91.89;
                     break;
 
-                case 478:
+                case 591:
                     NotePad.DoLog("Dodge SRT-4 2004 b19");
                     clearance = 2;
                     tires = 2;
@@ -13800,7 +15891,7 @@ namespace Bot.v._0._07
                     MRA = 69.84;
                     break;
 
-                case 479:
+                case 592:
                     NotePad.DoLog("Dodge Stealth 1995 d13");
                     clearance = 1;
                     tires = 2;
@@ -13816,7 +15907,7 @@ namespace Bot.v._0._07
                     MRA = 61.66;
                     break;
 
-                case 480:
+                case 593:
                     NotePad.DoLog("Dodge Stealth R/T Twin Turbo 1990 b21");
                     clearance = 1;
                     tires = 2;
@@ -13832,7 +15923,7 @@ namespace Bot.v._0._07
                     MRA = 66.11;
                     break;
 
-                case 481:
+                case 594:
                     NotePad.DoLog("Dodge Viper ACR 2016 s28");
                     clearance = 1;
                     tires = 2;
@@ -13848,7 +15939,7 @@ namespace Bot.v._0._07
                     MRA = 95.24;
                     break;
 
-                case 482:
+                case 595:
                     NotePad.DoLog("Dodge Viper GTS-R 1996 s28");
                     clearance = 1;
                     tires = 1;
@@ -13864,7 +15955,7 @@ namespace Bot.v._0._07
                     MRA = 103.27;
                     break;
 
-                case 483:
+                case 596:
                     NotePad.DoLog("Dodge Viper RT/10 1992 b21");
                     clearance = 1;
                     tires = 2;
@@ -13877,10 +15968,10 @@ namespace Bot.v._0._07
                     torque = 488;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 69.23;
                     break;
 
-                case 484:
+                case 597:
                     NotePad.DoLog("DS 4 2011 e9");
                     clearance = 2;
                     tires = 3;
@@ -13896,7 +15987,7 @@ namespace Bot.v._0._07
                     MRA = 63.24;
                     break;
 
-                case 485:
+                case 598:
                     NotePad.DoLog("DS 5 2012 e8");
                     clearance = 2;
                     tires = 3;
@@ -13912,7 +16003,7 @@ namespace Bot.v._0._07
                     MRA = 65.12;
                     break;
 
-                case 486:
+                case 599:
                     NotePad.DoLog("DS 3 Convertible 2016 d11");
                     clearance = 2;
                     tires = 3;
@@ -13928,7 +16019,7 @@ namespace Bot.v._0._07
                     MRA = 60.9;
                     break;
 
-                case 487:
+                case 600:
                     NotePad.DoLog("DS 3 DSport HDi 2016 d12");
                     clearance = 2;
                     tires = 3;
@@ -13944,8 +16035,8 @@ namespace Bot.v._0._07
                     MRA = 60.98;
                     break;
 
-                case 488:
-                    NotePad.DoLog("DS 3 Perfomance 2016 b19");
+                case 601:
+                    NotePad.DoLog("DS 3 Performance 2016 b19");
                     clearance = 2;
                     tires = 2;
                     drive = 1;
@@ -13960,7 +16051,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 489:
+                case 602:
+                    NotePad.DoLog("DS DS 3 Racing 2011 c17");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 6.2;
+                    maxspeed = 146;
+                    grip = 82;
+                    weight = 1240;
+                    power = 200;
+                    torque = 203;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 58.36;
+                    break;
+
+                case 603:
                     NotePad.DoLog("DS DS 6 2015 d12");
                     clearance = 3;
                     tires = 3;
@@ -13976,7 +16083,7 @@ namespace Bot.v._0._07
                     MRA = 43.56;
                     break;
 
-                case 490:
+                case 604:
                     NotePad.DoLog("DS DS 7 Crossback 2018 d14");
                     clearance = 3;
                     tires = 3;
@@ -13992,7 +16099,7 @@ namespace Bot.v._0._07
                     MRA = 45.81;
                     break;
 
-                case 491:
+                case 605:
                     NotePad.DoLog("DS DS 7 Crossback E-Tense 4x4 PHEV 2018 b19");
                     clearance = 3;
                     tires = 3;
@@ -14008,7 +16115,7 @@ namespace Bot.v._0._07
                     MRA = 46.61;
                     break;
 
-                case 492:
+                case 606:
                     NotePad.DoLog("DS DS Convertible 1958 f3");
                     clearance = 2;
                     tires = 3;
@@ -14024,7 +16131,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 493:
+                case 607:
                     NotePad.DoLog("DS DS Numero 9 2012 a25");
                     clearance = 2;
                     tires = 3;
@@ -14040,23 +16147,7 @@ namespace Bot.v._0._07
                     MRA = 42.3;
                     break;
 
-                case 494:
-                    NotePad.DoLog("DS DS3 Racing 2011 c17");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 1;
-                    acceleration = 6.2;
-                    maxspeed = 146;
-                    grip = 82;
-                    weight = 1240;
-                    power = 200;
-                    torque = 203;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 58.36;
-                    break;
-
-                case 495:
+                case 608:
                     NotePad.DoLog("DS Survolt 2010 a25");
                     clearance = 1;
                     tires = 2;
@@ -14072,7 +16163,7 @@ namespace Bot.v._0._07
                     MRA = 70.15;
                     break;
 
-                case 496:
+                case 609:
                     NotePad.DoLog("DS Wild Rubis 2013 c18");
                     clearance = 3;
                     tires = 3;
@@ -14088,7 +16179,7 @@ namespace Bot.v._0._07
                     MRA = 62.98;
                     break;
 
-                case 497:
+                case 610:
                     NotePad.DoLog("Fiat 127 1971 f3");
                     clearance = 2;
                     tires = 3;
@@ -14104,7 +16195,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 498:
+                case 611:
                     NotePad.DoLog("Fiat 128 1969 f4");
                     clearance = 2;
                     tires = 3;
@@ -14120,7 +16211,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 499:
+                case 612:
                     NotePad.DoLog("Fiat 500 1957 f3");
                     clearance = 2;
                     tires = 3;
@@ -14136,7 +16227,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 500:
+                case 613:
                     NotePad.DoLog("Fiat 500 2017 e7");
                     clearance = 2;
                     tires = 3;
@@ -14152,7 +16243,7 @@ namespace Bot.v._0._07
                     MRA = 43.59;
                     break;
 
-                case 501:
+                case 614:
                     NotePad.DoLog("Fiat 124 Spider 2017 d14");
                     clearance = 1;
                     tires = 2;
@@ -14168,7 +16259,7 @@ namespace Bot.v._0._07
                     MRA = 74.59;
                     break;
 
-                case 502:
+                case 615:
                     NotePad.DoLog("Fiat 124 Sport Spider 1966 d13");
                     clearance = 1;
                     tires = 3;
@@ -14184,7 +16275,7 @@ namespace Bot.v._0._07
                     MRA = 63.2;
                     break;
 
-                case 503:
+                case 616:
                     NotePad.DoLog("Fiat 126p 1972 f5");
                     clearance = 2;
                     tires = 3;
@@ -14200,7 +16291,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 504:
+                case 617:
                     NotePad.DoLog("Fiat 131 Mirafiori 1974 f5");
                     clearance = 2;
                     tires = 3;
@@ -14216,7 +16307,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 505:
+                case 618:
                     NotePad.DoLog("Fiat 500L 2012 f5");
                     clearance = 2;
                     tires = 3;
@@ -14232,7 +16323,7 @@ namespace Bot.v._0._07
                     MRA = 36.59;
                     break;
 
-                case 506:
+                case 619:
                     NotePad.DoLog("Fiat 500X 2017 e9");
                     clearance = 2;
                     tires = 3;
@@ -14248,7 +16339,7 @@ namespace Bot.v._0._07
                     MRA = 63.46;
                     break;
 
-                case 507:
+                case 620:
                     NotePad.DoLog("Fiat 8V 1952 f3");
                     clearance = 1;
                     tires = 2;
@@ -14261,10 +16352,10 @@ namespace Bot.v._0._07
                     torque = 107;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 63.16;
                     break;
 
-                case 508:
+                case 621:
                     NotePad.DoLog("Fiat 8V Supersonic 1953 f3");
                     clearance = 1;
                     tires = 2;
@@ -14277,26 +16368,26 @@ namespace Bot.v._0._07
                     torque = 107;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.99;
                     break;
 
-                case 509:
+                case 622:
                     NotePad.DoLog("Fiat Abarth 030 1974 b22");
                     clearance = 1;
                     tires = 1;
                     drive = 2;
                     acceleration = 4.8;
-                    maxspeed = 150;
+                    maxspeed = 170;
                     grip = 86;
                     weight = 910;
                     power = 280;
                     torque = 200;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 70.59;
                     break;
 
-                case 510:
+                case 623:
                     NotePad.DoLog("Fiat Abarth 1000TC Berlina Corsa 1967 c15");
                     clearance = 1;
                     tires = 1;
@@ -14309,10 +16400,10 @@ namespace Bot.v._0._07
                     torque = 65;
                     abs = 0;
                     tcs = 0;
-                    MRA = 48.85;
+                    MRA = 49.93;
                     break;
 
-                case 511:
+                case 624:
                     NotePad.DoLog("Fiat Abarth 124 Spider 2017 c16");
                     clearance = 1;
                     tires = 2;
@@ -14328,8 +16419,8 @@ namespace Bot.v._0._07
                     MRA = 68.56;
                     break;
 
-                case 512:
-                    NotePad.DoLog("Fiat Abarth 124 Spider Rally 2016 a24");
+                case 625:
+                    NotePad.DoLog("Fiat Abarth 124 Spider Rally 2016 a23");
                     clearance = 1;
                     tires = 1;
                     drive = 2;
@@ -14341,26 +16432,10 @@ namespace Bot.v._0._07
                     torque = 444;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 81.36;
                     break;
 
-                case 513:
-                    NotePad.DoLog("Fiat Abarth 1300 Bialbero 1962 c16");
-                    clearance = 1;
-                    tires = 1;
-                    drive = 2;
-                    acceleration = 5.4;
-                    maxspeed = 143;
-                    grip = 70;
-                    weight = 630;
-                    power = 138;
-                    torque = 97;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 514:
+                case 626:
                     NotePad.DoLog("Fiat Abarth 131 Rally 1976 c18");
                     clearance = 2;
                     tires = 5;
@@ -14376,7 +16451,7 @@ namespace Bot.v._0._07
                     MRA = 62.99;
                     break;
 
-                case 515:
+                case 627:
                     NotePad.DoLog("Fiat Abarth 1500 Biposto 1952 f3");
                     clearance = 1;
                     tires = 2;
@@ -14389,10 +16464,10 @@ namespace Bot.v._0._07
                     torque = 50;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 48.49;
                     break;
 
-                case 516:
+                case 628:
                     NotePad.DoLog("Fiat Abarth 500 Abarth 1964 f3");
                     clearance = 2;
                     tires = 2;
@@ -14408,7 +16483,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 517:
+                case 629:
                     NotePad.DoLog("Fiat Abarth 595 Turismo 2012 d14");
                     clearance = 2;
                     tires = 2;
@@ -14421,10 +16496,10 @@ namespace Bot.v._0._07
                     torque = 170;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 64.15;
                     break;
 
-                case 518:
+                case 630:
                     NotePad.DoLog("Fiat Abarth 695 Biposto 2017 c18");
                     clearance = 2;
                     tires = 2;
@@ -14440,7 +16515,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 519:
+                case 631:
                     NotePad.DoLog("Fiat Abarth 695 Tributo Ferrari 2009 c15");
                     clearance = 2;
                     tires = 2;
@@ -14453,10 +16528,10 @@ namespace Bot.v._0._07
                     torque = 184;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 64.92;
                     break;
 
-                case 520:
+                case 632:
                     NotePad.DoLog("Fiat Abarth 695 Tributo Maserati 2012 d14");
                     clearance = 2;
                     tires = 2;
@@ -14469,10 +16544,10 @@ namespace Bot.v._0._07
                     torque = 184;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 67.8;
                     break;
 
-                case 521:
+                case 633:
                     NotePad.DoLog("Fiat Abarth 750 Zagato 1956 f3");
                     clearance = 1;
                     tires = 2;
@@ -14488,7 +16563,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 522:
+                case 634:
                     NotePad.DoLog("Fiat Abarth Grande Punto 2010 d12");
                     clearance = 2;
                     tires = 2;
@@ -14501,18 +16576,18 @@ namespace Bot.v._0._07
                     torque = 152;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 53.94;
                     break;
 
-                case 523:
+                case 635:
                     NotePad.DoLog("Fiat Abarth Grande Punto S2000 2006 a26");
                     clearance = 2;
                     tires = 2;
                     drive = 4;
                     acceleration = 4;
-                    maxspeed = 140;
+                    maxspeed = 120;
                     grip = 88;
-                    weight = 980;
+                    weight = 1150;
                     power = 265;
                     torque = 163;
                     abs = 0;
@@ -14520,7 +16595,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 524:
+                case 636:
+                    NotePad.DoLog("Fiat Abarth Simca 1300 Bialbero 1962 c16");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.4;
+                    maxspeed = 143;
+                    grip = 70;
+                    weight = 630;
+                    power = 138;
+                    torque = 97;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 53.57;
+                    break;
+
+                case 637:
                     NotePad.DoLog("Fiat Abarth Stilo Group N 2002 c18");
                     clearance = 2;
                     tires = 5;
@@ -14533,11 +16624,11 @@ namespace Bot.v._0._07
                     torque = 150;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 68.6;
                     break;
 
-                case 525:
-                    NotePad.DoLog("Fiat Abarth X1/9 Dallara 1975 a24");
+                case 638:
+                    NotePad.DoLog("Fiat Abarth X1/9 Dallara 1975 a23");
                     clearance = 1;
                     tires = 1;
                     drive = 2;
@@ -14549,10 +16640,10 @@ namespace Bot.v._0._07
                     torque = 140;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 83.82;
                     break;
 
-                case 526:
+                case 639:
                     NotePad.DoLog("Fiat Barchetta 1995 e10");
                     clearance = 1;
                     tires = 3;
@@ -14568,7 +16659,7 @@ namespace Bot.v._0._07
                     MRA = 60.84;
                     break;
 
-                case 527:
+                case 640:
                     NotePad.DoLog("Fiat Bravo 2007 e7");
                     clearance = 2;
                     tires = 3;
@@ -14584,23 +16675,7 @@ namespace Bot.v._0._07
                     MRA = 56.1;
                     break;
 
-                case 528:
-                    NotePad.DoLog("Fiat Campagnola 1974 e7");
-                    clearance = 3;
-                    tires = 5;
-                    drive = 4;
-                    acceleration = 24.4;
-                    maxspeed = 71;
-                    grip = 50;
-                    weight = 1610;
-                    power = 80;
-                    torque = 112;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 529:
+                case 641:
                     NotePad.DoLog("Fiat Campagnola 1951 d11");
                     clearance = 3;
                     tires = 5;
@@ -14616,7 +16691,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 530:
+                case 642:
+                    NotePad.DoLog("Fiat Campagnola 1974 e7");
+                    clearance = 3;
+                    tires = 5;
+                    drive = 4;
+                    acceleration = 24.4;
+                    maxspeed = 71;
+                    grip = 50;
+                    weight = 1610;
+                    power = 80;
+                    torque = 112;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 643:
                     NotePad.DoLog("Fiat Cinquecento Sporting 1994 f5");
                     clearance = 2;
                     tires = 3;
@@ -14632,7 +16723,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 531:
+                case 644:
                     NotePad.DoLog("Fiat Coupe 20v Turbo 1993 c16");
                     clearance = 1;
                     tires = 2;
@@ -14648,7 +16739,7 @@ namespace Bot.v._0._07
                     MRA = 66.4;
                     break;
 
-                case 532:
+                case 645:
                     NotePad.DoLog("Fiat Dino Coupe 1966 d11");
                     clearance = 1;
                     tires = 3;
@@ -14664,7 +16755,7 @@ namespace Bot.v._0._07
                     MRA = 72.07;
                     break;
 
-                case 533:
+                case 646:
                     NotePad.DoLog("Fiat Dino Spider 1966 e10");
                     clearance = 1;
                     tires = 3;
@@ -14680,7 +16771,7 @@ namespace Bot.v._0._07
                     MRA = 73.55;
                     break;
 
-                case 534:
+                case 647:
                     NotePad.DoLog("Fiat Fullback Cross 2017 c15");
                     clearance = 3;
                     tires = 4;
@@ -14693,10 +16784,10 @@ namespace Bot.v._0._07
                     torque = 317;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 54.04;
                     break;
 
-                case 535:
+                case 648:
                     NotePad.DoLog("Fiat Multipla 1998 f5");
                     clearance = 2;
                     tires = 3;
@@ -14712,7 +16803,7 @@ namespace Bot.v._0._07
                     MRA = 48.34;
                     break;
 
-                case 536:
+                case 649:
                     NotePad.DoLog("Fiat Panda 1980 f3");
                     clearance = 2;
                     tires = 3;
@@ -14728,7 +16819,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 537:
+                case 650:
                     NotePad.DoLog("Fiat Panda 2017 e8");
                     clearance = 2;
                     tires = 3;
@@ -14744,7 +16835,7 @@ namespace Bot.v._0._07
                     MRA = 51.44;
                     break;
 
-                case 538:
+                case 651:
                     NotePad.DoLog("Fiat Panda 100hp 2006 d12");
                     clearance = 2;
                     tires = 3;
@@ -14760,7 +16851,7 @@ namespace Bot.v._0._07
                     MRA = 56.6;
                     break;
 
-                case 539:
+                case 652:
                     NotePad.DoLog("Fiat Panda 4x4 1983 f6");
                     clearance = 3;
                     tires = 3;
@@ -14776,7 +16867,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 540:
+                case 653:
                     NotePad.DoLog("Fiat Panda 4x4 2019 d11");
                     clearance = 3;
                     tires = 3;
@@ -14789,10 +16880,10 @@ namespace Bot.v._0._07
                     torque = 107;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 26.33;
                     break;
 
-                case 541:
+                case 654:
                     NotePad.DoLog("Fiat Panda Cross 4x4 Mark 3 2014 d12");
                     clearance = 3;
                     tires = 3;
@@ -14805,10 +16896,10 @@ namespace Bot.v._0._07
                     torque = 107;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 36.84;
                     break;
 
-                case 542:
+                case 655:
                     NotePad.DoLog("Fiat Punto 2017 f6");
                     clearance = 2;
                     tires = 3;
@@ -14824,7 +16915,7 @@ namespace Bot.v._0._07
                     MRA = 44;
                     break;
 
-                case 543:
+                case 656:
                     NotePad.DoLog("Fiat Punto 1.4 GT 1993 d12");
                     clearance = 2;
                     tires = 2;
@@ -14840,7 +16931,7 @@ namespace Bot.v._0._07
                     MRA = 66.5;
                     break;
 
-                case 544:
+                case 657:
                     NotePad.DoLog("Fiat Punto Cabrio 1993 f5");
                     clearance = 2;
                     tires = 3;
@@ -14856,7 +16947,7 @@ namespace Bot.v._0._07
                     MRA = 39.32;
                     break;
 
-                case 545:
+                case 658:
                     NotePad.DoLog("Fiat Punto HGT 1999 d11");
                     clearance = 2;
                     tires = 2;
@@ -14872,7 +16963,7 @@ namespace Bot.v._0._07
                     MRA = 70.49;
                     break;
 
-                case 546:
+                case 659:
                     NotePad.DoLog("Fiat Qubo 2009 f6");
                     clearance = 2;
                     tires = 3;
@@ -14888,7 +16979,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 547:
+                case 660:
                     NotePad.DoLog("Fiat Seicento Rally Spec 1998 c18");
                     clearance = 2;
                     tires = 5;
@@ -14901,10 +16992,10 @@ namespace Bot.v._0._07
                     torque = 92;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 51.75;
                     break;
 
-                case 548:
+                case 661:
                     NotePad.DoLog("Fiat Stilo 2.4 20v Schumacher GP 2002 e9");
                     clearance = 2;
                     tires = 2;
@@ -14917,10 +17008,10 @@ namespace Bot.v._0._07
                     torque = 163;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 55.9;
                     break;
 
-                case 549:
+                case 662:
                     NotePad.DoLog("Fiat Strada Abarth 130TC 1982 d12");
                     clearance = 2;
                     tires = 2;
@@ -14936,7 +17027,7 @@ namespace Bot.v._0._07
                     MRA = 66.24;
                     break;
 
-                case 550:
+                case 663:
                     NotePad.DoLog("Fiat Tipo 2017 e7");
                     clearance = 2;
                     tires = 3;
@@ -14952,7 +17043,7 @@ namespace Bot.v._0._07
                     MRA = 57.39;
                     break;
 
-                case 551:
+                case 664:
                     NotePad.DoLog("Fiat Tipo 2.0 Sedicivalvole 1988 e8");
                     clearance = 2;
                     tires = 2;
@@ -14965,10 +17056,10 @@ namespace Bot.v._0._07
                     torque = 135;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 56.23;
                     break;
 
-                case 552:
+                case 665:
                     NotePad.DoLog("Fiat Turbina 1954 d11");
                     clearance = 1;
                     tires = 3;
@@ -14981,10 +17072,10 @@ namespace Bot.v._0._07
                     torque = 300;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 55.46;
                     break;
 
-                case 553:
+                case 666:
                     NotePad.DoLog("Fiat Uno Turbo 1985 e10");
                     clearance = 2;
                     tires = 2;
@@ -15000,7 +17091,7 @@ namespace Bot.v._0._07
                     MRA = 65.56;
                     break;
 
-                case 554:
+                case 667:
                     NotePad.DoLog("Fiat X1/9 1972 e7");
                     clearance = 1;
                     tires = 3;
@@ -15016,7 +17107,7 @@ namespace Bot.v._0._07
                     MRA = 39.33;
                     break;
 
-                case 555:
+                case 668:
                     NotePad.DoLog("Ford B-Max 2012 f5");
                     clearance = 2;
                     tires = 3;
@@ -15032,7 +17123,7 @@ namespace Bot.v._0._07
                     MRA = 47.42;
                     break;
 
-                case 556:
+                case 669:
                     NotePad.DoLog("Ford Capri 3.0 S 1978 e9");
                     clearance = 2;
                     tires = 3;
@@ -15048,7 +17139,7 @@ namespace Bot.v._0._07
                     MRA = 62.77;
                     break;
 
-                case 557:
+                case 670:
                     NotePad.DoLog("Ford C-Max 2015 f6");
                     clearance = 2;
                     tires = 3;
@@ -15064,7 +17155,7 @@ namespace Bot.v._0._07
                     MRA = 46.02;
                     break;
 
-                case 558:
+                case 671:
                     NotePad.DoLog("Ford Cortina 1974 f4");
                     clearance = 2;
                     tires = 3;
@@ -15080,7 +17171,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 559:
+                case 672:
                     NotePad.DoLog("Ford Ecosport 2016 e8");
                     clearance = 3;
                     tires = 3;
@@ -15096,7 +17187,7 @@ namespace Bot.v._0._07
                     MRA = 59.62;
                     break;
 
-                case 560:
+                case 673:
                     NotePad.DoLog("Ford Edge 2016 c18");
                     clearance = 3;
                     tires = 4;
@@ -15112,7 +17203,7 @@ namespace Bot.v._0._07
                     MRA = 51.64;
                     break;
 
-                case 561:
+                case 674:
                     NotePad.DoLog("Ford Escort Mexico 1972 e7");
                     clearance = 2;
                     tires = 3;
@@ -15128,7 +17219,7 @@ namespace Bot.v._0._07
                     MRA = 27.25;
                     break;
 
-                case 562:
+                case 675:
                     NotePad.DoLog("Ford Escort Rally Spec 1970 d14");
                     clearance = 2;
                     tires = 5;
@@ -15144,7 +17235,7 @@ namespace Bot.v._0._07
                     MRA = 56.89;
                     break;
 
-                case 563:
+                case 676:
                     NotePad.DoLog("Ford Escort Rally Spec 1979 b22");
                     clearance = 2;
                     tires = 5;
@@ -15160,7 +17251,7 @@ namespace Bot.v._0._07
                     MRA = 65.08;
                     break;
 
-                case 564:
+                case 677:
                     NotePad.DoLog("Ford Escort RS Cosworth 1992 b20");
                     clearance = 2;
                     tires = 2;
@@ -15176,7 +17267,7 @@ namespace Bot.v._0._07
                     MRA = 56.71;
                     break;
 
-                case 565:
+                case 678:
                     NotePad.DoLog("Ford Escort RS Turbo 1984 e10");
                     clearance = 2;
                     tires = 2;
@@ -15192,7 +17283,7 @@ namespace Bot.v._0._07
                     MRA = 58.21;
                     break;
 
-                case 566:
+                case 679:
                     NotePad.DoLog("Ford Escort RS1600 1968 f6");
                     clearance = 2;
                     tires = 2;
@@ -15208,7 +17299,7 @@ namespace Bot.v._0._07
                     MRA = 38.88;
                     break;
 
-                case 567:
+                case 680:
                     NotePad.DoLog("Ford Escort RS2000 1974 d13");
                     clearance = 2;
                     tires = 5;
@@ -15224,7 +17315,7 @@ namespace Bot.v._0._07
                     MRA = 53.89;
                     break;
 
-                case 568:
+                case 681:
                     NotePad.DoLog("Ford Escort RS2000 1996 d11");
                     clearance = 2;
                     tires = 2;
@@ -15240,7 +17331,7 @@ namespace Bot.v._0._07
                     MRA = 55.4;
                     break;
 
-                case 569:
+                case 682:
                     NotePad.DoLog("Ford Escort XR3i 1982 f5");
                     clearance = 2;
                     tires = 2;
@@ -15256,7 +17347,7 @@ namespace Bot.v._0._07
                     MRA = 52.5;
                     break;
 
-                case 570:
+                case 683:
                     NotePad.DoLog("Ford F-150 SVT Raptor 2014 a24");
                     clearance = 3;
                     tires = 5;
@@ -15272,55 +17363,7 @@ namespace Bot.v._0._07
                     MRA = 49.52;
                     break;
 
-                case 571:
-                    NotePad.DoLog("Ford Fiesta 1997 f6");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 12.4;
-                    maxspeed = 104;
-                    grip = 74;
-                    weight = 912;
-                    power = 74;
-                    torque = 81;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 36.65;
-                    break;
-
-                case 572:
-                    NotePad.DoLog("Ford Fiesta 1993 f6");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11.7;
-                    maxspeed = 109;
-                    grip = 72;
-                    weight = 963;
-                    power = 89;
-                    torque = 99;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 53.53;
-                    break;
-
-                case 573:
-                    NotePad.DoLog("Ford Fiesta 1983 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11.2;
-                    maxspeed = 100;
-                    grip = 69;
-                    weight = 775;
-                    power = 69;
-                    torque = 74;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 27.52;
-                    break;
-
-                case 574:
+                case 684:
                     NotePad.DoLog("Ford Fiesta 1976 f3");
                     clearance = 2;
                     tires = 3;
@@ -15336,7 +17379,55 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 575:
+                case 685:
+                    NotePad.DoLog("Ford Fiesta 1983 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.2;
+                    maxspeed = 100;
+                    grip = 69;
+                    weight = 775;
+                    power = 69;
+                    torque = 74;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 23;
+                    break;
+
+                case 686:
+                    NotePad.DoLog("Ford Fiesta 1993 f6");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.7;
+                    maxspeed = 109;
+                    grip = 72;
+                    weight = 963;
+                    power = 89;
+                    torque = 99;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 53.53;
+                    break;
+
+                case 687:
+                    NotePad.DoLog("Ford Fiesta 1997 f6");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 12.4;
+                    maxspeed = 104;
+                    grip = 74;
+                    weight = 912;
+                    power = 74;
+                    torque = 81;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 36.65;
+                    break;
+
+                case 688:
                     NotePad.DoLog("Ford Fiesta 2007 e8");
                     clearance = 2;
                     tires = 3;
@@ -15352,7 +17443,7 @@ namespace Bot.v._0._07
                     MRA = 47.69;
                     break;
 
-                case 576:
+                case 689:
                     NotePad.DoLog("Ford Fiesta 1.0 2016 f6");
                     clearance = 2;
                     tires = 3;
@@ -15368,7 +17459,7 @@ namespace Bot.v._0._07
                     MRA = 54.59;
                     break;
 
-                case 577:
+                case 690:
                     NotePad.DoLog("Ford Fiesta ST 2016 c16");
                     clearance = 2;
                     tires = 2;
@@ -15384,7 +17475,7 @@ namespace Bot.v._0._07
                     MRA = 68.7;
                     break;
 
-                case 578:
+                case 691:
                     NotePad.DoLog("Ford Fiesta XR2 1981 f5");
                     clearance = 2;
                     tires = 2;
@@ -15400,7 +17491,7 @@ namespace Bot.v._0._07
                     MRA = 46.85;
                     break;
 
-                case 579:
+                case 692:
                     NotePad.DoLog("Ford Fiesta XR2 1988 e7");
                     clearance = 2;
                     tires = 2;
@@ -15416,23 +17507,7 @@ namespace Bot.v._0._07
                     MRA = 51;
                     break;
 
-                case 580:
-                    NotePad.DoLog("Ford Focus 2015 e10");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 10.3;
-                    maxspeed = 120;
-                    grip = 79;
-                    weight = 1316;
-                    power = 123;
-                    torque = 148;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 64.74;
-                    break;
-
-                case 581:
+                case 693:
                     NotePad.DoLog("Ford Focus 2004 e7");
                     clearance = 2;
                     tires = 3;
@@ -15448,7 +17523,7 @@ namespace Bot.v._0._07
                     MRA = 56.99;
                     break;
 
-                case 582:
+                case 694:
                     NotePad.DoLog("Ford Focus 2006 d13");
                     clearance = 2;
                     tires = 3;
@@ -15464,7 +17539,23 @@ namespace Bot.v._0._07
                     MRA = 60.96;
                     break;
 
-                case 583:
+                case 695:
+                    NotePad.DoLog("Ford Focus 2015 e10");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 10.3;
+                    maxspeed = 120;
+                    grip = 79;
+                    weight = 1316;
+                    power = 123;
+                    torque = 148;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 64.74;
+                    break;
+
+                case 696:
                     NotePad.DoLog("Ford Focus 1.0 2016 e7");
                     clearance = 2;
                     tires = 3;
@@ -15480,8 +17571,8 @@ namespace Bot.v._0._07
                     MRA = 62.31;
                     break;
 
-                case 584:
-                    NotePad.DoLog("Ford Focus Bioenthanol 2006 e10");
+                case 697:
+                    NotePad.DoLog("Ford Focus Bioethanol 2006 e10");
                     clearance = 2;
                     tires = 3;
                     drive = 1;
@@ -15496,7 +17587,7 @@ namespace Bot.v._0._07
                     MRA = 68.03;
                     break;
 
-                case 585:
+                case 698:
                     NotePad.DoLog("Ford Focus Coupe-Cabriolet 2007 f6");
                     clearance = 2;
                     tires = 3;
@@ -15512,7 +17603,7 @@ namespace Bot.v._0._07
                     MRA = 60;
                     break;
 
-                case 586:
+                case 699:
                     NotePad.DoLog("Ford Focus RS 2002 c18");
                     clearance = 2;
                     tires = 2;
@@ -15528,7 +17619,7 @@ namespace Bot.v._0._07
                     MRA = 64.1;
                     break;
 
-                case 587:
+                case 700:
                     NotePad.DoLog("Ford Focus RS 2009 b21");
                     clearance = 2;
                     tires = 2;
@@ -15544,7 +17635,7 @@ namespace Bot.v._0._07
                     MRA = 76.68;
                     break;
 
-                case 588:
+                case 701:
                     NotePad.DoLog("Ford Focus RS500 2010 b22");
                     clearance = 2;
                     tires = 2;
@@ -15560,7 +17651,7 @@ namespace Bot.v._0._07
                     MRA = 77.19;
                     break;
 
-                case 589:
+                case 702:
                     NotePad.DoLog("Ford Focus ST 2012 b19");
                     clearance = 2;
                     tires = 2;
@@ -15576,7 +17667,7 @@ namespace Bot.v._0._07
                     MRA = 73.91;
                     break;
 
-                case 590:
+                case 703:
                     NotePad.DoLog("Ford Focus ST Mountune 2012 b20");
                     clearance = 2;
                     tires = 2;
@@ -15592,7 +17683,7 @@ namespace Bot.v._0._07
                     MRA = 63.16;
                     break;
 
-                case 591:
+                case 704:
                     NotePad.DoLog("Ford Focus ST Superchips 2005 c18");
                     clearance = 2;
                     tires = 2;
@@ -15608,7 +17699,7 @@ namespace Bot.v._0._07
                     MRA = 61.99;
                     break;
 
-                case 592:
+                case 705:
                     NotePad.DoLog("Ford Focus ST TDCi Estate 2016 d13");
                     clearance = 2;
                     tires = 2;
@@ -15624,7 +17715,7 @@ namespace Bot.v._0._07
                     MRA = 68.67;
                     break;
 
-                case 593:
+                case 706:
                     NotePad.DoLog("Ford Focus ST170 2002 d14");
                     clearance = 2;
                     tires = 2;
@@ -15640,7 +17731,7 @@ namespace Bot.v._0._07
                     MRA = 66.27;
                     break;
 
-                case 594:
+                case 707:
                     NotePad.DoLog("Ford Galaxy 2015 c17");
                     clearance = 2;
                     tires = 3;
@@ -15656,7 +17747,7 @@ namespace Bot.v._0._07
                     MRA = 76.15;
                     break;
 
-                case 595:
+                case 708:
                     NotePad.DoLog("Ford Granada 2.8i S 1977 e7");
                     clearance = 2;
                     tires = 3;
@@ -15672,23 +17763,7 @@ namespace Bot.v._0._07
                     MRA = 50.95;
                     break;
 
-                case 596:
-                    NotePad.DoLog("Ford GT 2017 s30");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 3.1;
-                    maxspeed = 216;
-                    grip = 93;
-                    weight = 1385;
-                    power = 647;
-                    torque = 550;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 98.98;
-                    break;
-
-                case 597:
+                case 709:
                     NotePad.DoLog("Ford GT 2004 s27");
                     clearance = 1;
                     tires = 2;
@@ -15704,7 +17779,23 @@ namespace Bot.v._0._07
                     MRA = 82.5;
                     break;
 
-                case 598:
+                case 710:
+                    NotePad.DoLog("Ford GT 2017 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.1;
+                    maxspeed = 216;
+                    grip = 93;
+                    weight = 1385;
+                    power = 647;
+                    torque = 550;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 98.98;
+                    break;
+
+                case 711:
                     NotePad.DoLog("Ford GT40 1965 a23");
                     clearance = 1;
                     tires = 2;
@@ -15720,7 +17811,7 @@ namespace Bot.v._0._07
                     MRA = 77.53;
                     break;
 
-                case 599:
+                case 712:
                     NotePad.DoLog("Ford GT90 1995 s29");
                     clearance = 1;
                     tires = 2;
@@ -15736,7 +17827,7 @@ namespace Bot.v._0._07
                     MRA = 98.98;
                     break;
 
-                case 600:
+                case 713:
                     NotePad.DoLog("Ford Ka 2011 f6");
                     clearance = 2;
                     tires = 3;
@@ -15752,7 +17843,7 @@ namespace Bot.v._0._07
                     MRA = 47.32;
                     break;
 
-                case 601:
+                case 714:
                     NotePad.DoLog("Ford Kuga 2016 d14");
                     clearance = 3;
                     tires = 4;
@@ -15768,7 +17859,7 @@ namespace Bot.v._0._07
                     MRA = 54.26;
                     break;
 
-                case 602:
+                case 715:
                     NotePad.DoLog("Ford Mondeo 2004 e9");
                     clearance = 2;
                     tires = 3;
@@ -15784,7 +17875,7 @@ namespace Bot.v._0._07
                     MRA = 67.72;
                     break;
 
-                case 603:
+                case 716:
                     NotePad.DoLog("Ford Mondeo 2013 d14");
                     clearance = 2;
                     tires = 3;
@@ -15800,7 +17891,7 @@ namespace Bot.v._0._07
                     MRA = 62.88;
                     break;
 
-                case 604:
+                case 717:
                     NotePad.DoLog("Ford Mondeo 2017 d14");
                     clearance = 2;
                     tires = 3;
@@ -15816,7 +17907,7 @@ namespace Bot.v._0._07
                     MRA = 61.25;
                     break;
 
-                case 605:
+                case 718:
                     NotePad.DoLog("Ford Mondeo 2.0tdci 2016 e10");
                     clearance = 2;
                     tires = 3;
@@ -15832,7 +17923,7 @@ namespace Bot.v._0._07
                     MRA = 66.42;
                     break;
 
-                case 606:
+                case 719:
                     NotePad.DoLog("Ford Mondeo Hybrid 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -15848,7 +17939,7 @@ namespace Bot.v._0._07
                     MRA = 53.51;
                     break;
 
-                case 607:
+                case 720:
                     NotePad.DoLog("Ford Mondeo ST200 1998 d14");
                     clearance = 2;
                     tires = 2;
@@ -15864,7 +17955,7 @@ namespace Bot.v._0._07
                     MRA = 63.15;
                     break;
 
-                case 608:
+                case 721:
                     NotePad.DoLog("Ford Mondeo ST220 2000 c15");
                     clearance = 2;
                     tires = 2;
@@ -15880,7 +17971,7 @@ namespace Bot.v._0._07
                     MRA = 81.43;
                     break;
 
-                case 609:
+                case 722:
                     NotePad.DoLog("Ford Mustang 2005 c18");
                     clearance = 2;
                     tires = 2;
@@ -15896,7 +17987,7 @@ namespace Bot.v._0._07
                     MRA = 68.28;
                     break;
 
-                case 610:
+                case 723:
                     NotePad.DoLog("Ford Mustang 2005 b19");
                     clearance = 2;
                     tires = 2;
@@ -15912,7 +18003,7 @@ namespace Bot.v._0._07
                     MRA = 58.01;
                     break;
 
-                case 611:
+                case 724:
                     NotePad.DoLog("Ford Mustang 2.3 2016 b20");
                     clearance = 2;
                     tires = 2;
@@ -15928,7 +18019,7 @@ namespace Bot.v._0._07
                     MRA = 64.56;
                     break;
 
-                case 612:
+                case 725:
                     NotePad.DoLog("Ford Mustang 289 1966 e9");
                     clearance = 2;
                     tires = 2;
@@ -15944,7 +18035,7 @@ namespace Bot.v._0._07
                     MRA = 63.73;
                     break;
 
-                case 613:
+                case 726:
                     NotePad.DoLog("Ford Mustang BOSS 302 2012 a25");
                     clearance = 2;
                     tires = 2;
@@ -15960,7 +18051,7 @@ namespace Bot.v._0._07
                     MRA = 76.13;
                     break;
 
-                case 614:
+                case 727:
                     NotePad.DoLog("Ford Mustang GT 2016 a23");
                     clearance = 2;
                     tires = 2;
@@ -15976,7 +18067,7 @@ namespace Bot.v._0._07
                     MRA = 81.37;
                     break;
 
-                case 615:
+                case 728:
                     NotePad.DoLog("Ford Mustang GT Power Pack 2016 a24");
                     clearance = 1;
                     tires = 2;
@@ -15989,10 +18080,10 @@ namespace Bot.v._0._07
                     torque = 390;
                     abs = 1;
                     tcs = 1;
-                    MRA = 72.48;
+                    MRA = 72.69;
                     break;
 
-                case 616:
+                case 729:
                     NotePad.DoLog("Ford Puma 1.7 1997 d11");
                     clearance = 2;
                     tires = 3;
@@ -16008,7 +18099,7 @@ namespace Bot.v._0._07
                     MRA = 52.75;
                     break;
 
-                case 617:
+                case 730:
                     NotePad.DoLog("Ford Racing Puma 2000 d12");
                     clearance = 2;
                     tires = 2;
@@ -16024,7 +18115,7 @@ namespace Bot.v._0._07
                     MRA = 58.93;
                     break;
 
-                case 618:
+                case 731:
                     NotePad.DoLog("Ford Ranger 2006 e9");
                     clearance = 3;
                     tires = 4;
@@ -16037,26 +18128,10 @@ namespace Bot.v._0._07
                     torque = 243;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 38.2;
                     break;
 
-                case 619:
-                    NotePad.DoLog("Ford Ranger 2016 e9");
-                    clearance = 3;
-                    tires = 3;
-                    drive = 4;
-                    acceleration = 11.2;
-                    maxspeed = 109;
-                    grip = 60;
-                    weight = 2177;
-                    power = 158;
-                    torque = 283;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 52.08;
-                    break;
-
-                case 620:
+                case 732:
                     NotePad.DoLog("Ford Ranger 2012 d14");
                     clearance = 3;
                     tires = 4;
@@ -16072,7 +18147,23 @@ namespace Bot.v._0._07
                     MRA = 51.89;
                     break;
 
-                case 621:
+                case 733:
+                    NotePad.DoLog("Ford Ranger 2016 e9");
+                    clearance = 3;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 11.2;
+                    maxspeed = 109;
+                    grip = 60;
+                    weight = 2177;
+                    power = 158;
+                    torque = 283;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 52.08;
+                    break;
+
+                case 734:
                     NotePad.DoLog("Ford Ranger 2016 c16");
                     clearance = 3;
                     tires = 4;
@@ -16088,7 +18179,7 @@ namespace Bot.v._0._07
                     MRA = 51.3;
                     break;
 
-                case 622:
+                case 735:
                     NotePad.DoLog("Ford Ranger Wildtrak 2012 c18");
                     clearance = 3;
                     tires = 4;
@@ -16104,7 +18195,7 @@ namespace Bot.v._0._07
                     MRA = 50.34;
                     break;
 
-                case 623:
+                case 736:
                     NotePad.DoLog("Ford RS200 1984 b22");
                     clearance = 1;
                     tires = 2;
@@ -16120,7 +18211,7 @@ namespace Bot.v._0._07
                     MRA = 82.3;
                     break;
 
-                case 624:
+                case 737:
                     NotePad.DoLog("Ford Scorpio 24-valve 1991 c16");
                     clearance = 2;
                     tires = 3;
@@ -16136,7 +18227,7 @@ namespace Bot.v._0._07
                     MRA = 69.79;
                     break;
 
-                case 625:
+                case 738:
                     NotePad.DoLog("Ford Sierra RS Cosworth 1986 c17");
                     clearance = 2;
                     tires = 2;
@@ -16152,7 +18243,7 @@ namespace Bot.v._0._07
                     MRA = 64.31;
                     break;
 
-                case 626:
+                case 739:
                     NotePad.DoLog("Ford Sierra RS Cosworth 4x4 1990 b21");
                     clearance = 2;
                     tires = 2;
@@ -16168,7 +18259,7 @@ namespace Bot.v._0._07
                     MRA = 61.09;
                     break;
 
-                case 627:
+                case 740:
                     NotePad.DoLog("Ford Sierra RS500 1987 b20");
                     clearance = 2;
                     tires = 2;
@@ -16184,7 +18275,7 @@ namespace Bot.v._0._07
                     MRA = 75.64;
                     break;
 
-                case 628:
+                case 741:
                     NotePad.DoLog("Ford Sierra XR4i 1983 e9");
                     clearance = 2;
                     tires = 2;
@@ -16200,7 +18291,7 @@ namespace Bot.v._0._07
                     MRA = 57.31;
                     break;
 
-                case 629:
+                case 742:
                     NotePad.DoLog("Ford S-Max 2016 e8");
                     clearance = 2;
                     tires = 3;
@@ -16216,7 +18307,7 @@ namespace Bot.v._0._07
                     MRA = 56.75;
                     break;
 
-                case 630:
+                case 743:
                     NotePad.DoLog("Ford Taurus SHO 2017 b19");
                     clearance = 2;
                     tires = 2;
@@ -16232,7 +18323,7 @@ namespace Bot.v._0._07
                     MRA = 62.89;
                     break;
 
-                case 631:
+                case 744:
                     NotePad.DoLog("Ford Thunderbird 3.9l V8 2002 c17");
                     clearance = 2;
                     tires = 3;
@@ -16245,10 +18336,10 @@ namespace Bot.v._0._07
                     torque = 266;
                     abs = 1;
                     tcs = 1;
-                    MRA = 68.67;
+                    MRA = 68.98;
                     break;
 
-                case 632:
+                case 745:
                     NotePad.DoLog("Ford Transit 2.2 TDCi 2013 f5");
                     clearance = 3;
                     tires = 3;
@@ -16264,7 +18355,7 @@ namespace Bot.v._0._07
                     MRA = 26.86;
                     break;
 
-                case 633:
+                case 746:
                     NotePad.DoLog("GMC Acadia 2016 c18");
                     clearance = 3;
                     tires = 4;
@@ -16280,7 +18371,7 @@ namespace Bot.v._0._07
                     MRA = 62.12;
                     break;
 
-                case 634:
+                case 747:
                     NotePad.DoLog("GMC Acadia Denali 2018 a24");
                     clearance = 3;
                     tires = 4;
@@ -16296,7 +18387,7 @@ namespace Bot.v._0._07
                     MRA = 47.86;
                     break;
 
-                case 635:
+                case 748:
                     NotePad.DoLog("GMC Caballero Diablo 1984 f3");
                     clearance = 2;
                     tires = 2;
@@ -16312,7 +18403,7 @@ namespace Bot.v._0._07
                     MRA = 38.11;
                     break;
 
-                case 636:
+                case 749:
                     NotePad.DoLog("GMC Denali XT 2008 d13");
                     clearance = 3;
                     tires = 2;
@@ -16328,7 +18419,7 @@ namespace Bot.v._0._07
                     MRA = 37.59;
                     break;
 
-                case 637:
+                case 750:
                     NotePad.DoLog("GMC Envoy 1998 d12");
                     clearance = 3;
                     tires = 3;
@@ -16344,7 +18435,7 @@ namespace Bot.v._0._07
                     MRA = 50.22;
                     break;
 
-                case 638:
+                case 751:
                     NotePad.DoLog("GMC Granite 2010 e9");
                     clearance = 2;
                     tires = 3;
@@ -16360,7 +18451,7 @@ namespace Bot.v._0._07
                     MRA = 62.25;
                     break;
 
-                case 639:
+                case 752:
                     NotePad.DoLog("GMC Safari 1996 f4");
                     clearance = 2;
                     tires = 3;
@@ -16376,7 +18467,7 @@ namespace Bot.v._0._07
                     MRA = 43.87;
                     break;
 
-                case 640:
+                case 753:
                     NotePad.DoLog("GMC Sierra All Terrain X 2017 b22");
                     clearance = 3;
                     tires = 5;
@@ -16389,10 +18480,10 @@ namespace Bot.v._0._07
                     torque = 383;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 17.72;
                     break;
 
-                case 641:
+                case 754:
                     NotePad.DoLog("GMC Syclone 1991 a24");
                     clearance = 3;
                     tires = 3;
@@ -16408,7 +18499,7 @@ namespace Bot.v._0._07
                     MRA = 63.39;
                     break;
 
-                case 642:
+                case 755:
                     NotePad.DoLog("GMC Terrain 2010 b22");
                     clearance = 3;
                     tires = 4;
@@ -16424,7 +18515,7 @@ namespace Bot.v._0._07
                     MRA = 63.51;
                     break;
 
-                case 643:
+                case 756:
                     NotePad.DoLog("GMC Typhoon 1993 a24");
                     clearance = 3;
                     tires = 3;
@@ -16440,7 +18531,7 @@ namespace Bot.v._0._07
                     MRA = 66.67;
                     break;
 
-                case 644:
+                case 757:
                     NotePad.DoLog("GMC Yukon 2010 a23");
                     clearance = 3;
                     tires = 4;
@@ -16456,7 +18547,7 @@ namespace Bot.v._0._07
                     MRA = 55.43;
                     break;
 
-                case 645:
+                case 758:
                     NotePad.DoLog("GMC Yukon Denali 2004 c18");
                     clearance = 3;
                     tires = 4;
@@ -16472,7 +18563,7 @@ namespace Bot.v._0._07
                     MRA = 51.92;
                     break;
 
-                case 646:
+                case 759:
                     NotePad.DoLog("GMC Yukon XL 2014 b21");
                     clearance = 3;
                     tires = 4;
@@ -16488,7 +18579,7 @@ namespace Bot.v._0._07
                     MRA = 53.45;
                     break;
 
-                case 647:
+                case 760:
                     NotePad.DoLog("Honda Accord 1.8 1976 f4");
                     clearance = 2;
                     tires = 3;
@@ -16501,10 +18592,10 @@ namespace Bot.v._0._07
                     torque = 97;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 30.56;
                     break;
 
-                case 648:
+                case 761:
                     NotePad.DoLog("Honda Accord 3.5l V6 2016 c18");
                     clearance = 2;
                     tires = 3;
@@ -16520,7 +18611,7 @@ namespace Bot.v._0._07
                     MRA = 74.67;
                     break;
 
-                case 649:
+                case 762:
                     NotePad.DoLog("Honda Accord Euro-R 2002 c15");
                     clearance = 2;
                     tires = 2;
@@ -16536,7 +18627,7 @@ namespace Bot.v._0._07
                     MRA = 61.06;
                     break;
 
-                case 650:
+                case 763:
                     NotePad.DoLog("Honda Accord Hybrid 2016 d13");
                     clearance = 2;
                     tires = 3;
@@ -16552,7 +18643,7 @@ namespace Bot.v._0._07
                     MRA = 52.83;
                     break;
 
-                case 651:
+                case 764:
                     NotePad.DoLog("Honda Accord Type R 1997 c16");
                     clearance = 2;
                     tires = 2;
@@ -16568,7 +18659,7 @@ namespace Bot.v._0._07
                     MRA = 69.77;
                     break;
 
-                case 652:
+                case 765:
                     NotePad.DoLog("Honda Beat 1991 f4");
                     clearance = 1;
                     tires = 2;
@@ -16584,7 +18675,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 653:
+                case 766:
                     NotePad.DoLog("Honda Capa 4WD 1998 d11");
                     clearance = 2;
                     tires = 3;
@@ -16600,7 +18691,7 @@ namespace Bot.v._0._07
                     MRA = 31.95;
                     break;
 
-                case 654:
+                case 767:
                     NotePad.DoLog("Honda City Cabriolet 1981 f4");
                     clearance = 2;
                     tires = 3;
@@ -16616,7 +18707,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 655:
+                case 768:
                     NotePad.DoLog("Honda City Turbo 1981 e10");
                     clearance = 2;
                     tires = 3;
@@ -16632,7 +18723,7 @@ namespace Bot.v._0._07
                     MRA = 45.42;
                     break;
 
-                case 656:
+                case 769:
                     NotePad.DoLog("Honda Civic 1.8 2016 e10");
                     clearance = 2;
                     tires = 3;
@@ -16648,7 +18739,7 @@ namespace Bot.v._0._07
                     MRA = 54.95;
                     break;
 
-                case 657:
+                case 770:
                     NotePad.DoLog("Honda Civic 1500 1979 f6");
                     clearance = 2;
                     tires = 3;
@@ -16664,7 +18755,7 @@ namespace Bot.v._0._07
                     MRA = 26.38;
                     break;
 
-                case 658:
+                case 771:
                     NotePad.DoLog("Honda Civic CRX Si 1983 e7");
                     clearance = 1;
                     tires = 2;
@@ -16680,7 +18771,7 @@ namespace Bot.v._0._07
                     MRA = 52.75;
                     break;
 
-                case 659:
+                case 772:
                     NotePad.DoLog("Honda Civic Hybrid 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -16696,7 +18787,7 @@ namespace Bot.v._0._07
                     MRA = 59.68;
                     break;
 
-                case 660:
+                case 773:
                     NotePad.DoLog("Honda Civic Si 1995 d14");
                     clearance = 2;
                     tires = 3;
@@ -16712,7 +18803,7 @@ namespace Bot.v._0._07
                     MRA = 73.87;
                     break;
 
-                case 661:
+                case 774:
                     NotePad.DoLog("Honda Civic Tourer 1.6d 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -16728,39 +18819,7 @@ namespace Bot.v._0._07
                     MRA = 58.78;
                     break;
 
-                case 662:
-                    NotePad.DoLog("Honda Civic Type R 2005 c17");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 1;
-                    acceleration = 6.3;
-                    maxspeed = 146;
-                    grip = 81;
-                    weight = 1301;
-                    power = 198;
-                    torque = 142;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 66.41;
-                    break;
-
-                case 663:
-                    NotePad.DoLog("Honda Civic Type R 2000 c17");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 1;
-                    acceleration = 6.7;
-                    maxspeed = 146;
-                    grip = 80;
-                    weight = 1270;
-                    power = 197;
-                    torque = 145;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 70.53;
-                    break;
-
-                case 664:
+                case 775:
                     NotePad.DoLog("Honda Civic Type R 1997 c15");
                     clearance = 2;
                     tires = 2;
@@ -16776,7 +18835,39 @@ namespace Bot.v._0._07
                     MRA = 62.39;
                     break;
 
-                case 665:
+                case 776:
+                    NotePad.DoLog("Honda Civic Type R 2000 c17");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 6.7;
+                    maxspeed = 146;
+                    grip = 80;
+                    weight = 1270;
+                    power = 197;
+                    torque = 145;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 70.53;
+                    break;
+
+                case 777:
+                    NotePad.DoLog("Honda Civic Type R 2005 c17");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 6.3;
+                    maxspeed = 146;
+                    grip = 81;
+                    weight = 1301;
+                    power = 198;
+                    torque = 142;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 66.41;
+                    break;
+
+                case 778:
                     NotePad.DoLog("Honda Civic Type R 2016 b22");
                     clearance = 2;
                     tires = 2;
@@ -16792,7 +18883,7 @@ namespace Bot.v._0._07
                     MRA = 77.19;
                     break;
 
-                case 666:
+                case 779:
                     NotePad.DoLog("Honda Clarity 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -16808,7 +18899,7 @@ namespace Bot.v._0._07
                     MRA = 96.98;
                     break;
 
-                case 667:
+                case 780:
                     NotePad.DoLog("Honda CR-V 1997 d14");
                     clearance = 3;
                     tires = 4;
@@ -16824,7 +18915,7 @@ namespace Bot.v._0._07
                     MRA = 51.53;
                     break;
 
-                case 668:
+                case 781:
                     NotePad.DoLog("Honda CR-V 1.6 i-DTEC 2016 c18");
                     clearance = 3;
                     tires = 4;
@@ -16840,7 +18931,7 @@ namespace Bot.v._0._07
                     MRA = 52.52;
                     break;
 
-                case 669:
+                case 782:
                     NotePad.DoLog("Honda CR-V 2.0 i-VTEC 2002 c16");
                     clearance = 3;
                     tires = 4;
@@ -16856,7 +18947,7 @@ namespace Bot.v._0._07
                     MRA = 54.36;
                     break;
 
-                case 670:
+                case 783:
                     NotePad.DoLog("Honda CR-V 2.2 i-DTEC 2007 c16");
                     clearance = 3;
                     tires = 4;
@@ -16872,7 +18963,7 @@ namespace Bot.v._0._07
                     MRA = 54.59;
                     break;
 
-                case 671:
+                case 784:
                     NotePad.DoLog("Honda CR-X 1.6i-16 1983 e10");
                     clearance = 1;
                     tires = 2;
@@ -16888,7 +18979,7 @@ namespace Bot.v._0._07
                     MRA = 67.29;
                     break;
 
-                case 672:
+                case 785:
                     NotePad.DoLog("Honda CRX VTEC 1988 d11");
                     clearance = 1;
                     tires = 2;
@@ -16904,7 +18995,7 @@ namespace Bot.v._0._07
                     MRA = 73.19;
                     break;
 
-                case 673:
+                case 786:
                     NotePad.DoLog("Honda CR-Z 2016 e9");
                     clearance = 1;
                     tires = 3;
@@ -16920,7 +19011,7 @@ namespace Bot.v._0._07
                     MRA = 51.53;
                     break;
 
-                case 674:
+                case 787:
                     NotePad.DoLog("Honda EV Plus 1997 f4");
                     clearance = 2;
                     tires = 3;
@@ -16936,7 +19027,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 675:
+                case 788:
                     NotePad.DoLog("Honda FR-V 2.2 i-CTDi 2004 e7");
                     clearance = 2;
                     tires = 3;
@@ -16952,7 +19043,7 @@ namespace Bot.v._0._07
                     MRA = 51.96;
                     break;
 
-                case 676:
+                case 789:
                     NotePad.DoLog("Honda HR-V 1.8 4WD 2016 d14");
                     clearance = 3;
                     tires = 3;
@@ -16968,7 +19059,7 @@ namespace Bot.v._0._07
                     MRA = 63.52;
                     break;
 
-                case 677:
+                case 790:
                     NotePad.DoLog("Honda Insight 2000 f6");
                     clearance = 2;
                     tires = 3;
@@ -16984,7 +19075,7 @@ namespace Bot.v._0._07
                     MRA = 54.6;
                     break;
 
-                case 678:
+                case 791:
                     NotePad.DoLog("Honda Integra Type R 1995 c15");
                     clearance = 1;
                     tires = 2;
@@ -17000,7 +19091,7 @@ namespace Bot.v._0._07
                     MRA = 70.11;
                     break;
 
-                case 679:
+                case 792:
                     NotePad.DoLog("Honda Integra Type R 2002 c15");
                     clearance = 1;
                     tires = 2;
@@ -17016,7 +19107,7 @@ namespace Bot.v._0._07
                     MRA = 75.53;
                     break;
 
-                case 680:
+                case 793:
                     NotePad.DoLog("Honda Jazz 2001 f5");
                     clearance = 2;
                     tires = 3;
@@ -17029,10 +19120,10 @@ namespace Bot.v._0._07
                     torque = 81;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 49.45;
                     break;
 
-                case 681:
+                case 794:
                     NotePad.DoLog("Honda Jazz 2016 e7");
                     clearance = 2;
                     tires = 3;
@@ -17048,7 +19139,7 @@ namespace Bot.v._0._07
                     MRA = 61.28;
                     break;
 
-                case 682:
+                case 795:
                     NotePad.DoLog("Honda Jazz Hybrid 2007 f6");
                     clearance = 2;
                     tires = 3;
@@ -17064,7 +19155,7 @@ namespace Bot.v._0._07
                     MRA = 55.42;
                     break;
 
-                case 683:
+                case 796:
                     NotePad.DoLog("Honda Legend 2.7 V6 1985 d11");
                     clearance = 2;
                     tires = 3;
@@ -17080,7 +19171,7 @@ namespace Bot.v._0._07
                     MRA = 70.54;
                     break;
 
-                case 684:
+                case 797:
                     NotePad.DoLog("Honda Legend 3.5 V6 1995 d11");
                     clearance = 2;
                     tires = 3;
@@ -17096,7 +19187,7 @@ namespace Bot.v._0._07
                     MRA = 76.28;
                     break;
 
-                case 685:
+                case 798:
                     NotePad.DoLog("Honda Legend 3.7 SH-AWD 2004 b22");
                     clearance = 2;
                     tires = 3;
@@ -17112,7 +19203,7 @@ namespace Bot.v._0._07
                     MRA = 60.47;
                     break;
 
-                case 686:
+                case 799:
                     NotePad.DoLog("Honda NSX 1990 b20");
                     clearance = 1;
                     tires = 2;
@@ -17128,7 +19219,7 @@ namespace Bot.v._0._07
                     MRA = 83.48;
                     break;
 
-                case 687:
+                case 800:
                     NotePad.DoLog("Honda NSX-R 2002 a23");
                     clearance = 1;
                     tires = 2;
@@ -17144,7 +19235,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 688:
+                case 801:
                     NotePad.DoLog("Honda Odyssey 2016 d12");
                     clearance = 2;
                     tires = 3;
@@ -17160,7 +19251,7 @@ namespace Bot.v._0._07
                     MRA = 58.16;
                     break;
 
-                case 689:
+                case 802:
                     NotePad.DoLog("Honda Odyssey 2.3 1995 f5");
                     clearance = 2;
                     tires = 3;
@@ -17176,7 +19267,7 @@ namespace Bot.v._0._07
                     MRA = 50.4;
                     break;
 
-                case 690:
+                case 803:
                     NotePad.DoLog("Honda Odyssey 3.5 V6 2005 e7");
                     clearance = 2;
                     tires = 3;
@@ -17192,23 +19283,7 @@ namespace Bot.v._0._07
                     MRA = 56.98;
                     break;
 
-                case 691:
-                    NotePad.DoLog("Honda Pilot 4WD 2009 c18");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 8.6;
-                    maxspeed = 119;
-                    grip = 69;
-                    weight = 2044;
-                    power = 250;
-                    torque = 253;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 61.87;
-                    break;
-
-                case 692:
+                case 804:
                     NotePad.DoLog("Honda Pilot 4WD 2003 c17");
                     clearance = 3;
                     tires = 4;
@@ -17224,7 +19299,23 @@ namespace Bot.v._0._07
                     MRA = 56.66;
                     break;
 
-                case 693:
+                case 805:
+                    NotePad.DoLog("Honda Pilot 4WD 2009 c18");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 8.6;
+                    maxspeed = 119;
+                    grip = 69;
+                    weight = 2044;
+                    power = 250;
+                    torque = 253;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 61.87;
+                    break;
+
+                case 806:
                     NotePad.DoLog("Honda Pilot 4WD 2016 b22");
                     clearance = 3;
                     tires = 4;
@@ -17240,7 +19331,7 @@ namespace Bot.v._0._07
                     MRA = 43.98;
                     break;
 
-                case 694:
+                case 807:
                     NotePad.DoLog("Honda Prelude 1978 f4");
                     clearance = 2;
                     tires = 3;
@@ -17256,7 +19347,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 695:
+                case 808:
                     NotePad.DoLog("Honda Prelude 2.0l 1982 f6");
                     clearance = 1;
                     tires = 3;
@@ -17272,7 +19363,7 @@ namespace Bot.v._0._07
                     MRA = 57.14;
                     break;
 
-                case 696:
+                case 809:
                     NotePad.DoLog("Honda Prelude 2.0Si 4WS 1987 d11");
                     clearance = 1;
                     tires = 3;
@@ -17288,7 +19379,7 @@ namespace Bot.v._0._07
                     MRA = 63.87;
                     break;
 
-                case 697:
+                case 810:
                     NotePad.DoLog("Honda Prelude Type S 1996 d13");
                     clearance = 1;
                     tires = 2;
@@ -17304,7 +19395,7 @@ namespace Bot.v._0._07
                     MRA = 71.13;
                     break;
 
-                case 698:
+                case 811:
                     NotePad.DoLog("Honda Prelude VTEC 1991 d13");
                     clearance = 1;
                     tires = 2;
@@ -17320,7 +19411,7 @@ namespace Bot.v._0._07
                     MRA = 66.02;
                     break;
 
-                case 699:
+                case 812:
                     NotePad.DoLog("Honda Ridgeline 2016 c16");
                     clearance = 3;
                     tires = 3;
@@ -17336,7 +19427,7 @@ namespace Bot.v._0._07
                     MRA = 50.19;
                     break;
 
-                case 700:
+                case 813:
                     NotePad.DoLog("Honda S2000 1999 c17");
                     clearance = 1;
                     tires = 2;
@@ -17352,7 +19443,7 @@ namespace Bot.v._0._07
                     MRA = 71.43;
                     break;
 
-                case 701:
+                case 814:
                     NotePad.DoLog("Honda S2000 Type S 2004 c17");
                     clearance = 1;
                     tires = 2;
@@ -17368,7 +19459,7 @@ namespace Bot.v._0._07
                     MRA = 77.5;
                     break;
 
-                case 702:
+                case 815:
                     NotePad.DoLog("Honda S800 1967 f5");
                     clearance = 1;
                     tires = 3;
@@ -17384,7 +19475,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 703:
+                case 816:
                     NotePad.DoLog("Honda S-MX 4WD 1996 e10");
                     clearance = 2;
                     tires = 3;
@@ -17400,7 +19491,7 @@ namespace Bot.v._0._07
                     MRA = 55.73;
                     break;
 
-                case 704:
+                case 817:
                     NotePad.DoLog("Honda Vamos 4WD Turbo 2016 f6");
                     clearance = 2;
                     tires = 3;
@@ -17416,7 +19507,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 705:
+                case 818:
                     NotePad.DoLog("Hummer H1 1992 e8");
                     clearance = 3;
                     tires = 5;
@@ -17432,7 +19523,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 706:
+                case 819:
                     NotePad.DoLog("Hummer H2 SUT 2005 c15");
                     clearance = 3;
                     tires = 5;
@@ -17448,7 +19539,7 @@ namespace Bot.v._0._07
                     MRA = 56.71;
                     break;
 
-                case 707:
+                case 820:
                     NotePad.DoLog("Hummer H2 SUV 2003 c15");
                     clearance = 3;
                     tires = 5;
@@ -17464,7 +19555,7 @@ namespace Bot.v._0._07
                     MRA = 56.93;
                     break;
 
-                case 708:
+                case 821:
                     NotePad.DoLog("Hummer H3 2006 b19");
                     clearance = 3;
                     tires = 5;
@@ -17480,7 +19571,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 709:
+                case 822:
                     NotePad.DoLog("Hummer H3T 2009 b19");
                     clearance = 3;
                     tires = 5;
@@ -17496,7 +19587,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 710:
+                case 823:
                     NotePad.DoLog("Infiniti FX35 2003 b22");
                     clearance = 3;
                     tires = 4;
@@ -17512,7 +19603,7 @@ namespace Bot.v._0._07
                     MRA = 59.83;
                     break;
 
-                case 711:
+                case 824:
                     NotePad.DoLog("Infiniti G35 2002 b20");
                     clearance = 2;
                     tires = 3;
@@ -17528,7 +19619,7 @@ namespace Bot.v._0._07
                     MRA = 41.01;
                     break;
 
-                case 712:
+                case 825:
                     NotePad.DoLog("Infiniti G35 2007 a23");
                     clearance = 2;
                     tires = 3;
@@ -17544,7 +19635,7 @@ namespace Bot.v._0._07
                     MRA = 65.01;
                     break;
 
-                case 713:
+                case 826:
                     NotePad.DoLog("Infiniti G37 2009 b21");
                     clearance = 1;
                     tires = 3;
@@ -17560,7 +19651,7 @@ namespace Bot.v._0._07
                     MRA = 69.06;
                     break;
 
-                case 714:
+                case 827:
                     NotePad.DoLog("Infiniti M35 2009 b21");
                     clearance = 2;
                     tires = 3;
@@ -17576,7 +19667,7 @@ namespace Bot.v._0._07
                     MRA = 85.9;
                     break;
 
-                case 715:
+                case 828:
                     NotePad.DoLog("Infiniti M45 2003 b22");
                     clearance = 2;
                     tires = 3;
@@ -17592,7 +19683,7 @@ namespace Bot.v._0._07
                     MRA = 68.43;
                     break;
 
-                case 716:
+                case 829:
                     NotePad.DoLog("Infiniti M45 2006 a24");
                     clearance = 2;
                     tires = 3;
@@ -17608,7 +19699,7 @@ namespace Bot.v._0._07
                     MRA = 65.01;
                     break;
 
-                case 717:
+                case 830:
                     NotePad.DoLog("Infiniti Q30 2016 e7");
                     clearance = 2;
                     tires = 3;
@@ -17624,7 +19715,7 @@ namespace Bot.v._0._07
                     MRA = 64.49;
                     break;
 
-                case 718:
+                case 831:
                     NotePad.DoLog("Infiniti Q50 2014 c15");
                     clearance = 2;
                     tires = 3;
@@ -17640,7 +19731,7 @@ namespace Bot.v._0._07
                     MRA = 65.49;
                     break;
 
-                case 719:
+                case 832:
                     NotePad.DoLog("Infiniti Q60 2016 a25");
                     clearance = 2;
                     tires = 2;
@@ -17656,7 +19747,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 720:
+                case 833:
                     NotePad.DoLog("Infiniti Q70 2016 a24");
                     clearance = 2;
                     tires = 3;
@@ -17672,7 +19763,7 @@ namespace Bot.v._0._07
                     MRA = 89.83;
                     break;
 
-                case 721:
+                case 834:
                     NotePad.DoLog("Infiniti QX30 2017 b22");
                     clearance = 3;
                     tires = 4;
@@ -17688,7 +19779,7 @@ namespace Bot.v._0._07
                     MRA = 57.48;
                     break;
 
-                case 722:
+                case 835:
                     NotePad.DoLog("Infiniti QX50 2016 b19");
                     clearance = 3;
                     tires = 4;
@@ -17704,7 +19795,7 @@ namespace Bot.v._0._07
                     MRA = 51.66;
                     break;
 
-                case 723:
+                case 836:
                     NotePad.DoLog("Infiniti QX70 2016 a24");
                     clearance = 3;
                     tires = 4;
@@ -17720,7 +19811,7 @@ namespace Bot.v._0._07
                     MRA = 54.38;
                     break;
 
-                case 724:
+                case 837:
                     NotePad.DoLog("Jaguar C-Type 1951 e10");
                     clearance = 1;
                     tires = 2;
@@ -17736,7 +19827,39 @@ namespace Bot.v._0._07
                     MRA = 81.13;
                     break;
 
-                case 725:
+                case 838:
+                    NotePad.DoLog("Jaguar C-X75 2010 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.3;
+                    maxspeed = 205;
+                    grip = 90;
+                    weight = 1700;
+                    power = 778;
+                    torque = 1180;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 839:
+                    NotePad.DoLog("Jaguar C-X75 2013 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 2.9;
+                    maxspeed = 220;
+                    grip = 90;
+                    weight = 1680;
+                    power = 890;
+                    torque = 738;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 840:
                     NotePad.DoLog("Jaguar D-Type 1954 c18");
                     clearance = 1;
                     tires = 2;
@@ -17752,7 +19875,23 @@ namespace Bot.v._0._07
                     MRA = 57.64;
                     break;
 
-                case 726:
+                case 841:
+                    NotePad.DoLog("Jaguar E-PACE 2018 c15");
+                    clearance = 3;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 9.9;
+                    maxspeed = 120;
+                    grip = 73;
+                    weight = 1843;
+                    power = 148;
+                    torque = 280;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 842:
                     NotePad.DoLog("Jaguar E-Type 1961 d11");
                     clearance = 1;
                     tires = 3;
@@ -17768,7 +19907,7 @@ namespace Bot.v._0._07
                     MRA = 75.29;
                     break;
 
-                case 727:
+                case 843:
                     NotePad.DoLog("Jaguar F-Pace 3.0 D 2016 a25");
                     clearance = 3;
                     tires = 4;
@@ -17784,7 +19923,23 @@ namespace Bot.v._0._07
                     MRA = 75.38;
                     break;
 
-                case 728:
+                case 844:
+                    NotePad.DoLog("Jaguar F-PACE SVR 2018 s29");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 4.1;
+                    maxspeed = 176;
+                    grip = 80;
+                    weight = 2070;
+                    power = 542;
+                    torque = 502;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 845:
                     NotePad.DoLog("Jaguar F-Type Coupe 2016 b20");
                     clearance = 1;
                     tires = 2;
@@ -17800,7 +19955,23 @@ namespace Bot.v._0._07
                     MRA = 91.67;
                     break;
 
-                case 729:
+                case 846:
+                    NotePad.DoLog("Jaguar F-Type Project 7 2015 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.8;
+                    maxspeed = 186;
+                    grip = 84;
+                    weight = 1708;
+                    power = 575;
+                    torque = 502;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 847:
                     NotePad.DoLog("Jaguar F-Type R Convertible 2016 a25");
                     clearance = 1;
                     tires = 2;
@@ -17816,7 +19987,7 @@ namespace Bot.v._0._07
                     MRA = 102.17;
                     break;
 
-                case 730:
+                case 848:
                     NotePad.DoLog("Jaguar F-Type R Coupe AWD 2016 s27");
                     clearance = 1;
                     tires = 2;
@@ -17832,7 +20003,23 @@ namespace Bot.v._0._07
                     MRA = 87.91;
                     break;
 
-                case 731:
+                case 849:
+                    NotePad.DoLog("Jaguar F-Type Rally Car 2018 a23");
+                    clearance = 2;
+                    tires = 5;
+                    drive = 2;
+                    acceleration = 5.3;
+                    maxspeed = 155;
+                    grip = 82;
+                    weight = 1500;
+                    power = 296;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 850:
                     NotePad.DoLog("Jaguar F-Type SVR Coupe 2017 s29");
                     clearance = 1;
                     tires = 2;
@@ -17848,7 +20035,119 @@ namespace Bot.v._0._07
                     MRA = 93.48;
                     break;
 
-                case 732:
+                case 851:
+                    NotePad.DoLog("Jaguar I-PACE 2018 a25");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 4.3;
+                    maxspeed = 128;
+                    grip = 76;
+                    weight = 2208;
+                    power = 395;
+                    torque = 513;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 852:
+                    NotePad.DoLog("Jaguar Mark 1 1957 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 10.8;
+                    maxspeed = 120;
+                    grip = 61;
+                    weight = 1372;
+                    power = 210;
+                    torque = 215;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 853:
+                    NotePad.DoLog("Jaguar Mark 2 1959 e8");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 8.5;
+                    maxspeed = 125;
+                    grip = 63;
+                    weight = 1448;
+                    power = 220;
+                    torque = 240;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 854:
+                    NotePad.DoLog("Jaguar Mark 2 BTCC 1960 e9");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 8;
+                    maxspeed = 125;
+                    grip = 69;
+                    weight = 1400;
+                    power = 260;
+                    torque = 250;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 68.49;
+                    break;
+
+                case 855:
+                    NotePad.DoLog("Jaguar SS 100 1936 f4");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 12.8;
+                    maxspeed = 94;
+                    grip = 59;
+                    weight = 1170;
+                    power = 102;
+                    torque = 133;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 856:
+                    NotePad.DoLog("Jaguar S-Type R 2007 b20");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.3;
+                    maxspeed = 155;
+                    grip = 80;
+                    weight = 1800;
+                    power = 390;
+                    torque = 399;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 857:
+                    NotePad.DoLog("Jaguar XE R-Dynamic S 2020 b21");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.6;
+                    maxspeed = 155;
+                    grip = 79;
+                    weight = 1690;
+                    power = 296;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 858:
                     NotePad.DoLog("Jaguar XE S 2016 b22");
                     clearance = 2;
                     tires = 2;
@@ -17864,7 +20163,7 @@ namespace Bot.v._0._07
                     MRA = 75.91;
                     break;
 
-                case 733:
+                case 859:
                     NotePad.DoLog("Jaguar XE SV Project 8 2017 s30");
                     clearance = 1;
                     tires = 2;
@@ -17880,7 +20179,7 @@ namespace Bot.v._0._07
                     MRA = 89.46;
                     break;
 
-                case 734:
+                case 860:
                     NotePad.DoLog("Jaguar XF S 2016 b21");
                     clearance = 2;
                     tires = 2;
@@ -17896,7 +20195,7 @@ namespace Bot.v._0._07
                     MRA = 75;
                     break;
 
-                case 735:
+                case 861:
                     NotePad.DoLog("Jaguar XFR-S Sportbrake 2016 b22");
                     clearance = 2;
                     tires = 2;
@@ -17912,7 +20211,7 @@ namespace Bot.v._0._07
                     MRA = 80.25;
                     break;
 
-                case 736:
+                case 862:
                     NotePad.DoLog("Jaguar XJ 3.0 V6 2016 b21");
                     clearance = 2;
                     tires = 3;
@@ -17928,8 +20227,24 @@ namespace Bot.v._0._07
                     MRA = 75.95;
                     break;
 
-                case 737:
-                    NotePad.DoLog("Jaguar XJ12 1968 d13");
+                case 863:
+                    NotePad.DoLog("Jaguar XJ 5.0 V8 2010 b22");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 5.4;
+                    maxspeed = 155;
+                    grip = 75;
+                    weight = 1755;
+                    power = 380;
+                    torque = 380;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 864:
+                    NotePad.DoLog("Jaguar XJ12 1968 d11");
                     clearance = 2;
                     tires = 3;
                     drive = 2;
@@ -17944,7 +20259,39 @@ namespace Bot.v._0._07
                     MRA = 81.69;
                     break;
 
-                case 738:
+                case 865:
+                    NotePad.DoLog("Jaguar XJ12 1974 d13");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 7.5;
+                    maxspeed = 150;
+                    grip = 69;
+                    weight = 1880;
+                    power = 285;
+                    torque = 295;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 866:
+                    NotePad.DoLog("Jaguar XJ12 1980 e10");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 8;
+                    maxspeed = 145;
+                    grip = 66;
+                    weight = 1880;
+                    power = 253;
+                    torque = 295;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 867:
                     NotePad.DoLog("Jaguar XJ13 1966 a25");
                     clearance = 1;
                     tires = 2;
@@ -17960,7 +20307,7 @@ namespace Bot.v._0._07
                     MRA = 67.59;
                     break;
 
-                case 739:
+                case 868:
                     NotePad.DoLog("Jaguar XJ220 1992 a26");
                     clearance = 1;
                     tires = 2;
@@ -17973,10 +20320,42 @@ namespace Bot.v._0._07
                     torque = 472;
                     abs = 1;
                     tcs = 0;
+                    MRA = 98.4;
+                    break;
+
+                case 869:
+                    NotePad.DoLog("Jaguar XJ220S TWR 1994 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.6;
+                    maxspeed = 220;
+                    grip = 89;
+                    weight = 1500;
+                    power = 680;
+                    torque = 600;
+                    abs = 1;
+                    tcs = 0;
                     MRA = 0;
                     break;
 
-                case 740:
+                case 870:
+                    NotePad.DoLog("Jaguar XJ6 1974 e9");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 8.5;
+                    maxspeed = 125;
+                    grip = 66;
+                    weight = 1680;
+                    power = 245;
+                    torque = 283;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 871:
                     NotePad.DoLog("Jaguar XJ6 1986 d12");
                     clearance = 2;
                     tires = 3;
@@ -17992,7 +20371,55 @@ namespace Bot.v._0._07
                     MRA = 79.93;
                     break;
 
-                case 741:
+                case 872:
+                    NotePad.DoLog("Jaguar XJ-C 1975 d12");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 7.5;
+                    maxspeed = 150;
+                    grip = 66;
+                    weight = 1835;
+                    power = 253;
+                    torque = 295;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 873:
+                    NotePad.DoLog("Jaguar XJR 1995 c15");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.6;
+                    maxspeed = 155;
+                    grip = 75;
+                    weight = 1750;
+                    power = 321;
+                    torque = 378;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 874:
+                    NotePad.DoLog("Jaguar XJR 1998 b19");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.3;
+                    maxspeed = 155;
+                    grip = 77;
+                    weight = 1837;
+                    power = 370;
+                    torque = 387;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 875:
                     NotePad.DoLog("Jaguar XJR 2003 b20");
                     clearance = 2;
                     tires = 2;
@@ -18008,7 +20435,39 @@ namespace Bot.v._0._07
                     MRA = 77.99;
                     break;
 
-                case 742:
+                case 876:
+                    NotePad.DoLog("Jaguar XJR 2013 a25");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.8;
+                    maxspeed = 174;
+                    grip = 79;
+                    weight = 1875;
+                    power = 542;
+                    torque = 502;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 877:
+                    NotePad.DoLog("Jaguar XJR 575 2018 a24");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 186;
+                    grip = 79;
+                    weight = 1875;
+                    power = 567;
+                    torque = 516;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 68.83;
+                    break;
+
+                case 878:
                     NotePad.DoLog("Jaguar XJR-15 1990 s27");
                     clearance = 1;
                     tires = 2;
@@ -18021,10 +20480,26 @@ namespace Bot.v._0._07
                     torque = 420;
                     abs = 0;
                     tcs = 0;
-                    MRA = 111.11;
+                    MRA = 110.47;
                     break;
 
-                case 743:
+                case 879:
+                    NotePad.DoLog("Jaguar XJR-9 1988 s30");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 2.7;
+                    maxspeed = 245;
+                    grip = 96;
+                    weight = 880;
+                    power = 750;
+                    torque = 611;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 880:
                     NotePad.DoLog("Jaguar XJS 1988 d12");
                     clearance = 1;
                     tires = 3;
@@ -18040,7 +20515,7 @@ namespace Bot.v._0._07
                     MRA = 73.64;
                     break;
 
-                case 744:
+                case 881:
                     NotePad.DoLog("Jaguar XJ-S Trans-Am 1978 c17");
                     clearance = 1;
                     tires = 1;
@@ -18056,7 +20531,87 @@ namespace Bot.v._0._07
                     MRA = 81.02;
                     break;
 
-                case 745:
+                case 882:
+                    NotePad.DoLog("Jaguar XJS TWR 1982 a25");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 4.2;
+                    maxspeed = 180;
+                    grip = 88;
+                    weight = 1450;
+                    power = 500;
+                    torque = 420;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 883:
+                    NotePad.DoLog("Jaguar XK Convertible 2010 c18");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.3;
+                    maxspeed = 155;
+                    grip = 79;
+                    weight = 1696;
+                    power = 385;
+                    torque = 380;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 884:
+                    NotePad.DoLog("Jaguar XK120 1948 f6");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 10;
+                    maxspeed = 125;
+                    grip = 63;
+                    weight = 1295;
+                    power = 160;
+                    torque = 195;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 885:
+                    NotePad.DoLog("Jaguar XK140 1954 f5");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 11;
+                    maxspeed = 129;
+                    grip = 63;
+                    weight = 1422;
+                    power = 190;
+                    torque = 213;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 886:
+                    NotePad.DoLog("Jaguar XK150 1957 e7");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 8.5;
+                    maxspeed = 122;
+                    grip = 63;
+                    weight = 1473;
+                    power = 210;
+                    torque = 210;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 887:
                     NotePad.DoLog("Jaguar XK8 1997 c16");
                     clearance = 1;
                     tires = 2;
@@ -18072,7 +20627,103 @@ namespace Bot.v._0._07
                     MRA = 68.82;
                     break;
 
-                case 746:
+                case 888:
+                    NotePad.DoLog("Jaguar XKR 2008 a24");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4;
+                    maxspeed = 163;
+                    grip = 83;
+                    weight = 1753;
+                    power = 510;
+                    torque = 461;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 889:
+                    NotePad.DoLog("Jaguar XKR 100 2002 c18");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.2;
+                    maxspeed = 155;
+                    grip = 79;
+                    weight = 1735;
+                    power = 390;
+                    torque = 399;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 890:
+                    NotePad.DoLog("Jaguar XKR 175 2010 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.6;
+                    maxspeed = 174;
+                    grip = 81;
+                    weight = 1753;
+                    power = 503;
+                    torque = 461;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 891:
+                    NotePad.DoLog("Jaguar XKR 4.2-S 2005 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5;
+                    maxspeed = 174;
+                    grip = 81;
+                    weight = 1665;
+                    power = 390;
+                    torque = 399;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 892:
+                    NotePad.DoLog("Jaguar XKR 75 2010 a24");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.4;
+                    maxspeed = 174;
+                    grip = 83;
+                    weight = 1753;
+                    power = 523;
+                    torque = 483;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 893:
+                    NotePad.DoLog("Jaguar XKR-R 2001 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.5;
+                    maxspeed = 180;
+                    grip = 83;
+                    weight = 1717;
+                    power = 450;
+                    torque = 450;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 894:
                     NotePad.DoLog("Jaguar XKR-S Convertible 2011 a24");
                     clearance = 1;
                     tires = 2;
@@ -18088,7 +20739,7 @@ namespace Bot.v._0._07
                     MRA = 83.5;
                     break;
 
-                case 747:
+                case 895:
                     NotePad.DoLog("Jaguar XKR-S GT 2014 a25");
                     clearance = 1;
                     tires = 2;
@@ -18104,7 +20755,7 @@ namespace Bot.v._0._07
                     MRA = 77.75;
                     break;
 
-                case 748:
+                case 896:
                     NotePad.DoLog("Jaguar XKSS 1957 c16");
                     clearance = 1;
                     tires = 2;
@@ -18120,7 +20771,23 @@ namespace Bot.v._0._07
                     MRA = 51.88;
                     break;
 
-                case 749:
+                case 897:
+                    NotePad.DoLog("Jaguar X-Type 2001 c17");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 7;
+                    maxspeed = 144;
+                    grip = 74;
+                    weight = 1555;
+                    power = 231;
+                    torque = 209;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 898:
                     NotePad.DoLog("KTM X-Bow GT 2016 a25");
                     clearance = 1;
                     tires = 2;
@@ -18136,7 +20803,7 @@ namespace Bot.v._0._07
                     MRA = 82.45;
                     break;
 
-                case 750:
+                case 899:
                     NotePad.DoLog("KTM X-Bow GT4 2016 s27");
                     clearance = 1;
                     tires = 2;
@@ -18152,7 +20819,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 751:
+                case 900:
                     NotePad.DoLog("KTM X-Bow R 2016 a25");
                     clearance = 1;
                     tires = 2;
@@ -18168,7 +20835,7 @@ namespace Bot.v._0._07
                     MRA = 84.13;
                     break;
 
-                case 752:
+                case 901:
                     NotePad.DoLog("KTM X-Bow RR 2016 a26");
                     clearance = 1;
                     tires = 2;
@@ -18184,7 +20851,7 @@ namespace Bot.v._0._07
                     MRA = 84.13;
                     break;
 
-                case 753:
+                case 902:
                     NotePad.DoLog("Lamborghini 350GT 1964 d12");
                     clearance = 1;
                     tires = 2;
@@ -18197,10 +20864,10 @@ namespace Bot.v._0._07
                     torque = 320;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 69.32;
                     break;
 
-                case 754:
+                case 903:
                     NotePad.DoLog("Lamborghini 400GT 1966 d11");
                     clearance = 1;
                     tires = 2;
@@ -18213,10 +20880,10 @@ namespace Bot.v._0._07
                     torque = 320;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 67.44;
                     break;
 
-                case 755:
+                case 904:
                     NotePad.DoLog("Lamborghini Aventador Coupe 2011 s30");
                     clearance = 1;
                     tires = 2;
@@ -18229,10 +20896,10 @@ namespace Bot.v._0._07
                     torque = 700;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 91.87;
                     break;
 
-                case 756:
+                case 905:
                     NotePad.DoLog("Lamborghini Aventador J 2012 s30");
                     clearance = 1;
                     tires = 2;
@@ -18245,10 +20912,10 @@ namespace Bot.v._0._07
                     torque = 700;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 85.81;
                     break;
 
-                case 757:
+                case 906:
                     NotePad.DoLog("Lamborghini Aventador Roadster 2012 s30");
                     clearance = 1;
                     tires = 2;
@@ -18261,10 +20928,10 @@ namespace Bot.v._0._07
                     torque = 700;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 81.82;
                     break;
 
-                case 758:
+                case 907:
                     NotePad.DoLog("Lamborghini Aventador S 2018 s30");
                     clearance = 1;
                     tires = 2;
@@ -18277,10 +20944,10 @@ namespace Bot.v._0._07
                     torque = 740;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 85.92;
                     break;
 
-                case 759:
+                case 908:
                     NotePad.DoLog("Lamborghini Aventador S Roadster 2018 s30");
                     clearance = 1;
                     tires = 2;
@@ -18293,10 +20960,10 @@ namespace Bot.v._0._07
                     torque = 740;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 88.48;
                     break;
 
-                case 760:
+                case 909:
                     NotePad.DoLog("Lamborghini Aventador SV 2015 s30");
                     clearance = 1;
                     tires = 2;
@@ -18309,10 +20976,10 @@ namespace Bot.v._0._07
                     torque = 750;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 87.36;
                     break;
 
-                case 761:
+                case 910:
                     NotePad.DoLog("Lamborghini Aventador SV Roadster 2015 s30");
                     clearance = 1;
                     tires = 2;
@@ -18325,10 +20992,10 @@ namespace Bot.v._0._07
                     torque = 750;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 87.5;
                     break;
 
-                case 762:
+                case 911:
                     NotePad.DoLog("Lamborghini Aventador SVJ 2018 s30");
                     clearance = 1;
                     tires = 2;
@@ -18344,7 +21011,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 763:
+                case 912:
                     NotePad.DoLog("Lamborghini Centenario 2016 s30");
                     clearance = 1;
                     tires = 2;
@@ -18357,10 +21024,10 @@ namespace Bot.v._0._07
                     torque = 770;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 91.22;
                     break;
 
-                case 764:
+                case 913:
                     NotePad.DoLog("Lamborghini Countach 25th Anniversario 1988 a23");
                     clearance = 1;
                     tires = 2;
@@ -18373,10 +21040,10 @@ namespace Bot.v._0._07
                     torque = 455;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 94.17;
                     break;
 
-                case 765:
+                case 914:
                     NotePad.DoLog("Lamborghini Countach 5000 Quattrovalvole 1985 a23");
                     clearance = 1;
                     tires = 2;
@@ -18389,10 +21056,10 @@ namespace Bot.v._0._07
                     torque = 420;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 91.8;
                     break;
 
-                case 766:
+                case 915:
                     NotePad.DoLog("Lamborghini Countach LP400 1974 b19");
                     clearance = 1;
                     tires = 2;
@@ -18405,10 +21072,10 @@ namespace Bot.v._0._07
                     torque = 375;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 101.38;
                     break;
 
-                case 767:
+                case 916:
                     NotePad.DoLog("Lamborghini Countach LP400 S 1978 b19");
                     clearance = 1;
                     tires = 2;
@@ -18421,10 +21088,10 @@ namespace Bot.v._0._07
                     torque = 345;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 96.82;
                     break;
 
-                case 768:
+                case 917:
                     NotePad.DoLog("Lamborghini Countach LP500 S 1982 b20");
                     clearance = 1;
                     tires = 2;
@@ -18437,10 +21104,10 @@ namespace Bot.v._0._07
                     torque = 375;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 94.61;
                     break;
 
-                case 769:
+                case 918:
                     NotePad.DoLog("Lamborghini Diablo 1990 a25");
                     clearance = 1;
                     tires = 2;
@@ -18453,10 +21120,10 @@ namespace Bot.v._0._07
                     torque = 492;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 101.85;
                     break;
 
-                case 770:
+                case 919:
                     NotePad.DoLog("Lamborghini Diablo 6.0 2000 s27");
                     clearance = 1;
                     tires = 2;
@@ -18469,10 +21136,10 @@ namespace Bot.v._0._07
                     torque = 550;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 79.42;
                     break;
 
-                case 771:
+                case 920:
                     NotePad.DoLog("Lamborghini Diablo 6.0 SE 2001 s27");
                     clearance = 1;
                     tires = 2;
@@ -18485,10 +21152,10 @@ namespace Bot.v._0._07
                     torque = 550;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 80.83;
                     break;
 
-                case 772:
+                case 921:
                     NotePad.DoLog("Lamborghini Diablo GT 1999 a26");
                     clearance = 1;
                     tires = 2;
@@ -18504,7 +21171,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 773:
+                case 922:
                     NotePad.DoLog("Lamborghini Diablo SE 1993 a25");
                     clearance = 1;
                     tires = 2;
@@ -18517,10 +21184,10 @@ namespace Bot.v._0._07
                     torque = 525;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 87.47;
                     break;
 
-                case 774:
+                case 923:
                     NotePad.DoLog("Lamborghini Diablo SV 1996 a25");
                     clearance = 1;
                     tires = 2;
@@ -18533,10 +21200,10 @@ namespace Bot.v._0._07
                     torque = 492;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 95.85;
                     break;
 
-                case 775:
+                case 924:
                     NotePad.DoLog("Lamborghini Diablo VT 1993 s27");
                     clearance = 1;
                     tires = 2;
@@ -18549,10 +21216,10 @@ namespace Bot.v._0._07
                     torque = 492;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 105;
                     break;
 
-                case 776:
+                case 925:
                     NotePad.DoLog("Lamborghini Diablo VT Roadster 1995 a26");
                     clearance = 1;
                     tires = 2;
@@ -18565,10 +21232,10 @@ namespace Bot.v._0._07
                     torque = 530;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 93.43;
                     break;
 
-                case 777:
+                case 926:
                     NotePad.DoLog("Lamborghini Espada Serie I 1968 d12");
                     clearance = 1;
                     tires = 2;
@@ -18581,10 +21248,10 @@ namespace Bot.v._0._07
                     torque = 325;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 63.96;
                     break;
 
-                case 778:
+                case 927:
                     NotePad.DoLog("Lamborghini Espada Serie II 1970 d12");
                     clearance = 1;
                     tires = 2;
@@ -18597,10 +21264,10 @@ namespace Bot.v._0._07
                     torque = 350;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 67.37;
                     break;
 
-                case 779:
+                case 928:
                     NotePad.DoLog("Lamborghini Espada Serie III 1972 d12");
                     clearance = 1;
                     tires = 2;
@@ -18613,10 +21280,10 @@ namespace Bot.v._0._07
                     torque = 345;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.42;
                     break;
 
-                case 780:
+                case 929:
                     NotePad.DoLog("Lamborghini Gallardo (1st gen) 2003 s28");
                     clearance = 1;
                     tires = 2;
@@ -18629,10 +21296,10 @@ namespace Bot.v._0._07
                     torque = 500;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 95.24;
                     break;
 
-                case 781:
+                case 930:
                     NotePad.DoLog("Lamborghini Gallardo LP 550-2 Valentino Balboni 2009 s27");
                     clearance = 1;
                     tires = 2;
@@ -18645,10 +21312,26 @@ namespace Bot.v._0._07
                     torque = 550;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 88.1;
                     break;
 
-                case 782:
+                case 931:
+                    NotePad.DoLog("Lamborghini Gallardo LP 570-4 Edizione Tecnica 2012 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.5;
+                    maxspeed = 202;
+                    grip = 90;
+                    weight = 1575;
+                    power = 560;
+                    torque = 560;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 96.21;
+                    break;
+
+                case 932:
                     NotePad.DoLog("Lamborghini Gallardo LP550-2 (2nd gen) 2010 a26");
                     clearance = 1;
                     tires = 2;
@@ -18661,10 +21344,10 @@ namespace Bot.v._0._07
                     torque = 550;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 87.22;
                     break;
 
-                case 783:
+                case 933:
                     NotePad.DoLog("Lamborghini Gallardo LP550-2 Spyder (2nd gen) 2012 a26");
                     clearance = 1;
                     tires = 2;
@@ -18677,10 +21360,10 @@ namespace Bot.v._0._07
                     torque = 550;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 98.33;
                     break;
 
-                case 784:
+                case 934:
                     NotePad.DoLog("Lamborghini Gallardo LP560-4 (2nd gen) 2008 s29");
                     clearance = 1;
                     tires = 2;
@@ -18693,10 +21376,10 @@ namespace Bot.v._0._07
                     torque = 560;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 83.98;
                     break;
 
-                case 785:
+                case 935:
                     NotePad.DoLog("Lamborghini Gallardo LP560-4 Spyder (2nd gen) 2009 s29");
                     clearance = 1;
                     tires = 2;
@@ -18709,26 +21392,10 @@ namespace Bot.v._0._07
                     torque = 560;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 67.23;
                     break;
 
-                case 786:
-                    NotePad.DoLog("Lamborghini Gallardo LP570-4 Edizione Tecnica 2012 s30");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 3.5;
-                    maxspeed = 202;
-                    grip = 90;
-                    weight = 1575;
-                    power = 560;
-                    torque = 560;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 787:
+                case 936:
                     NotePad.DoLog("Lamborghini Gallardo LP570-4 Spyder Performante (2nd gen) 2010 s29");
                     clearance = 1;
                     tires = 2;
@@ -18741,10 +21408,10 @@ namespace Bot.v._0._07
                     torque = 570;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 90.67;
                     break;
 
-                case 788:
+                case 937:
                     NotePad.DoLog("Lamborghini Gallardo LP570-4 Super Trofeo Stradale (2nd gen) 2011 s30");
                     clearance = 1;
                     tires = 2;
@@ -18757,10 +21424,10 @@ namespace Bot.v._0._07
                     torque = 570;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 80.43;
                     break;
 
-                case 789:
+                case 938:
                     NotePad.DoLog("Lamborghini Gallardo LP570-4 Superleggera (2nd gen) 2012 s30");
                     clearance = 1;
                     tires = 2;
@@ -18773,10 +21440,10 @@ namespace Bot.v._0._07
                     torque = 570;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 80.43;
                     break;
 
-                case 790:
+                case 939:
                     NotePad.DoLog("Lamborghini Gallardo Spyder (1st gen) 2006 s27");
                     clearance = 1;
                     tires = 2;
@@ -18789,10 +21456,10 @@ namespace Bot.v._0._07
                     torque = 520;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 81.55;
                     break;
 
-                case 791:
+                case 940:
                     NotePad.DoLog("Lamborghini Gallardo Superleggera (1st gen) 2007 s29");
                     clearance = 1;
                     tires = 2;
@@ -18805,10 +21472,10 @@ namespace Bot.v._0._07
                     torque = 530;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 87.18;
                     break;
 
-                case 792:
+                case 941:
                     NotePad.DoLog("Lamborghini Huracan Coupe 2014 s30");
                     clearance = 1;
                     tires = 2;
@@ -18821,10 +21488,10 @@ namespace Bot.v._0._07
                     torque = 610;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 95.98;
                     break;
 
-                case 793:
+                case 942:
                     NotePad.DoLog("Lamborghini Huracan Performante 2018 s30");
                     clearance = 1;
                     tires = 2;
@@ -18840,7 +21507,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 794:
+                case 943:
                     NotePad.DoLog("Lamborghini Huracan Performante Spyder 2018 s30");
                     clearance = 1;
                     tires = 2;
@@ -18853,10 +21520,10 @@ namespace Bot.v._0._07
                     torque = 640;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 100;
                     break;
 
-                case 795:
+                case 944:
                     NotePad.DoLog("Lamborghini Huracan RWD 2015 s29");
                     clearance = 1;
                     tires = 2;
@@ -18869,10 +21536,10 @@ namespace Bot.v._0._07
                     torque = 580;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 103.13;
                     break;
 
-                case 796:
+                case 945:
                     NotePad.DoLog("Lamborghini Huracan RWD Spyder 2018 s28");
                     clearance = 1;
                     tires = 2;
@@ -18885,11 +21552,11 @@ namespace Bot.v._0._07
                     torque = 580;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 95.24;
                     break;
 
-                case 797:
-                    NotePad.DoLog("Lamborghini Huracan Spyder 201 s30");
+                case 946:
+                    NotePad.DoLog("Lamborghini Huracan Spyder 2015 s30");
                     clearance = 1;
                     tires = 2;
                     drive = 4;
@@ -18901,10 +21568,10 @@ namespace Bot.v._0._07
                     torque = 610;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 94.29;
                     break;
 
-                case 798:
+                case 947:
                     NotePad.DoLog("Lamborghini Islero 1968 d13");
                     clearance = 1;
                     tires = 2;
@@ -18917,10 +21584,10 @@ namespace Bot.v._0._07
                     torque = 325;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 61.8;
                     break;
 
-                case 799:
+                case 948:
                     NotePad.DoLog("Lamborghini Islero S 1969 d13");
                     clearance = 1;
                     tires = 2;
@@ -18933,10 +21600,10 @@ namespace Bot.v._0._07
                     torque = 350;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 66.97;
                     break;
 
-                case 800:
+                case 949:
                     NotePad.DoLog("Lamborghini Jalpa 1981 d14");
                     clearance = 1;
                     tires = 2;
@@ -18949,10 +21616,10 @@ namespace Bot.v._0._07
                     torque = 225;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 54.38;
                     break;
 
-                case 801:
+                case 950:
                     NotePad.DoLog("Lamborghini Jarama GT 1970 d12");
                     clearance = 1;
                     tires = 2;
@@ -18965,10 +21632,10 @@ namespace Bot.v._0._07
                     torque = 305;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 52.49;
                     break;
 
-                case 802:
+                case 951:
                     NotePad.DoLog("Lamborghini Jarama GTS 1972 d12");
                     clearance = 1;
                     tires = 2;
@@ -18981,10 +21648,10 @@ namespace Bot.v._0._07
                     torque = 360;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 57.41;
                     break;
 
-                case 803:
+                case 952:
                     NotePad.DoLog("Lamborghini LM002 1986 c18");
                     clearance = 3;
                     tires = 5;
@@ -19000,7 +21667,7 @@ namespace Bot.v._0._07
                     MRA = 49.87;
                     break;
 
-                case 804:
+                case 953:
                     NotePad.DoLog("Lamborghini Miura P 400 1966 c17");
                     clearance = 1;
                     tires = 2;
@@ -19013,10 +21680,10 @@ namespace Bot.v._0._07
                     torque = 350;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 75.07;
                     break;
 
-                case 805:
+                case 954:
                     NotePad.DoLog("Lamborghini Miura Roadster 1968 c15");
                     clearance = 1;
                     tires = 2;
@@ -19029,10 +21696,10 @@ namespace Bot.v._0._07
                     torque = 370;
                     abs = 0;
                     tcs = 0;
-                    MRA = 96.68;
+                    MRA = 98.64;
                     break;
 
-                case 806:
+                case 955:
                     NotePad.DoLog("Lamborghini Miura S 1968 b19");
                     clearance = 1;
                     tires = 2;
@@ -19045,10 +21712,10 @@ namespace Bot.v._0._07
                     torque = 370;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 69.88;
                     break;
 
-                case 807:
+                case 956:
                     NotePad.DoLog("Lamborghini Miura SV 1971 b20");
                     clearance = 1;
                     tires = 2;
@@ -19061,10 +21728,10 @@ namespace Bot.v._0._07
                     torque = 380;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 72.88;
                     break;
 
-                case 808:
+                case 957:
                     NotePad.DoLog("Lamborghini Miura SV/J 1970 a23");
                     clearance = 1;
                     tires = 2;
@@ -19080,7 +21747,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 809:
+                case 958:
                     NotePad.DoLog("Lamborghini Murcielago 2001 s28");
                     clearance = 1;
                     tires = 2;
@@ -19093,10 +21760,10 @@ namespace Bot.v._0._07
                     torque = 580;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 78.26;
                     break;
 
-                case 810:
+                case 959:
                     NotePad.DoLog("Lamborghini Murcielago LP640 2006 s29");
                     clearance = 1;
                     tires = 2;
@@ -19109,11 +21776,11 @@ namespace Bot.v._0._07
                     torque = 640;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 75.65;
                     break;
 
-                case 811:
-                    NotePad.DoLog("Lamborghini Murcielago LP640 Roadster 205 s29");
+                case 960:
+                    NotePad.DoLog("Lamborghini Murcielago LP640 Roadster 2007 s29");
                     clearance = 1;
                     tires = 2;
                     drive = 4;
@@ -19125,10 +21792,10 @@ namespace Bot.v._0._07
                     torque = 640;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 69.28;
                     break;
 
-                case 812:
+                case 961:
                     NotePad.DoLog("Lamborghini Murcielago LP650-4 Roadster 2009 s29");
                     clearance = 1;
                     tires = 2;
@@ -19141,10 +21808,10 @@ namespace Bot.v._0._07
                     torque = 650;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 74.42;
                     break;
 
-                case 813:
+                case 962:
                     NotePad.DoLog("Lamborghini Murcielago LP670-4 SuperVeloce 2009 s29");
                     clearance = 1;
                     tires = 2;
@@ -19160,7 +21827,7 @@ namespace Bot.v._0._07
                     MRA = 78.38;
                     break;
 
-                case 814:
+                case 963:
                     NotePad.DoLog("Lamborghini Murcielago Roadster 2004 s28");
                     clearance = 1;
                     tires = 2;
@@ -19173,10 +21840,10 @@ namespace Bot.v._0._07
                     torque = 580;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 76.75;
                     break;
 
-                case 815:
+                case 964:
                     NotePad.DoLog("Lamborghini Reventon 2007 s29");
                     clearance = 1;
                     tires = 2;
@@ -19189,10 +21856,10 @@ namespace Bot.v._0._07
                     torque = 650;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 78.33;
                     break;
 
-                case 816:
+                case 965:
                     NotePad.DoLog("Lamborghini Sesto Elemento 2010 s30");
                     clearance = 1;
                     tires = 2;
@@ -19205,10 +21872,10 @@ namespace Bot.v._0._07
                     torque = 570;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 76.67;
                     break;
 
-                case 817:
+                case 966:
                     NotePad.DoLog("Lamborghini Silhouette 1976 d13");
                     clearance = 1;
                     tires = 2;
@@ -19221,10 +21888,10 @@ namespace Bot.v._0._07
                     torque = 250;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 77.5;
                     break;
 
-                case 818:
+                case 967:
                     NotePad.DoLog("Lamborghini Urraco P250 1973 d11");
                     clearance = 1;
                     tires = 2;
@@ -19237,10 +21904,10 @@ namespace Bot.v._0._07
                     torque = 220;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 56.38;
                     break;
 
-                case 819:
+                case 968:
                     NotePad.DoLog("Lamborghini Urraco P300 1973 d12");
                     clearance = 1;
                     tires = 2;
@@ -19253,10 +21920,10 @@ namespace Bot.v._0._07
                     torque = 250;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 79.22;
                     break;
 
-                case 820:
+                case 969:
                     NotePad.DoLog("Lamborghini Urus 2018 s30");
                     clearance = 3;
                     tires = 4;
@@ -19272,7 +21939,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 821:
+                case 970:
                     NotePad.DoLog("Lamborghini Veneno 2013 s30");
                     clearance = 1;
                     tires = 2;
@@ -19288,7 +21955,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 822:
+                case 971:
                     NotePad.DoLog("Lancia 037 Rally 1982 b22");
                     clearance = 2;
                     tires = 5;
@@ -19301,10 +21968,10 @@ namespace Bot.v._0._07
                     torque = 221;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.75;
                     break;
 
-                case 823:
+                case 972:
                     NotePad.DoLog("Lancia 2000 HF Coupe 1971 f6");
                     clearance = 1;
                     tires = 2;
@@ -19317,10 +21984,10 @@ namespace Bot.v._0._07
                     torque = 127;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 46.01;
                     break;
 
-                case 824:
+                case 973:
                     NotePad.DoLog("Lancia Aprilia Sport Zagato 1938 f3");
                     clearance = 1;
                     tires = 2;
@@ -19336,7 +22003,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 825:
+                case 974:
                     NotePad.DoLog("Lancia Aurelia 1956 f6");
                     clearance = 2;
                     tires = 3;
@@ -19349,10 +22016,10 @@ namespace Bot.v._0._07
                     torque = 125;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 47.71;
                     break;
 
-                case 826:
+                case 975:
                     NotePad.DoLog("Lancia Beta Coupe 1982 e10");
                     clearance = 2;
                     tires = 2;
@@ -19368,7 +22035,7 @@ namespace Bot.v._0._07
                     MRA = 68.79;
                     break;
 
-                case 827:
+                case 976:
                     NotePad.DoLog("Lancia Beta HPE 1978 e7");
                     clearance = 2;
                     tires = 3;
@@ -19384,7 +22051,7 @@ namespace Bot.v._0._07
                     MRA = 45.68;
                     break;
 
-                case 828:
+                case 977:
                     NotePad.DoLog("Lancia Beta Montecarlo 1975 e8");
                     clearance = 1;
                     tires = 2;
@@ -19400,10 +22067,10 @@ namespace Bot.v._0._07
                     MRA = 63.46;
                     break;
 
-                case 829:
+                case 978:
                     NotePad.DoLog("Lancia D24 Pininfarina Spider Sport 1953 c17");
                     clearance = 1;
-                    tires = 1;
+                    tires = 2;
                     drive = 2;
                     acceleration = 4.7;
                     maxspeed = 165;
@@ -19413,10 +22080,10 @@ namespace Bot.v._0._07
                     torque = 225;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 60.98;
                     break;
 
-                case 830:
+                case 979:
                     NotePad.DoLog("Lancia Dedra 1996 e7");
                     clearance = 2;
                     tires = 3;
@@ -19429,10 +22096,10 @@ namespace Bot.v._0._07
                     torque = 115;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 49.85;
                     break;
 
-                case 831:
+                case 980:
                     NotePad.DoLog("Lancia Delta 2012 e10");
                     clearance = 2;
                     tires = 3;
@@ -19445,10 +22112,10 @@ namespace Bot.v._0._07
                     torque = 266;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 47.22;
                     break;
 
-                case 832:
+                case 981:
                     NotePad.DoLog("Lancia Delta HF 4WD 1986 c15");
                     clearance = 2;
                     tires = 2;
@@ -19464,7 +22131,7 @@ namespace Bot.v._0._07
                     MRA = 74.04;
                     break;
 
-                case 833:
+                case 982:
                     NotePad.DoLog("Lancia Delta HF Integrale 16v 1990 s28");
                     clearance = 2;
                     tires = 5;
@@ -19477,10 +22144,10 @@ namespace Bot.v._0._07
                     torque = 331;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 89.83;
                     break;
 
-                case 834:
+                case 983:
                     NotePad.DoLog("Lancia Delta HF Integrale Evoluzione 1992 s28");
                     clearance = 2;
                     tires = 5;
@@ -19493,10 +22160,10 @@ namespace Bot.v._0._07
                     torque = 400;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 87.47;
                     break;
 
-                case 835:
+                case 984:
                     NotePad.DoLog("Lancia Delta Integrale 16v 1989 b20");
                     clearance = 2;
                     tires = 2;
@@ -19512,7 +22179,7 @@ namespace Bot.v._0._07
                     MRA = 63.54;
                     break;
 
-                case 836:
+                case 985:
                     NotePad.DoLog("Lancia Delta Integrale 8v 1989 c18");
                     clearance = 2;
                     tires = 2;
@@ -19528,7 +22195,7 @@ namespace Bot.v._0._07
                     MRA = 72.45;
                     break;
 
-                case 837:
+                case 986:
                     NotePad.DoLog("Lancia Delta Integrale Evoluzione 1991 b20");
                     clearance = 2;
                     tires = 2;
@@ -19544,7 +22211,7 @@ namespace Bot.v._0._07
                     MRA = 63.16;
                     break;
 
-                case 838:
+                case 987:
                     NotePad.DoLog("Lancia Delta Integrale Evoluzione II 1993 b21");
                     clearance = 2;
                     tires = 2;
@@ -19560,7 +22227,7 @@ namespace Bot.v._0._07
                     MRA = 61.92;
                     break;
 
-                case 839:
+                case 988:
                     NotePad.DoLog("Lancia Delta S4 Rally 1985 s29");
                     clearance = 2;
                     tires = 5;
@@ -19576,7 +22243,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 840:
+                case 989:
                     NotePad.DoLog("Lancia Delta S4 Stradale (SE038) 1985 b21");
                     clearance = 2;
                     tires = 2;
@@ -19589,15 +22256,15 @@ namespace Bot.v._0._07
                     torque = 215;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 60.64;
                     break;
 
-                case 841:
+                case 990:
                     NotePad.DoLog("Lancia ECV 1986 s28");
                     clearance = 1;
                     tires = 2;
                     drive = 4;
-                    acceleration = 2.3;
+                    acceleration = 2.4;
                     maxspeed = 137;
                     grip = 88;
                     weight = 930;
@@ -19605,10 +22272,10 @@ namespace Bot.v._0._07
                     torque = 398;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 62.86;
                     break;
 
-                case 842:
+                case 991:
                     NotePad.DoLog("Lancia Flaminia Sport Zagato 1958 f3");
                     clearance = 1;
                     tires = 2;
@@ -19621,10 +22288,10 @@ namespace Bot.v._0._07
                     torque = 137;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 50.1;
                     break;
 
-                case 843:
+                case 992:
                     NotePad.DoLog("Lancia Flavia 2000 Coupe 1969 f3");
                     clearance = 1;
                     tires = 2;
@@ -19637,10 +22304,10 @@ namespace Bot.v._0._07
                     torque = 132;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 57.68;
                     break;
 
-                case 844:
+                case 993:
                     NotePad.DoLog("Lancia Fulvia Coupe 1965 e8");
                     clearance = 1;
                     tires = 2;
@@ -19656,8 +22323,56 @@ namespace Bot.v._0._07
                     MRA = 48.15;
                     break;
 
-                case 845:
-                    NotePad.DoLog("Lancia Lancia Rally 037 Stradale 1982 c18");
+                case 994:
+                    NotePad.DoLog("Lancia LC2 1984 s29");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 2.7;
+                    maxspeed = 225;
+                    grip = 95;
+                    weight = 850;
+                    power = 800;
+                    torque = 650;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 995:
+                    NotePad.DoLog("Lancia Montecarlo Turbo 1981 s28");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 3.5;
+                    maxspeed = 190;
+                    grip = 92;
+                    weight = 770;
+                    power = 490;
+                    torque = 282;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 102.56;
+                    break;
+
+                case 996:
+                    NotePad.DoLog("Lancia New Stratos 2010 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.2;
+                    maxspeed = 170;
+                    grip = 88;
+                    weight = 1247;
+                    power = 533;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 85.71;
+                    break;
+
+                case 997:
+                    NotePad.DoLog("Lancia Rally 037 Stradale 1982 c18");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
@@ -19672,55 +22387,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 846:
-                    NotePad.DoLog("Lancia LC2 1983 s29");
-                    clearance = 1;
-                    tires = 1;
-                    drive = 2;
-                    acceleration = 3;
-                    maxspeed = 225;
-                    grip = 95;
-                    weight = 850;
-                    power = 800;
-                    torque = 650;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 847:
-                    NotePad.DoLog("Lancia Montecarlo Turbo 1981 s28");
-                    clearance = 1;
-                    tires = 1;
-                    drive = 2;
-                    acceleration = 3.5;
-                    maxspeed = 190;
-                    grip = 92;
-                    weight = 770;
-                    power = 490;
-                    torque = 282;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 848:
-                    NotePad.DoLog("Lancia New Stratos 2010 s28");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 3.2;
-                    maxspeed = 170;
-                    grip = 88;
-                    weight = 1247;
-                    power = 533;
-                    torque = 369;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 849:
+                case 998:
                     NotePad.DoLog("Lancia Stratos 1973 c17");
                     clearance = 1;
                     tires = 2;
@@ -19736,7 +22403,7 @@ namespace Bot.v._0._07
                     MRA = 68.75;
                     break;
 
-                case 850:
+                case 999:
                     NotePad.DoLog("Lancia Stratos HF Group 4 1974 a23");
                     clearance = 2;
                     tires = 5;
@@ -19749,10 +22416,10 @@ namespace Bot.v._0._07
                     torque = 200;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 80.6;
                     break;
 
-                case 851:
+                case 1000:
                     NotePad.DoLog("Lancia Stratos Zero 1970 d11");
                     clearance = 1;
                     tires = 2;
@@ -19768,7 +22435,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 852:
+                case 1001:
                     NotePad.DoLog("Lancia Thema 8.32 1986 c17");
                     clearance = 2;
                     tires = 2;
@@ -19784,7 +22451,7 @@ namespace Bot.v._0._07
                     MRA = 80.81;
                     break;
 
-                case 853:
+                case 1002:
                     NotePad.DoLog("Lancia Y10 1985 f3");
                     clearance = 2;
                     tires = 3;
@@ -19800,7 +22467,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 854:
+                case 1003:
                     NotePad.DoLog("Lancia Ypsilon 2017 f6");
                     clearance = 2;
                     tires = 3;
@@ -19816,7 +22483,23 @@ namespace Bot.v._0._07
                     MRA = 26.25;
                     break;
 
-                case 855:
+                case 1004:
+                    NotePad.DoLog("Land Rover Defender 110 2016 e9");
+                    clearance = 3;
+                    tires = 5;
+                    drive = 4;
+                    acceleration = 15.7;
+                    maxspeed = 90;
+                    grip = 65;
+                    weight = 1800;
+                    power = 118;
+                    torque = 262;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1005:
                     NotePad.DoLog("Land Rover Defender 90 2011 d11");
                     clearance = 3;
                     tires = 5;
@@ -19832,7 +22515,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 856:
+                case 1006:
+                    NotePad.DoLog("Land Rover Defender Works V8 2018 a23");
+                    clearance = 3;
+                    tires = 5;
+                    drive = 4;
+                    acceleration = 5.6;
+                    maxspeed = 106;
+                    grip = 68;
+                    weight = 1850;
+                    power = 399;
+                    torque = 380;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1007:
                     NotePad.DoLog("Land Rover Discovery 2016 c16");
                     clearance = 3;
                     tires = 4;
@@ -19848,7 +22547,87 @@ namespace Bot.v._0._07
                     MRA = 57.51;
                     break;
 
-                case 857:
+                case 1008:
+                    NotePad.DoLog("Land Rover Discovery 1 1989 e7");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 17.1;
+                    maxspeed = 92;
+                    grip = 60;
+                    weight = 2012;
+                    power = 111;
+                    torque = 195;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1009:
+                    NotePad.DoLog("Land Rover Discovery 2 1998 e9");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 14.2;
+                    maxspeed = 98;
+                    grip = 64;
+                    weight = 2150;
+                    power = 135;
+                    torque = 220;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1010:
+                    NotePad.DoLog("Land Rover Discovery 3 2004 d14");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 11.1;
+                    maxspeed = 112;
+                    grip = 68;
+                    weight = 2504;
+                    power = 188;
+                    torque = 325;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1011:
+                    NotePad.DoLog("Land Rover Discovery 5 2017 c18");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 8.3;
+                    maxspeed = 131;
+                    grip = 70;
+                    weight = 2184;
+                    power = 237;
+                    torque = 317;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1012:
+                    NotePad.DoLog("Land Rover Discovery Si4 2019 b20");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 7.3;
+                    maxspeed = 125;
+                    grip = 70;
+                    weight = 2162;
+                    power = 296;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1013:
                     NotePad.DoLog("Land Rover Discovery Sport 2016 c18");
                     clearance = 3;
                     tires = 4;
@@ -19864,7 +22643,39 @@ namespace Bot.v._0._07
                     MRA = 61.69;
                     break;
 
-                case 858:
+                case 1014:
+                    NotePad.DoLog("Land Rover Discovery Sport P250 AWD 2020 b20");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 7.8;
+                    maxspeed = 139;
+                    grip = 72;
+                    weight = 1942;
+                    power = 249;
+                    torque = 269;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1015:
+                    NotePad.DoLog("Land Rover Freelander 1997 d14");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 11.2;
+                    maxspeed = 106;
+                    grip = 68;
+                    weight = 1427;
+                    power = 115;
+                    torque = 118;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 44.06;
+                    break;
+
+                case 1016:
                     NotePad.DoLog("Land Rover Freelander 2 TD4 2012 d14");
                     clearance = 3;
                     tires = 4;
@@ -19880,7 +22691,39 @@ namespace Bot.v._0._07
                     MRA = 57.02;
                     break;
 
-                case 859:
+                case 1017:
+                    NotePad.DoLog("Land Rover Range Rover 4.4 V8 2002 c17");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 8.7;
+                    maxspeed = 129;
+                    grip = 68;
+                    weight = 2440;
+                    power = 282;
+                    torque = 325;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 49.81;
+                    break;
+
+                case 1018:
+                    NotePad.DoLog("Land Rover Range Rover 4.6 HSE 1994 c16");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 9.3;
+                    maxspeed = 125;
+                    grip = 65;
+                    weight = 2220;
+                    power = 225;
+                    torque = 277;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 47.74;
+                    break;
+
+                case 1019:
                     NotePad.DoLog("Land Rover Range Rover 5.0 V8 2016 a23");
                     clearance = 3;
                     tires = 4;
@@ -19896,7 +22739,7 @@ namespace Bot.v._0._07
                     MRA = 70.11;
                     break;
 
-                case 860:
+                case 1020:
                     NotePad.DoLog("Land Rover Range Rover Evoque 2016 b19");
                     clearance = 3;
                     tires = 4;
@@ -19912,7 +22755,55 @@ namespace Bot.v._0._07
                     MRA = 75.03;
                     break;
 
-                case 861:
+                case 1021:
+                    NotePad.DoLog("Land Rover Range Rover Evoque 2018 c17");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 9.5;
+                    maxspeed = 124;
+                    grip = 71;
+                    weight = 1685;
+                    power = 188;
+                    torque = 310;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 56.89;
+                    break;
+
+                case 1022:
+                    NotePad.DoLog("Land Rover Range Rover Evoque 2018 b21");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 7.1;
+                    maxspeed = 135;
+                    grip = 71;
+                    weight = 1670;
+                    power = 237;
+                    torque = 251;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1023:
+                    NotePad.DoLog("Land Rover Range Rover Evoque Autobiography Dynamic 2015 a23");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 6.3;
+                    maxspeed = 144;
+                    grip = 73;
+                    weight = 1833;
+                    power = 286;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1024:
                     NotePad.DoLog("Land Rover Range Rover Mk 1 1970 d13");
                     clearance = 3;
                     tires = 5;
@@ -19925,10 +22816,58 @@ namespace Bot.v._0._07
                     torque = 185;
                     abs = 0;
                     tcs = 0;
+                    MRA = 29.82;
+                    break;
+
+                case 1025:
+                    NotePad.DoLog("Land Rover Range Rover P400e PHEV 2018 b20");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 6.4;
+                    maxspeed = 137;
+                    grip = 69;
+                    weight = 2539;
+                    power = 398;
+                    torque = 472;
+                    abs = 1;
+                    tcs = 1;
                     MRA = 0;
                     break;
 
-                case 862:
+                case 1026:
+                    NotePad.DoLog("Land Rover Range Rover Sport 2005 b19");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 7.4;
+                    maxspeed = 130;
+                    grip = 70;
+                    weight = 2572;
+                    power = 390;
+                    torque = 410;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1027:
+                    NotePad.DoLog("Land Rover Range Rover Sport 2018 b21");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 6.4;
+                    maxspeed = 140;
+                    grip = 69;
+                    weight = 2398;
+                    power = 339;
+                    torque = 516;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1028:
                     NotePad.DoLog("Land Rover Range Rover Sport SVR 2016 a26");
                     clearance = 3;
                     tires = 4;
@@ -19944,7 +22883,71 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 863:
+                case 1029:
+                    NotePad.DoLog("Land Rover Range Rover Sport SVR 2018 a24");
+                    clearance = 3;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.3;
+                    maxspeed = 175;
+                    grip = 76;
+                    weight = 2335;
+                    power = 575;
+                    torque = 516;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1030:
+                    NotePad.DoLog("Land Rover Range Rover Velar 2018 b21");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 6.8;
+                    maxspeed = 135;
+                    grip = 72;
+                    weight = 1841;
+                    power = 237;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1031:
+                    NotePad.DoLog("Land Rover Range Rover Velar SVAutobiography Dynamic Edition 2019 a24");
+                    clearance = 3;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.5;
+                    maxspeed = 170;
+                    grip = 78;
+                    weight = 2160;
+                    power = 542;
+                    torque = 487;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1032:
+                    NotePad.DoLog("Land Rover Series 1 1948 f6");
+                    clearance = 3;
+                    tires = 5;
+                    drive = 4;
+                    acceleration = 35;
+                    maxspeed = 62;
+                    grip = 45;
+                    weight = 1092;
+                    power = 55;
+                    torque = 80;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1033:
                     NotePad.DoLog("Lotus 2-Eleven GT4 2009 a26");
                     clearance = 1;
                     tires = 2;
@@ -19960,7 +22963,7 @@ namespace Bot.v._0._07
                     MRA = 68.32;
                     break;
 
-                case 864:
+                case 1034:
                     NotePad.DoLog("Lotus 2-Eleven S'charged 2007 a26");
                     clearance = 1;
                     tires = 2;
@@ -19976,7 +22979,7 @@ namespace Bot.v._0._07
                     MRA = 69.39;
                     break;
 
-                case 865:
+                case 1035:
                     NotePad.DoLog("Lotus 340R 2000 b21");
                     clearance = 1;
                     tires = 2;
@@ -19992,7 +22995,23 @@ namespace Bot.v._0._07
                     MRA = 58.82;
                     break;
 
-                case 866:
+                case 1036:
+                    NotePad.DoLog("Lotus 3-Eleven 430 2018 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.1;
+                    maxspeed = 180;
+                    grip = 91;
+                    weight = 920;
+                    power = 430;
+                    torque = 325;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1037:
                     NotePad.DoLog("Lotus Carlton 1991 b22");
                     clearance = 2;
                     tires = 2;
@@ -20008,7 +23027,23 @@ namespace Bot.v._0._07
                     MRA = 84.89;
                     break;
 
-                case 867:
+                case 1038:
+                    NotePad.DoLog("Lotus Eclat 1976 e10");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.9;
+                    maxspeed = 135;
+                    grip = 77;
+                    weight = 1055;
+                    power = 160;
+                    torque = 140;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1039:
                     NotePad.DoLog("Lotus Elan 1962 d11");
                     clearance = 1;
                     tires = 3;
@@ -20024,7 +23059,7 @@ namespace Bot.v._0._07
                     MRA = 50.4;
                     break;
 
-                case 868:
+                case 1040:
                     NotePad.DoLog("Lotus Elan SE 1989 c15");
                     clearance = 1;
                     tires = 2;
@@ -20040,7 +23075,7 @@ namespace Bot.v._0._07
                     MRA = 60.71;
                     break;
 
-                case 869:
+                case 1041:
                     NotePad.DoLog("Lotus Elise 1996 c15");
                     clearance = 1;
                     tires = 2;
@@ -20056,7 +23091,7 @@ namespace Bot.v._0._07
                     MRA = 49.68;
                     break;
 
-                case 870:
+                case 1042:
                     NotePad.DoLog("Lotus Elise 1.6 2015 d14");
                     clearance = 1;
                     tires = 2;
@@ -20072,7 +23107,7 @@ namespace Bot.v._0._07
                     MRA = 50.38;
                     break;
 
-                case 871:
+                case 1043:
                     NotePad.DoLog("Lotus Elise 111S 2002 c18");
                     clearance = 1;
                     tires = 2;
@@ -20088,7 +23123,23 @@ namespace Bot.v._0._07
                     MRA = 52.4;
                     break;
 
-                case 872:
+                case 1044:
+                    NotePad.DoLog("Lotus Elise Cup 250 2019 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 154;
+                    grip = 89;
+                    weight = 931;
+                    power = 243;
+                    torque = 184;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1045:
                     NotePad.DoLog("Lotus Elise Sport 135 2003 b19");
                     clearance = 1;
                     tires = 2;
@@ -20104,7 +23155,39 @@ namespace Bot.v._0._07
                     MRA = 54.71;
                     break;
 
-                case 873:
+                case 1046:
+                    NotePad.DoLog("Lotus Elise Sprint 2017 c18");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.9;
+                    maxspeed = 127;
+                    grip = 87;
+                    weight = 798;
+                    power = 136;
+                    torque = 118;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1047:
+                    NotePad.DoLog("Lotus Elite 1957 f4");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 11.4;
+                    maxspeed = 112;
+                    grip = 71;
+                    weight = 506;
+                    power = 71;
+                    torque = 77;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1048:
                     NotePad.DoLog("Lotus Esprit 1976 c16");
                     clearance = 1;
                     tires = 2;
@@ -20120,7 +23203,7 @@ namespace Bot.v._0._07
                     MRA = 78.4;
                     break;
 
-                case 874:
+                case 1049:
                     NotePad.DoLog("Lotus Esprit S4 1993 b21");
                     clearance = 1;
                     tires = 2;
@@ -20136,7 +23219,7 @@ namespace Bot.v._0._07
                     MRA = 72.73;
                     break;
 
-                case 875:
+                case 1050:
                     NotePad.DoLog("Lotus Esprit Sport 350 1999 a23");
                     clearance = 1;
                     tires = 2;
@@ -20152,7 +23235,279 @@ namespace Bot.v._0._07
                     MRA = 79.57;
                     break;
 
-                case 876:
+                case 1051:
+                    NotePad.DoLog("Lotus Esprit Turbo 1981 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.6;
+                    maxspeed = 152;
+                    grip = 83;
+                    weight = 1219;
+                    power = 210;
+                    torque = 200;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1052:
+                    NotePad.DoLog("Lotus Esprit V8 2002 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 175;
+                    grip = 85;
+                    weight = 1378;
+                    power = 350;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1053:
+                    NotePad.DoLog("Lotus Essex Turbo Esprit 1980 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.6;
+                    maxspeed = 148;
+                    grip = 83;
+                    weight = 1219;
+                    power = 205;
+                    torque = 200;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1054:
+                    NotePad.DoLog("Lotus Europa 47 Twin Cam 1966 e10");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.2;
+                    maxspeed = 121;
+                    grip = 76;
+                    weight = 737;
+                    power = 105;
+                    torque = 108;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 51.93;
+                    break;
+
+                case 1055:
+                    NotePad.DoLog("Lotus Europa S 2006 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.5;
+                    maxspeed = 143;
+                    grip = 83;
+                    weight = 995;
+                    power = 197;
+                    torque = 201;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1056:
+                    NotePad.DoLog("Lotus Europa SE 2008 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.9;
+                    maxspeed = 150;
+                    grip = 83;
+                    weight = 995;
+                    power = 222;
+                    torque = 221;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1057:
+                    NotePad.DoLog("Lotus Europa Special 1973 d13");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.6;
+                    maxspeed = 130;
+                    grip = 77;
+                    weight = 740;
+                    power = 126;
+                    torque = 125;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 55.56;
+                    break;
+
+                case 1058:
+                    NotePad.DoLog("Lotus Evora 280 2009 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.9;
+                    maxspeed = 162;
+                    grip = 86;
+                    weight = 1350;
+                    power = 276;
+                    torque = 252;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1059:
+                    NotePad.DoLog("Lotus Evora 400 2015 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 186;
+                    grip = 88;
+                    weight = 1395;
+                    power = 400;
+                    torque = 302;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1060:
+                    NotePad.DoLog("Lotus Evora GT430 2018 s28");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.7;
+                    maxspeed = 190;
+                    grip = 89;
+                    weight = 1258;
+                    power = 430;
+                    torque = 325;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1061:
+                    NotePad.DoLog("Lotus Evora GT430 Sport 2017 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 196;
+                    grip = 89;
+                    weight = 1248;
+                    power = 430;
+                    torque = 325;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1062:
+                    NotePad.DoLog("Lotus Evora GTE Road Car 2011 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.8;
+                    maxspeed = 190;
+                    grip = 90;
+                    weight = 1277;
+                    power = 438;
+                    torque = 310;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1063:
+                    NotePad.DoLog("Lotus Evora S 2010 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.3;
+                    maxspeed = 172;
+                    grip = 87;
+                    weight = 1437;
+                    power = 345;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1064:
+                    NotePad.DoLog("Lotus Evora Sport 410 2019 s27");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 186;
+                    grip = 89;
+                    weight = 1248;
+                    power = 410;
+                    torque = 310;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1065:
+                    NotePad.DoLog("Lotus Exige 265E 2007 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 158;
+                    grip = 88;
+                    weight = 933;
+                    power = 264;
+                    torque = 184;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1066:
+                    NotePad.DoLog("Lotus Exige Cup 260 2009 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4;
+                    maxspeed = 152;
+                    grip = 89;
+                    weight = 890;
+                    power = 257;
+                    torque = 174;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1067:
+                    NotePad.DoLog("Lotus Exige Cup 430 2019 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.2;
+                    maxspeed = 174;
+                    grip = 90;
+                    weight = 1110;
+                    power = 430;
+                    torque = 325;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1068:
                     NotePad.DoLog("Lotus Exige S 2015 s27");
                     clearance = 1;
                     tires = 2;
@@ -20165,10 +23520,122 @@ namespace Bot.v._0._07
                     torque = 295;
                     abs = 1;
                     tcs = 1;
-                    MRA = 86.16;
+                    MRA = 84.94;
                     break;
 
-                case 877:
+                case 1069:
+                    NotePad.DoLog("Lotus Exige S1 2000 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.7;
+                    maxspeed = 136;
+                    grip = 87;
+                    weight = 785;
+                    power = 192;
+                    torque = 146;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1070:
+                    NotePad.DoLog("Lotus Exige S2 2005 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.8;
+                    maxspeed = 147;
+                    grip = 88;
+                    weight = 916;
+                    power = 187;
+                    torque = 133;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1071:
+                    NotePad.DoLog("Lotus Exige Scura 2009 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4;
+                    maxspeed = 152;
+                    grip = 89;
+                    weight = 890;
+                    power = 257;
+                    torque = 174;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1072:
+                    NotePad.DoLog("Lotus Group GT4 2011 a26");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 3.8;
+                    maxspeed = 170;
+                    grip = 91;
+                    weight = 1190;
+                    power = 360;
+                    torque = 328;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1073:
+                    NotePad.DoLog("Lotus M100 Elan 1989 c15");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 6.5;
+                    maxspeed = 137;
+                    grip = 84;
+                    weight = 1020;
+                    power = 165;
+                    torque = 148;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1074:
+                    NotePad.DoLog("Lotus Mk1 Cortina 1967 f4");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 11;
+                    maxspeed = 108;
+                    grip = 69;
+                    weight = 905;
+                    power = 105;
+                    torque = 108;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1075:
+                    NotePad.DoLog("Lotus Seven 1957 f5");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 18.7;
+                    maxspeed = 77;
+                    grip = 70;
+                    weight = 387;
+                    power = 36;
+                    torque = 52;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1076:
                     NotePad.DoLog("Maserati 430 1987 c15");
                     clearance = 1;
                     tires = 2;
@@ -20184,7 +23651,7 @@ namespace Bot.v._0._07
                     MRA = 58.19;
                     break;
 
-                case 878:
+                case 1077:
                     NotePad.DoLog("Maserati 250F 1955 a23");
                     clearance = 1;
                     tires = 2;
@@ -20200,7 +23667,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 879:
+                case 1078:
                     NotePad.DoLog("Maserati 3200 GT Assetto Corsa 1998 b20");
                     clearance = 1;
                     tires = 2;
@@ -20213,11 +23680,11 @@ namespace Bot.v._0._07
                     torque = 362;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 62.66;
                     break;
 
-                case 880:
-                    NotePad.DoLog("Maserati 350 GT 1957 e7");
+                case 1079:
+                    NotePad.DoLog("Maserati 3500 GT 1957 e7");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
@@ -20229,10 +23696,10 @@ namespace Bot.v._0._07
                     torque = 239;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.03;
                     break;
 
-                case 881:
+                case 1080:
                     NotePad.DoLog("Maserati 5000 GT 1959 e9");
                     clearance = 1;
                     tires = 3;
@@ -20245,10 +23712,10 @@ namespace Bot.v._0._07
                     torque = 304;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 59.24;
                     break;
 
-                case 882:
+                case 1081:
                     NotePad.DoLog("Maserati A6 1500 1947 f3");
                     clearance = 1;
                     tires = 2;
@@ -20264,7 +23731,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 883:
+                case 1082:
                     NotePad.DoLog("Maserati A6G 2000 1950 f3");
                     clearance = 1;
                     tires = 2;
@@ -20277,11 +23744,11 @@ namespace Bot.v._0._07
                     torque = 85;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 24.28;
                     break;
 
-                case 884:
-                    NotePad.DoLog("Maserati Birdcage 75th (concept) 2005 s28");
+                case 1083:
+                    NotePad.DoLog("Maserati Birdcage 75th 2005 s28");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
@@ -20296,7 +23763,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 885:
+                case 1084:
                     NotePad.DoLog("Maserati Biturbo S 1983 d14");
                     clearance = 1;
                     tires = 2;
@@ -20309,10 +23776,10 @@ namespace Bot.v._0._07
                     torque = 187;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 64.86;
                     break;
 
-                case 886:
+                case 1085:
                     NotePad.DoLog("Maserati Bora 1971 c15");
                     clearance = 1;
                     tires = 2;
@@ -20328,7 +23795,7 @@ namespace Bot.v._0._07
                     MRA = 91.67;
                     break;
 
-                case 887:
+                case 1086:
                     NotePad.DoLog("Maserati Coupe GranSport 2004 b21");
                     clearance = 1;
                     tires = 2;
@@ -20341,10 +23808,10 @@ namespace Bot.v._0._07
                     torque = 333;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 65.44;
                     break;
 
-                case 888:
+                case 1087:
                     NotePad.DoLog("Maserati Ghibli 2018 b19");
                     clearance = 1;
                     tires = 2;
@@ -20357,10 +23824,10 @@ namespace Bot.v._0._07
                     torque = 369;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 72.22;
                     break;
 
-                case 889:
+                case 1088:
                     NotePad.DoLog("Maserati Ghibli Cup 1992 b19");
                     clearance = 1;
                     tires = 2;
@@ -20373,10 +23840,10 @@ namespace Bot.v._0._07
                     torque = 274;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 59.58;
                     break;
 
-                case 890:
+                case 1089:
                     NotePad.DoLog("Maserati Ghibli Diesel 2018 c15");
                     clearance = 1;
                     tires = 2;
@@ -20389,10 +23856,10 @@ namespace Bot.v._0._07
                     torque = 443;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 63.1;
                     break;
 
-                case 891:
+                case 1090:
                     NotePad.DoLog("Maserati Ghibli S Q4 2016 a23");
                     clearance = 1;
                     tires = 2;
@@ -20405,10 +23872,10 @@ namespace Bot.v._0._07
                     torque = 406;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 65.5;
                     break;
 
-                case 892:
+                case 1091:
                     NotePad.DoLog("Maserati Ghibli SS 1969 d14");
                     clearance = 1;
                     tires = 2;
@@ -20421,10 +23888,10 @@ namespace Bot.v._0._07
                     torque = 354;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 82.76;
                     break;
 
-                case 893:
+                case 1092:
                     NotePad.DoLog("Maserati Ghibli SS Spyder 1969 d14");
                     clearance = 1;
                     tires = 2;
@@ -20440,7 +23907,7 @@ namespace Bot.v._0._07
                     MRA = 84.93;
                     break;
 
-                case 894:
+                case 1093:
                     NotePad.DoLog("Maserati GranCabrio 2018 b21");
                     clearance = 1;
                     tires = 2;
@@ -20453,10 +23920,10 @@ namespace Bot.v._0._07
                     torque = 384;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 69.12;
                     break;
 
-                case 895:
+                case 1094:
                     NotePad.DoLog("Maserati GranCabrio MC 2016 b22");
                     clearance = 1;
                     tires = 2;
@@ -20469,10 +23936,10 @@ namespace Bot.v._0._07
                     torque = 384;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 72.31;
                     break;
 
-                case 896:
+                case 1095:
                     NotePad.DoLog("Maserati GranTurismo 2018 b22");
                     clearance = 1;
                     tires = 2;
@@ -20485,10 +23952,10 @@ namespace Bot.v._0._07
                     torque = 384;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 77.29;
                     break;
 
-                case 897:
+                case 1096:
                     NotePad.DoLog("Maserati GranTurismo MC Stradale 2016 a24");
                     clearance = 1;
                     tires = 2;
@@ -20501,10 +23968,10 @@ namespace Bot.v._0._07
                     torque = 384;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 75.44;
                     break;
 
-                case 898:
+                case 1097:
                     NotePad.DoLog("Maserati Indy 1969 e10");
                     clearance = 1;
                     tires = 2;
@@ -20520,7 +23987,7 @@ namespace Bot.v._0._07
                     MRA = 62.83;
                     break;
 
-                case 899:
+                case 1098:
                     NotePad.DoLog("Maserati Karif 1988 d14");
                     clearance = 1;
                     tires = 2;
@@ -20533,10 +24000,10 @@ namespace Bot.v._0._07
                     torque = 268;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.63;
                     break;
 
-                case 900:
+                case 1099:
                     NotePad.DoLog("Maserati Khamsin 1974 d14");
                     clearance = 1;
                     tires = 2;
@@ -20549,10 +24016,10 @@ namespace Bot.v._0._07
                     torque = 354;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 89.19;
                     break;
 
-                case 901:
+                case 1100:
                     NotePad.DoLog("Maserati Kylami 1978 e10");
                     clearance = 1;
                     tires = 2;
@@ -20565,10 +24032,10 @@ namespace Bot.v._0._07
                     torque = 312;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 70.91;
                     break;
 
-                case 902:
+                case 1101:
                     NotePad.DoLog("Maserati Levante Diesel 2018 b22");
                     clearance = 3;
                     tires = 4;
@@ -20581,10 +24048,10 @@ namespace Bot.v._0._07
                     torque = 443;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 57.89;
                     break;
 
-                case 903:
+                case 1102:
                     NotePad.DoLog("Maserati Levante S 2018 a25");
                     clearance = 3;
                     tires = 4;
@@ -20597,10 +24064,10 @@ namespace Bot.v._0._07
                     torque = 428;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 64.68;
                     break;
 
-                case 904:
+                case 1103:
                     NotePad.DoLog("Maserati MC12 Stradale 2004 s29");
                     clearance = 1;
                     tires = 2;
@@ -20616,7 +24083,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 905:
+                case 1104:
                     NotePad.DoLog("Maserati Merak SS 1976 d12");
                     clearance = 1;
                     tires = 2;
@@ -20629,10 +24096,10 @@ namespace Bot.v._0._07
                     torque = 188;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 59.37;
                     break;
 
-                case 906:
+                case 1105:
                     NotePad.DoLog("Maserati Mexico 1966 e9");
                     clearance = 1;
                     tires = 2;
@@ -20645,10 +24112,10 @@ namespace Bot.v._0._07
                     torque = 290;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 66.47;
                     break;
 
-                case 907:
+                case 1106:
                     NotePad.DoLog("Maserati Mistral 1963 d11");
                     clearance = 1;
                     tires = 2;
@@ -20661,14 +24128,14 @@ namespace Bot.v._0._07
                     torque = 289;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 66;
                     break;
 
-                case 908:
+                case 1107:
                     NotePad.DoLog("Maserati Quattroporte 1974 e8");
                     clearance = 2;
                     tires = 3;
-                    drive = 2;
+                    drive = 1;
                     acceleration = 9;
                     maxspeed = 125;
                     grip = 66;
@@ -20677,10 +24144,10 @@ namespace Bot.v._0._07
                     torque = 188;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 57.69;
                     break;
 
-                case 909:
+                case 1108:
                     NotePad.DoLog("Maserati Quattroporte 1994 b21");
                     clearance = 2;
                     tires = 3;
@@ -20693,10 +24160,10 @@ namespace Bot.v._0._07
                     torque = 305;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 62.64;
                     break;
 
-                case 910:
+                case 1109:
                     NotePad.DoLog("Maserati Quattroporte 2017 b20");
                     clearance = 2;
                     tires = 2;
@@ -20709,10 +24176,10 @@ namespace Bot.v._0._07
                     torque = 369;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 66.83;
                     break;
 
-                case 911:
+                case 1110:
                     NotePad.DoLog("Maserati Quattroporte Diesel 2018 c16");
                     clearance = 2;
                     tires = 2;
@@ -20725,10 +24192,10 @@ namespace Bot.v._0._07
                     torque = 443;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 57.12;
                     break;
 
-                case 912:
+                case 1111:
                     NotePad.DoLog("Maserati Quattroporte GTS 2016 a24");
                     clearance = 2;
                     tires = 2;
@@ -20741,10 +24208,10 @@ namespace Bot.v._0._07
                     torque = 524;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 80.39;
                     break;
 
-                case 913:
+                case 1112:
                     NotePad.DoLog("Maserati Quattroporte Sport GT S 2009 b22");
                     clearance = 2;
                     tires = 2;
@@ -20757,10 +24224,10 @@ namespace Bot.v._0._07
                     torque = 361;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 79.03;
                     break;
 
-                case 914:
+                case 1113:
                     NotePad.DoLog("Maserati Racing 1991 c17");
                     clearance = 1;
                     tires = 2;
@@ -20773,10 +24240,10 @@ namespace Bot.v._0._07
                     torque = 276;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 62.62;
                     break;
 
-                case 915:
+                case 1114:
                     NotePad.DoLog("Maserati Royale 1986 c16");
                     clearance = 2;
                     tires = 3;
@@ -20789,10 +24256,10 @@ namespace Bot.v._0._07
                     torque = 295;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 50.59;
                     break;
 
-                case 916:
+                case 1115:
                     NotePad.DoLog("Maserati Sebring 1962 e8");
                     clearance = 1;
                     tires = 2;
@@ -20805,10 +24272,10 @@ namespace Bot.v._0._07
                     torque = 253;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.38;
                     break;
 
-                case 917:
+                case 1116:
                     NotePad.DoLog("Maserati Shamal 1990 b19");
                     clearance = 1;
                     tires = 2;
@@ -20821,10 +24288,10 @@ namespace Bot.v._0._07
                     torque = 319;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 67.53;
                     break;
 
-                case 918:
+                case 1117:
                     NotePad.DoLog("Maserati Spyder 1991 d14");
                     clearance = 1;
                     tires = 2;
@@ -20837,10 +24304,10 @@ namespace Bot.v._0._07
                     torque = 223;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 66.23;
                     break;
 
-                case 919:
+                case 1118:
                     NotePad.DoLog("Maserati Spyder GranSport 2005 b20");
                     clearance = 1;
                     tires = 2;
@@ -20853,10 +24320,10 @@ namespace Bot.v._0._07
                     torque = 333;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 64.81;
                     break;
 
-                case 920:
+                case 1119:
                     NotePad.DoLog("Maserati Tipo 61 Birdcage 1959 b21");
                     clearance = 1;
                     tires = 2;
@@ -20869,10 +24336,10 @@ namespace Bot.v._0._07
                     torque = 230;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 82.88;
                     break;
 
-                case 921:
+                case 1120:
                     NotePad.DoLog("Mazda 2 2018 e8");
                     clearance = 2;
                     tires = 3;
@@ -20885,10 +24352,10 @@ namespace Bot.v._0._07
                     torque = 100;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 60.24;
                     break;
 
-                case 922:
+                case 1121:
                     NotePad.DoLog("Mazda 3 2018 d12");
                     clearance = 2;
                     tires = 3;
@@ -20904,7 +24371,7 @@ namespace Bot.v._0._07
                     MRA = 66.47;
                     break;
 
-                case 923:
+                case 1122:
                     NotePad.DoLog("Mazda 6 2018 e10");
                     clearance = 2;
                     tires = 3;
@@ -20920,7 +24387,7 @@ namespace Bot.v._0._07
                     MRA = 62.81;
                     break;
 
-                case 924:
+                case 1123:
                     NotePad.DoLog("Mazda 6 MPS 2005 b22");
                     clearance = 2;
                     tires = 2;
@@ -20933,10 +24400,10 @@ namespace Bot.v._0._07
                     torque = 280;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 61.35;
                     break;
 
-                case 925:
+                case 1124:
                     NotePad.DoLog("Mazda 787b 1990 s29");
                     clearance = 1;
                     tires = 1;
@@ -20952,7 +24419,7 @@ namespace Bot.v._0._07
                     MRA = 102.77;
                     break;
 
-                case 926:
+                case 1125:
                     NotePad.DoLog("Mazda Autozam AZ-1 1992 e8");
                     clearance = 1;
                     tires = 3;
@@ -20968,7 +24435,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 927:
+                case 1126:
                     NotePad.DoLog("Mazda BBR MX-5 GT270 2013 b22");
                     clearance = 1;
                     tires = 2;
@@ -20984,7 +24451,7 @@ namespace Bot.v._0._07
                     MRA = 87.23;
                     break;
 
-                case 928:
+                case 1127:
                     NotePad.DoLog("Mazda BT-50 2018 d12");
                     clearance = 3;
                     tires = 3;
@@ -21000,7 +24467,7 @@ namespace Bot.v._0._07
                     MRA = 54.42;
                     break;
 
-                case 929:
+                case 1128:
                     NotePad.DoLog("Mazda Carol 1962 f5");
                     clearance = 2;
                     tires = 3;
@@ -21016,7 +24483,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 930:
+                case 1129:
                     NotePad.DoLog("Mazda Cosmo 1967 e9");
                     clearance = 1;
                     tires = 3;
@@ -21032,7 +24499,7 @@ namespace Bot.v._0._07
                     MRA = 63.27;
                     break;
 
-                case 931:
+                case 1130:
                     NotePad.DoLog("Mazda Cosmo 1975 e9");
                     clearance = 1;
                     tires = 3;
@@ -21048,7 +24515,7 @@ namespace Bot.v._0._07
                     MRA = 66.62;
                     break;
 
-                case 932:
+                case 1131:
                     NotePad.DoLog("Mazda Cosmo 1981 e7");
                     clearance = 1;
                     tires = 3;
@@ -21064,7 +24531,7 @@ namespace Bot.v._0._07
                     MRA = 47.74;
                     break;
 
-                case 933:
+                case 1132:
                     NotePad.DoLog("Mazda Cosmo 1990 b20");
                     clearance = 1;
                     tires = 3;
@@ -21080,7 +24547,7 @@ namespace Bot.v._0._07
                     MRA = 56.92;
                     break;
 
-                case 934:
+                case 1133:
                     NotePad.DoLog("Mazda CX-3 2018 d11");
                     clearance = 2;
                     tires = 3;
@@ -21096,7 +24563,7 @@ namespace Bot.v._0._07
                     MRA = 64.91;
                     break;
 
-                case 935:
+                case 1134:
                     NotePad.DoLog("Mazda CX-5 2018 e10");
                     clearance = 3;
                     tires = 3;
@@ -21112,7 +24579,7 @@ namespace Bot.v._0._07
                     MRA = 69.89;
                     break;
 
-                case 936:
+                case 1135:
                     NotePad.DoLog("Mazda CX-9 2018 b19");
                     clearance = 3;
                     tires = 3;
@@ -21128,7 +24595,7 @@ namespace Bot.v._0._07
                     MRA = 55.64;
                     break;
 
-                case 937:
+                case 1136:
                     NotePad.DoLog("Mazda Eunos Roadster RS-Limited 1994 e10");
                     clearance = 1;
                     tires = 3;
@@ -21144,10 +24611,10 @@ namespace Bot.v._0._07
                     MRA = 62.21;
                     break;
 
-                case 938:
+                case 1137:
                     NotePad.DoLog("Mazda Furai 2007 a26");
                     clearance = 1;
-                    tires = 2;
+                    tires = 1;
                     drive = 2;
                     acceleration = 3.5;
                     maxspeed = 180;
@@ -21160,7 +24627,7 @@ namespace Bot.v._0._07
                     MRA = 67.9;
                     break;
 
-                case 939:
+                case 1138:
                     NotePad.DoLog("Mazda Jota MX-5 GT 2013 c16");
                     clearance = 1;
                     tires = 2;
@@ -21176,23 +24643,7 @@ namespace Bot.v._0._07
                     MRA = 56.38;
                     break;
 
-                case 940:
-                    NotePad.DoLog("Mazda MX-5 2018 d14");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 6.9;
-                    maxspeed = 133;
-                    grip = 80;
-                    weight = 1075;
-                    power = 158;
-                    torque = 148;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 62.91;
-                    break;
-
-                case 941:
+                case 1139:
                     NotePad.DoLog("Mazda MX-5 1989 d13");
                     clearance = 1;
                     tires = 3;
@@ -21208,23 +24659,7 @@ namespace Bot.v._0._07
                     MRA = 62.33;
                     break;
 
-                case 942:
-                    NotePad.DoLog("Mazda MX-5 2005 d12");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 7.1;
-                    maxspeed = 130;
-                    grip = 79;
-                    weight = 1075;
-                    power = 158;
-                    torque = 139;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 55.08;
-                    break;
-
-                case 943:
+                case 1140:
                     NotePad.DoLog("Mazda MX-5 1998 d11");
                     clearance = 1;
                     tires = 3;
@@ -21240,7 +24675,39 @@ namespace Bot.v._0._07
                     MRA = 63.91;
                     break;
 
-                case 944:
+                case 1141:
+                    NotePad.DoLog("Mazda MX-5 2005 d12");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.1;
+                    maxspeed = 130;
+                    grip = 79;
+                    weight = 1075;
+                    power = 158;
+                    torque = 139;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 54.99;
+                    break;
+
+                case 1142:
+                    NotePad.DoLog("Mazda MX-5 2018 d14");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.9;
+                    maxspeed = 133;
+                    grip = 80;
+                    weight = 1075;
+                    power = 158;
+                    torque = 148;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 62.91;
+                    break;
+
+                case 1143:
                     NotePad.DoLog("Mazda MX-5 BBR Turbo 1990 d13");
                     clearance = 1;
                     tires = 2;
@@ -21256,7 +24723,7 @@ namespace Bot.v._0._07
                     MRA = 56.48;
                     break;
 
-                case 945:
+                case 1144:
                     NotePad.DoLog("Mazda MX-5 RF 2018 d11");
                     clearance = 1;
                     tires = 2;
@@ -21272,7 +24739,7 @@ namespace Bot.v._0._07
                     MRA = 69.47;
                     break;
 
-                case 946:
+                case 1145:
                     NotePad.DoLog("Mazda RX-3 1971 e7");
                     clearance = 1;
                     tires = 3;
@@ -21288,7 +24755,7 @@ namespace Bot.v._0._07
                     MRA = 61.33;
                     break;
 
-                case 947:
+                case 1146:
                     NotePad.DoLog("Mazda RX-7 1978 e10");
                     clearance = 1;
                     tires = 3;
@@ -21304,7 +24771,7 @@ namespace Bot.v._0._07
                     MRA = 59.86;
                     break;
 
-                case 948:
+                case 1147:
                     NotePad.DoLog("Mazda RX-7 1985 e9");
                     clearance = 1;
                     tires = 2;
@@ -21320,7 +24787,7 @@ namespace Bot.v._0._07
                     MRA = 60.35;
                     break;
 
-                case 949:
+                case 1148:
                     NotePad.DoLog("Mazda RX-7 1992 c18");
                     clearance = 1;
                     tires = 2;
@@ -21336,7 +24803,7 @@ namespace Bot.v._0._07
                     MRA = 57.95;
                     break;
 
-                case 950:
+                case 1149:
                     NotePad.DoLog("Mazda RX-7 Convertible 1988 d12");
                     clearance = 1;
                     tires = 2;
@@ -21352,7 +24819,7 @@ namespace Bot.v._0._07
                     MRA = 84.66;
                     break;
 
-                case 951:
+                case 1150:
                     NotePad.DoLog("Mazda RX-7 Spirit R 1992 b19");
                     clearance = 1;
                     tires = 2;
@@ -21368,7 +24835,7 @@ namespace Bot.v._0._07
                     MRA = 60.28;
                     break;
 
-                case 952:
+                case 1151:
                     NotePad.DoLog("Mazda RX-7 Turbo 1983 d14");
                     clearance = 1;
                     tires = 2;
@@ -21384,7 +24851,7 @@ namespace Bot.v._0._07
                     MRA = 61.86;
                     break;
 
-                case 953:
+                case 1152:
                     NotePad.DoLog("Mazda RX-7 Turbo 1985 c15");
                     clearance = 1;
                     tires = 2;
@@ -21400,7 +24867,7 @@ namespace Bot.v._0._07
                     MRA = 74.32;
                     break;
 
-                case 954:
+                case 1153:
                     NotePad.DoLog("Mazda RX-7 Type RS 1992 b19");
                     clearance = 1;
                     tires = 2;
@@ -21416,7 +24883,7 @@ namespace Bot.v._0._07
                     MRA = 60;
                     break;
 
-                case 955:
+                case 1154:
                     NotePad.DoLog("Mazda RX-7 Type RZ 1992 b19");
                     clearance = 1;
                     tires = 2;
@@ -21432,7 +24899,7 @@ namespace Bot.v._0._07
                     MRA = 60.45;
                     break;
 
-                case 956:
+                case 1155:
                     NotePad.DoLog("Mazda RX-8 2002 d14");
                     clearance = 1;
                     tires = 2;
@@ -21448,7 +24915,7 @@ namespace Bot.v._0._07
                     MRA = 65.56;
                     break;
 
-                case 957:
+                case 1156:
                     NotePad.DoLog("Mazda RX-8 PZ 2006 c15");
                     clearance = 1;
                     tires = 2;
@@ -21464,7 +24931,7 @@ namespace Bot.v._0._07
                     MRA = 66.67;
                     break;
 
-                case 958:
+                case 1157:
                     NotePad.DoLog("Mazda RX-8 Spirit R 2012 c16");
                     clearance = 1;
                     tires = 2;
@@ -21480,7 +24947,7 @@ namespace Bot.v._0._07
                     MRA = 60.5;
                     break;
 
-                case 959:
+                case 1158:
                     NotePad.DoLog("McLaren 12C 2011 s29");
                     clearance = 1;
                     tires = 2;
@@ -21496,7 +24963,23 @@ namespace Bot.v._0._07
                     MRA = 98.55;
                     break;
 
-                case 960:
+                case 1159:
+                    NotePad.DoLog("McLaren 12C GT3 2012 s29");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 2.9;
+                    maxspeed = 183;
+                    grip = 95;
+                    weight = 1240;
+                    power = 493;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1160:
                     NotePad.DoLog("McLaren 570S Coupe 2015 s29");
                     clearance = 1;
                     tires = 2;
@@ -21504,7 +24987,7 @@ namespace Bot.v._0._07
                     acceleration = 2.9;
                     maxspeed = 204;
                     grip = 88;
-                    weight = 1313;
+                    weight = 1452;
                     power = 562;
                     torque = 443;
                     abs = 1;
@@ -21512,7 +24995,55 @@ namespace Bot.v._0._07
                     MRA = 92.41;
                     break;
 
-                case 961:
+                case 1161:
+                    NotePad.DoLog("McLaren 570S Spider 2017 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3;
+                    maxspeed = 204;
+                    grip = 88;
+                    weight = 1498;
+                    power = 562;
+                    torque = 443;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1162:
+                    NotePad.DoLog("McLaren 600LT Coupe 2018 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 204;
+                    grip = 90;
+                    weight = 1247;
+                    power = 592;
+                    torque = 457;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1163:
+                    NotePad.DoLog("McLaren 600LT Spider 2019 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 201;
+                    grip = 90;
+                    weight = 1297;
+                    power = 592;
+                    torque = 457;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1164:
                     NotePad.DoLog("McLaren 650S 2014 s30");
                     clearance = 1;
                     tires = 2;
@@ -21528,7 +25059,23 @@ namespace Bot.v._0._07
                     MRA = 101.5;
                     break;
 
-                case 962:
+                case 1165:
+                    NotePad.DoLog("McLaren 650S GT3 2016 s29");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 2.9;
+                    maxspeed = 183;
+                    grip = 96;
+                    weight = 1240;
+                    power = 493;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1166:
                     NotePad.DoLog("McLaren 675LT 2015 s30");
                     clearance = 1;
                     tires = 2;
@@ -21544,14 +25091,14 @@ namespace Bot.v._0._07
                     MRA = 101.5;
                     break;
 
-                case 963:
+                case 1167:
                     NotePad.DoLog("McLaren 720S 2018 s30");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
                     acceleration = 2.5;
                     maxspeed = 212;
-                    grip = 93;
+                    grip = 91;
                     weight = 1419;
                     power = 710;
                     torque = 568;
@@ -21560,7 +25107,39 @@ namespace Bot.v._0._07
                     MRA = 87.78;
                     break;
 
-                case 964:
+                case 1168:
+                    NotePad.DoLog("McLaren 720S GT3 2019 s29");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 2.9;
+                    maxspeed = 183;
+                    grip = 97;
+                    weight = 1240;
+                    power = 505;
+                    torque = 495;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1169:
+                    NotePad.DoLog("McLaren 720S Spider 2018 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.8;
+                    maxspeed = 212;
+                    grip = 91;
+                    weight = 1468;
+                    power = 710;
+                    torque = 568;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1170:
                     NotePad.DoLog("McLaren F1 1994 s29");
                     clearance = 1;
                     tires = 2;
@@ -21576,7 +25155,7 @@ namespace Bot.v._0._07
                     MRA = 100;
                     break;
 
-                case 965:
+                case 1171:
                     NotePad.DoLog("McLaren F1 GT 1997 s29");
                     clearance = 1;
                     tires = 2;
@@ -21592,7 +25171,23 @@ namespace Bot.v._0._07
                     MRA = 103.33;
                     break;
 
-                case 966:
+                case 1172:
+                    NotePad.DoLog("McLaren F1 GTR Short Tail 1995 s29");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 3;
+                    maxspeed = 240;
+                    grip = 92;
+                    weight = 1012;
+                    power = 600;
+                    torque = 480;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1173:
                     NotePad.DoLog("McLaren F1 LM 1995 s29");
                     clearance = 1;
                     tires = 2;
@@ -21608,7 +25203,23 @@ namespace Bot.v._0._07
                     MRA = 89.46;
                     break;
 
-                case 967:
+                case 1174:
+                    NotePad.DoLog("McLaren GT 2019 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.1;
+                    maxspeed = 203;
+                    grip = 89;
+                    weight = 1483;
+                    power = 612;
+                    torque = 465;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1175:
                     NotePad.DoLog("McLaren Mercedes-Benz SLR McLaren 2003 a26");
                     clearance = 1;
                     tires = 2;
@@ -21624,7 +25235,7 @@ namespace Bot.v._0._07
                     MRA = 88.95;
                     break;
 
-                case 968:
+                case 1176:
                     NotePad.DoLog("McLaren Mercedes-Benz SLR McLaren 722 2006 s27");
                     clearance = 1;
                     tires = 2;
@@ -21640,7 +25251,7 @@ namespace Bot.v._0._07
                     MRA = 83.55;
                     break;
 
-                case 969:
+                case 1177:
                     NotePad.DoLog("McLaren Mercedes-Benz SLR McLaren Roadster 2007 a26");
                     clearance = 1;
                     tires = 2;
@@ -21656,7 +25267,7 @@ namespace Bot.v._0._07
                     MRA = 87.82;
                     break;
 
-                case 970:
+                case 1178:
                     NotePad.DoLog("McLaren P1 2014 s30");
                     clearance = 1;
                     tires = 2;
@@ -21672,7 +25283,7 @@ namespace Bot.v._0._07
                     MRA = 115.04;
                     break;
 
-                case 971:
+                case 1179:
                     NotePad.DoLog("McLaren P1 GTR 2015 s30");
                     clearance = 1;
                     tires = 2;
@@ -21685,10 +25296,26 @@ namespace Bot.v._0._07
                     torque = 738;
                     abs = 1;
                     tcs = 1;
+                    MRA = 90.48;
+                    break;
+
+                case 1180:
+                    NotePad.DoLog("McLaren Senna 2019 s30");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 2.9;
+                    maxspeed = 208;
+                    grip = 96;
+                    weight = 1309;
+                    power = 789;
+                    torque = 590;
+                    abs = 1;
+                    tcs = 1;
                     MRA = 0;
                     break;
 
-                case 972:
+                case 1181:
                     NotePad.DoLog("Mercedes-Benz 600 1964 f6");
                     clearance = 2;
                     tires = 3;
@@ -21704,7 +25331,7 @@ namespace Bot.v._0._07
                     MRA = 65.38;
                     break;
 
-                case 973:
+                case 1182:
                     NotePad.DoLog("Mercedes-Benz 190 E 2.0 1985 f6");
                     clearance = 2;
                     tires = 3;
@@ -21720,7 +25347,7 @@ namespace Bot.v._0._07
                     MRA = 65.18;
                     break;
 
-                case 974:
+                case 1183:
                     NotePad.DoLog("Mercedes-Benz 190 E 2.3-16 1984 d13");
                     clearance = 2;
                     tires = 2;
@@ -21736,7 +25363,7 @@ namespace Bot.v._0._07
                     MRA = 52.63;
                     break;
 
-                case 975:
+                case 1184:
                     NotePad.DoLog("Mercedes-Benz 190 E Evo II 1990 c15");
                     clearance = 2;
                     tires = 2;
@@ -21752,23 +25379,23 @@ namespace Bot.v._0._07
                     MRA = 58.08;
                     break;
 
-                case 976:
-                    NotePad.DoLog("Mercedes-Benz 280 GE 1979 d14");
+                case 1185:
+                    NotePad.DoLog("Mercedes-Benz 280 GE 1990 d14");
                     clearance = 3;
                     tires = 5;
                     drive = 4;
                     acceleration = 13.1;
                     maxspeed = 96;
                     grip = 60;
-                    weight = 1460;
+                    weight = 2065;
                     power = 182;
                     torque = 177;
-                    abs = 0;
+                    abs = 1;
                     tcs = 0;
                     MRA = 0;
                     break;
 
-                case 977:
+                case 1186:
                     NotePad.DoLog("Mercedes-Benz 300 SL 1963 e7");
                     clearance = 1;
                     tires = 3;
@@ -21784,7 +25411,7 @@ namespace Bot.v._0._07
                     MRA = 85.46;
                     break;
 
-                case 978:
+                case 1187:
                     NotePad.DoLog("Mercedes-Benz 57S Maybach 2012 a23");
                     clearance = 2;
                     tires = 3;
@@ -21800,7 +25427,7 @@ namespace Bot.v._0._07
                     MRA = 92.52;
                     break;
 
-                case 979:
+                case 1188:
                     NotePad.DoLog("Mercedes-Benz 62 Landaulet Maybach 2010 b20");
                     clearance = 2;
                     tires = 3;
@@ -21816,7 +25443,7 @@ namespace Bot.v._0._07
                     MRA = 87.45;
                     break;
 
-                case 980:
+                case 1189:
                     NotePad.DoLog("Mercedes-Benz A 160 1997 f6");
                     clearance = 2;
                     tires = 3;
@@ -21832,7 +25459,7 @@ namespace Bot.v._0._07
                     MRA = 41.2;
                     break;
 
-                case 981:
+                case 1190:
                     NotePad.DoLog("Mercedes-Benz A 180d 2012 e7");
                     clearance = 2;
                     tires = 3;
@@ -21848,7 +25475,7 @@ namespace Bot.v._0._07
                     MRA = 64.47;
                     break;
 
-                case 982:
+                case 1191:
                     NotePad.DoLog("Mercedes-Benz A 200 2012 d12");
                     clearance = 2;
                     tires = 3;
@@ -21864,7 +25491,7 @@ namespace Bot.v._0._07
                     MRA = 79.52;
                     break;
 
-                case 983:
+                case 1192:
                     NotePad.DoLog("Mercedes-Benz A 200 CDI 2004 e9");
                     clearance = 2;
                     tires = 3;
@@ -21880,7 +25507,7 @@ namespace Bot.v._0._07
                     MRA = 43.72;
                     break;
 
-                case 984:
+                case 1193:
                     NotePad.DoLog("Mercedes-Benz AMG A 45 2016 a26");
                     clearance = 2;
                     tires = 2;
@@ -21896,7 +25523,7 @@ namespace Bot.v._0._07
                     MRA = 68.55;
                     break;
 
-                case 985:
+                case 1194:
                     NotePad.DoLog("Mercedes-Benz AMG C 43 1999 c16");
                     clearance = 2;
                     tires = 2;
@@ -21912,7 +25539,7 @@ namespace Bot.v._0._07
                     MRA = 71.74;
                     break;
 
-                case 986:
+                case 1195:
                     NotePad.DoLog("Mercedes-Benz AMG C 55 2007 b21");
                     clearance = 2;
                     tires = 2;
@@ -21928,23 +25555,7 @@ namespace Bot.v._0._07
                     MRA = 79.37;
                     break;
 
-                case 987:
-                    NotePad.DoLog("Mercedes-Benz AMG C 63 2015 a25");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4;
-                    maxspeed = 155;
-                    grip = 82;
-                    weight = 1785;
-                    power = 470;
-                    torque = 479;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 89.83;
-                    break;
-
-                case 988:
+                case 1196:
                     NotePad.DoLog("Mercedes-Benz AMG C 63 2012 a24");
                     clearance = 2;
                     tires = 2;
@@ -21960,7 +25571,23 @@ namespace Bot.v._0._07
                     MRA = 89.48;
                     break;
 
-                case 989:
+                case 1197:
+                    NotePad.DoLog("Mercedes-Benz AMG C 63 2015 a25");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4;
+                    maxspeed = 155;
+                    grip = 82;
+                    weight = 1785;
+                    power = 470;
+                    torque = 479;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 89.83;
+                    break;
+
+                case 1198:
                     NotePad.DoLog("Mercedes-Benz AMG CLK 63 Black Series 2007 a24");
                     clearance = 1;
                     tires = 2;
@@ -21976,7 +25603,7 @@ namespace Bot.v._0._07
                     MRA = 75.93;
                     break;
 
-                case 990:
+                case 1199:
                     NotePad.DoLog("Mercedes-Benz AMG CLK DTM 2007 a23");
                     clearance = 1;
                     tires = 2;
@@ -21992,7 +25619,7 @@ namespace Bot.v._0._07
                     MRA = 63.29;
                     break;
 
-                case 991:
+                case 1200:
                     NotePad.DoLog("Mercedes-Benz AMG E 55 2003 a23");
                     clearance = 2;
                     tires = 2;
@@ -22008,7 +25635,7 @@ namespace Bot.v._0._07
                     MRA = 91.15;
                     break;
 
-                case 992:
+                case 1201:
                     NotePad.DoLog("Mercedes-Benz AMG E 63 2011 a24");
                     clearance = 2;
                     tires = 2;
@@ -22024,7 +25651,7 @@ namespace Bot.v._0._07
                     MRA = 84.03;
                     break;
 
-                case 993:
+                case 1202:
                     NotePad.DoLog("Mercedes-Benz AMG E 63 S 2015 a24");
                     clearance = 2;
                     tires = 2;
@@ -22040,7 +25667,7 @@ namespace Bot.v._0._07
                     MRA = 74.49;
                     break;
 
-                case 994:
+                case 1203:
                     NotePad.DoLog("Mercedes-Benz AMG G 55 2006 b21");
                     clearance = 3;
                     tires = 4;
@@ -22056,7 +25683,7 @@ namespace Bot.v._0._07
                     MRA = 67.09;
                     break;
 
-                case 995:
+                case 1204:
                     NotePad.DoLog("Mercedes-Benz AMG G 63 2015 b21");
                     clearance = 3;
                     tires = 4;
@@ -22072,7 +25699,7 @@ namespace Bot.v._0._07
                     MRA = 74.6;
                     break;
 
-                case 996:
+                case 1205:
                     NotePad.DoLog("Mercedes-Benz AMG G 63 6x6 2013 a23");
                     clearance = 3;
                     tires = 5;
@@ -22088,7 +25715,7 @@ namespace Bot.v._0._07
                     MRA = 39.22;
                     break;
 
-                case 997:
+                case 1206:
                     NotePad.DoLog("Mercedes-Benz AMG GLE 63 S 2015 a25");
                     clearance = 3;
                     tires = 4;
@@ -22104,7 +25731,7 @@ namespace Bot.v._0._07
                     MRA = 62.39;
                     break;
 
-                case 998:
+                case 1207:
                     NotePad.DoLog("Mercedes-Benz AMG GT 2016 a26");
                     clearance = 1;
                     tires = 2;
@@ -22120,7 +25747,7 @@ namespace Bot.v._0._07
                     MRA = 98.65;
                     break;
 
-                case 999:
+                case 1208:
                     NotePad.DoLog("Mercedes-Benz AMG GT S 2016 s27");
                     clearance = 1;
                     tires = 2;
@@ -22136,7 +25763,7 @@ namespace Bot.v._0._07
                     MRA = 103.17;
                     break;
 
-                case 1000:
+                case 1209:
                     NotePad.DoLog("Mercedes-Benz AMG ML 63 2016 a25");
                     clearance = 3;
                     tires = 4;
@@ -22152,7 +25779,7 @@ namespace Bot.v._0._07
                     MRA = 65.1;
                     break;
 
-                case 1001:
+                case 1210:
                     NotePad.DoLog("Mercedes-Benz AMG S 55 2003 b22");
                     clearance = 2;
                     tires = 2;
@@ -22168,7 +25795,7 @@ namespace Bot.v._0._07
                     MRA = 89.22;
                     break;
 
-                case 1002:
+                case 1211:
                     NotePad.DoLog("Mercedes-Benz AMG S 63 2009 b22");
                     clearance = 2;
                     tires = 2;
@@ -22184,7 +25811,7 @@ namespace Bot.v._0._07
                     MRA = 84.41;
                     break;
 
-                case 1003:
+                case 1212:
                     NotePad.DoLog("Mercedes-Benz AMG S 65 2006 a23");
                     clearance = 2;
                     tires = 2;
@@ -22200,7 +25827,7 @@ namespace Bot.v._0._07
                     MRA = 88.94;
                     break;
 
-                case 1004:
+                case 1213:
                     NotePad.DoLog("Mercedes-Benz AMG S 65 Coupe 2016 a23");
                     clearance = 2;
                     tires = 2;
@@ -22216,7 +25843,7 @@ namespace Bot.v._0._07
                     MRA = 82.35;
                     break;
 
-                case 1005:
+                case 1214:
                     NotePad.DoLog("Mercedes-Benz AMG SL 73 1999 b21");
                     clearance = 1;
                     tires = 2;
@@ -22232,7 +25859,7 @@ namespace Bot.v._0._07
                     MRA = 67.54;
                     break;
 
-                case 1006:
+                case 1215:
                     NotePad.DoLog("Mercedes-Benz AMG SLC 43 2016 b22");
                     clearance = 1;
                     tires = 2;
@@ -22248,7 +25875,7 @@ namespace Bot.v._0._07
                     MRA = 74.81;
                     break;
 
-                case 1007:
+                case 1216:
                     NotePad.DoLog("Mercedes-Benz AMG SLK 32 2004 b21");
                     clearance = 1;
                     tires = 2;
@@ -22264,7 +25891,7 @@ namespace Bot.v._0._07
                     MRA = 82;
                     break;
 
-                case 1008:
+                case 1217:
                     NotePad.DoLog("Mercedes-Benz AMG SLK Black Series 2007 b22");
                     clearance = 1;
                     tires = 2;
@@ -22280,7 +25907,7 @@ namespace Bot.v._0._07
                     MRA = 81.07;
                     break;
 
-                case 1009:
+                case 1218:
                     NotePad.DoLog("Mercedes-Benz AMG SLS 2010 s27");
                     clearance = 1;
                     tires = 2;
@@ -22296,7 +25923,7 @@ namespace Bot.v._0._07
                     MRA = 96.32;
                     break;
 
-                case 1010:
+                case 1219:
                     NotePad.DoLog("Mercedes-Benz AMG SLS Black Series 2013 s28");
                     clearance = 1;
                     tires = 2;
@@ -22312,7 +25939,7 @@ namespace Bot.v._0._07
                     MRA = 98.16;
                     break;
 
-                case 1011:
+                case 1220:
                     NotePad.DoLog("Mercedes-Benz AMG SLS Electric 2013 s27");
                     clearance = 1;
                     tires = 2;
@@ -22328,7 +25955,7 @@ namespace Bot.v._0._07
                     MRA = 87.18;
                     break;
 
-                case 1012:
+                case 1221:
                     NotePad.DoLog("Mercedes-Benz AMG SLS GT 2012 s28");
                     clearance = 1;
                     tires = 2;
@@ -22344,13 +25971,13 @@ namespace Bot.v._0._07
                     MRA = 96.21;
                     break;
 
-                case 1013:
+                case 1222:
                     NotePad.DoLog("Mercedes-Benz AMG SLS GT3 2016 s27");
                     clearance = 1;
                     tires = 1;
                     drive = 2;
                     acceleration = 3.4;
-                    maxspeed = 190;
+                    maxspeed = 183;
                     grip = 97;
                     weight = 1300;
                     power = 500;
@@ -22360,7 +25987,7 @@ namespace Bot.v._0._07
                     MRA = 104.58;
                     break;
 
-                case 1014:
+                case 1223:
                     NotePad.DoLog("Mercedes-Benz AMG SLS Roadster 2012 a26");
                     clearance = 1;
                     tires = 2;
@@ -22376,7 +26003,7 @@ namespace Bot.v._0._07
                     MRA = 92.3;
                     break;
 
-                case 1015:
+                case 1224:
                     NotePad.DoLog("Mercedes-Benz C 200 K 2002 d12");
                     clearance = 2;
                     tires = 3;
@@ -22392,7 +26019,7 @@ namespace Bot.v._0._07
                     MRA = 54.98;
                     break;
 
-                case 1016:
+                case 1225:
                     NotePad.DoLog("Mercedes-Benz C 250d 2015 b20");
                     clearance = 2;
                     tires = 3;
@@ -22408,7 +26035,7 @@ namespace Bot.v._0._07
                     MRA = 75;
                     break;
 
-                case 1017:
+                case 1226:
                     NotePad.DoLog("Mercedes-Benz C 350 4MATIC 2009 a23");
                     clearance = 2;
                     tires = 3;
@@ -22424,7 +26051,7 @@ namespace Bot.v._0._07
                     MRA = 67.78;
                     break;
 
-                case 1018:
+                case 1227:
                     NotePad.DoLog("Mercedes-Benz C 350e 2015 b22");
                     clearance = 2;
                     tires = 3;
@@ -22440,7 +26067,7 @@ namespace Bot.v._0._07
                     MRA = 67.06;
                     break;
 
-                case 1019:
+                case 1228:
                     NotePad.DoLog("Mercedes-Benz CLA 250 4MATIC 2015 a24");
                     clearance = 2;
                     tires = 3;
@@ -22456,7 +26083,7 @@ namespace Bot.v._0._07
                     MRA = 76.72;
                     break;
 
-                case 1020:
+                case 1229:
                     NotePad.DoLog("Mercedes-Benz CLK 230 K 1999 d14");
                     clearance = 2;
                     tires = 3;
@@ -22472,7 +26099,7 @@ namespace Bot.v._0._07
                     MRA = 74.77;
                     break;
 
-                case 1021:
+                case 1230:
                     NotePad.DoLog("Mercedes-Benz CLS 400 2015 a24");
                     clearance = 2;
                     tires = 3;
@@ -22488,7 +26115,7 @@ namespace Bot.v._0._07
                     MRA = 72.31;
                     break;
 
-                case 1022:
+                case 1231:
                     NotePad.DoLog("Mercedes-Benz E 220 2015 d14");
                     clearance = 2;
                     tires = 3;
@@ -22504,7 +26131,7 @@ namespace Bot.v._0._07
                     MRA = 78.79;
                     break;
 
-                case 1023:
+                case 1232:
                     NotePad.DoLog("Mercedes-Benz E 320 1994 e10");
                     clearance = 2;
                     tires = 3;
@@ -22520,7 +26147,7 @@ namespace Bot.v._0._07
                     MRA = 63.78;
                     break;
 
-                case 1024:
+                case 1233:
                     NotePad.DoLog("Mercedes-Benz E 320 CDI 2005 c18");
                     clearance = 2;
                     tires = 3;
@@ -22536,7 +26163,7 @@ namespace Bot.v._0._07
                     MRA = 82.61;
                     break;
 
-                case 1025:
+                case 1234:
                     NotePad.DoLog("Mercedes-Benz E 430 1999 b20");
                     clearance = 2;
                     tires = 3;
@@ -22552,7 +26179,7 @@ namespace Bot.v._0._07
                     MRA = 88.73;
                     break;
 
-                case 1026:
+                case 1235:
                     NotePad.DoLog("Mercedes-Benz E 500 1994 b19");
                     clearance = 2;
                     tires = 2;
@@ -22568,7 +26195,7 @@ namespace Bot.v._0._07
                     MRA = 88.58;
                     break;
 
-                case 1027:
+                case 1236:
                     NotePad.DoLog("Mercedes-Benz G 500 2012 b20");
                     clearance = 3;
                     tires = 4;
@@ -22584,7 +26211,7 @@ namespace Bot.v._0._07
                     MRA = 74.14;
                     break;
 
-                case 1028:
+                case 1237:
                     NotePad.DoLog("Mercedes-Benz GL 350 2015 b19");
                     clearance = 3;
                     tires = 4;
@@ -22600,7 +26227,7 @@ namespace Bot.v._0._07
                     MRA = 78.61;
                     break;
 
-                case 1029:
+                case 1238:
                     NotePad.DoLog("Mercedes-Benz GLA 220d 2015 c18");
                     clearance = 3;
                     tires = 3;
@@ -22616,7 +26243,7 @@ namespace Bot.v._0._07
                     MRA = 78.33;
                     break;
 
-                case 1030:
+                case 1239:
                     NotePad.DoLog("Mercedes-Benz GLC 250d 2015 b20");
                     clearance = 3;
                     tires = 4;
@@ -22632,7 +26259,7 @@ namespace Bot.v._0._07
                     MRA = 79.76;
                     break;
 
-                case 1031:
+                case 1240:
                     NotePad.DoLog("Mercedes-Benz S 280 1995 e7");
                     clearance = 2;
                     tires = 3;
@@ -22648,7 +26275,7 @@ namespace Bot.v._0._07
                     MRA = 75.68;
                     break;
 
-                case 1032:
+                case 1241:
                     NotePad.DoLog("Mercedes-Benz S 350 4MATIC 2007 b20");
                     clearance = 2;
                     tires = 3;
@@ -22664,7 +26291,7 @@ namespace Bot.v._0._07
                     MRA = 88.99;
                     break;
 
-                case 1033:
+                case 1242:
                     NotePad.DoLog("Mercedes-Benz S 400h L 2016 b19");
                     clearance = 2;
                     tires = 3;
@@ -22680,7 +26307,7 @@ namespace Bot.v._0._07
                     MRA = 83.33;
                     break;
 
-                case 1034:
+                case 1243:
                     NotePad.DoLog("Mercedes-Benz SL 500 2016 a23");
                     clearance = 1;
                     tires = 2;
@@ -22696,7 +26323,7 @@ namespace Bot.v._0._07
                     MRA = 83.67;
                     break;
 
-                case 1035:
+                case 1244:
                     NotePad.DoLog("Mercedes-Benz SLK 200 2016 c16");
                     clearance = 1;
                     tires = 2;
@@ -22712,7 +26339,7 @@ namespace Bot.v._0._07
                     MRA = 83.45;
                     break;
 
-                case 1036:
+                case 1245:
                     NotePad.DoLog("Mercedes-Benz V 250d 2015 e7");
                     clearance = 3;
                     tires = 3;
@@ -22728,7 +26355,7 @@ namespace Bot.v._0._07
                     MRA = 60;
                     break;
 
-                case 1037:
+                case 1246:
                     NotePad.DoLog("MG Maestro Turbo 1983 c15");
                     clearance = 2;
                     tires = 2;
@@ -22744,7 +26371,7 @@ namespace Bot.v._0._07
                     MRA = 57.02;
                     break;
 
-                case 1038:
+                case 1247:
                     NotePad.DoLog("MG Metro 6R4 1984 a25");
                     clearance = 2;
                     tires = 5;
@@ -22757,10 +26384,10 @@ namespace Bot.v._0._07
                     torque = 225;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 80.65;
                     break;
 
-                case 1039:
+                case 1248:
                     NotePad.DoLog("MG Metro Turbo 1982 e8");
                     clearance = 2;
                     tires = 2;
@@ -22776,7 +26403,7 @@ namespace Bot.v._0._07
                     MRA = 48.97;
                     break;
 
-                case 1040:
+                case 1249:
                     NotePad.DoLog("MG MGB 1962 f6");
                     clearance = 1;
                     tires = 3;
@@ -22792,7 +26419,7 @@ namespace Bot.v._0._07
                     MRA = 43.26;
                     break;
 
-                case 1041:
+                case 1250:
                     NotePad.DoLog("MG MGB GT V8 1973 d11");
                     clearance = 1;
                     tires = 3;
@@ -22808,7 +26435,7 @@ namespace Bot.v._0._07
                     MRA = 69.43;
                     break;
 
-                case 1042:
+                case 1251:
                     NotePad.DoLog("MG MGC GT 1967 e7");
                     clearance = 1;
                     tires = 3;
@@ -22824,7 +26451,7 @@ namespace Bot.v._0._07
                     MRA = 55.91;
                     break;
 
-                case 1043:
+                case 1252:
                     NotePad.DoLog("MG Midget 1961 f6");
                     clearance = 1;
                     tires = 3;
@@ -22837,10 +26464,10 @@ namespace Bot.v._0._07
                     torque = 72;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 26.24;
                     break;
 
-                case 1044:
+                case 1253:
                     NotePad.DoLog("MG Montego Turbo 1985 d13");
                     clearance = 2;
                     tires = 2;
@@ -22856,7 +26483,7 @@ namespace Bot.v._0._07
                     MRA = 55.45;
                     break;
 
-                case 1045:
+                case 1254:
                     NotePad.DoLog("Mini Cooper 2016 d14");
                     clearance = 2;
                     tires = 3;
@@ -22872,7 +26499,7 @@ namespace Bot.v._0._07
                     MRA = 69.03;
                     break;
 
-                case 1046:
+                case 1255:
                     NotePad.DoLog("Mini Cooper Convertible 2016 d13");
                     clearance = 2;
                     tires = 3;
@@ -22888,7 +26515,7 @@ namespace Bot.v._0._07
                     MRA = 72.23;
                     break;
 
-                case 1047:
+                case 1256:
                     NotePad.DoLog("Mini Cooper S 1971 f4");
                     clearance = 2;
                     tires = 3;
@@ -22901,10 +26528,10 @@ namespace Bot.v._0._07
                     torque = 79;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 21;
                     break;
 
-                case 1048:
+                case 1257:
                     NotePad.DoLog("Mini Cooper S 2016 c16");
                     clearance = 2;
                     tires = 2;
@@ -22920,7 +26547,7 @@ namespace Bot.v._0._07
                     MRA = 70.13;
                     break;
 
-                case 1049:
+                case 1258:
                     NotePad.DoLog("Mini Cooper S Works GP 2006 c17");
                     clearance = 2;
                     tires = 2;
@@ -22936,7 +26563,7 @@ namespace Bot.v._0._07
                     MRA = 64.68;
                     break;
 
-                case 1050:
+                case 1259:
                     NotePad.DoLog("Mini Cooper SD 2011 d13");
                     clearance = 2;
                     tires = 2;
@@ -22952,7 +26579,7 @@ namespace Bot.v._0._07
                     MRA = 77.78;
                     break;
 
-                case 1051:
+                case 1260:
                     NotePad.DoLog("Mini JCW ALL4 Countryman 2016 b22");
                     clearance = 3;
                     tires = 4;
@@ -22968,7 +26595,7 @@ namespace Bot.v._0._07
                     MRA = 65.91;
                     break;
 
-                case 1052:
+                case 1261:
                     NotePad.DoLog("Mini JCW Convertible 2016 c17");
                     clearance = 2;
                     tires = 2;
@@ -22984,7 +26611,7 @@ namespace Bot.v._0._07
                     MRA = 77.12;
                     break;
 
-                case 1053:
+                case 1262:
                     NotePad.DoLog("Mini JCW Coupe 2016 c18");
                     clearance = 2;
                     tires = 2;
@@ -23000,7 +26627,7 @@ namespace Bot.v._0._07
                     MRA = 64.49;
                     break;
 
-                case 1054:
+                case 1263:
                     NotePad.DoLog("Mini John Cooper Works 2016 b19");
                     clearance = 2;
                     tires = 2;
@@ -23016,7 +26643,7 @@ namespace Bot.v._0._07
                     MRA = 75.95;
                     break;
 
-                case 1055:
+                case 1264:
                     NotePad.DoLog("Mini One 2016 e8");
                     clearance = 2;
                     tires = 3;
@@ -23032,7 +26659,7 @@ namespace Bot.v._0._07
                     MRA = 62.67;
                     break;
 
-                case 1056:
+                case 1265:
                     NotePad.DoLog("Mitsubishi ASX 2010 d14");
                     clearance = 3;
                     tires = 4;
@@ -23048,7 +26675,7 @@ namespace Bot.v._0._07
                     MRA = 59.42;
                     break;
 
-                case 1057:
+                case 1266:
                     NotePad.DoLog("Mitsubishi ASX 2015 c17");
                     clearance = 3;
                     tires = 4;
@@ -23064,7 +26691,7 @@ namespace Bot.v._0._07
                     MRA = 56.27;
                     break;
 
-                case 1058:
+                case 1267:
                     NotePad.DoLog("Mitsubishi Colt 2004 f6");
                     clearance = 2;
                     tires = 3;
@@ -23080,7 +26707,7 @@ namespace Bot.v._0._07
                     MRA = 37.79;
                     break;
 
-                case 1059:
+                case 1268:
                     NotePad.DoLog("Mitsubishi Colt 2009 e7");
                     clearance = 2;
                     tires = 3;
@@ -23096,7 +26723,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1060:
+                case 1269:
                     NotePad.DoLog("Mitsubishi Colt CZC 2006 e9");
                     clearance = 2;
                     tires = 3;
@@ -23112,7 +26739,7 @@ namespace Bot.v._0._07
                     MRA = 55.65;
                     break;
 
-                case 1061:
+                case 1270:
                     NotePad.DoLog("Mitsubishi Colt Ralliart Version-R 2009 c15");
                     clearance = 2;
                     tires = 2;
@@ -23128,7 +26755,7 @@ namespace Bot.v._0._07
                     MRA = 74.73;
                     break;
 
-                case 1062:
+                case 1271:
                     NotePad.DoLog("Mitsubishi Grandis 2006 e9");
                     clearance = 2;
                     tires = 3;
@@ -23144,7 +26771,7 @@ namespace Bot.v._0._07
                     MRA = 64.38;
                     break;
 
-                case 1063:
+                case 1272:
                     NotePad.DoLog("Mitsubishi i 2007 e7");
                     clearance = 2;
                     tires = 3;
@@ -23160,7 +26787,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1064:
+                case 1273:
                     NotePad.DoLog("Mitsubishi L200 2016 c15");
                     clearance = 3;
                     tires = 4;
@@ -23176,7 +26803,7 @@ namespace Bot.v._0._07
                     MRA = 46.88;
                     break;
 
-                case 1065:
+                case 1274:
                     NotePad.DoLog("Mitsubishi Lancer Evo I 1992 b21");
                     clearance = 2;
                     tires = 2;
@@ -23192,7 +26819,7 @@ namespace Bot.v._0._07
                     MRA = 53.75;
                     break;
 
-                case 1066:
+                case 1275:
                     NotePad.DoLog("Mitsubishi Lancer Evo IV 1996 b22");
                     clearance = 2;
                     tires = 2;
@@ -23208,7 +26835,7 @@ namespace Bot.v._0._07
                     MRA = 52.92;
                     break;
 
-                case 1067:
+                case 1276:
                     NotePad.DoLog("Mitsubishi Lancer Evo IX MR FQ-360 2007 a26");
                     clearance = 2;
                     tires = 2;
@@ -23224,7 +26851,7 @@ namespace Bot.v._0._07
                     MRA = 59.09;
                     break;
 
-                case 1068:
+                case 1277:
                     NotePad.DoLog("Mitsubishi Lancer Evo VI T.M. Edition 2000 a26");
                     clearance = 2;
                     tires = 2;
@@ -23240,7 +26867,7 @@ namespace Bot.v._0._07
                     MRA = 68.18;
                     break;
 
-                case 1069:
+                case 1278:
                     NotePad.DoLog("Mitsubishi Lancer Evo VIII 260 2004 a23");
                     clearance = 2;
                     tires = 2;
@@ -23256,7 +26883,7 @@ namespace Bot.v._0._07
                     MRA = 70.13;
                     break;
 
-                case 1070:
+                case 1279:
                     NotePad.DoLog("Mitsubishi Lancer Evo VIII FQ-400 2004 a30");
                     clearance = 2;
                     tires = 2;
@@ -23272,7 +26899,7 @@ namespace Bot.v._0._07
                     MRA = 58.49;
                     break;
 
-                case 1071:
+                case 1280:
                     NotePad.DoLog("Mitsubishi Lancer Evo VIII MR FQ-340 2005 a25");
                     clearance = 2;
                     tires = 2;
@@ -23288,7 +26915,7 @@ namespace Bot.v._0._07
                     MRA = 64.71;
                     break;
 
-                case 1072:
+                case 1281:
                     NotePad.DoLog("Mitsubishi Lancer Evo X FQ-300 SST 2007 a24");
                     clearance = 2;
                     tires = 2;
@@ -23304,7 +26931,7 @@ namespace Bot.v._0._07
                     MRA = 62.58;
                     break;
 
-                case 1073:
+                case 1282:
                     NotePad.DoLog("Mitsubishi Lancer Evo X FQ-360 2009 a26");
                     clearance = 2;
                     tires = 2;
@@ -23320,7 +26947,7 @@ namespace Bot.v._0._07
                     MRA = 55.38;
                     break;
 
-                case 1074:
+                case 1283:
                     NotePad.DoLog("Mitsubishi Lancer GS4 2007 d11");
                     clearance = 2;
                     tires = 3;
@@ -23336,7 +26963,7 @@ namespace Bot.v._0._07
                     MRA = 68.67;
                     break;
 
-                case 1075:
+                case 1284:
                     NotePad.DoLog("Mitsubishi Lancer Sportback 2008 e9");
                     clearance = 2;
                     tires = 3;
@@ -23352,7 +26979,7 @@ namespace Bot.v._0._07
                     MRA = 65.3;
                     break;
 
-                case 1076:
+                case 1285:
                     NotePad.DoLog("Mitsubishi Mirage 2013 f6");
                     clearance = 2;
                     tires = 3;
@@ -23368,7 +26995,7 @@ namespace Bot.v._0._07
                     MRA = 43.81;
                     break;
 
-                case 1077:
+                case 1286:
                     NotePad.DoLog("Mitsubishi Montero Black Edition 2011 c17");
                     clearance = 3;
                     tires = 4;
@@ -23384,7 +27011,7 @@ namespace Bot.v._0._07
                     MRA = 51.12;
                     break;
 
-                case 1078:
+                case 1287:
                     NotePad.DoLog("Mitsubishi Montero SG4 2011 c17");
                     clearance = 3;
                     tires = 4;
@@ -23400,7 +27027,7 @@ namespace Bot.v._0._07
                     MRA = 55.89;
                     break;
 
-                case 1079:
+                case 1288:
                     NotePad.DoLog("Mitsubishi Outlander 2012 c18");
                     clearance = 3;
                     tires = 4;
@@ -23416,7 +27043,7 @@ namespace Bot.v._0._07
                     MRA = 65.55;
                     break;
 
-                case 1080:
+                case 1289:
                     NotePad.DoLog("Mitsubishi Outlander PHEV 2016 b20");
                     clearance = 3;
                     tires = 4;
@@ -23432,7 +27059,7 @@ namespace Bot.v._0._07
                     MRA = 42.66;
                     break;
 
-                case 1081:
+                case 1290:
                     NotePad.DoLog("Nissan 200SX 1993 c15");
                     clearance = 1;
                     tires = 2;
@@ -23448,7 +27075,7 @@ namespace Bot.v._0._07
                     MRA = 76.91;
                     break;
 
-                case 1082:
+                case 1291:
                     NotePad.DoLog("Nissan 350Z 2002 c18");
                     clearance = 1;
                     tires = 2;
@@ -23464,7 +27091,7 @@ namespace Bot.v._0._07
                     MRA = 65.16;
                     break;
 
-                case 1083:
+                case 1292:
                     NotePad.DoLog("Nissan 350Z Roadster 2005 c17");
                     clearance = 1;
                     tires = 2;
@@ -23480,7 +27107,7 @@ namespace Bot.v._0._07
                     MRA = 69.16;
                     break;
 
-                case 1084:
+                case 1293:
                     NotePad.DoLog("Nissan 370Z 2011 b20");
                     clearance = 1;
                     tires = 2;
@@ -23496,7 +27123,7 @@ namespace Bot.v._0._07
                     MRA = 55.49;
                     break;
 
-                case 1085:
+                case 1294:
                     NotePad.DoLog("Nissan Almera 1998 f6");
                     clearance = 2;
                     tires = 3;
@@ -23512,7 +27139,7 @@ namespace Bot.v._0._07
                     MRA = 50.38;
                     break;
 
-                case 1086:
+                case 1295:
                     NotePad.DoLog("Nissan Almera GTI 1997 c16");
                     clearance = 2;
                     tires = 3;
@@ -23528,23 +27155,7 @@ namespace Bot.v._0._07
                     MRA = 75.26;
                     break;
 
-                case 1087:
-                    NotePad.DoLog("Nissan Cube 2010 e9");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 9.7;
-                    maxspeed = 110;
-                    grip = 76;
-                    weight = 1265;
-                    power = 122;
-                    torque = 127;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 49.49;
-                    break;
-
-                case 1088:
+                case 1296:
                     NotePad.DoLog("Nissan Cube 1998 e8");
                     clearance = 2;
                     tires = 3;
@@ -23560,7 +27171,23 @@ namespace Bot.v._0._07
                     MRA = 30.42;
                     break;
 
-                case 1089:
+                case 1297:
+                    NotePad.DoLog("Nissan Cube 2010 e9");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 9.7;
+                    maxspeed = 110;
+                    grip = 76;
+                    weight = 1265;
+                    power = 122;
+                    torque = 127;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 49.49;
+                    break;
+
+                case 1298:
                     NotePad.DoLog("Nissan Datsun 240Z 1969 e7");
                     clearance = 1;
                     tires = 2;
@@ -23576,7 +27203,7 @@ namespace Bot.v._0._07
                     MRA = 58.96;
                     break;
 
-                case 1090:
+                case 1299:
                     NotePad.DoLog("Nissan Datsun 240Z Rally Car 1969 c18");
                     clearance = 1;
                     tires = 5;
@@ -23592,7 +27219,7 @@ namespace Bot.v._0._07
                     MRA = 69.06;
                     break;
 
-                case 1091:
+                case 1300:
                     NotePad.DoLog("Nissan Figaro 1991 f5");
                     clearance = 2;
                     tires = 3;
@@ -23608,7 +27235,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1092:
+                case 1301:
                     NotePad.DoLog("Nissan GT-R 2014 s29");
                     clearance = 1;
                     tires = 2;
@@ -23624,7 +27251,7 @@ namespace Bot.v._0._07
                     MRA = 64.29;
                     break;
 
-                case 1093:
+                case 1302:
                     NotePad.DoLog("Nissan GT-R Nismo 2016 s30");
                     clearance = 1;
                     tires = 2;
@@ -23640,7 +27267,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1094:
+                case 1303:
                     NotePad.DoLog("Nissan Juke 2013 d14");
                     clearance = 3;
                     tires = 4;
@@ -23656,7 +27283,7 @@ namespace Bot.v._0._07
                     MRA = 52.6;
                     break;
 
-                case 1095:
+                case 1304:
                     NotePad.DoLog("Nissan Juke Nismo 2016 b20");
                     clearance = 3;
                     tires = 4;
@@ -23672,7 +27299,7 @@ namespace Bot.v._0._07
                     MRA = 78.18;
                     break;
 
-                case 1096:
+                case 1305:
                     NotePad.DoLog("Nissan Juke-R 2011 s29");
                     clearance = 2;
                     tires = 2;
@@ -23688,7 +27315,7 @@ namespace Bot.v._0._07
                     MRA = 79.55;
                     break;
 
-                case 1097:
+                case 1306:
                     NotePad.DoLog("Nissan Leaf 2016 e8");
                     clearance = 2;
                     tires = 3;
@@ -23704,23 +27331,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1098:
-                    NotePad.DoLog("Nissan Micra 2004 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 15.5;
-                    maxspeed = 93;
-                    grip = 74;
-                    weight = 780;
-                    power = 55;
-                    torque = 58;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1099:
+                case 1307:
                     NotePad.DoLog("Nissan Micra 1991 f5");
                     clearance = 2;
                     tires = 3;
@@ -23736,7 +27347,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1100:
+                case 1308:
+                    NotePad.DoLog("Nissan Micra 2004 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 15.5;
+                    maxspeed = 93;
+                    grip = 74;
+                    weight = 780;
+                    power = 55;
+                    torque = 58;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1309:
                     NotePad.DoLog("Nissan Micra 2011 f5");
                     clearance = 2;
                     tires = 3;
@@ -23752,7 +27379,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1101:
+                case 1310:
                     NotePad.DoLog("Nissan Micra 2016 f6");
                     clearance = 2;
                     tires = 3;
@@ -23768,23 +27395,7 @@ namespace Bot.v._0._07
                     MRA = 48.86;
                     break;
 
-                case 1102:
-                    NotePad.DoLog("Nissan Murano 2008 b22");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 7.6;
-                    maxspeed = 130;
-                    grip = 76;
-                    weight = 1790;
-                    power = 252;
-                    torque = 246;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 74.43;
-                    break;
-
-                case 1103:
+                case 1311:
                     NotePad.DoLog("Nissan Murano 2002 b21");
                     clearance = 3;
                     tires = 4;
@@ -23800,7 +27411,23 @@ namespace Bot.v._0._07
                     MRA = 67.43;
                     break;
 
-                case 1104:
+                case 1312:
+                    NotePad.DoLog("Nissan Murano 2008 b22");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 7.6;
+                    maxspeed = 130;
+                    grip = 76;
+                    weight = 1790;
+                    power = 252;
+                    torque = 246;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 74.43;
+                    break;
+
+                case 1313:
                     NotePad.DoLog("Nissan Murano CrossCabriolet 2008 b19");
                     clearance = 3;
                     tires = 4;
@@ -23816,7 +27443,7 @@ namespace Bot.v._0._07
                     MRA = 73.33;
                     break;
 
-                case 1105:
+                case 1314:
                     NotePad.DoLog("Nissan Murano GT-C 2002 b22");
                     clearance = 3;
                     tires = 4;
@@ -23832,7 +27459,7 @@ namespace Bot.v._0._07
                     MRA = 80.92;
                     break;
 
-                case 1106:
+                case 1315:
                     NotePad.DoLog("Nissan Navara 2016 c16");
                     clearance = 3;
                     tires = 4;
@@ -23848,23 +27475,7 @@ namespace Bot.v._0._07
                     MRA = 48.41;
                     break;
 
-                case 1107:
-                    NotePad.DoLog("Nissan Navara 2017 c16");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 11.4;
-                    maxspeed = 107;
-                    grip = 75;
-                    weight = 1961;
-                    power = 158;
-                    torque = 297;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 50.4;
-                    break;
-
-                case 1108:
+                case 1316:
                     NotePad.DoLog("Nissan Note 2006 f6");
                     clearance = 2;
                     tires = 3;
@@ -23880,7 +27491,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1109:
+                case 1317:
                     NotePad.DoLog("Nissan Note 2013 e9");
                     clearance = 2;
                     tires = 3;
@@ -23896,7 +27507,23 @@ namespace Bot.v._0._07
                     MRA = 54.19;
                     break;
 
-                case 1110:
+                case 1318:
+                    NotePad.DoLog("Nissan NP300 Navara 2017 c16");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 11.4;
+                    maxspeed = 107;
+                    grip = 75;
+                    weight = 1961;
+                    power = 158;
+                    torque = 297;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 50.4;
+                    break;
+
+                case 1319:
                     NotePad.DoLog("Nissan Pathfinder 1985 d14");
                     clearance = 3;
                     tires = 4;
@@ -23912,23 +27539,7 @@ namespace Bot.v._0._07
                     MRA = 55.63;
                     break;
 
-                case 1111:
-                    NotePad.DoLog("Nissan Pathfinder 2016 b20");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 8.7;
-                    maxspeed = 116;
-                    grip = 77;
-                    weight = 2010;
-                    power = 281;
-                    torque = 259;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 58.78;
-                    break;
-
-                case 1112:
+                case 1320:
                     NotePad.DoLog("Nissan Pathfinder 2006 b20");
                     clearance = 3;
                     tires = 4;
@@ -23944,7 +27555,7 @@ namespace Bot.v._0._07
                     MRA = 51.33;
                     break;
 
-                case 1113:
+                case 1321:
                     NotePad.DoLog("Nissan Pathfinder 2010 b20");
                     clearance = 3;
                     tires = 4;
@@ -23957,10 +27568,26 @@ namespace Bot.v._0._07
                     torque = 284;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 63.37;
                     break;
 
-                case 1114:
+                case 1322:
+                    NotePad.DoLog("Nissan Pathfinder 2016 b20");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 8.7;
+                    maxspeed = 116;
+                    grip = 77;
+                    weight = 2010;
+                    power = 281;
+                    torque = 259;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 58.78;
+                    break;
+
+                case 1323:
                     NotePad.DoLog("Nissan Patrol 1986 e9");
                     clearance = 3;
                     tires = 4;
@@ -23976,39 +27603,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1115:
-                    NotePad.DoLog("Nissan Patrol 1997 e9");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 16.9;
-                    maxspeed = 96;
-                    grip = 71;
-                    weight = 2070;
-                    power = 128;
-                    torque = 186;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 1116:
-                    NotePad.DoLog("Nissan Patrol 2000 d11");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 14.7;
-                    maxspeed = 90;
-                    grip = 69;
-                    weight = 1945;
-                    power = 116;
-                    torque = 173;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1117:
+                case 1324:
                     NotePad.DoLog("Nissan Patrol 1987 d11");
                     clearance = 3;
                     tires = 4;
@@ -24024,7 +27619,39 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1118:
+                case 1325:
+                    NotePad.DoLog("Nissan Patrol 1997 e9");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 16.9;
+                    maxspeed = 96;
+                    grip = 71;
+                    weight = 2070;
+                    power = 128;
+                    torque = 186;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 32.99;
+                    break;
+
+                case 1326:
+                    NotePad.DoLog("Nissan Patrol 2000 d11");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 14.7;
+                    maxspeed = 90;
+                    grip = 69;
+                    weight = 1945;
+                    power = 116;
+                    torque = 173;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1327:
                     NotePad.DoLog("Nissan Patrol (type 60) 1959 e8");
                     clearance = 3;
                     tires = 4;
@@ -24040,7 +27667,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1119:
+                case 1328:
                     NotePad.DoLog("Nissan Patrol Nismo 2016 a23");
                     clearance = 3;
                     tires = 4;
@@ -24056,7 +27683,7 @@ namespace Bot.v._0._07
                     MRA = 64.47;
                     break;
 
-                case 1120:
+                case 1329:
                     NotePad.DoLog("Nissan Pixo 2009 e7");
                     clearance = 2;
                     tires = 3;
@@ -24072,7 +27699,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1121:
+                case 1330:
                     NotePad.DoLog("Nissan Primera 1999 e7");
                     clearance = 2;
                     tires = 3;
@@ -24088,7 +27715,7 @@ namespace Bot.v._0._07
                     MRA = 52.63;
                     break;
 
-                case 1122:
+                case 1331:
                     NotePad.DoLog("Nissan Primera 2004 d11");
                     clearance = 2;
                     tires = 3;
@@ -24104,7 +27731,7 @@ namespace Bot.v._0._07
                     MRA = 69.77;
                     break;
 
-                case 1123:
+                case 1332:
                     NotePad.DoLog("Nissan Primera eGT 1990 d14");
                     clearance = 2;
                     tires = 2;
@@ -24120,39 +27747,7 @@ namespace Bot.v._0._07
                     MRA = 73.39;
                     break;
 
-                case 1124:
-                    NotePad.DoLog("Nissan Pulsar 1986 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 14.9;
-                    maxspeed = 91;
-                    grip = 73;
-                    weight = 870;
-                    power = 59;
-                    torque = 74;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1125:
-                    NotePad.DoLog("Nissan Pulsar 1982 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 12.9;
-                    maxspeed = 98;
-                    grip = 72;
-                    weight = 755;
-                    power = 74;
-                    torque = 77;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1126:
+                case 1333:
                     NotePad.DoLog("Nissan Pulsar 1978 f5");
                     clearance = 2;
                     tires = 3;
@@ -24168,7 +27763,39 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1127:
+                case 1334:
+                    NotePad.DoLog("Nissan Pulsar 1982 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 12.9;
+                    maxspeed = 98;
+                    grip = 72;
+                    weight = 755;
+                    power = 74;
+                    torque = 77;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1335:
+                    NotePad.DoLog("Nissan Pulsar 1986 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 14.9;
+                    maxspeed = 91;
+                    grip = 73;
+                    weight = 870;
+                    power = 59;
+                    torque = 74;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1336:
                     NotePad.DoLog("Nissan Pulsar 1995 e10");
                     clearance = 2;
                     tires = 3;
@@ -24184,7 +27811,7 @@ namespace Bot.v._0._07
                     MRA = 57.14;
                     break;
 
-                case 1128:
+                case 1337:
                     NotePad.DoLog("Nissan Pulsar 2015 e9");
                     clearance = 2;
                     tires = 3;
@@ -24200,23 +27827,7 @@ namespace Bot.v._0._07
                     MRA = 63.16;
                     break;
 
-                case 1129:
-                    NotePad.DoLog("Nissan Qashqai 2016 d13");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 1;
-                    acceleration = 11.5;
-                    maxspeed = 113;
-                    grip = 77;
-                    weight = 1365;
-                    power = 108;
-                    torque = 192;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 58.17;
-                    break;
-
-                case 1130:
+                case 1338:
                     NotePad.DoLog("Nissan Qashqai 2008 c18");
                     clearance = 3;
                     tires = 4;
@@ -24232,7 +27843,23 @@ namespace Bot.v._0._07
                     MRA = 63.13;
                     break;
 
-                case 1131:
+                case 1339:
+                    NotePad.DoLog("Nissan Qashqai 2016 d13");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 1;
+                    acceleration = 11.5;
+                    maxspeed = 113;
+                    grip = 77;
+                    weight = 1365;
+                    power = 108;
+                    torque = 192;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 58.17;
+                    break;
+
+                case 1340:
                     NotePad.DoLog("Nissan R390 GT1 Road Car 1998 s28");
                     clearance = 1;
                     tires = 2;
@@ -24248,7 +27875,7 @@ namespace Bot.v._0._07
                     MRA = 112.12;
                     break;
 
-                case 1132:
+                case 1341:
                     NotePad.DoLog("Nissan S-Cargo 1989 e7");
                     clearance = 2;
                     tires = 3;
@@ -24264,7 +27891,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1133:
+                case 1342:
+                    NotePad.DoLog("Nissan Silvia 1965 e7");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 10.3;
+                    maxspeed = 103;
+                    grip = 72;
+                    weight = 980;
+                    power = 89;
+                    torque = 97;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 38.04;
+                    break;
+
+                case 1343:
                     NotePad.DoLog("Nissan Silvia 1975 e8");
                     clearance = 1;
                     tires = 3;
@@ -24280,23 +27923,7 @@ namespace Bot.v._0._07
                     MRA = 49.53;
                     break;
 
-                case 1134:
-                    NotePad.DoLog("Nissan Silvia 1965 e7");
-                    clearance = 1;
-                    tires = 3;
-                    drive = 2;
-                    acceleration = 10.3;
-                    maxspeed = 103;
-                    grip = 72;
-                    weight = 980;
-                    power = 89;
-                    torque = 97;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 33.96;
-                    break;
-
-                case 1135:
+                case 1344:
                     NotePad.DoLog("Nissan Silvia 240RS 1983 b21");
                     clearance = 2;
                     tires = 5;
@@ -24312,7 +27939,7 @@ namespace Bot.v._0._07
                     MRA = 60.78;
                     break;
 
-                case 1136:
+                case 1345:
                     NotePad.DoLog("Nissan Skyline GT-R (R32) 1989 b21");
                     clearance = 1;
                     tires = 2;
@@ -24328,7 +27955,7 @@ namespace Bot.v._0._07
                     MRA = 85.63;
                     break;
 
-                case 1137:
+                case 1346:
                     NotePad.DoLog("Nissan Skyline GT-R (R33) 1997 b22");
                     clearance = 1;
                     tires = 2;
@@ -24344,7 +27971,7 @@ namespace Bot.v._0._07
                     MRA = 64.62;
                     break;
 
-                case 1138:
+                case 1347:
                     NotePad.DoLog("Nissan Skyline GT-R (R34) 1999 a23");
                     clearance = 1;
                     tires = 2;
@@ -24360,7 +27987,7 @@ namespace Bot.v._0._07
                     MRA = 75.08;
                     break;
 
-                case 1139:
+                case 1348:
                     NotePad.DoLog("Nissan Skyline Hardtop 2000 GT-R (C10) 1971 d14");
                     clearance = 2;
                     tires = 2;
@@ -24376,7 +28003,7 @@ namespace Bot.v._0._07
                     MRA = 68.24;
                     break;
 
-                case 1140:
+                case 1349:
                     NotePad.DoLog("Nissan Terrano II 2002 d14");
                     clearance = 3;
                     tires = 4;
@@ -24392,39 +28019,7 @@ namespace Bot.v._0._07
                     MRA = 43.88;
                     break;
 
-                case 1141:
-                    NotePad.DoLog("Nissan X-Trail 2016 c18");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 10.5;
-                    maxspeed = 116;
-                    grip = 78;
-                    weight = 1580;
-                    power = 129;
-                    torque = 236;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 61.38;
-                    break;
-
-                case 1142:
-                    NotePad.DoLog("Nissan X-Trail 2010 c18");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 10.7;
-                    maxspeed = 117;
-                    grip = 77;
-                    weight = 1625;
-                    power = 148;
-                    torque = 236;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 60.01;
-                    break;
-
-                case 1143:
+                case 1350:
                     NotePad.DoLog("Nissan X-Trail 2001 c18");
                     clearance = 3;
                     tires = 4;
@@ -24440,7 +28035,39 @@ namespace Bot.v._0._07
                     MRA = 54.19;
                     break;
 
-                case 1144:
+                case 1351:
+                    NotePad.DoLog("Nissan X-Trail 2010 c18");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 10.7;
+                    maxspeed = 117;
+                    grip = 77;
+                    weight = 1625;
+                    power = 148;
+                    torque = 236;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 60.01;
+                    break;
+
+                case 1352:
+                    NotePad.DoLog("Nissan X-Trail 2016 c18");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 10.5;
+                    maxspeed = 116;
+                    grip = 78;
+                    weight = 1580;
+                    power = 129;
+                    torque = 236;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 61.38;
+                    break;
+
+                case 1353:
                     NotePad.DoLog("Pagani Huayra 2016 s30");
                     clearance = 1;
                     tires = 2;
@@ -24449,14 +28076,14 @@ namespace Bot.v._0._07
                     maxspeed = 224;
                     grip = 92;
                     weight = 1350;
-                    power = 730;
+                    power = 720;
                     torque = 738;
                     abs = 1;
                     tcs = 1;
                     MRA = 105.07;
                     break;
 
-                case 1145:
+                case 1354:
                     NotePad.DoLog("Pagani Huayra BC 2016 s30");
                     clearance = 1;
                     tires = 2;
@@ -24472,7 +28099,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1146:
+                case 1355:
                     NotePad.DoLog("Pagani Huayra Roadster 2017 s29");
                     clearance = 1;
                     tires = 2;
@@ -24485,10 +28112,10 @@ namespace Bot.v._0._07
                     torque = 738;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 75;
                     break;
 
-                case 1147:
+                case 1356:
                     NotePad.DoLog("Pagani Zonda 760RS 2012 s30");
                     clearance = 1;
                     tires = 2;
@@ -24504,7 +28131,7 @@ namespace Bot.v._0._07
                     MRA = 105.47;
                     break;
 
-                case 1148:
+                case 1357:
                     NotePad.DoLog("Pagani Zonda C12 1999 a26");
                     clearance = 1;
                     tires = 2;
@@ -24517,10 +28144,10 @@ namespace Bot.v._0._07
                     torque = 420;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 100;
                     break;
 
-                case 1149:
+                case 1358:
                     NotePad.DoLog("Pagani Zonda Cinque Roadster 2009 s29");
                     clearance = 1;
                     tires = 2;
@@ -24536,7 +28163,7 @@ namespace Bot.v._0._07
                     MRA = 106.9;
                     break;
 
-                case 1150:
+                case 1359:
                     NotePad.DoLog("Pagani Zonda F 2005 s28");
                     clearance = 1;
                     tires = 2;
@@ -24552,7 +28179,7 @@ namespace Bot.v._0._07
                     MRA = 90.65;
                     break;
 
-                case 1151:
+                case 1360:
                     NotePad.DoLog("Pagani Zonda R 2007 s29");
                     clearance = 1;
                     tires = 1;
@@ -24565,10 +28192,10 @@ namespace Bot.v._0._07
                     torque = 524;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 70.82;
                     break;
 
-                case 1152:
+                case 1361:
                     NotePad.DoLog("Pagani Zonda Revolucion 2013 s29");
                     clearance = 1;
                     tires = 1;
@@ -24584,7 +28211,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1153:
+                case 1362:
                     NotePad.DoLog("Pagani Zonda S 2002 s28");
                     clearance = 1;
                     tires = 2;
@@ -24597,10 +28224,10 @@ namespace Bot.v._0._07
                     torque = 553;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 100;
                     break;
 
-                case 1154:
+                case 1363:
                     NotePad.DoLog("Pagani Zonda S 7.3 2002 s28");
                     clearance = 1;
                     tires = 2;
@@ -24616,7 +28243,7 @@ namespace Bot.v._0._07
                     MRA = 90.91;
                     break;
 
-                case 1155:
+                case 1364:
                     NotePad.DoLog("Peugeot 108 2018 f5");
                     clearance = 2;
                     tires = 3;
@@ -24632,7 +28259,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1156:
+                case 1365:
                     NotePad.DoLog("Peugeot 208 2018 f6");
                     clearance = 2;
                     tires = 3;
@@ -24648,7 +28275,7 @@ namespace Bot.v._0._07
                     MRA = 50.08;
                     break;
 
-                case 1157:
+                case 1366:
                     NotePad.DoLog("Peugeot 308 2018 e8");
                     clearance = 2;
                     tires = 3;
@@ -24664,7 +28291,7 @@ namespace Bot.v._0._07
                     MRA = 49.57;
                     break;
 
-                case 1158:
+                case 1367:
                     NotePad.DoLog("Peugeot 508 2018 d14");
                     clearance = 2;
                     tires = 3;
@@ -24680,7 +28307,7 @@ namespace Bot.v._0._07
                     MRA = 44.94;
                     break;
 
-                case 1159:
+                case 1368:
                     NotePad.DoLog("Peugeot 605 1989 d12");
                     clearance = 2;
                     tires = 3;
@@ -24696,7 +28323,7 @@ namespace Bot.v._0._07
                     MRA = 49.9;
                     break;
 
-                case 1160:
+                case 1369:
                     NotePad.DoLog("Peugeot 607 1999 d14");
                     clearance = 2;
                     tires = 3;
@@ -24712,7 +28339,7 @@ namespace Bot.v._0._07
                     MRA = 49.14;
                     break;
 
-                case 1161:
+                case 1370:
                     NotePad.DoLog("Peugeot 2008 2018 e9");
                     clearance = 3;
                     tires = 3;
@@ -24728,7 +28355,7 @@ namespace Bot.v._0._07
                     MRA = 49.54;
                     break;
 
-                case 1162:
+                case 1371:
                     NotePad.DoLog("Peugeot 3008 2018 e9");
                     clearance = 3;
                     tires = 3;
@@ -24744,7 +28371,7 @@ namespace Bot.v._0._07
                     MRA = 45.09;
                     break;
 
-                case 1163:
+                case 1372:
                     NotePad.DoLog("Peugeot 5008 2018 e9");
                     clearance = 3;
                     tires = 3;
@@ -24760,7 +28387,7 @@ namespace Bot.v._0._07
                     MRA = 44.49;
                     break;
 
-                case 1164:
+                case 1373:
                     NotePad.DoLog("Peugeot 106 Rallye (S1) 1993 e8");
                     clearance = 2;
                     tires = 2;
@@ -24776,7 +28403,7 @@ namespace Bot.v._0._07
                     MRA = 46.13;
                     break;
 
-                case 1165:
+                case 1374:
                     NotePad.DoLog("Peugeot 106 Rallye (S2) 1997 e10");
                     clearance = 2;
                     tires = 2;
@@ -24792,7 +28419,7 @@ namespace Bot.v._0._07
                     MRA = 53.29;
                     break;
 
-                case 1166:
+                case 1375:
                     NotePad.DoLog("Peugeot 204 Coupe 1965 f3");
                     clearance = 2;
                     tires = 3;
@@ -24808,7 +28435,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1167:
+                case 1376:
                     NotePad.DoLog("Peugeot 205 GTi 1.6 1984 e9");
                     clearance = 2;
                     tires = 2;
@@ -24824,7 +28451,7 @@ namespace Bot.v._0._07
                     MRA = 56.95;
                     break;
 
-                case 1168:
+                case 1377:
                     NotePad.DoLog("Peugeot 205 GTi 1.9 1986 d11");
                     clearance = 2;
                     tires = 2;
@@ -24840,7 +28467,7 @@ namespace Bot.v._0._07
                     MRA = 51.39;
                     break;
 
-                case 1169:
+                case 1378:
                     NotePad.DoLog("Peugeot 205 Rallye 1988 e8");
                     clearance = 2;
                     tires = 2;
@@ -24853,10 +28480,10 @@ namespace Bot.v._0._07
                     torque = 89;
                     abs = 0;
                     tcs = 0;
-                    MRA = 53.97;
+                    MRA = 55.96;
                     break;
 
-                case 1170:
+                case 1379:
                     NotePad.DoLog("Peugeot 205 T16 1984 b20");
                     clearance = 2;
                     tires = 2;
@@ -24872,7 +28499,7 @@ namespace Bot.v._0._07
                     MRA = 62.05;
                     break;
 
-                case 1171:
+                case 1380:
                     NotePad.DoLog("Peugeot 206 CC 2000 e10");
                     clearance = 2;
                     tires = 3;
@@ -24888,7 +28515,7 @@ namespace Bot.v._0._07
                     MRA = 63.91;
                     break;
 
-                case 1172:
+                case 1381:
                     NotePad.DoLog("Peugeot 208 GTi 2018 b19");
                     clearance = 2;
                     tires = 2;
@@ -24904,7 +28531,7 @@ namespace Bot.v._0._07
                     MRA = 69.66;
                     break;
 
-                case 1173:
+                case 1382:
                     NotePad.DoLog("Peugeot 3008 DKR 2017 a25");
                     clearance = 3;
                     tires = 5;
@@ -24917,10 +28544,10 @@ namespace Bot.v._0._07
                     torque = 590;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 67.71;
                     break;
 
-                case 1174:
+                case 1383:
                     NotePad.DoLog("Peugeot 306 GTi-6 1996 d12");
                     clearance = 2;
                     tires = 2;
@@ -24936,7 +28563,7 @@ namespace Bot.v._0._07
                     MRA = 59.56;
                     break;
 
-                case 1175:
+                case 1384:
                     NotePad.DoLog("Peugeot 306 Rallye 1998 d12");
                     clearance = 2;
                     tires = 2;
@@ -24952,7 +28579,7 @@ namespace Bot.v._0._07
                     MRA = 58.3;
                     break;
 
-                case 1176:
+                case 1385:
                     NotePad.DoLog("Peugeot 308 GTi 2018 b20");
                     clearance = 2;
                     tires = 2;
@@ -24968,7 +28595,7 @@ namespace Bot.v._0._07
                     MRA = 75.44;
                     break;
 
-                case 1177:
+                case 1386:
                     NotePad.DoLog("Peugeot 309 GTi 1986 e10");
                     clearance = 2;
                     tires = 2;
@@ -24984,7 +28611,7 @@ namespace Bot.v._0._07
                     MRA = 45.01;
                     break;
 
-                case 1178:
+                case 1387:
                     NotePad.DoLog("Peugeot 404 Coupe 1960 f5");
                     clearance = 2;
                     tires = 3;
@@ -25000,7 +28627,7 @@ namespace Bot.v._0._07
                     MRA = 26.22;
                     break;
 
-                case 1179:
+                case 1388:
                     NotePad.DoLog("Peugeot 405 Mi16 1987 e10");
                     clearance = 2;
                     tires = 2;
@@ -25016,7 +28643,7 @@ namespace Bot.v._0._07
                     MRA = 63.84;
                     break;
 
-                case 1180:
+                case 1389:
                     NotePad.DoLog("Peugeot 405 T16 Pikes Peak 1988 s27");
                     clearance = 1;
                     tires = 4;
@@ -25032,7 +28659,7 @@ namespace Bot.v._0._07
                     MRA = 63.21;
                     break;
 
-                case 1181:
+                case 1390:
                     NotePad.DoLog("Peugeot 406 Coupe 1997 e10");
                     clearance = 1;
                     tires = 2;
@@ -25048,7 +28675,7 @@ namespace Bot.v._0._07
                     MRA = 53.1;
                     break;
 
-                case 1182:
+                case 1391:
                     NotePad.DoLog("Peugeot 407 Coupe 2006 d12");
                     clearance = 2;
                     tires = 3;
@@ -25064,7 +28691,7 @@ namespace Bot.v._0._07
                     MRA = 57.31;
                     break;
 
-                case 1183:
+                case 1392:
                     NotePad.DoLog("Peugeot 504 Coupe 1968 e7");
                     clearance = 2;
                     tires = 3;
@@ -25080,7 +28707,7 @@ namespace Bot.v._0._07
                     MRA = 58.38;
                     break;
 
-                case 1184:
+                case 1393:
                     NotePad.DoLog("Peugeot 505 Break 1982 f5");
                     clearance = 2;
                     tires = 3;
@@ -25096,7 +28723,7 @@ namespace Bot.v._0._07
                     MRA = 39.09;
                     break;
 
-                case 1185:
+                case 1394:
                     NotePad.DoLog("Peugeot iOn 2018 f5");
                     clearance = 2;
                     tires = 3;
@@ -25112,7 +28739,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1186:
+                case 1395:
                     NotePad.DoLog("Peugeot RCZ R 2013 b19");
                     clearance = 2;
                     tires = 2;
@@ -25128,7 +28755,7 @@ namespace Bot.v._0._07
                     MRA = 69.26;
                     break;
 
-                case 1187:
+                case 1396:
                     NotePad.DoLog("Plymouth Barracuda Fastback 1968 d14");
                     clearance = 2;
                     tires = 2;
@@ -25144,7 +28771,7 @@ namespace Bot.v._0._07
                     MRA = 52.89;
                     break;
 
-                case 1188:
+                case 1397:
                     NotePad.DoLog("Plymouth Duster 340 1972 d13");
                     clearance = 2;
                     tires = 3;
@@ -25160,7 +28787,7 @@ namespace Bot.v._0._07
                     MRA = 37.52;
                     break;
 
-                case 1189:
+                case 1398:
                     NotePad.DoLog("Plymouth Fury 1958 d11");
                     clearance = 2;
                     tires = 3;
@@ -25176,7 +28803,7 @@ namespace Bot.v._0._07
                     MRA = 34.76;
                     break;
 
-                case 1190:
+                case 1399:
                     NotePad.DoLog("Plymouth GTX 1968 e10");
                     clearance = 2;
                     tires = 2;
@@ -25192,7 +28819,7 @@ namespace Bot.v._0._07
                     MRA = 61.17;
                     break;
 
-                case 1191:
+                case 1400:
                     NotePad.DoLog("Plymouth HEMI 'Cuda 1970 c15");
                     clearance = 2;
                     tires = 2;
@@ -25208,7 +28835,7 @@ namespace Bot.v._0._07
                     MRA = 81.91;
                     break;
 
-                case 1192:
+                case 1401:
                     NotePad.DoLog("Plymouth Reliant 1981 f4");
                     clearance = 2;
                     tires = 3;
@@ -25221,10 +28848,10 @@ namespace Bot.v._0._07
                     torque = 119;
                     abs = 0;
                     tcs = 0;
-                    MRA = 23.05;
+                    MRA = 23;
                     break;
 
-                case 1193:
+                case 1402:
                     NotePad.DoLog("Plymouth Roadrunner 383 1968 d14");
                     clearance = 2;
                     tires = 3;
@@ -25240,7 +28867,7 @@ namespace Bot.v._0._07
                     MRA = 52.57;
                     break;
 
-                case 1194:
+                case 1403:
                     NotePad.DoLog("Plymouth Scamp 1982 e7");
                     clearance = 3;
                     tires = 3;
@@ -25256,7 +28883,7 @@ namespace Bot.v._0._07
                     MRA = 42.22;
                     break;
 
-                case 1195:
+                case 1404:
                     NotePad.DoLog("Plymouth Superbird 1970 c17");
                     clearance = 2;
                     tires = 2;
@@ -25272,7 +28899,7 @@ namespace Bot.v._0._07
                     MRA = 62.3;
                     break;
 
-                case 1196:
+                case 1405:
                     NotePad.DoLog("Pontiac 6000 STE AWD 1988 f5");
                     clearance = 2;
                     tires = 2;
@@ -25288,7 +28915,7 @@ namespace Bot.v._0._07
                     MRA = 53.46;
                     break;
 
-                case 1197:
+                case 1406:
                     NotePad.DoLog("Pontiac Aztek 2001 e9");
                     clearance = 3;
                     tires = 3;
@@ -25304,7 +28931,7 @@ namespace Bot.v._0._07
                     MRA = 45.79;
                     break;
 
-                case 1198:
+                case 1407:
                     NotePad.DoLog("Pontiac Bonneville Special 1954 c15");
                     clearance = 2;
                     tires = 3;
@@ -25320,7 +28947,7 @@ namespace Bot.v._0._07
                     MRA = 57.37;
                     break;
 
-                case 1199:
+                case 1408:
                     NotePad.DoLog("Pontiac Bonneville SSEi 2000 d14");
                     clearance = 2;
                     tires = 3;
@@ -25336,7 +28963,7 @@ namespace Bot.v._0._07
                     MRA = 70.35;
                     break;
 
-                case 1200:
+                case 1409:
                     NotePad.DoLog("Pontiac Fiero 1984 e8");
                     clearance = 1;
                     tires = 3;
@@ -25352,7 +28979,7 @@ namespace Bot.v._0._07
                     MRA = 46.28;
                     break;
 
-                case 1201:
+                case 1410:
                     NotePad.DoLog("Pontiac Fiero GT 1988 d13");
                     clearance = 1;
                     tires = 2;
@@ -25368,23 +28995,7 @@ namespace Bot.v._0._07
                     MRA = 74.97;
                     break;
 
-                case 1202:
-                    NotePad.DoLog("Pontiac Firebird Trans Am 1985 f3");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 11.5;
-                    maxspeed = 100;
-                    grip = 76;
-                    weight = 1301;
-                    power = 88;
-                    torque = 132;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 35.6;
-                    break;
-
-                case 1203:
+                case 1411:
                     NotePad.DoLog("Pontiac Firebird Trans Am 1970 d13");
                     clearance = 1;
                     tires = 2;
@@ -25400,7 +29011,23 @@ namespace Bot.v._0._07
                     MRA = 84.29;
                     break;
 
-                case 1204:
+                case 1412:
+                    NotePad.DoLog("Pontiac Firebird Trans Am 1985 f4");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 11.5;
+                    maxspeed = 100;
+                    grip = 76;
+                    weight = 1301;
+                    power = 88;
+                    torque = 132;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 35.6;
+                    break;
+
+                case 1413:
                     NotePad.DoLog("Pontiac G6 2005 d13");
                     clearance = 2;
                     tires = 3;
@@ -25416,7 +29043,7 @@ namespace Bot.v._0._07
                     MRA = 66.67;
                     break;
 
-                case 1205:
+                case 1414:
                     NotePad.DoLog("Pontiac G8 GXP 2010 a25");
                     clearance = 2;
                     tires = 2;
@@ -25432,7 +29059,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1206:
+                case 1415:
                     NotePad.DoLog("Pontiac Grand Am 1985 e10");
                     clearance = 2;
                     tires = 3;
@@ -25448,7 +29075,7 @@ namespace Bot.v._0._07
                     MRA = 56.59;
                     break;
 
-                case 1207:
+                case 1416:
                     NotePad.DoLog("Pontiac Grand Am GT 1992 d13");
                     clearance = 2;
                     tires = 2;
@@ -25464,7 +29091,7 @@ namespace Bot.v._0._07
                     MRA = 56.78;
                     break;
 
-                case 1208:
+                case 1417:
                     NotePad.DoLog("Pontiac Grand Prix 2+2 1986 e9");
                     clearance = 2;
                     tires = 3;
@@ -25480,7 +29107,7 @@ namespace Bot.v._0._07
                     MRA = 47.71;
                     break;
 
-                case 1209:
+                case 1418:
                     NotePad.DoLog("Pontiac Grand Prix GTP 1997 c16");
                     clearance = 2;
                     tires = 3;
@@ -25496,7 +29123,7 @@ namespace Bot.v._0._07
                     MRA = 58.32;
                     break;
 
-                case 1210:
+                case 1419:
                     NotePad.DoLog("Pontiac Grand Prix GXP 2006 c17");
                     clearance = 2;
                     tires = 2;
@@ -25512,7 +29139,7 @@ namespace Bot.v._0._07
                     MRA = 62.64;
                     break;
 
-                case 1211:
+                case 1420:
                     NotePad.DoLog("Pontiac GTO 2006 b21");
                     clearance = 2;
                     tires = 2;
@@ -25528,7 +29155,7 @@ namespace Bot.v._0._07
                     MRA = 69.88;
                     break;
 
-                case 1212:
+                case 1421:
                     NotePad.DoLog("Pontiac GTO Judge Ram Air IV 1970 d13");
                     clearance = 1;
                     tires = 2;
@@ -25544,7 +29171,7 @@ namespace Bot.v._0._07
                     MRA = 77.67;
                     break;
 
-                case 1213:
+                case 1422:
                     NotePad.DoLog("Pontiac Montana 2005 e9");
                     clearance = 2;
                     tires = 3;
@@ -25560,7 +29187,7 @@ namespace Bot.v._0._07
                     MRA = 57.05;
                     break;
 
-                case 1214:
+                case 1423:
                     NotePad.DoLog("Pontiac Solstice GXP Coupe 2009 b19");
                     clearance = 1;
                     tires = 2;
@@ -25576,7 +29203,7 @@ namespace Bot.v._0._07
                     MRA = 70.13;
                     break;
 
-                case 1215:
+                case 1424:
                     NotePad.DoLog("Pontiac Sunbird GT 1986 e7");
                     clearance = 2;
                     tires = 3;
@@ -25592,7 +29219,7 @@ namespace Bot.v._0._07
                     MRA = 47.43;
                     break;
 
-                case 1216:
+                case 1425:
                     NotePad.DoLog("Pontiac Sunfire 1995 e10");
                     clearance = 2;
                     tires = 3;
@@ -25608,7 +29235,7 @@ namespace Bot.v._0._07
                     MRA = 52.72;
                     break;
 
-                case 1217:
+                case 1426:
                     NotePad.DoLog("Pontiac Tempest Le Mans GTO 1965 f5");
                     clearance = 1;
                     tires = 2;
@@ -25624,7 +29251,7 @@ namespace Bot.v._0._07
                     MRA = 58.26;
                     break;
 
-                case 1218:
+                case 1427:
                     NotePad.DoLog("Pontiac Torrent GXP 2008 b22");
                     clearance = 3;
                     tires = 4;
@@ -25640,7 +29267,7 @@ namespace Bot.v._0._07
                     MRA = 53.96;
                     break;
 
-                case 1219:
+                case 1428:
                     NotePad.DoLog("Pontiac Trans Am 1978 e8");
                     clearance = 1;
                     tires = 2;
@@ -25656,7 +29283,7 @@ namespace Bot.v._0._07
                     MRA = 73.29;
                     break;
 
-                case 1220:
+                case 1429:
                     NotePad.DoLog("Pontiac Trans Am 20th Anniversary 1989 d12");
                     clearance = 1;
                     tires = 2;
@@ -25672,7 +29299,7 @@ namespace Bot.v._0._07
                     MRA = 73.92;
                     break;
 
-                case 1221:
+                case 1430:
                     NotePad.DoLog("Pontiac Trans Am 30th Anniversary 1999 b20");
                     clearance = 2;
                     tires = 2;
@@ -25688,7 +29315,7 @@ namespace Bot.v._0._07
                     MRA = 72.6;
                     break;
 
-                case 1222:
+                case 1431:
                     NotePad.DoLog("Pontiac Trans Am 35th Anniversary 2002 b19");
                     clearance = 1;
                     tires = 2;
@@ -25701,10 +29328,10 @@ namespace Bot.v._0._07
                     torque = 350;
                     abs = 1;
                     tcs = 1;
-                    MRA = 65.38;
+                    MRA = 65.97;
                     break;
 
-                case 1223:
+                case 1432:
                     NotePad.DoLog("Pontiac Vibe GT 2003 d13");
                     clearance = 2;
                     tires = 3;
@@ -25720,23 +29347,7 @@ namespace Bot.v._0._07
                     MRA = 59.92;
                     break;
 
-                case 1224:
-                    NotePad.DoLog("Porsche 356 1955 f3");
-                    clearance = 1;
-                    tires = 3;
-                    drive = 2;
-                    acceleration = 20.8;
-                    maxspeed = 90;
-                    grip = 60;
-                    weight = 850;
-                    power = 44;
-                    torque = 60;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1225:
+                case 1433:
                     NotePad.DoLog("Porsche 356 1948 f3");
                     clearance = 1;
                     tires = 3;
@@ -25752,7 +29363,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1226:
+                case 1434:
+                    NotePad.DoLog("Porsche 356 1955 f3");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 20.8;
+                    maxspeed = 90;
+                    grip = 60;
+                    weight = 850;
+                    power = 44;
+                    torque = 60;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1435:
                     NotePad.DoLog("Porsche 911 1965 e8");
                     clearance = 1;
                     tires = 3;
@@ -25768,7 +29395,7 @@ namespace Bot.v._0._07
                     MRA = 63.97;
                     break;
 
-                case 1227:
+                case 1436:
                     NotePad.DoLog("Porsche 914 1969 e7");
                     clearance = 1;
                     tires = 3;
@@ -25784,7 +29411,7 @@ namespace Bot.v._0._07
                     MRA = 39.86;
                     break;
 
-                case 1228:
+                case 1437:
                     NotePad.DoLog("Porsche 917 1970 s27");
                     clearance = 1;
                     tires = 1;
@@ -25800,7 +29427,7 @@ namespace Bot.v._0._07
                     MRA = 110.94;
                     break;
 
-                case 1229:
+                case 1438:
                     NotePad.DoLog("Porsche 924 1976 e10");
                     clearance = 1;
                     tires = 3;
@@ -25816,7 +29443,7 @@ namespace Bot.v._0._07
                     MRA = 55.26;
                     break;
 
-                case 1230:
+                case 1439:
                     NotePad.DoLog("Porsche 928 1977 d14");
                     clearance = 1;
                     tires = 2;
@@ -25832,7 +29459,7 @@ namespace Bot.v._0._07
                     MRA = 74.58;
                     break;
 
-                case 1231:
+                case 1440:
                     NotePad.DoLog("Porsche 944 1982 d11");
                     clearance = 1;
                     tires = 2;
@@ -25848,7 +29475,7 @@ namespace Bot.v._0._07
                     MRA = 76.19;
                     break;
 
-                case 1232:
+                case 1441:
                     NotePad.DoLog("Porsche 959 1986 s27");
                     clearance = 1;
                     tires = 2;
@@ -25864,7 +29491,7 @@ namespace Bot.v._0._07
                     MRA = 78.52;
                     break;
 
-                case 1233:
+                case 1442:
                     NotePad.DoLog("Porsche 968 1992 c16");
                     clearance = 1;
                     tires = 2;
@@ -25880,7 +29507,7 @@ namespace Bot.v._0._07
                     MRA = 68.13;
                     break;
 
-                case 1234:
+                case 1443:
                     NotePad.DoLog("Porsche 356 B Convertible 1600 1965 f3");
                     clearance = 1;
                     tires = 3;
@@ -25896,7 +29523,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1235:
+                case 1444:
                     NotePad.DoLog("Porsche 356 Speedster 1955 f4");
                     clearance = 1;
                     tires = 3;
@@ -25912,7 +29539,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1236:
+                case 1445:
                     NotePad.DoLog("Porsche 550 Spyder 1955 d14");
                     clearance = 1;
                     tires = 2;
@@ -25928,7 +29555,7 @@ namespace Bot.v._0._07
                     MRA = 80.83;
                     break;
 
-                case 1237:
+                case 1446:
                     NotePad.DoLog("Porsche 718 Boxster 2017 b22");
                     clearance = 1;
                     tires = 2;
@@ -25944,7 +29571,7 @@ namespace Bot.v._0._07
                     MRA = 76.41;
                     break;
 
-                case 1238:
+                case 1447:
                     NotePad.DoLog("Porsche 718 Boxster S 2017 a25");
                     clearance = 1;
                     tires = 2;
@@ -25960,7 +29587,7 @@ namespace Bot.v._0._07
                     MRA = 76.55;
                     break;
 
-                case 1239:
+                case 1448:
                     NotePad.DoLog("Porsche 718 Cayman 2016 b22");
                     clearance = 1;
                     tires = 2;
@@ -25976,23 +29603,7 @@ namespace Bot.v._0._07
                     MRA = 75.97;
                     break;
 
-                case 1240:
-                    NotePad.DoLog("Porsche 911 Carrera 2004 b22");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4.8;
-                    maxspeed = 177;
-                    grip = 85;
-                    weight = 1470;
-                    power = 321;
-                    torque = 273;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 77.52;
-                    break;
-
-                case 1241:
+                case 1449:
                     NotePad.DoLog("Porsche 911 Carrera 1994 b20");
                     clearance = 1;
                     tires = 2;
@@ -26008,7 +29619,23 @@ namespace Bot.v._0._07
                     MRA = 81.82;
                     break;
 
-                case 1242:
+                case 1450:
+                    NotePad.DoLog("Porsche 911 Carrera 2004 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.8;
+                    maxspeed = 177;
+                    grip = 85;
+                    weight = 1470;
+                    power = 321;
+                    torque = 273;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 77.52;
+                    break;
+
+                case 1451:
                     NotePad.DoLog("Porsche 911 Carrera 2016 a23");
                     clearance = 1;
                     tires = 2;
@@ -26024,7 +29651,7 @@ namespace Bot.v._0._07
                     MRA = 76.92;
                     break;
 
-                case 1243:
+                case 1452:
                     NotePad.DoLog("Porsche 911 Carrera 2 Targa 1989 b19");
                     clearance = 1;
                     tires = 2;
@@ -26040,7 +29667,7 @@ namespace Bot.v._0._07
                     MRA = 72.08;
                     break;
 
-                case 1244:
+                case 1453:
                     NotePad.DoLog("Porsche 911 Carrera 2.7 RS 1973 b21");
                     clearance = 2;
                     tires = 2;
@@ -26056,7 +29683,7 @@ namespace Bot.v._0._07
                     MRA = 87.45;
                     break;
 
-                case 1245:
+                case 1454:
                     NotePad.DoLog("Porsche 911 Carrera 4 1989 b22");
                     clearance = 1;
                     tires = 2;
@@ -26072,7 +29699,7 @@ namespace Bot.v._0._07
                     MRA = 73.41;
                     break;
 
-                case 1246:
+                case 1455:
                     NotePad.DoLog("Porsche 911 Carrera 4 2000 a24");
                     clearance = 1;
                     tires = 2;
@@ -26088,7 +29715,7 @@ namespace Bot.v._0._07
                     MRA = 75.76;
                     break;
 
-                case 1247:
+                case 1456:
                     NotePad.DoLog("Porsche 911 Carrera Cabriolet 2000 b21");
                     clearance = 1;
                     tires = 2;
@@ -26104,7 +29731,7 @@ namespace Bot.v._0._07
                     MRA = 77.61;
                     break;
 
-                case 1248:
+                case 1457:
                     NotePad.DoLog("Porsche 911 Carrera GTS 2016 a25");
                     clearance = 1;
                     tires = 2;
@@ -26120,7 +29747,7 @@ namespace Bot.v._0._07
                     MRA = 86.21;
                     break;
 
-                case 1249:
+                case 1458:
                     NotePad.DoLog("Porsche 911 Carrera RSR 3.0 1974 a24");
                     clearance = 1;
                     tires = 1;
@@ -26136,23 +29763,7 @@ namespace Bot.v._0._07
                     MRA = 81.25;
                     break;
 
-                case 1250:
-                    NotePad.DoLog("Porsche 911 Carrera S 2015 a26");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4.1;
-                    maxspeed = 191;
-                    grip = 89;
-                    weight = 1440;
-                    power = 414;
-                    torque = 369;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 86.36;
-                    break;
-
-                case 1251:
+                case 1459:
                     NotePad.DoLog("Porsche 911 Carrera S 2004 a23");
                     clearance = 1;
                     tires = 2;
@@ -26168,7 +29779,23 @@ namespace Bot.v._0._07
                     MRA = 72.58;
                     break;
 
-                case 1252:
+                case 1460:
+                    NotePad.DoLog("Porsche 911 Carrera S 2015 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 191;
+                    grip = 89;
+                    weight = 1440;
+                    power = 414;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 86.36;
+                    break;
+
+                case 1461:
                     NotePad.DoLog("Porsche 911 Carrera S Cabriolet 2016 a24");
                     clearance = 1;
                     tires = 2;
@@ -26184,7 +29811,7 @@ namespace Bot.v._0._07
                     MRA = 85.19;
                     break;
 
-                case 1253:
+                case 1462:
                     NotePad.DoLog("Porsche 911 GT1 race car 1997 s27");
                     clearance = 1;
                     tires = 1;
@@ -26200,7 +29827,7 @@ namespace Bot.v._0._07
                     MRA = 85.4;
                     break;
 
-                case 1254:
+                case 1463:
                     NotePad.DoLog("Porsche 911 GT1 road car 1997 s28");
                     clearance = 1;
                     tires = 2;
@@ -26216,7 +29843,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1255:
+                case 1464:
                     NotePad.DoLog("Porsche 911 GT2 2001 a26");
                     clearance = 1;
                     tires = 2;
@@ -26232,7 +29859,7 @@ namespace Bot.v._0._07
                     MRA = 84.13;
                     break;
 
-                case 1256:
+                case 1465:
                     NotePad.DoLog("Porsche 911 GT2 2007 s27");
                     clearance = 1;
                     tires = 2;
@@ -26248,23 +29875,7 @@ namespace Bot.v._0._07
                     MRA = 80;
                     break;
 
-                case 1257:
-                    NotePad.DoLog("Porsche 911 GT2 RS 2018 s30");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 2.6;
-                    maxspeed = 211;
-                    grip = 93;
-                    weight = 1545;
-                    power = 700;
-                    torque = 553;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 92.59;
-                    break;
-
-                case 1258:
+                case 1466:
                     NotePad.DoLog("Porsche 911 GT2 RS 2007 s29");
                     clearance = 1;
                     tires = 2;
@@ -26280,23 +29891,23 @@ namespace Bot.v._0._07
                     MRA = 100.64;
                     break;
 
-                case 1259:
-                    NotePad.DoLog("Porsche 911 GT3 2006 a25");
+                case 1467:
+                    NotePad.DoLog("Porsche 911 GT2 RS 2018 s30");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
-                    acceleration = 4.1;
-                    maxspeed = 193;
-                    grip = 89;
-                    weight = 1395;
-                    power = 409;
-                    torque = 299;
+                    acceleration = 2.6;
+                    maxspeed = 211;
+                    grip = 93;
+                    weight = 1545;
+                    power = 700;
+                    torque = 553;
                     abs = 1;
                     tcs = 1;
-                    MRA = 84.13;
+                    MRA = 90.7;
                     break;
 
-                case 1260:
+                case 1468:
                     NotePad.DoLog("Porsche 911 GT3 1999 a23");
                     clearance = 1;
                     tires = 2;
@@ -26312,7 +29923,23 @@ namespace Bot.v._0._07
                     MRA = 82.14;
                     break;
 
-                case 1261:
+                case 1469:
+                    NotePad.DoLog("Porsche 911 GT3 2006 a25");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.1;
+                    maxspeed = 193;
+                    grip = 89;
+                    weight = 1395;
+                    power = 409;
+                    torque = 299;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 84.13;
+                    break;
+
+                case 1470:
                     NotePad.DoLog("Porsche 911 GT3 2013 s29");
                     clearance = 1;
                     tires = 2;
@@ -26328,23 +29955,7 @@ namespace Bot.v._0._07
                     MRA = 92.49;
                     break;
 
-                case 1262:
-                    NotePad.DoLog("Porsche 911 GT3 RS 2006 a26");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 4;
-                    maxspeed = 193;
-                    grip = 90;
-                    weight = 1375;
-                    power = 409;
-                    torque = 299;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 85;
-                    break;
-
-                case 1263:
+                case 1471:
                     NotePad.DoLog("Porsche 911 GT3 RS 2004 a25");
                     clearance = 1;
                     tires = 2;
@@ -26360,7 +29971,23 @@ namespace Bot.v._0._07
                     MRA = 83.69;
                     break;
 
-                case 1264:
+                case 1472:
+                    NotePad.DoLog("Porsche 911 GT3 RS 2006 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4;
+                    maxspeed = 193;
+                    grip = 90;
+                    weight = 1375;
+                    power = 409;
+                    torque = 299;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 85;
+                    break;
+
+                case 1473:
                     NotePad.DoLog("Porsche 911 GT3 RS 2015 s28");
                     clearance = 1;
                     tires = 2;
@@ -26373,10 +30000,10 @@ namespace Bot.v._0._07
                     torque = 339;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 81.08;
                     break;
 
-                case 1265:
+                case 1474:
                     NotePad.DoLog("Porsche 911 GT3 RS 2018 s29");
                     clearance = 1;
                     tires = 2;
@@ -26389,10 +30016,10 @@ namespace Bot.v._0._07
                     torque = 347;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 84.08;
                     break;
 
-                case 1266:
+                case 1475:
                     NotePad.DoLog("Porsche 911 GT3 RS 4.0 2011 s27");
                     clearance = 1;
                     tires = 2;
@@ -26408,7 +30035,7 @@ namespace Bot.v._0._07
                     MRA = 90.67;
                     break;
 
-                case 1267:
+                case 1476:
                     NotePad.DoLog("Porsche 911 R 2016 s28");
                     clearance = 1;
                     tires = 2;
@@ -26424,7 +30051,7 @@ namespace Bot.v._0._07
                     MRA = 89.47;
                     break;
 
-                case 1268:
+                case 1477:
                     NotePad.DoLog("Porsche 911 RS 1992 b22");
                     clearance = 1;
                     tires = 2;
@@ -26440,23 +30067,7 @@ namespace Bot.v._0._07
                     MRA = 90.71;
                     break;
 
-                case 1269:
-                    NotePad.DoLog("Porsche 911 Targa 4S 2015 a26");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 4.6;
-                    maxspeed = 184;
-                    grip = 86;
-                    weight = 1555;
-                    power = 395;
-                    torque = 325;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 88.64;
-                    break;
-
-                case 1270:
+                case 1478:
                     NotePad.DoLog("Porsche 911 Targa 4S 2004 a25");
                     clearance = 1;
                     tires = 2;
@@ -26472,7 +30083,23 @@ namespace Bot.v._0._07
                     MRA = 71.67;
                     break;
 
-                case 1271:
+                case 1479:
+                    NotePad.DoLog("Porsche 911 Targa 4S 2015 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.6;
+                    maxspeed = 184;
+                    grip = 86;
+                    weight = 1555;
+                    power = 395;
+                    torque = 325;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 88.64;
+                    break;
+
+                case 1480:
                     NotePad.DoLog("Porsche 911 Targa 4S 2016 s27");
                     clearance = 1;
                     tires = 2;
@@ -26488,7 +30115,7 @@ namespace Bot.v._0._07
                     MRA = 85.71;
                     break;
 
-                case 1272:
+                case 1481:
                     NotePad.DoLog("Porsche 911 Turbo 1975 b21");
                     clearance = 1;
                     tires = 2;
@@ -26504,23 +30131,7 @@ namespace Bot.v._0._07
                     MRA = 89.58;
                     break;
 
-                case 1273:
-                    NotePad.DoLog("Porsche 911 Turbo 1995 a26");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 4.3;
-                    maxspeed = 180;
-                    grip = 85;
-                    weight = 1500;
-                    power = 405;
-                    torque = 398;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 82.82;
-                    break;
-
-                case 1274:
+                case 1482:
                     NotePad.DoLog("Porsche 911 Turbo 1990 a23");
                     clearance = 1;
                     tires = 2;
@@ -26536,39 +30147,23 @@ namespace Bot.v._0._07
                     MRA = 80.68;
                     break;
 
-                case 1275:
-                    NotePad.DoLog("Porsche 911 Turbo 2013 s29");
+                case 1483:
+                    NotePad.DoLog("Porsche 911 Turbo 1995 a26");
                     clearance = 1;
                     tires = 2;
                     drive = 4;
-                    acceleration = 3.2;
-                    maxspeed = 196;
-                    grip = 90;
-                    weight = 1670;
-                    power = 513;
-                    torque = 487;
+                    acceleration = 4.3;
+                    maxspeed = 180;
+                    grip = 85;
+                    weight = 1500;
+                    power = 405;
+                    torque = 398;
                     abs = 1;
                     tcs = 1;
-                    MRA = 76.92;
+                    MRA = 82.82;
                     break;
 
-                case 1276:
-                    NotePad.DoLog("Porsche 911 Turbo 2006 s29");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 3.5;
-                    maxspeed = 193;
-                    grip = 88;
-                    weight = 1585;
-                    power = 473;
-                    torque = 502;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 79.33;
-                    break;
-
-                case 1277:
+                case 1484:
                     NotePad.DoLog("Porsche 911 Turbo 2001 s27");
                     clearance = 1;
                     tires = 2;
@@ -26584,7 +30179,39 @@ namespace Bot.v._0._07
                     MRA = 76.92;
                     break;
 
-                case 1278:
+                case 1485:
+                    NotePad.DoLog("Porsche 911 Turbo 2006 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.5;
+                    maxspeed = 193;
+                    grip = 88;
+                    weight = 1585;
+                    power = 473;
+                    torque = 502;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 79.33;
+                    break;
+
+                case 1486:
+                    NotePad.DoLog("Porsche 911 Turbo 2013 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3.2;
+                    maxspeed = 196;
+                    grip = 90;
+                    weight = 1670;
+                    power = 513;
+                    torque = 487;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 76.92;
+                    break;
+
+                case 1487:
                     NotePad.DoLog("Porsche 911 Turbo Martini 1978 b22");
                     clearance = 1;
                     tires = 2;
@@ -26600,7 +30227,7 @@ namespace Bot.v._0._07
                     MRA = 91.64;
                     break;
 
-                case 1279:
+                case 1488:
                     NotePad.DoLog("Porsche 911 Turbo S 2013 s30");
                     clearance = 1;
                     tires = 2;
@@ -26613,10 +30240,10 @@ namespace Bot.v._0._07
                     torque = 553;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 73.65;
                     break;
 
-                case 1280:
+                case 1489:
                     NotePad.DoLog("Porsche 911S 2.4 Targa 1972 d13");
                     clearance = 1;
                     tires = 2;
@@ -26632,8 +30259,8 @@ namespace Bot.v._0._07
                     MRA = 72.6;
                     break;
 
-                case 1281:
-                    NotePad.DoLog("Porsche 911S 2.7 1973 c17");
+                case 1490:
+                    NotePad.DoLog("Porsche 911S 2.7 1974 c17");
                     clearance = 2;
                     tires = 3;
                     drive = 2;
@@ -26648,7 +30275,7 @@ namespace Bot.v._0._07
                     MRA = 76.72;
                     break;
 
-                case 1282:
+                case 1491:
                     NotePad.DoLog("Porsche 918 Spyder 2013 s30");
                     clearance = 1;
                     tires = 2;
@@ -26664,7 +30291,7 @@ namespace Bot.v._0._07
                     MRA = 104.55;
                     break;
 
-                case 1283:
+                case 1492:
                     NotePad.DoLog("Porsche 924 Carrera GTS 1981 c17");
                     clearance = 1;
                     tires = 2;
@@ -26677,12 +30304,12 @@ namespace Bot.v._0._07
                     torque = 247;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 65.9;
                     break;
 
-                case 1284:
+                case 1493:
                     NotePad.DoLog("Porsche 924 Carrera GTS Rally Spec 1981 b22");
-                    clearance = 1;
+                    clearance = 2;
                     tires = 5;
                     drive = 2;
                     acceleration = 5.8;
@@ -26696,7 +30323,7 @@ namespace Bot.v._0._07
                     MRA = 90.15;
                     break;
 
-                case 1285:
+                case 1494:
                     NotePad.DoLog("Porsche 924 Turbo 1979 c15");
                     clearance = 1;
                     tires = 3;
@@ -26712,7 +30339,7 @@ namespace Bot.v._0._07
                     MRA = 70.87;
                     break;
 
-                case 1286:
+                case 1495:
                     NotePad.DoLog("Porsche 928 S 1980 c15");
                     clearance = 1;
                     tires = 2;
@@ -26728,7 +30355,7 @@ namespace Bot.v._0._07
                     MRA = 73.24;
                     break;
 
-                case 1287:
+                case 1496:
                     NotePad.DoLog("Porsche 935 'Moby Dick' 1978 s28");
                     clearance = 1;
                     tires = 1;
@@ -26741,10 +30368,10 @@ namespace Bot.v._0._07
                     torque = 578;
                     abs = 0;
                     tcs = 0;
-                    MRA = 76.78;
+                    MRA = 98.81;
                     break;
 
-                case 1288:
+                case 1497:
                     NotePad.DoLog("Porsche 959 Dakar 1986 s28");
                     clearance = 3;
                     tires = 5;
@@ -26757,10 +30384,10 @@ namespace Bot.v._0._07
                     torque = 380;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 72.77;
                     break;
 
-                case 1289:
+                case 1498:
                     NotePad.DoLog("Porsche 962 C 1985 s29");
                     clearance = 1;
                     tires = 1;
@@ -26773,10 +30400,10 @@ namespace Bot.v._0._07
                     torque = 524;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 104;
                     break;
 
-                case 1290:
+                case 1499:
                     NotePad.DoLog("Porsche 968 Clubsport 1993 c17");
                     clearance = 1;
                     tires = 2;
@@ -26789,10 +30416,10 @@ namespace Bot.v._0._07
                     torque = 225;
                     abs = 1;
                     tcs = 0;
-                    MRA = 69.51;
+                    MRA = 70.17;
                     break;
 
-                case 1291:
+                case 1500:
                     NotePad.DoLog("Porsche 968 Turbo S 1993 b22");
                     clearance = 1;
                     tires = 2;
@@ -26808,23 +30435,7 @@ namespace Bot.v._0._07
                     MRA = 88.89;
                     break;
 
-                case 1292:
-                    NotePad.DoLog("Porsche Boxster 2005 c18");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 5.9;
-                    maxspeed = 159;
-                    grip = 82;
-                    weight = 1370;
-                    power = 236;
-                    torque = 199;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 69.75;
-                    break;
-
-                case 1293:
+                case 1501:
                     NotePad.DoLog("Porsche Boxster 1996 c15");
                     clearance = 1;
                     tires = 2;
@@ -26840,7 +30451,23 @@ namespace Bot.v._0._07
                     MRA = 68.1;
                     break;
 
-                case 1294:
+                case 1502:
+                    NotePad.DoLog("Porsche Boxster 2005 c18");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.9;
+                    maxspeed = 159;
+                    grip = 82;
+                    weight = 1370;
+                    power = 236;
+                    torque = 199;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 69.75;
+                    break;
+
+                case 1503:
                     NotePad.DoLog("Porsche Boxster 2015 b21");
                     clearance = 1;
                     tires = 2;
@@ -26856,7 +30483,7 @@ namespace Bot.v._0._07
                     MRA = 92.74;
                     break;
 
-                case 1295:
+                case 1504:
                     NotePad.DoLog("Porsche Boxster GTS 2015 a23");
                     clearance = 1;
                     tires = 2;
@@ -26872,7 +30499,7 @@ namespace Bot.v._0._07
                     MRA = 93.02;
                     break;
 
-                case 1296:
+                case 1505:
                     NotePad.DoLog("Porsche Boxster S 2015 a23");
                     clearance = 1;
                     tires = 2;
@@ -26888,7 +30515,7 @@ namespace Bot.v._0._07
                     MRA = 95.83;
                     break;
 
-                case 1297:
+                case 1506:
                     NotePad.DoLog("Porsche Boxster Spyder 2009 b22");
                     clearance = 1;
                     tires = 2;
@@ -26904,7 +30531,7 @@ namespace Bot.v._0._07
                     MRA = 75.29;
                     break;
 
-                case 1298:
+                case 1507:
                     NotePad.DoLog("Porsche Boxster Spyder 2016 a25");
                     clearance = 1;
                     tires = 2;
@@ -26920,7 +30547,7 @@ namespace Bot.v._0._07
                     MRA = 95.4;
                     break;
 
-                case 1299:
+                case 1508:
                     NotePad.DoLog("Porsche Carrera GT 2003 s28");
                     clearance = 1;
                     tires = 2;
@@ -26936,7 +30563,7 @@ namespace Bot.v._0._07
                     MRA = 102.04;
                     break;
 
-                case 1300:
+                case 1509:
                     NotePad.DoLog("Porsche Cayenne GTS 2014 s27");
                     clearance = 3;
                     tires = 4;
@@ -26952,7 +30579,7 @@ namespace Bot.v._0._07
                     MRA = 82.35;
                     break;
 
-                case 1301:
+                case 1510:
                     NotePad.DoLog("Porsche Cayenne Turbo 2002 a26");
                     clearance = 3;
                     tires = 4;
@@ -26965,10 +30592,10 @@ namespace Bot.v._0._07
                     torque = 457;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 72.15;
                     break;
 
-                case 1302:
+                case 1511:
                     NotePad.DoLog("Porsche Cayenne Turbo 2017 s28");
                     clearance = 3;
                     tires = 4;
@@ -26981,42 +30608,10 @@ namespace Bot.v._0._07
                     torque = 516;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 76.75;
                     break;
 
-                case 1303:
-                    NotePad.DoLog("Porsche Cayman 2012 b22");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 5.5;
-                    maxspeed = 165;
-                    grip = 85;
-                    weight = 1310;
-                    power = 271;
-                    torque = 214;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 94.83;
-                    break;
-
-                case 1304:
-                    NotePad.DoLog("Porsche Cayman 2009 b21");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 5.6;
-                    maxspeed = 165;
-                    grip = 84;
-                    weight = 1330;
-                    power = 261;
-                    torque = 221;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 92.74;
-                    break;
-
-                case 1305:
+                case 1512:
                     NotePad.DoLog("Porsche Cayman 2005 b19");
                     clearance = 1;
                     tires = 2;
@@ -27032,7 +30627,39 @@ namespace Bot.v._0._07
                     MRA = 71.15;
                     break;
 
-                case 1306:
+                case 1513:
+                    NotePad.DoLog("Porsche Cayman 2009 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.6;
+                    maxspeed = 165;
+                    grip = 84;
+                    weight = 1330;
+                    power = 261;
+                    torque = 221;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 92.74;
+                    break;
+
+                case 1514:
+                    NotePad.DoLog("Porsche Cayman 2012 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.5;
+                    maxspeed = 165;
+                    grip = 85;
+                    weight = 1310;
+                    power = 271;
+                    torque = 214;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 94.83;
+                    break;
+
+                case 1515:
                     NotePad.DoLog("Porsche Cayman GT4 2015 a25");
                     clearance = 1;
                     tires = 2;
@@ -27048,7 +30675,7 @@ namespace Bot.v._0._07
                     MRA = 81.93;
                     break;
 
-                case 1307:
+                case 1516:
                     NotePad.DoLog("Porsche Cayman GTS 2014 b22");
                     clearance = 1;
                     tires = 2;
@@ -27064,7 +30691,7 @@ namespace Bot.v._0._07
                     MRA = 75.86;
                     break;
 
-                case 1308:
+                case 1517:
                     NotePad.DoLog("Porsche Macan GTS 2015 s27");
                     clearance = 3;
                     tires = 4;
@@ -27080,7 +30707,7 @@ namespace Bot.v._0._07
                     MRA = 64;
                     break;
 
-                case 1309:
+                case 1518:
                     NotePad.DoLog("Porsche Macan Turbo 2016 s28");
                     clearance = 3;
                     tires = 4;
@@ -27096,7 +30723,7 @@ namespace Bot.v._0._07
                     MRA = 77.36;
                     break;
 
-                case 1310:
+                case 1519:
                     NotePad.DoLog("Porsche Macan Turbo Performance Pack 2017 s29");
                     clearance = 3;
                     tires = 4;
@@ -27112,23 +30739,7 @@ namespace Bot.v._0._07
                     MRA = 76.02;
                     break;
 
-                case 1311:
-                    NotePad.DoLog("Porsche Panamera Turbo 2017 s29");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 3;
-                    maxspeed = 190;
-                    grip = 86;
-                    weight = 1995;
-                    power = 542;
-                    torque = 568;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 1312:
+                case 1520:
                     NotePad.DoLog("Porsche Panamera Turbo 2010 s27");
                     clearance = 1;
                     tires = 2;
@@ -27141,10 +30752,26 @@ namespace Bot.v._0._07
                     torque = 516;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 66.55;
                     break;
 
-                case 1313:
+                case 1521:
+                    NotePad.DoLog("Porsche Panamera Turbo 2017 s29");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 3;
+                    maxspeed = 190;
+                    grip = 86;
+                    weight = 1995;
+                    power = 542;
+                    torque = 568;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 71.79;
+                    break;
+
+                case 1522:
                     NotePad.DoLog("Ram 1500 Rebel 2019 b21");
                     clearance = 3;
                     tires = 5;
@@ -27160,8 +30787,8 @@ namespace Bot.v._0._07
                     MRA = 46.78;
                     break;
 
-                case 1314:
-                    NotePad.DoLog("Ram 1st Gen 1981 d13");
+                case 1523:
+                    NotePad.DoLog("Ram Dodge 1st Gen 1981 d13");
                     clearance = 3;
                     tires = 5;
                     drive = 4;
@@ -27173,11 +30800,11 @@ namespace Bot.v._0._07
                     torque = 260;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 28.43;
                     break;
 
-                case 1315:
-                    NotePad.DoLog("Ram Dodge Li'l Red Express Truck 1978 d11");
+                case 1524:
+                    NotePad.DoLog("Ram Dodge Li'l Red Express Truck 1978 d12");
                     clearance = 3;
                     tires = 4;
                     drive = 2;
@@ -27192,7 +30819,7 @@ namespace Bot.v._0._07
                     MRA = 52.37;
                     break;
 
-                case 1316:
+                case 1525:
                     NotePad.DoLog("Ram Dodge Ramcharger 1974 c16");
                     clearance = 3;
                     tires = 5;
@@ -27208,7 +30835,7 @@ namespace Bot.v._0._07
                     MRA = 26.21;
                     break;
 
-                case 1317:
+                case 1526:
                     NotePad.DoLog("Ram Dodge Ramcharger 1981 c16");
                     clearance = 3;
                     tires = 5;
@@ -27224,7 +30851,7 @@ namespace Bot.v._0._07
                     MRA = 31.11;
                     break;
 
-                case 1318:
+                case 1527:
                     NotePad.DoLog("Renault 4 1961 f3");
                     clearance = 2;
                     tires = 3;
@@ -27240,7 +30867,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1319:
+                case 1528:
                     NotePad.DoLog("Renault 5 1972 f3");
                     clearance = 2;
                     tires = 3;
@@ -27256,7 +30883,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1320:
+                case 1529:
                     NotePad.DoLog("Renault 5 1984 f4");
                     clearance = 2;
                     tires = 3;
@@ -27272,7 +30899,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1321:
+                case 1530:
                     NotePad.DoLog("Renault 6 1968 f3");
                     clearance = 2;
                     tires = 3;
@@ -27288,7 +30915,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1322:
+                case 1531:
                     NotePad.DoLog("Renault 12 1969 f4");
                     clearance = 2;
                     tires = 3;
@@ -27304,7 +30931,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1323:
+                case 1532:
                     NotePad.DoLog("Renault 14 1976 f4");
                     clearance = 2;
                     tires = 3;
@@ -27320,7 +30947,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1324:
+                case 1533:
                     NotePad.DoLog("Renault 16 1965 f4");
                     clearance = 2;
                     tires = 3;
@@ -27336,7 +30963,7 @@ namespace Bot.v._0._07
                     MRA = 19.88;
                     break;
 
-                case 1325:
+                case 1534:
                     NotePad.DoLog("Renault 18 1978 f4");
                     clearance = 2;
                     tires = 3;
@@ -27352,7 +30979,7 @@ namespace Bot.v._0._07
                     MRA = 26.37;
                     break;
 
-                case 1326:
+                case 1535:
                     NotePad.DoLog("Renault 30 1975 e7");
                     clearance = 2;
                     tires = 3;
@@ -27368,7 +30995,7 @@ namespace Bot.v._0._07
                     MRA = 58.43;
                     break;
 
-                case 1327:
+                case 1536:
                     NotePad.DoLog("Renault 17 Coupe 1976 f4");
                     clearance = 1;
                     tires = 3;
@@ -27384,7 +31011,7 @@ namespace Bot.v._0._07
                     MRA = 39.29;
                     break;
 
-                case 1328:
+                case 1537:
                     NotePad.DoLog("Renault 19 16S 1988 d11");
                     clearance = 2;
                     tires = 2;
@@ -27400,7 +31027,7 @@ namespace Bot.v._0._07
                     MRA = 53.54;
                     break;
 
-                case 1329:
+                case 1538:
                     NotePad.DoLog("Renault 21 2.0l Turbo Quadra 1986 d13");
                     clearance = 2;
                     tires = 2;
@@ -27416,7 +31043,7 @@ namespace Bot.v._0._07
                     MRA = 62.01;
                     break;
 
-                case 1330:
+                case 1539:
                     NotePad.DoLog("Renault 21 Savanna 1986 e7");
                     clearance = 2;
                     tires = 3;
@@ -27432,7 +31059,7 @@ namespace Bot.v._0._07
                     MRA = 63.25;
                     break;
 
-                case 1331:
+                case 1540:
                     NotePad.DoLog("Renault 25 V6 Turbo 1983 d13");
                     clearance = 2;
                     tires = 3;
@@ -27448,7 +31075,7 @@ namespace Bot.v._0._07
                     MRA = 54.07;
                     break;
 
-                case 1332:
+                case 1541:
                     NotePad.DoLog("Renault 3.5l V6 Espace MK4 2002 d13");
                     clearance = 2;
                     tires = 3;
@@ -27464,7 +31091,7 @@ namespace Bot.v._0._07
                     MRA = 40.34;
                     break;
 
-                case 1333:
+                case 1542:
                     NotePad.DoLog("Renault 5 GT Turbo 1985 d11");
                     clearance = 2;
                     tires = 2;
@@ -27480,7 +31107,7 @@ namespace Bot.v._0._07
                     MRA = 46.01;
                     break;
 
-                case 1334:
+                case 1543:
                     NotePad.DoLog("Renault 5 Turbo 1980 c15");
                     clearance = 1;
                     tires = 2;
@@ -27496,7 +31123,7 @@ namespace Bot.v._0._07
                     MRA = 73.41;
                     break;
 
-                case 1335:
+                case 1544:
                     NotePad.DoLog("Renault 9 Turbo 1981 e10");
                     clearance = 2;
                     tires = 3;
@@ -27512,7 +31139,7 @@ namespace Bot.v._0._07
                     MRA = 61.78;
                     break;
 
-                case 1336:
+                case 1545:
                     NotePad.DoLog("Renault Alaskan 2015 c18");
                     clearance = 3;
                     tires = 4;
@@ -27525,10 +31152,10 @@ namespace Bot.v._0._07
                     torque = 332;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 46.84;
                     break;
 
-                case 1337:
+                case 1546:
                     NotePad.DoLog("Renault Alpine A110 1971 c15");
                     clearance = 1;
                     tires = 2;
@@ -27544,8 +31171,8 @@ namespace Bot.v._0._07
                     MRA = 70.09;
                     break;
 
-                case 1338:
-                    NotePad.DoLog("Renault Alpine A310 V6 Turbo 1983 b21");
+                case 1547:
+                    NotePad.DoLog("Renault Alpine A310 V6 Group 4/B 1983 b21");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
@@ -27560,7 +31187,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1339:
+                case 1548:
                     NotePad.DoLog("Renault Alpine GTA V6 Turbo Le Mans 1990 c15");
                     clearance = 1;
                     tires = 2;
@@ -27576,7 +31203,7 @@ namespace Bot.v._0._07
                     MRA = 81.93;
                     break;
 
-                case 1340:
+                case 1549:
                     NotePad.DoLog("Renault Avantime 3.0 V6 2012 e10");
                     clearance = 2;
                     tires = 3;
@@ -27592,7 +31219,7 @@ namespace Bot.v._0._07
                     MRA = 39.66;
                     break;
 
-                case 1341:
+                case 1550:
                     NotePad.DoLog("Renault Captur 2016 e8");
                     clearance = 3;
                     tires = 3;
@@ -27608,23 +31235,7 @@ namespace Bot.v._0._07
                     MRA = 48.45;
                     break;
 
-                case 1342:
-                    NotePad.DoLog("Renault Clio 2005 f6");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11.5;
-                    maxspeed = 109;
-                    grip = 70;
-                    weight = 1135;
-                    power = 97;
-                    torque = 94;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 51.41;
-                    break;
-
-                case 1343:
+                case 1551:
                     NotePad.DoLog("Renault Clio 1990 f4");
                     clearance = 2;
                     tires = 3;
@@ -27640,7 +31251,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1344:
+                case 1552:
                     NotePad.DoLog("Renault Clio 1998 f4");
                     clearance = 2;
                     tires = 3;
@@ -27656,7 +31267,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1345:
+                case 1553:
+                    NotePad.DoLog("Renault Clio 2005 f6");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.5;
+                    maxspeed = 109;
+                    grip = 70;
+                    weight = 1135;
+                    power = 97;
+                    torque = 94;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 51.41;
+                    break;
+
+                case 1554:
                     NotePad.DoLog("Renault Clio 2016 f4");
                     clearance = 2;
                     tires = 3;
@@ -27672,7 +31299,7 @@ namespace Bot.v._0._07
                     MRA = 46.24;
                     break;
 
-                case 1346:
+                case 1555:
                     NotePad.DoLog("Renault DeZir 2010 b20");
                     clearance = 1;
                     tires = 2;
@@ -27688,23 +31315,7 @@ namespace Bot.v._0._07
                     MRA = 52.18;
                     break;
 
-                case 1347:
-                    NotePad.DoLog("Renault Espace 1997 f6");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11;
-                    maxspeed = 115;
-                    grip = 69;
-                    weight = 1565;
-                    power = 138;
-                    torque = 139;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 56.7;
-                    break;
-
-                case 1348:
+                case 1556:
                     NotePad.DoLog("Renault Espace 1984 f4");
                     clearance = 2;
                     tires = 3;
@@ -27720,23 +31331,7 @@ namespace Bot.v._0._07
                     MRA = 47.65;
                     break;
 
-                case 1349:
-                    NotePad.DoLog("Renault Espace 2002 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11.9;
-                    maxspeed = 115;
-                    grip = 69;
-                    weight = 1665;
-                    power = 134;
-                    torque = 141;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 57.05;
-                    break;
-
-                case 1350:
+                case 1557:
                     NotePad.DoLog("Renault Espace 1991 f4");
                     clearance = 2;
                     tires = 3;
@@ -27752,7 +31347,39 @@ namespace Bot.v._0._07
                     MRA = 43.81;
                     break;
 
-                case 1351:
+                case 1558:
+                    NotePad.DoLog("Renault Espace 1997 f6");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11;
+                    maxspeed = 115;
+                    grip = 69;
+                    weight = 1565;
+                    power = 138;
+                    torque = 139;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 56.7;
+                    break;
+
+                case 1559:
+                    NotePad.DoLog("Renault Espace 2002 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.9;
+                    maxspeed = 115;
+                    grip = 69;
+                    weight = 1665;
+                    power = 134;
+                    torque = 141;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 57.05;
+                    break;
+
+                case 1560:
                     NotePad.DoLog("Renault Espace 2016 d11");
                     clearance = 2;
                     tires = 3;
@@ -27768,7 +31395,7 @@ namespace Bot.v._0._07
                     MRA = 73.67;
                     break;
 
-                case 1352:
+                case 1561:
                     NotePad.DoLog("Renault Fluence 2013 d13");
                     clearance = 2;
                     tires = 3;
@@ -27784,8 +31411,8 @@ namespace Bot.v._0._07
                     MRA = 43.42;
                     break;
 
-                case 1353:
-                    NotePad.DoLog("Renault Fuego Turbo 1982 f6");
+                case 1562:
+                    NotePad.DoLog("Renault Fuego Turbo 1984 f6");
                     clearance = 1;
                     tires = 2;
                     drive = 1;
@@ -27800,7 +31427,7 @@ namespace Bot.v._0._07
                     MRA = 64.05;
                     break;
 
-                case 1354:
+                case 1563:
                     NotePad.DoLog("Renault Kadjar 2016 d13");
                     clearance = 3;
                     tires = 4;
@@ -27816,23 +31443,7 @@ namespace Bot.v._0._07
                     MRA = 53.99;
                     break;
 
-                case 1355:
-                    NotePad.DoLog("Renault Koleos 2018 e9");
-                    clearance = 3;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 9.2;
-                    maxspeed = 127;
-                    grip = 68;
-                    weight = 1698;
-                    power = 172;
-                    torque = 280;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 45.32;
-                    break;
-
-                case 1356:
+                case 1564:
                     NotePad.DoLog("Renault Koleos 2008 d13");
                     clearance = 3;
                     tires = 3;
@@ -27848,7 +31459,23 @@ namespace Bot.v._0._07
                     MRA = 59.85;
                     break;
 
-                case 1357:
+                case 1565:
+                    NotePad.DoLog("Renault Koleos 2018 e9");
+                    clearance = 3;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 9.2;
+                    maxspeed = 127;
+                    grip = 68;
+                    weight = 1698;
+                    power = 172;
+                    torque = 280;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 45.32;
+                    break;
+
+                case 1566:
                     NotePad.DoLog("Renault Laguna 1994 f6");
                     clearance = 2;
                     tires = 3;
@@ -27864,23 +31491,7 @@ namespace Bot.v._0._07
                     MRA = 64.71;
                     break;
 
-                case 1358:
-                    NotePad.DoLog("Renault Laguna 2007 f6");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11.5;
-                    maxspeed = 119;
-                    grip = 72;
-                    weight = 1386;
-                    power = 108;
-                    torque = 177;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 66.62;
-                    break;
-
-                case 1359:
+                case 1567:
                     NotePad.DoLog("Renault Laguna 2001 e8");
                     clearance = 2;
                     tires = 3;
@@ -27896,7 +31507,23 @@ namespace Bot.v._0._07
                     MRA = 68.53;
                     break;
 
-                case 1360:
+                case 1568:
+                    NotePad.DoLog("Renault Laguna 2007 f6");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.5;
+                    maxspeed = 119;
+                    grip = 72;
+                    weight = 1386;
+                    power = 108;
+                    torque = 177;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 66.62;
+                    break;
+
+                case 1569:
                     NotePad.DoLog("Renault Laguna Coupe 2010 d13");
                     clearance = 1;
                     tires = 3;
@@ -27912,39 +31539,7 @@ namespace Bot.v._0._07
                     MRA = 53.6;
                     break;
 
-                case 1361:
-                    NotePad.DoLog("Renault Megane 2002 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 12.8;
-                    maxspeed = 106;
-                    grip = 70;
-                    weight = 1240;
-                    power = 81;
-                    torque = 91;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 41.56;
-                    break;
-
-                case 1362:
-                    NotePad.DoLog("Renault Megane 2008 e9");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 9.2;
-                    maxspeed = 124;
-                    grip = 71;
-                    weight = 1205;
-                    power = 128;
-                    torque = 140;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 68.15;
-                    break;
-
-                case 1363:
+                case 1570:
                     NotePad.DoLog("Renault Megane 1995 d12");
                     clearance = 2;
                     tires = 2;
@@ -27960,7 +31555,39 @@ namespace Bot.v._0._07
                     MRA = 80.76;
                     break;
 
-                case 1364:
+                case 1571:
+                    NotePad.DoLog("Renault Megane 2002 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 12.8;
+                    maxspeed = 106;
+                    grip = 70;
+                    weight = 1240;
+                    power = 81;
+                    torque = 91;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 41.56;
+                    break;
+
+                case 1572:
+                    NotePad.DoLog("Renault Megane 2008 e9");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 9.2;
+                    maxspeed = 124;
+                    grip = 71;
+                    weight = 1205;
+                    power = 128;
+                    torque = 140;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 68.15;
+                    break;
+
+                case 1573:
                     NotePad.DoLog("Renault R12 Gordini 1973 f5");
                     clearance = 2;
                     tires = 2;
@@ -27976,7 +31603,7 @@ namespace Bot.v._0._07
                     MRA = 51.96;
                     break;
 
-                case 1365:
+                case 1574:
                     NotePad.DoLog("Renault R17 Gordini 1979 f4");
                     clearance = 2;
                     tires = 2;
@@ -27989,10 +31616,10 @@ namespace Bot.v._0._07
                     torque = 100;
                     abs = 0;
                     tcs = 0;
-                    MRA = 50.11;
+                    MRA = 51.65;
                     break;
 
-                case 1366:
+                case 1575:
                     NotePad.DoLog("Renault R20 Turbo 4x4 1979 c18");
                     clearance = 3;
                     tires = 5;
@@ -28008,7 +31635,7 @@ namespace Bot.v._0._07
                     MRA = 66.69;
                     break;
 
-                case 1367:
+                case 1576:
                     NotePad.DoLog("Renault R21 Turbo Europa Cup 1988 c17");
                     clearance = 1;
                     tires = 1;
@@ -28024,7 +31651,7 @@ namespace Bot.v._0._07
                     MRA = 60.37;
                     break;
 
-                case 1368:
+                case 1577:
                     NotePad.DoLog("Renault R5 MAXI TURBO 1987 a24");
                     clearance = 1;
                     tires = 2;
@@ -28040,7 +31667,7 @@ namespace Bot.v._0._07
                     MRA = 81.55;
                     break;
 
-                case 1369:
+                case 1578:
                     NotePad.DoLog("Renault R8 Gordini 1964 f6");
                     clearance = 2;
                     tires = 3;
@@ -28056,7 +31683,7 @@ namespace Bot.v._0._07
                     MRA = 41.65;
                     break;
 
-                case 1370:
+                case 1579:
                     NotePad.DoLog("Renault Safrane Biturbo 1992 d13");
                     clearance = 2;
                     tires = 2;
@@ -28072,23 +31699,7 @@ namespace Bot.v._0._07
                     MRA = 64.34;
                     break;
 
-                case 1371:
-                    NotePad.DoLog("Renault Scenic 2003 f6");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11.9;
-                    maxspeed = 112;
-                    grip = 70;
-                    weight = 1445;
-                    power = 113;
-                    torque = 112;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 52.75;
-                    break;
-
-                case 1372:
+                case 1580:
                     NotePad.DoLog("Renault Scenic 1996 f4");
                     clearance = 2;
                     tires = 3;
@@ -28104,7 +31715,23 @@ namespace Bot.v._0._07
                     MRA = 32.81;
                     break;
 
-                case 1373:
+                case 1581:
+                    NotePad.DoLog("Renault Scenic 2003 f6");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.9;
+                    maxspeed = 112;
+                    grip = 70;
+                    weight = 1445;
+                    power = 113;
+                    torque = 112;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 52.75;
+                    break;
+
+                case 1582:
                     NotePad.DoLog("Renault Scenic 2016 e8");
                     clearance = 2;
                     tires = 3;
@@ -28120,7 +31747,7 @@ namespace Bot.v._0._07
                     MRA = 64.22;
                     break;
 
-                case 1374:
+                case 1583:
                     NotePad.DoLog("Renault Sport Clio 172 Cup 1999 c15");
                     clearance = 2;
                     tires = 2;
@@ -28136,7 +31763,7 @@ namespace Bot.v._0._07
                     MRA = 67.62;
                     break;
 
-                case 1375:
+                case 1584:
                     NotePad.DoLog("Renault Sport Clio 182 Trophy 2005 c16");
                     clearance = 2;
                     tires = 2;
@@ -28152,7 +31779,7 @@ namespace Bot.v._0._07
                     MRA = 68.93;
                     break;
 
-                case 1376:
+                case 1585:
                     NotePad.DoLog("Renault Sport Clio 200 2009 c17");
                     clearance = 2;
                     tires = 2;
@@ -28168,7 +31795,7 @@ namespace Bot.v._0._07
                     MRA = 66.59;
                     break;
 
-                case 1377:
+                case 1586:
                     NotePad.DoLog("Renault Sport Clio 220 Trophy 2016 b19");
                     clearance = 2;
                     tires = 2;
@@ -28184,10 +31811,10 @@ namespace Bot.v._0._07
                     MRA = 69.71;
                     break;
 
-                case 1378:
+                case 1587:
                     NotePad.DoLog("Renault Sport Clio Cup Car 2014 c18");
                     clearance = 1;
-                    tires = 2;
+                    tires = 1;
                     drive = 1;
                     acceleration = 6;
                     maxspeed = 145;
@@ -28200,8 +31827,8 @@ namespace Bot.v._0._07
                     MRA = 68.18;
                     break;
 
-                case 1379:
-                    NotePad.DoLog("Renault Sport Clio R.S. 16 2008 b19");
+                case 1588:
+                    NotePad.DoLog("Renault Sport Clio R.S.16 2008 b19");
                     clearance = 2;
                     tires = 2;
                     drive = 1;
@@ -28216,23 +31843,7 @@ namespace Bot.v._0._07
                     MRA = 68.89;
                     break;
 
-                case 1380:
-                    NotePad.DoLog("Renault Sport Clio V6 2003 c17");
-                    clearance = 1;
-                    tires = 2;
-                    drive = 2;
-                    acceleration = 6;
-                    maxspeed = 144;
-                    grip = 82;
-                    weight = 1400;
-                    power = 251;
-                    torque = 221;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 67.02;
-                    break;
-
-                case 1381:
+                case 1589:
                     NotePad.DoLog("Renault Sport Clio V6 2001 c15");
                     clearance = 1;
                     tires = 2;
@@ -28248,8 +31859,24 @@ namespace Bot.v._0._07
                     MRA = 62.86;
                     break;
 
-                case 1382:
-                    NotePad.DoLog("Renault Sport Laguna BTCC 1999 a23");
+                case 1590:
+                    NotePad.DoLog("Renault Sport Clio V6 2003 c17");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6;
+                    maxspeed = 144;
+                    grip = 82;
+                    weight = 1400;
+                    power = 251;
+                    torque = 221;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 67.02;
+                    break;
+
+                case 1591:
+                    NotePad.DoLog("Renault Sport Laguna BTCC 1999 a24");
                     clearance = 1;
                     tires = 1;
                     drive = 1;
@@ -28264,7 +31891,7 @@ namespace Bot.v._0._07
                     MRA = 91.84;
                     break;
 
-                case 1383:
+                case 1592:
                     NotePad.DoLog("Renault Sport Megane 2002 c18");
                     clearance = 2;
                     tires = 2;
@@ -28280,7 +31907,7 @@ namespace Bot.v._0._07
                     MRA = 60;
                     break;
 
-                case 1384:
+                case 1593:
                     NotePad.DoLog("Renault Sport Megane 2.0 dCi 175 2008 e10");
                     clearance = 2;
                     tires = 2;
@@ -28296,7 +31923,7 @@ namespace Bot.v._0._07
                     MRA = 51.07;
                     break;
 
-                case 1385:
+                case 1594:
                     NotePad.DoLog("Renault Sport Megane 275 Trophy-R 2016 b21");
                     clearance = 2;
                     tires = 2;
@@ -28312,7 +31939,7 @@ namespace Bot.v._0._07
                     MRA = 64.56;
                     break;
 
-                case 1386:
+                case 1595:
                     NotePad.DoLog("Renault Sport Megane IV R.S. 2018 b19");
                     clearance = 1;
                     tires = 2;
@@ -28328,7 +31955,7 @@ namespace Bot.v._0._07
                     MRA = 76.59;
                     break;
 
-                case 1387:
+                case 1596:
                     NotePad.DoLog("Renault Sport Megane R26.R 2008 b20");
                     clearance = 2;
                     tires = 2;
@@ -28344,7 +31971,7 @@ namespace Bot.v._0._07
                     MRA = 62.42;
                     break;
 
-                case 1388:
+                case 1597:
                     NotePad.DoLog("Renault Sport Megane Trophy 2009 a25");
                     clearance = 1;
                     tires = 1;
@@ -28360,7 +31987,7 @@ namespace Bot.v._0._07
                     MRA = 95.7;
                     break;
 
-                case 1389:
+                case 1598:
                     NotePad.DoLog("Renault Sport R.S. 01 2015 a26");
                     clearance = 1;
                     tires = 1;
@@ -28376,7 +32003,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1390:
+                case 1599:
                     NotePad.DoLog("Renault Sport Spider 1996 c15");
                     clearance = 1;
                     tires = 2;
@@ -28392,7 +32019,7 @@ namespace Bot.v._0._07
                     MRA = 51.83;
                     break;
 
-                case 1391:
+                case 1600:
                     NotePad.DoLog("Renault Sport Twingo 133 Cup 2008 d11");
                     clearance = 2;
                     tires = 2;
@@ -28408,7 +32035,7 @@ namespace Bot.v._0._07
                     MRA = 70.53;
                     break;
 
-                case 1392:
+                case 1601:
                     NotePad.DoLog("Renault Sport Twingo GT 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -28424,7 +32051,7 @@ namespace Bot.v._0._07
                     MRA = 62.18;
                     break;
 
-                case 1393:
+                case 1602:
                     NotePad.DoLog("Renault Talisman 2015 d13");
                     clearance = 2;
                     tires = 3;
@@ -28440,7 +32067,7 @@ namespace Bot.v._0._07
                     MRA = 53.31;
                     break;
 
-                case 1394:
+                case 1603:
                     NotePad.DoLog("Renault Trezor 2016 a25");
                     clearance = 1;
                     tires = 2;
@@ -28456,23 +32083,7 @@ namespace Bot.v._0._07
                     MRA = 60.77;
                     break;
 
-                case 1395:
-                    NotePad.DoLog("Renault Twingo 2007 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 13.7;
-                    maxspeed = 94;
-                    grip = 70;
-                    weight = 820;
-                    power = 59;
-                    torque = 69;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 1396:
+                case 1604:
                     NotePad.DoLog("Renault Twingo 1993 f5");
                     clearance = 2;
                     tires = 3;
@@ -28488,7 +32099,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1397:
+                case 1605:
+                    NotePad.DoLog("Renault Twingo 2007 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 13.7;
+                    maxspeed = 94;
+                    grip = 70;
+                    weight = 820;
+                    power = 59;
+                    torque = 69;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1606:
                     NotePad.DoLog("Renault Twingo 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -28504,7 +32131,7 @@ namespace Bot.v._0._07
                     MRA = 42.41;
                     break;
 
-                case 1398:
+                case 1607:
                     NotePad.DoLog("Renault Twizy 2016 f5");
                     clearance = 2;
                     tires = 3;
@@ -28520,7 +32147,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1399:
+                case 1608:
                     NotePad.DoLog("Renault Twizy F1 2013 e9");
                     clearance = 1;
                     tires = 1;
@@ -28536,7 +32163,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1400:
+                case 1609:
                     NotePad.DoLog("Renault Vel Satis 2002 e9");
                     clearance = 2;
                     tires = 3;
@@ -28552,7 +32179,7 @@ namespace Bot.v._0._07
                     MRA = 71.1;
                     break;
 
-                case 1401:
+                case 1610:
                     NotePad.DoLog("Renault Wind 2010 d11");
                     clearance = 2;
                     tires = 3;
@@ -28568,7 +32195,7 @@ namespace Bot.v._0._07
                     MRA = 69.27;
                     break;
 
-                case 1402:
+                case 1611:
                     NotePad.DoLog("Renault Zoe 2016 f6");
                     clearance = 2;
                     tires = 3;
@@ -28584,7 +32211,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1403:
+                case 1612:
                     NotePad.DoLog("Rover 200 1995 f6");
                     clearance = 2;
                     tires = 3;
@@ -28600,7 +32227,7 @@ namespace Bot.v._0._07
                     MRA = 43.44;
                     break;
 
-                case 1404:
+                case 1613:
                     NotePad.DoLog("Rover 216 1984 d12");
                     clearance = 2;
                     tires = 2;
@@ -28616,7 +32243,7 @@ namespace Bot.v._0._07
                     MRA = 51.16;
                     break;
 
-                case 1405:
+                case 1614:
                     NotePad.DoLog("Rover 400 1995 e9");
                     clearance = 2;
                     tires = 3;
@@ -28632,7 +32259,7 @@ namespace Bot.v._0._07
                     MRA = 49.53;
                     break;
 
-                case 1406:
+                case 1615:
                     NotePad.DoLog("Rover 623 1993 e10");
                     clearance = 2;
                     tires = 3;
@@ -28648,7 +32275,7 @@ namespace Bot.v._0._07
                     MRA = 52.31;
                     break;
 
-                case 1407:
+                case 1616:
                     NotePad.DoLog("Rover 800 1986 e9");
                     clearance = 2;
                     tires = 3;
@@ -28664,7 +32291,7 @@ namespace Bot.v._0._07
                     MRA = 51.69;
                     break;
 
-                case 1408:
+                case 1617:
                     NotePad.DoLog("Rover 220 Coupe Turbo 1992 c16");
                     clearance = 2;
                     tires = 2;
@@ -28677,10 +32304,10 @@ namespace Bot.v._0._07
                     torque = 171;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 55.39;
                     break;
 
-                case 1409:
+                case 1618:
                     NotePad.DoLog("Rover 220 GSi 1989 d11");
                     clearance = 2;
                     tires = 3;
@@ -28696,7 +32323,7 @@ namespace Bot.v._0._07
                     MRA = 51.24;
                     break;
 
-                case 1410:
+                case 1619:
                     NotePad.DoLog("Rover P6 1963 e8");
                     clearance = 2;
                     tires = 3;
@@ -28712,7 +32339,7 @@ namespace Bot.v._0._07
                     MRA = 43.83;
                     break;
 
-                case 1411:
+                case 1620:
                     NotePad.DoLog("Rover SD1 1976 d11");
                     clearance = 2;
                     tires = 3;
@@ -28728,7 +32355,7 @@ namespace Bot.v._0._07
                     MRA = 48.42;
                     break;
 
-                case 1412:
+                case 1621:
                     NotePad.DoLog("RUF 3400S 1999 b21");
                     clearance = 1;
                     tires = 2;
@@ -28744,7 +32371,7 @@ namespace Bot.v._0._07
                     MRA = 68.49;
                     break;
 
-                case 1413:
+                case 1622:
                     NotePad.DoLog("RUF 3800S 2013 a26");
                     clearance = 1;
                     tires = 2;
@@ -28760,7 +32387,7 @@ namespace Bot.v._0._07
                     MRA = 90.47;
                     break;
 
-                case 1414:
+                case 1623:
                     NotePad.DoLog("RUF BTR 1983 b22");
                     clearance = 1;
                     tires = 2;
@@ -28776,7 +32403,7 @@ namespace Bot.v._0._07
                     MRA = 81.29;
                     break;
 
-                case 1415:
+                case 1624:
                     NotePad.DoLog("RUF BTR2 1993 a26");
                     clearance = 1;
                     tires = 2;
@@ -28789,11 +32416,11 @@ namespace Bot.v._0._07
                     torque = 435;
                     abs = 1;
                     tcs = 0;
-                    MRA = 101.04;
+                    MRA = 102.93;
                     break;
 
-                case 1416:
-                    NotePad.DoLog("RUF CTR \"Yellowbird\" 1987 a26");
+                case 1625:
+                    NotePad.DoLog("RUF CTR Yellowbird 1987 a26");
                     clearance = 1;
                     tires = 2;
                     drive = 2;
@@ -28808,7 +32435,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1417:
+                case 1626:
                     NotePad.DoLog("RUF CTR2 1995 s30");
                     clearance = 1;
                     tires = 2;
@@ -28821,10 +32448,10 @@ namespace Bot.v._0._07
                     torque = 505;
                     abs = 1;
                     tcs = 0;
-                    MRA = 110.36;
+                    MRA = 109.47;
                     break;
 
-                case 1418:
+                case 1627:
                     NotePad.DoLog("RUF CTR3 2007 s29");
                     clearance = 1;
                     tires = 2;
@@ -28837,10 +32464,10 @@ namespace Bot.v._0._07
                     torque = 616;
                     abs = 1;
                     tcs = 1;
-                    MRA = 106.57;
+                    MRA = 95.93;
                     break;
 
-                case 1419:
+                case 1628:
                     NotePad.DoLog("RUF CTR3 Clubsport 2012 s30");
                     clearance = 1;
                     tires = 2;
@@ -28856,7 +32483,7 @@ namespace Bot.v._0._07
                     MRA = 102.39;
                     break;
 
-                case 1420:
+                case 1629:
                     NotePad.DoLog("RUF Dakara 2009 s27");
                     clearance = 3;
                     tires = 4;
@@ -28872,7 +32499,7 @@ namespace Bot.v._0._07
                     MRA = 93.75;
                     break;
 
-                case 1421:
+                case 1630:
                     NotePad.DoLog("RUF R Kompressor 2006 a26");
                     clearance = 1;
                     tires = 2;
@@ -28888,7 +32515,7 @@ namespace Bot.v._0._07
                     MRA = 104.45;
                     break;
 
-                case 1422:
+                case 1631:
                     NotePad.DoLog("RUF R Turbo 2001 s29");
                     clearance = 1;
                     tires = 2;
@@ -28904,7 +32531,7 @@ namespace Bot.v._0._07
                     MRA = 105.26;
                     break;
 
-                case 1423:
+                case 1632:
                     NotePad.DoLog("RUF R56.11 2018 c18");
                     clearance = 1;
                     tires = 3;
@@ -28920,7 +32547,7 @@ namespace Bot.v._0._07
                     MRA = 82.51;
                     break;
 
-                case 1424:
+                case 1633:
                     NotePad.DoLog("RUF RCT 1991 a24");
                     clearance = 1;
                     tires = 2;
@@ -28936,7 +32563,7 @@ namespace Bot.v._0._07
                     MRA = 93.02;
                     break;
 
-                case 1425:
+                case 1634:
                     NotePad.DoLog("RUF RGT 2000 a25");
                     clearance = 1;
                     tires = 2;
@@ -28952,7 +32579,7 @@ namespace Bot.v._0._07
                     MRA = 103.37;
                     break;
 
-                case 1426:
+                case 1635:
                     NotePad.DoLog("RUF RK Coupe 2006 a26");
                     clearance = 1;
                     tires = 2;
@@ -28965,10 +32592,10 @@ namespace Bot.v._0._07
                     torque = 347;
                     abs = 1;
                     tcs = 1;
-                    MRA = 94.56;
+                    MRA = 95.47;
                     break;
 
-                case 1427:
+                case 1636:
                     NotePad.DoLog("RUF Rt 12 S 2009 s30");
                     clearance = 1;
                     tires = 2;
@@ -28981,10 +32608,10 @@ namespace Bot.v._0._07
                     torque = 649;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 83.59;
                     break;
 
-                case 1428:
+                case 1637:
                     NotePad.DoLog("RUF Rt 35 2012 s29");
                     clearance = 1;
                     tires = 2;
@@ -28997,10 +32624,10 @@ namespace Bot.v._0._07
                     torque = 608;
                     abs = 1;
                     tcs = 1;
-                    MRA = 108.31;
+                    MRA = 83.33;
                     break;
 
-                case 1429:
+                case 1638:
                     NotePad.DoLog("RUF RTR 2016 s30");
                     clearance = 1;
                     tires = 2;
@@ -29016,7 +32643,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1430:
+                case 1639:
                     NotePad.DoLog("RUF SCR 1978 c18");
                     clearance = 1;
                     tires = 2;
@@ -29029,10 +32656,10 @@ namespace Bot.v._0._07
                     torque = 210;
                     abs = 0;
                     tcs = 0;
-                    MRA = 57.74;
+                    MRA = 61.93;
                     break;
 
-                case 1431:
+                case 1640:
                     NotePad.DoLog("RUF SCR 4.2 2016 s28");
                     clearance = 1;
                     tires = 2;
@@ -29048,7 +32675,7 @@ namespace Bot.v._0._07
                     MRA = 98.16;
                     break;
 
-                case 1432:
+                case 1641:
                     NotePad.DoLog("RUF Turbo 3.3 1977 b20");
                     clearance = 1;
                     tires = 2;
@@ -29064,7 +32691,7 @@ namespace Bot.v._0._07
                     MRA = 72.9;
                     break;
 
-                case 1433:
+                case 1642:
                     NotePad.DoLog("RUF Turbo Florio 2015 s30");
                     clearance = 1;
                     tires = 2;
@@ -29080,7 +32707,7 @@ namespace Bot.v._0._07
                     MRA = 90.62;
                     break;
 
-                case 1434:
+                case 1643:
                     NotePad.DoLog("RUF Turbo R Limited 2016 s29");
                     clearance = 1;
                     tires = 2;
@@ -29096,7 +32723,7 @@ namespace Bot.v._0._07
                     MRA = 102.1;
                     break;
 
-                case 1435:
+                case 1644:
                     NotePad.DoLog("Scuderia Cameron Glickenhaus SCG003S 2018 s30");
                     clearance = 1;
                     tires = 2;
@@ -29109,10 +32736,10 @@ namespace Bot.v._0._07
                     torque = 627;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 84.97;
                     break;
 
-                case 1436:
+                case 1645:
                     NotePad.DoLog("Smart Brabus Roadster 2005 e7");
                     clearance = 1;
                     tires = 2;
@@ -29128,7 +32755,7 @@ namespace Bot.v._0._07
                     MRA = 63.46;
                     break;
 
-                case 1437:
+                case 1646:
                     NotePad.DoLog("Smart Crossblade 2002 f4");
                     clearance = 2;
                     tires = 3;
@@ -29144,7 +32771,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1438:
+                case 1647:
                     NotePad.DoLog("Smart Forfour 2016 f5");
                     clearance = 2;
                     tires = 3;
@@ -29160,7 +32787,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1439:
+                case 1648:
                     NotePad.DoLog("Smart Fortwo 2004 f6");
                     clearance = 2;
                     tires = 3;
@@ -29176,7 +32803,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1440:
+                case 1649:
                     NotePad.DoLog("Smart Fortwo Cabrio 2016 f6");
                     clearance = 2;
                     tires = 3;
@@ -29192,7 +32819,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1441:
+                case 1650:
                     NotePad.DoLog("Smart Fortwo Coupe T 2016 e8");
                     clearance = 2;
                     tires = 3;
@@ -29208,7 +32835,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1442:
+                case 1651:
                     NotePad.DoLog("Smart Fortwo EV 2008 e7");
                     clearance = 2;
                     tires = 3;
@@ -29224,7 +32851,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1443:
+                case 1652:
                     NotePad.DoLog("Subaru Alcyone SVX 1991 d13");
                     clearance = 1;
                     tires = 2;
@@ -29240,7 +32867,7 @@ namespace Bot.v._0._07
                     MRA = 76.37;
                     break;
 
-                case 1444:
+                case 1653:
                     NotePad.DoLog("Subaru Baja Turbo 2003 c16");
                     clearance = 2;
                     tires = 3;
@@ -29256,7 +32883,7 @@ namespace Bot.v._0._07
                     MRA = 73.28;
                     break;
 
-                case 1445:
+                case 1654:
                     NotePad.DoLog("Subaru Brat 1978 e10");
                     clearance = 2;
                     tires = 3;
@@ -29272,7 +32899,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1446:
+                case 1655:
                     NotePad.DoLog("Subaru BRZ 2016 c16");
                     clearance = 1;
                     tires = 2;
@@ -29288,7 +32915,7 @@ namespace Bot.v._0._07
                     MRA = 75.1;
                     break;
 
-                case 1447:
+                case 1656:
                     NotePad.DoLog("Subaru Forester 1997 c16");
                     clearance = 3;
                     tires = 3;
@@ -29304,39 +32931,7 @@ namespace Bot.v._0._07
                     MRA = 45.5;
                     break;
 
-                case 1448:
-                    NotePad.DoLog("Subaru Forester 2016 c18");
-                    clearance = 3;
-                    tires = 3;
-                    drive = 4;
-                    acceleration = 8.9;
-                    maxspeed = 120;
-                    grip = 78;
-                    weight = 1474;
-                    power = 168;
-                    torque = 174;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 64.86;
-                    break;
-
-                case 1449:
-                    NotePad.DoLog("Subaru Forester 2008 c17");
-                    clearance = 3;
-                    tires = 3;
-                    drive = 4;
-                    acceleration = 9.5;
-                    maxspeed = 111;
-                    grip = 77;
-                    weight = 1440;
-                    power = 146;
-                    torque = 145;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 51.08;
-                    break;
-
-                case 1450:
+                case 1657:
                     NotePad.DoLog("Subaru Forester 2002 c17");
                     clearance = 3;
                     tires = 3;
@@ -29352,7 +32947,39 @@ namespace Bot.v._0._07
                     MRA = 47.76;
                     break;
 
-                case 1451:
+                case 1658:
+                    NotePad.DoLog("Subaru Forester 2008 c17");
+                    clearance = 3;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 9.5;
+                    maxspeed = 111;
+                    grip = 77;
+                    weight = 1440;
+                    power = 146;
+                    torque = 145;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 51.08;
+                    break;
+
+                case 1659:
+                    NotePad.DoLog("Subaru Forester 2016 c18");
+                    clearance = 3;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 8.9;
+                    maxspeed = 120;
+                    grip = 78;
+                    weight = 1474;
+                    power = 168;
+                    torque = 174;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 64.86;
+                    break;
+
+                case 1660:
                     NotePad.DoLog("Subaru Impreza 22B 1998 a24");
                     clearance = 2;
                     tires = 2;
@@ -29365,10 +32992,10 @@ namespace Bot.v._0._07
                     torque = 268;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 57.44;
                     break;
 
-                case 1452:
+                case 1661:
                     NotePad.DoLog("Subaru Impreza WRX 1993 b22");
                     clearance = 2;
                     tires = 2;
@@ -29384,23 +33011,7 @@ namespace Bot.v._0._07
                     MRA = 85.26;
                     break;
 
-                case 1453:
-                    NotePad.DoLog("Subaru Impreza WRX STI 2010 a24");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 5.2;
-                    maxspeed = 158;
-                    grip = 85;
-                    weight = 1535;
-                    power = 305;
-                    torque = 290;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 66.67;
-                    break;
-
-                case 1454:
+                case 1662:
                     NotePad.DoLog("Subaru Impreza WRX STI 2005 a24");
                     clearance = 2;
                     tires = 2;
@@ -29416,7 +33027,23 @@ namespace Bot.v._0._07
                     MRA = 67.95;
                     break;
 
-                case 1455:
+                case 1663:
+                    NotePad.DoLog("Subaru Impreza WRX STI 2010 a24");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 5.2;
+                    maxspeed = 158;
+                    grip = 85;
+                    weight = 1535;
+                    power = 305;
+                    torque = 290;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 66.67;
+                    break;
+
+                case 1664:
                     NotePad.DoLog("Subaru Justy 1984 e10");
                     clearance = 2;
                     tires = 3;
@@ -29429,10 +33056,10 @@ namespace Bot.v._0._07
                     torque = 59;
                     abs = 0;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 23;
                     break;
 
-                case 1456:
+                case 1665:
                     NotePad.DoLog("Subaru Legacy 1989 e8");
                     clearance = 2;
                     tires = 3;
@@ -29448,7 +33075,7 @@ namespace Bot.v._0._07
                     MRA = 53.92;
                     break;
 
-                case 1457:
+                case 1666:
                     NotePad.DoLog("Subaru Legacy 1993 d11");
                     clearance = 2;
                     tires = 3;
@@ -29464,55 +33091,7 @@ namespace Bot.v._0._07
                     MRA = 65.85;
                     break;
 
-                case 1458:
-                    NotePad.DoLog("Subaru Legacy 2016 c18");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 4;
-                    acceleration = 8.2;
-                    maxspeed = 141;
-                    grip = 75;
-                    weight = 1573;
-                    power = 175;
-                    torque = 174;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 81.89;
-                    break;
-
-                case 1459:
-                    NotePad.DoLog("Subaru Legacy 2003 c16");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 4;
-                    acceleration = 8.8;
-                    maxspeed = 133;
-                    grip = 74;
-                    weight = 1370;
-                    power = 162;
-                    torque = 138;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 75.67;
-                    break;
-
-                case 1460:
-                    NotePad.DoLog("Subaru Legacy 2009 c16");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 4;
-                    acceleration = 9.1;
-                    maxspeed = 130;
-                    grip = 75;
-                    weight = 1420;
-                    power = 148;
-                    torque = 145;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 73.39;
-                    break;
-
-                case 1461:
+                case 1667:
                     NotePad.DoLog("Subaru Legacy 1998 c16");
                     clearance = 2;
                     tires = 3;
@@ -29528,7 +33107,55 @@ namespace Bot.v._0._07
                     MRA = 76.34;
                     break;
 
-                case 1462:
+                case 1668:
+                    NotePad.DoLog("Subaru Legacy 2003 c16");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 8.8;
+                    maxspeed = 133;
+                    grip = 74;
+                    weight = 1370;
+                    power = 162;
+                    torque = 138;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 75.67;
+                    break;
+
+                case 1669:
+                    NotePad.DoLog("Subaru Legacy 2009 c16");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 9.1;
+                    maxspeed = 130;
+                    grip = 75;
+                    weight = 1420;
+                    power = 148;
+                    torque = 145;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 73.39;
+                    break;
+
+                case 1670:
+                    NotePad.DoLog("Subaru Legacy 2016 c18");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 4;
+                    acceleration = 8.2;
+                    maxspeed = 141;
+                    grip = 75;
+                    weight = 1573;
+                    power = 175;
+                    torque = 174;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 81.89;
+                    break;
+
+                case 1671:
                     NotePad.DoLog("Subaru Leone 1971 e8");
                     clearance = 2;
                     tires = 3;
@@ -29544,7 +33171,7 @@ namespace Bot.v._0._07
                     MRA = 41.69;
                     break;
 
-                case 1463:
+                case 1672:
                     NotePad.DoLog("Subaru Leone 1979 e8");
                     clearance = 2;
                     tires = 3;
@@ -29560,7 +33187,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1464:
+                case 1673:
                     NotePad.DoLog("Subaru Leone 1984 d11");
                     clearance = 2;
                     tires = 3;
@@ -29576,7 +33203,7 @@ namespace Bot.v._0._07
                     MRA = 42.37;
                     break;
 
-                case 1465:
+                case 1674:
                     NotePad.DoLog("Subaru Levorg 2016 c18");
                     clearance = 2;
                     tires = 4;
@@ -29592,7 +33219,7 @@ namespace Bot.v._0._07
                     MRA = 73.58;
                     break;
 
-                case 1466:
+                case 1675:
                     NotePad.DoLog("Subaru Outback 2016 c16");
                     clearance = 3;
                     tires = 3;
@@ -29608,23 +33235,7 @@ namespace Bot.v._0._07
                     MRA = 63.45;
                     break;
 
-                case 1467:
-                    NotePad.DoLog("Subaru Rex 1986 f4");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 19.8;
-                    maxspeed = 72;
-                    grip = 65;
-                    weight = 590;
-                    power = 35;
-                    torque = 32;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1468:
+                case 1676:
                     NotePad.DoLog("Subaru Rex 1972 f4");
                     clearance = 2;
                     tires = 3;
@@ -29640,7 +33251,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1469:
+                case 1677:
                     NotePad.DoLog("Subaru Rex 1981 f3");
                     clearance = 2;
                     tires = 3;
@@ -29656,7 +33267,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1470:
+                case 1678:
+                    NotePad.DoLog("Subaru Rex 1986 f4");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 19.8;
+                    maxspeed = 72;
+                    grip = 65;
+                    weight = 590;
+                    power = 35;
+                    torque = 32;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1679:
                     NotePad.DoLog("Subaru Tribeca 2006 b20");
                     clearance = 3;
                     tires = 4;
@@ -29669,10 +33296,10 @@ namespace Bot.v._0._07
                     torque = 258;
                     abs = 1;
                     tcs = 1;
-                    MRA = 62.5;
+                    MRA = 63.06;
                     break;
 
-                case 1471:
+                case 1680:
                     NotePad.DoLog("Subaru WRX STI 2014 a24");
                     clearance = 2;
                     tires = 2;
@@ -29688,7 +33315,7 @@ namespace Bot.v._0._07
                     MRA = 67.49;
                     break;
 
-                case 1472:
+                case 1681:
                     NotePad.DoLog("Subaru XT 1985 d14");
                     clearance = 1;
                     tires = 3;
@@ -29704,7 +33331,7 @@ namespace Bot.v._0._07
                     MRA = 63.6;
                     break;
 
-                case 1473:
+                case 1682:
                     NotePad.DoLog("Subaru XV 2016 c16");
                     clearance = 3;
                     tires = 3;
@@ -29720,7 +33347,7 @@ namespace Bot.v._0._07
                     MRA = 61.19;
                     break;
 
-                case 1474:
+                case 1683:
                     NotePad.DoLog("Suzuki Alto 2004 f6");
                     clearance = 2;
                     tires = 3;
@@ -29736,7 +33363,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1475:
+                case 1684:
                     NotePad.DoLog("Suzuki Baleno 2016 e8");
                     clearance = 2;
                     tires = 3;
@@ -29752,7 +33379,7 @@ namespace Bot.v._0._07
                     MRA = 68.62;
                     break;
 
-                case 1476:
+                case 1685:
                     NotePad.DoLog("Suzuki Celerio 2016 f6");
                     clearance = 2;
                     tires = 3;
@@ -29768,7 +33395,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1477:
+                case 1686:
                     NotePad.DoLog("Suzuki Ertiga 2016 e9");
                     clearance = 2;
                     tires = 3;
@@ -29784,7 +33411,7 @@ namespace Bot.v._0._07
                     MRA = 47.64;
                     break;
 
-                case 1478:
+                case 1687:
                     NotePad.DoLog("Suzuki Ignis 2016 c18");
                     clearance = 3;
                     tires = 4;
@@ -29800,7 +33427,7 @@ namespace Bot.v._0._07
                     MRA = 42.37;
                     break;
 
-                case 1479:
+                case 1688:
                     NotePad.DoLog("Suzuki Ignis Sport 2004 d14");
                     clearance = 2;
                     tires = 3;
@@ -29816,7 +33443,7 @@ namespace Bot.v._0._07
                     MRA = 60.02;
                     break;
 
-                case 1480:
+                case 1689:
                     NotePad.DoLog("Suzuki Jimny 2007 c15");
                     clearance = 3;
                     tires = 4;
@@ -29832,7 +33459,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1481:
+                case 1690:
                     NotePad.DoLog("Suzuki Kizashi 4x4 2010 b20");
                     clearance = 2;
                     tires = 3;
@@ -29845,10 +33472,10 @@ namespace Bot.v._0._07
                     torque = 170;
                     abs = 1;
                     tcs = 1;
-                    MRA = 68.97;
+                    MRA = 68.34;
                     break;
 
-                case 1482:
+                case 1691:
                     NotePad.DoLog("Suzuki Liana 2001 f5");
                     clearance = 2;
                     tires = 3;
@@ -29864,7 +33491,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1483:
+                case 1692:
                     NotePad.DoLog("Suzuki Pikes Peak XL7 2007 s30");
                     clearance = 1;
                     tires = 4;
@@ -29877,10 +33504,10 @@ namespace Bot.v._0._07
                     torque = 752;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 73.26;
                     break;
 
-                case 1484:
+                case 1693:
                     NotePad.DoLog("Suzuki SC100 1977 f5");
                     clearance = 1;
                     tires = 3;
@@ -29896,7 +33523,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1485:
+                case 1694:
                     NotePad.DoLog("Suzuki Splash 2008 f6");
                     clearance = 2;
                     tires = 3;
@@ -29912,7 +33539,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1486:
+                case 1695:
                     NotePad.DoLog("Suzuki Splash 2012 f6");
                     clearance = 2;
                     tires = 3;
@@ -29928,7 +33555,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1487:
+                case 1696:
                     NotePad.DoLog("Suzuki Swift 2011 d14");
                     clearance = 2;
                     tires = 3;
@@ -29944,7 +33571,7 @@ namespace Bot.v._0._07
                     MRA = 67.68;
                     break;
 
-                case 1488:
+                case 1697:
                     NotePad.DoLog("Suzuki Swift 2016 d11");
                     clearance = 2;
                     tires = 3;
@@ -29960,7 +33587,7 @@ namespace Bot.v._0._07
                     MRA = 62.11;
                     break;
 
-                case 1489:
+                case 1698:
                     NotePad.DoLog("Suzuki Swift Rally Spec 2008 c18");
                     clearance = 2;
                     tires = 5;
@@ -29976,7 +33603,7 @@ namespace Bot.v._0._07
                     MRA = 66.74;
                     break;
 
-                case 1490:
+                case 1699:
                     NotePad.DoLog("Suzuki SX4 2006 c17");
                     clearance = 3;
                     tires = 4;
@@ -29992,7 +33619,7 @@ namespace Bot.v._0._07
                     MRA = 41.56;
                     break;
 
-                case 1491:
+                case 1700:
                     NotePad.DoLog("Suzuki SX4 S-Cross 2016 c16");
                     clearance = 3;
                     tires = 4;
@@ -30008,7 +33635,7 @@ namespace Bot.v._0._07
                     MRA = 51.03;
                     break;
 
-                case 1492:
+                case 1701:
                     NotePad.DoLog("Suzuki Vitara 2005 d13");
                     clearance = 3;
                     tires = 4;
@@ -30021,10 +33648,10 @@ namespace Bot.v._0._07
                     torque = 107;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 30.69;
                     break;
 
-                case 1493:
+                case 1702:
                     NotePad.DoLog("Suzuki Vitara S 2016 c17");
                     clearance = 3;
                     tires = 4;
@@ -30040,7 +33667,7 @@ namespace Bot.v._0._07
                     MRA = 56.56;
                     break;
 
-                case 1494:
+                case 1703:
                     NotePad.DoLog("Suzuki Wagon R 1993 f5");
                     clearance = 2;
                     tires = 3;
@@ -30056,7 +33683,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1495:
+                case 1704:
                     NotePad.DoLog("Suzuki X-90 1995 c15");
                     clearance = 3;
                     tires = 3;
@@ -30072,7 +33699,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1496:
+                case 1705:
                     NotePad.DoLog("Suzuki XL-7 1998 c18");
                     clearance = 3;
                     tires = 4;
@@ -30088,7 +33715,103 @@ namespace Bot.v._0._07
                     MRA = 55.56;
                     break;
 
-                case 1497:
+                case 1706:
+                    NotePad.DoLog("TVR 1600M 1972 f5");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 10.2;
+                    maxspeed = 111;
+                    grip = 73;
+                    weight = 896;
+                    power = 84;
+                    torque = 92;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1707:
+                    NotePad.DoLog("TVR 280i 1984 e9");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.5;
+                    maxspeed = 130;
+                    grip = 73;
+                    weight = 1050;
+                    power = 145;
+                    torque = 150;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1708:
+                    NotePad.DoLog("TVR 3000S 1973 e10");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.3;
+                    maxspeed = 124;
+                    grip = 74;
+                    weight = 996;
+                    power = 138;
+                    torque = 192;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1709:
+                    NotePad.DoLog("TVR 400SE 1988 c18");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.6;
+                    maxspeed = 144;
+                    grip = 77;
+                    weight = 1107;
+                    power = 275;
+                    torque = 270;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1710:
+                    NotePad.DoLog("TVR 450 SEAC 1988 b22");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.7;
+                    maxspeed = 160;
+                    grip = 79;
+                    weight = 1043;
+                    power = 320;
+                    torque = 310;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1711:
+                    NotePad.DoLog("TVR 450SE 1989 b21");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.9;
+                    maxspeed = 155;
+                    grip = 78;
+                    weight = 1150;
+                    power = 320;
+                    torque = 310;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1712:
                     NotePad.DoLog("TVR Cerbera Speed 12 2000 s29");
                     clearance = 1;
                     tires = 2;
@@ -30104,7 +33827,7 @@ namespace Bot.v._0._07
                     MRA = 95.56;
                     break;
 
-                case 1498:
+                case 1713:
                     NotePad.DoLog("TVR Cerbera Speed Six 1998 b21");
                     clearance = 1;
                     tires = 2;
@@ -30120,7 +33843,7 @@ namespace Bot.v._0._07
                     MRA = 75.86;
                     break;
 
-                case 1499:
+                case 1714:
                     NotePad.DoLog("TVR Chimaera 5.0 1993 b20");
                     clearance = 1;
                     tires = 2;
@@ -30136,7 +33859,55 @@ namespace Bot.v._0._07
                     MRA = 64.06;
                     break;
 
-                case 1500:
+                case 1715:
+                    NotePad.DoLog("TVR Grantura 1958 f4");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 10.8;
+                    maxspeed = 101;
+                    grip = 72;
+                    weight = 700;
+                    power = 83;
+                    torque = 75;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1716:
+                    NotePad.DoLog("TVR Griffith 2020 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 201;
+                    grip = 87;
+                    weight = 1250;
+                    power = 500;
+                    torque = 468;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1717:
+                    NotePad.DoLog("TVR Griffith 200 1965 b19");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.2;
+                    maxspeed = 150;
+                    grip = 77;
+                    weight = 875;
+                    power = 271;
+                    torque = 314;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1718:
                     NotePad.DoLog("TVR Griffith 4.3 1992 b19");
                     clearance = 1;
                     tires = 2;
@@ -30152,7 +33923,23 @@ namespace Bot.v._0._07
                     MRA = 62.86;
                     break;
 
-                case 1501:
+                case 1719:
+                    NotePad.DoLog("TVR Griffith 400 1964 b20");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.6;
+                    maxspeed = 155;
+                    grip = 78;
+                    weight = 864;
+                    power = 271;
+                    torque = 314;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1720:
                     NotePad.DoLog("TVR Griffith 500 1993 b20");
                     clearance = 1;
                     tires = 2;
@@ -30168,7 +33955,7 @@ namespace Bot.v._0._07
                     MRA = 84.31;
                     break;
 
-                case 1502:
+                case 1721:
                     NotePad.DoLog("TVR Sagaris 2005 a24");
                     clearance = 1;
                     tires = 2;
@@ -30184,7 +33971,71 @@ namespace Bot.v._0._07
                     MRA = 83.92;
                     break;
 
-                case 1503:
+                case 1722:
+                    NotePad.DoLog("TVR S-Series V8S 1986 b19");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.9;
+                    maxspeed = 148;
+                    grip = 79;
+                    weight = 1052;
+                    power = 240;
+                    torque = 270;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1723:
+                    NotePad.DoLog("TVR T350 2002 a23");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 4.4;
+                    maxspeed = 175;
+                    grip = 83;
+                    weight = 1187;
+                    power = 350;
+                    torque = 290;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1724:
+                    NotePad.DoLog("TVR Taimar 1976 e8");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 8.2;
+                    maxspeed = 125;
+                    grip = 74;
+                    weight = 1026;
+                    power = 142;
+                    torque = 172;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1725:
+                    NotePad.DoLog("TVR Taimar Turbo 1977 d14");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.8;
+                    maxspeed = 145;
+                    grip = 75;
+                    weight = 1043;
+                    power = 230;
+                    torque = 273;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1726:
                     NotePad.DoLog("TVR Tamora 2001 b22");
                     clearance = 1;
                     tires = 2;
@@ -30200,7 +34051,23 @@ namespace Bot.v._0._07
                     MRA = 85;
                     break;
 
-                case 1504:
+                case 1727:
+                    NotePad.DoLog("TVR Tasmin 350i Convertible 1984 d13");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.9;
+                    maxspeed = 135;
+                    grip = 76;
+                    weight = 1163;
+                    power = 197;
+                    torque = 220;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1728:
                     NotePad.DoLog("TVR Tuscan Convertible 2005 b22");
                     clearance = 1;
                     tires = 2;
@@ -30216,7 +34083,23 @@ namespace Bot.v._0._07
                     MRA = 79.43;
                     break;
 
-                case 1505:
+                case 1729:
+                    NotePad.DoLog("TVR Tuscan race car 1989 a26");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 190;
+                    grip = 89;
+                    weight = 850;
+                    power = 450;
+                    torque = 380;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1730:
                     NotePad.DoLog("TVR Tuscan S 2005 a23");
                     clearance = 1;
                     tires = 2;
@@ -30229,10 +34112,58 @@ namespace Bot.v._0._07
                     torque = 310;
                     abs = 0;
                     tcs = 0;
-                    MRA = 77.3;
+                    MRA = 77.53;
                     break;
 
-                case 1506:
+                case 1731:
+                    NotePad.DoLog("TVR Tuscan V8 1967 d13");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.8;
+                    maxspeed = 145;
+                    grip = 77;
+                    weight = 1030;
+                    power = 200;
+                    torque = 220;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1732:
+                    NotePad.DoLog("TVR Typhon 2000 a26");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 3.9;
+                    maxspeed = 215;
+                    grip = 85;
+                    weight = 1100;
+                    power = 585;
+                    torque = 467;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1733:
+                    NotePad.DoLog("TVR Vixen S2 1970 f5");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 10.5;
+                    maxspeed = 109;
+                    grip = 73;
+                    weight = 738;
+                    power = 88;
+                    torque = 96;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 47.71;
+                    break;
+
+                case 1734:
                     NotePad.DoLog("Vauxhall Adam 1.2 2016 f4");
                     clearance = 2;
                     tires = 3;
@@ -30248,7 +34179,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1507:
+                case 1735:
+                    NotePad.DoLog("Vauxhall Adam Rocks S 2015 d11");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 7.9;
+                    maxspeed = 130;
+                    grip = 70;
+                    weight = 1178;
+                    power = 147;
+                    torque = 162;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 41.36;
+                    break;
+
+                case 1736:
                     NotePad.DoLog("Vauxhall Antara 2.2CDTi 2016 c17");
                     clearance = 3;
                     tires = 4;
@@ -30264,7 +34211,7 @@ namespace Bot.v._0._07
                     MRA = 61.32;
                     break;
 
-                case 1508:
+                case 1737:
                     NotePad.DoLog("Vauxhall Astra 2016 e10");
                     clearance = 2;
                     tires = 3;
@@ -30280,7 +34227,7 @@ namespace Bot.v._0._07
                     MRA = 64.13;
                     break;
 
-                case 1509:
+                case 1738:
                     NotePad.DoLog("Vauxhall Astra 1.2 1984 f3");
                     clearance = 2;
                     tires = 3;
@@ -30296,7 +34243,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1510:
+                case 1739:
                     NotePad.DoLog("Vauxhall Astra 1.4i 1991 f4");
                     clearance = 2;
                     tires = 3;
@@ -30312,7 +34259,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1511:
+                case 1740:
                     NotePad.DoLog("Vauxhall Astra 1.4i 1998 f4");
                     clearance = 2;
                     tires = 3;
@@ -30328,7 +34275,7 @@ namespace Bot.v._0._07
                     MRA = 50.1;
                     break;
 
-                case 1512:
+                case 1741:
                     NotePad.DoLog("Vauxhall Astra 1.6 1979 f3");
                     clearance = 2;
                     tires = 3;
@@ -30344,7 +34291,7 @@ namespace Bot.v._0._07
                     MRA = 43.93;
                     break;
 
-                case 1513:
+                case 1742:
                     NotePad.DoLog("Vauxhall Astra 1.6 CDTi 2009 f6");
                     clearance = 2;
                     tires = 3;
@@ -30360,7 +34307,7 @@ namespace Bot.v._0._07
                     MRA = 60.56;
                     break;
 
-                case 1514:
+                case 1743:
                     NotePad.DoLog("Vauxhall Astra 1.6i 2004 f6");
                     clearance = 2;
                     tires = 3;
@@ -30376,7 +34323,7 @@ namespace Bot.v._0._07
                     MRA = 65.65;
                     break;
 
-                case 1515:
+                case 1744:
                     NotePad.DoLog("Vauxhall Astra GTE 1988 d11");
                     clearance = 2;
                     tires = 2;
@@ -30392,7 +34339,23 @@ namespace Bot.v._0._07
                     MRA = 56.06;
                     break;
 
-                case 1516:
+                case 1745:
+                    NotePad.DoLog("Vauxhall Astra VXR 2011 b19");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 5.6;
+                    maxspeed = 155;
+                    grip = 84;
+                    weight = 1550;
+                    power = 276;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1746:
                     NotePad.DoLog("Vauxhall Calibra Turbo 1992 b20");
                     clearance = 2;
                     tires = 2;
@@ -30408,7 +34371,23 @@ namespace Bot.v._0._07
                     MRA = 59.38;
                     break;
 
-                case 1517:
+                case 1747:
+                    NotePad.DoLog("Vauxhall Carlton GSi3000 24v 1989 d14");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.3;
+                    maxspeed = 145;
+                    grip = 80;
+                    weight = 1390;
+                    power = 204;
+                    torque = 199;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 54.89;
+                    break;
+
+                case 1748:
                     NotePad.DoLog("Vauxhall Cascada 2016 d12");
                     clearance = 2;
                     tires = 3;
@@ -30424,7 +34403,7 @@ namespace Bot.v._0._07
                     MRA = 57.09;
                     break;
 
-                case 1518:
+                case 1749:
                     NotePad.DoLog("Vauxhall Cavalier 1.6 1988 f5");
                     clearance = 2;
                     tires = 3;
@@ -30440,7 +34419,7 @@ namespace Bot.v._0._07
                     MRA = 52.93;
                     break;
 
-                case 1519:
+                case 1750:
                     NotePad.DoLog("Vauxhall Cavalier 1600L 1975 f4");
                     clearance = 2;
                     tires = 3;
@@ -30456,7 +34435,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1520:
+                case 1751:
                     NotePad.DoLog("Vauxhall Cavalier SRi 1981 e7");
                     clearance = 2;
                     tires = 3;
@@ -30472,7 +34451,7 @@ namespace Bot.v._0._07
                     MRA = 57.59;
                     break;
 
-                case 1521:
+                case 1752:
                     NotePad.DoLog("Vauxhall Chevette HSR 1980 d14");
                     clearance = 2;
                     tires = 2;
@@ -30488,7 +34467,7 @@ namespace Bot.v._0._07
                     MRA = 60.64;
                     break;
 
-                case 1522:
+                case 1753:
                     NotePad.DoLog("Vauxhall Corsa 1.4 2016 f5");
                     clearance = 2;
                     tires = 3;
@@ -30504,7 +34483,23 @@ namespace Bot.v._0._07
                     MRA = 30.56;
                     break;
 
-                case 1523:
+                case 1754:
+                    NotePad.DoLog("Vauxhall Corsa 1.4i 1993 e8");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 10.5;
+                    maxspeed = 109;
+                    grip = 74;
+                    weight = 803;
+                    power = 81;
+                    torque = 86;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1755:
                     NotePad.DoLog("Vauxhall Corsa VXR 2016 c17");
                     clearance = 2;
                     tires = 2;
@@ -30520,7 +34515,55 @@ namespace Bot.v._0._07
                     MRA = 60.19;
                     break;
 
-                case 1524:
+                case 1756:
+                    NotePad.DoLog("Vauxhall Firenza 2000 SL Coupe 1971 e7");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 11.3;
+                    maxspeed = 100;
+                    grip = 71;
+                    weight = 990;
+                    power = 104;
+                    torque = 117;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1757:
+                    NotePad.DoLog("Vauxhall Firenza Baby Bertha 1974 a25");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 4.2;
+                    maxspeed = 175;
+                    grip = 86;
+                    weight = 1018;
+                    power = 476;
+                    torque = 400;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1758:
+                    NotePad.DoLog("Vauxhall Firenza Old Nail 1971 b20");
+                    clearance = 1;
+                    tires = 1;
+                    drive = 2;
+                    acceleration = 5.4;
+                    maxspeed = 150;
+                    grip = 80;
+                    weight = 900;
+                    power = 230;
+                    torque = 190;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1759:
                     NotePad.DoLog("Vauxhall Frontera 1989 e10");
                     clearance = 3;
                     tires = 4;
@@ -30533,10 +34576,10 @@ namespace Bot.v._0._07
                     torque = 125;
                     abs = 1;
                     tcs = 0;
-                    MRA = 0;
+                    MRA = 33.38;
                     break;
 
-                case 1525:
+                case 1760:
                     NotePad.DoLog("Vauxhall GTC VXR 2016 b19");
                     clearance = 2;
                     tires = 2;
@@ -30552,7 +34595,23 @@ namespace Bot.v._0._07
                     MRA = 63.63;
                     break;
 
-                case 1526:
+                case 1761:
+                    NotePad.DoLog("Vauxhall HP Firenza 1973 e7");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 9.4;
+                    maxspeed = 114;
+                    grip = 73;
+                    weight = 1040;
+                    power = 131;
+                    torque = 144;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 40.91;
+                    break;
+
+                case 1762:
                     NotePad.DoLog("Vauxhall Insignia 2.0 CDTi 2016 e8");
                     clearance = 2;
                     tires = 3;
@@ -30568,7 +34627,23 @@ namespace Bot.v._0._07
                     MRA = 64.94;
                     break;
 
-                case 1527:
+                case 1763:
+                    NotePad.DoLog("Vauxhall Insignia Grand Sport 2018 c18");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 6.4;
+                    maxspeed = 146;
+                    grip = 78;
+                    weight = 1503;
+                    power = 197;
+                    torque = 207;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1764:
                     NotePad.DoLog("Vauxhall Insignia VXR S'sport 2016 b21");
                     clearance = 2;
                     tires = 2;
@@ -30584,7 +34659,23 @@ namespace Bot.v._0._07
                     MRA = 69.84;
                     break;
 
-                case 1528:
+                case 1765:
+                    NotePad.DoLog("Vauxhall Insignia VXR Unlimited 2011 a23");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 5.7;
+                    maxspeed = 168;
+                    grip = 82;
+                    weight = 1810;
+                    power = 321;
+                    torque = 321;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1766:
                     NotePad.DoLog("Vauxhall Maloo R8 LSA 2016 b21");
                     clearance = 2;
                     tires = 2;
@@ -30600,7 +34691,7 @@ namespace Bot.v._0._07
                     MRA = 66.01;
                     break;
 
-                case 1529:
+                case 1767:
                     NotePad.DoLog("Vauxhall Mokka 4x4 2016 d12");
                     clearance = 3;
                     tires = 3;
@@ -30616,7 +34707,7 @@ namespace Bot.v._0._07
                     MRA = 55.14;
                     break;
 
-                case 1530:
+                case 1768:
                     NotePad.DoLog("Vauxhall Nova GTE 1987 e7");
                     clearance = 2;
                     tires = 2;
@@ -30632,7 +34723,231 @@ namespace Bot.v._0._07
                     MRA = 59.75;
                     break;
 
-                case 1531:
+                case 1769:
+                    NotePad.DoLog("Vauxhall Opel Adam R2 2016 b19");
+                    clearance = 2;
+                    tires = 5;
+                    drive = 1;
+                    acceleration = 6.9;
+                    maxspeed = 140;
+                    grip = 81;
+                    weight = 1030;
+                    power = 185;
+                    torque = 140;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1770:
+                    NotePad.DoLog("Vauxhall Opel Admiral V8 1965 e7");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 9.9;
+                    maxspeed = 124;
+                    grip = 65;
+                    weight = 1445;
+                    power = 190;
+                    torque = 255;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1771:
+                    NotePad.DoLog("Vauxhall Opel Ascona 400 1979 d12");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.3;
+                    maxspeed = 122;
+                    grip = 77;
+                    weight = 1082;
+                    power = 142;
+                    torque = 155;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1772:
+                    NotePad.DoLog("Vauxhall Opel Corsa Super 1600 2001 b21");
+                    clearance = 2;
+                    tires = 5;
+                    drive = 1;
+                    acceleration = 5.5;
+                    maxspeed = 120;
+                    grip = 86;
+                    weight = 1030;
+                    power = 230;
+                    torque = 175;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1773:
+                    NotePad.DoLog("Vauxhall Opel Diplomat A V8 Coupe 1965 e8");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 9.3;
+                    maxspeed = 126;
+                    grip = 66;
+                    weight = 1690;
+                    power = 227;
+                    torque = 315;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1774:
+                    NotePad.DoLog("Vauxhall Opel GT 1968 f6");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 10.1;
+                    maxspeed = 116;
+                    grip = 75;
+                    weight = 970;
+                    power = 102;
+                    torque = 121;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1775:
+                    NotePad.DoLog("Vauxhall Opel GT 2007 c16");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 5.3;
+                    maxspeed = 139;
+                    grip = 83;
+                    weight = 1337;
+                    power = 260;
+                    torque = 260;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1776:
+                    NotePad.DoLog("Vauxhall Opel GT Concept 2016 d13");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.6;
+                    maxspeed = 133;
+                    grip = 85;
+                    weight = 998;
+                    power = 145;
+                    torque = 151;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1777:
+                    NotePad.DoLog("Vauxhall Opel GTC Concept 2007 b22");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.9;
+                    maxspeed = 155;
+                    grip = 80;
+                    weight = 1600;
+                    power = 300;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1778:
+                    NotePad.DoLog("Vauxhall Opel Insignia Country Tourer 2013 d11");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 9;
+                    maxspeed = 130;
+                    grip = 76;
+                    weight = 1843;
+                    power = 192;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 44.87;
+                    break;
+
+                case 1779:
+                    NotePad.DoLog("Vauxhall Opel Kadett GT/E 1975 e8");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 9.1;
+                    maxspeed = 118;
+                    grip = 77;
+                    weight = 920;
+                    power = 105;
+                    torque = 108;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1780:
+                    NotePad.DoLog("Vauxhall Opel Kadett Rallye E 4S 1985 s27");
+                    clearance = 2;
+                    tires = 5;
+                    drive = 4;
+                    acceleration = 4.3;
+                    maxspeed = 140;
+                    grip = 85;
+                    weight = 960;
+                    power = 400;
+                    torque = 350;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1781:
+                    NotePad.DoLog("Vauxhall Opel Manta 400 1979 d11");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 7.3;
+                    maxspeed = 138;
+                    grip = 80;
+                    weight = 1095;
+                    power = 144;
+                    torque = 155;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1782:
+                    NotePad.DoLog("Vauxhall Opel Manta 400 Rally 1982 d12");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 2;
+                    acceleration = 6.9;
+                    maxspeed = 135;
+                    grip = 79;
+                    weight = 1082;
+                    power = 144;
+                    torque = 155;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1783:
                     NotePad.DoLog("Vauxhall Opel Manta GTE 1988 e8");
                     clearance = 2;
                     tires = 2;
@@ -30648,7 +34963,39 @@ namespace Bot.v._0._07
                     MRA = 62.5;
                     break;
 
-                case 1532:
+                case 1784:
+                    NotePad.DoLog("Vauxhall Opel Monza GSE 1983 d11");
+                    clearance = 1;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 8;
+                    maxspeed = 130;
+                    grip = 75;
+                    weight = 1397;
+                    power = 178;
+                    torque = 183;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1785:
+                    NotePad.DoLog("Vauxhall Opel OPC Extreme 2014 b19");
+                    clearance = 1;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 5;
+                    maxspeed = 155;
+                    grip = 86;
+                    weight = 1450;
+                    power = 296;
+                    torque = 295;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 0;
+                    break;
+
+                case 1786:
                     NotePad.DoLog("Vauxhall Opel Vectra GSi 1988 e10");
                     clearance = 2;
                     tires = 2;
@@ -30664,7 +35011,55 @@ namespace Bot.v._0._07
                     MRA = 69.47;
                     break;
 
-                case 1533:
+                case 1787:
+                    NotePad.DoLog("Vauxhall PA Velox 1959 f4");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 17;
+                    maxspeed = 90;
+                    grip = 65;
+                    weight = 1193;
+                    power = 95;
+                    torque = 138;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1788:
+                    NotePad.DoLog("Vauxhall Senator 1987 e8");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 9.7;
+                    maxspeed = 137;
+                    grip = 69;
+                    weight = 1415;
+                    power = 175;
+                    torque = 177;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1789:
+                    NotePad.DoLog("Vauxhall Signum 2003 d14");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 6.7;
+                    maxspeed = 147;
+                    grip = 70;
+                    weight = 1610;
+                    power = 207;
+                    torque = 221;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 47.69;
+                    break;
+
+                case 1790:
                     NotePad.DoLog("Vauxhall Tigra 1994 e7");
                     clearance = 2;
                     tires = 3;
@@ -30680,7 +35075,7 @@ namespace Bot.v._0._07
                     MRA = 62.5;
                     break;
 
-                case 1534:
+                case 1791:
                     NotePad.DoLog("Vauxhall Tigra TwinTop 2004 f5");
                     clearance = 2;
                     tires = 3;
@@ -30696,7 +35091,7 @@ namespace Bot.v._0._07
                     MRA = 57.02;
                     break;
 
-                case 1535:
+                case 1792:
                     NotePad.DoLog("Vauxhall Vectra 2.5 V6 1995 d11");
                     clearance = 2;
                     tires = 3;
@@ -30712,7 +35107,7 @@ namespace Bot.v._0._07
                     MRA = 60.61;
                     break;
 
-                case 1536:
+                case 1793:
                     NotePad.DoLog("Vauxhall Vectra VXR 2006 c16");
                     clearance = 2;
                     tires = 2;
@@ -30728,7 +35123,7 @@ namespace Bot.v._0._07
                     MRA = 75.86;
                     break;
 
-                case 1537:
+                case 1794:
                     NotePad.DoLog("Vauxhall VX220 2000 c18");
                     clearance = 1;
                     tires = 2;
@@ -30744,7 +35139,7 @@ namespace Bot.v._0._07
                     MRA = 74.29;
                     break;
 
-                case 1538:
+                case 1795:
                     NotePad.DoLog("Vauxhall VX220 Turbo 2003 b21");
                     clearance = 1;
                     tires = 2;
@@ -30760,7 +35155,7 @@ namespace Bot.v._0._07
                     MRA = 59.49;
                     break;
 
-                case 1539:
+                case 1796:
                     NotePad.DoLog("Vauxhall VXR8 GTS 2016 a23");
                     clearance = 2;
                     tires = 2;
@@ -30773,10 +35168,10 @@ namespace Bot.v._0._07
                     torque = 545;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 59.7;
                     break;
 
-                case 1540:
+                case 1797:
                     NotePad.DoLog("Volkswagen Arteon 2017 a25");
                     clearance = 2;
                     tires = 3;
@@ -30792,7 +35187,7 @@ namespace Bot.v._0._07
                     MRA = 46.9;
                     break;
 
-                case 1541:
+                case 1798:
                     NotePad.DoLog("Volkswagen Atlas 2018 c16");
                     clearance = 3;
                     tires = 4;
@@ -30808,7 +35203,7 @@ namespace Bot.v._0._07
                     MRA = 54.3;
                     break;
 
-                case 1542:
+                case 1799:
                     NotePad.DoLog("Volkswagen Beetle 1970 f3");
                     clearance = 2;
                     tires = 3;
@@ -30824,7 +35219,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1543:
+                case 1800:
                     NotePad.DoLog("Volkswagen Beetle 2011 c15");
                     clearance = 2;
                     tires = 3;
@@ -30840,7 +35235,7 @@ namespace Bot.v._0._07
                     MRA = 60.68;
                     break;
 
-                case 1544:
+                case 1801:
                     NotePad.DoLog("Volkswagen Beetle Cabriolet 1970 f3");
                     clearance = 2;
                     tires = 3;
@@ -30856,7 +35251,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1545:
+                case 1802:
                     NotePad.DoLog("Volkswagen Beetle Cabriolet 2012 d12");
                     clearance = 2;
                     tires = 3;
@@ -30872,7 +35267,7 @@ namespace Bot.v._0._07
                     MRA = 63.39;
                     break;
 
-                case 1546:
+                case 1803:
                     NotePad.DoLog("Volkswagen CC 2008 a24");
                     clearance = 2;
                     tires = 3;
@@ -30888,7 +35283,7 @@ namespace Bot.v._0._07
                     MRA = 50;
                     break;
 
-                case 1547:
+                case 1804:
                     NotePad.DoLog("Volkswagen Corrado 1988 e9");
                     clearance = 1;
                     tires = 2;
@@ -30904,7 +35299,7 @@ namespace Bot.v._0._07
                     MRA = 64.18;
                     break;
 
-                case 1548:
+                case 1805:
                     NotePad.DoLog("Volkswagen Corrado 16v G60 1988 e10");
                     clearance = 1;
                     tires = 2;
@@ -30920,7 +35315,7 @@ namespace Bot.v._0._07
                     MRA = 63.41;
                     break;
 
-                case 1549:
+                case 1806:
                     NotePad.DoLog("Volkswagen Corrado VR6 1992 c16");
                     clearance = 1;
                     tires = 2;
@@ -30936,7 +35331,7 @@ namespace Bot.v._0._07
                     MRA = 74.42;
                     break;
 
-                case 1550:
+                case 1807:
                     NotePad.DoLog("Volkswagen Country Buggy 1968 e7");
                     clearance = 3;
                     tires = 5;
@@ -30952,7 +35347,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1551:
+                case 1808:
                     NotePad.DoLog("Volkswagen Fox 2005 f6");
                     clearance = 2;
                     tires = 3;
@@ -30968,39 +35363,7 @@ namespace Bot.v._0._07
                     MRA = 36.65;
                     break;
 
-                case 1552:
-                    NotePad.DoLog("Volkswagen Golf 1991 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 12.3;
-                    maxspeed = 104;
-                    grip = 69;
-                    weight = 1005;
-                    power = 69;
-                    torque = 99;
-                    abs = 1;
-                    tcs = 0;
-                    MRA = 36.61;
-                    break;
-
-                case 1553:
-                    NotePad.DoLog("Volkswagen Golf 1983 f5");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 11.5;
-                    maxspeed = 104;
-                    grip = 69;
-                    weight = 870;
-                    power = 73;
-                    torque = 92;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 36.82;
-                    break;
-
-                case 1554:
+                case 1809:
                     NotePad.DoLog("Volkswagen Golf 1974 f4");
                     clearance = 2;
                     tires = 3;
@@ -31016,23 +35379,39 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1555:
-                    NotePad.DoLog("Volkswagen Golf 2003 e8");
+                case 1810:
+                    NotePad.DoLog("Volkswagen Golf 1983 f5");
                     clearance = 2;
                     tires = 3;
                     drive = 1;
-                    acceleration = 10.3;
-                    maxspeed = 119;
-                    grip = 72;
-                    weight = 1184;
-                    power = 113;
-                    torque = 114;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 62.2;
+                    acceleration = 11.5;
+                    maxspeed = 104;
+                    grip = 69;
+                    weight = 870;
+                    power = 73;
+                    torque = 92;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 36.82;
                     break;
 
-                case 1556:
+                case 1811:
+                    NotePad.DoLog("Volkswagen Golf 1991 f5");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 12.3;
+                    maxspeed = 104;
+                    grip = 69;
+                    weight = 1005;
+                    power = 69;
+                    torque = 99;
+                    abs = 1;
+                    tcs = 0;
+                    MRA = 36.61;
+                    break;
+
+                case 1812:
                     NotePad.DoLog("Volkswagen Golf 1997 e7");
                     clearance = 2;
                     tires = 3;
@@ -31048,7 +35427,23 @@ namespace Bot.v._0._07
                     MRA = 59.77;
                     break;
 
-                case 1557:
+                case 1813:
+                    NotePad.DoLog("Volkswagen Golf 2003 e8");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 10.3;
+                    maxspeed = 119;
+                    grip = 72;
+                    weight = 1184;
+                    power = 113;
+                    torque = 114;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 62.2;
+                    break;
+
+                case 1814:
                     NotePad.DoLog("Volkswagen Golf 2017 d13");
                     clearance = 2;
                     tires = 3;
@@ -31064,7 +35459,7 @@ namespace Bot.v._0._07
                     MRA = 74.32;
                     break;
 
-                case 1558:
+                case 1815:
                     NotePad.DoLog("Volkswagen Golf G60 Rallye 1988 d11");
                     clearance = 2;
                     tires = 2;
@@ -31080,7 +35475,7 @@ namespace Bot.v._0._07
                     MRA = 58.99;
                     break;
 
-                case 1559:
+                case 1816:
                     NotePad.DoLog("Volkswagen Golf GTD 2009 c15");
                     clearance = 2;
                     tires = 3;
@@ -31096,39 +35491,7 @@ namespace Bot.v._0._07
                     MRA = 71.3;
                     break;
 
-                case 1560:
-                    NotePad.DoLog("Volkswagen Golf GTI 1985 e9");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 1;
-                    acceleration = 8.1;
-                    maxspeed = 118;
-                    grip = 73;
-                    weight = 907;
-                    power = 110;
-                    torque = 115;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 54.14;
-                    break;
-
-                case 1561:
-                    NotePad.DoLog("Volkswagen Golf GTI 1991 e8");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 1;
-                    acceleration = 9.6;
-                    maxspeed = 122;
-                    grip = 73;
-                    weight = 1140;
-                    power = 114;
-                    torque = 122;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 63.57;
-                    break;
-
-                case 1562:
+                case 1817:
                     NotePad.DoLog("Volkswagen Golf GTI 1982 e8");
                     clearance = 2;
                     tires = 2;
@@ -31144,7 +35507,39 @@ namespace Bot.v._0._07
                     MRA = 56.19;
                     break;
 
-                case 1563:
+                case 1818:
+                    NotePad.DoLog("Volkswagen Golf GTI 1985 e9");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 8.1;
+                    maxspeed = 118;
+                    grip = 73;
+                    weight = 907;
+                    power = 110;
+                    torque = 115;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 54.14;
+                    break;
+
+                case 1819:
+                    NotePad.DoLog("Volkswagen Golf GTI 1991 e8");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 9.6;
+                    maxspeed = 122;
+                    grip = 73;
+                    weight = 1140;
+                    power = 114;
+                    torque = 122;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 63.57;
+                    break;
+
+                case 1820:
                     NotePad.DoLog("Volkswagen Golf GTI 1997 d13");
                     clearance = 2;
                     tires = 2;
@@ -31160,23 +35555,7 @@ namespace Bot.v._0._07
                     MRA = 71.56;
                     break;
 
-                case 1564:
-                    NotePad.DoLog("Volkswagen Golf GTI 2009 c17");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 1;
-                    acceleration = 6.6;
-                    maxspeed = 149;
-                    grip = 79;
-                    weight = 1318;
-                    power = 208;
-                    torque = 207;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 79.06;
-                    break;
-
-                case 1565:
+                case 1821:
                     NotePad.DoLog("Volkswagen Golf GTI 2004 c16");
                     clearance = 2;
                     tires = 2;
@@ -31192,7 +35571,23 @@ namespace Bot.v._0._07
                     MRA = 77.1;
                     break;
 
-                case 1566:
+                case 1822:
+                    NotePad.DoLog("Volkswagen Golf GTI 2009 c17");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 6.6;
+                    maxspeed = 149;
+                    grip = 79;
+                    weight = 1318;
+                    power = 208;
+                    torque = 207;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 79.06;
+                    break;
+
+                case 1823:
                     NotePad.DoLog("Volkswagen Golf GTI 2013 b19");
                     clearance = 2;
                     tires = 2;
@@ -31208,7 +35603,7 @@ namespace Bot.v._0._07
                     MRA = 77.5;
                     break;
 
-                case 1567:
+                case 1824:
                     NotePad.DoLog("Volkswagen Golf GTI G60 1990 e10");
                     clearance = 2;
                     tires = 2;
@@ -31224,7 +35619,7 @@ namespace Bot.v._0._07
                     MRA = 64.19;
                     break;
 
-                case 1568:
+                case 1825:
                     NotePad.DoLog("Volkswagen Golf GTI TCR 2018 b21");
                     clearance = 1;
                     tires = 1;
@@ -31237,10 +35632,10 @@ namespace Bot.v._0._07
                     torque = 302;
                     abs = 1;
                     tcs = 1;
-                    MRA = 75.98;
+                    MRA = 75.96;
                     break;
 
-                case 1569:
+                case 1826:
                     NotePad.DoLog("Volkswagen Golf GTI W12 2007 s27");
                     clearance = 1;
                     tires = 2;
@@ -31256,23 +35651,7 @@ namespace Bot.v._0._07
                     MRA = 86.51;
                     break;
 
-                case 1570:
-                    NotePad.DoLog("Volkswagen Golf R 2015 a24");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 4;
-                    acceleration = 3.9;
-                    maxspeed = 155;
-                    grip = 82;
-                    weight = 1515;
-                    power = 291;
-                    torque = 280;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 39.11;
-                    break;
-
-                case 1571:
+                case 1827:
                     NotePad.DoLog("Volkswagen Golf R 2012 a23");
                     clearance = 2;
                     tires = 2;
@@ -31288,7 +35667,23 @@ namespace Bot.v._0._07
                     MRA = 71.27;
                     break;
 
-                case 1572:
+                case 1828:
+                    NotePad.DoLog("Volkswagen Golf R 2015 a24");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 4;
+                    acceleration = 4.5;
+                    maxspeed = 155;
+                    grip = 82;
+                    weight = 1515;
+                    power = 291;
+                    torque = 280;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 38.25;
+                    break;
+
+                case 1829:
                     NotePad.DoLog("Volkswagen Golf R32 2005 b21");
                     clearance = 2;
                     tires = 2;
@@ -31304,7 +35699,7 @@ namespace Bot.v._0._07
                     MRA = 68.06;
                     break;
 
-                case 1573:
+                case 1830:
                     NotePad.DoLog("Volkswagen Golf R400 2015 s27");
                     clearance = 2;
                     tires = 2;
@@ -31320,7 +35715,7 @@ namespace Bot.v._0._07
                     MRA = 64.46;
                     break;
 
-                case 1574:
+                case 1831:
                     NotePad.DoLog("Volkswagen Golf VR6 1991 d13");
                     clearance = 2;
                     tires = 2;
@@ -31336,7 +35731,7 @@ namespace Bot.v._0._07
                     MRA = 61.21;
                     break;
 
-                case 1575:
+                case 1832:
                     NotePad.DoLog("Volkswagen I.D. R Pikes Peak 2018 s30");
                     clearance = 1;
                     tires = 4;
@@ -31352,7 +35747,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1576:
+                case 1833:
                     NotePad.DoLog("Volkswagen Jetta 1980 f4");
                     clearance = 2;
                     tires = 3;
@@ -31368,23 +35763,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1577:
-                    NotePad.DoLog("Volkswagen Jetta 2008 e10");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 9.2;
-                    maxspeed = 127;
-                    grip = 75;
-                    weight = 1410;
-                    power = 138;
-                    torque = 236;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 61.45;
-                    break;
-
-                case 1578:
+                case 1834:
                     NotePad.DoLog("Volkswagen Jetta 2004 d13");
                     clearance = 2;
                     tires = 3;
@@ -31400,23 +35779,23 @@ namespace Bot.v._0._07
                     MRA = 52.88;
                     break;
 
-                case 1579:
-                    NotePad.DoLog("Volkswagen Jetta 2019 d13");
+                case 1835:
+                    NotePad.DoLog("Volkswagen Jetta 2008 e10");
                     clearance = 2;
                     tires = 3;
                     drive = 1;
-                    acceleration = 8.3;
-                    maxspeed = 140;
-                    grip = 76;
-                    weight = 1342;
-                    power = 147;
-                    torque = 184;
+                    acceleration = 9.2;
+                    maxspeed = 127;
+                    grip = 75;
+                    weight = 1410;
+                    power = 138;
+                    torque = 236;
                     abs = 1;
                     tcs = 1;
-                    MRA = 67.48;
+                    MRA = 61.45;
                     break;
 
-                case 1580:
+                case 1836:
                     NotePad.DoLog("Volkswagen Jetta 2011 d11");
                     clearance = 2;
                     tires = 3;
@@ -31432,7 +35811,23 @@ namespace Bot.v._0._07
                     MRA = 59.6;
                     break;
 
-                case 1581:
+                case 1837:
+                    NotePad.DoLog("Volkswagen Jetta 2019 d13");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 8.3;
+                    maxspeed = 140;
+                    grip = 76;
+                    weight = 1342;
+                    power = 147;
+                    torque = 184;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 67.48;
+                    break;
+
+                case 1838:
                     NotePad.DoLog("Volkswagen Jetta GTI 1988 d12");
                     clearance = 2;
                     tires = 3;
@@ -31448,7 +35843,7 @@ namespace Bot.v._0._07
                     MRA = 54.88;
                     break;
 
-                case 1582:
+                case 1839:
                     NotePad.DoLog("Volkswagen Jetta VR6 1992 d13");
                     clearance = 2;
                     tires = 2;
@@ -31464,7 +35859,7 @@ namespace Bot.v._0._07
                     MRA = 61.21;
                     break;
 
-                case 1583:
+                case 1840:
                     NotePad.DoLog("Volkswagen Karmann Ghia 1970 f3");
                     clearance = 1;
                     tires = 3;
@@ -31480,7 +35875,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1584:
+                case 1841:
                     NotePad.DoLog("Volkswagen Lupo GTI 2001 c15");
                     clearance = 2;
                     tires = 3;
@@ -31496,7 +35891,7 @@ namespace Bot.v._0._07
                     MRA = 51.47;
                     break;
 
-                case 1585:
+                case 1842:
                     NotePad.DoLog("Volkswagen New Beetle 1999 e8");
                     clearance = 2;
                     tires = 3;
@@ -31512,7 +35907,7 @@ namespace Bot.v._0._07
                     MRA = 58.14;
                     break;
 
-                case 1586:
+                case 1843:
                     NotePad.DoLog("Volkswagen New Beetle Cabriolet 2003 f6");
                     clearance = 2;
                     tires = 3;
@@ -31528,7 +35923,7 @@ namespace Bot.v._0._07
                     MRA = 52.7;
                     break;
 
-                case 1587:
+                case 1844:
                     NotePad.DoLog("Volkswagen New Beetle RSi 2000 c17");
                     clearance = 1;
                     tires = 2;
@@ -31544,23 +35939,7 @@ namespace Bot.v._0._07
                     MRA = 67.33;
                     break;
 
-                case 1588:
-                    NotePad.DoLog("Volkswagen Passat 1988 f4");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 13.2;
-                    maxspeed = 110;
-                    grip = 69;
-                    weight = 1130;
-                    power = 89;
-                    torque = 105;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 51.04;
-                    break;
-
-                case 1589:
+                case 1845:
                     NotePad.DoLog("Volkswagen Passat 1975 f4");
                     clearance = 2;
                     tires = 3;
@@ -31576,23 +35955,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1590:
-                    NotePad.DoLog("Volkswagen Passat 2003 e9");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 9.3;
-                    maxspeed = 131;
-                    grip = 72;
-                    weight = 1445;
-                    power = 134;
-                    torque = 247;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 56.16;
-                    break;
-
-                case 1591:
+                case 1846:
                     NotePad.DoLog("Volkswagen Passat 1983 e7");
                     clearance = 2;
                     tires = 3;
@@ -31608,23 +35971,39 @@ namespace Bot.v._0._07
                     MRA = 61.29;
                     break;
 
-                case 1592:
-                    NotePad.DoLog("Volkswagen Passat 2018 d14");
+                case 1847:
+                    NotePad.DoLog("Volkswagen Passat 1988 f4");
                     clearance = 2;
                     tires = 3;
                     drive = 1;
-                    acceleration = 7.4;
-                    maxspeed = 147;
-                    grip = 74;
-                    weight = 1505;
-                    power = 188;
-                    torque = 295;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 61.51;
+                    acceleration = 13.2;
+                    maxspeed = 110;
+                    grip = 69;
+                    weight = 1130;
+                    power = 89;
+                    torque = 105;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 51.04;
                     break;
 
-                case 1593:
+                case 1848:
+                    NotePad.DoLog("Volkswagen Passat 1993 e9");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 9.3;
+                    maxspeed = 131;
+                    grip = 72;
+                    weight = 1445;
+                    power = 134;
+                    torque = 247;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 56.16;
+                    break;
+
+                case 1849:
                     NotePad.DoLog("Volkswagen Passat 2006 d12");
                     clearance = 2;
                     tires = 3;
@@ -31640,23 +36019,23 @@ namespace Bot.v._0._07
                     MRA = 53.84;
                     break;
 
-                case 1594:
-                    NotePad.DoLog("Volkswagen Phaeton 2014 c18");
+                case 1850:
+                    NotePad.DoLog("Volkswagen Passat 2018 d14");
                     clearance = 2;
                     tires = 3;
-                    drive = 4;
-                    acceleration = 8.2;
-                    maxspeed = 148;
-                    grip = 75;
-                    weight = 2325;
-                    power = 242;
-                    torque = 369;
+                    drive = 1;
+                    acceleration = 7.4;
+                    maxspeed = 147;
+                    grip = 74;
+                    weight = 1505;
+                    power = 188;
+                    torque = 295;
                     abs = 1;
                     tcs = 1;
-                    MRA = 65.6;
+                    MRA = 61.51;
                     break;
 
-                case 1595:
+                case 1851:
                     NotePad.DoLog("Volkswagen Phaeton 2002 a24");
                     clearance = 2;
                     tires = 3;
@@ -31672,55 +36051,23 @@ namespace Bot.v._0._07
                     MRA = 60.02;
                     break;
 
-                case 1596:
-                    NotePad.DoLog("Volkswagen Polo 2009 e7");
+                case 1852:
+                    NotePad.DoLog("Volkswagen Phaeton 2014 c18");
                     clearance = 2;
                     tires = 3;
-                    drive = 1;
-                    acceleration = 11.5;
-                    maxspeed = 110;
-                    grip = 71;
-                    weight = 996;
-                    power = 84;
-                    torque = 97;
+                    drive = 4;
+                    acceleration = 8.2;
+                    maxspeed = 148;
+                    grip = 75;
+                    weight = 2325;
+                    power = 242;
+                    torque = 369;
                     abs = 1;
                     tcs = 1;
-                    MRA = 51.41;
+                    MRA = 65.6;
                     break;
 
-                case 1597:
-                    NotePad.DoLog("Volkswagen Polo 1994 f4");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 15.4;
-                    maxspeed = 97;
-                    grip = 69;
-                    weight = 955;
-                    power = 54;
-                    torque = 74;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1598:
-                    NotePad.DoLog("Volkswagen Polo 1984 f4");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 12.7;
-                    maxspeed = 95;
-                    grip = 66;
-                    weight = 725;
-                    power = 55;
-                    torque = 71;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1599:
+                case 1853:
                     NotePad.DoLog("Volkswagen Polo 1976 f4");
                     clearance = 2;
                     tires = 3;
@@ -31736,7 +36083,39 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1600:
+                case 1854:
+                    NotePad.DoLog("Volkswagen Polo 1984 f4");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 12.7;
+                    maxspeed = 95;
+                    grip = 66;
+                    weight = 725;
+                    power = 55;
+                    torque = 71;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1855:
+                    NotePad.DoLog("Volkswagen Polo 1994 f4");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 15.4;
+                    maxspeed = 97;
+                    grip = 69;
+                    weight = 955;
+                    power = 54;
+                    torque = 74;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1856:
                     NotePad.DoLog("Volkswagen Polo 2003 e10");
                     clearance = 2;
                     tires = 3;
@@ -31752,7 +36131,23 @@ namespace Bot.v._0._07
                     MRA = 63.12;
                     break;
 
-                case 1601:
+                case 1857:
+                    NotePad.DoLog("Volkswagen Polo 2009 e7");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 11.5;
+                    maxspeed = 110;
+                    grip = 71;
+                    weight = 996;
+                    power = 84;
+                    torque = 97;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 51.41;
+                    break;
+
+                case 1858:
                     NotePad.DoLog("Volkswagen Polo 2018 e8");
                     clearance = 2;
                     tires = 3;
@@ -31768,7 +36163,7 @@ namespace Bot.v._0._07
                     MRA = 58.52;
                     break;
 
-                case 1602:
+                case 1859:
                     NotePad.DoLog("Volkswagen Polo GT G40 1987 e9");
                     clearance = 2;
                     tires = 2;
@@ -31784,7 +36179,7 @@ namespace Bot.v._0._07
                     MRA = 65.69;
                     break;
 
-                case 1603:
+                case 1860:
                     NotePad.DoLog("Volkswagen Polo GTI 1999 e10");
                     clearance = 2;
                     tires = 2;
@@ -31800,23 +36195,7 @@ namespace Bot.v._0._07
                     MRA = 65.87;
                     break;
 
-                case 1604:
-                    NotePad.DoLog("Volkswagen Polo GTI 2010 d14");
-                    clearance = 2;
-                    tires = 2;
-                    drive = 1;
-                    acceleration = 6.9;
-                    maxspeed = 142;
-                    grip = 76;
-                    weight = 1194;
-                    power = 178;
-                    torque = 184;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 0;
-                    break;
-
-                case 1605:
+                case 1861:
                     NotePad.DoLog("Volkswagen Polo GTI 2006 d12");
                     clearance = 2;
                     tires = 2;
@@ -31832,7 +36211,23 @@ namespace Bot.v._0._07
                     MRA = 69.54;
                     break;
 
-                case 1606:
+                case 1862:
+                    NotePad.DoLog("Volkswagen Polo GTI 2010 d14");
+                    clearance = 2;
+                    tires = 2;
+                    drive = 1;
+                    acceleration = 6.9;
+                    maxspeed = 142;
+                    grip = 76;
+                    weight = 1194;
+                    power = 178;
+                    torque = 184;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 62.16;
+                    break;
+
+                case 1863:
                     NotePad.DoLog("Volkswagen Polo GTI 2018 c16");
                     clearance = 2;
                     tires = 2;
@@ -31848,7 +36243,7 @@ namespace Bot.v._0._07
                     MRA = 67.01;
                     break;
 
-                case 1607:
+                case 1864:
                     NotePad.DoLog("Volkswagen Scirocco 1982 e7");
                     clearance = 1;
                     tires = 2;
@@ -31864,7 +36259,7 @@ namespace Bot.v._0._07
                     MRA = 55.81;
                     break;
 
-                case 1608:
+                case 1865:
                     NotePad.DoLog("Volkswagen Scirocco 2008 c15");
                     clearance = 1;
                     tires = 2;
@@ -31880,7 +36275,7 @@ namespace Bot.v._0._07
                     MRA = 76.67;
                     break;
 
-                case 1609:
+                case 1866:
                     NotePad.DoLog("Volkswagen Scirocco GTI 1986 e10");
                     clearance = 1;
                     tires = 2;
@@ -31896,7 +36291,7 @@ namespace Bot.v._0._07
                     MRA = 66.95;
                     break;
 
-                case 1610:
+                case 1867:
                     NotePad.DoLog("Volkswagen Scirocco R 2009 c18");
                     clearance = 1;
                     tires = 2;
@@ -31912,7 +36307,7 @@ namespace Bot.v._0._07
                     MRA = 71.43;
                     break;
 
-                case 1611:
+                case 1868:
                     NotePad.DoLog("Volkswagen Sharan 2008 f4");
                     clearance = 2;
                     tires = 3;
@@ -31928,7 +36323,7 @@ namespace Bot.v._0._07
                     MRA = 54.03;
                     break;
 
-                case 1612:
+                case 1869:
                     NotePad.DoLog("Volkswagen Sharan 2015 e8");
                     clearance = 2;
                     tires = 3;
@@ -31944,23 +36339,7 @@ namespace Bot.v._0._07
                     MRA = 57.31;
                     break;
 
-                case 1613:
-                    NotePad.DoLog("Volkswagen Tiguan 2017 c18");
-                    clearance = 3;
-                    tires = 4;
-                    drive = 4;
-                    acceleration = 9;
-                    maxspeed = 125;
-                    grip = 72;
-                    weight = 1585;
-                    power = 147;
-                    torque = 251;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 56.96;
-                    break;
-
-                case 1614:
+                case 1870:
                     NotePad.DoLog("Volkswagen Tiguan 2011 c17");
                     clearance = 3;
                     tires = 4;
@@ -31976,23 +36355,23 @@ namespace Bot.v._0._07
                     MRA = 56.31;
                     break;
 
-                case 1615:
-                    NotePad.DoLog("Volkswagen Touareg 2007 c18");
+                case 1871:
+                    NotePad.DoLog("Volkswagen Tiguan 2017 c18");
                     clearance = 3;
                     tires = 4;
                     drive = 4;
-                    acceleration = 8.4;
-                    maxspeed = 127;
-                    grip = 71;
-                    weight = 2301;
-                    power = 222;
-                    torque = 369;
+                    acceleration = 9;
+                    maxspeed = 125;
+                    grip = 72;
+                    weight = 1585;
+                    power = 147;
+                    torque = 251;
                     abs = 1;
                     tcs = 1;
-                    MRA = 52.3;
+                    MRA = 56.96;
                     break;
 
-                case 1616:
+                case 1872:
                     NotePad.DoLog("Volkswagen Touareg 2002 b21");
                     clearance = 3;
                     tires = 4;
@@ -32005,10 +36384,26 @@ namespace Bot.v._0._07
                     torque = 553;
                     abs = 1;
                     tcs = 1;
-                    MRA = 51.32;
+                    MRA = 52.58;
                     break;
 
-                case 1617:
+                case 1873:
+                    NotePad.DoLog("Volkswagen Touareg 2007 c18");
+                    clearance = 3;
+                    tires = 4;
+                    drive = 4;
+                    acceleration = 8.4;
+                    maxspeed = 127;
+                    grip = 71;
+                    weight = 2301;
+                    power = 222;
+                    torque = 369;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 53.91;
+                    break;
+
+                case 1874:
                     NotePad.DoLog("Volkswagen Touareg 2018 a23");
                     clearance = 3;
                     tires = 4;
@@ -32024,7 +36419,7 @@ namespace Bot.v._0._07
                     MRA = 49.74;
                     break;
 
-                case 1618:
+                case 1875:
                     NotePad.DoLog("Volkswagen Touran 2003 e8");
                     clearance = 2;
                     tires = 3;
@@ -32040,7 +36435,7 @@ namespace Bot.v._0._07
                     MRA = 65.46;
                     break;
 
-                case 1619:
+                case 1876:
                     NotePad.DoLog("Volkswagen Touran 2015 e7");
                     clearance = 2;
                     tires = 3;
@@ -32056,23 +36451,7 @@ namespace Bot.v._0._07
                     MRA = 59.69;
                     break;
 
-                case 1620:
-                    NotePad.DoLog("Volkswagen Transporter 2016 f4");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 1;
-                    acceleration = 12.5;
-                    maxspeed = 105;
-                    grip = 64;
-                    weight = 1680;
-                    power = 150;
-                    torque = 251;
-                    abs = 1;
-                    tcs = 1;
-                    MRA = 39.43;
-                    break;
-
-                case 1621:
+                case 1877:
                     NotePad.DoLog("Volkswagen Transporter 1996 f3");
                     clearance = 2;
                     tires = 3;
@@ -32088,7 +36467,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1622:
+                case 1878:
                     NotePad.DoLog("Volkswagen Transporter 2004 f3");
                     clearance = 2;
                     tires = 3;
@@ -32104,7 +36483,23 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1623:
+                case 1879:
+                    NotePad.DoLog("Volkswagen Transporter 2016 f4");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 1;
+                    acceleration = 12.5;
+                    maxspeed = 105;
+                    grip = 64;
+                    weight = 1680;
+                    power = 150;
+                    torque = 251;
+                    abs = 1;
+                    tcs = 1;
+                    MRA = 39.43;
+                    break;
+
+                case 1880:
                     NotePad.DoLog("Volkswagen T-Roc 2017 e10");
                     clearance = 3;
                     tires = 3;
@@ -32120,39 +36515,7 @@ namespace Bot.v._0._07
                     MRA = 58.18;
                     break;
 
-                case 1624:
-                    NotePad.DoLog("Volkswagen Type 2 1970 f3");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 2;
-                    acceleration = 35;
-                    maxspeed = 68;
-                    grip = 51;
-                    weight = 1162;
-                    power = 50;
-                    torque = 75;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1625:
-                    NotePad.DoLog("Volkswagen Type 2 1979 f3");
-                    clearance = 2;
-                    tires = 3;
-                    drive = 2;
-                    acceleration = 18;
-                    maxspeed = 80;
-                    grip = 55;
-                    weight = 1385;
-                    power = 70;
-                    torque = 99;
-                    abs = 0;
-                    tcs = 0;
-                    MRA = 0;
-                    break;
-
-                case 1626:
+                case 1881:
                     NotePad.DoLog("Volkswagen Type 2 1966 f3");
                     clearance = 2;
                     tires = 3;
@@ -32168,7 +36531,39 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1627:
+                case 1882:
+                    NotePad.DoLog("Volkswagen Type 2 1970 f3");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 35;
+                    maxspeed = 68;
+                    grip = 51;
+                    weight = 1162;
+                    power = 50;
+                    torque = 75;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1883:
+                    NotePad.DoLog("Volkswagen Type 2 1979 f3");
+                    clearance = 2;
+                    tires = 3;
+                    drive = 2;
+                    acceleration = 18;
+                    maxspeed = 80;
+                    grip = 55;
+                    weight = 1385;
+                    power = 70;
+                    torque = 99;
+                    abs = 0;
+                    tcs = 0;
+                    MRA = 0;
+                    break;
+
+                case 1884:
                     NotePad.DoLog("Volkswagen up! 2013 f6");
                     clearance = 2;
                     tires = 3;
@@ -32184,7 +36579,7 @@ namespace Bot.v._0._07
                     MRA = 47.09;
                     break;
 
-                case 1628:
+                case 1885:
                     NotePad.DoLog("Volkswagen up! GTI 2018 e10");
                     clearance = 2;
                     tires = 2;
@@ -32200,7 +36595,7 @@ namespace Bot.v._0._07
                     MRA = 52.01;
                     break;
 
-                case 1629:
+                case 1886:
                     NotePad.DoLog("Volkswagen W12 Nardo 2001 s27");
                     clearance = 1;
                     tires = 2;
@@ -32216,7 +36611,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1630:
+                case 1887:
                     NotePad.DoLog("Volkswagen W12 Roadster 1997 a24");
                     clearance = 1;
                     tires = 2;
@@ -32229,10 +36624,10 @@ namespace Bot.v._0._07
                     torque = 391;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 51.53;
                     break;
 
-                case 1631:
+                case 1888:
                     NotePad.DoLog("Volkswagen W12 Syncro 1997 a26");
                     clearance = 1;
                     tires = 2;
@@ -32245,10 +36640,10 @@ namespace Bot.v._0._07
                     torque = 391;
                     abs = 1;
                     tcs = 1;
-                    MRA = 0;
+                    MRA = 52.68;
                     break;
 
-                case 1632:
+                case 1889:
                     NotePad.DoLog("Volvo 240 GLT 1988 f6");
                     clearance = 2;
                     tires = 3;
@@ -32264,7 +36659,7 @@ namespace Bot.v._0._07
                     MRA = 49.32;
                     break;
 
-                case 1633:
+                case 1890:
                     NotePad.DoLog("Volvo 480 Turbo 1988 e9");
                     clearance = 2;
                     tires = 3;
@@ -32280,7 +36675,7 @@ namespace Bot.v._0._07
                     MRA = 43.02;
                     break;
 
-                case 1634:
+                case 1891:
                     NotePad.DoLog("Volvo 740 Turbo 1990 e9");
                     clearance = 2;
                     tires = 3;
@@ -32296,7 +36691,7 @@ namespace Bot.v._0._07
                     MRA = 52.11;
                     break;
 
-                case 1635:
+                case 1892:
                     NotePad.DoLog("Volvo 850 AWD 1997 c18");
                     clearance = 2;
                     tires = 3;
@@ -32312,7 +36707,7 @@ namespace Bot.v._0._07
                     MRA = 45.72;
                     break;
 
-                case 1636:
+                case 1893:
                     NotePad.DoLog("Volvo 850 BTCC 1994 b23");
                     clearance = 1;
                     tires = 1;
@@ -32328,7 +36723,7 @@ namespace Bot.v._0._07
                     MRA = 0;
                     break;
 
-                case 1637:
+                case 1894:
                     NotePad.DoLog("Volvo 850 R 1997 c16");
                     clearance = 2;
                     tires = 2;
@@ -32344,7 +36739,7 @@ namespace Bot.v._0._07
                     MRA = 57.42;
                     break;
 
-                case 1638:
+                case 1895:
                     NotePad.DoLog("Volvo 850 T-5R 1995 d14");
                     clearance = 2;
                     tires = 2;
@@ -32360,7 +36755,7 @@ namespace Bot.v._0._07
                     MRA = 57.28;
                     break;
 
-                case 1639:
+                case 1896:
                     NotePad.DoLog("Volvo C30 T5 R-Design 2008 c16");
                     clearance = 2;
                     tires = 2;
@@ -32376,7 +36771,7 @@ namespace Bot.v._0._07
                     MRA = 63.41;
                     break;
 
-                case 1640:
+                case 1897:
                     NotePad.DoLog("Volvo C70 T5 2013 c15");
                     clearance = 2;
                     tires = 3;
@@ -32392,7 +36787,7 @@ namespace Bot.v._0._07
                     MRA = 52.55;
                     break;
 
-                case 1641:
+                case 1898:
                     NotePad.DoLog("Volvo C70 T5 2.3 2003 d14");
                     clearance = 2;
                     tires = 3;
@@ -32408,7 +36803,7 @@ namespace Bot.v._0._07
                     MRA = 55.2;
                     break;
 
-                case 1642:
+                case 1899:
                     NotePad.DoLog("Volvo V60 Polestar 2015 a25");
                     clearance = 2;
                     tires = 2;
@@ -32424,7 +36819,7 @@ namespace Bot.v._0._07
                     MRA = 80;
                     break;
 
-                case 1643:
+                case 1900:
                     NotePad.DoLog("Volvo XC90 T8 Twin Engine 2016 a25");
                     clearance = 3;
                     tires = 4;
@@ -32440,7 +36835,7 @@ namespace Bot.v._0._07
                     MRA = 78.43;
                     break;
 
-                case 1644:
+                case 1901:
                     NotePad.DoLog("Volvo XC90 V8 2010 b19");
                     clearance = 3;
                     tires = 4;
@@ -32461,15 +36856,15 @@ namespace Bot.v._0._07
                     clearance = 1;
                     tires = 2;
                     drive = 2;
-                    acceleration = 30;
+                    acceleration = 36;
                     maxspeed = 100;
-                    grip = 75;
-                    weight = 1500;
+                    grip = 45;
+                    weight = 2500;
                     power = 50;
                     torque = 50;
                     abs = 0;
                     tcs = 0;
-                    MRA = 10;
+                    MRA = 5;
                     break;
             }
             double[] stats = { clearance, tires, drive, acceleration, maxspeed, grip, weight, power, torque, abs, tcs, MRA };
@@ -32479,6 +36874,251 @@ namespace Bot.v._0._07
 
     public class DevKit
     {
+        public void SearchIndicators()
+        {
+            Point GarageSlot1 = new Point(535, 400);
+            Point GarageSlot2 = new Point(535, 590);
+            Point GarageSlot3 = new Point(830, 400);
+            Point GarageSlot4 = new Point(830, 590);
+            Point GarageSlot5 = new Point(1130, 400);
+            Point GarageSlot6 = new Point(1130, 590);
+            /*Point GarageSlot7 = new Point(500, 400);
+            Point GarageSlot8 = new Point(500, 590);
+            Point GarageSlot9 = new Point(810, 400);
+            Point GarageSlot10 = new Point(810, 590);*/
+            Point[] a = { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6 };
+
+            string[] b = {//с рамками
+                "Color [A=255, R=107, G=170, B=205]",//PL11
+                "Color [A=255, R=110, G=173, B=208]",//PL11
+                "Color [A=255, R=96, G=156, B=188]",//PL11
+                "Color [A=255, R=91, G=148, B=176]",//PL11
+                "Color [A=255, R=72, G=96, B=107]",
+                "Color [A=255, R=74, G=94, B=105]"
+            };
+
+            string[] c = {//без рамок
+                "Color [A=255, R=72, G=102, B=118]",
+                "Color [A=255, R=74, G=103, B=120]",
+                "Color [A=255, R=67, G=95, B=110]",
+                "Color [A=255, R=65, G=91, B=104]",
+                "Color [A=255, R=88, G=154, B=187]",//PL11
+                "Color [A=255, R=92, G=150, B=183]"//PL11
+            };
+
+            for(int n = 0; n < 6; n++)
+            {
+                NotePad.DoLog(MasterOfPictures.PixelIndicator(a[n]));
+            }            
+        }
+
+        public void BestPiece()
+        {
+            Bitmap picture = new Bitmap("C:\\Bot\\testcars1\\test1.jpg");
+            Bitmap picturetest = new Bitmap("C:\\Bot\\testcars3\\test1.jpg");
+
+            int x0 = 32;
+            int y0 = 7;
+            int bestposx = 0;
+            int bestposy = 0;
+            int minshadesdifs = -1;
+            for (int zeroposx = 0; zeroposx < 114 - 50; zeroposx++)
+            {
+                for (int zeroposy = 0; zeroposy < 64 - 50; zeroposy++)
+                {
+                    int shadesdifs0 = 0;
+                    for (int x1 = 0; x1 < 50; x1++)
+                    {
+                        for (int y1 = 0; y1 < 50; y1++)
+                        {
+                            var colorValue0 = picture.GetPixel(x0 + x1, y0 + y1);
+                            var colorValue1 = picturetest.GetPixel(zeroposx + x1, zeroposy + y1);
+                            int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
+                                Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
+                                Math.Abs((int)colorValue0.B - (int)colorValue1.B));
+                            shadesdifs0 += shadesdifs1;
+                        }
+                    }
+                    NotePad.DoErrorLog("стартовая позиция второй картинки " + zeroposx + " " + zeroposy + ", отличие " + shadesdifs0 + " оттенков");
+                    if (minshadesdifs == -1 || minshadesdifs > shadesdifs0)
+                    {
+                        minshadesdifs = shadesdifs0;
+                        bestposx = zeroposx;
+                        bestposy = zeroposy;
+                    }
+                }
+            }
+
+            NotePad.DoErrorLog("наиболее подходящий кусок " + bestposx + " " + bestposy + " с отличием в " + minshadesdifs + " оттенков");
+
+            picture.Dispose();
+            picturetest.Dispose();
+        }
+
+        public void MapsofDifs()
+        {
+            Bitmap picture = new Bitmap("C:\\Bot\\testcars1\\test.jpg");
+            Bitmap picturetest = new Bitmap("C:\\Bot\\testcars5\\test.jpg");
+            PixelFormat format = PixelFormat.Format24bppRgb;
+            Bitmap Rmap = new Bitmap(picture.Width, picture.Height, format);
+            Bitmap Gmap = new Bitmap(picture.Width, picture.Height, format);
+            Bitmap Bmap = new Bitmap(picture.Width, picture.Height, format);
+            Bitmap Noirmap = new Bitmap(picture.Width, picture.Height, format);
+
+            int rMaxShadesDifs = 0;
+            int gMaxShadesDifs = 0;
+            int bMaxShadesDifs = 0;
+            int noirMaxShadesDifs = 0;
+
+            int rIdentical = 0;
+            int gIdentical = 0;
+            int bIdentical = 0;
+            int noirIdentical = 0;
+
+            for (int x = 0; x < picture.Width; x++)
+            {
+                for (int y = 0; y < picture.Height; y++)
+                {
+                    var colorValue0 = picture.GetPixel(x, y);
+                    var colorValue1 = picturetest.GetPixel(x, y);
+                    Rmap.SetPixel(x, y, (Color.FromArgb(Math.Abs((int)colorValue0.R - (int)colorValue1.R)*10, 255, 255)));
+                    if (rMaxShadesDifs < Math.Abs((int)colorValue0.R - (int)colorValue1.R)) rMaxShadesDifs = Math.Abs((int)colorValue0.R - (int)colorValue1.R);
+                    if((int)colorValue0.R - (int)colorValue1.R == 0) rIdentical++;
+
+                    Gmap.SetPixel(x, y, (Color.FromArgb(255, Math.Abs((int)colorValue0.G - (int)colorValue1.G)*10, 255)));
+                    if (gMaxShadesDifs < Math.Abs((int)colorValue0.G - (int)colorValue1.G)) gMaxShadesDifs = Math.Abs((int)colorValue0.G - (int)colorValue1.G);
+                    if ((int)colorValue0.G - (int)colorValue1.G == 0) gIdentical++;
+
+                    Bmap.SetPixel(x, y, (Color.FromArgb(255, 255, Math.Abs((int)colorValue0.B - (int)colorValue1.B)*10)));
+                    if (bMaxShadesDifs < Math.Abs((int)colorValue0.B - (int)colorValue1.B)) bMaxShadesDifs = Math.Abs((int)colorValue0.B - (int)colorValue1.B);
+                    if ((int)colorValue0.B - (int)colorValue1.B == 0) bIdentical++;
+
+                    int noir = Math.Abs(((int)colorValue0.R + (int)colorValue0.G + (int)colorValue0.B) / 3 -
+                        ((int)colorValue1.R + (int)colorValue1.G + (int)colorValue1.B) / 3);
+                    Noirmap.SetPixel(x, y, (Color.FromArgb(noir, noir, noir)));
+                    if (noirMaxShadesDifs < noir) noirMaxShadesDifs = noir;
+                    if (noir == 0) noirIdentical++;
+                }
+            }
+
+            NotePad.DoErrorLog("Максимальное отклонение красный " + rMaxShadesDifs);
+            NotePad.DoErrorLog("Максимальное отклонение зеленый " + gMaxShadesDifs);
+            NotePad.DoErrorLog("Максимальное отклонение синий " + bMaxShadesDifs);
+            NotePad.DoErrorLog("Максимальное отклонение нуар " + noirMaxShadesDifs);
+
+            NotePad.DoErrorLog("красные совпали " + rIdentical);
+            NotePad.DoErrorLog("зеленые совпали " + gIdentical);
+            NotePad.DoErrorLog("синие совпали " + bIdentical);
+            NotePad.DoErrorLog("нуар совпали " + noirIdentical);
+
+            Rmap.Save("C:\\Bot\\Maps\\Rmap.jpg", ImageFormat.Jpeg);
+            Gmap.Save("C:\\Bot\\Maps\\Gmap.jpg", ImageFormat.Jpeg);
+            Bmap.Save("C:\\Bot\\Maps\\Bmap.jpg", ImageFormat.Jpeg);
+            Noirmap.Save("C:\\Bot\\Maps\\Noirmap.jpg", ImageFormat.Jpeg);
+
+            Rmap.Dispose();
+            Gmap.Dispose();
+            Bmap.Dispose();
+            Noirmap.Dispose();
+            picture.Dispose();
+            picturetest.Dispose();
+        }
+
+        public void TestPictures()
+        {
+            Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
+            Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
+            Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
+            Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
+            Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
+
+            string carsDB = "testcars"; 
+            Rectangle[] b = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
+            for (int i = 0; i < 5; i++)
+            {
+                MasterOfPictures.MakePicture(b[i], (carsDB + (i + 1) + "\\test1"));
+            }
+        }
+                
+        public void MakeCases()
+        {
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\cases.txt", false, System.Text.Encoding.Default))//true для дописывания             
+            {
+                for (int j = 0; j < 1000; j++)
+                {
+                    sw.WriteLine("case " + (j + 1) + ":");
+                    sw.WriteLine("carid = 0;");
+                    sw.WriteLine("break;");
+                }
+                sw.Close();
+            }
+        }
+
+        public void SortCarDB()
+        {
+            int lastcar = 1000;
+            int x0 = 32;
+            int y0 = 7;
+            NotePad.ClearLog();
+
+            for (int i = 1; i < 5; i++)
+            {
+                for (int i1 = 1; i1 < lastcar + 1; i1++)
+                {
+                    if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg")) //несортированные
+                    {
+                        Bitmap picture = new Bitmap("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg");
+                        Console.WriteLine("проверяю: позиция " + (i + 1) + ", unsorted " + i1);
+                        for (int i0 = 1; i0 < lastcar; i0++)
+                        {
+                            if (File.Exists("C:\\Bot\\Finger1\\" + i0 + ".jpg"))
+                            {
+                                Bitmap picturetest = new Bitmap("C:\\Bot\\Finger1\\" + i0 + ".jpg");
+                                int shadesdifs0 = 0;
+                                for (int x = 0; x < 50; x++)
+                                {
+                                    for (int y = 0; y < 50; y++)
+                                    {
+                                        var colorValue0 = picture.GetPixel(x + x0, y + y0);
+                                        var colorValue1 = picturetest.GetPixel(x + x0, y + y0);
+                                        int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
+                                            Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
+                                            Math.Abs((int)colorValue0.B - (int)colorValue1.B));
+                                        shadesdifs0 += shadesdifs1;
+                                    }
+                                }
+                                if (shadesdifs0 < 40000)
+                                {
+                                    picture.Dispose();
+                                    NotePad.DoLog("");
+                                    NotePad.DoLog("Считаю одинаковыми Finger" + (i + 1) + "\\unsorted" + i1);
+                                    NotePad.DoLog("и Finger1\\" + i0);
+                                    NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
+                                    File.Move("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
+                                        "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
+                                    break;
+                                }
+                                if (shadesdifs0 >= 40000 && shadesdifs0 < 60000)
+                                {
+                                    picture.Dispose();
+                                    NotePad.DoLog("");
+                                    NotePad.DoLog("Вероятно, одинаковые Finger" + (i + 1) + "\\unsorted" + i1);
+                                    NotePad.DoLog("и Finger1\\" + i0);
+                                    NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
+                                    File.Copy("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
+                                        "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
+                                    break;
+                                }
+                                picturetest.Dispose();
+                            }
+                            else break;
+                        }
+                        picture.Dispose();
+                    }
+                }
+            }
+        }
+
         public void ReadFile()
         {
             string[] manufacturer = new string[2000];
@@ -32608,7 +37248,7 @@ namespace Bot.v._0._07
                 sr.Close();
             }
 
-            using (StreamReader sr = new StreamReader(@"C:\Bot\Maxspeed.txt", System.Text.Encoding.Default))
+            using (StreamReader sr = new StreamReader(@"C:\Bot\MaxSpeed.txt", System.Text.Encoding.Default))
             {
                 string line;
                 i = 0;
@@ -32625,7 +37265,7 @@ namespace Bot.v._0._07
                 string line;
                 i = 0;
                 while ((line = sr.ReadLine()) != null)
-                {
+                {     
                     acceleration[i] = line;
                     i++;
                 }
@@ -32844,4 +37484,84 @@ namespace Bot.v._0._07
             }*/
         }
     }
+
+    //---------------------------------------------- for new version
+    public class Condition
+    {
+        //tires [0f, 1e, 2d, 3c, 4b, 5a, 6s]
+        int[] slikTires { get; set; }
+        int[] standartTires { get; set; }
+        int[] dynamicTires { get; set; }
+        int[] offroadTires { get; set; }
+        int[] allseasonTires { get; set; }
+
+        int[] lowestCars { get; set; }
+        int[] highestCars { get; set; }
+
+        public int MinRq()
+        {
+            return CalculateRq.MinRq(lowestCars);
+        }
+
+        public int MaxRq()
+        {
+            return CalculateRq.MinRq(highestCars);
+        }
+
+        public int DynamicMinRq()
+        {
+            return CalculateRq.MinRq(dynamicTires);
+        }
+
+        public int StandartMinRq()
+        {
+            return CalculateRq.MinRq(standartTires);
+        }
+
+        public int SlikMinRq()
+        {
+            return CalculateRq.MinRq(slikTires);
+        }
+
+        public int OffroadMinRq()
+        {
+            return CalculateRq.MinRq(offroadTires);
+        }
+
+        public int AllseasonMinRq()
+        {
+            return CalculateRq.MinRq(allseasonTires);
+        }        
+    }
+
+    public class CalculateRq
+    {
+        public static int MinRq(int[] a)
+        {
+            int minrq = 0;
+            int carNumber = 0;
+            for (int i = 0; i < 7; i++)
+            {
+                carNumber += a[i];
+                int overCars = 0;
+                if (carNumber > 5) overCars = 5 - carNumber;
+                minrq += (a[i] - overCars) * 6 + (a[i] - overCars) * i * 4;
+                if (carNumber > 4) break;
+            }
+
+            return minrq;
+        }
+
+        public static int LimRq(int[] a)
+        {
+            int rq = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                rq += a[i];
+            }
+
+            return rq;
+        }
+    }
+
 }
