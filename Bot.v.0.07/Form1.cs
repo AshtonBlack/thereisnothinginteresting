@@ -37628,6 +37628,57 @@ namespace Bot.v._0._07
         {
             return CalculateRq.MinRq(allseasonTires);
         }
+
+        public void ChooseForOffroad(int rq)
+        {
+            Form1 f1 = new Form1();
+
+            Point tires = new Point(200, 635);
+
+            Point dynamic = new Point(490, 450);
+            Point standart = new Point(700, 450);
+            Point allsurface = new Point(910, 450);
+            Point offroad = new Point(1120, 450);
+            Point slik = new Point(490, 600);
+
+            int carnumber = 0;
+            int bestrq = 0;
+            int normalrq = 0;
+            for(int i = 0; i < 7; i++)
+            {
+                carnumber += allseasonTires[i] + offroadTires[i];
+                bestrq += (allseasonTires[i] + offroadTires[i]) * 6 + (allseasonTires[i] + offroadTires[i]) * i * 4;
+                if(carnumber >= 5)
+                {
+                    bestrq -= (carnumber - 5) * 6 + (carnumber - 5) * i * 4;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                carnumber += allseasonTires[i] + offroadTires[i] + standartTires[i];
+                normalrq += (allseasonTires[i] + offroadTires[i] + standartTires[i]) * 6 + (allseasonTires[i] + offroadTires[i] + standartTires[i]) * i * 4;
+                if (carnumber >= 5)
+                {
+                    normalrq -= (carnumber - 5) * 6 + (carnumber - 5) * i * 4;
+                    break;
+                }
+            }
+
+            if(rq >= bestrq)
+            {
+
+            }
+            else if(rq >= normalrq)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
     }
 
     public class CalculateRq
@@ -37640,7 +37691,7 @@ namespace Bot.v._0._07
             {
                 carNumber += a[i];
                 int overCars = 0;
-                if (carNumber > 5) overCars = 5 - carNumber;
+                if (carNumber > 5) overCars = carNumber - 5;
                 minrq += (a[i] - overCars) * 6 + (a[i] - overCars) * i * 4;
                 if (carNumber > 4) break;
             }
@@ -37659,5 +37710,5 @@ namespace Bot.v._0._07
             return rq;
         }
     }
-
+    
 }
