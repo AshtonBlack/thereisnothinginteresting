@@ -26,7 +26,10 @@ namespace Bot.v._0._07
             Thread.Sleep(2000);
 
             DevKit dk = new DevKit();
+                                    
             //dk.SortCarDB();
+            //dk.SearchIndicators();
+
             Loading();
 
             BranchClubs();
@@ -248,7 +251,7 @@ namespace Bot.v._0._07
                 if (hm.CarFixed(x))
                 {
                     NotePad.DoLog("Тачка " + (x + 1) + " исправна");
-                    while (!fc.InGarage()) Thread.Sleep(2000);
+                    while (!fc.ItsGarage()) Thread.Sleep(2000);
                     DragnDropGarage(b[x], a[h + uhl]);
                     x++;
                     h++;
@@ -380,11 +383,41 @@ namespace Bot.v._0._07
             bool eventisactive = pcp.PathToGarage();
             if (eventisactive)
             {
-                pcp.InGarage(rq, condition, eventname, i);
+                pcp.PrepareToRace(rq, condition, eventname, i);
                 wait.ReadytoRace();
                 Clk(1120, 800);//GarageRaceButton
                 Thread.Sleep(3000);
-                eventisactive = wait.ForEnemy();
+
+                bool foundplace = false;
+                do
+                {
+                    se.UniversalErrorDefense();
+                    se.UnavailableEvent();
+
+                    if (fc.EnemyIsReady())
+                    {
+                        eventisactive = true;
+                        foundplace = true;
+                        Thread.Sleep(1000);
+                    }
+
+                    if (fc.Bounty())
+                    {
+                        NotePad.DoLog("эвент закончен");
+                        eventisactive = false;
+                        foundplace = true;
+                        Thread.Sleep(1000);
+                    }
+                    
+                    if (fc.ClubMap())
+                    {
+                        NotePad.DoLog("эвент закончен");
+                        eventisactive = false;
+                        foundplace = true;
+                        Thread.Sleep(1000);
+                    }
+                } while (foundplace == false);//ожидание противника
+
                 if (eventisactive)
                 {
                     pcp.TimeToRace();
@@ -396,7 +429,7 @@ namespace Bot.v._0._07
                     Thread.Sleep(5000);
                     Clk(635, 570);//звезды  
 
-                    bool foundplace = false;                    
+                    foundplace = false;                    
                     do
                     {
                         se.UniversalErrorDefense();
@@ -484,7 +517,7 @@ namespace Bot.v._0._07
                     Thread.Sleep(1000);
                 }
 
-                if (fc.InGarage())
+                if (fc.ItsGarage())
                 {
                     positionflag = true;
                     NotePad.DoLog("Нахожусь в гараже");
@@ -495,7 +528,7 @@ namespace Bot.v._0._07
             return continuegame;
         }
 
-        public void InGarage(int rq, int condition, int eventname, int i)
+        public void PrepareToRace(int rq, int condition, int eventname, int i)
         {
             SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
@@ -582,7 +615,7 @@ namespace Bot.v._0._07
                         hm.MakingHandwith1Condition(rq, condition, eventname, weather);
                     }
                 }
-            } while (!hm.VerifyHand());
+            } while (!hm.VerifyHand() || !hm.VerifyHand());
 
         }
 
@@ -647,7 +680,7 @@ namespace Bot.v._0._07
             {
                 f1.Clk(73, 203);
                 NotePad.DoErrorLog("новое исключение рекламы");
-                for (int avN = 1; avN < 20; avN++)
+                for (int avN = 1; avN < 25; avN++)
                 {
                     if (!File.Exists("C:\\Bot\\HeadPictures\\OriginalWrongADS" + avN + ".jpg"))
                     {
@@ -710,20 +743,20 @@ namespace Bot.v._0._07
             f1.Clk(1230, 150);//close Nox
             Thread.Sleep(1000);
             f1.Clk(670, 560);// accept Nox close
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
+            
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
-
+            
             /*
             f1.Clk(20, 1000);
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             f1.Clk(20, 960);
             Thread.Sleep(3000);
             f1.Clk(40, 910);
-            Thread.Sleep(1000);
-            f1.Clk(40, 910);//reloading
+            Thread.Sleep(2000);
+            f1.Clk(40, 910);//reloading            
             */
-
-            Application.Exit();
+            Process.GetCurrentProcess().Kill();
         }
 
         public void UniversalErrorDefense()
@@ -785,7 +818,7 @@ namespace Bot.v._0._07
                 NotePad.DoLog("эвент заполнен");
                 f1.Clk(645, 575);//Accept Message
 
-                if (fc.InGarage())
+                if (fc.ItsGarage())
                 {
                     f1.Clk(85, 215);//back
                     Thread.Sleep(2000);
@@ -2716,7 +2749,7 @@ namespace Bot.v._0._07
                     break;
                 case "Ралли-кросс мал":
                     break;
-                case "Ралли кросс ср":
+                case "Ралли-кросс ср":
                     break;
                 case "Крутой холм":
                     break;
@@ -4151,7 +4184,7 @@ namespace Bot.v._0._07
             Rectangle[] bounds = new Rectangle[] { Car1Bounds, Car2Bounds, Car3Bounds, Car4Bounds, Car5Bounds, Car6Bounds, Car7Bounds, Car8Bounds, Car9Bounds, Car10Bounds };
             string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car", "9car", "10car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "1");
             return MasterOfPictures.Verify(path + n[slot] + "0", path + n[slot] + "1");
         }
@@ -4396,7 +4429,7 @@ namespace Bot.v._0._07
             Point[] a = new Point[] { r1, r2, r3, r4, r5, r6, r7, r8, r9, r10 };
             Random rand = new Random();
             Point p = new Point();
-            while (!fc.InGarage()) Thread.Sleep(2000);
+            while (!fc.ItsGarage()) Thread.Sleep(2000);
 
             if ((condition == 11 && rq < 110)
                 || (condition == 10 && rq < 70)
@@ -4877,8 +4910,8 @@ namespace Bot.v._0._07
             string[] c = {//без рамок
                 "Color [A=255, R=72, G=102, B=118]",
                 "Color [A=255, R=74, G=103, B=120]",
-                "Color [A=255, R=67, G=95, B=110]",
-                "Color [A=255, R=65, G=91, B=104]",
+                "Color [A=255, R=92, G=163, B=200]",//PL11
+                "Color [A=255, R=87, G=153, B=186]",//PL11
                 "Color [A=255, R=88, G=154, B=187]",//PL11
                 "Color [A=255, R=92, G=150, B=183]"//PL11
             };
@@ -4939,7 +4972,7 @@ namespace Bot.v._0._07
             return x;
         }
 
-        public bool InGarage()
+        public bool ItsGarage()
         {
             bool x = false;
             string InGaragePath = "HeadPictures\\TestInGarage";
@@ -5004,6 +5037,22 @@ namespace Bot.v._0._07
             MasterOfPictures.MakePicture(FullEventBounds, FullEventPath);//проверка сообщения "эвент заполнен"
             if (MasterOfPictures.Verify(FullEventPath, FullEventOriginal)) x = true;
             return x;
+        }
+
+        public bool EnemyIsReady()
+        {
+            bool x = false;
+            string ChooseanEnemyPath = "HeadPictures\\TestChooseanEnemy";
+            string ChooseanEnemyOriginal = "HeadPictures\\OriginalChooseanEnemy";
+            Rectangle ChooseanEnemyBounds = new Rectangle(154, 605, 35, 35);
+            MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
+            if (MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
+            {
+                x = true;
+                NotePad.DoLog("противник загрузился, готов фотать трассы");
+            }
+            return x;
+;
         }
 
         public bool RedReadytoRace()
@@ -5174,41 +5223,6 @@ namespace Bot.v._0._07
                 MasterOfPictures.MakePicture(RaceBounds, RacePath);
                 Thread.Sleep(500);
             } while (MasterOfPictures.Verify(RacePath, RaceOriginal) || MasterOfPictures.Verify(RacePath, RaceOriginal1));
-        }
-
-        public bool ForEnemy()
-        {
-            bool x = false;
-            string ChooseanEnemyPath = "HeadPictures\\TestChooseanEnemy";
-            string ChooseanEnemyOriginal = "HeadPictures\\OriginalChooseanEnemy";
-            Rectangle ChooseanEnemyBounds = new Rectangle(154, 605, 35, 35);
-
-            bool flag = false;
-            do
-            {
-                if (se.UnavailableEvent())
-                {
-                    se.UniversalErrorDefense();
-                    MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
-                    if (MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
-                    {
-                        flag = true;
-                        x = true;
-                        NotePad.DoLog("противник загрузился, готов фотать трассы");
-                    }
-                    if (fc.ClubMap() || fc.Bounty())
-                    {
-                        flag = true;
-                    }
-                }
-                else
-                {
-                    flag = true;
-                }
-                Thread.Sleep(1000);
-            } while (!flag);
-
-            return x;
         }
 
         public void Table()
@@ -6507,6 +6521,552 @@ namespace Bot.v._0._07
                     break;
                 case 312:
                     carid = 1404;
+                    break;
+                case 313:
+                    carid = 259;
+                    break;
+                case 314:
+                    carid = 120;
+                    break;
+                case 315:
+                    carid = 981;
+                    break;
+                case 316:
+                    carid = 390;
+                    break;
+                case 317:
+                    carid = 819;
+                    break;
+                case 318:
+                    carid = 1815;
+                    break;
+                case 319:
+                    carid = 895;
+                    break;
+                case 320:
+                    carid = 379;
+                    break;
+                case 321:
+                    carid = 1445;
+                    break;
+                case 322:
+                    carid = 15;
+                    break;
+                case 323:
+                    carid = 1579;
+                    break;
+                case 324:
+                    carid = 364;
+                    break;
+                case 325:
+                    carid = 389;
+                    break;
+                case 326:
+                    carid = 1522;
+                    break;
+                case 327:
+                    carid = 1592;
+                    break;
+                case 328:
+                    carid = 985;
+                    break;
+                case 329:
+                    carid = 388;
+                    break;
+                case 330:
+                    carid = 1377;
+                    break;
+                case 331:
+                    carid = 690;
+                    break;
+                case 332:
+                    carid = 553;
+                    break;
+                case 333:
+                    carid = 499;
+                    break;
+                case 334:
+                    carid = 353;
+                    break;
+                case 335:
+                    carid = 1073;
+                    break;
+                case 336:
+                    carid = 1800;
+                    break;
+                case 337:
+                    carid = 505;
+                    break;
+                case 338:
+                    carid = 458;
+                    break;
+                case 339:
+                    carid = 468;
+                    break;
+                case 340:
+                    carid = 841;
+                    break;
+                case 341:
+                    carid = 754;
+                    break;
+                case 342:
+                    carid = 737;
+                    break;
+                case 343:
+                    carid = 1836;
+                    break;
+                case 344:
+                    carid = 365;
+                    break;
+                case 345:
+                    carid = 1852;
+                    break;
+                case 346:
+                    carid = 1681;
+                    break;
+                case 347:
+                    carid = 707;
+                    break;
+                case 348:
+                    carid = 573;
+                    break;
+                case 349:
+                    carid = 1075;
+                    break;
+                case 350:
+                    carid = 652;
+                    break;
+                case 351:
+                    carid = 1494;
+                    break;
+                case 352:
+                    carid = 1132;
+                    break;
+                case 353:
+                    carid = 826;
+                    break;
+                case 354:
+                    carid = 402;
+                    break;
+                case 355:
+                    carid = 672;
+                    break;
+                case 356:
+                    carid = 241;
+                    break;
+                case 357:
+                    carid = 1665;
+                    break;
+                case 358:
+                    carid = 1892;
+                    break;
+                case 359:
+                    carid = 352;
+                    break;
+                case 360:
+                    carid = 665;
+                    break;
+                case 361:
+                    carid = 245;
+                    break;
+                case 362:
+                    carid = 220;
+                    break;
+                case 363:
+                    carid = 1039;
+                    break;
+                case 364:
+                    carid = 1490;
+                    break;
+                case 365:
+                    carid = 1704;
+                    break;
+                case 366:
+                    carid = 862;
+                    break;
+                case 367:
+                    carid = 605;
+                    break;
+                case 368:
+                    carid = 6;
+                    break;
+                case 369:
+                    carid = 377;
+                    break;
+                case 370:
+                    carid = 1807;
+                    break;
+                case 371:
+                    carid = 1426;
+                    break;
+                case 372:
+                    carid = 19;
+                    break;
+                case 373:
+                    carid = 1550;
+                    break;
+                case 374:
+                    carid = 299;
+                    break;
+                case 375:
+                    carid = 1156;
+                    break;
+                case 376:
+                    carid = 1292;
+                    break;
+                case 377:
+                    carid = 1069;
+                    break;
+                case 378:
+                    carid = 195;
+                    break;
+                case 379:
+                    carid = 1505;
+                    break;
+                case 380:
+                    carid = 308;
+                    break;
+                case 381:
+                    carid = 1154;
+                    break;
+                case 382:
+                    carid = 857;
+                    break;
+                case 383:
+                    carid = 214;
+                    break;
+                case 384:
+                    carid = 1747;
+                    break;
+                case 385:
+                    carid = 881;
+                    break;
+                case 386:
+                    carid = 1319;
+                    break;
+                case 387:
+                    carid = 1035;
+                    break;
+                case 388:
+                    carid = 237;
+                    break;
+                case 389:
+                    carid = 1089;
+                    break;
+                case 390:
+                    carid = 1076;
+                    break;
+                case 391:
+                    carid = 1045;
+                    break;
+                case 392:
+                    carid = 596;
+                    break;
+                case 393:
+                    carid = 187;
+                    break;
+                case 394:
+                    carid = 1543;
+                    break;
+                case 395:
+                    carid = 115;
+                    break;
+                case 396:
+                    carid = 845;
+                    break;
+                case 397:
+                    carid = 1291;
+                    break;
+                case 398:
+                    carid = 411;
+                    break;
+                case 399:
+                    carid = 1545;
+                    break;
+                case 400:
+                    carid = 342;
+                    break;
+                case 401:
+                    carid = 608;
+                    break;
+                case 402:
+                    carid = 1603;
+                    break;
+                case 403:
+                    carid = 1575;
+                    break;
+                case 404:
+                    carid = 677;
+                    break;
+                case 405:
+                    carid = 1577;
+                    break;
+                case 406:
+                    carid = 1548;
+                    break;
+                case 407:
+                    carid = 1597;
+                    break;
+                case 408:
+                    carid = 1608;
+                    break;
+                case 409:
+                    carid = 637;
+                    break;
+                case 410:
+                    carid = 1521;
+                    break;
+                case 411:
+                    carid = 622;
+                    break;
+                case 412:
+                    carid = 481;
+                    break;
+                case 413:
+                    carid = 733;
+                    break;
+                case 414:
+                    carid = 904;
+                    break;
+                case 415:
+                    carid = 850;
+                    break;
+                case 416:
+                    carid = 1349;
+                    break;
+                case 417:
+                    carid = 1005;
+                    break;
+                case 418:
+                    carid = 1010;
+                    break;
+                case 419:
+                    carid = 293;
+                    break;
+                case 420:
+                    carid = 307;
+                    break;
+                case 421:
+                    carid = 641;
+                    break;
+                case 422:
+                    carid = 942;
+                    break;
+                case 423:
+                    carid = 1221;
+                    break;
+                case 424:
+                    carid = 1828;
+                    break;
+                case 425:
+                    carid = 1590;
+                    break;
+                case 426:
+                    carid = 1643;
+                    break;
+                case 427:
+                    carid = 1455;
+                    break;
+                case 428:
+                    carid = 1634;
+                    break;
+                case 429:
+                    carid = 1502;
+                    break;
+                case 430:
+                    carid = 1500;
+                    break;
+                case 431:
+                    carid = 271;
+                    break;
+                case 432:
+                    carid = 1214;
+                    break;
+                case 433:
+                    carid = 235;
+                    break;
+                case 434:
+                    carid = 1806;
+                    break;
+                case 435:
+                    carid = 279;
+                    break;
+                case 436:
+                    carid = 334;
+                    break;
+                case 437:
+                    carid = 1844;
+                    break;
+                case 438:
+                    carid = 1439;
+                    break;
+                case 439:
+                    carid = 1493;
+                    break;
+                case 440:
+                    carid = 133;
+                    break;
+                case 441:
+                    carid = 144;
+                    break;
+                case 442:
+                    carid = 452;
+                    break;
+                case 443:
+                    carid = 1507;
+                    break;
+                case 444:
+                    carid = 1631;
+                    break;
+                case 445:
+                    carid = 320;
+                    break;
+                case 446:
+                    carid = 1473;
+                    break;
+                case 447:
+                    carid = 1475;
+                    break;
+                case 448:
+                    carid = 1825;
+                    break;
+                case 449:
+                    carid = 131;
+                    break;
+                case 450:
+                    carid = 255;
+                    break;
+                case 451:
+                    carid = 466;
+                    break;
+                case 452:
+                    carid = 1837;
+                    break;
+                case 453:
+                    carid = 1106;
+                    break;
+                case 454:
+                    carid = 1732;
+                    break;
+                case 455:
+                    carid = 1379;
+                    break;
+                case 456:
+                    carid = 1766;
+                    break;
+                case 457:
+                    carid = 958;
+                    break;
+                case 458:
+                    carid = 916;
+                    break;
+                case 459:
+                    carid = 1512;
+                    break;
+                case 460:
+                    carid = 955;
+                    break;
+                case 461:
+                    carid = 967;
+                    break;
+                case 462:
+                    carid = 1776;
+                    break;
+                case 463:
+                    carid = 76;
+                    break;
+                case 464:
+                    carid = 1158;
+                    break;
+                case 465:
+                    carid = 956;
+                    break;
+                case 466:
+                    carid = 736;
+                    break;
+                case 467:
+                    carid = 285;
+                    break;
+                case 468:
+                    carid = 1714;
+                    break;
+                case 469:
+                    carid = 1448;
+                    break;
+                case 470:
+                    carid = 36;
+                    break;
+                case 471:
+                    carid = 1862;
+                    break;
+                case 472:
+                    carid = 880;
+                    break;
+                case 473:
+                    carid = 952;
+                    break;
+                case 474:
+                    carid = 324;
+                    break;
+                case 475:
+                    carid = 323;
+                    break;
+                case 476:
+                    carid = 393;
+                    break;
+                case 477:
+                    carid = 1293;
+                    break;
+                case 478:
+                    carid = 301;
+                    break;
+                case 479:
+                    carid = 322;
+                    break;
+                case 480:
+                    carid = 250;
+                    break;
+                case 481:
+                    carid = 215;
+                    break;
+                case 482:
+                    carid = 260;
+                    break;
+                case 483:
+                    carid = 1095;
+                    break;
+                case 484:
+                    carid = 1411;
+                    break;
+                case 485:
+                    carid = 222;
+                    break;
+                case 486:
+                    carid = 300;
+                    break;
+                case 487:
+                    carid = 1299;
+                    break;
+                case 488:
+                    carid = 1779;
+                    break;
+                case 489:
+                    carid = 289;
+                    break;
+                case 490:
+                    carid = 278;
+                    break;
+                case 491:
+                    carid = 335;
+                    break;
+                case 492:
+                    carid = 216;
+                    break;
+                case 493:
+                    carid = 1017;
+                    break;
+                case 494:
+                    carid = 290;
                     break;
                 default:
                     break;
@@ -36984,24 +37544,6 @@ namespace Bot.v._0._07
             Point GarageSlot10 = new Point(810, 590);*/
             Point[] a = { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6 };
 
-            string[] b = {//с рамками
-                "Color [A=255, R=107, G=170, B=205]",//PL11
-                "Color [A=255, R=110, G=173, B=208]",//PL11
-                "Color [A=255, R=96, G=156, B=188]",//PL11
-                "Color [A=255, R=91, G=148, B=176]",//PL11
-                "Color [A=255, R=72, G=96, B=107]",
-                "Color [A=255, R=74, G=94, B=105]"
-            };
-
-            string[] c = {//без рамок
-                "Color [A=255, R=72, G=102, B=118]",
-                "Color [A=255, R=74, G=103, B=120]",
-                "Color [A=255, R=67, G=95, B=110]",
-                "Color [A=255, R=65, G=91, B=104]",
-                "Color [A=255, R=88, G=154, B=187]",//PL11
-                "Color [A=255, R=92, G=150, B=183]"//PL11
-            };
-
             for (int n = 0; n < 6; n++)
             {
                 NotePad.DoLog(MasterOfPictures.PixelIndicator(a[n]));
@@ -37156,6 +37698,8 @@ namespace Bot.v._0._07
             int x0 = 32;
             int y0 = 7;
             NotePad.ClearLog();
+            int foundcars = 0;
+            int predictcars = 0;
 
             for (int i = 1; i < 5; i++)
             {
@@ -37186,23 +37730,27 @@ namespace Bot.v._0._07
                                 if (shadesdifs0 < 40000)
                                 {
                                     picture.Dispose();
+                                    Console.WriteLine("совпали");
                                     NotePad.DoLog("");
                                     NotePad.DoLog("Считаю одинаковыми Finger" + (i + 1) + "\\unsorted" + i1);
                                     NotePad.DoLog("и Finger1\\" + i0);
                                     NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
                                     File.Move("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
                                         "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
+                                    foundcars++;
                                     break;
                                 }
                                 if (shadesdifs0 >= 40000 && shadesdifs0 < 60000)
                                 {
                                     picture.Dispose();
+                                    Console.WriteLine("похожи");
                                     NotePad.DoLog("");
                                     NotePad.DoLog("Вероятно, одинаковые Finger" + (i + 1) + "\\unsorted" + i1);
                                     NotePad.DoLog("и Finger1\\" + i0);
                                     NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
                                     File.Copy("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
                                         "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
+                                    predictcars++;
                                     break;
                                 }
                                 picturetest.Dispose();
@@ -37213,6 +37761,10 @@ namespace Bot.v._0._07
                     }
                 }
             }
+
+            NotePad.DoLog("");
+            NotePad.DoLog("найдено машин: " + foundcars);
+            NotePad.DoLog("вероятных совпадений " + predictcars);
         }
 
         public void ReadFile()
@@ -37580,135 +38132,4 @@ namespace Bot.v._0._07
             }*/
         }
     }
-
-    //---------------------------------------------- for new version
-    public class Condition
-    {
-        //tires [0f, 1e, 2d, 3c, 4b, 5a, 6s]
-        int[] slikTires { get; set; }
-        int[] standartTires { get; set; }
-        int[] dynamicTires { get; set; }
-        int[] offroadTires { get; set; }
-        int[] allseasonTires { get; set; }
-
-        int[] lowestCars { get; set; }
-        int[] highestCars { get; set; }
-
-        public int MinRq()
-        {
-            return CalculateRq.MinRq(lowestCars);
-        }
-
-        public int MaxRq()
-        {
-            return CalculateRq.MinRq(highestCars);
-        }
-
-        public int DynamicMinRq()
-        {
-            return CalculateRq.MinRq(dynamicTires);
-        }
-
-        public int StandartMinRq()
-        {
-            return CalculateRq.MinRq(standartTires);
-        }
-
-        public int SlikMinRq()
-        {
-            return CalculateRq.MinRq(slikTires);
-        }
-
-        public int OffroadMinRq()
-        {
-            return CalculateRq.MinRq(offroadTires);
-        }
-
-        public int AllseasonMinRq()
-        {
-            return CalculateRq.MinRq(allseasonTires);
-        }
-
-        public void ChooseForOffroad(int rq)
-        {
-            Form1 f1 = new Form1();
-
-            Point tires = new Point(200, 635);
-
-            Point dynamic = new Point(490, 450);
-            Point standart = new Point(700, 450);
-            Point allsurface = new Point(910, 450);
-            Point offroad = new Point(1120, 450);
-            Point slik = new Point(490, 600);
-
-            int carnumber = 0;
-            int bestrq = 0;
-            int normalrq = 0;
-            for(int i = 0; i < 7; i++)
-            {
-                carnumber += allseasonTires[i] + offroadTires[i];
-                bestrq += (allseasonTires[i] + offroadTires[i]) * 6 + (allseasonTires[i] + offroadTires[i]) * i * 4;
-                if(carnumber >= 5)
-                {
-                    bestrq -= (carnumber - 5) * 6 + (carnumber - 5) * i * 4;
-                    break;
-                }
-            }
-
-            for (int i = 0; i < 7; i++)
-            {
-                carnumber += allseasonTires[i] + offroadTires[i] + standartTires[i];
-                normalrq += (allseasonTires[i] + offroadTires[i] + standartTires[i]) * 6 + (allseasonTires[i] + offroadTires[i] + standartTires[i]) * i * 4;
-                if (carnumber >= 5)
-                {
-                    normalrq -= (carnumber - 5) * 6 + (carnumber - 5) * i * 4;
-                    break;
-                }
-            }
-
-            if(rq >= bestrq)
-            {
-
-            }
-            else if(rq >= normalrq)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-    }
-
-    public class CalculateRq
-    {
-        public static int MinRq(int[] a)
-        {
-            int minrq = 0;
-            int carNumber = 0;
-            for (int i = 0; i < 7; i++)
-            {
-                carNumber += a[i];
-                int overCars = 0;
-                if (carNumber > 5) overCars = carNumber - 5;
-                minrq += (a[i] - overCars) * 6 + (a[i] - overCars) * i * 4;
-                if (carNumber > 4) break;
-            }
-
-            return minrq;
-        }
-
-        public static int LimRq(int[] a)
-        {
-            int rq = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                rq += a[i];
-            }
-
-            return rq;
-        }
-    }
-    
 }
