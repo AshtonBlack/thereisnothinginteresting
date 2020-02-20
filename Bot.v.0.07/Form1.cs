@@ -134,7 +134,7 @@ namespace Bot.v._0._07
             string x2;
             do
             {
-                if (error == 5)
+                if (error == 3)
                 {
                     Clk(1205, 210);
                     Thread.Sleep(500);
