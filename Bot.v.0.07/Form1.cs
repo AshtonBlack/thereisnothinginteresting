@@ -121,9 +121,9 @@ namespace Bot.v._0._07
             Thread.Sleep(1000);
         }
 
-        public void DragnDrop(Point xy1, Point xy2, int[] a1, int[] b1, int[] c1)
+        public void DragnDrop(Point xy1, Point xy2)
         {
-            GrandArrangement ga = new GrandArrangement();
+            SpecialEvents se = new SpecialEvents();
             bool criterror = false;
             int error = 0;
             int dox1 = xy1.X;
@@ -156,7 +156,7 @@ namespace Bot.v._0._07
 
             if (criterror == true)
             {
-                ga.Arrangement(a1, b1, c1);
+                se.RestartBot();
             }
         }
 
@@ -680,7 +680,7 @@ namespace Bot.v._0._07
             {
                 f1.Clk(73, 203);
                 NotePad.DoErrorLog("новое исключение рекламы");
-                for (int avN = 1; avN < 25; avN++)
+                for (int avN = 1; avN < 30; avN++)
                 {
                     if (!File.Exists("C:\\Bot\\HeadPictures\\OriginalWrongADS" + avN + ".jpg"))
                     {
@@ -2855,27 +2855,28 @@ namespace Bot.v._0._07
             for (int j = 0; j < 5; j++)//logic for dragndrop
             {
                 Thread.Sleep(1000);
-                double empty = -20000;
+                double emptycarpoints = -50000;
                 double x;
                 int usingfinger = 0;
+                double maxpoints = emptycarpoints;
                 for (int n = 0; n < 5; n++)
                 {
                     if (carstats[n] == emptycar)
                     {
-                        x = -10000;
+                        x = emptycarpoints;
                     }
                     else
                     {
                         x = al.CalculateCompatibility(d[0, j], d[1, j], d[2, j], carstats[n]);
                     }
 
-                    if (x > empty)
+                    if (x > maxpoints)
                     {
                         usingfinger = n;//choose the best car for track
-                        empty = x;
+                        maxpoints = x;
                     }
                 }
-                f.DragnDrop(a[usingfinger], b[j], a1, b1, c1);//set choosen car on track
+                f.DragnDrop(a[usingfinger], b[j]);//set choosen car on track
                 carstats[usingfinger] = emptycar;//set used finger as empty
             }
         }
@@ -4870,15 +4871,14 @@ namespace Bot.v._0._07
             return x;
         }//принимает награду
 
-        public bool ActiveEvent()
+        public bool ActiveEvent()//вторая картинка удалена
         {
             bool x = false;
             string ButtonToEventTest = "HeadPictures\\TestButtonToEvent";
             string ButtonToEventOriginal = "HeadPictures\\OriginalButtonToEvent";
-            string ButtonToEventOriginal1 = "HeadPictures\\OriginalButtonToEvent1";
             Rectangle ButtonToEventBounds = new Rectangle(1055, 790, 20, 20);
             MasterOfPictures.MakePicture(ButtonToEventBounds, ButtonToEventTest);
-            if (MasterOfPictures.Verify(ButtonToEventOriginal, ButtonToEventTest) || MasterOfPictures.Verify(ButtonToEventOriginal1, ButtonToEventTest)) x = true;
+            if (MasterOfPictures.Verify(ButtonToEventOriginal, ButtonToEventTest)) x = true;
 
             return x;
         }
@@ -5190,14 +5190,13 @@ namespace Bot.v._0._07
         {
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
-            string RaceOriginal1 = "HeadPictures\\OriginalRace1";
             Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
             do
             {
                 se.UniversalErrorDefense();
                 MasterOfPictures.MakePicture(RaceBounds, RacePath);
                 Thread.Sleep(500);
-            } while (!MasterOfPictures.Verify(RacePath, RaceOriginal) && !MasterOfPictures.Verify(RacePath, RaceOriginal1));
+            } while (!MasterOfPictures.Verify(RacePath, RaceOriginal));
         }
 
         public void PointsForRace()
@@ -5216,13 +5215,12 @@ namespace Bot.v._0._07
         {
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
-            string RaceOriginal1 = "HeadPictures\\OriginalRace1";
             Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
             do
             {
                 MasterOfPictures.MakePicture(RaceBounds, RacePath);
                 Thread.Sleep(500);
-            } while (MasterOfPictures.Verify(RacePath, RaceOriginal) || MasterOfPictures.Verify(RacePath, RaceOriginal1));
+            } while (MasterOfPictures.Verify(RacePath, RaceOriginal));
         }
 
         public void Table()
@@ -7067,6 +7065,120 @@ namespace Bot.v._0._07
                     break;
                 case 494:
                     carid = 290;
+                    break;
+                case 495:
+                    carid = 894;
+                    break;
+                case 496:
+                    carid = 84;
+                    break;
+                case 497:
+                    carid = 50;
+                    break;
+                case 498:
+                    carid = 820;
+                    break;
+                case 499:
+                    carid = 1709;
+                    break;
+                case 500:
+                    carid = 495;
+                    break;
+                case 501:
+                    carid = 1322;
+                    break;
+                case 502:
+                    carid = 469;
+                    break;
+                case 503:
+                    carid = 417;
+                    break;
+                case 504:
+                    carid = 1348;
+                    break;
+                case 505:
+                    carid = 1034;
+                    break;
+                case 506:
+                    carid = 804;
+                    break;
+                case 507:
+                    carid = 1020;
+                    break;
+                case 508:
+                    carid = 58;
+                    break;
+                case 509:
+                    carid = 446;
+                    break;
+                case 510:
+                    carid = 96;
+                    break;
+                case 511:
+                    carid = 1042;
+                    break;
+                case 512:
+                    carid = 1546;
+                    break;
+                case 513:
+                    carid = 636;
+                    break;
+                case 514:
+                    carid = 484;
+                    break;
+                case 515:
+                    carid = 478;
+                    break;
+                case 516:
+                    carid = 966;
+                    break;
+                case 517:
+                    carid = 1056;
+                    break;
+                case 518:
+                    carid = 1314;
+                    break;
+                case 519:
+                    carid = 1705;
+                    break;
+                case 520:
+                    carid = 124;
+                    break;
+                case 521:
+                    carid = 142;
+                    break;
+                case 522:
+                    carid = 205;
+                    break;
+                case 523:
+                    carid = 1210;
+                    break;
+                case 524:
+                    carid = 27;
+                    break;
+                case 525:
+                    carid = 568;
+                    break;
+                case 526:
+                    carid = 821;
+                    break;
+                case 527:
+                    carid = 1659;
+                    break;
+                case 528:
+                    carid = 1447;
+                    break;
+                case 529:
+                    carid = 80;
+                    break;
+                case 530:
+                    carid = 1682;
+                    break;
+                case 531:
+                    carid = 1794;
+                    break;
+                case 532:
+                    carid = 397;
                     break;
                 default:
                     break;
