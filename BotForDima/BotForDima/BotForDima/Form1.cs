@@ -285,6 +285,7 @@ namespace BotForDima
         {
             Waiting wait = new Waiting();
             NotePad.ClearLog();
+            if(File.Exists(@"C:\Program Files (x86)\Nox\bin\Nox.exe"))
             Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_0");
 
             Thread.Sleep(10000);
@@ -3859,7 +3860,7 @@ namespace BotForDima
         {
             string AlcPath = "HeadPictures\\TestStart";
             string AlcOriginal = "HeadPictures\\OriginalStart";
-            Rectangle AlcBounds = new Rectangle(431, 566, 92, 27);
+            Rectangle AlcBounds = new Rectangle(426, 569, 96, 25);
             do
             {
                 MasterOfPictures.MakePicture(AlcBounds, AlcPath);
