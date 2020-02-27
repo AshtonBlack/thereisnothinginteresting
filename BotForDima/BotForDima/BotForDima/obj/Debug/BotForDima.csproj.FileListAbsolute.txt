@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\bin\Debug\BotForDima.exe.config
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\bin\Debug\BotForDima.exe
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\bin\Debug\BotForDima.pdb
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.csprojAssemblyReference.cache
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.Form1.resources
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.Properties.Resources.resources
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.csproj.GenerateResource.cache
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.exe
-C:\Bot\thereisnothinginteresting\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.pdb
-=======
 C:\BotForDima\BotForDima\BotForDima\bin\Debug\BotForDima.exe.config
 C:\BotForDima\BotForDima\BotForDima\bin\Debug\BotForDima.exe
 C:\BotForDima\BotForDima\BotForDima\bin\Debug\BotForDima.pdb
@@ -18,4 +7,3 @@ C:\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.Properties.Resources.re
 C:\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.csproj.GenerateResource.cache
 C:\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.exe
 C:\BotForDima\BotForDima\BotForDima\obj\Debug\BotForDima.pdb
->>>>>>> d8de589a23af756cb7c52b0fdadc9637268a435e

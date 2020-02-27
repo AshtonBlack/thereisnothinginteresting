@@ -20,7 +20,7 @@ namespace BotForDima
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Location = new Point(0, 0); //локация формы(невидимая)
+            this.Location = new Point(0, 0);
             
             Loading();
 
@@ -281,7 +281,7 @@ namespace BotForDima
             Thread.Sleep(1000);
         }
 
-        private void Loading()//for dima
+        private void Loading()
         {
             Waiting wait = new Waiting();
             NotePad.ClearLog();
@@ -290,13 +290,13 @@ namespace BotForDima
 
             Thread.Sleep(10000);
 
-            wait.StartIcon();//for dima
+            wait.StartIcon();
 
             Clk(1000, 300);//Icon for dima
 
             Thread.Sleep(10000);
 
-            wait.StartButton();//for dima
+            wait.StartButton();
 
             Clk(480, 580);//Start game for dima
 
@@ -314,13 +314,13 @@ namespace BotForDima
 
             Clk(800, 300);//Events for dima
 
-            wait.EventPage();//for dima
+            wait.EventPage();
 
             Clk(400, 420);//Clubs for dima
 
             Thread.Sleep(15000);
 
-            wait.ClubMap();//for dima
+            wait.ClubMap();
 
             se.DragMap();//for dima
 
@@ -3601,7 +3601,7 @@ namespace BotForDima
             bool x = false;
             string EventPath = "HeadPictures\\TestEvent";
             string EventOriginal = "HeadPictures\\OriginalEvent";
-            Rectangle EventBounds = new Rectangle(366, 140, 139, 32);
+            Rectangle EventBounds = new Rectangle(329, 107, 143, 31);
             MasterOfPictures.MakePicture(EventBounds, EventPath);
             if (MasterOfPictures.Verify(EventPath, EventOriginal))
             {
@@ -3611,12 +3611,12 @@ namespace BotForDima
             return x;
         }
 
-        public bool MissClick()
+        public bool MissClick()//for dima
         {
             bool x = false;
             string WrongClickPath = "HeadPictures\\TestWrongClick";
             string WrongClickOriginal = "HeadPictures\\OriginalWrongClick";
-            Rectangle WrongClickBounds = new Rectangle(1136, 231, 20, 20);
+            Rectangle WrongClickBounds = new Rectangle(1322, 152, 28, 23);
             MasterOfPictures.MakePicture(WrongClickBounds, WrongClickPath);
             if (MasterOfPictures.Verify(WrongClickPath, WrongClickOriginal))
             {
@@ -3627,12 +3627,12 @@ namespace BotForDima
             return x;
         }
 
-        public bool Bounty()
+        public bool Bounty()//for dima
         {
             bool x = false;
             string ClubBounty = "HeadPictures\\TestClubBounty";
             string ClubBountyOriginal = "HeadPictures\\OriginalClubBounty";
-            Rectangle ClubBountyBounds = new Rectangle(668, 684, 261, 28);
+            Rectangle ClubBountyBounds = new Rectangle(669, 691, 260, 26);
             MasterOfPictures.MakePicture(ClubBountyBounds, ClubBounty);
             if (MasterOfPictures.Verify(ClubBountyOriginal, ClubBounty))
             {
@@ -3641,14 +3641,14 @@ namespace BotForDima
                 x = true;
             }
             return x;
-        }// for dima
+        }
 
         public bool ActiveEvent()//for dima
         {
             bool x = false;
             string ButtonToEventTest = "HeadPictures\\TestButtonToEvent";
             string ButtonToEventOriginal = "HeadPictures\\OriginalButtonToEvent";
-            Rectangle ButtonToEventBounds = new Rectangle(1239, 743, 20, 20);
+            Rectangle ButtonToEventBounds = new Rectangle(1239, 745, 21, 21);
             MasterOfPictures.MakePicture(ButtonToEventBounds, ButtonToEventTest);
             if (MasterOfPictures.Verify(ButtonToEventOriginal, ButtonToEventTest)) x = true;
 
@@ -3699,7 +3699,7 @@ namespace BotForDima
         {
             string ControlScreenPath = "HeadPictures\\TestControlScreen";
             string ControlScreenOriginal = "HeadPictures\\OriginalControlScreen";
-            Rectangle ControlScreenBounds = new Rectangle(952, 734, 99, 31);
+            Rectangle ControlScreenBounds = new Rectangle(956, 743, 94, 29);
             bool x = false;
             MasterOfPictures.MakePicture(ControlScreenBounds, ControlScreenPath);
             if (MasterOfPictures.Verify(ControlScreenPath, ControlScreenOriginal)) x = true;
@@ -3710,7 +3710,7 @@ namespace BotForDima
         {
             string ClubMapPath = "HeadPictures\\TestClubMap";
             string ClubMapOriginal = "HeadPictures\\OriginalClubMap";
-            Rectangle ClubMapBounds = new Rectangle(1011, 755, 29, 28);
+            Rectangle ClubMapBounds = new Rectangle(1003, 751, 45, 47);
             bool x = false;
             MasterOfPictures.MakePicture(ClubMapBounds, ClubMapPath);
             if (MasterOfPictures.Verify(ClubMapPath, ClubMapOriginal))
@@ -3727,18 +3727,18 @@ namespace BotForDima
             bool x = false;
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
-            Rectangle RaceBounds = new Rectangle(179, 100, 64, 67);
+            Rectangle RaceBounds = new Rectangle(180, 98, 65, 74);
             MasterOfPictures.MakePicture(RaceBounds, RacePath);
             if (MasterOfPictures.Verify(RacePath, RaceOriginal)) x = true;
             return x;
         }
 
-        public bool Ending()
+        public bool Ending()//for dima
         {
             bool x = false;
             string PointsForRacePath = "HeadPictures\\TestPointsForRace";
             string PointsForRaceOriginal = "HeadPictures\\OriginalPointsForRace";
-            Rectangle PointsForRaceBounds = new Rectangle(723, 718, 189, 20);
+            Rectangle PointsForRaceBounds = new Rectangle(885, 667, 205, 25);
             MasterOfPictures.MakePicture(PointsForRaceBounds, PointsForRacePath);
             if (MasterOfPictures.Verify(PointsForRacePath, PointsForRaceOriginal)) x = true;
             return x;
@@ -3749,7 +3749,7 @@ namespace BotForDima
             bool x = false;
             string InGaragePath = "HeadPictures\\TestInGarage";
             string InGarageOriginal = "HeadPictures\\OriginalInGarage";
-            Rectangle InGarageBounds = new Rectangle(331, 106, 101, 35);
+            Rectangle InGarageBounds = new Rectangle(331, 108, 101, 37);
             MasterOfPictures.MakePicture(InGarageBounds, InGaragePath);
             if (MasterOfPictures.Verify(InGaragePath, InGarageOriginal))
             {
@@ -3811,12 +3811,12 @@ namespace BotForDima
             return x;
         }
 
-        public bool EnemyIsReady()
+        public bool EnemyIsReady()//for dima
         {
             bool x = false;
             string ChooseanEnemyPath = "HeadPictures\\TestChooseanEnemy";
             string ChooseanEnemyOriginal = "HeadPictures\\OriginalChooseanEnemy";
-            Rectangle ChooseanEnemyBounds = new Rectangle(154, 605, 35, 35);
+            Rectangle ChooseanEnemyBounds = new Rectangle(285, 548, 35, 35);
             MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
             if (MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
             {
@@ -3827,12 +3827,12 @@ namespace BotForDima
             ;
         }
 
-        public bool RedReadytoRace()
+        public bool RedReadytoRace()//for dima
         {
             bool x = false;
             string GarageRedRaceButtonPath = "HeadPictures\\TestRedRaceButton";
             string GarageRedRaceButtonOriginal = "HeadPictures\\OriginalRedRaceButton";
-            Rectangle GarageRedRaceButtonBounds = new Rectangle(1075, 795, 95, 20);
+            Rectangle GarageRedRaceButtonBounds = new Rectangle(1258, 750, 102, 21);
             MasterOfPictures.MakePicture(GarageRedRaceButtonBounds, GarageRedRaceButtonPath);
             if (MasterOfPictures.Verify(GarageRedRaceButtonPath, GarageRedRaceButtonOriginal)) x = true;
             return x;
@@ -3860,7 +3860,7 @@ namespace BotForDima
         {
             string AlcPath = "HeadPictures\\TestStart";
             string AlcOriginal = "HeadPictures\\OriginalStart";
-            Rectangle AlcBounds = new Rectangle(426, 569, 96, 25);
+            Rectangle AlcBounds = new Rectangle(425, 569, 98, 26);
             do
             {
                 MasterOfPictures.MakePicture(AlcBounds, AlcPath);
@@ -3888,7 +3888,7 @@ namespace BotForDima
         {
             string HeadPath = "HeadPictures\\TestHead";
             string HeadOriginal = "HeadPictures\\OriginalHead";
-            Rectangle HeadBounds = new Rectangle(330, 106, 131, 31);
+            Rectangle HeadBounds = new Rectangle(329, 107, 133, 31);
             do
             {
                 MasterOfPictures.MakePicture(HeadBounds, HeadPath);
@@ -3900,7 +3900,7 @@ namespace BotForDima
         {
             string EventPath = "HeadPictures\\TestEvent";
             string EventOriginal = "HeadPictures\\OriginalEvent";
-            Rectangle EventBounds = new Rectangle(366, 140, 139, 32);
+            Rectangle EventBounds = new Rectangle(329, 107, 143, 31);
             do
             {
                 fc.Bounty();
@@ -3913,7 +3913,7 @@ namespace BotForDima
         {
             string ClubMapPath = "HeadPictures\\TestClubMap";
             string ClubMapOriginal = "HeadPictures\\OriginalClubMap";
-            Rectangle ClubMapBounds = new Rectangle(1011, 755, 29, 28);
+            Rectangle ClubMapBounds = new Rectangle(1003, 751, 45, 47);
             do
             {
                 se.UniversalErrorDefense();
@@ -3927,7 +3927,7 @@ namespace BotForDima
         {
             string GarageRaceButtonPath = "HeadPictures\\TestGarageRaceButton";
             string GarageRaceButtonOriginal = "HeadPictures\\OriginalGarageRaceButton";
-            Rectangle GarageRaceButtonBounds = new Rectangle(1258, 743, 102, 22);
+            Rectangle GarageRaceButtonBounds = new Rectangle(1258, 750, 102, 21);
             do
             {
                 se.UniversalErrorDefense();
@@ -3953,7 +3953,7 @@ namespace BotForDima
         {
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
-            Rectangle RaceBounds = new Rectangle(179, 100, 64, 67);
+            Rectangle RaceBounds = new Rectangle(180, 98, 65, 74);
             do
             {
                 se.UniversalErrorDefense();
@@ -3962,11 +3962,11 @@ namespace BotForDima
             } while (!MasterOfPictures.Verify(RacePath, RaceOriginal));
         }
 
-        public void PointsForRace()
+        public void PointsForRace()//for dima
         {
             string RacePointsPath = "HeadPictures\\TestRace";
             string RacePointsOriginal = "HeadPictures\\OriginalRace";
-            Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
+            Rectangle RaceBounds = new Rectangle(180, 98, 65, 74);
             do
             {
                 MasterOfPictures.MakePicture(RaceBounds, RacePointsPath);
@@ -3978,7 +3978,7 @@ namespace BotForDima
         {
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
-            Rectangle RaceBounds = new Rectangle(179, 100, 64, 67);
+            Rectangle RaceBounds = new Rectangle(180, 98, 65, 74);
             do
             {
                 MasterOfPictures.MakePicture(RaceBounds, RacePath);
@@ -4318,7 +4318,7 @@ namespace BotForDima
         }
     }
 
-    public class IdentifyCar//for dima
+    public class IdentifyCar
     {
         public int Identify1Car(int a)
         {
