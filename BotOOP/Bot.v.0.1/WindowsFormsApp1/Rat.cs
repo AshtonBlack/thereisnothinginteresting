@@ -7,7 +7,7 @@ namespace WindowsFormsApp1
     class Rat
     {
         [DllImport("User32.dll")]
-        public static extern void MouseEvent(int dsFlag, int x, int y, int cButton, int dsExtraInfo);
+        public static extern void mouse_event(int dsFlag, int x, int y, int cButton, int dsExtraInfo);
 
         [DllImport("User32.dll")]
         public static extern long SetCursorPos(int x, int y);
@@ -17,8 +17,8 @@ namespace WindowsFormsApp1
 
         private static void DoMouseLeftClick(int x, int y)
         {
-            MouseEvent(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
-            MouseEvent(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
 
         public static void MoveMouse(int x, int y)
@@ -53,26 +53,26 @@ namespace WindowsFormsApp1
 
         public static void LMBdown(int x, int y)
         {
-            MouseEvent(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
         }//используется в SpecialEvents
 
         private static void LMBdown(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            MouseEvent(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
         }
 
         public static void LMBup(int x, int y)
         {
-            MouseEvent(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }//используется в SpecialEvents
 
         private static void LMBup(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            MouseEvent(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
 
         private static void DragnDropGarage(Point xy1, Point xy2)

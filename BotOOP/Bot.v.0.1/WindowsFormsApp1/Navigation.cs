@@ -44,14 +44,13 @@ namespace WindowsFormsApp1
                 int i = 0;
                 if (fc.ActiveEvent())
                 {
-                    Condition cond = new Condition();
                     NotePad.DoLog("вхожу в активный эвент");
                     i = 1;
                     Rat.Clk(1060, 800);
                     int[] a = NotePad.ReadSaves();
                     int[] b = new int[5];
                     Condition.eventrq = a[0];
-                    cond.MakeCondition(a[1]);
+                    Condition.MakeCondition(a[1]);
                     Array.Copy(a, 3, b, 0, 5);
                     while (i < 100)
                     {
@@ -63,12 +62,10 @@ namespace WindowsFormsApp1
                 else
                 {
                     NotePad.DoLog("Подбираю эвент с одним условием");
-                    NotePad.DoLog("Вычисляю РК эвента");
-                    ce.GotRQ();
                     NotePad.DoLog("Проверяю условие");
                     int condition = ce.ChooseNormalEvent();
                     int eventname = ce.WhichEvent();
-                    NotePad.DoLog("Вхожу в эвент  " + Condition.eventrq + " рк");
+                    NotePad.DoLog("Вхожу в эвент " + Condition.eventrq + " рк");
                     Rat.Clk(1060, 800);//ClubEventEnter   
                     //сейвы делаются после набора руки в handmakingwith1condition
                     while (i < 100)

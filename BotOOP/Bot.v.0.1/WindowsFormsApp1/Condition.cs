@@ -7,6 +7,7 @@ namespace WindowsFormsApp1
     class Condition
     {
         static List<string> tires { get; set; }
+        public static int minrq { get; set; }
         static int maxrq { get; set; }
         public static int maxclass { get; set; }
 
@@ -47,17 +48,8 @@ namespace WindowsFormsApp1
                 if (lowestRqCars[i] > 22) classes[i] = 5;//a
                 if (lowestRqCars[i] > 26) classes[i] = 6;//s
             }
+            NotePad.DoLog("Стартовые классы для условия " + classes.ToString());
             return classes;
-        }
-        
-        public int MinRq()
-        {
-            int x = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                x += lowestRqCars[i];
-            }
-            return x;
         }
 
         public void MaxRq()
@@ -105,7 +97,7 @@ namespace WindowsFormsApp1
 
         public void ChooseTyres()
         {
-            tires.Clear();
+            tires = new List<string>();
             switch (coverage)
             {
                 case "Асфальт":
@@ -360,7 +352,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void MakeCondition(int number)
+        public static void MakeCondition(int number)
         {
             int[] lrc;
             int[] slT;
@@ -1090,6 +1082,12 @@ namespace WindowsFormsApp1
                     orT = new int[] { 1, 0, 0, 0, 0, 0, 0 };
                     offroadTyres = orT;
                     break;
+            }
+
+            minrq = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                minrq += lowestRqCars[i];
             }
         }
     }

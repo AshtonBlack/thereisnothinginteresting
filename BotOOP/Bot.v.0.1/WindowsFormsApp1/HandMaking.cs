@@ -18,25 +18,29 @@ namespace WindowsFormsApp1
                     hand[i, j] = rqclass[j];
                 }
             }
-            
-            Random r = new Random();
-            int handrq = 0;
 
             Condition cond = new Condition();
+            Random r = new Random();
+            int handrq = 0;
+            int actualRQ = cond.ActualRQ();
+            NotePad.DoLog("Искомое РК " + actualRQ);
+            
             int[] finger = cond.LowestClassCars();
             for (int x = 0; x < 5; x++)
             {
                 handrq += hand[x, finger[x]];
             }
             int n;
-            while(cond.ActualRQ() - handrq > 3)
+            while( actualRQ - handrq > 3)
             {
                 do
                 {
                     n = r.Next(0, 5);
                 } while (finger[n] == Condition.maxclass);
                 finger[n]++;
+                NotePad.DoLog("увеличил карту номер " + n);
                 handrq += 4;
+                NotePad.DoLog("текущее рк руки " + handrq);
             }
             NotePad.DoLog("требуемое рк: " + Condition.eventrq + ";   рк руки: " + handrq);            
 
@@ -185,7 +189,7 @@ namespace WindowsFormsApp1
             }
 
             return x;
-        }//без изменений
+        }
 
         public int[] RememberHand()
         {
@@ -276,7 +280,7 @@ namespace WindowsFormsApp1
             }
 
             return carsid;
-        }//без изменений
+        }
 
         private int UseFilter(char cls, int n, int uhslts)
         {

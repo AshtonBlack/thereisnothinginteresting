@@ -21,8 +21,6 @@ namespace WindowsFormsApp1
 
         public int Selection(int eventN)
         {
-            Condition condition = new Condition();
-
             Point n1 = new Point(960, 570);
             Point n2 = new Point(960, 660);
             Point n3 = new Point(960, 750);
@@ -99,8 +97,10 @@ namespace WindowsFormsApp1
                 }
                 if (x != 500)//Исключаю неизвестный
                 {
-                    condition.MakeCondition(x);
-                    if(condition.MinRq() > Condition.eventrq) x = 500;
+                    Condition.MakeCondition(x);
+                    NotePad.DoLog("Вычисляю РК эвента");
+                    GotRQ();
+                    if(Condition.minrq > Condition.eventrq) x = 500;
                 }
             }
             return x;
