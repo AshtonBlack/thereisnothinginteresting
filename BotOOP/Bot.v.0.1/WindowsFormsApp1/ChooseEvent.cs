@@ -75,7 +75,11 @@ namespace WindowsFormsApp1
             {
                 for (x = 0; x < (c + 1); x++)
                 {
-                    if (MasterOfPictures.Verify(Condition1, ("Condition1\\C" + x))) break;
+                    if (MasterOfPictures.Verify(Condition1, ("Condition1\\C" + x)))
+                    {
+                        NotePad.DoLog("Условие номер " + x );
+                        break;
+                    }
                 }
                 if (x == (c + 1))
                 {                    
@@ -100,7 +104,13 @@ namespace WindowsFormsApp1
                     Condition.MakeCondition(x);
                     NotePad.DoLog("Вычисляю РК эвента");
                     GotRQ();
-                    if(Condition.minrq > Condition.eventrq) x = 500;
+                    NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
+                    NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
+                    if (Condition.minrq > Condition.eventrq) 
+                    {
+                        NotePad.DoLog("Минимальное рк для условия больше требуемого");
+                        x = 500;
+                    }                    
                 }
             }
             return x;
