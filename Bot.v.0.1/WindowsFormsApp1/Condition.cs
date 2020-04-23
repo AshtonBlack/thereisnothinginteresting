@@ -6,10 +6,11 @@ namespace WindowsFormsApp1
 {    
     static class Condition
     {
-        static bool[] tires { get; set; }
+        public static bool[] tires { get; set; }
         public static int minrq { get; set; }
-        static int maxrq { get; set; }
+        public static int maxrq { get; set; }
         public static int maxclass { get; set; }
+        public static int actualRQ { get; set; }
 
         public static int eventrq { get; set; }//рк эвента
         public static string weather { get; set; }//погода эвента
@@ -24,11 +25,12 @@ namespace WindowsFormsApp1
         static int[] offroadTyres { get; set; }
         static int[] lowestRqCars { get; set; } //записывать рк
 
-        public static int ActualRQ()
-        {
-            int x = eventrq;
-            if (x > maxrq) x = maxrq;
-            return x;
+        static Condition() { }
+
+        public static void ActualRQ()
+        {            
+            actualRQ = eventrq;
+            if (actualRQ > maxrq) actualRQ = maxrq;
         }
 
         public static int[] LowestClassCars()
@@ -43,12 +45,13 @@ namespace WindowsFormsApp1
                 if (lowestRqCars[i] > 22) classes[i] = 5;//a
                 if (lowestRqCars[i] > 26) classes[i] = 6;//s
             }
-            NotePad.DoLog("Стартовые классы для условия " + classes.ToString());
+            NotePad.DoLog("Стартовые классы для условия " + classes[0] + " " + classes[1] + " " + classes[2] + " " + classes[3] + " " + classes[4]);
             return classes;
         }
 
         public static void MaxRq()
         {
+            tires = new bool[]{ false, false, false, false, false };
             maxclass = 0;
             maxrq = 0;
             int carnumber = 0;            
