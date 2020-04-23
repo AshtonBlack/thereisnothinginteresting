@@ -19,13 +19,12 @@ namespace WindowsFormsApp1
                 }
             }
 
-            Condition cond = new Condition();
             Random r = new Random();
             int handrq = 0;
-            int actualRQ = cond.ActualRQ();
+            int actualRQ = Condition.ActualRQ();
             NotePad.DoLog("Искомое РК " + actualRQ);
             
-            int[] finger = cond.LowestClassCars();
+            int[] finger = Condition.LowestClassCars();
             for (int x = 0; x < 5; x++)
             {
                 handrq += hand[x, finger[x]];
@@ -285,7 +284,6 @@ namespace WindowsFormsApp1
         private int UseFilter(char cls, int n, int uhslts)
         {
             Waiting wait = new Waiting();
-            Condition cond = new Condition();
 
             Point filter = new Point(945, 265);
             Point clear = new Point(340, 785);
@@ -331,7 +329,7 @@ namespace WindowsFormsApp1
                     break;
             }
             Thread.Sleep(500);
-            cond.ChooseTyres();
+            Condition.ChooseTyres();
             Thread.Sleep(1000);
             Rat.Clk(accept);
             Thread.Sleep(2000);

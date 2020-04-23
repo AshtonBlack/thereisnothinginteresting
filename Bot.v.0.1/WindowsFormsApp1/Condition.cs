@@ -4,9 +4,9 @@ using System.Threading;
 
 namespace WindowsFormsApp1
 {    
-    class Condition
+    static class Condition
     {
-        static List<string> tires { get; set; }
+        static bool[] tires { get; set; }
         public static int minrq { get; set; }
         static int maxrq { get; set; }
         public static int maxclass { get; set; }
@@ -24,19 +24,14 @@ namespace WindowsFormsApp1
         static int[] offroadTyres { get; set; }
         static int[] lowestRqCars { get; set; } //записывать рк
 
-        public int MaxClass()
-        {
-            return maxclass;
-        }
-
-        public int ActualRQ()
+        public static int ActualRQ()
         {
             int x = eventrq;
             if (x > maxrq) x = maxrq;
             return x;
         }
 
-        public int[] LowestClassCars()
+        public static int[] LowestClassCars()
         {
             int[] classes = { 0, 0, 0, 0, 0 }; //f f f f f           
             for(int i = 0; i < lowestRqCars.Length; i++)
@@ -52,7 +47,7 @@ namespace WindowsFormsApp1
             return classes;
         }
 
-        public void MaxRq()
+        public static void MaxRq()
         {
             maxclass = 0;
             maxrq = 0;
@@ -61,26 +56,29 @@ namespace WindowsFormsApp1
             {
                 int overcars = 0;
                 int carnumberingrade = 0;
-                foreach (string tiretype in tires)
+                for (int j = 0; j < tires.Length; j++)
                 {
-                    switch (tiretype)
+                    if(tires[j])
                     {
-                        case "slik":
-                            carnumberingrade += slikTyres[i];
-                            break;
-                        case "dynamic":
-                            carnumberingrade += dynamicTyres[i];
-                            break;
-                        case "standart":
-                            carnumberingrade += standartTyres[i];
-                            break;
-                        case "allseason":
-                            carnumberingrade += allseasonTyres[i];
-                            break;
-                        case "offroad":
-                            carnumberingrade += offroadTyres[i];
-                            break;
-                    }
+                        switch (j)
+                        {
+                            case 0:
+                                carnumberingrade += slikTyres[i];
+                                break;
+                            case 1:
+                                carnumberingrade += dynamicTyres[i];
+                                break;
+                            case 2:
+                                carnumberingrade += standartTyres[i];
+                                break;
+                            case 3:
+                                carnumberingrade += allseasonTyres[i];
+                                break;
+                            case 4:
+                                carnumberingrade += offroadTyres[i];
+                                break;
+                        }
+                    }                    
                 }
                 carnumber += carnumberingrade;
                 if (maxclass == 0 && carnumber > 0) maxclass = i;
@@ -90,14 +88,9 @@ namespace WindowsFormsApp1
             }   
         }
 
-        public void RQ(int value)
+        public static void ChooseTyres()
         {
-            eventrq = value;
-        }
-
-        public void ChooseTyres()
-        {
-            tires = new List<string>();
+            tires = new bool[]{ false, false, false, false, false};
             switch (coverage)
             {
                 case "Асфальт":
@@ -115,7 +108,7 @@ namespace WindowsFormsApp1
             ChooseTyresMechanic();
         }
 
-        void ChooseDryAsphaltTyres()
+        static void ChooseDryAsphaltTyres()
         {
             int minrq = 0;
             int carnumber = 0;
@@ -136,8 +129,8 @@ namespace WindowsFormsApp1
            
             if (minrq <= eventrq)
             {
-                tires.Add("slik");
-                tires.Add("dynamic");
+                tires[0] = true;
+                tires[1] = true;
             }
             else
             {
@@ -159,22 +152,22 @@ namespace WindowsFormsApp1
                 }
                 if (minrq <= eventrq)
                 {
-                    tires.Add("slik");
-                    tires.Add("dynamic");
-                    tires.Add("standart");
+                    tires[0] = true;
+                    tires[1] = true;
+                    tires[2] = true;
                 }
                 else
                 {
-                    tires.Add("slik");
-                    tires.Add("dynamic");
-                    tires.Add("standart");
-                    tires.Add("allseason");
-                    tires.Add("offroad");
+                    tires[0] = true;
+                    tires[1] = true;
+                    tires[2] = true;
+                    tires[3] = true;
+                    tires[4] = true;
                 }
             }
         }
 
-        void ChooseWetAsphaltTyres()
+        static void ChooseWetAsphaltTyres()
         {
             int minrq = 0;
             int carnumber = 0;
@@ -193,19 +186,19 @@ namespace WindowsFormsApp1
                 }
             }
             if (minrq <= eventrq)
-            {
-                tires.Add("standart");
-                tires.Add("dynamic");
+            {               
+                tires[1] = true;
+                tires[2] = true;
             }
             else
             {
-                tires.Add("allseason");
-                tires.Add("dynamic");
-                tires.Add("standart");
+                tires[1] = true;
+                tires[2] = true;
+                tires[3] = true;
             }
         }
 
-        void ChooseMixedAsphaltTyres()
+        static void ChooseMixedAsphaltTyres()
         {
             int minrq = 0;
             int carnumber = 0;
@@ -226,21 +219,21 @@ namespace WindowsFormsApp1
 
             if (minrq <= eventrq)
             {
-                tires.Add("slik");
-                tires.Add("dynamic");
-                tires.Add("standart");
+                tires[0] = true;
+                tires[1] = true;
+                tires[2] = true;
             }
             else
             {
-                tires.Add("slik");
-                tires.Add("dynamic");
-                tires.Add("standart");
-                tires.Add("allseason");
-                tires.Add("offroad");
+                tires[0] = true;
+                tires[1] = true;
+                tires[2] = true;
+                tires[3] = true;
+                tires[4] = true;
             }
         }
 
-        void ChooseOffroadTyres()
+        static void ChooseOffroadTyres()
         {
             int minrq = 0;
             int carnumber = 0;
@@ -261,8 +254,8 @@ namespace WindowsFormsApp1
 
             if (minrq <= eventrq)
             {
-                tires.Add("allseason");
-                tires.Add("offroad");
+                tires[3] = true;
+                tires[4] = true;
             }
             else
             {
@@ -284,29 +277,29 @@ namespace WindowsFormsApp1
                 }
                 if (minrq <= eventrq)
                 {
-                    tires.Add("standart");
-                    tires.Add("allseason");
-                    tires.Add("offroad");
+                    tires[2] = true;
+                    tires[3] = true;
+                    tires[4] = true;
                 }
                 else
                 {
-                    tires.Add("dynamic");
-                    tires.Add("standart");
-                    tires.Add("allseason");
-                    tires.Add("offroad");
+                    tires[1] = true;
+                    tires[2] = true;
+                    tires[3] = true;
+                    tires[4] = true;
                 }
             }
         }
 
-        void ChooseMixedCoverageTyres()
+        static void ChooseMixedCoverageTyres()
         {
-            tires.Add("dynamic");
-            tires.Add("standart");
-            tires.Add("allseason");
-            tires.Add("offroad");
+            tires[1] = true;
+            tires[2] = true;
+            tires[3] = true;
+            tires[4] = true;
         }
 
-        void ChooseTyresMechanic()
+        static void ChooseTyresMechanic()
         {            
             Point tiresMenu = new Point(200, 635);
 
@@ -322,33 +315,36 @@ namespace WindowsFormsApp1
 
             Rat.Clk(tiresMenu);
 
-            foreach (string type in tires)
+            for(int i = 0; i < tires.Length; i++)
             {
-                switch (type)
+                if (tires[i])
                 {
-                    case "slik":
-                        Rat.Clk(slik);
-                        Thread.Sleep(200);
-                        break;
-                    case "dynamic":
-                        Rat.Clk(dynamic);
-                        Thread.Sleep(200);
-                        break;
-                    case "standart":
-                        Rat.Clk(standart);
-                        Thread.Sleep(200);
-                        break;
-                    case "allseason":
-                        Rat.Clk(allseason);
-                        Thread.Sleep(200);
-                        break;
-                    case "offroad":
-                        Rat.Clk(offroad);
-                        Thread.Sleep(200);
-                        break;
-                    default:
-                        break;
-                }
+                    switch (i)
+                    {
+                        case 0:
+                            Rat.Clk(slik);
+                            Thread.Sleep(200);
+                            break;
+                        case 1:
+                            Rat.Clk(dynamic);
+                            Thread.Sleep(200);
+                            break;
+                        case 2:
+                            Rat.Clk(standart);
+                            Thread.Sleep(200);
+                            break;
+                        case 3:
+                            Rat.Clk(allseason);
+                            Thread.Sleep(200);
+                            break;
+                        case 4:
+                            Rat.Clk(offroad);
+                            Thread.Sleep(200);
+                            break;
+                        default:
+                            break;
+                    }
+                }                
             }
         }
 
@@ -1089,6 +1085,7 @@ namespace WindowsFormsApp1
             {
                 minrq += lowestRqCars[i];
             }
+            MaxRq();
         }
     }
 }
