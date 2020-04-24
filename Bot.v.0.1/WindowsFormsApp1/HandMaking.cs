@@ -37,9 +37,7 @@ namespace WindowsFormsApp1
                     n = r.Next(0, 5);
                 } while (finger[n] == Condition.maxclass);
                 finger[n]++;
-                NotePad.DoLog("увеличил карту номер " + n);
                 handrq += 4;
-                NotePad.DoLog("текущее рк руки " + handrq);
             }
             NotePad.DoLog("требуемое рк: " + Condition.eventrq + ";   рк руки: " + handrq);            
 
@@ -57,7 +55,7 @@ namespace WindowsFormsApp1
             int[] classcars = { 0, 0, 0, 0, 0, 0, 0 };//запись будет инвертирована            
             for (int k = 0; k < finger.Length; k++)
             {
-                classcars[finger[6 - k]]++;
+                classcars[6 - finger[k]]++;
             }
             return classcars;//порядок S,A,B,C,D,E,F
         }
