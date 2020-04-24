@@ -357,7 +357,7 @@ namespace WindowsFormsApp1
             conditionNumber = number;
             switch (number)
             {
-                case 1://задний привод//
+                case 1://задний привод
                     lrc = new int[] { 3, 3, 3, 3, 3 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0, 3, 1, 3, 4 };
@@ -1084,6 +1084,7 @@ namespace WindowsFormsApp1
                 minrq += lowestRqCars[i];
             }
             MaxRq();
+            NotePad.DoLog("Условия сформированы");
         }
     }
 }

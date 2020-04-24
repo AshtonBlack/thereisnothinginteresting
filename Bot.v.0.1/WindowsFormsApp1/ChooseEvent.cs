@@ -90,6 +90,7 @@ namespace WindowsFormsApp1
                 }
                 if (x != 500)//Исключаю неизвестный
                 {
+                    NotePad.DoLog("Создаю событие на основе шаблона " + x);
                     Condition.MakeCondition(x);
                     NotePad.DoLog("Вычисляю РК эвента");
                     GotRQ();

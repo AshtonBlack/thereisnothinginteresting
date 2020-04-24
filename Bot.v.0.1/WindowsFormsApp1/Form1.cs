@@ -8,6 +8,8 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+
+            Opacity = 0;
         }        
 
         private void Form1_Load(object sender, EventArgs e)
@@ -15,6 +17,13 @@ namespace WindowsFormsApp1
             Navigation navigation = new Navigation();
             navigation.ToClubMap();
             navigation.InClubs();
+            /*
+            Condition.MakeCondition(4);
+            Condition.eventrq = 140;
+            Condition.ActualRQ();
+            textBox1.Text = Condition.minrq.ToString();
+            textBox2.Text = Condition.maxrq.ToString();
+            textBox3.Text = Condition.actualRQ.ToString();*/
         }
     }
 }
