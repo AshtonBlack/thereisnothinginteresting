@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Threading;
 
 namespace WindowsFormsApp1
-{    
+{
     static class Condition
     {
         public static bool[] tires { get; set; }
@@ -51,7 +50,6 @@ namespace WindowsFormsApp1
 
         public static void MaxRq()
         {
-            tires = new bool[]{ false, false, false, false, false };
             maxclass = 0;
             maxrq = 0;
             int carnumber = 0;            
@@ -59,29 +57,26 @@ namespace WindowsFormsApp1
             {
                 int overcars = 0;
                 int carnumberingrade = 0;
-                for (int j = 0; j < tires.Length; j++)
+                for (int j = 0; j < 5; j++)
                 {
-                    if(tires[j])
+                    switch (j)
                     {
-                        switch (j)
-                        {
-                            case 0:
-                                carnumberingrade += slikTyres[i];
-                                break;
-                            case 1:
-                                carnumberingrade += dynamicTyres[i];
-                                break;
-                            case 2:
-                                carnumberingrade += standartTyres[i];
-                                break;
-                            case 3:
-                                carnumberingrade += allseasonTyres[i];
-                                break;
-                            case 4:
-                                carnumberingrade += offroadTyres[i];
-                                break;
-                        }
-                    }                    
+                        case 0:
+                            carnumberingrade += slikTyres[i];
+                            break;
+                        case 1:
+                            carnumberingrade += dynamicTyres[i];
+                            break;
+                        case 2:
+                            carnumberingrade += standartTyres[i];
+                            break;
+                        case 3:
+                            carnumberingrade += allseasonTyres[i];
+                            break;
+                        case 4:
+                            carnumberingrade += offroadTyres[i];
+                            break;
+                    }
                 }
                 carnumber += carnumberingrade;
                 if (maxclass == 0 && carnumber > 0) maxclass = i;

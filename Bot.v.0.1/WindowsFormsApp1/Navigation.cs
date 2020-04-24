@@ -62,12 +62,10 @@ namespace WindowsFormsApp1
                 else
                 {
                     NotePad.DoLog("Подбираю эвент с одним условием");
-                    NotePad.DoLog("Проверяю условие");
                     int condition = ce.ChooseNormalEvent();
                     int eventname = ce.WhichEvent();
                     NotePad.DoLog("Вхожу в эвент " + Condition.eventrq + " рк");
                     Rat.Clk(1060, 800);//ClubEventEnter   
-                    //сейвы делаются после набора руки в handmakingwith1condition
                     while (i < 100)
                     {
                         i++;

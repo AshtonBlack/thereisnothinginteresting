@@ -25,11 +25,12 @@ namespace WindowsFormsApp1
             Point n2 = new Point(960, 660);
             Point n3 = new Point(960, 750);
             Point n4 = new Point(960, 830);
+            Point[] events = { n1, n2, n3, n4 };
 
-            int c = 0;//известные эвенты
+            int c = 0;//подсчет известных эвентов
             for (int i = 0; i < 100; i++)
             {
-                if (File.Exists(@"C:\Bot\Condition1\C" + i + ".jpg")) c = i; //подсчет известных эвентов
+                if (File.Exists(@"C:\Bot\Condition1\C" + i + ".jpg")) c = i; 
                 else break;
             }
 
@@ -37,21 +38,9 @@ namespace WindowsFormsApp1
             do
             {
                 flag = true;
-                switch (eventN)
-                {
-                    case 1:
-                        Rat.Clk(n1.X, n1.Y);
-                        break;
-                    case 2:
-                        Rat.Clk(n2.X, n2.Y);
-                        break;
-                    case 3:
-                        Rat.Clk(n3.X, n3.Y);
-                        break;
-                    case 4:
-                        Rat.Clk(n4.X, n4.Y);
-                        break;
-                }
+
+                NotePad.DoLog("Кликаю условие " + eventN);
+                Rat.Clk(events[eventN - 1]);
                 Thread.Sleep(4000);
                 if (fc.MissClick())
                 {
@@ -66,7 +55,7 @@ namespace WindowsFormsApp1
                     Thread.Sleep(15000);
                 }
                 Thread.Sleep(2000);
-            } while (flag == false);//обработка ошибок
+            } while (flag == false);//клик эвента и обработка ошибок
             
             int x = 500;//номер условия
             MasterOfPictures.MakePicture(Condition1Bounds, Condition1);
@@ -118,6 +107,7 @@ namespace WindowsFormsApp1
 
         public int ChooseNormalEvent()
         {
+            NotePad.DoLog("Проверяю условия");
             int x = 500;
             while (x == 500)
             {
@@ -131,6 +121,7 @@ namespace WindowsFormsApp1
                         if (fc.EventPage()) Rat.Clk(240, 500);
                     } while (!fc.ClubMap());
 
+                    NotePad.DoLog("Проверяю условие " + i);
                     x = Selection(i);
 
                     if (x == 500)
