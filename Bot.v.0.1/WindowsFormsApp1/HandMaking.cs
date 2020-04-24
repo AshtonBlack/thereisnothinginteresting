@@ -21,8 +21,8 @@ namespace WindowsFormsApp1
 
             Random r = new Random();
             int handrq = 0;
-            Condition.ActualRQ();
-            NotePad.DoLog("Искомое РК " + Condition.actualRQ);
+            int actualRQ = Condition.ActualRQ();
+            NotePad.DoLog("Искомое РК " + actualRQ);
             
             int[] finger = Condition.LowestClassCars();
             for (int x = 0; x < 5; x++)
@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
                 handrq += hand[x, finger[x]];
             }
             int n;
-            while(Condition.actualRQ - handrq > 3)
+            while( actualRQ - handrq > 3)
             {
                 do
                 {
