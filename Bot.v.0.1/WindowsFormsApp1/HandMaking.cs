@@ -54,12 +54,12 @@ namespace WindowsFormsApp1
                     }
             }//сортировка карт по возрастанию
 
-            int[] classcars = { 0, 0, 0, 0, 0, 0, 0 };            
+            int[] classcars = { 0, 0, 0, 0, 0, 0, 0 };//запись будет инвертирована            
             for (int k = 0; k < finger.Length; k++)
             {
-                classcars[finger[k]]++;
+                classcars[finger[6 - k]]++;
             }
-            return classcars;
+            return classcars;//порядок S,A,B,C,D,E,F
         }
 
         public void MakingHand(int eventname)
@@ -67,6 +67,7 @@ namespace WindowsFormsApp1
             FastCheck fc = new FastCheck();            
 
             int[] classcars = ConditionHandling();
+            NotePad.DoLog("Собираю " + classcars[0] + "S, " + classcars[1] + "A, " + classcars[2] + "B, " + classcars[3] + "C, " + classcars[4] + "D, " + classcars[5] + "E, " + classcars[6] + "F");
             Thread.Sleep(1000);
 
             int var; //недобор
