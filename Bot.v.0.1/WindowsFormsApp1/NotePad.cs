@@ -56,7 +56,7 @@ namespace WindowsFormsApp1
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", false, System.Text.Encoding.Default))//true для дописывания 
             {
-                sw.WriteLine("Начинаю новую сессию");
+                sw.WriteLine("Начинаю новую сессию " + DateTime.Now.ToLongTimeString());
                 sw.Close();
             }
         }

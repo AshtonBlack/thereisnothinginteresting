@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -105,7 +104,7 @@ namespace WindowsFormsApp1
             Rat.Clk(670, 560);// accept Nox close
             Thread.Sleep(1000);
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
-            Application.Exit();
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
         public void UniversalErrorDefense()
