@@ -6,7 +6,18 @@ namespace WindowsFormsApp1
 {
     class FastCheck
     {
-        SpecialEvents se = new SpecialEvents();
+        SpecialEvents se = new SpecialEvents();        
+
+        public bool CarMenu()
+        {
+            bool x = false;
+            Rectangle CarMenuPathBounds = new Rectangle(1075, 345, 60, 60);
+            string CarMenuPath = "HeadPictures\\TestCarMenu";
+            string CarMenuOriginal = "HeadPictures\\OriginalCarMenu";
+            MasterOfPictures.MakePicture(CarMenuPathBounds, CarMenuPath);
+            if (MasterOfPictures.Verify(CarMenuPath, CarMenuOriginal)) x = true;
+            return x;
+        }
 
         public bool StartIcon()
         {

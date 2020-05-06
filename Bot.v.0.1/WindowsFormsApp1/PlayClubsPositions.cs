@@ -36,6 +36,14 @@ namespace WindowsFormsApp1
                     positionflag = true;
                 }
 
+                if (fc.CarMenu())
+                {
+                    Thread.Sleep(500);
+                    NotePad.DoLog("Закрываю меню автомобиля");
+                    Rat.Clk(585, 280);//Play
+                    Thread.Sleep(1000);
+                }
+
                 if (fc.ControlScreen())
                 {
                     Thread.Sleep(2000);
