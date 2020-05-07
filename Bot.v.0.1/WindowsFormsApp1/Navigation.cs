@@ -38,8 +38,33 @@ namespace WindowsFormsApp1
 
         public void InClubs()
         {
+            bool gotawayfromclub;
             while (true)
             {
+                gotawayfromclub = false;
+                do
+                {                    
+                    if (fc.HeadPage())
+                    {
+                        NotePad.DoLog("вылетел из клубов в главное меню");
+                        Rat.Clk(630, 390);//Events
+                    }                        
+                    Thread.Sleep(200);
+                    fc.Bounty();
+                    Thread.Sleep(200);
+                    se.UniversalErrorDefense();
+                    Thread.Sleep(200);
+                    if (fc.EventPage())
+                    {
+                        Rat.Clk(240, 500);//Clubs
+                        gotawayfromclub = true;
+                        NotePad.DoLog("вернулся в клубы");
+                    }                        
+                    Thread.Sleep(200);
+                } while (!fc.ClubMap());
+
+                if(gotawayfromclub) se.DragMap();
+
                 Thread.Sleep(2000);
                 int i = 0;
                 if (fc.ActiveEvent())

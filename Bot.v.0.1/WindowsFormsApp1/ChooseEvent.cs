@@ -44,12 +44,15 @@ namespace WindowsFormsApp1
                 Thread.Sleep(4000);
                 if (fc.MissClick())
                 {
+                    NotePad.DoLog("Промах");
                     Rat.Clk(1145, 240);
+                    NotePad.DoLog("Исправился");
                     flag = false;
                     Thread.Sleep(1000);
                 }
                 if (fc.EventPage())
                 {
+                    NotePad.DoLog("Вылетел из клубов");
                     Rat.Clk(240, 500);//Clubs
                     flag = false;
                     Thread.Sleep(15000);
