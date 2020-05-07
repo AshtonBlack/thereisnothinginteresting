@@ -24,6 +24,8 @@ namespace WindowsFormsApp1
         static int[] offroadTyres { get; set; }
         static int[] lowestRqCars { get; set; } //записывать рк
 
+        static int[] rqCost = { 19, 29, 39, 49, 64, 79, 100 };
+
         static Condition() { }
 
         public static void ActualRQ()
@@ -37,12 +39,12 @@ namespace WindowsFormsApp1
             int[] classes = { 0, 0, 0, 0, 0 }; //f f f f f           
             for(int i = 0; i < lowestRqCars.Length; i++)
             {
-                if (lowestRqCars[i] > 6) classes[i] = 1;//e
-                if (lowestRqCars[i] > 10) classes[i] = 2;//d
-                if (lowestRqCars[i] > 14) classes[i] = 3;//c
-                if (lowestRqCars[i] > 18) classes[i] = 4;//b
-                if (lowestRqCars[i] > 22) classes[i] = 5;//a
-                if (lowestRqCars[i] > 26) classes[i] = 6;//s
+                if (lowestRqCars[i] > 19) classes[i] = 1;//e
+                if (lowestRqCars[i] > 29) classes[i] = 2;//d
+                if (lowestRqCars[i] > 39) classes[i] = 3;//c
+                if (lowestRqCars[i] > 49) classes[i] = 4;//b
+                if (lowestRqCars[i] > 64) classes[i] = 5;//a
+                if (lowestRqCars[i] > 79) classes[i] = 6;//s
             }
             NotePad.DoLog("Стартовые классы для условия " + classes[0] + " " + classes[1] + " " + classes[2] + " " + classes[3] + " " + classes[4]);
             return classes;
@@ -81,7 +83,7 @@ namespace WindowsFormsApp1
                 carnumber += carnumberingrade;
                 if (maxclass == 0 && carnumber > 0) maxclass = i;
                 if (carnumber > 4) overcars = carnumber - 5;
-                maxrq += (carnumberingrade - overcars) * (6 + 4 * i);
+                maxrq += (carnumberingrade - overcars) * (rqCost[i]);
                 if (carnumber > 4) break;
             }   
         }
@@ -118,7 +120,7 @@ namespace WindowsFormsApp1
                 {
                     overcars = carnumber - 5;
                 }
-                minrq += (slikTyres[i] + dynamicTyres[i] - overcars) * (6 + 4 * i);
+                minrq += (slikTyres[i] + dynamicTyres[i] - overcars) * rqCost[i];
                 if(carnumber > 4)
                 {
                     break;
@@ -142,7 +144,7 @@ namespace WindowsFormsApp1
                     {
                         overcars = carnumber - 5;
                     }
-                    minrq += (slikTyres[i] + dynamicTyres[i] + standartTyres[i] - overcars) * (6 + 4 * i);
+                    minrq += (slikTyres[i] + dynamicTyres[i] + standartTyres[i] - overcars) * rqCost[i];
                     if (carnumber > 4)
                     {
                         break;
@@ -177,7 +179,7 @@ namespace WindowsFormsApp1
                 {
                     overcars = carnumber - 5;
                 }
-                minrq += (standartTyres[i] + dynamicTyres[i] - overcars) * (6 + 4 * i);
+                minrq += (standartTyres[i] + dynamicTyres[i] - overcars) * rqCost[i];
                 if (carnumber > 4)
                 {
                     break;
@@ -208,7 +210,7 @@ namespace WindowsFormsApp1
                 {
                     overcars = carnumber - 5;
                 }
-                minrq += (slikTyres[i] + dynamicTyres[i] + standartTyres[i] - overcars) * (6 + 4 * i);
+                minrq += (slikTyres[i] + dynamicTyres[i] + standartTyres[i] - overcars) * rqCost[i];
                 if (carnumber > 4)
                 {
                     break;
@@ -243,7 +245,7 @@ namespace WindowsFormsApp1
                 {
                     overcars = carnumber - 5;
                 }
-                minrq += (allseasonTyres[i] + offroadTyres[i] - overcars) * (6 + 4 * i);
+                minrq += (allseasonTyres[i] + offroadTyres[i] - overcars) * rqCost[i];
                 if (carnumber > 4)
                 {
                     break;
@@ -267,7 +269,7 @@ namespace WindowsFormsApp1
                     {
                         overcars = carnumber - 5;
                     }
-                    minrq += (allseasonTyres[i] + offroadTyres[i] + standartTyres[i] - overcars) * (6 + 4 * i);
+                    minrq += (allseasonTyres[i] + offroadTyres[i] + standartTyres[i] - overcars) * rqCost[i];
                     if (carnumber > 4)
                     {
                         break;

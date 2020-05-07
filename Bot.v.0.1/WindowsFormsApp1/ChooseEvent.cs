@@ -93,14 +93,20 @@ namespace WindowsFormsApp1
                     NotePad.DoLog("Создаю событие на основе шаблона " + x);
                     Condition.MakeCondition(x);
                     NotePad.DoLog("Вычисляю РК эвента");
-                    GotRQ();
-                    NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
-                    NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
-                    if (Condition.minrq > Condition.eventrq) 
+                    if (GotRQ())
                     {
-                        NotePad.DoLog("Минимальное рк для условия больше требуемого");
+                        NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
+                        NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
+                        if (Condition.minrq > Condition.eventrq)
+                        {
+                            NotePad.DoLog("Минимальное рк для условия больше требуемого");
+                            x = 500;
+                        }
+                    }
+                    else
+                    {
                         x = 500;
-                    }                    
+                    }                                   
                 }
             }
             return x;
@@ -136,25 +142,29 @@ namespace WindowsFormsApp1
             return x;
         }
 
-        public void GotRQ()
+        public bool GotRQ()
         {
+            bool isRqKnown = false;
             Condition.eventrq = 0;
             MasterOfPictures.MakePicture(RQBounds, RQPath);
-            for (int i = 15; i < 151; i++)
+            for (int i = 1; i < 502; i++)
             {
-                if (MasterOfPictures.Verify(RQPath, "RQ\\" + i.ToString()))
+                if(File.Exists("C:\\Bot\\RQ\\" + i.ToString() + ".jpg"))
                 {
-                    Condition.eventrq = i;
-                    NotePad.DoLog("рк =  " + Condition.eventrq);
-                    break;
-                }
+                    if (MasterOfPictures.Verify(RQPath, "RQ\\" + i.ToString()))
+                    {
+                        Condition.eventrq = i;
+                        NotePad.DoLog("рк =  " + Condition.eventrq);
+                        break;
+                    }
+                }                
             }
 
             if (Condition.eventrq == 0)
             {
                 NotePad.DoLog("неизвестное рк");
 
-                for (int x = 1; x < 100; x++)
+                for (int x = 1; x < 500; x++)
                 {
                     if (File.Exists("C:\\Bot\\RQ\\UnknownRQ" + x + ".jpg"))
                     {
@@ -171,6 +181,9 @@ namespace WindowsFormsApp1
                     }
                 }
             }
+            else isRqKnown = true;
+
+            return isRqKnown;
         }
 
         public int WhichEvent()

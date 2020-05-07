@@ -9,7 +9,7 @@ namespace WindowsFormsApp1
     {
         public int[] ConditionHandling()
         {
-            int[] rqclass = new int[] { 6, 10, 14, 18, 22, 26, 30 }; //рк для классов 
+            int[] rqclass = new int[] { 19, 29, 39, 49, 64, 79, 100 }; //рк для классов 
             int[,] hand = new int[5, 7];
             for (int i = 0; i < 5; i++)
             {
@@ -28,17 +28,25 @@ namespace WindowsFormsApp1
             for (int x = 0; x < 5; x++)
             {
                 handrq += hand[x, finger[x]];
-            }
+            }//начальная рука
             int n;
-            while(Condition.actualRQ - handrq > 3)
+            while(Condition.actualRQ - handrq > 19)
             {
                 do
                 {
                     n = r.Next(0, 5);
                 } while (finger[n] == Condition.maxclass);
                 finger[n]++;
-                handrq += 4;
-            }
+
+                handrq = 0;
+                for (int x = 0; x < 5; x++)
+                {
+                    handrq += hand[x, finger[x]];
+                }
+            }//сборка руки
+            
+            //написать алгоритм добивания руки
+
             NotePad.DoLog("требуемое рк: " + Condition.eventrq + ";   рк руки: " + handrq);            
 
             for (int l = 0; l < 4; l++)
@@ -99,22 +107,22 @@ namespace WindowsFormsApp1
             } //сохранение руки
         }
 
-        public bool CarFixed(int slot)//величины не исправлены с версии 0.04
+        public bool CarFixed(int slot)
         {
             string path = "Check//";
-            Rectangle Car1Bounds = new Rectangle(400, 370, 200, 20);
-            Rectangle Car2Bounds = new Rectangle(400, 560, 200, 20);
-            Rectangle Car3Bounds = new Rectangle(705, 370, 200, 20);
-            Rectangle Car4Bounds = new Rectangle(705, 560, 200, 20);
+            Rectangle Car1Bounds = new Rectangle(390, 325, 290, 150);
+            Rectangle Car2Bounds = new Rectangle(390, 530, 290, 150);
+            Rectangle Car3Bounds = new Rectangle(705, 325, 290, 150);
+            Rectangle Car4Bounds = new Rectangle(705, 530, 290, 150);
 
-            Rectangle Car5Bounds = new Rectangle(635, 370, 200, 20);
-            Rectangle Car6Bounds = new Rectangle(635, 560, 200, 20);
+            Rectangle Car5Bounds = new Rectangle(670, 325, 290, 150);
+            Rectangle Car6Bounds = new Rectangle(670, 530, 290, 150);
 
-            Rectangle Car7Bounds = new Rectangle(635, 370, 200, 20);
-            Rectangle Car8Bounds = new Rectangle(635, 560, 200, 20);
+            Rectangle Car7Bounds = new Rectangle(670, 325, 290, 150);
+            Rectangle Car8Bounds = new Rectangle(670, 530, 290, 150);
             ///---------
-            Rectangle Car9Bounds = new Rectangle(655, 370, 200, 20);
-            Rectangle Car10Bounds = new Rectangle(655, 560, 200, 20);
+            Rectangle Car9Bounds = new Rectangle(670, 325, 290, 150);
+            Rectangle Car10Bounds = new Rectangle(670, 530, 290, 150);
             Rectangle[] bounds = new Rectangle[] { Car1Bounds, Car2Bounds, Car3Bounds, Car4Bounds, Car5Bounds, Car6Bounds, Car7Bounds, Car8Bounds, Car9Bounds, Car10Bounds };
             string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car", "9car", "10car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
@@ -123,22 +131,23 @@ namespace WindowsFormsApp1
             return MasterOfPictures.Verify(path + n[slot] + "0", path + n[slot] + "1");
         }
 
-        public bool HandCarFixed()//перепроверить величины
+        public bool HandCarFixed()
         {
             string path = "Check//";
-            Rectangle finger1Bounds = new Rectangle(85, 725, 115, 65);//перепроверить величины
-            Rectangle finger2Bounds = new Rectangle(280, 725, 115, 65);//перепроверить величины
-            Rectangle finger3Bounds = new Rectangle(470, 725, 115, 65);//перепроверить величины
-            Rectangle finger4Bounds = new Rectangle(660, 725, 115, 65);//перепроверить величины
-            Rectangle finger5Bounds = new Rectangle(850, 725, 115, 65);//перепроверить величины
+            Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
+            Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
+            Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
+            Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
+            Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
+            
             bool x = true;
-            Rectangle[] bounds = new Rectangle[] { finger1Bounds, finger2Bounds, finger3Bounds, finger4Bounds, finger5Bounds };
+            Rectangle[] bounds = new Rectangle[] { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
             string[] n = new string[] { "finger1", "finger2", "finger3", "finger4", "finger5" };
             for (int i = 0; i < 5; i++)
             {
                 MasterOfPictures.MakePicture(bounds[i], path + n[i] + "0");
             }
-            Thread.Sleep(1700);
+            Thread.Sleep(2000);
             for (int j = 0; j < 5; j++)
             {
                 MasterOfPictures.MakePicture(bounds[j], path + n[j] + "1");
@@ -160,25 +169,11 @@ namespace WindowsFormsApp1
         {
             FastCheck fc = new FastCheck();
 
-            Point HandSlot1 = new Point(160, 775);
-            Point HandSlot2 = new Point(355, 775);
-            Point HandSlot3 = new Point(545, 775);
-            Point HandSlot4 = new Point(740, 775);
-            Point HandSlot5 = new Point(930, 775);
-            Point[] a = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
             bool x = true;
-            string emptyslot = "Color [A=255, R=200, G=200, B=200]";
+            
             Thread.Sleep(2000);
 
-            for (int i = 0; i < 5; i++)
-            {
-                if (MasterOfPictures.PixelIndicator(a[i]) == emptyslot)
-                {
-                    NotePad.DoLog("Тачка на " + a[i] + " позиции отсутствует");
-                    x = false;
-                    break;
-                }
-            }
+            if(fc.AnyHandSlotIsEmpty()) x = false;
 
             if (fc.RedReadytoRace())
             {
@@ -355,11 +350,11 @@ namespace WindowsFormsApp1
             Random rand = new Random();
             while (!fc.ItsGarage()) Thread.Sleep(2000);
 
-            if ((Condition.conditionNumber == 11 && Condition.eventrq < 110)//условие определееной редкости
-                || (Condition.conditionNumber == 10 && Condition.eventrq < 70)
-                || (Condition.conditionNumber == 6 && Condition.eventrq < 50)
-                || (Condition.conditionNumber == 40 && Condition.eventrq < 90)
-                || Condition.eventrq < 30)
+            if ((Condition.conditionNumber == 11 && Condition.eventrq < 320)//условие определееной редкости
+                || (Condition.conditionNumber == 10 && Condition.eventrq < 195)
+                || (Condition.conditionNumber == 6 && Condition.eventrq < 145)
+                || (Condition.conditionNumber == 40 && Condition.eventrq < 245)
+                || Condition.eventrq < 95)
             {
                 NotePad.DoLog("сортирую по рк");
                 Thread.Sleep(200);

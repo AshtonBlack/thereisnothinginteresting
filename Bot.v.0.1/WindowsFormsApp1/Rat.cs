@@ -97,7 +97,7 @@ namespace WindowsFormsApp1
             Thread.Sleep(1000);
         }
 
-        public static int DragnDpopHand(int n, int uhl)//величины не исправлены с версии 0.04
+        public static int DragnDpopHand(int n, int uhl)
         {
             FastCheck fc = new FastCheck();
             HandMaking hm = new HandMaking();
@@ -105,10 +105,10 @@ namespace WindowsFormsApp1
             Point GarageSlot2 = new Point(535, 590);
             Point GarageSlot3 = new Point(830, 400);
             Point GarageSlot4 = new Point(830, 590);
-            //точки для сдвига 995/495 и 600/495
+            //точки для сдвига 1010/495 и 665/495
             Point GarageSlot5 = new Point(750, 400);
             Point GarageSlot6 = new Point(750, 590);
-            //точки для сдвига 615/495 и 300/495
+            //точки для сдвига 660/495 и 330/495
             Point GarageSlot7 = new Point(750, 400);
             Point GarageSlot8 = new Point(750, 590);
             //-------------
@@ -149,38 +149,38 @@ namespace WindowsFormsApp1
             {
                 if (x > 3 && drag == 0)
                 {
-                    MoveMouse(995, 495);
+                    MoveMouse(1010, 495);
                     Thread.Sleep(100);
-                    LMBdown(995, 495);
+                    LMBdown(1010, 495);
                     Thread.Sleep(2000);
-                    for (int i = 995; i > 600; i -= 5)
+                    for (int i = 1010; i > 665; i -= 5)
                     {
                         MoveMouse(i, 495);
                         Thread.Sleep(70);
                     }
                     Thread.Sleep(1000);
-                    MoveMouse(600, 495);
+                    MoveMouse(665, 495);
                     Thread.Sleep(2000);
-                    LMBup(600, 495);
+                    LMBup(665, 495);
                     Thread.Sleep(1000);
                     drag = 1;
                 }//сдвиг 
 
                 if (x > 5 && drag == 1)
                 {
-                    MoveMouse(915, 495);
+                    MoveMouse(660, 495);
                     Thread.Sleep(100);
-                    LMBdown(615, 495);
+                    LMBdown(660, 495);
                     Thread.Sleep(2000);
-                    for (int i = 615; i > 300; i -= 5)
+                    for (int i = 660; i > 330; i -= 5)
                     {
                         MoveMouse(i, 495);
                         Thread.Sleep(70);
                     }
                     Thread.Sleep(1000);
-                    MoveMouse(300, 495);
+                    MoveMouse(330, 495);
                     Thread.Sleep(2000);
-                    LMBup(300, 495);
+                    LMBup(330, 495);
                     Thread.Sleep(1000);
                     drag = 2;
                 }//сдвиг 

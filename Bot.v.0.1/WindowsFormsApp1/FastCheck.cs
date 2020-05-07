@@ -6,7 +6,33 @@ namespace WindowsFormsApp1
 {
     class FastCheck
     {
-        SpecialEvents se = new SpecialEvents();        
+        SpecialEvents se = new SpecialEvents();
+
+        public bool AnyHandSlotIsEmpty()
+        {
+            bool x = false;
+            Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
+            Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
+            Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
+            Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
+            Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
+            Rectangle[] handSlots = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
+
+            string CarSlotPath = "Check\\TestCarSlot";
+            string CarSlotOriginal = "Check\\OriginalCarSlot";
+
+            for(int i = 0; i < 5; i++)
+            {
+                MasterOfPictures.MakePicture(handSlots[i], CarSlotPath + i);
+                if (MasterOfPictures.Verify(CarSlotPath + i, CarSlotOriginal + i))
+                {
+                    NotePad.DoLog("Тачка на " + i + " позиции отсутствует");
+                    x = true;
+                }                    
+            }
+            
+            return x;
+        }
 
         public bool CarMenu()
         {
@@ -35,7 +61,7 @@ namespace WindowsFormsApp1
             bool x = false;
             string AlcPath = "HeadPictures\\TestStart";
             string AlcOriginal = "HeadPictures\\OriginalStart";
-            Rectangle AlcBounds = new Rectangle(290, 625, 87, 23);
+            Rectangle AlcBounds = new Rectangle(291, 593, 85, 21);
             MasterOfPictures.MakePicture(AlcBounds, AlcPath);
             if (MasterOfPictures.Verify(AlcPath, AlcOriginal)) x = true;
             return x;
