@@ -360,7 +360,7 @@ namespace WindowsFormsApp1
             switch (number)
             {
                 case 1://задний привод
-                    lrc = new int[] { 3, 3, 3, 3, 3 };
+                    lrc = new int[] { 10, 10, 10, 10, 10 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0, 3, 1, 3, 4 };
                     slikTyres = slT;
@@ -375,7 +375,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 2://передний привод
-                    lrc = new int[] { 3, 3, 3, 4, 4 };
+                    lrc = new int[] { 13, 13, 13, 13, 14 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 8, 2, 0, 0 };
                     slikTyres = slT;
@@ -390,7 +390,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 3://обычная х3
-                    lrc = new int[] { 3, 3, 3, 3, 3 };
+                    lrc = new int[] { 10, 10, 10, 10, 10 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0,2,0,11,4,4,5 };
                     slikTyres = slT;
@@ -405,7 +405,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 4://Audi
-                    lrc = new int[] { 15, 17, 18, 21, 22 };
+                    lrc = new int[] { 40, 46, 48, 57, 63 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -420,7 +420,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 5://бензиновые
-                    lrc = new int[] { 3, 3, 3, 3, 3 };
+                    lrc = new int[] { 10, 10, 10, 10, 10 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 11, 4, 3, 5 };
                     slikTyres = slT;
@@ -435,7 +435,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 6://необычная 5
-                    lrc = new int[] { 7,7,7,7,7 };
+                    lrc = new int[] { 20, 20, 20, 20, 20 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0,0,0,0,0 };
                     slikTyres = slT;
@@ -450,7 +450,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 7://япония
-                    lrc = new int[] { 3, 3, 4, 4, 4 };
+                    lrc = new int[] { 13, 13, 17, 17, 17 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0,0,0,0,0,1,0 };
                     slikTyres = slT;
@@ -465,7 +465,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 8://яга
-                    lrc = new int[] { 7, 7, 7, 7, 7 };
+                    lrc = new int[] { 21, 21, 21, 21, 21 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0,0,0,2,0,0,0 };
                     slikTyres = slT;
@@ -480,7 +480,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 9://Сша
-                    lrc = new int[] { 3, 3, 4, 4, 4 };
+                    lrc = new int[] { 11, 13, 13, 14, 15 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -495,7 +495,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 10://редкостная
-                    lrc = new int[] { 11,11,11,11,11 };
+                    lrc = new int[] { 30, 30, 30, 30, 30};
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -510,7 +510,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 11://экстремальная
-                    lrc = new int[] { 19,19,19,19,19 };
+                    lrc = new int[] { 50, 50, 50, 50, 50 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 4, 0, 0 };
                     slikTyres = slT;
@@ -525,7 +525,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 12://стандартные шины
-                    lrc = new int[] { 3, 3, 3, 3, 3 };
+                    lrc = new int[] { 10, 10, 10, 10, 10 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -540,7 +540,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 13://пикапы
-                    lrc = new int[] { 3,5,7,8,9 };
+                    lrc = new int[] { 11, 16, 20, 23, 24 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -555,7 +555,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 14://мерсы
-                    lrc = new int[] { 6,7,7,7,13 };
+                    lrc = new int[] { 17, 20, 20, 21, 36 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -570,7 +570,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 15://рено
-                    lrc = new int[] { 5, 6, 8, 9, 9 };
+                    lrc = new int[] { 16, 19, 24, 25, 26 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0,2,0,8,0,1,0 };
                     slikTyres = slT;
@@ -585,7 +585,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 16://4х4
-                    lrc = new int[] { 4, 6, 6, 6, 6 };
+                    lrc = new int[] { 14, 17, 18, 19, 19 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -600,7 +600,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 17://англия
-                    lrc = new int[] { 3, 4, 4, 4, 4 };
+                    lrc = new int[] { 12, 13, 13, 14, 14 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 2, 0, 0, 0 };
                     slikTyres = slT;
@@ -615,7 +615,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 18://крайслер
-                    lrc = new int[] { 4, 5, 6, 7, 10 };
+                    lrc = new int[] { 15, 16, 17, 21, 27 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -630,7 +630,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 19://пежо
-                    lrc = new int[] { 9, 10, 11, 19, 19 };
+                    lrc = new int[] { 25, 28, 30, 50, 53 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -645,7 +645,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 20://хонда
-                    lrc = new int[] { 4, 4, 4, 4, 6 };
+                    lrc = new int[] { 17, 17, 17, 17, 18 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -660,7 +660,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 21://альфа
-                    lrc = new int[] { 4, 4, 4, 4, 5 };
+                    lrc = new int[] { 13, 13, 14, 17, 18 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -675,7 +675,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 22://фр ренесанс
-                    lrc = new int[] { 6,9,9,9,10 };
+                    lrc = new int[] { 19, 25, 28, 29, 29 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0, 8, 0, 1, 0 };
                     slikTyres = slT;
@@ -690,7 +690,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 23://франция
-                    lrc = new int[] { 4,4,5,5,6 };
+                    lrc = new int[] { 14, 14, 16, 16, 18 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0, 8, 0, 1, 0 };
                     slikTyres = slT;
@@ -705,7 +705,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 24://всесезон
-                    lrc = new int[] { 9, 9, 9, 10, 11 };
+                    lrc = new int[] { 24, 25, 28, 28, 31};
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -720,7 +720,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 25://форд
-                    lrc = new int[] { 5,5,5,6,7 };
+                    lrc = new int[] { 15, 16, 17, 19, 21 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -735,7 +735,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 26://БМВ
-                    lrc = new int[] { 4, 5, 6, 6, 8 };
+                    lrc = new int[] { 15, 16, 18, 19, 22 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -750,7 +750,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 27://италия
-                    lrc = new int[] { 3, 3, 3, 3, 4 };
+                    lrc = new int[] { 10, 10, 12, 13, 13 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 1, 2, 1, 1 };
                     slikTyres = slT;
@@ -765,7 +765,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 28://5мест
-                    lrc = new int[] { 3, 3, 4, 4, 4 };
+                    lrc = new int[] { 13, 13, 13, 14, 14 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -780,7 +780,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 29://мазда
-                    lrc = new int[] { 7,9,10,10,13 };
+                    lrc = new int[] { 21, 27, 27, 29, 35};
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 1, 0 };
                     slikTyres = slT;
@@ -795,7 +795,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 30://Сша
-                    lrc = new int[] { 3, 3, 4, 4, 4 };
+                    lrc = new int[] { 11, 13, 13, 14, 15 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -810,7 +810,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 31://5мест
-                    lrc = new int[] { 3, 3, 4, 4, 4 };
+                    lrc = new int[] { 13, 13, 13, 14, 14 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -825,7 +825,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 32://германия
-                    lrc = new int[] { 3, 3, 3, 3, 3 };
+                    lrc = new int[] { 10, 10, 10, 10, 10 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 2, 1, 4 };
                     slikTyres = slT;
@@ -840,7 +840,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 33://американская мечта
-                    lrc = new int[] { 3, 3, 4, 4, 4 };
+                    lrc = new int[] { 11, 13, 13, 14, 15 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -855,7 +855,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 34://додж
-                    lrc = new int[] { 4, 9, 12, 12, 13 };
+                    lrc = new int[] { 14, 26, 33, 34, 36 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -870,7 +870,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 35://задний привод
-                    lrc = new int[] { 3, 3, 3, 3, 3 };
+                    lrc = new int[] { 10, 10, 10, 10, 10 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0, 3, 1, 3, 4 };
                     slikTyres = slT;
@@ -885,7 +885,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 36://суперская 3
-                    lrc = new int[] { 3, 3, 3, 3, 3 };
+                    lrc = new int[] { 10, 10, 40, 40, 40 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0, 11, 4, 4, 5 };
                     slikTyres = slT;
@@ -900,7 +900,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 37://1980
-                    lrc = new int[] { 3, 3, 3, 3, 4 };
+                    lrc = new int[] { 11, 13, 13, 13, 13 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 3, 0, 0, 1 };
                     slikTyres = slT;
@@ -915,7 +915,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 38://порше
-                    lrc = new int[] { 10,11,14,14,15 };
+                    lrc = new int[] { 28, 30, 38, 38, 41 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 1, 4 };
                     slikTyres = slT;
@@ -930,7 +930,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 39://опель
-                    lrc = new int[] { 5, 6, 8, 8, 10 };
+                    lrc = new int[] { 18, 18, 24, 24, 27 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -945,7 +945,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 40://суперская
-                    lrc = new int[] { 15,15,15,15,15 };
+                    lrc = new int[] { 40, 40, 40, 40, 40 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 11, 0, 0, 0 };
                     slikTyres = slT;
@@ -960,7 +960,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 41://2места
-                    lrc = new int[] { 3, 3, 3, 4, 4 };
+                    lrc = new int[] { 11, 12, 13, 13, 14 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 2, 2, 0 };
                     slikTyres = slT;
@@ -975,7 +975,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 42://2000 4х4
-                    lrc = new int[] { 9, 13, 14, 14, 15 };
+                    lrc = new int[] { 24, 36, 37, 38, 40};
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -990,7 +990,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 43://седаны
-                    lrc = new int[] { 3, 4, 4, 4, 4 };
+                    lrc = new int[] { 13, 13, 14, 14, 14 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 3, 0, 0, 0 };
                     slikTyres = slT;
@@ -1005,7 +1005,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 44://хэтчи
-                    lrc = new int[] { 3, 3, 4, 4, 5 };
+                    lrc = new int[] { 13, 13, 14, 15, 15 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 5, 2, 1, 0 };
                     slikTyres = slT;
@@ -1020,7 +1020,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 45://эко
-                    lrc = new int[] { 5, 6, 9, 9, 9 };
+                    lrc = new int[] { 16, 18, 26, 29, 29 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 2, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -1035,7 +1035,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 46://италия ренесанс
-                    lrc = new int[] { 3, 3, 3, 3, 4 };
+                    lrc = new int[] { 10, 10, 12, 13, 13 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 1, 2, 1, 1 };
                     slikTyres = slT;
@@ -1050,7 +1050,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 47://кадиллак
-                    lrc = new int[] { 5, 6, 11, 15, 15 };
+                    lrc = new int[] { 16, 17, 30, 31, 42 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
@@ -1065,7 +1065,7 @@ namespace WindowsFormsApp1
                     break;
 
                 case 48://ситроен
-                    lrc = new int[] { 4,4,5,6,6 };
+                    lrc = new int[] { 14, 14, 16, 18, 18 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;

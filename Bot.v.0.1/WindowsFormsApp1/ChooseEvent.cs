@@ -44,7 +44,7 @@ namespace WindowsFormsApp1
                 Thread.Sleep(4000);
                 if (fc.MissClick())
                 {
-                    Rat.Clk(1150, 240);
+                    Rat.Clk(1145, 240);
                     flag = false;
                     Thread.Sleep(1000);
                 }

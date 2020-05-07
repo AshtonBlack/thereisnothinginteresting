@@ -214,7 +214,6 @@ namespace WindowsFormsApp1
             MasterOfPictures.MakePicture(WrongClickBounds, WrongClickPath);
             if (MasterOfPictures.Verify(WrongClickPath, WrongClickOriginal))
             {
-                Rat.Clk(1150, 240);
                 x = true;
             }
 

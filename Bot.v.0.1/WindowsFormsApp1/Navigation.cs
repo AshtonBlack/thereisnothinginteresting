@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
             {
                 if (fc.StartIcon()) Rat.Clk(830, 375);//Icon
                 Thread.Sleep(200);
-                if (fc.StartButton()) Rat.Clk(340, 630);//Start game
+                if (fc.StartButton()) Rat.Clk(340, 600);//Start game
                 Thread.Sleep(200);
                 if (fc.HeadPage()) Rat.Clk(630, 390);//Events
                 Thread.Sleep(200);
