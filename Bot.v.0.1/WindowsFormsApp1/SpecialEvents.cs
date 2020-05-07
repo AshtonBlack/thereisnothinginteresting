@@ -177,5 +177,18 @@ namespace WindowsFormsApp1
             }
             return x;
         }
+
+        public void MissClick()
+        {
+            FastCheck fc = new FastCheck();
+
+            if (fc.MissClick())
+            {
+                NotePad.DoLog("Промах");
+                Rat.Clk(1145, 240);
+                NotePad.DoLog("Исправился");
+                Thread.Sleep(1000);
+            }
+        }
     }
 }

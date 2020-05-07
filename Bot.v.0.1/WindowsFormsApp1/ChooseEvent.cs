@@ -41,15 +41,7 @@ namespace WindowsFormsApp1
 
                 NotePad.DoLog("Кликаю условие " + eventN);
                 Rat.Clk(events[eventN - 1]);
-                Thread.Sleep(4000);
-                if (fc.MissClick())
-                {
-                    NotePad.DoLog("Промах");
-                    Rat.Clk(1145, 240);
-                    NotePad.DoLog("Исправился");
-                    flag = false;
-                    Thread.Sleep(1000);
-                }
+                Thread.Sleep(4000);                
                 if (fc.EventPage())
                 {
                     NotePad.DoLog("Вылетел из клубов");
@@ -117,6 +109,7 @@ namespace WindowsFormsApp1
 
         public int ChooseNormalEvent()
         {
+            SpecialEvents se = new SpecialEvents();
             NotePad.DoLog("Проверяю условия");
             int x = 500;
             while (x == 500)
@@ -125,7 +118,7 @@ namespace WindowsFormsApp1
                 {
                     do
                     {
-                        fc.MissClick();
+                        se.MissClick();
                         Thread.Sleep(100);
                         fc.Bounty();
                         if (fc.EventPage()) Rat.Clk(240, 500);
