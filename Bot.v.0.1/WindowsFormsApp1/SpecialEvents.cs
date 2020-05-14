@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             {
                 if (fc.WrongADS())
                 {
-                    Rat.Clk(75, 208);
+                    Rat.Clk(75, 205);
                     Thread.Sleep(2000);
                 }
                 else
@@ -38,16 +38,6 @@ namespace WindowsFormsApp1
             if (fc.ClickedWrongADS())
             {
                 Rat.Clk(75, 205);
-                NotePad.DoErrorLog("новое исключение рекламы");
-                for (int avN = 1; avN < 20; avN++)
-                {
-                    if (!File.Exists("C:\\Bot\\HeadPictures\\OriginalWrongADS" + avN + ".jpg"))
-                    {
-                        File.Move("C:\\Bot\\HeadPictures\\TestWrongADS.jpg",
-                            "C:\\Bot\\HeadPictures\\OriginalWrongADS" + avN + ".jpg");
-                        break;
-                    }
-                }
                 Thread.Sleep(2000);
                 Rat.Clk(75, 205);
                 Thread.Sleep(2000);

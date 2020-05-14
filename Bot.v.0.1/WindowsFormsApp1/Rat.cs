@@ -111,9 +111,6 @@ namespace WindowsFormsApp1
             //точки для сдвига 660/495 и 330/495
             Point GarageSlot7 = new Point(750, 400);
             Point GarageSlot8 = new Point(750, 590);
-            //-------------
-            Point GarageSlot9 = new Point(810, 400);
-            Point GarageSlot10 = new Point(810, 590);
 
             Point HandSlot1 = new Point(170, 770);
             Point HandSlot2 = new Point(350, 770);
@@ -122,7 +119,7 @@ namespace WindowsFormsApp1
             Point HandSlot5 = new Point(910, 770);
 
             Point[] a = new Point[] { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
-            Point[] b = new Point[] { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6, GarageSlot7, GarageSlot8, GarageSlot9, GarageSlot10 };
+            Point[] b = new Point[] { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6, GarageSlot7, GarageSlot8 };
             int emptyCars = 0;//недостаток машин
             int newN; //кол-во машин для установки
             int drag = 0;
@@ -184,6 +181,12 @@ namespace WindowsFormsApp1
                     Thread.Sleep(1000);
                     drag = 2;
                 }//сдвиг 
+
+                if (x > 7)
+                {
+                    emptyCars += newN - n;
+                    break;
+                }//прерывание цикла в случае множества сломанных
 
                 if (hm.CarFixed(x))
                 {

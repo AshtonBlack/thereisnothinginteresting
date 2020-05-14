@@ -118,11 +118,9 @@ namespace WindowsFormsApp1
 
             Rectangle Car7Bounds = new Rectangle(670, 325, 290, 150);
             Rectangle Car8Bounds = new Rectangle(670, 530, 290, 150);
-            ///---------
-            Rectangle Car9Bounds = new Rectangle(670, 325, 290, 150);
-            Rectangle Car10Bounds = new Rectangle(670, 530, 290, 150);
-            Rectangle[] bounds = new Rectangle[] { Car1Bounds, Car2Bounds, Car3Bounds, Car4Bounds, Car5Bounds, Car6Bounds, Car7Bounds, Car8Bounds, Car9Bounds, Car10Bounds };
-            string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car", "9car", "10car" };
+
+            Rectangle[] bounds = new Rectangle[] { Car1Bounds, Car2Bounds, Car3Bounds, Car4Bounds, Car5Bounds, Car6Bounds, Car7Bounds, Car8Bounds };
+            string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
             Thread.Sleep(2000);
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "1");

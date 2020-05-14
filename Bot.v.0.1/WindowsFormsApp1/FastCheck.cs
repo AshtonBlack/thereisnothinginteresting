@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.IO;
 using System.Threading;
 
 namespace WindowsFormsApp1
@@ -107,26 +106,11 @@ namespace WindowsFormsApp1
             string WrongADSOriginal = "HeadPictures\\OriginalWrongADS";
             Rectangle WrongADSBounds = new Rectangle(63, 193, 25, 25);
             MasterOfPictures.MakePicture(WrongADSBounds, WrongADSPath);
-
             if (MasterOfPictures.Verify(WrongADSPath, WrongADSOriginal))
             {
                 x = true;
             }
-            //запас на 20 вариантов
-            for (int i = 1; i < 20; i++)
-            {
-                if (!x)
-                {
-                    if (File.Exists("C:\\Bot\\" + WrongADSOriginal + i + ".jpg"))
-                    {
-                        if (MasterOfPictures.Verify(WrongADSPath, WrongADSOriginal + i))
-                        {
-                            x = true;
-                        }
-                    }
-                }
-                else break;
-            }
+
             return x;
         }
 

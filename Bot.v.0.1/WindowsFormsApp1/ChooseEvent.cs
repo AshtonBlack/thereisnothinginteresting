@@ -51,8 +51,6 @@ namespace WindowsFormsApp1
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
 
-            GotRQ();//ВРЕМЯНКА!!!!!!!
-
             int x = 500;//номер условия
             MasterOfPictures.MakePicture(Condition1Bounds, Condition1);
             MasterOfPictures.MakePicture(Condition2Bounds, Condition2);
