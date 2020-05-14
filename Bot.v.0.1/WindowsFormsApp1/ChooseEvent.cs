@@ -38,7 +38,6 @@ namespace WindowsFormsApp1
             do
             {
                 flag = true;
-
                 NotePad.DoLog("Кликаю условие " + eventN);
                 Rat.Clk(events[eventN - 1]);
                 Thread.Sleep(4000);                
@@ -51,7 +50,9 @@ namespace WindowsFormsApp1
                 }
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
-            
+
+            GotRQ();//ВРЕМЯНКА!!!!!!!
+
             int x = 500;//номер условия
             MasterOfPictures.MakePicture(Condition1Bounds, Condition1);
             MasterOfPictures.MakePicture(Condition2Bounds, Condition2);
@@ -119,11 +120,10 @@ namespace WindowsFormsApp1
                     do
                     {
                         se.MissClick();
-                        Thread.Sleep(100);
-                        fc.Bounty();
-                        if (fc.EventPage()) Rat.Clk(240, 500);
+                        se.ToClubs();
                     } while (!fc.ClubMap());
-
+                    
+                    Thread.Sleep(500);
                     NotePad.DoLog("Проверяю условие " + i);
                     x = Selection(i);
 

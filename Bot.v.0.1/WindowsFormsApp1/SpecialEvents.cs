@@ -37,7 +37,7 @@ namespace WindowsFormsApp1
             }
             if (fc.ClickedWrongADS())
             {
-                Rat.Clk(73, 203);
+                Rat.Clk(75, 205);
                 NotePad.DoErrorLog("новое исключение рекламы");
                 for (int avN = 1; avN < 20; avN++)
                 {
@@ -49,7 +49,7 @@ namespace WindowsFormsApp1
                     }
                 }
                 Thread.Sleep(2000);
-                Rat.Clk(73, 203);
+                Rat.Clk(75, 205);
                 Thread.Sleep(2000);
             }
             wait.CarIsUpgraded();
@@ -189,6 +189,33 @@ namespace WindowsFormsApp1
                 NotePad.DoLog("Исправился");
                 Thread.Sleep(1000);
             }
+        }
+
+        public void ToClubs()
+        {
+            bool needToDragMap = true;
+            SpecialEvents se = new SpecialEvents();
+            FastCheck fc = new FastCheck();
+
+            if (fc.ClubMap()) needToDragMap = false;
+
+            do
+            {
+                if (fc.StartIcon()) Rat.Clk(830, 375);//Icon
+                Thread.Sleep(200);
+                if (fc.StartButton()) Rat.Clk(340, 600);//Start game
+                Thread.Sleep(200);
+                if (fc.HeadPage()) Rat.Clk(630, 390);//Events
+                Thread.Sleep(200);
+                fc.Bounty();
+                Thread.Sleep(200);
+                se.UniversalErrorDefense();
+                Thread.Sleep(200);
+                if (fc.EventPage()) Rat.Clk(240, 500);//Clubs
+                Thread.Sleep(200);
+            } while (!fc.ClubMap());
+
+            if (needToDragMap) DragMap();
         }
     }
 }

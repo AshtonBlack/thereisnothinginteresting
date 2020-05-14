@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
                 handrq += hand[x, finger[x]];
             }//начальная рука
             int n;
-            while(Condition.actualRQ - handrq > 19)
+            while(Condition.actualRQ - handrq > 0)
             {
                 do
                 {
@@ -45,8 +45,6 @@ namespace WindowsFormsApp1
                 }
             }//сборка руки
             
-            //написать алгоритм добивания руки
-
             NotePad.DoLog("требуемое рк: " + Condition.eventrq + ";   рк руки: " + handrq);            
 
             for (int l = 0; l < 4; l++)

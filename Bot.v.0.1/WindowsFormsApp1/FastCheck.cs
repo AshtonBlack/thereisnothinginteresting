@@ -94,7 +94,7 @@ namespace WindowsFormsApp1
             bool x = false;
             string ClickedWrongADSPath = "HeadPictures\\TestClickedWrongADS";
             string ClickedWrongADSOriginal = "HeadPictures\\OriginalClickedWrongADS";
-            Rectangle ClickedWrongADSBounds = new Rectangle(64, 194, 17, 17);
+            Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
             MasterOfPictures.MakePicture(ClickedWrongADSBounds, ClickedWrongADSPath);
             if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal)) x = true;
             return x;
