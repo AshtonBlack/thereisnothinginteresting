@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Threading;
 
 namespace WindowsFormsApp1

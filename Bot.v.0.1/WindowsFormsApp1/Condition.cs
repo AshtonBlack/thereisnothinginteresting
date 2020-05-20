@@ -359,6 +359,21 @@ namespace WindowsFormsApp1
             conditionNumber = number;
             switch (number)
             {
+                case 0:
+                    lrc = new int[] { 10, 10, 10, 10, 10 };
+                    lowestRqCars = lrc;
+                    slT = new int[] { 0, 2, 0, 12, 4, 5, 5 };
+                    slikTyres = slT;
+                    dyT = new int[] { 32, 33, 72, 245, 216, 118, 30 };
+                    dynamicTyres = dyT;
+                    stT = new int[] { 44, 39, 47, 108, 42, 12, 0 };
+                    standartTyres = stT;
+                    asT = new int[] { 0, 4, 13, 131, 53, 17, 5 };
+                    allseasonTyres = asT;
+                    orT = new int[] { 2, 5, 9, 36, 17, 1, 2 };
+                    offroadTyres = orT;
+                    break;
+
                 case 1:
                 case 35://задний привод
                     lrc = new int[] { 10, 10, 10, 10, 10 };
