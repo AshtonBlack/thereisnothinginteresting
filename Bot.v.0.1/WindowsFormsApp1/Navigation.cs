@@ -13,8 +13,7 @@ namespace WindowsFormsApp1
         public void ToClubMap()
         {
             NotePad.ClearLog();
-            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_2");
-
+            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_3");
             Thread.Sleep(10000);
 
             se.ToClubs();

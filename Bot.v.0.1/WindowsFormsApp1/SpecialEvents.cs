@@ -58,11 +58,14 @@ namespace WindowsFormsApp1
             Thread.Sleep(500);
         }
 
-        public void ActivateClubBooster()
+        public void ActivateClubBooster()//выключен
         {
+            /*
             Rat.Clk(1025, 665);
             Thread.Sleep(2000);
             Rat.Clk(905, 610);
+            */
+            NotePad.DoLog("Booster отключен");
             Thread.Sleep(3000);
         }
 

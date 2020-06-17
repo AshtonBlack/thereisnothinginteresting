@@ -6,6 +6,7 @@ namespace WindowsFormsApp1
 {
     class ChooseEvent
     {
+        int accountLVL = 250;
         FastCheck fc = new FastCheck();
 
         Rectangle Condition1Bounds = new Rectangle(990, 395, 205, 20);
@@ -91,7 +92,7 @@ namespace WindowsFormsApp1
                     {
                         NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
                         NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
-                        if (Condition.minrq > Condition.eventrq)
+                        if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
                         {
                             NotePad.DoLog("Минимальное рк для условия больше требуемого");
                             x = 500;
@@ -179,7 +180,7 @@ namespace WindowsFormsApp1
 
             return isRqKnown;
         }
-
+        
         public int WhichEvent()
         {
             int eventName = 0;
@@ -197,13 +198,13 @@ namespace WindowsFormsApp1
                 }
                 else
                 {
-                    NotePad.DoLog("Добавляю еизвестный эвент");
+                    NotePad.DoLog("Добавляю неизвестный эвент");
                     File.Move("C:\\Bot\\" + EventNamePath + ".jpg", "C:\\Bot\\Events\\" + i.ToString() + ".jpg");
                     break;
                 }
             }
-
             return eventName;
         }
+        
     }
 }
