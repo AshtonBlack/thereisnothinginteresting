@@ -41,6 +41,10 @@ namespace WindowsFormsApp1
                 Rat.Clk(75, 205);
                 Thread.Sleep(2000);
             }
+            if (fc.Upgrade())
+            {
+                RestartBot();
+            } //против глюка рекламы
             wait.CarIsUpgraded();
             Rat.Clk(635, 720); //подтвердить проркачку
             Thread.Sleep(3000);

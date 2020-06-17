@@ -28,8 +28,30 @@ namespace WindowsFormsApp1
 
         static Condition() { }
 
-        public static int AvailableCars(int carClass)
+        public static int AvailableCars(int litClass)
         {
+            int carClass;
+            switch (litClass)
+            {
+                case 'd':
+                    carClass = 1;
+                    break;
+                case 'c':
+                    carClass = 1;
+                    break;
+                case 'b':
+                    carClass = 1;
+                    break;
+                case 'a':
+                    carClass = 1;
+                    break;
+                case 's':
+                    carClass = 1;
+                    break;
+                default:
+                    carClass = 0;
+                    break;
+            }
             int number = 0;
 
             int[] overNumber = { slikTyres[carClass],
@@ -44,6 +66,18 @@ namespace WindowsFormsApp1
                     number += overNumber[i];
                 }
             }
+
+            if(number > 4)
+            {   
+                if(number % 2 == 0)
+                {
+                    number = number - 2;
+                }
+                else
+                {
+                    number = number - 1;
+                }
+            } //исключаем сломаные места
             return number;
         } //доступные машины
 

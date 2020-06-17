@@ -74,7 +74,8 @@ namespace WindowsFormsApp1
             NotePad.DoLog("Собираю " + classcars[0] + "S, " + classcars[1] + "A, " + classcars[2] + "B, " + classcars[3] + "C, " + classcars[4] + "D, " + classcars[5] + "E, " + classcars[6] + "F");
             Thread.Sleep(1000);
 
-            int var; //недобор
+            int emptycars; //недобор
+            int conditionAvailableCars;
             int usedhandslots = 0;
             if (Condition.conditionNumber != 0 && Condition.conditionNumber != 3 && Condition.conditionNumber != 36 && !fc.ConditionActivated()) 
                 Rat.Clk(640, 265); //включить фильтр условия события. Исключения: нет условий, 3 машины одной редкости, фильтр включен              
@@ -86,14 +87,23 @@ namespace WindowsFormsApp1
                     if (i == 6)//для серых нет возврата недобора
                     {
                         Randomizer();
-                        UseFilter(cls[i], classcars[i], usedhandslots);
+                        UseFilter(cls[i]);
+                        Rat.DragnDpopHand(classcars[i], usedhandslots);
                     }
                     else
                     {
                         Randomizer();
-                        var = UseFilter(cls[i], classcars[i], usedhandslots);
-                        usedhandslots += classcars[i] - var;
-                        classcars[i + 1] += var;
+                        UseFilter(cls[i]);
+                        conditionAvailableCars = Condition.AvailableCars(cls[i]);
+                        emptycars = 0;
+                        if (classcars[i] > conditionAvailableCars)
+                        {
+                            emptycars = classcars[i] - conditionAvailableCars;
+                            classcars[i] = conditionAvailableCars;
+                        }                        
+                        emptycars += Rat.DragnDpopHand(classcars[i], usedhandslots);
+                        usedhandslots += classcars[i] - emptycars;
+                        classcars[i + 1] += emptycars;
                     }
                 }
             }//механизм расстановки
@@ -271,7 +281,7 @@ namespace WindowsFormsApp1
             return carsid;
         }
 
-        private int UseFilter(char cls, int n, int uhslts)
+        private void UseFilter(char cls)
         {
             Waiting wait = new Waiting();
 
@@ -322,10 +332,7 @@ namespace WindowsFormsApp1
             Condition.ChooseTyres();
             Thread.Sleep(1000);
             Rat.Clk(accept);
-            Thread.Sleep(2000);
-            int emptycars = Rat.DragnDpopHand(n, uhslts);
-
-            return emptycars;
+            Thread.Sleep(2000);            
         }
 
         private void Randomizer()
