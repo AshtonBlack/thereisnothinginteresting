@@ -33,20 +33,23 @@ namespace WindowsFormsApp1
             int carClass;
             switch (litClass)
             {
-                case 'd':
+                case 'e':
                     carClass = 1;
+                    break;
+                case 'd':
+                    carClass = 2;
                     break;
                 case 'c':
-                    carClass = 1;
+                    carClass = 3;
                     break;
                 case 'b':
-                    carClass = 1;
+                    carClass = 4;
                     break;
                 case 'a':
-                    carClass = 1;
+                    carClass = 5;
                     break;
                 case 's':
-                    carClass = 1;
+                    carClass = 6;
                     break;
                 default:
                     carClass = 0;
