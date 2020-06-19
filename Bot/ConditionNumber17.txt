@@ -1,5 +1,5 @@
 case 17:
-lrc = new int[] { 13, 314, 23, 25, 26};
+lrc = new int[] { 13, 14, 23, 25, 26};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
