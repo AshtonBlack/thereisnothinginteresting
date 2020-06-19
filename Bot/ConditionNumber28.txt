@@ -1,0 +1,14 @@
+case 28:
+lrc = new int[] { 14, 19, 22, 22, 26};
+lowestRqCars = lrc;
+slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+slikTyres = slT;
+dyT = new int[] { 1, 1, 2, 0, 3, 1, 0};
+dynamicTyres = dyT;
+stT = new int[] { 1, 2, 2, 5, 0, 0, 0};
+standartTyres = stT;
+asT = new int[] { 0, 1, 1, 1, 2, 0, 0};
+allseasonTyres = asT;
+orT = new int[] { 0, 1, 0, 1, 0, 0, 0};
+offroadTyres = orT;
+break;
