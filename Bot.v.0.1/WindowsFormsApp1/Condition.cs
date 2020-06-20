@@ -190,7 +190,7 @@ namespace WindowsFormsApp1
                 }
             }
            
-            if (minrq <= eventrq)
+            if (minrq <= eventrq && carnumber == 5)
             {
                 tires[0] = true;
                 tires[1] = true;
@@ -213,7 +213,7 @@ namespace WindowsFormsApp1
                         break;
                     }
                 }
-                if (minrq <= eventrq)
+                if (minrq <= eventrq && carnumber == 5)
                 {
                     tires[0] = true;
                     tires[1] = true;
@@ -248,7 +248,7 @@ namespace WindowsFormsApp1
                     break;
                 }
             }
-            if (minrq <= eventrq)
+            if (minrq <= eventrq && carnumber == 5)
             {               
                 tires[1] = true;
                 tires[2] = true;
@@ -280,7 +280,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            if (minrq <= eventrq)
+            if (minrq <= eventrq && carnumber == 5)
             {
                 tires[0] = true;
                 tires[1] = true;
@@ -315,7 +315,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            if (minrq <= eventrq)
+            if (minrq <= eventrq && carnumber == 5)
             {
                 tires[3] = true;
                 tires[4] = true;
@@ -338,7 +338,7 @@ namespace WindowsFormsApp1
                         break;
                     }
                 }
-                if (minrq <= eventrq)
+                if (minrq <= eventrq && carnumber == 5)
                 {
                     tires[2] = true;
                     tires[3] = true;
@@ -620,7 +620,6 @@ namespace WindowsFormsApp1
                     allseasonTyres = asT;
                     orT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     offroadTyres = orT;
-                    break;
                     break;
 
                 case 13:
