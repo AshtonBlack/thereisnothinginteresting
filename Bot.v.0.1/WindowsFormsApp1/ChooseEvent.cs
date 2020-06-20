@@ -6,7 +6,7 @@ namespace WindowsFormsApp1
 {
     class ChooseEvent
     {
-        int accountLVL = 250;
+        int accountLVL = Condition.accountLVL;
         FastCheck fc = new FastCheck();
 
         Rectangle Condition1Bounds = new Rectangle(990, 395, 205, 20);
