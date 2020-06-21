@@ -1,9 +1,9 @@
-case 1:
-lrc = new int[] { 12, 13, 13, 14, 21};
+case 1: // задний привод
+lrc = new int[] { 13, 13, 14, 21, 28};
 lowestRqCars = lrc;
 slT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 4, 3, 0, 8, 4, 0, 0};
+dyT = new int[] { 3, 2, 1, 6, 4, 1, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 1, 1, 0, 0, 1, 0};
 standartTyres = stT;

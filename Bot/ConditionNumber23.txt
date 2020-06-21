@@ -1,9 +1,9 @@
-case 23:
-lrc = new int[] { 28, 29, 31, 40, 41};
+case 23: // франция
+lrc = new int[] { 25, 28, 29, 31, 40};
 lowestRqCars = lrc;
 slT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 1, 2, 0, 0, 0};
+dyT = new int[] { 0, 1, 1, 2, 0, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 standartTyres = stT;

@@ -1,5 +1,5 @@
-case 11:
-lrc = new int[] { 50, 50, 55, 55, 56};
+case 11: // экстремальная
+lrc = new int[] { 50, 50, 51, 55, 55};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
@@ -9,6 +9,6 @@ stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 2, 0, 0};
 allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+orT = new int[] { 0, 0, 0, 0, 1, 0, 0};
 offroadTyres = orT;
 break;
