@@ -107,13 +107,8 @@ namespace WindowsFormsApp1
                 if (eventisactive)
                 {
                     pcp.TimeToRace();//расстановка
-
-                    Thread.Sleep(5000);
-                    Rat.Clk(640, 215); //кнопка "пропустить"
-                    Thread.Sleep(4000);
-                    Rat.Clk(890, 625);//подтвержение "пропуска"
-                    Thread.Sleep(5000);
-                    Rat.Clk(635, 570);//звезды  
+                    
+                    se.EndRace();//завершение заезда
 
                     foundplace = false;
                     do

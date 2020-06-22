@@ -6,6 +6,45 @@ namespace WindowsFormsApp1
 {
     public class SpecialEvents
     {
+        public void EndRace()
+        {
+            FastCheck fc = new FastCheck();
+            SpecialEvents se = new SpecialEvents();
+            int flag1 = 0;
+            int flag2 = 0;
+            int flag3 = 0;
+
+            do
+            {
+                if(flag1 > 3 || flag2 > 3 || flag3 > 3)
+                {
+                    NotePad.DoErrorLog("образовалась петля");
+                    se.RestartBot();
+                }
+                if (fc.RaceEnd())
+                {
+                    Rat.Clk(640, 215); //кнопка "пропустить"
+                    flag1++;
+                }
+                if (fc.AcceptThrow())
+                {
+                    Rat.Clk(890, 625);//подтвержение "пропуска"
+                    flag2++;
+                }
+                if (fc.WonSet())
+                {
+                    Rat.Clk(635, 570);//звезды 
+                    flag3++;
+                }
+                if (fc.LostSet())
+                {
+                    Rat.Clk(635, 570);//звезды 
+                    flag3++;
+                }
+                Thread.Sleep(1500);
+            } while (fc.Ending());            
+        }
+
         public void UpgradeAdsKiller()
         {
             FastCheck fc = new FastCheck();
@@ -193,22 +232,19 @@ namespace WindowsFormsApp1
             SpecialEvents se = new SpecialEvents();
             FastCheck fc = new FastCheck();
 
-            if (fc.ClubMap()) needToDragMap = false;
-
             do
             {
-                if (fc.StartIcon()) Rat.Clk(830, 375);//Icon
-                Thread.Sleep(200);
+                if (fc.StartIcon()) Rat.Clk(830, 375);//Icon                
                 if (fc.StartButton()) Rat.Clk(340, 600);//Start game
-                Thread.Sleep(200);
                 if (fc.HeadPage()) Rat.Clk(630, 390);//Events
-                Thread.Sleep(200);
                 fc.Bounty();
-                Thread.Sleep(200);
                 se.UniversalErrorDefense();
-                Thread.Sleep(200);
-                if (fc.EventPage()) Rat.Clk(240, 500);//Clubs
-                Thread.Sleep(200);
+                if (fc.EventPage())
+                {
+                    Rat.Clk(240, 500);//Clubs
+                    needToDragMap = false;
+                }                    
+                Thread.Sleep(1000);
             } while (!fc.ClubMap());
 
             if (needToDragMap) DragMap();
