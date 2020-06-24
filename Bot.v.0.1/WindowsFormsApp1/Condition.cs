@@ -5,7 +5,7 @@ namespace WindowsFormsApp1
 {
     static class Condition
     {
-        public static int accountLVL = 280;
+        public static int accountLVL = 285;
         public static bool[] tires { get; set; }
         public static int minrq { get; set; }
         public static int maxrq { get; set; }
@@ -565,9 +565,9 @@ namespace WindowsFormsApp1
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 1, 1, 2, 0, 1, 0 };
+                    dyT = new int[] { 0, 1, 1, 1, 0, 1, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 0, 2, 1, 0, 0, 0 };
+                    stT = new int[] { 0, 0, 2, 0, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 1, 0, 1, 0, 0 };
                     allseasonTyres = asT;
@@ -1036,9 +1036,9 @@ namespace WindowsFormsApp1
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 1, 0, 0, 0, 1, 1, 0 };
+                    dyT = new int[] { 1, 0, 0, 1, 2, 1, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 2, 2, 4, 0, 1, 0 };
+                    stT = new int[] { 0, 1, 3, 1, 0, 1, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;

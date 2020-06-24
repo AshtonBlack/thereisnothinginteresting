@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
             int flag1 = 0;
             int flag2 = 0;
             int flag3 = 0;
+            bool nextstep = false;
 
             do
             {
@@ -31,7 +32,7 @@ namespace WindowsFormsApp1
                     Rat.Clk(890, 625);//подтвержение "пропуска"
                     flag2++;
                 }
-                if (fc.WonSet())
+                if (fc.WonSet() )
                 {
                     Rat.Clk(635, 570);//звезды 
                     flag3++;
@@ -41,8 +42,15 @@ namespace WindowsFormsApp1
                     Rat.Clk(635, 570);//звезды 
                     flag3++;
                 }
+                if (fc.DrawSet())
+                {
+                    Rat.Clk(635, 570);//звезды 
+                    flag3++;
+                }
                 Thread.Sleep(1500);
-            } while (fc.Ending());            
+                if (fc.Ending()) nextstep = true;
+                if (fc.Upgrade()) nextstep = true;
+            } while (!nextstep);            
         }
 
         public void UpgradeAdsKiller()
@@ -228,7 +236,7 @@ namespace WindowsFormsApp1
 
         public void ToClubs()
         {
-            bool needToDragMap = true;
+            bool needToDragMap = false;
             SpecialEvents se = new SpecialEvents();
             FastCheck fc = new FastCheck();
 
@@ -242,7 +250,7 @@ namespace WindowsFormsApp1
                 if (fc.EventPage())
                 {
                     Rat.Clk(240, 500);//Clubs
-                    needToDragMap = false;
+                    needToDragMap = true;
                 }                    
                 Thread.Sleep(1000);
             } while (!fc.ClubMap());

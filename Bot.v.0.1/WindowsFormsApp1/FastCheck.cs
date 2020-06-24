@@ -6,7 +6,7 @@ namespace WindowsFormsApp1
     class FastCheck
     {
         SpecialEvents se = new SpecialEvents();
-
+               
         public bool AnyHandSlotIsEmpty()
         {
             bool x = false;
@@ -426,7 +426,7 @@ namespace WindowsFormsApp1
             string RaceEndOriginal = "HeadPictures\\OriginalRaceEnd";
             Rectangle RaceEndBounds = new Rectangle(545, 750, 190, 30);
             MasterOfPictures.BW2Capture(RaceEndBounds, RaceEndPath);
-            if (MasterOfPictures.VerifyBW(RaceEndPath, RaceEndOriginal, 90))//для начала проверяем на 100 ошибок
+            if (MasterOfPictures.VerifyBW(RaceEndPath, RaceEndOriginal, 220))//для начала проверяем на 100 ошибок
             {
                 x = true;
                 NotePad.DoLog("первую трассу проехал, жму пропуск");                
@@ -475,6 +475,36 @@ namespace WindowsFormsApp1
             {
                 x = true;
                 NotePad.DoLog("проиграл сет");
+            }
+            return x;
+        }
+
+        public bool DrawSet()
+        {
+            bool x = false;
+            string DrawSetPath = "HeadPictures\\TestDrawSet";
+            string DrawSetOriginal = "HeadPictures\\OriginalDrawSet";
+            Rectangle DrawSetBounds = new Rectangle(370, 540, 195, 45);
+            MasterOfPictures.MakePicture(DrawSetBounds, DrawSetPath);
+            if (MasterOfPictures.Verify(DrawSetPath, DrawSetOriginal))
+            {
+                x = true;
+                NotePad.DoLog("ничья");
+            }
+            return x;
+        }
+
+        public bool DailyBounty()
+        {
+            bool x = false;
+            string DailyBountyPath = "HeadPictures\\TestDailyBounty";
+            string DailyBountyOriginal = "HeadPictures\\OriginalDailyBounty";
+            Rectangle DailyBountyBounds = new Rectangle(80, 200, 290, 30);
+            MasterOfPictures.MakePicture(DailyBountyBounds, DailyBountyPath);
+            if (MasterOfPictures.Verify(DailyBountyPath, DailyBountyOriginal))
+            {
+                x = true;
+                NotePad.DoLog("Ежедневная награда");//640 770
             }
             return x;
         }
