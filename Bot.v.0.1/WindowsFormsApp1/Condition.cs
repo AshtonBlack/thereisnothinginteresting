@@ -422,14 +422,15 @@ namespace WindowsFormsApp1
             conditionNumber = number;
             switch (number)
             {
-                case 0: // без условий
-                    lrc = new int[] { 13, 13, 14, 18, 19 };
+                case 0: // без условий  
+                case 3: //обычная х3
+                    lrc = new int[] { 11, 13, 13, 14, 17};
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 3, 5, 3, 6, 4, 2, 0 };
+                    dyT = new int[] { 4, 6, 4, 6, 5, 2, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 2, 2, 4, 5, 0, 1, 0 };
+                    stT = new int[] { 3, 3, 4, 3, 0, 1, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 1, 2, 1, 2, 0, 0 };
                     allseasonTyres = asT;
@@ -439,13 +440,13 @@ namespace WindowsFormsApp1
 
                 case 1:
                 case 35://задний привод
-                    lrc = new int[] { 13, 13, 14, 21, 28 };
+                    lrc = new int[] { 11, 13, 13, 14, 17};
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 3, 2, 1, 6, 4, 1, 0 };
+                    dyT = new int[] { 4, 2, 1, 6, 5, 1, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 1, 1, 0, 0, 1, 0 };
+                    stT = new int[] { 1, 2, 1, 0, 0, 1, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
@@ -459,28 +460,13 @@ namespace WindowsFormsApp1
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 3, 1, 0, 0, 0, 0 };
+                    dyT = new int[] { 0, 4, 2, 0, 0, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 2, 1, 3, 3, 0, 0, 0 };
+                    stT = new int[] { 2, 1, 3, 1, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 1, 0, 0, 0, 0 };
                     allseasonTyres = asT;
                     orT = new int[] { 0, 0, 0, 2, 1, 0, 0 };
-                    offroadTyres = orT;
-                    break;
-
-                case 3://обычная х3
-                    lrc = new int[] { 13, 13, 14, 18, 19 };
-                    lowestRqCars = lrc;
-                    slT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
-                    slikTyres = slT;
-                    dyT = new int[] { 3, 5, 3, 6, 4, 2, 0 };
-                    dynamicTyres = dyT;
-                    stT = new int[] { 2, 2, 4, 5, 0, 1, 0 };
-                    standartTyres = stT;
-                    asT = new int[] { 0, 1, 2, 1, 2, 0, 0 };
-                    allseasonTyres = asT;
-                    orT = new int[] { 0, 2, 0, 3, 1, 0, 0 };
                     offroadTyres = orT;
                     break;
 
@@ -500,13 +486,13 @@ namespace WindowsFormsApp1
                     break;
 
                 case 5://бензиновые
-                    lrc = new int[] { 13, 13, 14, 18, 19 };
+                    lrc = new int[] { 11, 13, 13, 14, 17 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 3, 5, 3, 6, 4, 2, 0 };
+                    dyT = new int[] { 4, 6, 4, 5, 5, 2, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 2, 2, 2, 5, 0, 1, 0 };
+                    stT = new int[] { 3, 3, 2, 3, 0, 1, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 1, 0, 0 };
                     allseasonTyres = asT;
@@ -519,9 +505,9 @@ namespace WindowsFormsApp1
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 5, 0, 0, 0, 0, 0 };
+                    dyT = new int[] { 0, 6, 0, 0, 0, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 2, 0, 0, 0, 0, 0 };
+                    stT = new int[] { 0, 3, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
@@ -530,13 +516,13 @@ namespace WindowsFormsApp1
                     break;
 
                 case 7://япония
-                    lrc = new int[] { 19, 34, 43, 44, 48 };
+                    lrc = new int[] { 17, 19, 29, 34, 43 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 0, 0, 0, 0, 1, 0 };
+                    dyT = new int[] { 1, 0, 0, 0, 0, 1, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 1, 0, 1, 2, 0, 0, 0 };
+                    stT = new int[] { 1, 1, 1, 2, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
@@ -561,11 +547,11 @@ namespace WindowsFormsApp1
 
                 case 9:
                 case 30://Сша
-                    lrc = new int[] { 22, 28, 34, 34, 37 };
+                    lrc = new int[] { 22, 28, 28, 34, 34 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 1, 1, 1, 0, 1, 0 };
+                    dyT = new int[] { 0, 2, 1, 1, 0, 1, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 0, 2, 0, 0, 0, 0 };
                     standartTyres = stT;
@@ -577,11 +563,11 @@ namespace WindowsFormsApp1
 
 
                 case 10://редкостная
-                    lrc = new int[] { 31, 34, 34, 34, 35 };
+                    lrc = new int[] { 30, 31, 34, 34, 34 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 0, 3, 0, 0, 0, 0 };
+                    dyT = new int[] { 0, 0, 4, 0, 0, 0, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 0, 4, 0, 0, 0, 0 };
                     standartTyres = stT;
@@ -596,7 +582,7 @@ namespace WindowsFormsApp1
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 0, 0, 0, 4, 0, 0 };
+                    dyT = new int[] { 0, 0, 0, 0, 5, 0, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
@@ -608,13 +594,13 @@ namespace WindowsFormsApp1
 
                 case 12:
                 case 55://стандартные шины
-                    lrc = new int[] { 18, 19, 21, 28, 34 };
+                    lrc = new int[] { 11, 18, 19, 21, 28 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
                     dyT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 2, 2, 4, 5, 0, 1, 0 };
+                    stT = new int[] { 3, 3, 4, 3, 0, 1, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
@@ -689,9 +675,9 @@ namespace WindowsFormsApp1
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 2, 1, 0, 0, 2, 0, 0 };
+                    dyT = new int[] { 2, 1, 0, 0, 3, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 1, 0, 0, 1, 0, 0, 0 };
+                    stT = new int[] { 1, 0, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 1, 1, 1, 0, 0, 0 };
                     allseasonTyres = asT;
@@ -776,11 +762,11 @@ namespace WindowsFormsApp1
 
                 case 23:
                 case 49://франция
-                    lrc = new int[] { 25, 28, 29, 31, 40 };
+                    lrc = new int[] { 25, 28, 29, 30, 31 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 1, 1, 2, 0, 0, 0 };
+                    dyT = new int[] { 0, 1, 2, 2, 0, 0, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
@@ -836,11 +822,11 @@ namespace WindowsFormsApp1
                     break;
 
                 case 27://италия
-                    lrc = new int[] { 12, 13, 22, 28, 45 };
+                    lrc = new int[] { 13, 22, 28, 40, 45 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 2, 2, 0, 1, 0, 0, 0 };
+                    dyT = new int[] { 1, 2, 0, 2, 0, 0, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
@@ -852,17 +838,17 @@ namespace WindowsFormsApp1
 
                 case 28:
                 case 31://5мест
-                    lrc = new int[] { 14, 19, 22, 22, 26 };
+                    lrc = new int[] { 11, 14, 19, 22, 22 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 1, 1, 2, 0, 3, 1, 0 };
+                    dyT = new int[] { 1, 3, 3, 1, 3, 1, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 1, 2, 2, 5, 0, 0, 0 };
+                    stT = new int[] { 2, 1, 3, 2, 0, 0, 0 };
                     standartTyres = stT;
-                    asT = new int[] { 0, 1, 1, 1, 2, 0, 0 };
+                    asT = new int[] { 0, 1, 1, 0, 2, 0, 0 };
                     allseasonTyres = asT;
-                    orT = new int[] { 0, 1, 0, 1, 0, 0, 0 };
+                    orT = new int[] { 0, 2, 0, 1, 0, 0, 0 };
                     offroadTyres = orT;
                     break;
 
@@ -882,17 +868,17 @@ namespace WindowsFormsApp1
                     break;          
 
                 case 32://германия
-                    lrc = new int[] { 21, 35, 36, 47, 50 };
+                    lrc = new int[] { 11, 21, 35, 36, 47 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
                     dyT = new int[] { 0, 0, 1, 1, 2, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 1, 1, 0, 0, 1, 0 };
+                    stT = new int[] { 1, 1, 1, 0, 0, 1, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 1, 0, 0 };
                     allseasonTyres = asT;
-                    orT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+                    orT = new int[] { 0, 0, 0, 0, 1, 0, 0 };
                     offroadTyres = orT;
                     break;
 
@@ -927,28 +913,28 @@ namespace WindowsFormsApp1
                     break;              
 
                 case 36://суперская 3
-                    lrc = new int[] { 40, 41, 41, 12, 13 };
+                    lrc = new int[] { 11, 13, 40, 40, 41 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 4, 5, 2, 8, 4, 1, 0 };
+                    dyT = new int[] { 4, 6, 4, 6, 5, 2, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 1, 3, 3, 5, 0, 1, 0 };
+                    stT = new int[] { 3, 3, 4, 3, 0, 1, 0 };
                     standartTyres = stT;
-                    asT = new int[] { 0, 1, 1, 1, 2, 0, 0 };
+                    asT = new int[] { 0, 1, 2, 1, 2, 0, 0 };
                     allseasonTyres = asT;
-                    orT = new int[] { 0, 2, 0, 2, 0, 0, 0 };
+                    orT = new int[] { 0, 2, 0, 3, 1, 0, 0 };
                     offroadTyres = orT;
                     break;
 
                 case 37://1980
-                    lrc = new int[] { 22, 22, 23, 25, 26 };
+                    lrc = new int[] { 22, 22, 23, 25, 28 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 3, 2, 1, 0, 0, 0 };
+                    dyT = new int[] { 0, 3, 3, 1, 0, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 2, 0, 0, 0, 0, 0 };
+                    stT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
@@ -987,32 +973,32 @@ namespace WindowsFormsApp1
                     break;
 
                 case 40://суперская
-                    lrc = new int[] { 40, 41, 41, 42, 42 };
+                    lrc = new int[] { 40, 40, 41, 42, 42 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 0, 0, 8, 0, 0, 0 };
+                    dyT = new int[] { 0, 0, 0, 6, 0, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 0, 0, 5, 0, 0, 0 };
+                    stT = new int[] { 0, 0, 0, 3, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 1, 0, 0, 0 };
                     allseasonTyres = asT;
-                    orT = new int[] { 0, 0, 0, 2, 0, 0, 0 };
+                    orT = new int[] { 0, 0, 0, 3, 0, 0, 0 };
                     offroadTyres = orT;
                     break;
 
                 case 41: // 2места
-                    lrc = new int[] { 13, 21, 25, 28, 40 };
+                    lrc = new int[] { 13, 17, 18, 21, 28 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 1, 2, 0, 6, 1, 0, 0 };
+                    dyT = new int[] { 2, 1, 1, 4, 2, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
+                    stT = new int[] { 1, 2, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
-                    orT = new int[] { 0, 0, 0, 1, 0, 0, 0 };
+                    orT = new int[] { 0, 0, 0, 2, 1, 0, 0 };
                     offroadTyres = orT;
                     break;
 
@@ -1032,11 +1018,11 @@ namespace WindowsFormsApp1
                     break;
 
                 case 43: // седаны
-                    lrc = new int[] { 14, 26, 28, 34, 34 };
+                    lrc = new int[] { 14, 28, 28, 34, 34 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 1, 0, 0, 1, 2, 1, 0 };
+                    dyT = new int[] { 1, 1, 0, 1, 2, 1, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 1, 3, 1, 0, 1, 0 };
                     standartTyres = stT;
@@ -1047,17 +1033,17 @@ namespace WindowsFormsApp1
                     break;
 
                 case 44: // хэтчи
-                    lrc = new int[] { 19, 22, 23, 31, 35 };
+                    lrc = new int[] { 11, 18, 19, 22, 23 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 2, 2, 2, 0, 0, 0 };
+                    dyT = new int[] { 0, 3, 3, 2, 1, 0, 0 };
                     dynamicTyres = dyT;
-                    stT = new int[] { 1, 0, 1, 1, 0, 0, 0 };
+                    stT = new int[] { 3, 0, 1, 1, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
-                    orT = new int[] { 0, 0, 0, 1, 0, 0, 0 };
+                    orT = new int[] { 0, 0, 0, 2, 1, 0, 0 };
                     offroadTyres = orT;
                     break;
 
@@ -1077,17 +1063,17 @@ namespace WindowsFormsApp1
                     break;
 
                 case 46://италия ренесанс
-                    lrc = new int[] { 100, 100, 100, 100, 100 };//нет
+                    lrc = new int[] { 13, 22, 28, 40, 45 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+                    dyT = new int[] { 1, 2, 0, 2, 0, 0, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
                     asT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     allseasonTyres = asT;
-                    orT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+                    orT = new int[] { 0, 0, 0, 1, 0, 0, 0 };
                     offroadTyres = orT;
                     break;
 
@@ -1122,11 +1108,11 @@ namespace WindowsFormsApp1
                     break;
 
                 case 51: // pre 1970
-                    lrc = new int[] { 12, 13, 13, 14, 21 };
+                    lrc = new int[] { 13, 13, 14, 21, 28 };
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 4, 1, 0, 0, 0, 0, 0 };
+                    dyT = new int[] { 3, 1, 1, 0, 0, 0, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     standartTyres = stT;
@@ -1156,7 +1142,7 @@ namespace WindowsFormsApp1
                     lowestRqCars = lrc;
                     slT = new int[] { 0, 0, 0, 0, 0, 0, 0 };
                     slikTyres = slT;
-                    dyT = new int[] { 0, 2, 0, 2, 0, 0, 0 };
+                    dyT = new int[] { 0, 2, 0, 1, 0, 0, 0 };
                     dynamicTyres = dyT;
                     stT = new int[] { 0, 1, 0, 0, 0, 0, 0 };
                     standartTyres = stT;

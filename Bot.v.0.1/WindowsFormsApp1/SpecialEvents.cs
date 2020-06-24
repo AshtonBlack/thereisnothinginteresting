@@ -234,6 +234,19 @@ namespace WindowsFormsApp1
             }
         }
 
+        public void AcceptDailyBounty()
+        {
+            FastCheck fc = new FastCheck();
+
+            NotePad.DoLog("принимаю ежедневку");
+            do
+            {
+                Rat.Clk(640, 770);
+                Thread.Sleep(10000);
+            } while (fc.HeadPage());
+            NotePad.DoLog("принял ежедневку");
+        }
+
         public void ToClubs()
         {
             bool needToDragMap = false;
@@ -245,6 +258,7 @@ namespace WindowsFormsApp1
                 if (fc.StartIcon()) Rat.Clk(830, 375);//Icon                
                 if (fc.StartButton()) Rat.Clk(340, 600);//Start game
                 if (fc.HeadPage()) Rat.Clk(630, 390);//Events
+                if (fc.DailyBounty()) AcceptDailyBounty();
                 fc.Bounty();
                 se.UniversalErrorDefense();
                 if (fc.EventPage())
