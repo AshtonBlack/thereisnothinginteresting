@@ -144,7 +144,7 @@ namespace WindowsFormsApp1
         {
             Rat.Clk(1230, 150);//close Nox
             Thread.Sleep(1000);
-            Rat.Clk(670, 560);// accept Nox close
+            Rat.Clk(670, 560);//accept Nox close
             Thread.Sleep(1000);
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             System.Diagnostics.Process.GetCurrentProcess().Kill();

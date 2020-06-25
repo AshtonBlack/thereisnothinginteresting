@@ -277,7 +277,7 @@ namespace WindowsFormsApp1
 
         private void UseFilter(char cls)
         {
-            Waiting wait = new Waiting();
+            FastCheck fc = new FastCheck();
 
             Point filter = new Point(945, 265);
             Point clear = new Point(340, 785);
@@ -292,8 +292,12 @@ namespace WindowsFormsApp1
             Point a = new Point(700, 600);
             Point s = new Point(910, 600);
 
-            Rat.Clk(filter);
-            wait.Filter();
+            do
+            {
+                Rat.Clk(filter);
+                Thread.Sleep(1000);
+            } while (!fc.FilterIsOpenned());//100% FilterOpenner
+            Thread.Sleep(200);
             Rat.Clk(clear);
             Thread.Sleep(1000);
             Rat.Clk(rarity);
@@ -330,8 +334,7 @@ namespace WindowsFormsApp1
         }
 
         private void Randomizer()
-        {
-            Waiting wait = new Waiting();
+        {            
             FastCheck fc = new FastCheck();
             Point r1 = new Point(100, 410);//rarity
             Point r2 = new Point(100, 475);//rq
@@ -355,8 +358,12 @@ namespace WindowsFormsApp1
             {
                 NotePad.DoLog("сортирую по рк");
                 Thread.Sleep(200);
-                Rat.Clk(1090, 265);//сортировка
-                Thread.Sleep(1000);
+                do
+                {
+                    Rat.Clk(1090, 265);//сортировка
+                    Thread.Sleep(1000);
+                } while (!fc.TypeIsOpenned());//100% SorterOpenner
+                Thread.Sleep(200);
                 Rat.Clk(240, 795);//сброс
                 Thread.Sleep(1000);
                 Rat.Clk(1090, 265);//сортировка
@@ -365,9 +372,13 @@ namespace WindowsFormsApp1
             }
             else
             {
+                Thread.Sleep(200); 
+                do
+                {
+                    Rat.Clk(1090, 265);//сортировка
+                    Thread.Sleep(1000);
+                } while (!fc.TypeIsOpenned());//100% SorterOpenner
                 Thread.Sleep(200);
-                Rat.Clk(1090, 265);//сортировка
-                wait.Type();
                 int r = rand.Next(10);
                 if (rand.Next(2) == 1)
                 {

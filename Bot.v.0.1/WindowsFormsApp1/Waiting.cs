@@ -17,22 +17,6 @@ namespace WindowsFormsApp1
             Thread.Sleep(3000);
         }
         
-        public void Type()
-        {
-            do
-            {
-                Thread.Sleep(500);
-            } while (!fc.TypeIsOpenned());
-        }
-
-        public void Filter()
-        {
-            do
-            {
-                Thread.Sleep(500);
-            } while (!fc.FilterIsOpenned());
-        } 
-
         public void ReadytoRace()
         {
             string GarageRaceButtonPath = "HeadPictures\\TestGarageRaceButton";
@@ -61,14 +45,18 @@ namespace WindowsFormsApp1
 
         public void RaceOn()
         {
+            SpecialEvents se = new SpecialEvents();
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
             Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
+            int waiter = 0;
             do
             {
+                if (waiter == 180) se.RestartBot();
                 se.UniversalErrorDefense();
                 MasterOfPictures.MakePicture(RaceBounds, RacePath);
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
+                waiter++;
             } while (!MasterOfPictures.Verify(RacePath, RaceOriginal));
         }
 
