@@ -6,10 +6,10 @@ namespace WindowsFormsApp1
     class FastCheck
     {
         SpecialEvents se = new SpecialEvents();
-               
-        public bool AnyHandSlotIsEmpty()
+
+        public int CheckHandSlotIsEmpty(int startslot, int endslot)
         {
-            bool x = false;
+            int x = 0;
             Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
             Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
             Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
@@ -20,16 +20,23 @@ namespace WindowsFormsApp1
             string CarSlotPath = "Check\\TestCarSlot";
             string CarSlotOriginal = "Check\\OriginalCarSlot";
 
-            for(int i = 0; i < 5; i++)
+            for (int i = (startslot - 1); i < endslot; i++)
             {
                 MasterOfPictures.MakePicture(handSlots[i], CarSlotPath + i);
                 if (MasterOfPictures.Verify(CarSlotPath + i, CarSlotOriginal + i))
                 {
-                    NotePad.DoLog("Тачка на " + i + " позиции отсутствует");
-                    x = true;
-                }                    
+                    NotePad.DoLog("Тачка на " + (i + 1) + " позиции отсутствует");
+                    x++;
+                }
             }
-            
+
+            return x;
+        }
+
+        public bool AnyHandSlotIsEmpty()
+        {
+            bool x = false;
+            if (CheckHandSlotIsEmpty(1, 5) > 0) x = true;          
             return x;
         }
 

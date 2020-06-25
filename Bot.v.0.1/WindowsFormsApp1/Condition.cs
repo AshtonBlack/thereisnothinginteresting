@@ -5,7 +5,7 @@ namespace WindowsFormsApp1
 {
     static class Condition
     {
-        public static int accountLVL = 285;
+        public static int accountLVL = 290;
         public static bool[] tires { get; set; }
         public static int minrq { get; set; }
         public static int maxrq { get; set; }

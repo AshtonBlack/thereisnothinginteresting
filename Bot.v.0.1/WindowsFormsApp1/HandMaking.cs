@@ -393,8 +393,10 @@ namespace WindowsFormsApp1
             Thread.Sleep(4000);
         }
 
-        public static int DragnDpopHand(int n, int uhl, int caCars)
+        public int DragnDpopHand(int n, int uhl, int caCars)
         {
+            //caCars - cond available cars
+            //n -needed cars
             FastCheck fc = new FastCheck();
             HandMaking hm = new HandMaking();
             Point GarageSlot1 = new Point(535, 400);
@@ -415,19 +417,17 @@ namespace WindowsFormsApp1
             Point HandSlot5 = new Point(910, 770);
 
             Point[] a = new Point[] { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
-            Point[] b = new Point[] { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6, GarageSlot7, GarageSlot8 };
-            int emptyCars = 0;//недостаток машин
+            Point[] b = new Point[] { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6, GarageSlot7, GarageSlot8 };            
             int drag = 0; //сдвиги            
             int x = 0; //слот гаража
             int h = 0; //слот руки, uhl использованные слоты в предыдущем подборе
             
-            while (n > 0) //x имеет значение и при нуле
+            while (n > 0)
             {
                 if(x == caCars)
                 {
-                    emptyCars += n;
                     break;
-                }
+                } //x имеет значение и при нуле
                 else
                 {
                     if (x > 3 && drag == 0)
@@ -470,7 +470,6 @@ namespace WindowsFormsApp1
 
                     if (x > 7)
                     {
-                        emptyCars += n;
                         break;
                     }//прерывание цикла в случае множества сломанных
 
@@ -489,8 +488,9 @@ namespace WindowsFormsApp1
                     x++;
                 }                
             }
-            NotePad.DoLog("не нашлось " + emptyCars + " машин");
-            return emptyCars;
+            int grayslots = fc.CheckHandSlotIsEmpty(uhl+1, uhl+n);
+            NotePad.DoLog(grayslots + " слотов остались пустыми");
+            return grayslots;
         }
     }
 }
