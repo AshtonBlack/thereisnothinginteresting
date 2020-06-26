@@ -204,19 +204,7 @@ namespace WindowsFormsApp1
                                 break;
                             case 9:
                                 b2[i] = "Смешанное";
-                                break;
-                            case 12:
-                                b2[i] = "Асфальт";
-                                break;
-                            case 14:
-                                b2[i] = "Асфальт";
-                                break;
-                            case 15:
-                                b2[i] = "Асфальт";
-                                break;
-                            case 16:
-                                b2[i] = "Снег";
-                                break;
+                                break;                            
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -328,6 +316,9 @@ namespace WindowsFormsApp1
                             case 9:
                                 b2[i] = "Асфальт";
                                 break;
+                            case 10:
+                                b2[i] = "Асфальт";
+                                break;
                             default:
                                 b2[i] = "неизвестное покрытие";
                                 break;
@@ -356,6 +347,9 @@ namespace WindowsFormsApp1
                                 break;
                             case 7:
                                 b2[i] = "Лед";
+                                break;
+                            case 8:
+                                b2[i] = "Асфальт";
                                 break;
                             default:
                                 b2[i] = "неизвестное покрытие";
@@ -498,6 +492,9 @@ namespace WindowsFormsApp1
                                 break;
                             case 8:
                                 c2[i] = "Дождь";
+                                break;
+                            case 9:
+                                c2[i] = "Солнечно";
                                 break;
                             default:
                                 c2[i] = "неопределенная погода";
@@ -696,6 +693,18 @@ namespace WindowsFormsApp1
                             case 40:
                                 a2[i] = "Горы слалом";
                                 break;
+                            case 41:
+                                a2[i] = "Горы дорога с уклоном";
+                                break;
+                            case 42:
+                                a2[i] = "Горы подъем на холм";
+                                break;
+                            case 43:
+                                a2[i] = "Каньон обзор";
+                                break;
+                            case 44:
+                                a2[i] = "Каньон грунтовая дорога";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -845,6 +854,12 @@ namespace WindowsFormsApp1
                             case 47:
                                 a2[i] = "Горы извилистая дорога";
                                 break;
+                            case 48:
+                                a2[i] = "Извилистая трасса";
+                                break;
+                            case 49:
+                                a2[i] = "Каньон экспедиция";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -982,6 +997,9 @@ namespace WindowsFormsApp1
                             case 43:
                                 a2[i] = "Горы извилистая дорога";
                                 break;
+                            case 44:
+                                a2[i] = "Каньон рутой холм";
+                                break;
                             default:
                                 a2[i] = "Неизвестная трасса";
                                 break;
@@ -1112,6 +1130,15 @@ namespace WindowsFormsApp1
                                 break;
                             case 41:
                                 a2[i] = "Горы слалом";
+                                break;
+                            case 42:
+                                a2[i] = "Горы дорога с уклоном";
+                                break;
+                            case 43:
+                                a2[i] = "Горы дорога с уклоном";
+                                break;
+                            case 44:
+                                a2[i] = "0-60";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";
@@ -1267,6 +1294,15 @@ namespace WindowsFormsApp1
                                 break;
                             case 49:
                                 a2[i] = "1";
+                                break;
+                            case 50:
+                                a2[i] = "Закрытый картинг";
+                                break;
+                            case 51:
+                                a2[i] = "Крутой холм";
+                                break;
+                            case 52:
+                                a2[i] = "Грунтовая дорога";
                                 break;
                             default:
                                 a2[i] = "Неизвестная трасса";

@@ -421,6 +421,7 @@ namespace WindowsFormsApp1
             int drag = 0; //сдвиги            
             int x = 0; //слот гаража
             int h = 0; //слот руки, uhl использованные слоты в предыдущем подборе
+            int neededcars = n;
             
             while (n > 0)
             {
@@ -488,7 +489,8 @@ namespace WindowsFormsApp1
                     x++;
                 }                
             }
-            int grayslots = fc.CheckHandSlotIsEmpty(uhl+1, uhl+n);
+
+            int grayslots = fc.CheckHandSlot(uhl+1, uhl+neededcars);
             NotePad.DoLog(grayslots + " слотов остались пустыми");
             return grayslots;
         }

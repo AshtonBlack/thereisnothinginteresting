@@ -7,7 +7,7 @@ namespace WindowsFormsApp1
     {
         SpecialEvents se = new SpecialEvents();
 
-        public int CheckHandSlotIsEmpty(int startslot, int endslot)
+        public int CheckHandSlot(int startslot, int endslot)
         {
             int x = 0;
             Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
         public bool AnyHandSlotIsEmpty()
         {
             bool x = false;
-            if (CheckHandSlotIsEmpty(1, 5) > 0) x = true;          
+            if (CheckHandSlot(1, 5) > 0) x = true;          
             return x;
         }
 
