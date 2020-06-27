@@ -1,13 +1,13 @@
 case 10: // редкостная
-lrc = new int[] { 31, 34, 34, 34, 35};
+lrc = new int[] { 30, 34, 34, 34, 35};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 3, 0, 0, 0, 0};
+dyT = new int[] { 0, 0, 4, 0, 0, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 0, 4, 0, 0, 0, 0};
 standartTyres = stT;
-asT = new int[] { 0, 0, 2, 0, 0, 0, 0};
+asT = new int[] { 0, 0, 1, 0, 0, 0, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;

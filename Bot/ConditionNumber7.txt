@@ -1,11 +1,11 @@
 case 7: // €пони€
-lrc = new int[] { 19, 34, 43, 44, 48};
+lrc = new int[] { 19, 26, 29, 34, 43};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 1, 0};
+dyT = new int[] { 0, 0, 0, 2, 0, 1, 0};
 dynamicTyres = dyT;
-stT = new int[] { 1, 0, 1, 2, 0, 0, 0};
+stT = new int[] { 1, 2, 1, 2, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;

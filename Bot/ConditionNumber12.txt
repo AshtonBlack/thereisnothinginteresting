@@ -1,11 +1,11 @@
 case 12: // стандартные шины
-lrc = new int[] { 18, 19, 21, 28, 34};
+lrc = new int[] { 18, 19, 21, 26, 29};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
 dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 2, 2, 4, 5, 0, 1, 0};
+stT = new int[] { 2, 4, 4, 5, 1, 1, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;

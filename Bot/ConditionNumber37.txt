@@ -1,11 +1,11 @@
-case 37:
-lrc = new int[] { 22, 22, 23, 25, 26};
+case 37: // 1980
+lrc = new int[] { 22, 22, 23, 25, 28};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 3, 2, 1, 0, 0, 0};
+dyT = new int[] { 0, 3, 3, 1, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 2, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
