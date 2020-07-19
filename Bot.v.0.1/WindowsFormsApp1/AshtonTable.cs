@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 
 namespace WindowsFormsApp1
@@ -125,15 +126,17 @@ namespace WindowsFormsApp1
 
         public void PrintArray(string[,] a)
         {
-            using(StreamWriter sw = new StreamWriter(@"C:\Bot\" + fn + "999.txt"))
-            for(int i = 0; i < lineN; i++)
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\" + fn + "999.txt", false, System.Text.Encoding.Default))
             {
-                for(int j = 0; j < fieldN; j++)
+                for (int i = 0; i < lineN; i++)
                 {
-                        sw.Write(a[i, j] + "|");
+                    for (int j = 0; j < fieldN; j++)
+                    {
+                        sw.Write(a[i, j] + " ");
+                    }
+                    sw.WriteLine();
                 }
-                sw.WriteLine();
-            }
+            }            
         }
     }
 }
