@@ -1,14 +1,14 @@
 case 3: //обычная х3
 case 0: // без условий
-lrc = new int[] { 13, 13, 14, 15, 16};
+lrc = new int[] { 10, 13, 13, 14, 14};
 lowestRqCars = lrc;
 slT = new int[] { 0, 1, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 6, 7, 10, 26, 14, 3, 1};
+dyT = new int[] { 8, 8, 12, 31, 17, 3, 1};
 dynamicTyres = dyT;
-stT = new int[] { 7, 9, 7, 13, 1, 1, 0};
+stT = new int[] { 7, 11, 8, 15, 1, 1, 0};
 standartTyres = stT;
-asT = new int[] { 0, 1, 2, 4, 3, 1, 0};
+asT = new int[] { 0, 1, 2, 5, 3, 1, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 2, 1, 5, 1, 0, 0};
 offroadTyres = orT;
@@ -16,13 +16,13 @@ break;
 
 case 35: //задний привод
 case 1: // задний привод
-lrc = new int[] { 13, 13, 14, 15, 16};
+lrc = new int[] { 10, 13, 13, 14, 14};
 lowestRqCars = lrc;
 slT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 6, 3, 6, 16, 12, 2, 1};
+dyT = new int[] { 8, 4, 8, 16, 14, 2, 1};
 dynamicTyres = dyT;
-stT = new int[] { 5, 5, 3, 2, 1, 1, 0};
+stT = new int[] { 5, 6, 4, 2, 1, 1, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 1, 0, 0};
 allseasonTyres = asT;
@@ -36,9 +36,9 @@ lrc = new int[] { 18, 19, 22, 23, 23};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 4, 3, 9, 1, 0, 0};
+dyT = new int[] { 0, 4, 3, 13, 1, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 2, 4, 3, 3, 0, 0, 0};
+stT = new int[] { 2, 5, 3, 3, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 1, 1, 0, 0, 0};
 allseasonTyres = asT;
@@ -77,13 +77,13 @@ offroadTyres = orT;
 break;
 
 case 5: // бензиновые
-lrc = new int[] { 13, 13, 14, 15, 16};
+lrc = new int[] { 10, 13, 13, 14, 14};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 6, 7, 10, 26, 14, 3, 1};
+dyT = new int[] { 8, 8, 12, 31, 17, 3, 1};
 dynamicTyres = dyT;
-stT = new int[] { 7, 8, 5, 6, 0, 1, 0};
+stT = new int[] { 7, 9, 6, 8, 0, 1, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 2, 2, 0, 0};
 allseasonTyres = asT;
@@ -92,13 +92,13 @@ offroadTyres = orT;
 break;
 
 case 6: // необычная 5
-lrc = new int[] { 21, 21, 22, 22, 23};
+lrc = new int[] { 21, 21, 21, 22, 22};
 lowestRqCars = lrc;
 slT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 7, 0, 0, 0, 0, 0};
+dyT = new int[] { 0, 8, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 9, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 11, 0, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -111,9 +111,9 @@ lrc = new int[] { 19, 21, 27, 29, 30};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 1, 4, 0, 1, 0};
+dyT = new int[] { 0, 0, 1, 4, 1, 1, 0};
 dynamicTyres = dyT;
-stT = new int[] { 1, 3, 2, 2, 0, 0, 0};
+stT = new int[] { 1, 3, 2, 4, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 1, 1, 1, 0, 0};
 allseasonTyres = asT;
@@ -138,13 +138,13 @@ break;
 
 case 30: //Сша
 case 9: // Сша
-lrc = new int[] { 22, 28, 28, 29, 34};
+lrc = new int[] { 21, 22, 28, 28, 29};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 1, 3, 3, 0, 1, 0};
+dyT = new int[] { 0, 1, 3, 4, 0, 1, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 2, 2, 2, 0, 0, 0};
+stT = new int[] { 0, 3, 2, 2, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 1, 0, 1, 0, 0};
 allseasonTyres = asT;
@@ -157,9 +157,9 @@ lrc = new int[] { 30, 30, 30, 31, 34};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 10, 0, 0, 0, 0};
+dyT = new int[] { 0, 0, 12, 0, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 7, 0, 0, 0, 0};
+stT = new int[] { 0, 0, 8, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 2, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -168,11 +168,11 @@ offroadTyres = orT;
 break;
 
 case 11: // экстремальная
-lrc = new int[] { 50, 50, 50, 51, 53};
+lrc = new int[] { 50, 50, 50, 50, 51};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 14, 0, 0};
+dyT = new int[] { 0, 0, 0, 0, 17, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 0, 0, 0, 1, 0, 0};
 standartTyres = stT;
@@ -190,7 +190,7 @@ slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
 dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 7, 9, 7, 13, 1, 1, 0};
+stT = new int[] { 7, 11, 8, 15, 1, 1, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -249,11 +249,11 @@ lrc = new int[] { 22, 28, 29, 30, 35};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 1, 1, 1, 1, 0};
+dyT = new int[] { 0, 0, 1, 2, 2, 1, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 1, 8, 0, 0, 0};
+stT = new int[] { 0, 0, 1, 10, 0, 0, 0};
 standartTyres = stT;
-asT = new int[] { 0, 1, 1, 3, 2, 1, 0};
+asT = new int[] { 0, 1, 1, 4, 2, 1, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 2, 1, 2, 0, 0, 0};
 offroadTyres = orT;
@@ -261,11 +261,11 @@ break;
 
 case 54: //англия
 case 17: // англия
-lrc = new int[] { 13, 14, 15, 16, 17};
+lrc = new int[] { 13, 14, 14, 15, 16};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 4, 1, 1, 4, 5, 0, 1};
+dyT = new int[] { 5, 1, 3, 6, 5, 0, 1};
 dynamicTyres = dyT;
 stT = new int[] { 6, 0, 0, 3, 1, 0, 0};
 standartTyres = stT;
@@ -282,7 +282,7 @@ slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
 dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -325,7 +325,7 @@ lrc = new int[] { 100, 100, 100, 100, 100};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 1, 0, 0, 0, 0, 0, 0};
+dyT = new int[] { 2, 1, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 0, 1, 0, 0, 0, 0};
 standartTyres = stT;
@@ -336,13 +336,13 @@ offroadTyres = orT;
 break;
 
 case 22: // фр ренесанc
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 25, 28, 29, 30, 30};
 lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+slT = new int[] { 0, 1, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+dyT = new int[] { 0, 2, 2, 2, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -352,13 +352,13 @@ break;
 
 case 49: //франция
 case 23: // франция
-lrc = new int[] { 25, 28, 28, 29, 30};
+lrc = new int[] { 23, 25, 28, 28, 29};
 lowestRqCars = lrc;
 slT = new int[] { 0, 1, 0, 1, 0, 0, 0};
 slikTyres = slT;
 dyT = new int[] { 0, 2, 2, 3, 1, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 1, 0, 1, 0, 0, 0};
+stT = new int[] { 0, 2, 0, 1, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -375,18 +375,18 @@ dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 standartTyres = stT;
-asT = new int[] { 0, 1, 2, 4, 3, 1, 0};
+asT = new int[] { 0, 1, 2, 5, 3, 1, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;
 break;
 
 case 25: // форд
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 19, 45, 48, 48, 54};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 1, 0, 0, 0, 1, 0, 0};
+dyT = new int[] { 1, 0, 0, 1, 1, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 standartTyres = stT;
@@ -412,13 +412,13 @@ offroadTyres = orT;
 break;
 
 case 27: // италия
-lrc = new int[] { 13, 22, 23, 23, 28};
+lrc = new int[] { 10, 13, 22, 23, 23};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 1, 3, 0, 5, 2, 0, 0};
+dyT = new int[] { 2, 4, 0, 6, 3, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 1, 1, 0, 0, 0, 0};
+stT = new int[] { 0, 1, 2, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -457,63 +457,33 @@ orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;
 break;
 
-case 30: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 31: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
 case 32: // германия
 lrc = new int[] { 16, 21, 28, 31, 34};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 1, 0, 3, 6, 6, 1, 0};
+dyT = new int[] { 1, 0, 3, 7, 7, 1, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 2, 2, 4, 0, 1, 0};
 standartTyres = stT;
-asT = new int[] { 0, 0, 0, 1, 1, 1, 0};
+asT = new int[] { 0, 0, 0, 2, 1, 1, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 0, 1, 0, 1, 0, 0};
 offroadTyres = orT;
 break;
 
 case 33: // американская мечта
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 21, 28, 36, 36, 38};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+dyT = new int[] { 0, 0, 2, 2, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 2, 1, 2, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+orT = new int[] { 0, 0, 0, 2, 0, 0, 0};
 offroadTyres = orT;
 break;
 
@@ -532,33 +502,18 @@ orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;
 break;
 
-case 35: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
 case 36: // суперская 3
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 10, 13, 13, 14, 14};
 lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+slT = new int[] { 0, 1, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+dyT = new int[] { 8, 8, 12, 31, 17, 3, 1};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+stT = new int[] { 7, 11, 8, 15, 1, 1, 0};
 standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+asT = new int[] { 0, 1, 2, 5, 3, 1, 0};
 allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+orT = new int[] { 0, 2, 1, 5, 1, 0, 0};
 offroadTyres = orT;
 break;
 
@@ -567,7 +522,7 @@ lrc = new int[] { 22, 23, 25, 28, 28};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 3, 3, 5, 1, 0, 0};
+dyT = new int[] { 0, 3, 4, 7, 1, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 2, 2, 0, 0, 0, 0};
 standartTyres = stT;
@@ -578,11 +533,11 @@ offroadTyres = orT;
 break;
 
 case 38: // порше
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 28, 41, 46, 53, 56};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 1, 1, 0, 0};
+dyT = new int[] { 0, 0, 0, 1, 2, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 1, 0, 1, 0, 0, 0};
 standartTyres = stT;
@@ -593,11 +548,11 @@ offroadTyres = orT;
 break;
 
 case 39: // опель
-lrc = new int[] { 31, 34, 43, 44, 51};
+lrc = new int[] { 31, 34, 38, 43, 44};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 2, 1, 0, 0, 0};
+dyT = new int[] { 0, 0, 3, 1, 0, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 standartTyres = stT;
@@ -612,11 +567,11 @@ lrc = new int[] { 40, 40, 40, 41, 41};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 26, 0, 0, 0};
+dyT = new int[] { 0, 0, 0, 31, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 13, 0, 0, 0};
+stT = new int[] { 0, 0, 0, 15, 0, 0, 0};
 standartTyres = stT;
-asT = new int[] { 0, 0, 0, 4, 0, 0, 0};
+asT = new int[] { 0, 0, 0, 5, 0, 0, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 0, 0, 5, 0, 0, 0};
 offroadTyres = orT;
@@ -638,13 +593,13 @@ offroadTyres = orT;
 break;
 
 case 42: // 2000 4х4
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 37, 42, 43, 45, 55};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
 dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 1, 0, 0, 0};
+stT = new int[] { 0, 0, 0, 2, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 1, 1, 1, 0, 0};
 allseasonTyres = asT;
@@ -657,7 +612,7 @@ lrc = new int[] { 14, 19, 28, 34, 34};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 2, 0, 0, 2, 2, 1, 0};
+dyT = new int[] { 2, 0, 0, 3, 2, 1, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 1, 4, 4, 1, 0, 0};
 standartTyres = stT;
@@ -668,13 +623,13 @@ offroadTyres = orT;
 break;
 
 case 44: // хэтчи
-lrc = new int[] { 18, 19, 23, 23, 25};
+lrc = new int[] { 18, 19, 23, 23, 23};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 3, 3, 4, 2, 0, 0};
+dyT = new int[] { 0, 3, 3, 7, 2, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 2, 2, 1, 2, 0, 0, 0};
+stT = new int[] { 2, 3, 1, 2, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -683,32 +638,32 @@ offroadTyres = orT;
 break;
 
 case 45: // эко
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 29, 29, 34, 36, 45};
 lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+slT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 slikTyres = slT;
 dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 1, 2, 1, 0, 0, 0};
 standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+asT = new int[] { 0, 0, 0, 0, 1, 0, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;
 break;
 
 case 46: // италия ренесанс
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 10, 13, 26, 28, 41};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+dyT = new int[] { 2, 2, 0, 4, 3, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+orT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 offroadTyres = orT;
 break;
 
@@ -742,44 +697,14 @@ orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;
 break;
 
-case 49: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 50: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
 case 51: // pre 1970
-lrc = new int[] { 13, 13, 14, 15, 16};
+lrc = new int[] { 10, 13, 13, 14, 14};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 5, 3, 1, 1, 0, 0, 0};
+dyT = new int[] { 7, 4, 1, 1, 1, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 5, 1, 0, 0, 0, 0, 0};
+stT = new int[] { 5, 2, 1, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
@@ -792,7 +717,7 @@ lrc = new int[] { 100, 100, 100, 100, 100};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 1, 1, 0, 0, 0};
+dyT = new int[] { 0, 0, 1, 2, 0, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 1, 0, 0, 0, 0, 0};
 standartTyres = stT;
@@ -807,7 +732,7 @@ lrc = new int[] { 22, 23, 23, 25, 27};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 3, 1, 2, 0, 0, 0};
+dyT = new int[] { 0, 3, 2, 3, 0, 0, 0};
 dynamicTyres = dyT;
 stT = new int[] { 0, 3, 1, 0, 0, 0, 0};
 standartTyres = stT;
@@ -817,61 +742,16 @@ orT = new int[] { 0, 1, 0, 1, 0, 0, 0};
 offroadTyres = orT;
 break;
 
-case 54: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 55: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 56: // повторка
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
 case 57: // немецкое возрождение
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 16, 35, 36, 41, 42};
 lowestRqCars = lrc;
 slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+dyT = new int[] { 1, 0, 1, 2, 1, 1, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 0, 1, 3, 0, 0, 0};
 standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+asT = new int[] { 0, 0, 0, 2, 0, 1, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;
@@ -884,176 +764,11 @@ slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 slikTyres = slT;
 dyT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 1, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 1, 1, 0, 0, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
 orT = new int[] { 0, 0, 0, 1, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 59: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 60: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 61: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 62: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 63: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 64: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 65: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 66: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 67: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 68: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-offroadTyres = orT;
-break;
-
-case 69: // неверное условие
-lrc = new int[] { 100, 100, 100, 100, 100};
-lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-standartTyres = stT;
-asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
-allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 offroadTyres = orT;
 break;
 
