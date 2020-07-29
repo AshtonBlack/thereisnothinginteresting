@@ -15,26 +15,16 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            AshtonTable at = new AshtonTable();
-            at.Making2dArray("test999", '|');
-            Application.Exit();
             /*
             Rat.Clk(1165, 15);
             Thread.Sleep(2000);
             FastCheck fc = new FastCheck();
-            fc.DrawSet();
-            fc.DailyBounty();            
-            fc.WonSet();
-            fc.LostSet();
-            fc.RaceEnd();
-            fc.AcceptThrow();
+            fc.TimeIsOut();
             Application.Exit();
             */
-            /*
             Navigation navigation = new Navigation();
             navigation.ToClubMap();
-            navigation.InClubs();        
-            */
+            navigation.InClubs();            
         }
     }
 }

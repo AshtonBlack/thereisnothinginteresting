@@ -7,6 +7,28 @@ namespace WindowsFormsApp1
     {
         SpecialEvents se = new SpecialEvents();
 
+        public bool WrongParty()
+        {
+            bool x = false;
+            string WrongPartyPath = "HeadPictures\\TestWrongParty";
+            string WrongPartyOriginal = "HeadPictures\\OriginalWrongParty";
+            Rectangle WrongPartyBounds = new Rectangle(830, 615, 150, 30);
+            MasterOfPictures.MakePicture(WrongPartyBounds, WrongPartyPath);
+            if (MasterOfPictures.Verify(WrongPartyPath, WrongPartyOriginal)) x = true;
+            return x;
+        }
+
+        public bool ReadyToRace()
+        {
+            bool x = false;
+            string GarageRaceButtonPath = "HeadPictures\\TestGarageRaceButton";
+            string GarageRaceButtonOriginal = "HeadPictures\\OriginalGarageRaceButton";
+            Rectangle GarageRaceButtonBounds = new Rectangle(1075, 795, 95, 20);
+            MasterOfPictures.MakePicture(GarageRaceButtonBounds, GarageRaceButtonPath);
+            if (MasterOfPictures.Verify(GarageRaceButtonPath, GarageRaceButtonOriginal)) x = true;
+            return x;
+        }
+
         public int CheckHandSlot(int startslot, int endslot)
         {
             int x = 0;
@@ -89,9 +111,11 @@ namespace WindowsFormsApp1
             bool x = false;
             string EventPath = "HeadPictures\\TestEvent";
             string EventOriginal = "HeadPictures\\OriginalEvent";
+            string EventOriginal1 = "HeadPictures\\OriginalEvent2";
             Rectangle EventBounds = new Rectangle(196, 187, 134, 30);
             MasterOfPictures.MakePicture(EventBounds, EventPath);
             if (MasterOfPictures.Verify(EventPath, EventOriginal)) x = true;
+            if (MasterOfPictures.Verify(EventPath, EventOriginal1)) x = true;
             return x;
         }
 
@@ -100,9 +124,13 @@ namespace WindowsFormsApp1
             bool x = false;
             string ClickedWrongADSPath = "HeadPictures\\TestClickedWrongADS";
             string ClickedWrongADSOriginal = "HeadPictures\\OriginalClickedWrongADS";
+            string ClickedWrongADSOriginal1 = "HeadPictures\\OriginalClickedWrongADS1";
+            string ClickedWrongADSOriginal2 = "HeadPictures\\OriginalClickedWrongADS2";
             Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
             MasterOfPictures.MakePicture(ClickedWrongADSBounds, ClickedWrongADSPath);
             if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal)) x = true;
+            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal1)) x = true;
+            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal2)) x = true;
             return x;
         }
 
@@ -512,6 +540,36 @@ namespace WindowsFormsApp1
             {
                 x = true;
                 NotePad.DoLog("Ежедневная награда");//640 770
+            }
+            return x;
+        }
+
+        public bool DailyBountyEnd()
+        {
+            bool x = false;
+            string DailyBountyEndPath = "HeadPictures\\TestDailyBountyEnd";
+            string DailyBountyEndOriginal = "HeadPictures\\OriginalDailyBountyEnd";
+            Rectangle DailyBountyEndBounds = new Rectangle(560, 760, 160, 20);
+            MasterOfPictures.MakePicture(DailyBountyEndBounds, DailyBountyEndPath);
+            if (MasterOfPictures.Verify(DailyBountyEndPath, DailyBountyEndOriginal))
+            {
+                x = true;//640 510
+                NotePad.DoLog("Ежедневная награда");//630 770
+            }
+            return x;
+        }
+
+        public bool TimeIsOut()
+        {
+            bool x = false;
+            string TimeIsOutPath = "HeadPictures\\TestTimeIsOut";
+            string TimeIsOutOriginal = "HeadPictures\\OriginalTimeIsOut";
+            Rectangle TimeIsOutBounds = new Rectangle(565, 580, 155, 20);
+            MasterOfPictures.MakePicture(TimeIsOutBounds, TimeIsOutPath);
+            if (MasterOfPictures.Verify(TimeIsOutPath, TimeIsOutOriginal))
+            {
+                x = true;
+                NotePad.DoLog("Disconnected");
             }
             return x;
         }

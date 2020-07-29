@@ -71,8 +71,6 @@ namespace WindowsFormsApp1
             {
                 pcp.PrepareToRace(condition, eventname, i);//набор/проверка руки
                 wait.ReadytoRace();
-                Rat.Clk(1120, 800);//GarageRaceButton
-                Thread.Sleep(3000);
 
                 bool foundplace = false;
                 do
@@ -80,6 +78,12 @@ namespace WindowsFormsApp1
                     se.UniversalErrorDefense();
                     se.UnavailableEvent();
 
+                    if(fc.ReadyToRace())
+                    {
+                        Rat.Clk(1120, 800);
+                        Thread.Sleep(2000);
+                    }
+                        
                     if (fc.EnemyIsReady())
                     {
                         eventisactive = true;

@@ -95,6 +95,7 @@ namespace WindowsFormsApp1
             wait.CarIsUpgraded();
             Rat.Clk(635, 720); //подтвердить проркачку
             Thread.Sleep(3000);
+            UniversalErrorDefense();
         }
 
         public void RepairNoxPosition()
@@ -196,6 +197,12 @@ namespace WindowsFormsApp1
             FastCheck fc = new FastCheck();
             bool x = true;
 
+            if (fc.WrongParty())
+            {
+                NotePad.DoLog("Косячная рука");
+                RestartBot();
+            }
+
             if (fc.EventEnds())
             {
                 NotePad.DoLog("эвент окончен");
@@ -237,37 +244,76 @@ namespace WindowsFormsApp1
         public void AcceptDailyBounty()
         {
             FastCheck fc = new FastCheck();
+            bool bountyisavailable = false;
+
+            int clkcounter = 0;
 
             NotePad.DoLog("принимаю ежедневку");
             do
             {
-                Rat.Clk(640, 770);
-                Thread.Sleep(10000);
-            } while (fc.HeadPage());
+                if (clkcounter > 25) RestartBot();
+                if (fc.DailyBounty())
+                {
+                    Rat.Clk(640, 770);
+                    bountyisavailable = true;
+                    Thread.Sleep(15000);
+                }
+                else 
+                if (fc.DailyBountyEnd())
+                {
+                    Rat.Clk(630, 770);
+                    bountyisavailable = false;
+                    Thread.Sleep(15000);
+                }
+                else if (bountyisavailable)
+                {
+                    Rat.Clk(640, 510);
+                    clkcounter++;
+                }                   
+                Thread.Sleep(15000);
+            } while (bountyisavailable);
             NotePad.DoLog("принял ежедневку");
+            RestartBot();
+        }
+
+        public void CheckConnection()
+        {
+            FastCheck fc = new FastCheck();
+
+            if (fc.TimeIsOut())
+            {
+                RestartBot();
+            }
         }
 
         public void ToClubs()
         {
             bool needToDragMap = false;
-            SpecialEvents se = new SpecialEvents();
             FastCheck fc = new FastCheck();
+            bool flag = false;
 
             do
             {
                 if (fc.StartIcon()) Rat.Clk(830, 375);//Icon                
-                if (fc.StartButton()) Rat.Clk(340, 600);//Start game
+                if (fc.StartButton())
+                {
+                    Rat.Clk(340, 600);//Start game
+                    Thread.Sleep(5000);
+                }
+                    
                 if (fc.HeadPage()) Rat.Clk(630, 390);//Events
                 if (fc.DailyBounty()) AcceptDailyBounty();
                 fc.Bounty();
-                se.UniversalErrorDefense();
+                CheckConnection();
+                UniversalErrorDefense();
                 if (fc.EventPage())
                 {
                     Rat.Clk(240, 500);//Clubs
                     needToDragMap = true;
-                }                    
+                }
+                if (fc.ClubMap()) flag = true;
                 Thread.Sleep(1000);
-            } while (!fc.ClubMap());
+            } while (!flag);
 
             if (needToDragMap) DragMap();
         }
