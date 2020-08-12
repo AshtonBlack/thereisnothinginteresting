@@ -592,3 +592,30 @@ break;
 case 903:
 carname = "GMC Denali XT 2008";
 break;
+case 131:
+carname = "Infiniti Q50 2014";
+break;
+case 128:
+carname = "Mazda RX-7 1978";
+break;
+case 196:
+carname = "Lancia 037 Rally 1982";
+break;
+case 732:
+carname = "Porsche 911 Carrera 1994";
+break;
+case 713:
+carname = "Peugeot 205 GTi 1.6 1984";
+break;
+case 164:
+carname = "Honda Accord Euro-R 2002";
+break;
+case 290:
+carname = "Mini JCW Coupe 2016";
+break;
+case 386:
+carname = "Nissan Pathfinder 1985";
+break;
+case 546:
+carname = "Land Rover Discovery 2 1998";
+break;
