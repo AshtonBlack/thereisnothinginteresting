@@ -619,3 +619,27 @@ break;
 case 546:
 carname = "Land Rover Discovery 2 1998";
 break;
+case 904:
+carname = "Bentley Continental Supersports 2010";
+break;
+case 906:
+carname = "TVR 450SE 1989";
+break;
+case 907:
+carname = "Porsche 911 R 2016";
+break;
+case 908:
+carname = "BMW M5 2016";
+break;
+case 909:
+carname = "Jaguar XJS TWR 1982";
+break;
+case 910:
+carname = "Ford Escort RS1600 1968";
+break;
+case 911:
+carname = "Alfa Romeo GTA 1300 Junior 1968";
+break;
+case 912:
+carname = "Renault Clio 182 Trophy 2005";
+break;
