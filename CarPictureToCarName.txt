@@ -643,3 +643,18 @@ break;
 case 912:
 carname = "Renault Clio 182 Trophy 2005";
 break;
+case 616:
+carname = "Fiat Abarth 131 Rally 1976";
+break;
+case 60:
+carname = "Ford Focus ST 2012";
+break;
+case 249:
+carname = "Renault Clio 220 Trophy 2016";
+break;
+case 821:
+carname = "Renault 21 2.0l Turbo Quadra 1986";
+break;
+case 290:
+carname = "Mini JCW Coupe 2016";
+break;
