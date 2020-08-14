@@ -655,6 +655,3 @@ break;
 case 821:
 carname = "Renault 21 2.0l Turbo Quadra 1986";
 break;
-case 290:
-carname = "Mini JCW Coupe 2016";
-break;
