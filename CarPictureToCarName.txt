@@ -654,4 +654,45 @@ carname = "Renault Clio 220 Trophy 2016";
 break;
 case 821:
 carname = "Renault 21 2.0l Turbo Quadra 1986";
+break;case 774:
+carname = "BMW M5 1981";
+break;
+case 431:
+carname = "BMW 850CSi 1992";
+break;
+case 488:
+carname = "Vauxhall Kadett GT/E 1975";
+break;
+case 278:
+carname = "Mazda MX-5 1989";
+break;
+case 105:
+carname = "Buick Regal GS 2011";
+break;
+case 234:
+carname = "Ford Sierra RS Cosworth 4x4 1990";
+break;
+case 586:
+carname = "Alfa Romeo Brera S 2005";
+break;
+case 382:
+carname = "Jaguar XE R-Dynamic S 2020";
+break;
+case 559:
+carname = "Nissan X-Trail 2010";
+break;
+case 742:
+carname = "Vauxhall Antara 2.2CDTi 2016";
+break;
+case 784:
+carname = "Vauxhall Astra VXR 2010";
+break;
+case 913:
+carname = "Dodge Durango GT 2018";
+break;
+case 915:
+carname = "BMW 123d 2007";
+break;
+case 916:
+carname = "Land Rover Evoque 2018";
 break;
