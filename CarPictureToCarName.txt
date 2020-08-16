@@ -696,3 +696,12 @@ break;
 case 916:
 carname = "Land Rover Evoque 2018";
 break;
+case 620:
+carname = "Vauxhall Insignia VXR S'sport 2016";
+break;
+case 854:
+carname = "Land Rover Evoque 2018";
+break;
+case 406:
+carname = "Renault GTA V6 Turbo Le Mans 1990";
+break;
