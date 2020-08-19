@@ -705,3 +705,44 @@ break;
 case 406:
 carname = "Renault GTA V6 Turbo Le Mans 1990";
 break;
+case 917:
+carname = "Honda City Turbo 1981";
+break;
+case 918:
+carname = "Rover 623 1993";
+break;
+case 919:
+carname = "Chevrolet Monte Carlo SS Jeff Gordon Edition 2003";
+break;
+case 920:
+carname = "Honda Integra Type R 1995";
+break;
+case 921:
+carname = "Maserati Shamal 1990";
+break;
+case 922:
+carname = "Mercedes-Benz AMG G 63 6x6 2013";
+break;
+case 923:
+carname = "De Tomaso Pantera GT5-S 1989";
+break;case 726:
+carname = "Lancia Thema 8.32 1986";
+break;
+case 280:
+carname = "Honda Accord 3.5l V6 2016";
+break;
+case 338:
+carname = "Chevrolet HHR SS Turbocharged 2008";
+break;
+case 158:
+carname = "Bentley Mulsanne Grand Limousine 2019";
+break;
+case 159:
+carname = "Honda S2000 1999";
+break;
+case 663:
+carname = "Chevrolet K5 Blazer 5.7L 1972";
+break;
+case 360:
+carname = "Fiat Turbina 1954";
+break;
