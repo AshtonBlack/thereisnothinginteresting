@@ -595,17 +595,17 @@ offroadTyres = orT;
 break;
 
 case 43: // седаны
-lrc = new int[] { 100, 100, 100, 100, 100};
+lrc = new int[] { 14, 19, 27, 28, 34};
 lowestRqCars = lrc;
-slT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+slT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 slikTyres = slT;
-dyT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+dyT = new int[] { 2, 0, 4, 8, 4, 2, 0};
 dynamicTyres = dyT;
-stT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+stT = new int[] { 0, 2, 4, 6, 1, 0, 0};
 standartTyres = stT;
 asT = new int[] { 0, 0, 0, 0, 0, 0, 0};
 allseasonTyres = asT;
-orT = new int[] { 0, 0, 0, 0, 0, 0, 0};
+orT = new int[] { 0, 0, 0, 1, 0, 0, 0};
 offroadTyres = orT;
 break;
 
