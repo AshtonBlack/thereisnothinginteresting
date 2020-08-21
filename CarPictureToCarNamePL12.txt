@@ -746,3 +746,12 @@ break;
 case 360:
 carname = "Fiat Turbina 1954";
 break;
+case 417:
+carname = "Land Rover Defender 90 2006";
+break;
+case 837:
+carname = "Porsche 968 Clubsport 1993";
+break;
+case 862:
+carname = "Dodge Dakota R/T 1998";
+break;
