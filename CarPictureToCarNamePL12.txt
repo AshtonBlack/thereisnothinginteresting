@@ -755,3 +755,9 @@ break;
 case 862:
 carname = "Dodge Dakota R/T 1998";
 break;
+case 10:
+carname = "Chevrolet Corvette C4 1984";
+break;
+case 617:
+carname = "Honda Accord Type R 1997";
+break;
