@@ -761,3 +761,30 @@ break;
 case 617:
 carname = "Honda Accord Type R 1997";
 break;
+case 500:
+carname = "Chrysler Crossfire Roadster 2004";
+break;
+case 375:
+carname = "Mazda RX-8 PZ 2006";
+break;
+case 622:
+carname = "BMW 645ci 2003";
+break;
+case 874:
+carname = "Aston Martin CC100 Speedster 2013";
+break;
+case 875:
+carname = "Donkervoort S8 1980";
+break;
+case 876:
+carname = "Chevrolet Captiva LTX 2008";
+break;
+case 333:
+carname = "Chrysler Laser XT 1984";
+break;
+case 254:
+carname = "Renault Sport Clio Cup Car 2014";
+break;
+case 797:
+carname = "BMW 520i 2016";
+break;
