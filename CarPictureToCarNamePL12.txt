@@ -788,3 +788,6 @@ break;
 case 797:
 carname = "BMW 520i 2016";
 break;
+case 861:
+carname = "Subaru Legacy 1998";
+break;
