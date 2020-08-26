@@ -791,3 +791,27 @@ break;
 case 861:
 carname = "Subaru Legacy 1998";
 break;
+case 926:
+carname = "Maserati Ghibli S Q4 2016";
+break;
+case 632:
+carname = "RUF SCR 1978";
+break;
+case 891:
+carname = "Porsche Boxster 1996";
+break;
+case 892:
+carname = "Donkervoort S7 1978";
+break;
+case 914:
+carname = "Spyker C8 Laviolette 2001";
+break;
+case 925:
+carname = "Chrysler Drifter 1977";
+break;
+case 715:
+carname = "Alfa Romeo Giulia TZ 1963";
+break;
+case 183:
+carname = "BMW 540i 1996";
+break;
