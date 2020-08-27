@@ -815,3 +815,24 @@ break;
 case 183:
 carname = "BMW 540i 1996";
 break;
+case 470:
+carname = "Alfa Romeo Giulia GTA Stradale 1965";
+break;
+case 615:
+carname = "BMW 730d 2008";
+break;
+case 477:
+carname = "Nissan 370Z 2011";
+break;
+case 785:
+carname = "BMW 730d 2002";
+break;
+case 905:
+carname = "Mazda RX-7 Turbo 1985";
+break;
+case 530:
+carname = "Subaru XV 2016";
+break;
+case 924:
+carname = "Donkervoort D10 1988";
+break;
