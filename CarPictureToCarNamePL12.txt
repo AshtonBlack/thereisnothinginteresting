@@ -836,3 +836,12 @@ break;
 case 924:
 carname = "Donkervoort D10 1988";
 break;
+case 41:
+carname = "Nissan X-Trail 2016";
+break;
+case 927:
+carname = "Nissan Murano CrossCabriolet 2008";
+break;
+case 518:
+carname = "Nissan Murano GT-C 2006";
+break;
