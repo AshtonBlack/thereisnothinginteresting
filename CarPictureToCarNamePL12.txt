@@ -845,3 +845,15 @@ break;
 case 518:
 carname = "Nissan Murano GT-C 2006";
 break;
+case 27:
+carname = "TVR 280i 1984";
+break;
+case 649:
+carname = "Jaguar XJ 5.0 V8 2010";
+break;
+case 200:
+carname = "Caterham Seven 270 2015";
+break;
+case 385:
+carname = "Jaguar XJ-S Trans-Am 1978";
+break;
