@@ -869,3 +869,9 @@ break;
 case 843:
 carname = "Pontiac Trans Am 35th Anniversary 2002";
 break;
+case 930:
+carname = "Vauxhall Chevette HSR 1980";
+break;
+case 156:
+carname = "Lamborghini Miura Roadster 1968";
+break;
