@@ -875,3 +875,30 @@ break;
 case 156:
 carname = "Lamborghini Miura Roadster 1968";
 break;
+case 463:
+carname = "Aston Martin DB4 GT Zagato 1961";
+break;
+case 570:
+carname = "Cadillac CTS 2016";
+break;
+case 932:
+carname = "BMW 440i 2018";
+break;
+case 688:
+carname = "Mercedes-Benz SLK 200 2016";
+break;
+case 928:
+carname = "De Tomaso Guara 1998";
+break;
+case 933:
+carname = "Volvo V40 T5 2018";
+break;
+case 9:
+carname = "Volvo C30 T5 R-Design 2008";
+break;
+case 697:
+carname = "Alfa Romeo 164 Super 1993";
+break;
+case 236:
+carname = "Mercedes-Benz GLA 220d 2015";
+break;
