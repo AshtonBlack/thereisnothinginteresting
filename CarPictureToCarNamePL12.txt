@@ -902,3 +902,15 @@ break;
 case 236:
 carname = "Mercedes-Benz GLA 220d 2015";
 break;
+case 934:
+carname = "Aston Martin DB6 1965";
+break;
+case 125:
+carname = "DS DS 3 Racing 2011";
+break;
+case 322:
+carname = "Alfa Romeo 156 GTA 2002";
+break;
+case 935:
+carname = "Volvo S90 T5 2016";
+break;
