@@ -914,3 +914,27 @@ break;
 case 935:
 carname = "Volvo S90 T5 2016";
 break;
+case 936:
+carname = "Lamborghini Gallardo LP570-4 Superleggera (2nd gen) 2012";
+break;
+case 931:
+carname = "Volvo V90 T8 AWD 2018";
+break;
+case 263:
+carname = "Chevrolet Silverado SS 2006";
+break;
+case 644:
+carname = "Jaguar XK Convertible 2010";
+break;
+case 403:
+carname = "Renault R20 Turbo 4x4 1979";
+break;
+case 328:
+carname = "Lancia Delta Integrale 8v 1989";
+break;
+case 937:
+carname = "Volkswagen Arteon 2017";
+break;
+case 17:
+carname = "GMC Yukon Denali 2004";
+break;
