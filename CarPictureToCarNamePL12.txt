@@ -938,3 +938,24 @@ break;
 case 17:
 carname = "GMC Yukon Denali 2004";
 break;
+case 409:
+carname = "Fiat Abarth Stilo Group N 2002";
+break;
+case 602:
+carname = "Lotus Evora 400 2015";
+break;
+case 543:
+carname = "Chrysler Aspen Hybrid 2009";
+break;
+case 393:
+carname = "Bentley Continental T 1999";
+break;
+case 52:
+carname = "GMC Yukon 2010";
+break;
+case 677:
+carname = "Subaru Forester 2008";
+break;
+case 939:
+carname = "Peugeot 607 Pescarolo 2002";
+break;
