@@ -959,3 +959,18 @@ break;
 case 939:
 carname = "Peugeot 607 Pescarolo 2002";
 break;
+case 754:
+carname = "Bentley Continental R 1991";
+break;
+case 195:
+carname = "Pontiac Bonneville Special 1954";
+break;
+case 172:
+carname = "Lotus Europa 47 Twin Cam 1966";
+break;
+case 753:
+carname = "Bentley Azure 2006";
+break;
+case 940:
+carname = "De Tomaso Vallelunga Competizione 1964";
+break;
