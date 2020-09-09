@@ -974,3 +974,39 @@ break;
 case 940:
 carname = "De Tomaso Vallelunga Competizione 1964";
 break;
+case 706:
+carname = "BMW Z4 3.0si 2006";
+break;
+case 241:
+carname = "Mercedes-Benz 190 E Evo II 1990";
+break;
+case 736:
+carname = "Nissan Murano 2002";
+break;
+case 755:
+carname = "Aston Martin V8 Coupe 1996";
+break;
+case 245:
+carname = "Volvo C70 T5 2013";
+break;
+case 605:
+carname = "Volkswagen Polo 2009";
+break;
+case 281:
+carname = "Peugeot 308 GTi 2018";
+break;
+case 547:
+carname = "Peugeot 208 GTi 2018";
+break;
+case 65:
+carname = "Ford Focus RS 2002";
+break;
+case 941:
+carname = "Volkswagen Touran 2015";
+break;
+case 75:
+carname = "Volkswagen Polo GT G40 1987";
+break;
+case 942:
+carname = "Volkswagen Polo GTI 2006";
+break;

@@ -1,0 +1,9 @@
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\bin\Debug\CallmeMaybe.exe.config
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\bin\Debug\CallmeMaybe.exe
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\bin\Debug\CallmeMaybe.pdb
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.csprojAssemblyReference.cache
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.Properties.Resources.resources
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.csproj.GenerateResource.cache
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.exe
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.pdb
+D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.CallmeMaybe.resources
