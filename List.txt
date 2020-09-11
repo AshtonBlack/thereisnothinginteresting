@@ -835,4 +835,19 @@ orT = new int[] { 0, 0, 1, 1, 0, 0, 0};
 offroadTyres = orT;
 break;
 
+case 65: // 1985-1994
+lrc = new int[] { 17, 21, 25, 27, 28};
+lowestRqCars = lrc;
+slT = new int[] { 0, 0, 0, 1, 0, 1, 0};
+slikTyres = slT;
+dyT = new int[] { 1, 2, 8, 13, 12, 0, 0};
+dynamicTyres = dyT;
+stT = new int[] { 0, 4, 2, 1, 0, 0, 0};
+standartTyres = stT;
+asT = new int[] { 0, 0, 1, 0, 0, 0, 0};
+allseasonTyres = asT;
+orT = new int[] { 0, 0, 1, 0, 0, 0, 0};
+offroadTyres = orT;
+break;
+
 }
