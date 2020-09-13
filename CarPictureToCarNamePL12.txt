@@ -1010,3 +1010,36 @@ break;
 case 942:
 carname = "Volkswagen Polo GTI 2006";
 break;
+case 227:
+carname = "Mazda CX-9 2018";
+break;
+case 944:
+carname = "Volkswagen Golf GTI 1985";
+break;
+case 574:
+carname = "Fiat Abarth 124 Spider 2017";
+break;
+case 390:
+carname = "Maserati 430 1987";
+break;
+case 698:
+carname = "Chrysler 300 2018";
+break;
+case 153:
+carname = "BMW M3 1993";
+break;
+case 465:
+carname = "Lamborghini Miura SV 1971";
+break;
+case 339:
+carname = "Chevrolet Miray 2011";
+break;
+case 943:
+carname = "Peugeot 206 RC 2003";
+break;
+case 631:
+carname = "Porsche 911 Carrera 4 1989";
+break;
+case 275:
+carname = "Mercedes-Benz G 500 2012";
+break;
