@@ -1043,3 +1043,33 @@ break;
 case 275:
 carname = "Mercedes-Benz G 500 2012";
 break;
+case 949:
+carname = "Lamborghini Murcielago LP640 Roadster 2007";
+break;
+case 946:
+carname = "Bentley Mulsanne Blue Train Limited Edition 2015";
+break;
+case 945:
+carname = "Ford Mustang 2005";
+break;
+case 950:
+carname = "Audi RS 4 Avant 2000";
+break;
+case 948:
+carname = "Pontiac G8 GXP 2010";
+break;
+case 739:
+carname = "Chevrolet Camaro SS Coupe 2010";
+break;
+case 709:
+carname = "Mazda RX-7 Type RS 1998";
+break;
+case 584:
+carname = "Lancia Delta Integrale 16v 1989";
+break;
+case 938:
+carname = "Peugeot 405 T16 1993";
+break;
+case 947:
+carname = "Volvo S60 T6 2013";
+break;
