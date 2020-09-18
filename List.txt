@@ -520,6 +520,7 @@ orT = new int[] { 0, 1, 0, 1, 1, 0, 0};
 offroadTyres = orT;
 break;
 
+case 66://порше
 case 38: // порше
 lrc = new int[] { 32, 38, 42, 45, 47};
 lowestRqCars = lrc;
