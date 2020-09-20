@@ -1073,3 +1073,39 @@ break;
 case 947:
 carname = "Volvo S60 T6 2013";
 break;
+case 42:
+carname = "Volvo XC90 V8 2010";
+break;
+case 635:
+carname = "Volkswagen Tiguan 2017";
+break;
+case 858:
+carname = "Porsche Boxster Spyder 2009";
+break;
+case 351:
+carname = "Porsche 924 Turbo 1979";
+break;
+case 646:
+carname = "BMW 530d 2004";
+break;
+case 191:
+carname = "Mazda RX-7 1992";
+break;
+case 90:
+carname = "Ford Taurus SHO 2017";
+break;
+case 590:
+carname = "Maserati Spyder 1991";
+break;
+case 787:
+carname = "Honda Civic Type R 2001";
+break;
+case 335:
+carname = "Lotus M100 Elan 1989";
+break;
+case 103:
+carname = "Alfa Romeo MiTo GTA 2009";
+break;
+case 502:
+carname = "Chevrolet Monte Carlo 1970";
+break;
