@@ -22,6 +22,7 @@ namespace WindowsFormsApp1
 
         public int Selection(int eventN)
         {
+            SpecialEvents se = new SpecialEvents();
             Point n1 = new Point(960, 570);
             Point n2 = new Point(960, 660);
             Point n3 = new Point(960, 750);
@@ -49,6 +50,7 @@ namespace WindowsFormsApp1
                     flag = false;
                     Thread.Sleep(15000);
                 }
+                se.UniversalErrorDefense();
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
 

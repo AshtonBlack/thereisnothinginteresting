@@ -3,15 +3,15 @@
     public class Algorithms
     {
         public double CalculateCompatibility(string track, string coverage, string weather, double[] carstats)
-        {
-            //carstats[0клиренс, 1резина, 2привод, 3разгон до сотки, 4максималка, 5управление, 6масса]
-            /*
-            1 - slk
-            2 - dyn
-            3 - std
-            4 - all
-            5 - off            
-            */
+        {            
+            double clearance = carstats[0];
+            double tires = carstats[1];
+            double drive = carstats[2];
+            double acceleration = carstats[3];
+            double maxSpeed = carstats[4];
+            double grip = carstats[5];
+            double weight = carstats[6];
+
             double x = 0;
             switch (coverage)
             {
@@ -19,7 +19,7 @@
                     switch (weather)
                     {
                         case "Солнечно":
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 500;
@@ -37,17 +37,16 @@
                                     x += 200;
                                     break;
                             }
-                            if (carstats[2] == 4) x -= 50;
+                            if (drive == 4) x -= 50;
                             break;
-
                         case "Дождь":
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 0;
                                     break;
                                 case 2:
-                                    if (carstats[2] == 4) x += 50;
+                                    if (drive == 4) x += 50;
                                     x += 200;
                                     break;
                                 case 3:
@@ -62,7 +61,7 @@
                             }
                             break;
                         default:
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 0;
@@ -84,7 +83,7 @@
                     }
                     break;
                 case "Гравий":
-                    switch (carstats[1])
+                    switch (tires)
                     {
                         case 1:
                             x += 0;
@@ -102,13 +101,13 @@
                             x += 250;
                             break;
                     }
-                    if (carstats[2] == 4) x += 50;
+                    if (drive == 4) x += 50;
                     break;
                 case "Грунт":
                     switch (weather)
                     {
                         case "Солнечно":
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 100;
@@ -126,10 +125,10 @@
                                     x += 500;
                                     break;
                             }
-                            if (carstats[2] == 4) x += 50;
+                            if (drive == 4) x += 50;
                             break;
                         case "Дождь":
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 0;
@@ -147,10 +146,10 @@
                                     x += 500;
                                     break;
                             }
-                            if (carstats[2] == 4) x += 100;
+                            if (drive == 4) x += 100;
                             break;
                         default:
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 0;
@@ -172,7 +171,7 @@
                     }
                     break;
                 case "Песок":
-                    switch (carstats[1])
+                    switch (tires)
                     {
                         case 1:
                             x += 0;
@@ -190,10 +189,10 @@
                             x += 500;
                             break;
                     }
-                    if (carstats[2] == 4) x += 50;
+                    if (drive == 4) x += 50;
                     break;
                 case "Снег":
-                    switch (carstats[1])
+                    switch (tires)
                     {
                         case 1:
                             x += 0;
@@ -211,13 +210,13 @@
                             x += 500;
                             break;
                     }
-                    if (carstats[2] == 4) x += 100;
+                    if (drive == 4) x += 100;
                     break;
                 case "Смешанное":
                     switch (weather)
                     {
                         case "Солнечно":
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 0;
@@ -237,7 +236,7 @@
                             }
                             break;
                         case "Дождь":
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 0;
@@ -257,7 +256,7 @@
                             }
                             break;
                         default:
-                            switch (carstats[1])
+                            switch (tires)
                             {
                                 case 1:
                                     x += 0;
@@ -277,10 +276,10 @@
                             }
                             break;
                     }
-                    if (carstats[2] == 4) x += 50;
+                    if (drive == 4) x += 50;
                     break;
                 case "Трава":
-                    switch (carstats[1])
+                    switch (tires)
                     {
                         case 1:
                             x += 0;
@@ -298,10 +297,10 @@
                             x += 500;
                             break;
                     }
-                    if (carstats[2] == 4) x += 50;
+                    if (drive == 4) x += 50;
                     break;
                 case "Лед":
-                    switch (carstats[1])
+                    switch (tires)
                     {
                         case 1:
                             x += 0;
@@ -319,14 +318,14 @@
                             x += 500;
                             break;
                     }
-                    if (carstats[2] == 4) x += 50;
+                    if (drive == 4) x += 50;
                     break;
             }
 
             switch (track)
             {
                 case "Улица ср":
-                    switch (carstats[0])
+                    switch (clearance)
                     {
                         case 1:
                             x += 0;
@@ -338,12 +337,11 @@
                             x += 300;
                             break;
                     }
-
-                    x -= carstats[4];
-                    x -= carstats[5];
+                    x -= maxSpeed;
+                    x -= grip*4;
                     break;
                 case "Улица мал":
-                    switch (carstats[0])
+                    switch (clearance)
                     {
                         case 1:
                             x += 0;
@@ -355,12 +353,11 @@
                             x += 300;
                             break;
                     }
-
-                    x -= carstats[4];
-                    x -= carstats[5];
+                    x -= maxSpeed;
+                    x -= grip*5;
                     break;
                 case "Подъем на холм":
-                    switch (carstats[0])
+                    switch (clearance)
                     {
                         case 1:
                             x += 0;
@@ -372,11 +369,14 @@
                             x += 500;
                             break;
                     }
-                    x -= carstats[3] * 50;
-                    if (carstats[2] == 4) x += 200;
+                    x -= acceleration * 50;
+                    if (coverage != "Асфальт")
+                    {
+                        if (drive == 4) x += 400;
+                    }
                     break;
                 case "Трасса для мотокросса":
-                    switch (carstats[0])
+                    switch (clearance)
                     {
                         case 1:
                             x += 0;
@@ -390,7 +390,7 @@
                     }
                     break;
                 case "Мотокросс":
-                    switch (carstats[0])
+                    switch (clearance)
                     {
                         case 1:
                             x += 0;
@@ -404,126 +404,294 @@
                     }
                     break;
                 case "50-150":
-                    x -= carstats[3] * 200;
-                    x -= carstats[5];
-                    x += carstats[4] * 5;
+                    if(coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }                    
+                    x -= acceleration * 200;
+                    x -= grip;
+                    x += maxSpeed * 5;
+                    if (maxSpeed < 150)
+                    {
+                        x -= 2000;
+                    }
                     break;
                 case "75-125":
-                    x -= carstats[3] * 200;
-                    x -= carstats[5];
-                    x += carstats[4] * 5;
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
+                    x -= acceleration * 200;
+                    x -= grip;
+                    x += maxSpeed * 5;
+                    if (maxSpeed < 130)
+                    {
+                        x -= 2000;
+                    }
                     break;
                 case "0-100":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
                     if (coverage != "Асфальт")
                     {
-                        if (carstats[2] == 4) x += 200;
+                        if (drive == 4) x += 200;
                     }
-                    x -= carstats[3] * 100;
-                    x -= carstats[5];
-                    x += carstats[4] * 2;
+                    x -= acceleration * 100;
+                    x -= grip*5;
+                    x += maxSpeed * 2;
+                    if (maxSpeed < 105)
+                    {
+                        x -= 2000;
+                    }
                     break;
                 case "0-100-0":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
                     if (coverage != "Асфальт")
                     {
-                        if (carstats[2] == 4) x += 200;
+                        if (drive == 4) x += 200;
                     }
-                    x -= carstats[3] * 100;
-                    x -= carstats[5];
-                    x += carstats[4] * 2;
+                    x -= acceleration * 100;
+                    x -= grip*5;
+                    x += maxSpeed * 2;
+                    if (maxSpeed < 105)
+                    {
+                        x -= 2000;
+                    }
                     break;
                 case "1":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
                     if (coverage != "Асфальт")
                     {
-                        if (carstats[2] == 4) x += 100;
+                        if (drive == 4) x += 100;
                     }
-                    x -= carstats[3] * 80;
-                    x -= carstats[5];
-                    x += carstats[4] * 3;
+                    x -= acceleration * 80;
+                    x -= grip * 5;
+                    x += maxSpeed * 3;
                     break;
                 case "1/2":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
                     if (coverage != "Асфальт")
                     {
-                        if (carstats[2] == 4) x += 200;
+                        if (drive == 4) x += 200;
                     }
-                    x -= carstats[3] * 80;
-                    x -= carstats[5];
-                    x += carstats[4];
+                    x -= acceleration * 80;
+                    x -= grip * 5;
+                    x += maxSpeed;
                     break;
                 case "1/4":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
                     if (coverage != "Асфальт")
                     {
-                        if (carstats[2] == 4) x += 300;
+                        if (drive == 4) x += 300;
                     }
-                    x -= carstats[3] * 120;
-                    x -= carstats[5];
-                    x += carstats[4] / 2;
+                    x -= acceleration * 120;
+                    x -= grip * 5;
+                    x += maxSpeed / 2;
+                    break;
+                case "0-60":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
+                    if (coverage != "Асфальт")
+                    {
+                        if (drive == 4) x += 300;
+                    }
+                    x -= acceleration * 120;
+                    x -= grip*5;
+                    if(maxSpeed < 60)
+                    {
+                        x -= 2000;
+                    }
                     break;
                 case "Токио трасса":
-                    if (coverage != "Асфальт")
+                    if (coverage == "Асфальт")
                     {
-                        if (carstats[2] == 4) x += 200;
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
                     }
-                    x -= carstats[3] * 100;
-                    x -= carstats[5];
-                    x += carstats[4];
+                    x -= acceleration * 100;
+                    x -= grip * 5;
+                    x += maxSpeed;
                     break;
                 case "Трасса набережная":
-                    if (coverage != "Асфальт")
+                    if (coverage == "Асфальт")
                     {
-                        if (carstats[2] == 4) x += 200;
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
                     }
-                    x -= carstats[3] * 100;
-                    x -= carstats[5];
-                    x += carstats[4];
+                    x -= acceleration * 100;
+                    x -= grip * 5;
+                    x += maxSpeed;
                     break;
                 case "Тестовый круг":
-                    x += carstats[4] * 5;
-                    x -= carstats[5];
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
+                    x += maxSpeed * 5;
+                    x -= grip*10;
                     break;
                 case "Токио мостик":
-                    x += carstats[4] * 3;
-                    x -= carstats[3] * 6;
+                    x += maxSpeed * 3;
+                    x -= acceleration * 6;
                     break;
                 case "Нюрбург 1":
-                    x -= carstats[3] * 60;
-                    x += carstats[4] * 3;
-                    x += carstats[5];
+                    x -= acceleration * 60;
+                    x += maxSpeed * 3;
+                    x += grip;
                     break;
                 case "Нюрбург 2":
-                    x -= carstats[3] * 60;
-                    x += carstats[4] * 3;
-                    x += carstats[5];
+                    x -= acceleration * 60;
+                    x += maxSpeed * 3;
+                    x += grip;
                     break;
                 case "Нюрбург 3":
-                    x -= carstats[3] * 60;
-                    x += carstats[4] * 3;
-                    x += carstats[5];
+                    x -= acceleration * 60;
+                    x += maxSpeed * 3;
+                    x += grip;
                     break;
                 case "Нюрбург 4":
-                    x -= carstats[3] * 60;
-                    x += carstats[4] * 3;
-                    x += carstats[5];
+                    x -= acceleration * 60;
+                    x += maxSpeed * 3;
+                    x += grip;
                     break;
                 case "Нюрбург 5":
-                    x -= carstats[3] * 60;
-                    x += carstats[4] * 3;
-                    x += carstats[5];
+                    x -= acceleration * 60;
+                    x += maxSpeed * 3;
+                    x += grip;
                     break;
                 case "Токио петля":
-                    x += carstats[4] * 2;
-                    x -= carstats[3] * 80;
+                    x += maxSpeed * 2;
+                    x -= acceleration * 80;
                     break;
                 case "Замерзшее озеро":
                     break;
                 case "Горы серпантин":
-                    if (carstats[2] == 4) x += 100;
+                    if (coverage != "Асфальт" || weather != "Солнечно")
+                    {
+                        if (drive == 4) x += 100;
+                    }                        
                     break;
                 case "Горы извилистая дорога":
+                    break;
+                case "Горы дорога с уклоном":
+                    break;
+                case "Горы подъем на холм":
+                    switch (clearance)
+                    {
+                        case 1:
+                            x += 0;
+                            break;
+                        case 2:
+                            x += 200;
+                            break;
+                        case 3:
+                            x += 500;
+                            break;
+                    }
+                    x -= acceleration * 50;
+                    if (coverage != "Асфальт")
+                    {
+                        if (drive == 4) x += 400;
+                    }                    
+                    break;
+                case "Горная экспедиция":
+                    x += maxSpeed;
                     break;
                 case "Извилистая дорога":
                     if (coverage != "Асфальт")
                     {
-                        switch (carstats[0])
+                        switch (clearance)
                         {
                             case 1:
                                 x += 0;
@@ -535,34 +703,34 @@
                                 x += 300;
                                 break;
                         }
-                        if (carstats[2] == 4) x += 50;
+                        if (drive == 4) x += 50;
                     }
                     break;
                 case "Быстрая трасса":
-                    x -= carstats[3] * 40;
-                    x -= carstats[5] / 2;
-                    x += carstats[4];
+                    x -= acceleration * 40;
+                    x -= grip / 2;
+                    x += maxSpeed;
                     break;
                 case "Highway":
-                    x -= carstats[3] * 40;
-                    x -= carstats[5] / 2;
-                    x += carstats[4];
+                    x -= acceleration * 40;
+                    x -= grip / 2;
+                    x += maxSpeed;
                     break;
                 case "Монако длинные городские улицы":
-                    x -= carstats[3] * 40;
-                    x -= carstats[5] / 2;
-                    x += carstats[4];
+                    x -= acceleration * 40;
+                    x -= grip / 2;
+                    x += maxSpeed;
                     break;
                 case "Каньон экспедиция":
-                    x -= carstats[3] * 30;
-                    x -= carstats[5] / 4;
-                    x += carstats[4];
+                    x -= acceleration * 30;
+                    x -= grip / 4;
+                    x += maxSpeed;
                     break;
                 case "Серпантин":
-                    x -= carstats[3] * 50;
+                    x -= acceleration * 50;
                     break;
                 case "Монако серпантин":
-                    x -= carstats[3] * 50;
+                    x -= acceleration * 50;
                     break;
                 case "Извилистая трасса":
                     break;

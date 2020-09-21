@@ -17,6 +17,13 @@ namespace WindowsFormsApp1
                     positionflag = true;
                 }
 
+                if (fc.SeasonEndsBounty())
+                {
+                    Thread.Sleep(500);
+                    Rat.Clk(635, 660);
+                    NotePad.DoLog("получил награду за сезон");
+                }
+
                 if (fc.ClubMap())
                 {
                     Thread.Sleep(2000);
@@ -112,6 +119,7 @@ namespace WindowsFormsApp1
 
         public void TimeToRace()
         {
+            FastCheck fc = new FastCheck();
             Waiting wait = new Waiting();
             TrackInfo ti = new TrackInfo();
             GrandArrangement ga = new GrandArrangement();
@@ -120,9 +128,12 @@ namespace WindowsFormsApp1
             int[] b1 = ti.Grounds();//Ground info
             int[] c1 = ti.Weathers();//Weather info
 
-            Rat.Clk(640, 705);//ChooseanEnemy
+            do
+            {
+                Rat.Clk(640, 705);//ChooseanEnemy
+                Thread.Sleep(500);
+            } while (fc.EnemyIsReady()); //100% ChooseanEnemy           
             NotePad.DoLog("противник выбран");
-            Thread.Sleep(1000);
             wait.ArrangementWindow();
             NotePad.DoLog("загрузился экран расстановки");
             Thread.Sleep(1000);

@@ -192,7 +192,7 @@ namespace WindowsFormsApp1
             Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
             Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
             string carsDB = "Finger";
-            int lastcar = 1000;
+            int lastcar = 3000;
             int[] carsid = new int[5];
             bool flag;
             Rectangle[] b = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
@@ -204,12 +204,11 @@ namespace WindowsFormsApp1
 
                 if (i == 0)//для первого пальца
                 {
-                    int maxknowncar = 0;
-                    for (int i2 = 1; i2 < lastcar + 1; i2++)
+                    int emptySpaceForCar = 0;
+                    for (int i2 = 1; i2 < lastcar ; i2++)
                     {
                         if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i2 + ".jpg"))
                         {
-                            maxknowncar = i2;
                             if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\" + i2), ("Finger" + (i + 1) + "\\test")))
                             {
                                 NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " тачка");
@@ -219,14 +218,16 @@ namespace WindowsFormsApp1
                                 break;
                             }
                         }
+                        else if (emptySpaceForCar == 0) emptySpaceForCar = i2;
                     }
                     if (flag == true)
                     {
                         NotePad.DoLog("Добавляю новую тачку");
-                        carsid[i] = maxknowncar + 1;
+                        carsid[i] = emptySpaceForCar;
                         File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\" + carsid[i] + ".jpg");
                     }
                 }
+
                 else
                 {
                     for (int i2 = 1; i2 < lastcar; i2++)
@@ -280,7 +281,7 @@ namespace WindowsFormsApp1
             FastCheck fc = new FastCheck();
 
             Point filter = new Point(945, 265);
-            Point clear = new Point(340, 785);
+            Point clear = new Point(525, 785);
             Point accept = new Point(940, 785);
             Point rarity = new Point(200, 415);
 
@@ -329,7 +330,11 @@ namespace WindowsFormsApp1
             Thread.Sleep(500);
             Condition.ChooseTyres();
             Thread.Sleep(1000);
-            Rat.Clk(accept);
+            do
+            {
+                Rat.Clk(accept);
+                Thread.Sleep(500);
+            } while (fc.FilterIsOpenned());//100% FilterCloser            
             Thread.Sleep(2000);            
         }
 
@@ -389,7 +394,11 @@ namespace WindowsFormsApp1
             }
 
             Thread.Sleep(500);
-            Rat.Clk(840, 790);//закрыть сортировку
+            do
+            {
+                Rat.Clk(840, 790);//закрыть сортировку
+                Thread.Sleep(500);
+            } while (fc.TypeIsOpenned());//100% SorterCloser            
             Thread.Sleep(4000);
         }
 

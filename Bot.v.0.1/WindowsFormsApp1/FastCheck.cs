@@ -239,6 +239,25 @@ namespace WindowsFormsApp1
             return x;
         }
 
+        public bool SeasonEndsBounty()
+        {            
+            bool x = false;
+            string SeasonEndsPath = "HeadPictures\\TestSeasonEnds";
+            string SeasonEndsOriginal = "HeadPictures\\OriginalSeasonEnds";
+            string SeasonEndsOriginal1 = "HeadPictures\\OriginalSeasonEnds1";
+            Rectangle SeasonEndsBounds = new Rectangle(520, 645, 240, 25);
+            MasterOfPictures.MakePicture(SeasonEndsBounds, SeasonEndsPath);
+            if (MasterOfPictures.Verify(SeasonEndsPath, SeasonEndsOriginal))
+            {
+                x = true;
+            }
+            if (MasterOfPictures.Verify(SeasonEndsPath, SeasonEndsOriginal1))
+            {
+                x = true;
+            }
+            return x;
+        }
+
         public bool Bounty()
         {
             bool x = false;
@@ -363,6 +382,10 @@ namespace WindowsFormsApp1
 
         public bool ItsGarage()
         {
+            if (StartIcon())
+            {
+                se.RestartBot();
+            } //если свернулась игра
             bool x = false;
             string InGaragePath = "HeadPictures\\TestInGarage";
             string InGarageOriginal = "HeadPictures\\OriginalInGarage";
@@ -570,6 +593,51 @@ namespace WindowsFormsApp1
             {
                 x = true;
                 NotePad.DoLog("Disconnected");
+            }
+            return x;
+        }
+
+        public bool FaultNox()
+        {
+            bool x = false;
+            string FaultNoxPath = "HeadPictures\\TestFaultNox";
+            string FaultNoxOriginal = "HeadPictures\\OriginalFaultNox";
+            Rectangle FaultNoxBounds = new Rectangle(933, 314, 26, 26);
+            MasterOfPictures.MakePicture(FaultNoxBounds, FaultNoxPath);
+            if (MasterOfPictures.Verify(FaultNoxPath, FaultNoxOriginal))
+            {
+                x = true;
+                NotePad.DoLog("Свернулась игра");
+            }
+            return x;
+        }
+
+        public bool CardBug()
+        {
+            bool x = false;
+            string CardBugPath = "HeadPictures\\TestCardBug";
+            string CardBugOriginal = "HeadPictures\\OriginalCardBug";
+            Rectangle CardBugBounds = new Rectangle(860, 290, 115, 15);
+            MasterOfPictures.BW2Capture(CardBugBounds, CardBugPath);
+            if (MasterOfPictures.VerifyBW(CardBugPath, CardBugOriginal, 130))
+            {
+                x = true;
+                NotePad.DoLog("Вылезла карта");
+            }
+            return x;
+        }
+
+        public bool InCommonEvent()
+        {
+            bool x = false;
+            string InCommonEventPath = "HeadPictures\\TestInCommonEvent";
+            string InCommonEventOriginal = "HeadPictures\\OriginalInCommonEvent";
+            Rectangle InCommonEventBounds = new Rectangle(935, 790, 90, 25);
+            MasterOfPictures.BW2Capture(InCommonEventBounds, InCommonEventPath);
+            if (MasterOfPictures.Verify(InCommonEventPath, InCommonEventOriginal))
+            {
+                x = true;
+                NotePad.DoLog("Зашел в событие");
             }
             return x;
         }

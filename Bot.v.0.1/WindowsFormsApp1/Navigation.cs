@@ -77,6 +77,7 @@ namespace WindowsFormsApp1
                 {
                     se.UniversalErrorDefense();
                     se.UnavailableEvent();
+                    se.CardBug();
 
                     if(fc.ReadyToRace())
                     {

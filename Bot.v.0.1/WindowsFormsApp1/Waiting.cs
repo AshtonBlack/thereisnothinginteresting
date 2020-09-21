@@ -10,11 +10,18 @@ namespace WindowsFormsApp1
 
         public void CarIsUpgraded()
         {
+            int i = 0;
             do
             {
-                Thread.Sleep(1000);
+                if(i == 10)
+                {
+                    NotePad.DoErrorLog("не дождался улучшения за рекламу");
+                    se.RestartBot();
+                } //долго ждал
+                Thread.Sleep(2000);
+                i++;
             } while (!fc.CarIsUpgraded());
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
         }
         
         public void ReadytoRace()

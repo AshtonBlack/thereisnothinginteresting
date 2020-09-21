@@ -206,6 +206,7 @@ namespace WindowsFormsApp1
                                 b2[i] = "Смешанное";
                                 break;                            
                             default:
+                                NotePad.DoErrorLog("Неизвестное покрытие позиция " + (i + 1));
                                 b2[i] = "неизвестное покрытие";
                                 break;
                         }
@@ -244,6 +245,7 @@ namespace WindowsFormsApp1
                                 b2[i] = "Асфальт";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестное покрытие позиция " + (i + 1));
                                 b2[i] = "неизвестное покрытие";
                                 break;
                         }
@@ -282,6 +284,7 @@ namespace WindowsFormsApp1
                                 b2[i] = "Песок";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестное покрытие позиция " + (i + 1));
                                 b2[i] = "неизвестное покрытие";
                                 break;
                         }
@@ -320,6 +323,7 @@ namespace WindowsFormsApp1
                                 b2[i] = "Асфальт";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестное покрытие позиция " + (i + 1));
                                 b2[i] = "неизвестное покрытие";
                                 break;
                         }
@@ -352,6 +356,7 @@ namespace WindowsFormsApp1
                                 b2[i] = "Асфальт";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестное покрытие позиция " + (i + 1));
                                 b2[i] = "неизвестное покрытие";
                                 break;
                         }
@@ -410,6 +415,7 @@ namespace WindowsFormsApp1
                                 c2[i] = "Дождь";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная погода позиция " + (i + 1));
                                 c2[i] = "неопределенная погода";
                                 break;
                         }
@@ -437,8 +443,9 @@ namespace WindowsFormsApp1
                                 break;
                             case 7:
                                 c2[i] = "Дождь";
-                                break;
+                                break;                                
                             default:
+                                NotePad.DoErrorLog("Неизвестная погода позиция " + (i + 1));
                                 c2[i] = "неопределенная погода";
                                 break;
                         }
@@ -462,6 +469,7 @@ namespace WindowsFormsApp1
                                 c2[i] = "Дождь";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная погода позиция " + (i + 1));
                                 c2[i] = "неопределенная погода";
                                 break;
                         }
@@ -497,6 +505,7 @@ namespace WindowsFormsApp1
                                 c2[i] = "Солнечно";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная погода позиция " + (i + 1));
                                 c2[i] = "неопределенная погода";
                                 break;
                         }
@@ -529,6 +538,7 @@ namespace WindowsFormsApp1
                                 c2[i] = "Дождь";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная погода позиция " + (i + 1));
                                 c2[i] = "неопределенная погода";
                                 break;
                         }
@@ -700,12 +710,13 @@ namespace WindowsFormsApp1
                                 a2[i] = "Горы подъем на холм";
                                 break;
                             case 43:
-                                a2[i] = "Каньон обзор";
+                                a2[i] = "Обзор";
                                 break;
                             case 44:
                                 a2[i] = "Каньон грунтовая дорога";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
                                 a2[i] = "Неизвестная трасса";
                                 break;
                         }
@@ -861,6 +872,7 @@ namespace WindowsFormsApp1
                                 a2[i] = "Каньон экспедиция";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
                                 a2[i] = "Неизвестная трасса";
                                 break;
                         }
@@ -998,9 +1010,10 @@ namespace WindowsFormsApp1
                                 a2[i] = "Горы извилистая дорога";
                                 break;
                             case 44:
-                                a2[i] = "Каньон рутой холм";
+                                a2[i] = "Каньон крутой холм";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
                                 a2[i] = "Неизвестная трасса";
                                 break;
                         }
@@ -1141,6 +1154,7 @@ namespace WindowsFormsApp1
                                 a2[i] = "0-60";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
                                 a2[i] = "Неизвестная трасса";
                                 break;
                         }
@@ -1305,6 +1319,7 @@ namespace WindowsFormsApp1
                                 a2[i] = "Грунтовая дорога";
                                 break;
                             default:
+                                NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
                                 a2[i] = "Неизвестная трасса";
                                 break;
                         }
@@ -1320,6 +1335,7 @@ namespace WindowsFormsApp1
             string[] ar = {"Улица ср",
                             "Улица мал",
                             "Подъем на холм",
+                            "Горы подъем на холм",
                             "Мотокросс",
                             "50-150",
                             "75-125",
@@ -1328,6 +1344,7 @@ namespace WindowsFormsApp1
                             "1",
                             "1/2",
                             "1/4",
+                            "0-60",
                             "Токио трасса",
                             "Трасса набережная",
                             "Тестовый круг",
@@ -1339,6 +1356,7 @@ namespace WindowsFormsApp1
                             "Нюрбург 5",
                             "Токио петля",
                             "Горная экспедиция",
+                            "Горы дорога с уклоном",
                             "Замерзшее озеро",
                             "Горы серпантин",
                             "Горы извилистая дорога",

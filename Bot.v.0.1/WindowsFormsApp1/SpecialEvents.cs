@@ -60,7 +60,7 @@ namespace WindowsFormsApp1
 
             NotePad.DoLog("Смотрю рекламу на прокачку");
             Rat.Clk(965, 745); //начать просмотр
-            Thread.Sleep(60000);
+            Thread.Sleep(70000);
             if (fc.NoxPosition())
             {
                 if (fc.WrongADS())
@@ -110,13 +110,13 @@ namespace WindowsFormsApp1
             Thread.Sleep(500);
         }
 
-        public void ActivateClubBooster()//выключен
+        public void ActivateClubBooster()
         {
-            /*
+            
             Rat.Clk(1025, 665);
             Thread.Sleep(2000);
             Rat.Clk(905, 610);
-            */
+            
             NotePad.DoLog("Booster отключен");
             Thread.Sleep(3000);
         }
@@ -151,9 +151,23 @@ namespace WindowsFormsApp1
             System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
+        public void CardBug()
+        {
+            FastCheck fc = new FastCheck();
+            if (fc.CardBug())
+            {
+                Rat.Clk(1120, 800);
+                Thread.Sleep(500);
+            }           
+        }
+
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();
+            if (fc.FaultNox())
+            {
+                RestartBot();
+            }
             if (fc.ServerError())
             {
                 Thread.Sleep(5000);
@@ -299,20 +313,38 @@ namespace WindowsFormsApp1
                 {
                     Rat.Clk(340, 600);//Start game
                     Thread.Sleep(5000);
-                }
-                    
-                if (fc.HeadPage()) Rat.Clk(630, 390);//Events
+                }                    
+                if (fc.HeadPage())
+                {
+                    Rat.Clk(630, 390);//Events
+                    Thread.Sleep(2000);
+                }                    
                 if (fc.DailyBounty()) AcceptDailyBounty();
                 fc.Bounty();
+                if (fc.SeasonEndsBounty())
+                {
+                    Thread.Sleep(500);
+                    Rat.Clk(635, 660);
+                    NotePad.DoLog("получил награду за сезон");
+                }
                 CheckConnection();
                 UniversalErrorDefense();
                 if (fc.EventPage())
                 {
-                    Rat.Clk(240, 500);//Clubs
-                    needToDragMap = true;
+                    if (fc.InCommonEvent())
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(70, 200);//back
+                    }
+                    else
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(240, 500);//Clubs
+                        needToDragMap = true;
+                    }                    
                 }
                 if (fc.ClubMap()) flag = true;
-                Thread.Sleep(1000);
+                Thread.Sleep(1500);
             } while (!flag);
 
             if (needToDragMap) DragMap();

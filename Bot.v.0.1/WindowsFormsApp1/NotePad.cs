@@ -7,20 +7,55 @@ namespace WindowsFormsApp1
     {
         public static void DoErrorLog(string text)
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, System.Text.Encoding.Default))//true для дописывания 
+            DoLog("Найдена ошибка: " + text);
+            bool match = false;
+            if (File.Exists(@"C:\Bot\Errors.txt"))
             {
-                sw.WriteLine(text);
-                sw.Close();
-            }
+                using (StreamReader sr = new StreamReader(@"C:\Bot\Errors.txt", System.Text.Encoding.Default))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (line == text)
+                        {
+                            match = true;
+                            DoLog("повторная ошибка: " + text);
+                            break;
+                        }
+                    }
+                    sr.Close();
+                }
+            }            
+            if (!match)
+            {
+                if(text != "ебучая реклама" && text != "не дождался улучшения за рекламу")
+                {
+                    Mail.MailMessage(text);
+                }
+
+                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, System.Text.Encoding.Default))//true для дописывания 
+                {
+                    sw.WriteLine(text);
+                    sw.Close();
+                }
+            }           
         }
 
         public static void DoLog(string text)
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, System.Text.Encoding.Default))//true для дописывания 
+            try
             {
-                sw.WriteLine(text + "  " + DateTime.Now.ToLongTimeString());
-                sw.Close();
+                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, System.Text.Encoding.Default))//true для дописывания 
+                {
+                    sw.WriteLine(text + "  " + DateTime.Now.ToLongTimeString());
+                    sw.Close();
+                }
             }
+            catch(Exception ex)
+            {
+
+            }
+            
         }
 
         public static void Saves(int eventname, int[] carsid)

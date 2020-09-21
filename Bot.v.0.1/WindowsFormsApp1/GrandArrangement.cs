@@ -26,19 +26,20 @@ namespace WindowsFormsApp1
             Point[] b = { Track1, Track2, Track3, Track4, Track5 };
 
             int[] saves = NotePad.ReadSaves();
-            int[] carsid = new int[5];
-            Array.Copy(saves, 3, carsid, 0, 5);//лостаем машины из текстовика
-            carsid[0] = idcar.Identify1Car(carsid[0]);//converting picture id to car id
-            carsid[1] = idcar.Identify1Car(carsid[1]);
-            carsid[2] = idcar.Identify1Car(carsid[2]);
-            carsid[3] = idcar.Identify1Car(carsid[3]);
-            carsid[4] = idcar.Identify1Car(carsid[4]);
+            int[] carpicture = new int[5];
+            string[] carsname = new string[5];
+            Array.Copy(saves, 3, carpicture, 0, 5);//читаем машины из текстовика
+            carsname[0] = idcar.Identify1Car(carpicture[0]);//converting picture id to car id
+            carsname[1] = idcar.Identify1Car(carpicture[1]);
+            carsname[2] = idcar.Identify1Car(carpicture[2]);
+            carsname[3] = idcar.Identify1Car(carpicture[3]);
+            carsname[4] = idcar.Identify1Car(carpicture[4]);
             double[] emptycar = { 0, 0, 0, 0, 0, 0, 0 };
 
             double[][] carstats = new double[5][];
             for (int m = 0; m < 5; m++)
             {
-                carstats[m] = idcar.CarStats(carsid[m]);
+                carstats[m] = idcar.CarStats(carsname[m]);
             }
 
             string[] a2 = ti.IdentifyTracks(a1);//Track name                        
