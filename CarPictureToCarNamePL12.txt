@@ -1109,3 +1109,33 @@ break;
 case 502:
 carname = "Chevrolet Monte Carlo 1970";
 break;
+case 519:
+carname = "Suzuki XL-7 1998";
+break;
+case 545:
+carname = "Chevrolet Corvette ZR2 1972";
+break;
+case 808:
+carname = "GMC Acadia 2016";
+break;
+case 951:
+carname = "Porsche Cayman 2009";
+break;
+case 953:
+carname = "De Tomaso Pantera L 1973";
+break;
+case 954:
+carname = "Renault 25 V6 Turbo 1983";
+break;
+case 955:
+carname = "Peugeot 203 1948";
+break;
+case 956:
+carname = "Bentley Continental GT Number 9 Edition by Mulliner 2019";
+break;
+case 957:
+carname = "Volkswagen Phaeton 2002";
+break;
+case 958:
+carname = "Land Rover Discovery Si4 2019";
+break;
