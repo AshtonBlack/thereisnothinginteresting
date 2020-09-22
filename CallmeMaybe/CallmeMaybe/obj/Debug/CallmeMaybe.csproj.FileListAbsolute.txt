@@ -7,3 +7,12 @@ D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.c
 D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.exe
 D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.pdb
 D:\ProperEducation\SharpProjects\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.CallmeMaybe.resources
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\bin\Debug\CallmeMaybe.exe.config
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\bin\Debug\CallmeMaybe.exe
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\bin\Debug\CallmeMaybe.pdb
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.csprojAssemblyReference.cache
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.CallmeMaybe.resources
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.Properties.Resources.resources
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.csproj.GenerateResource.cache
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.exe
+C:\Bot\thereisnothinginteresting\CallmeMaybe\CallmeMaybe\obj\Debug\CallmeMaybe.pdb

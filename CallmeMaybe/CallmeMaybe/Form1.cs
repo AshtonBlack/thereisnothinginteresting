@@ -71,7 +71,7 @@ namespace CallmeMaybe
             MailAddress to = new MailAddress(masterMail);
             MailMessage m = new MailMessage(from, to);            
             m.Subject = subject;
-            m.Body = message;
+            m.Body = message + " last message: " + NewString;
             SmtpClient smtp = new SmtpClient(host, port);
             smtp.Credentials = new NetworkCredential(botLogin, pass);
             smtp.EnableSsl = true;
