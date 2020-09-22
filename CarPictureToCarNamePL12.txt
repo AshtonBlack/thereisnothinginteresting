@@ -1139,3 +1139,6 @@ break;
 case 958:
 carname = "Land Rover Discovery Si4 2019";
 break;
+case 597:
+carname = "TVR Cerbera Speed Six 1998";
+break;

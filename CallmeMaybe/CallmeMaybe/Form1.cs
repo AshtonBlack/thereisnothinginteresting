@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Mail;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace CallmeMaybe
 {
@@ -23,7 +24,9 @@ namespace CallmeMaybe
         string masterMail = "stormywarrior67@gmail.com";
         string subject = "At your service, Master";
         string message = "Something goes wrong, Sir!..";
-        int interval = 300000;
+        string messageOK = "Everything is ok, Sir!..";
+        int interval = 600000;
+        int OKinterval = 3600000;
 
         string path = @"C:\Bot\Log.txt";
 
@@ -32,17 +35,8 @@ namespace CallmeMaybe
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool x = true;
-            while (x)
-            {
-                Thread.Sleep(interval);
-                LastString();
-                if (!IsChanged())
-                {
-                    Mail();
-                    x = false;
-                }
-            }           
+            ProblemDetectionAsync();
+            NoProblemAsync();            
         }        
 
         private bool IsChanged()
@@ -82,8 +76,48 @@ namespace CallmeMaybe
             smtp.Credentials = new NetworkCredential(botLogin, pass);
             smtp.EnableSsl = true;
             smtp.Send(m);
-            Console.Read();
         }
 
+        public async void NoProblemAsync()
+        {
+            await Task.Run(() => OkMessage());
+        }
+
+        public async void ProblemDetectionAsync()
+        {
+            await Task.Run(() => ReportProblem());
+        }
+
+        public void ReportProblem()
+        {
+            bool x = true;
+            while (x)
+            {
+                Thread.Sleep(interval);
+                LastString();
+                if (!IsChanged())
+                {
+                    Mail();
+                    x = false;
+                }
+            }
+        }
+
+        public void OkMessage()
+        {
+            while (true)
+            {
+                Thread.Sleep(OKinterval);
+                MailAddress from = new MailAddress(botLogin, botName);
+                MailAddress to = new MailAddress(masterMail);
+                MailMessage m = new MailMessage(from, to);
+                m.Subject = subject;
+                m.Body = messageOK;
+                SmtpClient smtp = new SmtpClient(host, port);
+                smtp.Credentials = new NetworkCredential(botLogin, pass);
+                smtp.EnableSsl = true;
+                smtp.Send(m);
+            }            
+        }
     }
 }
