@@ -1142,3 +1142,45 @@ break;
 case 597:
 carname = "TVR Cerbera Speed Six 1998";
 break;
+case 327:
+carname = "Renault Sport Megane 2002";
+break;
+case 952:
+carname = "Volkswagen Golf GTI 2009";
+break;
+case 953:
+carname = "De Tomaso Pantera L 1973";
+break;
+case 960:
+carname = "De Tomaso Guara 1993";
+break;
+case 961:
+carname = "BMW 328i Gran Turismo 2014";
+break;
+case 618:
+carname = "BMW 520d xDrive 2017";
+break;
+case 833:
+carname = "Chrysler Crossfire Coupe 2004";
+break;
+case 845:
+carname = "Pontiac Grand Prix GTP 1997";
+break;
+case 260:
+carname = "Chevrolet Cobalt SS S/C 2006";
+break;
+case 801:
+carname = "Nissan Qashqai 2016";
+break;
+case 95:
+carname = "Subaru Legacy 2016";
+break;
+case 506:
+carname = "Honda Pilot 4WD 2003";
+break;
+case 962:
+carname = "Bentley Azure T 2009";
+break;
+case 306:
+carname = "Jaguar XJR 1995";
+break;
