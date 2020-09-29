@@ -1184,3 +1184,6 @@ break;
 case 306:
 carname = "Jaguar XJR 1995";
 break;
+case 614:
+carname = "Aston Martin V8 Vantage 1977";
+break;
