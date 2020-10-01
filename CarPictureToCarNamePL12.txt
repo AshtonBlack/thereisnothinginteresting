@@ -1187,3 +1187,39 @@ break;
 case 614:
 carname = "Aston Martin V8 Vantage 1977";
 break;
+case 582:
+carname = "Pontiac 6000 STE AWD 1988";
+break;
+case 433:
+carname = "BMW 330i 1998";
+break;
+case 434:
+carname = "Volkswagen Corrado VR6 1992";
+break;
+case 44:
+carname = "GMC Acadia Denali 2018";
+break;
+case 499:
+carname = "TVR 400SE 1988";
+break;
+case 292:
+carname = "Nissan Almera GTI 1997";
+break;
+case 459:
+carname = "Porsche Cayman 2005";
+break;
+case 565:
+carname = "Ford Thunderbird 3.9l V8 2002";
+break;
+case 812:
+carname = "Alfa Romeo 147 GTA 2002";
+break;
+case 141:
+carname = "Nissan 200SX 1993";
+break;
+case 137:
+carname = "BMW M6 2006";
+break;
+case 696:
+carname = "Cadillac SRX 2006";
+break;
