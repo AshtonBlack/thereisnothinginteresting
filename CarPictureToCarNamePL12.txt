@@ -1223,3 +1223,33 @@ break;
 case 696:
 carname = "Cadillac SRX 2006";
 break;
+case 108:
+carname = "Vauxhall Corsa VXR 2016";
+break;
+case 218:
+carname = "Volkswagen Lupo GTI 2001";
+break;
+case 796:
+carname = "Honda Integra Type R 2002";
+break;
+case 963:
+carname = "Alfa Romeo 8C Spider 2010";
+break;
+case 468:
+carname = "TVR Chimaera 5.0 1993";
+break;
+case 710:
+carname = "Chrysler Crossfire SRT-6 Coupe 2004";
+break;
+case 376:
+carname = "Nissan 350Z Roadster 2005";
+break;
+case 671:
+carname = "BMW 330d 2005";
+break;
+case 329:
+carname = "Cadillac XLR roadster 2004";
+break;
+case 389:
+carname = "Maserati Ghibli Diesel 2018";
+break;
