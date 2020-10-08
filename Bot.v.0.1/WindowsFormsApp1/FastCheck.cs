@@ -239,6 +239,36 @@ namespace WindowsFormsApp1
             return x;
         }
 
+        public bool Google()
+        {
+            bool x = false;
+            string GooglePath = "HeadPictures\\TestGoogle";
+            string GoogleOriginal = "HeadPictures\\OriginalGoogle";
+            Rectangle GoogleBounds = new Rectangle(875, 555, 25, 15);
+            MasterOfPictures.MakePicture(GoogleBounds, GooglePath);
+            if (MasterOfPictures.Verify(GooglePath, GoogleOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
+        public bool FBcontinue()
+        {
+            bool x = false;
+            string FBcontinuePath = "HeadPictures\\TestFBcontinue";
+            string FBcontinueOriginal = "HeadPictures\\OriginalFBcontinue";
+            Rectangle FBcontinueBounds = new Rectangle(580, 615, 120, 20);
+            MasterOfPictures.MakePicture(FBcontinueBounds, FBcontinuePath);
+            if (MasterOfPictures.Verify(FBcontinuePath, FBcontinueOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
         public bool SeasonEndsBounty()
         {            
             bool x = false;

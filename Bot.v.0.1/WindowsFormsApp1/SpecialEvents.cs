@@ -308,7 +308,9 @@ namespace WindowsFormsApp1
 
             do
             {
-                if (fc.StartIcon()) Rat.Clk(830, 375);//Icon                
+                if (fc.StartIcon()) Rat.Clk(830, 375);//Icon  
+                if (fc.Google()) Rat.Clk(890, 565);//google notify
+                if (fc.FBcontinue()) Rat.Clk(640, 625);//fb fucks brain
                 if (fc.StartButton())
                 {
                     Rat.Clk(340, 600);//Start game
@@ -342,7 +344,7 @@ namespace WindowsFormsApp1
                         Rat.Clk(240, 500);//Clubs
                         needToDragMap = true;
                     }                    
-                }
+                }                
                 if (fc.ClubMap()) flag = true;
                 Thread.Sleep(1500);
             } while (!flag);

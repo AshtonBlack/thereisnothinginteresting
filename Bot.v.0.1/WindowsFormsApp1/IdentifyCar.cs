@@ -368,7 +368,7 @@
                     carname = "Lotus Elise 1.6 2015";
                     break;
                 case 512:
-                    carname = "Renault A110 1971";
+                    carname = "Renault Alpine A110 1971";
                     break;
                 case 513:
                     carname = "Fiat Abarth Simca 1300 Bialbero 1962";
@@ -1149,6 +1149,132 @@
                     break;
                 case 597:
                     carname = "TVR Cerbera Speed Six 1998";
+                    break;
+                case 327:
+                    carname = "Renault Sport Megane 2002";
+                    break;
+                case 952:
+                    carname = "Volkswagen Golf GTI 2009";
+                    break;
+                case 960:
+                    carname = "De Tomaso Guara 1993";
+                    break;
+                case 961:
+                    carname = "BMW 328i Gran Turismo 2014";
+                    break;
+                case 618:
+                    carname = "BMW 520d xDrive 2017";
+                    break;
+                case 833:
+                    carname = "Chrysler Crossfire Coupe 2004";
+                    break;
+                case 845:
+                    carname = "Pontiac Grand Prix GTP 1997";
+                    break;
+                case 260:
+                    carname = "Chevrolet Cobalt SS S/C 2006";
+                    break;
+                case 801:
+                    carname = "Nissan Qashqai 2016";
+                    break;
+                case 95:
+                    carname = "Subaru Legacy 2016";
+                    break;
+                case 506:
+                    carname = "Honda Pilot 4WD 2003";
+                    break;
+                case 962:
+                    carname = "Bentley Azure T 2009";
+                    break;
+                case 306:
+                    carname = "Jaguar XJR 1995";
+                    break;
+                case 614:
+                    carname = "Aston Martin V8 Vantage 1977";
+                    break;
+                case 582:
+                    carname = "Pontiac 6000 STE AWD 1988";
+                    break;
+                case 433:
+                    carname = "BMW 330i 1998";
+                    break;
+                case 434:
+                    carname = "Volkswagen Corrado VR6 1992";
+                    break;
+                case 44:
+                    carname = "GMC Acadia Denali 2018";
+                    break;
+                case 499:
+                    carname = "TVR 400SE 1988";
+                    break;
+                case 292:
+                    carname = "Nissan Almera GTI 1997";
+                    break;
+                case 459:
+                    carname = "Porsche Cayman 2005";
+                    break;
+                case 565:
+                    carname = "Ford Thunderbird 3.9l V8 2002";
+                    break;
+                case 812:
+                    carname = "Alfa Romeo 147 GTA 2002";
+                    break;
+                case 141:
+                    carname = "Nissan 200SX 1993";
+                    break;
+                case 137:
+                    carname = "BMW M6 2006";
+                    break;
+                case 696:
+                    carname = "Cadillac SRX 2006";
+                    break;
+                case 108:
+                    carname = "Vauxhall Corsa VXR 2016";
+                    break;
+                case 218:
+                    carname = "Volkswagen Lupo GTI 2001";
+                    break;
+                case 796:
+                    carname = "Honda Integra Type R 2002";
+                    break;
+                case 963:
+                    carname = "Alfa Romeo 8C Spider 2010";
+                    break;
+                case 468:
+                    carname = "TVR Chimaera 5.0 1993";
+                    break;
+                case 710:
+                    carname = "Chrysler Crossfire SRT-6 Coupe 2004";
+                    break;
+                case 376:
+                    carname = "Nissan 350Z Roadster 2005";
+                    break;
+                case 671:
+                    carname = "BMW 330d 2005";
+                    break;
+                case 329:
+                    carname = "Cadillac XLR roadster 2004";
+                    break;
+                case 389:
+                    carname = "Maserati Ghibli Diesel 2018";
+                    break;
+                case 437:
+                    carname = "Volkswagen New Beetle RSi 2000";
+                    break;
+                case 238:
+                    carname = "Audi S4 Avant 2004";
+                    break;
+                case 686:
+                    carname = "Porsche 911 Turbo 1975";
+                    break;
+                case 130:
+                    carname = "Maserati Tipo 61 Birdcage 1959";
+                    break;
+                case 157:
+                    carname = "Mercedes-Benz 62 Landaulet Maybach 2010";
+                    break;
+                case 485:
+                    carname = "BMW 320d 2005";
                     break;
                 default:
                     if(carPicture != 10000)

@@ -28,7 +28,7 @@ namespace WindowsFormsApp1
             }            
             if (!match)
             {
-                if(text != "ебучая реклама" && text != "не дождался улучшения за рекламу")
+                if(text != "ебучая реклама" && text != "не дождался улучшения за рекламу" && text != "Can't send message")
                 {
                     Mail.MailMessage(text);
                 }

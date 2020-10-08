@@ -10,7 +10,7 @@ namespace WindowsFormsApp1
         {
             string botName = "Bot";
             string botLogin = "hiddenshadow@mail.ru";
-            string pass = "a77777777c";
+            string pass = "iiajibi413";
             int port = 2525;
             string host = "smtp.mail.ru";
             string masterMail = "stormywarrior67@gmail.com";
@@ -24,7 +24,14 @@ namespace WindowsFormsApp1
             SmtpClient smtp = new SmtpClient(host, port);
             smtp.Credentials = new NetworkCredential(botLogin, pass);
             smtp.EnableSsl = true;
-            smtp.Send(m);
+            try
+            {
+                smtp.Send(m);
+            }
+            catch(Exception ex)
+            {
+                NotePad.DoErrorLog("Can't send message");
+            }            
             Console.Read();
         }
     }
