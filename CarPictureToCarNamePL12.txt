@@ -1253,3 +1253,21 @@ break;
 case 389:
 carname = "Maserati Ghibli Diesel 2018";
 break;
+case 437:
+carname = "Volkswagen New Beetle RSi 2000";
+break;
+case 238:
+carname = "Audi S4 Avant 2004";
+break;
+case 686:
+carname = "Porsche 911 Turbo 1975";
+break;
+case 130:
+carname = "Maserati Tipo 61 Birdcage 1959";
+break;
+case 157:
+carname = "Mercedes-Benz 62 Landaulet Maybach 2010";
+break;
+case 485:
+carname = "BMW 320d 2005";
+break;
