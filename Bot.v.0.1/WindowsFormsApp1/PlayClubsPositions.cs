@@ -4,6 +4,14 @@ namespace WindowsFormsApp1
 {
     public class PlayClubsPositions
     {
+        /*
+         * 635, 660 bounty for season
+         * 640, 590 event is ended
+         * 585, 280 close car card
+         * 820, 790 control screen to garage
+         * 640, 705 ChooseanEnemy
+         * 180, 580 ускорить заезд, клик в пусой области
+         */
         public bool PathToGarage()
         {
             FastCheck fc = new FastCheck();
@@ -70,11 +78,11 @@ namespace WindowsFormsApp1
             return continuegame;
         }
 
-        public void PrepareToRace(int condition, int eventname, int i)
+        public void PrepareToRace(int condition, int i)
         {
             SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
-            NotePad.DoLog("Rq = " + Condition.eventrq + ", условие: " + condition + ", название эвента: " + eventname + " заезд: " + i);
+            NotePad.DoLog("Rq = " + Condition.eventrq + ", условие: " + condition +  " заезд: " + i);
 
             int wronghandnumber = 0;//счетчик неправильного сбора руки
             do
@@ -92,7 +100,7 @@ namespace WindowsFormsApp1
                         se.ClearHand();
                         Thread.Sleep(500);
                         NotePad.DoLog("Собираю пробную руку");
-                        hm.MakingHand(eventname);
+                        hm.MakingHand();
                     }
 
                     if (i == 2)//пересборка по покрытию
@@ -102,7 +110,7 @@ namespace WindowsFormsApp1
                             se.ClearHand();
                             Thread.Sleep(500);
                             NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
-                            hm.MakingHand(eventname);
+                            hm.MakingHand();
                         }
                     }
 
@@ -111,7 +119,7 @@ namespace WindowsFormsApp1
                         se.ClearHand();
                         Thread.Sleep(500);
                         NotePad.DoLog("Меняю руку");
-                        hm.MakingHand(eventname);
+                        hm.MakingHand();
                     }
                 }
             } while (!hm.VerifyHand() || !hm.VerifyHand());

@@ -58,13 +58,12 @@ namespace WindowsFormsApp1
             
         }
 
-        public static void Saves(int eventname, int[] carsid)
+        public static void Saves(int[] carsid)
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, System.Text.Encoding.Default))//true для дописывания 
             {
                 sw.WriteLine(Condition.eventrq);
                 sw.WriteLine(Condition.conditionNumber);
-                sw.WriteLine(eventname);
                 for (int i = 0; i < 5; i++)
                 {
                     sw.WriteLine(carsid[i]);
@@ -75,10 +74,10 @@ namespace WindowsFormsApp1
 
         public static int[] ReadSaves()
         {
-            int[] a = new int[8];
+            int[] a = new int[7];
             using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", System.Text.Encoding.Default))
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     a[i] = Convert.ToInt32(sr.ReadLine());//rq, condition, tires, carsid(5)
                 }
@@ -96,7 +95,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static void LastWeather(string weather)
+        public static void LastWeather(string weather)//merge with saves
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Weather.txt", false, System.Text.Encoding.Default))
             {
@@ -105,7 +104,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static string FindWeather()
+        public static string FindWeather()//merge with saves
         {
             string weather;
             using (StreamReader sr = new StreamReader(@"C:\Bot\Weather.txt", System.Text.Encoding.Default))
@@ -116,7 +115,7 @@ namespace WindowsFormsApp1
             return weather;
         }
 
-        public static void LastCoverage(string coverage)
+        public static void LastCoverage(string coverage)//merge with saves
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Coverage.txt", false, System.Text.Encoding.Default))
             {
@@ -125,7 +124,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static string FindCoverage()
+        public static string FindCoverage()//merge with saves
         {
             string coverage;
             using (StreamReader sr = new StreamReader(@"C:\Bot\Coverage.txt", System.Text.Encoding.Default))

@@ -7,25 +7,21 @@ namespace WindowsFormsApp1
     {
         SpecialEvents se = new SpecialEvents();
 
-        public bool WrongParty()
+        public bool AnyHandSlotIsEmpty()
         {
             bool x = false;
-            string WrongPartyPath = "HeadPictures\\TestWrongParty";
-            string WrongPartyOriginal = "HeadPictures\\OriginalWrongParty";
-            Rectangle WrongPartyBounds = new Rectangle(830, 615, 150, 30);
-            MasterOfPictures.MakePicture(WrongPartyBounds, WrongPartyPath);
-            if (MasterOfPictures.Verify(WrongPartyPath, WrongPartyOriginal)) x = true;
+            if (CheckHandSlot(1, 5) > 0) x = true;
             return x;
         }
 
-        public bool ReadyToRace()
+        public bool CarMenu()
         {
             bool x = false;
-            string GarageRaceButtonPath = "HeadPictures\\TestGarageRaceButton";
-            string GarageRaceButtonOriginal = "HeadPictures\\OriginalGarageRaceButton";
-            Rectangle GarageRaceButtonBounds = new Rectangle(1075, 795, 95, 20);
-            MasterOfPictures.MakePicture(GarageRaceButtonBounds, GarageRaceButtonPath);
-            if (MasterOfPictures.Verify(GarageRaceButtonPath, GarageRaceButtonOriginal)) x = true;
+            Rectangle CarMenuPathBounds = new Rectangle(1075, 345, 60, 60);
+            string CarMenuPath = "HeadPictures\\TestCarMenu";
+            string CarMenuOriginal = "HeadPictures\\OriginalCarMenu";
+            MasterOfPictures.MakePicture(CarMenuPathBounds, CarMenuPath);
+            if (MasterOfPictures.Verify(CarMenuPath, CarMenuOriginal)) x = true;
             return x;
         }
 
@@ -55,23 +51,55 @@ namespace WindowsFormsApp1
             return x;
         }
 
-        public bool AnyHandSlotIsEmpty()
+        public bool ClickedWrongADS()
         {
             bool x = false;
-            if (CheckHandSlot(1, 5) > 0) x = true;          
+            string ClickedWrongADSPath = "HeadPictures\\TestClickedWrongADS";
+            string ClickedWrongADSOriginal = "HeadPictures\\OriginalClickedWrongADS";
+            string ClickedWrongADSOriginal1 = "HeadPictures\\OriginalClickedWrongADS1";
+            string ClickedWrongADSOriginal2 = "HeadPictures\\OriginalClickedWrongADS2";
+            Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
+            MasterOfPictures.MakePicture(ClickedWrongADSBounds, ClickedWrongADSPath);
+            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal)) x = true;
+            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal1)) x = true;
+            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal2)) x = true;
             return x;
         }
 
-        public bool CarMenu()
+        public bool EventPage()
         {
             bool x = false;
-            Rectangle CarMenuPathBounds = new Rectangle(1075, 345, 60, 60);
-            string CarMenuPath = "HeadPictures\\TestCarMenu";
-            string CarMenuOriginal = "HeadPictures\\OriginalCarMenu";
-            MasterOfPictures.MakePicture(CarMenuPathBounds, CarMenuPath);
-            if (MasterOfPictures.Verify(CarMenuPath, CarMenuOriginal)) x = true;
+            string EventPath = "HeadPictures\\TestEvent";
+            string EventOriginal = "HeadPictures\\OriginalEvent";
+            string EventOriginal1 = "HeadPictures\\OriginalEvent2";
+            Rectangle EventBounds = new Rectangle(196, 187, 134, 30);
+            MasterOfPictures.MakePicture(EventBounds, EventPath);
+            if (MasterOfPictures.Verify(EventPath, EventOriginal)) x = true;
+            if (MasterOfPictures.Verify(EventPath, EventOriginal1)) x = true;
             return x;
         }
+
+        public bool WrongParty()
+        {
+            bool x = false;
+            string WrongPartyPath = "HeadPictures\\TestWrongParty";
+            string WrongPartyOriginal = "HeadPictures\\OriginalWrongParty";
+            Rectangle WrongPartyBounds = new Rectangle(830, 615, 150, 30);
+            MasterOfPictures.MakePicture(WrongPartyBounds, WrongPartyPath);
+            if (MasterOfPictures.Verify(WrongPartyPath, WrongPartyOriginal)) x = true;
+            return x;
+        }
+
+        public bool ReadyToRace()
+        {
+            bool x = false;
+            string GarageRaceButtonPath = "HeadPictures\\TestGarageRaceButton";
+            string GarageRaceButtonOriginal = "HeadPictures\\OriginalGarageRaceButton";
+            Rectangle GarageRaceButtonBounds = new Rectangle(1075, 795, 95, 20);
+            MasterOfPictures.MakePicture(GarageRaceButtonBounds, GarageRaceButtonPath);
+            if (MasterOfPictures.Verify(GarageRaceButtonPath, GarageRaceButtonOriginal)) x = true;
+            return x;
+        }       
 
         public bool StartIcon()
         {
@@ -104,35 +132,7 @@ namespace WindowsFormsApp1
             MasterOfPictures.MakePicture(HeadBounds, HeadPath);
             if (MasterOfPictures.Verify(HeadPath, HeadOriginal)) x = true;
             return x;
-        }
-
-        public bool EventPage()
-        {
-            bool x = false;
-            string EventPath = "HeadPictures\\TestEvent";
-            string EventOriginal = "HeadPictures\\OriginalEvent";
-            string EventOriginal1 = "HeadPictures\\OriginalEvent2";
-            Rectangle EventBounds = new Rectangle(196, 187, 134, 30);
-            MasterOfPictures.MakePicture(EventBounds, EventPath);
-            if (MasterOfPictures.Verify(EventPath, EventOriginal)) x = true;
-            if (MasterOfPictures.Verify(EventPath, EventOriginal1)) x = true;
-            return x;
-        }
-
-        public bool ClickedWrongADS()
-        {
-            bool x = false;
-            string ClickedWrongADSPath = "HeadPictures\\TestClickedWrongADS";
-            string ClickedWrongADSOriginal = "HeadPictures\\OriginalClickedWrongADS";
-            string ClickedWrongADSOriginal1 = "HeadPictures\\OriginalClickedWrongADS1";
-            string ClickedWrongADSOriginal2 = "HeadPictures\\OriginalClickedWrongADS2";
-            Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
-            MasterOfPictures.MakePicture(ClickedWrongADSBounds, ClickedWrongADSPath);
-            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal)) x = true;
-            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal1)) x = true;
-            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal2)) x = true;
-            return x;
-        }
+        }        
 
         public bool WrongADS()
         {

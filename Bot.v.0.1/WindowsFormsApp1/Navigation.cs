@@ -30,36 +30,35 @@ namespace WindowsFormsApp1
                 {
                     NotePad.DoLog("вхожу в активный эвент");
                     i = 1;
-                    Rat.Clk(1060, 800);
+                    Rat.Clk(1060, 800);//ClubEventEnter
                     int[] a = NotePad.ReadSaves();
                     int[] b = new int[5];
                     Condition.eventrq = a[0];
                     Condition.MakeCondition(a[1]);
-                    Array.Copy(a, 3, b, 0, 5);
+                    Array.Copy(a, 2, b, 0, 5);
                     while (i < 100)
                     {
                         i++;
-                        if (!PlayClubs(a[1], a[2], i)) break;
+                        if (!PlayClubs(a[1], i)) break;
                     }
                 }
 
                 else
                 {
                     NotePad.DoLog("Подбираю эвент с одним условием");
-                    int condition = ce.ChooseNormalEvent();
-                    int eventname = ce.WhichEvent();
+                    ce.ChooseNormalEvent();
                     NotePad.DoLog("Вхожу в эвент " + Condition.eventrq + " рк");
                     Rat.Clk(1060, 800);//ClubEventEnter   
                     while (i < 100)
                     {
                         i++;
-                        if (!PlayClubs(condition, eventname, i)) break;
+                        if (!PlayClubs(Condition.conditionNumber, i)) break;
                     }
                 }
             }
         }
 
-        private bool PlayClubs(int condition, int eventname, int i)
+        private bool PlayClubs(int condition, int i)
         {
             SpecialEvents se = new SpecialEvents();
             Waiting wait = new Waiting();
@@ -69,7 +68,7 @@ namespace WindowsFormsApp1
             bool eventisactive = pcp.PathToGarage();
             if (eventisactive)
             {
-                pcp.PrepareToRace(condition, eventname, i);//набор/проверка руки
+                pcp.PrepareToRace(condition, i);//набор/проверка руки
                 wait.ReadytoRace();
 
                 bool foundplace = false;
@@ -78,20 +77,17 @@ namespace WindowsFormsApp1
                     se.UniversalErrorDefense();
                     se.UnavailableEvent();
                     se.CardBug();
-
                     if(fc.ReadyToRace())
                     {
                         Rat.Clk(1120, 800);
                         Thread.Sleep(2000);
-                    }
-                        
+                    }                        
                     if (fc.EnemyIsReady())
                     {
                         eventisactive = true;
                         foundplace = true;
                         Thread.Sleep(1000);
                     }
-
                     if (fc.Bounty())
                     {
                         NotePad.DoLog("эвент закончен");
@@ -99,7 +95,6 @@ namespace WindowsFormsApp1
                         foundplace = true;
                         Thread.Sleep(1000);
                     }
-
                     if (fc.ClubMap())
                     {
                         NotePad.DoLog("эвент закончен");

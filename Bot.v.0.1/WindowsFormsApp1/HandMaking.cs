@@ -66,7 +66,7 @@ namespace WindowsFormsApp1
             return classcars;//порядок S,A,B,C,D,E,F
         }
 
-        public void MakingHand(int eventname)
+        public void MakingHand()
         {
             FastCheck fc = new FastCheck();            
 
@@ -105,7 +105,7 @@ namespace WindowsFormsApp1
             if (VerifyHand())
             {
                 int[] carsid = RememberHand();
-                NotePad.Saves(eventname, carsid);
+                NotePad.Saves(carsid);
             } //сохранение руки
         }
 

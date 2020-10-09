@@ -13,10 +13,7 @@ namespace WindowsFormsApp1
         Rectangle Condition2Bounds = new Rectangle(990, 420, 205, 20);
         string Condition1 = "Condition1\\test";
         string Condition2 = "Condition2\\test";
-
-        Rectangle EventNameBounds = new Rectangle(985, 286, 235, 22);
-        string EventNamePath = "Events\\Test";
-
+        
         Rectangle RQBounds = new Rectangle(1135, 370, 85, 18);
         string RQPath = "RQ\\test";
 
@@ -109,7 +106,7 @@ namespace WindowsFormsApp1
             return x;
         }
 
-        public int ChooseNormalEvent()
+        public void ChooseNormalEvent()
         {
             SpecialEvents se = new SpecialEvents();
             NotePad.DoLog("Проверяю условия");
@@ -136,7 +133,6 @@ namespace WindowsFormsApp1
                     else break;
                 }
             }
-            return x;
         }
 
         public bool GotRQ()
@@ -181,32 +177,6 @@ namespace WindowsFormsApp1
             else isRqKnown = true;
 
             return isRqKnown;
-        }
-        
-        public int WhichEvent()
-        {
-            int eventName = 0;
-            MasterOfPictures.BW2Capture(EventNameBounds, EventNamePath);
-            for (int i = 1; i < 40; i++)
-            {
-                if (File.Exists("C:\\Bot\\Events\\" + i.ToString() + ".jpg"))
-                {
-                    if (MasterOfPictures.VerifyBW(EventNamePath, "Events\\" + i.ToString(), 50))
-                    {
-                        eventName = i;
-                        NotePad.DoLog("Название эвента =  " + i);
-                        break;
-                    }
-                }
-                else
-                {
-                    NotePad.DoLog("Добавляю неизвестный эвент");
-                    File.Move("C:\\Bot\\" + EventNamePath + ".jpg", "C:\\Bot\\Events\\" + i.ToString() + ".jpg");
-                    break;
-                }
-            }
-            return eventName;
-        }
-        
+        }        
     }
 }

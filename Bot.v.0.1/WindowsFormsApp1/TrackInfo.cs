@@ -204,7 +204,10 @@ namespace WindowsFormsApp1
                                 break;
                             case 9:
                                 b2[i] = "Смешанное";
-                                break;                            
+                                break;
+                            case 10:
+                                b2[i] = "Смешанное";
+                                break;
                             default:
                                 NotePad.DoErrorLog("Неизвестное покрытие позиция " + (i + 1));
                                 b2[i] = "неизвестное покрытие";
@@ -871,6 +874,9 @@ namespace WindowsFormsApp1
                             case 49:
                                 a2[i] = "Каньон экспедиция";
                                 break;
+                            case 50:
+                                a2[i] = "Каньон экспедиция";
+                                break;
                             default:
                                 NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
                                 a2[i] = "Неизвестная трасса";
@@ -1012,6 +1018,9 @@ namespace WindowsFormsApp1
                             case 44:
                                 a2[i] = "Каньон крутой холм";
                                 break;
+                            case 45:
+                                a2[i] = "Каньон крутой холм";
+                                break;
                             default:
                                 NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
                                 a2[i] = "Неизвестная трасса";
@@ -1151,6 +1160,9 @@ namespace WindowsFormsApp1
                                 a2[i] = "Горы дорога с уклоном";
                                 break;
                             case 44:
+                                a2[i] = "0-60";
+                                break;
+                            case 45:
                                 a2[i] = "0-60";
                                 break;
                             default:
