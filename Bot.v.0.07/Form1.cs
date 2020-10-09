@@ -22,17 +22,24 @@ namespace Bot.v._0._07
         {
             this.Location = new Point(0, 0); //локация формы(невидимая)
             Thread.Sleep(1000);
-            Clk(1165, 20); //Свернуть VS
-            Thread.Sleep(2000);
 
             DevKit dk = new DevKit();
-                                    
-            //dk.SortCarDB();
+            /*
+            Clk(1170, 16);
+            Thread.Sleep(2000);                     
+            string TestPath = "HeadPictures\\Test";
+            Rectangle Bounds = new Rectangle(580, 615, 120, 20);//640.625
+            MasterOfPictures.MakePicture(Bounds, TestPath);            
+            */
+            dk.SortCarDB();
+            //dk.CalculateDifShades();
+            //MasterOfPictures.Verify("HeadPictures\\OriginalSeasonEnds", "HeadPictures\\TestSeasonEnds");
+            //MasterOfPictures.VerifyBW("HeadPictures\\TestCardBug", "HeadPictures\\OriginalCardBug", 2000);
             //dk.SearchIndicators();
 
-            Loading();
+            //Loading();
 
-            BranchClubs();
+            //BranchClubs();
 
             Application.Exit();
         }
@@ -4592,6 +4599,7 @@ namespace Bot.v._0._07
                     {
                         if (picturetest.GetPixel(x, y) != picture.GetPixel(x, y))
                         {
+                            Console.WriteLine("разные");
                             flag1 = false;
                             break;
                         }
@@ -4657,7 +4665,6 @@ namespace Bot.v._0._07
 
         public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
         {
-            //Console.WriteLine("Начал проверку " + PATH);
             Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
             Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
             bool flag1 = true;
@@ -4679,6 +4686,7 @@ namespace Bot.v._0._07
                         {
                             //Console.WriteLine("разные");
                             differences++;
+
                             if (differences == maxdiffernces)
                             {
                                 flag1 = false;
@@ -4688,6 +4696,7 @@ namespace Bot.v._0._07
                     }
                 }
             }
+            Console.WriteLine("различие в " + differences + " пикселей");
             picturetest.Dispose();
             picture.Dispose();
             return flag1;
@@ -5232,7 +5241,7 @@ namespace Bot.v._0._07
                 Thread.Sleep(2000);
             } while (!fc.Ending());
         }
-    }
+    } 
 
     public class ChooseEvent
     {
@@ -7179,6 +7188,153 @@ namespace Bot.v._0._07
                     break;
                 case 532:
                     carid = 397;
+                    break;
+                case 533:
+                    carid = 1754;
+                    break;
+                case 534:
+                    carid = 579;
+                    break;
+                case 535:
+                    carid = 588;
+                    break;
+                case 536:
+                    carid = 1688;
+                    break;
+                case 537:
+                    carid = 376;
+                    break;
+                case 538:
+                    carid = 1525;
+                    break;
+                case 539:
+                    carid = 1423;
+                    break;
+                case 540:
+                    carid = 993;
+                    break;
+                case 541:
+                    carid = 678;
+                    break;
+                case 542:
+                    carid = 1265;
+                    break;
+                case 543:
+                    carid = 493;
+                    break;
+                case 544:
+                    carid = 698;
+                    break;
+                case 545:
+                    carid = 450;
+                    break;
+                case 546:
+                    carid = 1009;
+                    break;
+                case 547:
+                    carid = 1381;
+                    break;
+                case 548:
+                    carid = 1786;
+                    break;
+                case 549:
+                    carid = 818;
+                    break;
+                case 550:
+                    carid = 1097;
+                    break;
+                case 551:
+                    carid = 163;
+                    break;
+                case 552:
+                    carid = 1047;
+                    break;
+                case 553:
+                    carid = 992;
+                    break;
+                case 554:
+                    carid = 392;
+                    break;
+                case 555:
+                    carid = 563;
+                    break;
+                case 556:
+                    carid = 1004;
+                    break;
+                case 557:
+                    carid = 474;
+                    break;
+                case 558:
+                    carid = 1850;
+                    break;
+                case 559:
+                    carid = 1351;
+                    break;
+                case 560:
+                    carid = 482;
+                    break;
+                case 561:
+                    carid = 755;
+                    break;
+                case 562:
+                    carid = 442;
+                    break;
+                case 563:
+                    carid = 439;
+                    break;
+                case 564:
+                    carid = 409;
+                    break;
+                case 565:
+                    carid = 744;
+                    break;
+                case 566:
+                    carid = 475;
+                    break;
+                case 567:
+                    carid = 381;
+                    break;
+                case 568:
+                    carid = 589;
+                    break;
+                case 569:
+                    carid = 431;
+                    break;
+                case 570:
+                    carid = 363;
+                    break;
+                case 571:
+                    carid = 858;
+                    break;
+                case 572:
+                    carid = 1725;
+                    break;
+                case 573:
+                    carid = 1442;
+                    break;
+                case 574:
+                    carid = 624;
+                    break;
+                case 575:
+                    carid = 922;
+                    break;
+                case 576:
+                    carid = 1096;
+                    break;
+                case 577:
+                    carid = 45;
+                    break;
+                case 578:
+                    carid = 651;
+                    break;
+                case 579:
+                    carid = 1386;
+                    break;
+                case 580:
+                    carid = 70;
+                    break;
+                case 581:
+                    carid = 511;
                     break;
                 default:
                     break;
@@ -37804,21 +37960,88 @@ namespace Bot.v._0._07
             }
         }
 
+        public void CalculateDifShades()
+        {
+            int x0 = 32;
+            int y0 = 7;
+            Bitmap picture = new Bitmap("C:\\Bot\\HeadPictures\\OriginalSeasonEndsold.jpg");
+            Bitmap picturetest = new Bitmap("C:\\Bot\\HeadPictures\\TestSeasonEnds.jpg");
+            int shadesdifs0 = 0;
+            for (int x = 0; x < 50; x++)
+            {
+                for (int y = 0; y < 50; y++)
+                {
+                    var colorValue0 = picture.GetPixel(x + x0, y + y0);
+                    var colorValue1 = picturetest.GetPixel(x + x0, y + y0);
+                    int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
+                        Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
+                        Math.Abs((int)colorValue0.B - (int)colorValue1.B));
+                    shadesdifs0 += shadesdifs1;
+                }
+            }
+            Console.WriteLine(shadesdifs0 + " diffs");
+            picturetest.Dispose();
+            picture.Dispose();
+        }
+
         public void SortCarDB()
         {
-            int lastcar = 1000;
+            int unknowncarsN = 0;
+            int lastcar = 2000;
             int x0 = 32;
             int y0 = 7;
             NotePad.ClearLog();
             int foundcars = 0;
             int predictcars = 0;
-
+            /*
+            for(int i = 1; i < 1000; i++)
+            {
+                if (File.Exists("C:\\Bot\\Finger1\\" + i + ".jpg"))
+                {
+                    Bitmap picture = new Bitmap("C:\\Bot\\Finger1\\" + i + ".jpg");
+                    for (int i1 = 1; i1 < 1000 - i; i1++)
+                    {
+                        if(File.Exists("C:\\Bot\\Finger1\\" + (i1 + i) + ".jpg"))
+                        {
+                            Bitmap picturetest = new Bitmap("C:\\Bot\\Finger1\\" + (i1 + i) + ".jpg");
+                            int shadesdifs0 = 0;
+                            Console.WriteLine("проверяю: позиция " + i + ", " + (i1 + i));
+                            for (int x = 0; x < 50; x++)
+                            {
+                                for (int y = 0; y < 50; y++)
+                                {
+                                    var colorValue0 = picture.GetPixel(x + x0, y + y0);
+                                    var colorValue1 = picturetest.GetPixel(x + x0, y + y0);
+                                    int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
+                                        Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
+                                        Math.Abs((int)colorValue0.B - (int)colorValue1.B));
+                                    shadesdifs0 += shadesdifs1;
+                                }
+                            }
+                            if(shadesdifs0 > 0 && shadesdifs0 < 2000)
+                            {
+                                Console.WriteLine("Проверь " + i + " и " + (i1 + i));
+                                NotePad.DoLog("");
+                            }
+                            picturetest.Dispose();
+                        }
+                    }
+                    picture.Dispose();
+                }
+            }
+            */
+            
             for (int i = 1; i < 5; i++)
             {
                 for (int i1 = 1; i1 < lastcar + 1; i1++)
                 {
                     if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg")) //несортированные
                     {
+                        unknowncarsN++;
+                        if(File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i1 + "old.jpg"))
+                        {
+                            File.Move("C:\\Bot\\Finger" + (i + 1) + "\\" + i1 + "old.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\old" + i1 + ".jpg");
+                        }
                         Bitmap picture = new Bitmap("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg");
                         Console.WriteLine("проверяю: позиция " + (i + 1) + ", unsorted " + i1);
                         for (int i0 = 1; i0 < lastcar; i0++)
@@ -37847,6 +38070,13 @@ namespace Bot.v._0._07
                                     NotePad.DoLog("Считаю одинаковыми Finger" + (i + 1) + "\\unsorted" + i1);
                                     NotePad.DoLog("и Finger1\\" + i0);
                                     NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
+                                    if(File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg"))
+                                    {
+                                        File.Move("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg",
+                                            "C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg");
+                                        NotePad.DoLog("Обновляю C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg" + i0);
+                                        Console.WriteLine("Обновляю C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg" + i0);
+                                    }
                                     File.Move("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
                                         "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
                                     foundcars++;
@@ -37867,7 +38097,7 @@ namespace Bot.v._0._07
                                 }
                                 picturetest.Dispose();
                             }
-                            else break;
+                            else break; //ВЫКЛЮЧИТЬ если есть пробелы нумерации
                         }
                         picture.Dispose();
                     }
@@ -37875,8 +38105,11 @@ namespace Bot.v._0._07
             }
 
             NotePad.DoLog("");
+            Console.WriteLine("найдено машин: " + foundcars);
+            Console.WriteLine("вероятных совпадений " + predictcars);
             NotePad.DoLog("найдено машин: " + foundcars);
             NotePad.DoLog("вероятных совпадений " + predictcars);
+            Console.WriteLine("осталось неизвестных " + (unknowncarsN - foundcars));
         }
 
         public void ReadFile()
