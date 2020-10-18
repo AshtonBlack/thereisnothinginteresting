@@ -1271,3 +1271,33 @@ break;
 case 485:
 carname = "BMW 320d 2005";
 break;
+case 539:
+carname = "Pontiac Solstice GXP Coupe 2009";
+break;
+case 252:
+carname = "Nissan Pathfinder 2010";
+break;
+case 964:
+carname = "Aston Martin DB7 1993";
+break;
+case 965:
+carname = "Maserati Royale 1986";
+break;
+case 966:
+carname = "Mercedes-Benz E 430 1999";
+break;
+case 967:
+carname = "Dodge Stealth R/T Twin Turbo 1990";
+break;
+case 636:
+carname = "BMW 435i Gran Coupe 2014";
+break;
+case 959:
+carname = "BMW X5 M50d 2016";
+break;
+case 356:
+carname = "BMW 520d Touring 2017";
+break;
+case 101:
+carname = "Ford Focus RS 2009";
+break;
