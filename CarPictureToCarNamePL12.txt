@@ -1301,3 +1301,51 @@ break;
 case 101:
 carname = "Ford Focus RS 2009";
 break;
+case 689:
+carname = "Pontiac Trans Am 30th Anniversary 1999";
+break;
+case 498:
+carname = "Hummer H2 SUV 2003";
+break;
+case 641:
+carname = "Volkswagen Golf GTD 2009";
+break;
+case 769:
+carname = "Bentley Bentayga Diesel 2019";
+break;
+case 674:
+carname = "Lotus Esprit 1976";
+break;
+case 493:
+carname = "Land Rover Range Rover 4.4 V8 2002";
+break;
+case 230:
+carname = "Renault Sport Clio 200 2009";
+break;
+case 727:
+carname = "Renault Sport Clio R.S.16 2016";
+break;
+case 107:
+carname = "Honda Civic Type R 2006";
+break;
+case 758:
+carname = "Suzuki Vitara 2005";
+break;
+case 968:
+carname = "Jaguar XKR 175 2010";
+break;
+case 969:
+carname = "Peugeot 206 WRC 2000";
+break;
+case 773:
+carname = "RUF RCT 1991";
+break;
+case 380:
+carname = "BMW M6 Gran Coupe 2013";
+break;
+case 793:
+carname = "Maserati Levante Diesel 2018";
+break;
+case 473:
+carname = "Lamborghini LM002 1986";
+break;
