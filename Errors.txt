@@ -15,3 +15,6 @@ Can't send message
 773 is unknown CarPicture
 ебучая реклама
 380 is unknown CarPicture
+793 is unknown CarPicture
+473 is unknown CarPicture
+Отсутствует C:\Bot\HeadPictures\OriginalInGarage.jpg
