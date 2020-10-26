@@ -1349,3 +1349,48 @@ break;
 case 473:
 carname = "Lamborghini LM002 1986";
 break;
+case 207:
+carname = "Chevrolet SSR 6.0L 2007";
+break;
+case 163:
+carname = "Alfa Romeo Carabo 1968";
+break;
+case 205:
+carname = "Mercedes-Benz 600 1964";
+break;
+case 425:
+carname = "Renault Sport Clio V6 2003";
+break;
+case 419:
+carname = "BMW M3 CSL 2003";
+break;
+case 577:
+carname = "Alfa Romeo GTV 1998";
+break;
+case 531:
+carname = "Vauxhall VX220 2000";
+break;
+case 705:
+carname = "Audi S6 1997";
+break;
+case 113:
+carname = "Lotus Elan SE 1989";
+break;
+case 395:
+carname = "Aston Martin Virage 1989";
+break;
+case 507:
+carname = "Land Rover Range Rover Evoque 2016";
+break;
+case 295:
+carname = "Mitsubishi Colt Ralliart Version-R 2009";
+break;
+case 287:
+carname = "Chrysler 200 2017";
+break;
+case 201:
+carname = "BMW 750iL 1995";
+break;
+case 779:
+carname = "Subaru Forester 2002";
+break;
