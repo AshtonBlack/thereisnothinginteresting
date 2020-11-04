@@ -1394,3 +1394,36 @@ break;
 case 779:
 carname = "Subaru Forester 2002";
 break;
+case 972:
+carname = "Donkervoort D8 Audi (E-gas) Wide Track 2004";
+break;
+case 970:
+carname = "Bentley Mulsanne S 1987";
+break;
+case 971:
+carname = "Subaru Outback 2008";
+break;
+case 855:
+carname = "Volkswagen Golf R32 2005";
+break;
+case 175:
+carname = "BMW M2 (delimited) 2016";
+break;
+case 835:
+carname = "Mercedes-Benz AMG S 63 2011";
+break;
+case 975:
+carname = "Maserati 250F 1955";
+break;
+case 976:
+carname = "Mazda MX-5 1998";
+break;
+case 977:
+carname = "Fiat Abarth 695 Biposto 2017";
+break;
+case 973:
+carname = "Alfa Romeo Alfetta GT Rally Version 1975";
+break;
+case 974:
+carname = "TVR Griffith 400 1964";
+break;
