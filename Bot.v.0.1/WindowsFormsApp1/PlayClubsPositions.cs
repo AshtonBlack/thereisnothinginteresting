@@ -78,11 +78,11 @@ namespace WindowsFormsApp1
             return continuegame;
         }
 
-        public void PrepareToRace(int condition, int i)
+        public void PrepareToRace(int i)
         {
             SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
-            NotePad.DoLog("Rq = " + Condition.eventrq + ", условие: " + condition +  " заезд: " + i);
+            NotePad.DoLog("Rq = " + Condition.eventrq + ", условие: " + Condition.conditionNumber +  " заезд: " + i);
 
             int wronghandnumber = 0;//счетчик неправильного сбора руки
             do

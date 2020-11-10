@@ -11,6 +11,8 @@ namespace WindowsFormsApp1
         public void CarIsUpgraded()
         {
             int i = 0;
+            bool x;
+            fc.NoxPositionWithRepair();
             do
             {
                 if(i == 10)
@@ -20,7 +22,9 @@ namespace WindowsFormsApp1
                 } //долго ждал
                 Thread.Sleep(2000);
                 i++;
-            } while (!fc.CarIsUpgraded());
+                se.UniversalErrorDefense();
+                x = fc.CarIsUpgraded();
+            } while (!x);
             Thread.Sleep(2000);
         }
         
@@ -55,8 +59,10 @@ namespace WindowsFormsApp1
             SpecialEvents se = new SpecialEvents();
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
+            string RaceOriginal1 = "HeadPictures\\OriginalRace1";
             Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
             int waiter = 0;
+            bool x = false;
             do
             {
                 if (waiter == 180) se.RestartBot();
@@ -64,7 +70,11 @@ namespace WindowsFormsApp1
                 MasterOfPictures.MakePicture(RaceBounds, RacePath);
                 Thread.Sleep(1000);
                 waiter++;
-            } while (!MasterOfPictures.Verify(RacePath, RaceOriginal));
+                if (MasterOfPictures.Verify(RacePath, RaceOriginal) || MasterOfPictures.Verify(RacePath, RaceOriginal1))
+                {
+                    x = true;
+                }
+            } while (!x);
         }
 
         public void PointsForRace()
@@ -83,12 +93,18 @@ namespace WindowsFormsApp1
         {
             string RacePath = "HeadPictures\\TestRace";
             string RaceOriginal = "HeadPictures\\OriginalRace";
+            string RaceOriginal1 = "HeadPictures\\OriginalRace1";
+            bool x = true;
             Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
             do
             {
                 MasterOfPictures.MakePicture(RaceBounds, RacePath);
                 Thread.Sleep(500);
-            } while (MasterOfPictures.Verify(RacePath, RaceOriginal));
+                if(!MasterOfPictures.Verify(RacePath, RaceOriginal) && !MasterOfPictures.Verify(RacePath, RaceOriginal1))
+                {
+                    x = false;
+                }
+            } while (x);
         }
         
         public bool ForEnemy()

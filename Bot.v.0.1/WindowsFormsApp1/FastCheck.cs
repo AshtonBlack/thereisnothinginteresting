@@ -179,6 +179,17 @@ namespace WindowsFormsApp1
             return x;
         }
 
+        public bool LostConnection()
+        {
+            bool x = false;
+            string LostConnectionPath = "HeadPictures\\TestLostConnection";
+            string LostConnectionOriginal = "HeadPictures\\OriginalLostConnection";
+            Rectangle LostConnectionBounds = new Rectangle(365, 385, 300, 30);
+            MasterOfPictures.MakePicture(LostConnectionBounds, LostConnectionPath);
+            if (MasterOfPictures.Verify(LostConnectionPath, LostConnectionOriginal)) x = true;
+            return x;
+        }
+
         public bool NoxPosition()
         {
             bool x = false;
@@ -187,6 +198,34 @@ namespace WindowsFormsApp1
             Rectangle NoxPositionBounds = new Rectangle(1221, 143, 18, 15);
             MasterOfPictures.MakePicture(NoxPositionBounds, NoxPositionPath);
             if (MasterOfPictures.Verify(NoxPositionPath, NoxPositionOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
+        public void NoxPositionWithRepair()
+        {            
+            string NoxPositionWithRepairPath = "HeadPictures\\TestNoxPositionWithRepair";
+            string NoxPositionWithRepairOriginal = "HeadPictures\\OriginalNoxPositionWithRepair";
+            Rectangle NoxPositionWithRepairBounds = new Rectangle(1190, 135, 12, 12);
+            MasterOfPictures.MakePicture(NoxPositionWithRepairBounds, NoxPositionWithRepairPath);
+            if (MasterOfPictures.Verify(NoxPositionWithRepairPath, NoxPositionWithRepairOriginal))
+            {
+                se.RepairNoxPosition();
+                NotePad.DoErrorLog("fail after ads");
+            }
+        }
+
+        public bool WrongNoxPosition()
+        {
+            bool x = false;
+            string WrongNoxPositionPath = "HeadPictures\\TestWrongNoxPosition";
+            string WrongNoxPositionOriginal = "HeadPictures\\OriginalWrongNoxPosition";
+            Rectangle WrongNoxPositionBounds = new Rectangle(880, 20, 15, 15);
+            MasterOfPictures.MakePicture(WrongNoxPositionBounds, WrongNoxPositionPath);
+            if (MasterOfPictures.Verify(WrongNoxPositionPath, WrongNoxPositionOriginal))
             {
                 x = true;
             }

@@ -29,7 +29,15 @@ namespace WindowsFormsApp1
             gdi.CopyFromScreen(bounds.Left, bounds.Top, 0, 0, bounds.Size);
             if (captured != null)
             {
-                captured.Save("C:\\Bot\\" + PATH + ".jpg", ImageFormat.Jpeg);
+                try
+                {
+                    captured.Save("C:\\Bot\\" + PATH + ".jpg", ImageFormat.Jpeg);
+                }
+                catch(Exception ex)
+                {
+                    NotePad.DoErrorLog("Unknown error with save picture");
+                }
+                
             }
             gdi.Dispose();
             captured.Dispose();
@@ -40,25 +48,29 @@ namespace WindowsFormsApp1
             bool flag1 = false;
             if (File.Exists("C:\\Bot\\" + ORIGINALPATH + ".jpg"))
             {
-                flag1 = true;
-                Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
-                Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");                
-                for (int x = 0; x < picturetest.Width; x++)
+                if (File.Exists("C:\\Bot\\" + PATH + ".jpg"))
                 {
-                    if (flag1 == true)
+                    flag1 = true;
+                    Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
+                    Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                    for (int x = 0; x < picturetest.Width; x++)
                     {
-                        for (int y = 0; y < picturetest.Height; y++)
+                        if (flag1 == true)
                         {
-                            if (picturetest.GetPixel(x, y) != picture.GetPixel(x, y))
+                            for (int y = 0; y < picturetest.Height; y++)
                             {
-                                flag1 = false;
-                                break;
+                                if (picturetest.GetPixel(x, y) != picture.GetPixel(x, y))
+                                {
+                                    flag1 = false;
+                                    break;
+                                }
                             }
                         }
                     }
+                    picturetest.Dispose();
+                    picture.Dispose();
                 }
-                picturetest.Dispose();
-                picture.Dispose();
+                else NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + PATH + ".jpg");
             }
             else NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");            
             return flag1;

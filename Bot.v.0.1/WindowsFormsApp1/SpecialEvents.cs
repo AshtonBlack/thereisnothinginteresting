@@ -76,11 +76,22 @@ namespace WindowsFormsApp1
             }
             else
             {
-                Rat.Clk(805, 55);
-                Thread.Sleep(2000);
-                RepairNoxPosition();
-                NotePad.DoErrorLog("ебучая реклама");
+                if (fc.WrongNoxPosition())
+                {
+                    Rat.Clk(880, 65);
+                    Thread.Sleep(2000);
+                    RepairNoxPosition();
+                    NotePad.DoErrorLog("ебучая реклама N2");
+                }
+                else
+                {
+                    Rat.Clk(805, 55);
+                    Thread.Sleep(2000);
+                    RepairNoxPosition();
+                    NotePad.DoErrorLog("ебучая реклама");
+                }
             }
+            
             if (fc.ClickedWrongADS())
             {
                 Rat.Clk(75, 205);
@@ -310,6 +321,7 @@ namespace WindowsFormsApp1
             do
             {
                 if (fc.StartIcon()) Rat.Clk(830, 375);//Icon  
+                if (fc.LostConnection()) Rat.Clk(785, 615);//reconnect
                 if (fc.Google()) Rat.Clk(890, 565);//google notify
                 if (fc.FBcontinue()) Rat.Clk(640, 625);//fb fucks brain
                 if (fc.StartButton())

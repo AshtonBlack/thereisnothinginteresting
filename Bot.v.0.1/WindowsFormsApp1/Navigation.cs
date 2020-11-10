@@ -39,7 +39,7 @@ namespace WindowsFormsApp1
                     while (i < 100)
                     {
                         i++;
-                        if (!PlayClubs(a[1], i)) break;
+                        if (!PlayClubs(i)) break;
                     }
                 }
 
@@ -52,13 +52,13 @@ namespace WindowsFormsApp1
                     while (i < 100)
                     {
                         i++;
-                        if (!PlayClubs(Condition.conditionNumber, i)) break;
+                        if (!PlayClubs(i)) break;
                     }
                 }
             }
         }
 
-        private bool PlayClubs(int condition, int i)
+        private bool PlayClubs(int i)
         {
             SpecialEvents se = new SpecialEvents();
             Waiting wait = new Waiting();
@@ -68,7 +68,7 @@ namespace WindowsFormsApp1
             bool eventisactive = pcp.PathToGarage();
             if (eventisactive)
             {
-                pcp.PrepareToRace(condition, i);//набор/проверка руки
+                pcp.PrepareToRace(i);//набор/проверка руки
                 wait.ReadytoRace();
 
                 bool foundplace = false;

@@ -591,6 +591,28 @@ namespace WindowsFormsApp1
                         x = true;
                     }
                     break;
+                case 67:
+                    if (fulltablearray[car, 8] == "Subaru")
+                    {
+                        x = true;
+                    }
+                    break;
+                case 68:
+                    if (fulltablearray[car, 11] == "2")
+                    {
+                        x = true;
+                    }
+                    break;
+                case 69:
+                    tag = "Motorsport";
+                    x = (SearchTag(car, tag));
+                    break;
+                case 70:
+                    if (fulltablearray[car, 1] == "roadster" || fulltablearray[car, 1] == "cabrio")
+                    {
+                        x = true;
+                    }
+                    break;
                 default:
                     break;
             }
