@@ -1456,3 +1456,42 @@ break;
 case 14:
 carname = "Chevrolet Suburban 2016";
 break;
+case 367:
+carname = "DS DS 7 Crossback E-Tense 4x4 PHEV 2018";
+break;
+case 815:
+carname = "Subaru Legacy 2003";
+break;
+case 142:
+carname = "Lotus Esprit S4 1993";
+break;
+case 143:
+carname = "Honda CR-V 2.0 i-VTEC 2002";
+break;
+case 979:
+carname = "Peugeot Rally 504 1971";
+break;
+case 980:
+carname = "Chevrolet Monte Carlo SS 1983";
+break;
+case 284:
+carname = "Mitsubishi Montero Black Edition 2011";
+break;
+case 46:
+carname = "Subaru Impreza WRX 1993";
+break;
+case 981:
+carname = "Jaguar XJR 575 2018";
+break;
+case 982:
+carname = "Bentley Mulsanne W.O. Edition 2018";
+break;
+case 983:
+carname = "Land Rover Discovery 2011";
+break;
+case 21:
+carname = "Jaguar D-Type 1954";
+break;
+case 613:
+carname = "Ford Mondeo ST220 2000";
+break;
