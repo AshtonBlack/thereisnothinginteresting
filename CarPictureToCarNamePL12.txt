@@ -654,7 +654,8 @@ carname = "Renault Clio 220 Trophy 2016";
 break;
 case 821:
 carname = "Renault 21 2.0l Turbo Quadra 1986";
-break;case 774:
+break;
+case 774:
 carname = "BMW M5 1985";
 break;
 case 431:
@@ -725,7 +726,8 @@ carname = "Mercedes-Benz AMG G 63 6x6 2013";
 break;
 case 923:
 carname = "De Tomaso Pantera GT5-S 1989";
-break;case 726:
+break;
+case 726:
 carname = "Lancia Thema 8.32 1986";
 break;
 case 280:
@@ -1426,4 +1428,31 @@ carname = "Alfa Romeo Alfetta GT Rally Version 1975";
 break;
 case 974:
 carname = "TVR Griffith 400 1964";
+break;
+case 115:
+carname = "Renault Sport Megane IV R.S. 2018";
+break;
+case 424:
+carname = "Volkswagen Golf R 2015";
+break;
+case 766:
+carname = "Bentley Continental GT 2006";
+break;
+case 365:
+carname = "Suzuki X-90 1995";
+break;
+case 831:
+carname = "Chevrolet Camaro Z28 SS 1999";
+break;
+case 978:
+carname = "Peugeot 208 R2 2012";
+break;
+case 538:
+carname = "Ram Dodge Ramcharger 1974";
+break;
+case 611:
+carname = "Jaguar XJR 2003";
+break;
+case 14:
+carname = "Chevrolet Suburban 2016";
 break;
