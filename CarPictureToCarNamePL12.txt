@@ -1495,3 +1495,39 @@ break;
 case 613:
 carname = "Ford Mondeo ST220 2000";
 break;
+case 58:
+carname = "Dodge Caliber SRT4 2008";
+break;
+case 984:
+carname = "Honda Odyssey 2016";
+break;
+case 985:
+carname = "Aston Martin Vantage 1993";
+break;
+case 986:
+carname = "Volkswagen Golf R 2012";
+break;
+case 640:
+carname = "Volkswagen Golf GTI 2004";
+break;
+case 690:
+carname = "Renault Sport Clio V6 2001";
+break;
+case 623:
+carname = "Chevrolet Camaro IROC Z/28 1990";
+break;
+case 799:
+carname = "Mitsubishi Outlander 2012";
+break;
+case 346:
+carname = "Subaru XT 1985";
+break;
+case 219:
+carname = "Mazda RX-8 Spirit R 2012";
+break;
+case 70:
+carname = "Infiniti G35 2002";
+break;
+case 36:
+carname = "Caterham Superlight R500 2008";
+break;
