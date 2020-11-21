@@ -25,10 +25,18 @@ namespace Bot.v._0._07
 
             DevKit dk = new DevKit();
             /*
+            string RacePath = "HeadPictures\\TestRace"; 
+            Clk(1170, 16);
+            Thread.Sleep(2000);
+            Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
+            MasterOfPictures.MakePicture(RaceBounds, RacePath);
+            */
+
+            /*
             Clk(1170, 16);
             Thread.Sleep(2000);                     
             string TestPath = "HeadPictures\\Test";
-            Rectangle Bounds = new Rectangle(580, 615, 120, 20);//640.625
+            Rectangle Bounds = new Rectangle(880, 20, 15, 15);
             MasterOfPictures.MakePicture(Bounds, TestPath);            
             */
             dk.SortCarDB();
