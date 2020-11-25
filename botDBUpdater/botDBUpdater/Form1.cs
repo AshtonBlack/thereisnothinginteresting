@@ -50,9 +50,9 @@ namespace botDBUpdater
             string[] cashSR()
             {
                 string[] a = new string[linenumber];
-                if (File.Exists(@"C:\Bot\C:\Bot\NewRqPL12\CashCarsPL12.txt"))
+                if (File.Exists(@"C:\Bot\NewRqPL12\CashCarsPL12.txt"))
                 {
-                    using (StreamReader sr = new StreamReader(@"C:\Bot\C:\Bot\NewRqPL12\CashCarsPL12.txt", System.Text.Encoding.Default))
+                    using (StreamReader sr = new StreamReader(@"C:\Bot\NewRqPL12\CashCarsPL12.txt", System.Text.Encoding.Default))
                     {
                         for (int i = 0; i < a.Length; i++)
                         {
@@ -465,7 +465,7 @@ namespace botDBUpdater
         
         private void WriteCashCars()
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\C:\Bot\NewRqPL12\CashCarsPL12.txt", false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\NewRqPL12\CashCarsPL12.txt", false, System.Text.Encoding.Default))
             {
                 for (int i = 0; i < linenumber; i++)
                 {
