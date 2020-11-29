@@ -49,10 +49,10 @@
 105 Buick Regal GS 2012
 107 Honda Civic Type R 2006
 108 Vauxhall Corsa VXR 2016
-111 Renault Megane 275 Trophy-R 2016
+111 Renault Sport Megane 275 Trophy-R 2016
 113 Lotus Elan SE 1989
 115 Renault Sport Megane IV R.S. 2018
-116 Fiat 695 Tributo Ferrari 2009
+116 Fiat Abarth 695 Tributo Ferrari 2009
 119 Citroen C2 VTS 2003
 122 Renault 5 GT Turbo 1985
 125 DS DS 3 Racing 2011
@@ -117,7 +117,7 @@
 245 Volvo C70 T5 2013
 247 Fiat Seicento Rally Spec 1998
 248 Mazda Furai 2007
-249 Renault Clio 220 Trophy 2016
+249 Renault Sport Clio 220 Trophy 2016
 250 Chevrolet Volt 2012
 252 Nissan Pathfinder 2010
 253 Volkswagen Scirocco R 2009
@@ -141,7 +141,7 @@
 294 Volvo 850 R 1997
 295 Mitsubishi Colt Ralliart Version-R 2009
 300 Renault Fuego Turbo 1984
-303 Fiat 1000TC Berlina Corsa 1967
+303 Fiat Abarth 1000TC Berlina Corsa 1967
 306 Jaguar XJR 1995
 307 Maserati Ghibli SS 1969
 311 Citroen C-Crosser 2.2 L HDi 2007
@@ -198,7 +198,7 @@
 403 Renault R20 Turbo 4x4 1979
 404 Ford Escort RS Cosworth 1992
 405 Renault R5 MAXI TURBO 1987
-406 Renault GTA V6 Turbo Le Mans 1990
+406 Renault Alpine GTA V6 Turbo Le Mans 1990
 408 Renault Twizy F1 2013
 409 Fiat Abarth Stilo Group N 2002
 412 Chevrolet Blazer S-10 1983
@@ -218,7 +218,7 @@
 456 Vauxhall Maloo R8 LSA 2016
 459 Porsche Cayman 2005
 460 Lamborghini Miura S 1968
-462 Vauxhall GT Concept 2016
+462 Vauxhall Opel GT Concept 2016
 463 Aston Martin DB4 GT Zagato 1961
 464 McLaren 12C 2011
 465 Lamborghini Miura SV 1971
@@ -233,7 +233,7 @@
 482 BMW 650i Convertible 2012
 485 BMW 320d 2005
 487 Nissan 240Z Rally Car 1969
-488 Vauxhall Kadett GT/E 1975
+488 Vauxhall Opel Kadett GT/E 1975
 489 BMW M3 Convertible 2001
 493 Land Rover Range Rover 4.4 V8 2002
 498 Hummer H2 SUV 2003
@@ -245,8 +245,8 @@
 506 Honda Pilot 4WD 2003
 507 Land Rover Range Rover Evoque 2016
 511 Lotus Elise 1.6 2015
-512 Renault A110 1971
-513 Fiat Simca 1300 Bialbero 1962
+512 Renault Alpine A110 1971
+513 Fiat Abarth Simca 1300 Bialbero 1962
 514 Chevrolet Tru 140S 2012
 518 Nissan Murano GT-C 2006
 519 Suzuki XL-7 1998
@@ -326,7 +326,7 @@
 688 Mercedes-Benz SLK 200 2016
 689 Pontiac Trans Am 30th Anniversary 1999
 690 Renault Sport Clio V6 2001
-694 Vauxhall GT 1968
+694 Vauxhall Opel GT 1968
 696 Cadillac SRX 2006
 697 Alfa Romeo 164 Super 1993
 698 Chrysler 300 2018
@@ -390,7 +390,7 @@
 839 Suzuki Swift Rally Spec 2008
 843 Pontiac Trans Am 35th Anniversary 2002
 845 Pontiac Grand Prix GTP 1997
-849 Vauxhall Adam R2 2016
+849 Vauxhall Opel Adam R2 2016
 854 Land Rover Evoque 2018
 855 Volkswagen Golf R32 2005
 858 Porsche Boxster Spyder 2009
@@ -407,7 +407,7 @@
 878 Fiat Panda 2017
 882 Pontiac GTO Judge Ram Air IV 1970
 883 Nissan Pathfinder 1985
-884 Vauxhall Manta 400 1979
+884 Vauxhall Opel Manta 400 1979
 885 Lancia Stratos 1973
 886 BMW Z3 2.2l 2000
 888 Pontiac Grand Am 1986
@@ -433,7 +433,7 @@
 909 Jaguar XJS TWR 1982
 910 Ford Escort RS1600 1968
 911 Alfa Romeo GTA 1300 Junior 1968
-912 Renault Clio 182 Trophy 2005
+912 Renault Sport Clio 182 Trophy 2005
 913 Dodge Durango GT 2018
 914 Spyker C8 Laviolette 2001
 915 BMW 123d 2007
