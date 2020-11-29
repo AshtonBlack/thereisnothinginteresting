@@ -621,6 +621,13 @@ namespace botDBUpdater
                 }
                 sw.Close();
             }
+
+            int allcars = 0;
+            for (int i = 0; i < linenumber; i++)
+            {
+                allcars += Convert.ToInt32(fulltablearray[i, 16]);
+            }
+            textBox8.Text = allcars.ToString();
         }
 
         //Для обновы
