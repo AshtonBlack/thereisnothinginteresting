@@ -315,7 +315,7 @@
 656 RUF Turbo 3.3 1977
 658 BMW i3 S 2017
 660 Suzuki Kizashi 4x4 2010
-662 Vauxhall GT 2007
+662 Vauxhall Opel GT 2007
 663 Chevrolet K5 Blazer 5.7L 1972
 670 Subaru Alcyone SVX 1991
 671 BMW 330d 2005
@@ -343,7 +343,7 @@
 724 Mazda Jota MX-5 GT 2013
 726 Lancia Thema 8.32 1986
 727 Renault Sport Clio R.S.16 2016
-728 Renault Spider 1996
+728 Renault Sport Spider 1996
 732 Porsche 911 Carrera 1994
 735 Dodge Daytona IROC R/T 1992
 736 Nissan Murano 2002
