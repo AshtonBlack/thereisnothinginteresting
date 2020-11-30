@@ -897,7 +897,7 @@ namespace botDBUpdater
             {                
                 if(picturetoname[i,0] == textBox1.Text)
                 {
-                    label3.Text = "known";
+                    label3.Text = picturetoname[i, 1];
                     break;
                 }
             }            
@@ -1225,7 +1225,10 @@ namespace botDBUpdater
         private void button7_Click(object sender, EventArgs e)
         {
             DevKit dk = new DevKit();
-            dk.SortCarDB();
+            label15.Text = "processing...";
+            int theresult = dk.SortCarDB();
+            label14.Text = theresult.ToString();
+            label15.Text = "done!";
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -1572,7 +1575,7 @@ namespace botDBUpdater
                 return result;
             }
 
-            public void SortCarDB()
+            public int SortCarDB()
             {
                 int unknowncarsN = 0;
                 int lastcar = 2000;
@@ -1692,12 +1695,11 @@ namespace botDBUpdater
                     }
                 }
 
-                NotePad.DoLog("");
-                Console.WriteLine("найдено машин: " + foundcars);
-                Console.WriteLine("вероятных совпадений " + predictcars);
                 NotePad.DoLog("найдено машин: " + foundcars);
                 NotePad.DoLog("вероятных совпадений " + predictcars);
                 Console.WriteLine("осталось неизвестных " + (unknowncarsN - foundcars));
+
+                return foundcars;
             }
         }
 
@@ -1798,6 +1800,5 @@ namespace botDBUpdater
             b = new string(word);
             return b;
         }
-        
     }
 }
