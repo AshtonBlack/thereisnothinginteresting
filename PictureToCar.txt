@@ -81,7 +81,7 @@
 175 BMW M2 (delimited) 2016
 179 Porsche 917 1970
 183 BMW 540i 1996
-185 Mazda AZ-1 1992
+185 Mazda Autozam AZ-1 1992
 189 Lotus Elise 111S 2002
 190 Chevrolet Chevelle SS 454 1970
 191 Mazda RX-7 1992
@@ -524,3 +524,12 @@
 987 Renault Sport Clio 172 Cup 1999
 56 Mini John Cooper Works 2016
 57 Ford Focus ST Mountune 2014
+992 GMC Typhoon 1993
+243 Mercedes-Benz AMG C 63 2015
+680 Ford Escort RS2000 1974
+317 Hummer H2 SUT 2005
+772 Volkswagen Scirocco 2008
+860 Volkswagen Jetta GTI 1988
+452 Volkswagen Jetta 2019
+1000 Volkswagen Jetta 2008
+123 Mini Cooper S 2016
