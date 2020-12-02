@@ -533,3 +533,13 @@
 452 Volkswagen Jetta 2019
 1000 Volkswagen Jetta 2008
 123 Mini Cooper S 2016
+429 Porsche Boxster 2005
+995 Maserati Ghibli Cup 1992
+996 Renault Alpine A310 V6 Group 4/B 1983
+997 Spyker C12 La Turbie 2006
+453 Maserati Mistral 1963
+842 RUF CTR "Yellowbird" 1987
+857 Porsche Boxster 2015
+836 RUF 3400S 1999
+729 Jaguar XKR 100 2002
+1001 Koenigsegg CCXR Trevita 2008
