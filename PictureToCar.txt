@@ -127,7 +127,7 @@
 260 Chevrolet Cobalt SS S/C 2006
 263 Chevrolet Silverado SS 2006
 268 Mercedes-Benz CLS 400 2015
-272 Mercedes-Benz SLK 32 2004
+272 Mercedes-Benz AMG SLK 32 2004
 275 Mercedes-Benz G 500 2012
 277 Mercedes-Benz 280 GE 1990
 278 Mazda MX-5 1989
@@ -295,7 +295,7 @@
 616 Fiat Abarth 131 Rally 1976
 617 Honda Accord Type R 1997
 618 BMW 520d xDrive 2017
-620 Vauxhall Insignia VXR SuperSport 2016
+620 Vauxhall Insignia VXR S'sport 2016
 622 BMW 645ci 2003
 623 Chevrolet Camaro IROC Z/28 1990
 626 Nissan Silvia 240RS 1983
@@ -391,7 +391,7 @@
 843 Pontiac Trans Am 35th Anniversary 2002
 845 Pontiac Grand Prix GTP 1997
 849 Vauxhall Opel Adam R2 2016
-854 Land Rover Evoque 2018
+854 Land Rover Range Rover Evoque 2018
 855 Volkswagen Golf R32 2005
 858 Porsche Boxster Spyder 2009
 861 Subaru Legacy 1998
@@ -437,7 +437,7 @@
 913 Dodge Durango GT 2018
 914 Spyker C8 Laviolette 2001
 915 BMW 123d 2007
-916 Land Rover Evoque 2018
+916 Land Rover Range Rover Evoque 2018
 917 Honda City Turbo 1981
 918 Rover 623 1993
 919 Chevrolet Monte Carlo SS Jeff Gordon Edition 2003
@@ -549,3 +549,5 @@
 561 GMC Terrain 2010
 154 Honda Pilot 4WD 2016
 208 Mitsubishi Lancer Evo VI T.M. Edition 2000
+1002 Peugeot 404 1962
+1003 Donkervoort S8A 1983
