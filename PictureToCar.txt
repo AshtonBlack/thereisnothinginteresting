@@ -543,3 +543,9 @@
 836 RUF 3400S 1999
 729 Jaguar XKR 100 2002
 1001 Koenigsegg CCXR Trevita 2008
+244 Audi RS Q3 2015
+120 Chevrolet Monte Carlo SS 2006
+279 Honda Clarity 2016
+561 GMC Terrain 2010
+154 Honda Pilot 4WD 2016
+208 Mitsubishi Lancer Evo VI T.M. Edition 2000
