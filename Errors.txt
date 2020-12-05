@@ -1,8 +1,4 @@
 Не знаю статы для Mercedes-Benz SLK 32 2004
 Не знаю статы для Vauxhall Insignia VXR SuperSport 2016
-208 is unknown car
-154 is unknown car
-561 is unknown car
-1002 is unknown car
-279 is unknown car
 Не знаю статы для Land Rover Evoque 2018
+
