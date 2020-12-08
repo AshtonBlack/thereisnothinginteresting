@@ -551,3 +551,6 @@
 208 Mitsubishi Lancer Evo VI T.M. Edition 2000
 1002 Peugeot 404 1962
 1003 Donkervoort S8A 1983
+993 BMW 2002 turbo 1973
+994 Peugeot 207 S2000 2007
+1004 Chevrolet Corvette Grand Sport 2017
