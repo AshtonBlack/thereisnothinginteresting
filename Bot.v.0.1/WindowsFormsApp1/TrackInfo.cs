@@ -417,6 +417,9 @@ namespace WindowsFormsApp1
                             case 5:
                                 c2[i] = "Дождь";
                                 break;
+                            case 6:
+                                c2[i] = "Солнечно";
+                                break;
                             default:
                                 NotePad.DoErrorLog("Неизвестная погода позиция " + (i + 1));
                                 c2[i] = "неопределенная погода";

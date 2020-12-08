@@ -61,9 +61,17 @@ namespace WindowsFormsApp1
 
                 if (fc.ControlScreen())
                 {
-                    Thread.Sleep(2000);
+                    Thread.Sleep(500);
                     NotePad.DoLog("Перехожу в гараж");
                     Rat.Clk(820, 790);//Play
+                    Thread.Sleep(1000);
+                }
+
+                if (fc.BugControlScreen())
+                {
+                    Thread.Sleep(500);
+                    NotePad.DoLog("Bug with Control Screen");
+                    Rat.Clk(70, 205);//Back
                     Thread.Sleep(1000);
                 }
 
@@ -105,13 +113,10 @@ namespace WindowsFormsApp1
 
                     if (i == 2)//пересборка по покрытию
                     {
-                        if (Condition.weather != "с прояснением" && Condition.eventrq > 29)
-                        {
-                            se.ClearHand();
-                            Thread.Sleep(500);
-                            NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
-                            hm.MakingHand();
-                        }
+                        se.ClearHand();
+                        Thread.Sleep(500);
+                        NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
+                        hm.MakingHand();
                     }
 
                     if (!hm.HandCarFixed() || !hm.VerifyHand())

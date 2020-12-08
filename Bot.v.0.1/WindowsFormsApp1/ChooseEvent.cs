@@ -140,7 +140,7 @@ namespace WindowsFormsApp1
             bool isRqKnown = false;
             Condition.eventrq = 0;
             MasterOfPictures.MakePicture(RQBounds, RQPath);
-            for (int i = 1; i < 502; i++)
+            for (int i = 1; i < 501; i++)
             {
                 if(File.Exists("C:\\Bot\\RQ\\" + i.ToString() + ".jpg"))
                 {

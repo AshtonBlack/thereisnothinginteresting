@@ -60,8 +60,9 @@ namespace WindowsFormsApp1
 
             NotePad.DoLog("Смотрю рекламу на прокачку");
             Rat.Clk(965, 745); //начать просмотр
-            Thread.Sleep(70000);
-            if (fc.NoxPosition())
+            Thread.Sleep(70000);//
+
+            if (!fc.NoxPosition())
             {
                 if (fc.WrongADS())
                 {
@@ -105,6 +106,14 @@ namespace WindowsFormsApp1
             } //против глюка рекламы
             wait.CarIsUpgraded();
             Rat.Clk(635, 720); //подтвердить проркачку
+            Thread.Sleep(3000);
+            UniversalErrorDefense();
+        }
+
+        public void UpgradeAdsKiller1()//switch off ads watching
+        {
+            NotePad.DoLog("Пропускаю рекламу на прокачку");
+            Rat.Clk(570, 745); //начать просмотр
             Thread.Sleep(3000);
             UniversalErrorDefense();
         }
@@ -320,6 +329,13 @@ namespace WindowsFormsApp1
 
             do
             {
+                if (fc.NoxRestartMessage())
+                {
+                    Rat.Clk(820, 560);
+                    Thread.Sleep(2000);
+                    Rat.Clk(1200, 0);
+                    Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_3");                    
+                }//nox restart message
                 if (fc.StartIcon()) Rat.Clk(830, 375);//Icon  
                 if (fc.LostConnection()) Rat.Clk(785, 615);//reconnect
                 if (fc.Google()) Rat.Clk(890, 565);//google notify

@@ -5,7 +5,7 @@ namespace WindowsFormsApp1
 {
     static class Condition
     {
-        public static int accountLVL = 490;
+        public static int accountLVL = 500;
         public static bool[] tires { get; set; }
         public static int minrq { get; set; }
         public static int maxrq { get; set; }
@@ -414,6 +414,8 @@ namespace WindowsFormsApp1
         public static void MakeCondition(int number)
         {            
             conditionNumber = number;
+            weather = "с прояснением";
+            coverage = "Смешанное";
             CarsDB.MakeCondAuto(number);
             lowestRqCars = CarsDB.lowestcars;
             slikTyres = CarsDB.slikTyres;

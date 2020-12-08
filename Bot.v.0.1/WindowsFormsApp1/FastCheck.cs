@@ -190,6 +190,21 @@ namespace WindowsFormsApp1
             return x;
         }
 
+        public bool NoxRestartMessage()
+        {
+            bool x = false;
+            string NoxRestartMessagePath = "HeadPictures\\TestNoxRestartMessage";
+            string NoxRestartMessageOriginal = "HeadPictures\\OriginalNoxRestartMessage";
+            Rectangle NoxRestartMessageBounds = new Rectangle(405, 405, 475, 180);
+            MasterOfPictures.MakePicture(NoxRestartMessageBounds, NoxRestartMessagePath);
+            if (MasterOfPictures.Verify(NoxRestartMessagePath, NoxRestartMessageOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
         public bool NoxPosition()
         {
             bool x = false;
@@ -408,6 +423,16 @@ namespace WindowsFormsApp1
             bool x = false;
             MasterOfPictures.MakePicture(ControlScreenBounds, ControlScreenPath);
             if (MasterOfPictures.Verify(ControlScreenPath, ControlScreenOriginal)) x = true;
+            return x;
+        }
+        public bool BugControlScreen()
+        {
+            string BugControlScreenPath = "HeadPictures\\TestBugControlScreen";
+            string BugControlScreenOriginal = "HeadPictures\\OriginalBugControlScreen";
+            Rectangle BugControlScreenBounds = new Rectangle(790, 790, 85, 25);
+            bool x = false;
+            MasterOfPictures.MakePicture(BugControlScreenBounds, BugControlScreenPath);
+            if (MasterOfPictures.Verify(BugControlScreenPath, BugControlScreenOriginal)) x = true;
             return x;
         }
 

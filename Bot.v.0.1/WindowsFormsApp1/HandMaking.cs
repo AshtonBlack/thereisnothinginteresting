@@ -293,6 +293,10 @@ namespace WindowsFormsApp1
             Point a = new Point(700, 600);
             Point s = new Point(910, 600);
 
+            Point xy1 = new Point(180, 430);
+            Point xy2 = new Point(180, 630);
+
+
             do
             {
                 Rat.Clk(filter);
@@ -300,6 +304,8 @@ namespace WindowsFormsApp1
             } while (!fc.FilterIsOpenned());//100% FilterOpenner
             Thread.Sleep(200);
             Rat.Clk(clear);
+            Thread.Sleep(1000);
+            Rat.DragnDropGarage(xy1, xy2);
             Thread.Sleep(1000);
             Rat.Clk(rarity);
             Thread.Sleep(1000);

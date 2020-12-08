@@ -104,7 +104,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static string FindWeather()//merge with saves
+        public static string FindWeather1()//merge with saves
         {
             string weather;
             using (StreamReader sr = new StreamReader(@"C:\Bot\Weather.txt", System.Text.Encoding.Default))
@@ -124,7 +124,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static string FindCoverage()//merge with saves
+        public static string FindCoverage1()//merge with saves
         {
             string coverage;
             using (StreamReader sr = new StreamReader(@"C:\Bot\Coverage.txt", System.Text.Encoding.Default))

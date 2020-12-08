@@ -32,10 +32,8 @@ namespace WindowsFormsApp1
                     i = 1;
                     Rat.Clk(1060, 800);//ClubEventEnter
                     int[] a = NotePad.ReadSaves();
-                    int[] b = new int[5];
                     Condition.eventrq = a[0];
                     Condition.MakeCondition(a[1]);
-                    Array.Copy(a, 2, b, 0, 5);
                     while (i < 100)
                     {
                         i++;
@@ -138,6 +136,14 @@ namespace WindowsFormsApp1
                         if (fc.ControlScreen())
                         {
                             foundplace = true;
+                            Thread.Sleep(1000);
+                        }
+
+                        if (fc.BugControlScreen())
+                        {
+                            Thread.Sleep(500);
+                            NotePad.DoLog("Bug with Control Screen");
+                            Rat.Clk(70, 205);//Back
                             Thread.Sleep(1000);
                         }
 
