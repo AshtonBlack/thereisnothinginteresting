@@ -205,6 +205,21 @@ namespace WindowsFormsApp1
             return x;
         }
 
+        public bool BrokenInterface()
+        {
+            bool x = false;
+            string BrokenInterfacePath = "HeadPictures\\TestBrokenInterface";
+            string BrokenInterfaceOriginal = "HeadPictures\\OriginalBrokenInterface";
+            Rectangle BrokenInterfaceBounds = new Rectangle(335, 415, 610, 185);
+            MasterOfPictures.MakePicture(BrokenInterfaceBounds, BrokenInterfacePath);
+            if (MasterOfPictures.Verify(BrokenInterfacePath, BrokenInterfaceOriginal))
+            {
+                x = true;
+            }
+
+            return x;
+        }
+
         public bool NoxPosition()
         {
             bool x = false;

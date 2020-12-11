@@ -337,6 +337,7 @@ namespace WindowsFormsApp1
                     Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_3");                    
                 }//nox restart message
                 if (fc.StartIcon()) Rat.Clk(830, 375);//Icon  
+                if (fc.BrokenInterface()) Rat.Clk(380, 555);//close notify
                 if (fc.LostConnection()) Rat.Clk(785, 615);//reconnect
                 if (fc.Google()) Rat.Clk(890, 565);//google notify
                 if (fc.FBcontinue()) Rat.Clk(640, 625);//fb fucks brain
