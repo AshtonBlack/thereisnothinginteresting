@@ -1,8 +1,13 @@
-1005 is unknown car
-1006 is unknown car
-672 is unknown car
-Can't send message
-1007 is unknown car
-1008 is unknown car
-Unknown error with save picture
-331 is unknown car
+647 is unknown car
+607 is unknown car
+657 is unknown car
+1009 is unknown car
+998 is unknown car
+274 is unknown car
+Не знаю статы для Nissan 240Z Rally Car 1969
+1010 is unknown car
+564 is unknown car
+не дождался улучшения за рекламу
+1011 is unknown car
+811 is unknown car
+308 is unknown car
