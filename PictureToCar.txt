@@ -555,3 +555,9 @@
 994 Peugeot 207 S2000 2007
 1004 Chevrolet Corvette Grand Sport 2017
 583 GMC Caballero Diablo 1984
+672 Infiniti M45 2003
+331 Ford Fiesta ST 2016
+1005 Porsche Cayenne Turbo 2017
+1006 Peugeot e-Legend 2018
+1007 Porsche 911 Carrera S Cabriolet 2016
+1008 Fiat Abarth Grande Punto S2000 2006
