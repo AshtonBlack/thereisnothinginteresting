@@ -232,7 +232,7 @@
 477 Nissan 370Z 2011
 482 BMW 650i Convertible 2012
 485 BMW 320d 2005
-487 Nissan 240Z Rally Car 1969
+487 Nissan Datsun 240Z Rally Car 1969
 488 Vauxhall Opel Kadett GT/E 1975
 489 BMW M3 Convertible 2001
 493 Land Rover Range Rover 4.4 V8 2002
@@ -561,3 +561,14 @@
 1006 Peugeot e-Legend 2018
 1007 Porsche 911 Carrera S Cabriolet 2016
 1008 Fiat Abarth Grande Punto S2000 2006
+647 Ford Mustang 2.3 2016
+607 Ford Ranger 2016
+657 BMW Z8 2000
+1009 Jaguar XK8 1997
+1010 Maserati Quattroporte GTS 2016
+1011 Maserati Ghibli SS Spyder 1969
+998 Mercedes-Benz AMG C 55 2007
+274 Mercedes-Benz E 320 CDI 2005
+564 Chevrolet Camaro SS Convertible 2012
+811 Mitsubishi L200 2016
+308 Nissan Pathfinder 2006
