@@ -201,6 +201,7 @@ namespace WindowsFormsApp1
             bool x = false;
             int year;
             string tag;
+            string bodytype;
             switch (n)
             {
                 case 0:
@@ -276,10 +277,8 @@ namespace WindowsFormsApp1
                     }
                     break;
                 case 13:
-                    if (fulltablearray[car, 1] == "pickup")
-                    {
-                        x = true;
-                    }
+                    bodytype = "pickup";
+                    x = SearchBody(car, bodytype);
                     break;
                 case 14:
                     if (fulltablearray[car, 8] == "Mercedes-Benz")
@@ -331,7 +330,7 @@ namespace WindowsFormsApp1
                     break;
                 case 22:
                     tag = "French Renaissance";
-                    x = (SearchTag(car, tag));
+                    x = SearchTag(car, tag);
                     break;
                 case 23:
                     if (fulltablearray[car, 4] == "France")
@@ -451,16 +450,12 @@ namespace WindowsFormsApp1
                     }
                     break;
                 case 43:
-                    if (fulltablearray[car, 1] == "saloon")
-                    {
-                        x = true;
-                    }
+                    bodytype = "saloon";
+                    x = SearchBody(car, bodytype);
                     break;
                 case 44:
-                    if (fulltablearray[car, 1] == "hatchback")
-                    {
-                        x = true;
-                    }
+                    bodytype = "hatchback";
+                    x = SearchBody(car, bodytype);
                     break;
                 case 45:
                     tag = "Eco Friendly";
@@ -527,10 +522,8 @@ namespace WindowsFormsApp1
                     }
                     break;
                 case 56:
-                    if (fulltablearray[car, 1] == "pickup")
-                    {
-                        x = true;
-                    }
+                    bodytype = "pickup";
+                    x = SearchBody(car, bodytype);
                     break;
                 case 57:
                     tag = "German Renaissance";
@@ -608,10 +601,33 @@ namespace WindowsFormsApp1
                     x = (SearchTag(car, tag));
                     break;
                 case 70:
-                    if (fulltablearray[car, 1] == "roadster" || fulltablearray[car, 1] == "cabrio")
+                    bool x1;
+                    bool x2;
+                    bodytype = "roadster";
+                    x1 = SearchBody(car, bodytype);
+                    bodytype = "cabrio";
+                    x2 = SearchBody(car, bodytype);
+                    if (x1 || x2)
                     {
                         x = true;
                     }
+                    break;
+                case 71:
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1989 && year < 2000)
+                    {
+                        x = true;
+                    }
+                    break;
+                case 72:
+                    if (fulltablearray[car, 5] == "rwd")
+                    {
+                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        if (year > 1999 && year < 2010)
+                        {
+                            x = true;
+                        }
+                    }                    
                     break;
                 default:
                     break;
@@ -629,6 +645,31 @@ namespace WindowsFormsApp1
                 for (int j = 0; j < tag.Length; j++)
                 {
                     if (cartags[j + i] != tag[j])
+                    {
+                        isthesame = false;
+                        break;
+                    }
+                }
+                if (isthesame)
+                {
+                    x = true;
+                    break;
+                }
+            }
+
+            return x;
+        }
+
+        public static bool SearchBody(int car, string bodytype)
+        {
+            bool x = false;
+            string cartags = fulltablearray[car, 1];
+            for (int i = 0; i < ((cartags.Length - bodytype.Length) + 1); i++)
+            {
+                bool isthesame = true;
+                for (int j = 0; j < bodytype.Length; j++)
+                {
+                    if (cartags[j + i] != bodytype[j])
                     {
                         isthesame = false;
                         break;
