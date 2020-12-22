@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Threading;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //not Universal hardwork
 {
     public class SpecialEvents
     {

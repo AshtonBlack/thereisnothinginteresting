@@ -1,11 +1,66 @@
 ﻿using System.Drawing;
 using System.Threading;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal
 {
     class FastCheck
     {
         SpecialEvents se = new SpecialEvents();
+
+        Point acceptbounty = new Point(635, 750);
+
+        Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
+        Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
+        Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
+        Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
+        Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
+        Rectangle carMenu = new Rectangle(1075, 345, 60, 60);
+        Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
+        Rectangle EventBounds = new Rectangle(196, 187, 134, 30);//for eventpage
+        Rectangle wrongParty = new Rectangle(830, 615, 150, 30);
+        Rectangle readyToRace = new Rectangle(1075, 795, 95, 20);
+        Rectangle startIcon = new Rectangle(805, 350, 50, 40);
+        Rectangle startButton = new Rectangle(291, 593, 85, 21);
+        Rectangle headPage = new Rectangle(196, 187, 124, 30);
+        Rectangle wrongADS = new Rectangle(63, 193, 25, 25);
+        Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
+        Rectangle noActiveBooster = new Rectangle(1023, 657, 43, 19);
+        Rectangle lostConnection = new Rectangle(365, 385, 300, 30);
+        Rectangle noxRestartMessage = new Rectangle(405, 405, 475, 180);
+        Rectangle brokenInterface = new Rectangle(335, 415, 610, 185);
+        Rectangle noxPosition = new Rectangle(1221, 143, 18, 15);
+        Rectangle noxPositionWithRepair = new Rectangle(1190, 135, 12, 12);
+        Rectangle wrongNoxPosition = new Rectangle(880, 20, 15, 15);
+        Rectangle typeIsOpenned = new Rectangle(1082, 250, 25, 20);
+        Rectangle filterIsOpenned = new Rectangle(935, 250, 25, 20);
+        Rectangle missClick = new Rectangle(1136, 231, 20, 20);
+        Rectangle google = new Rectangle(875, 555, 25, 15);
+        Rectangle fbcontinue = new Rectangle(580, 615, 120, 20);
+        Rectangle SeasonEndsBounds = new Rectangle(520, 645, 240, 25);
+        Rectangle activeEvent = new Rectangle(1055, 790, 20, 20);
+        Rectangle controlScreen = new Rectangle(790, 790, 85, 25);
+        Rectangle clubMap = new Rectangle(800, 720, 30, 30);
+        Rectangle raceOn = new Rectangle(60, 185, 40, 40);
+        Rectangle ending = new Rectangle(723, 718, 189, 20);
+        Rectangle inGarage = new Rectangle(200, 190, 90, 30); //for itsgarage
+        Rectangle eventEnds = new Rectangle(560, 580, 160, 20);
+        Rectangle upgrade = new Rectangle(425, 251, 135, 30);
+        Rectangle error = new Rectangle(546, 794, 185, 25);
+        Rectangle eventisFull = new Rectangle(560, 564, 156, 20);
+        Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);
+        Rectangle acceptThrow = new Rectangle(885, 615, 35, 25);
+        Rectangle wonSet = new Rectangle(370, 540, 230, 50);
+        Rectangle lostSet = new Rectangle(370, 540, 325, 45);
+        Rectangle drawSet = new Rectangle(370, 540, 195, 45);
+        Rectangle dailyBounty = new Rectangle(80, 200, 290, 30);
+        Rectangle dailyBountyEnd = new Rectangle(560, 760, 160, 20);
+        Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);
+        Rectangle faultNox = new Rectangle(933, 314, 26, 26);
+        Rectangle chooseanEnemy = new Rectangle(154, 605, 35, 35);
+        Rectangle raceEnd = new Rectangle(545, 750, 190, 30);
+        Rectangle cardBug = new Rectangle(860, 290, 115, 15);
+        Rectangle inCommonEvent = new Rectangle(935, 790, 90, 25);
+        Rectangle clubBounty = new Rectangle(520, 740, 240, 25);
 
         public bool AnyHandSlotIsEmpty()
         {
@@ -24,30 +79,31 @@ namespace WindowsFormsApp1
             return x;
         }
 
+        public bool MainFrameBW(Rectangle bounds, string name, int errors)
+        {
+            bool x = false;
+            string testPicture = "HeadPictures\\Test" + name;
+            string originalPicture = "HeadPictures\\Original" + name;
+            MasterOfPictures.BW2Capture(bounds, testPicture);
+            if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors)) x = true;
+            return x;
+        }
+
         public bool CarMenu()
         {
-            Rectangle bounds = new Rectangle(1075, 345, 60, 60);
-            bool x = MainFrame(bounds, "CarMenu");
+            bool x = MainFrame(carMenu, "CarMenu");
             return x;
         }
 
         public int CheckHandSlot(int startslot, int endslot)
         {
-            int x = 0;
-            Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
-            Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
-            Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
-            Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
-            Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
+            int x = 0;            
             Rectangle[] handSlots = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
-
-            string CarSlotPath = "Check\\TestCarSlot";
-            string CarSlotOriginal = "Check\\OriginalCarSlot";
 
             for (int i = (startslot - 1); i < endslot; i++)
             {
-                MasterOfPictures.MakePicture(handSlots[i], CarSlotPath + i);
-                if (MasterOfPictures.Verify(CarSlotPath + i, CarSlotOriginal + i))
+                bool y = MainFrame(handSlots[i], "CarSlot" + i);
+                if (y)
                 {
                     NotePad.DoLog("Тачка на " + (i + 1) + " позиции отсутствует");
                     x++;
@@ -63,8 +119,7 @@ namespace WindowsFormsApp1
             string ClickedWrongADSPath = "HeadPictures\\TestClickedWrongADS";
             string ClickedWrongADSOriginal = "HeadPictures\\OriginalClickedWrongADS";
             string ClickedWrongADSOriginal1 = "HeadPictures\\OriginalClickedWrongADS1";
-            string ClickedWrongADSOriginal2 = "HeadPictures\\OriginalClickedWrongADS2";
-            Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
+            string ClickedWrongADSOriginal2 = "HeadPictures\\OriginalClickedWrongADS2";            
             MasterOfPictures.MakePicture(ClickedWrongADSBounds, ClickedWrongADSPath);
             if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal)) x = true;
             if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal1)) x = true;
@@ -77,8 +132,7 @@ namespace WindowsFormsApp1
             bool x = false;
             string EventPath = "HeadPictures\\TestEvent";
             string EventOriginal = "HeadPictures\\OriginalEvent";
-            string EventOriginal1 = "HeadPictures\\OriginalEvent2";
-            Rectangle EventBounds = new Rectangle(196, 187, 134, 30);
+            string EventOriginal1 = "HeadPictures\\OriginalEvent2";            
             MasterOfPictures.MakePicture(EventBounds, EventPath);
             if (MasterOfPictures.Verify(EventPath, EventOriginal)) x = true;
             if (MasterOfPictures.Verify(EventPath, EventOriginal1)) x = true;
@@ -86,96 +140,81 @@ namespace WindowsFormsApp1
         }
 
         public bool WrongParty()
-        {
-            Rectangle bounds = new Rectangle(830, 615, 150, 30);
-            bool x = MainFrame(bounds, "WrongParty");
+        {            
+            bool x = MainFrame(wrongParty, "WrongParty");
             return x;
         }
 
         public bool ReadyToRace()
-        {
-            Rectangle bounds = new Rectangle(1075, 795, 95, 20);
-            bool x = MainFrame(bounds, "GarageRaceButton");
+        {            
+            bool x = MainFrame(readyToRace, "GarageRaceButton");
             return x;
         }       
 
         public bool StartIcon()
-        {
-            Rectangle bounds = new Rectangle(805, 350, 50, 40);            
-            bool x = MainFrame(bounds, "Icon");
+        {                       
+            bool x = MainFrame(startIcon, "Icon");
             return x;
         }
 
         public bool StartButton()
         {
-            Rectangle bounds = new Rectangle(291, 593, 85, 21);
-            bool x = MainFrame(bounds, "Start");
+            bool x = MainFrame(startButton, "Start");
             return x;
         }
 
         public bool HeadPage()
         {            
-            Rectangle bounds = new Rectangle(196, 187, 124, 30);
-            bool x = MainFrame(bounds, "Head");
+            bool x = MainFrame(headPage, "Head");
             return x;
         }        
 
         public bool WrongADS()
         {
-            Rectangle bounds = new Rectangle(63, 193, 25, 25);
-            bool x = MainFrame(bounds, "WrongADS");
+            bool x = MainFrame(wrongADS, "WrongADS");
             return x;
         }
 
         public bool CarIsUpgraded()
         {
-            Rectangle bounds = new Rectangle(576, 707, 128, 27);
-            bool x = MainFrame(bounds, "CarIsUpgraded");
+            bool x = MainFrame(carIsUpgraded, "CarIsUpgraded");
             return x;
         }
 
         public bool NoActiveBooster()
         {
-            Rectangle bounds = new Rectangle(1023, 657, 43, 19);
-            bool x = MainFrame(bounds, "Booster");
+            bool x = MainFrame(noActiveBooster, "Booster");
             return x;
         }
 
         public bool LostConnection()
         {
-            Rectangle bounds = new Rectangle(365, 385, 300, 30);
-            bool x = MainFrame(bounds, "LostConnection");
+            bool x = MainFrame(lostConnection, "LostConnection");
             return x;
         }
 
         public bool NoxRestartMessage()
         {
-            Rectangle bounds = new Rectangle(405, 405, 475, 180);
-            bool x = MainFrame(bounds, "NoxRestartMessage");
+            bool x = MainFrame(noxRestartMessage, "NoxRestartMessage");
             return x;
         }
 
         public bool BrokenInterface()
         {
-            Rectangle bounds = new Rectangle(335, 415, 610, 185);
-            bool x = MainFrame(bounds, "BrokenInterface");
+            bool x = MainFrame(brokenInterface, "BrokenInterface");
             return x;
         }
 
         public bool NoxPosition()
         {
-            Rectangle bounds = new Rectangle(1221, 143, 18, 15);
-            bool x = MainFrame(bounds, "NoxPosition");
+            bool x = MainFrame(noxPosition, "NoxPosition");
             return x;
         }
 
         public void NoxPositionWithRepair()
-        {            
-            string NoxPositionWithRepairPath = "HeadPictures\\TestNoxPositionWithRepair";
-            string NoxPositionWithRepairOriginal = "HeadPictures\\OriginalNoxPositionWithRepair";
-            Rectangle NoxPositionWithRepairBounds = new Rectangle(1190, 135, 12, 12);
-            MasterOfPictures.MakePicture(NoxPositionWithRepairBounds, NoxPositionWithRepairPath);
-            if (MasterOfPictures.Verify(NoxPositionWithRepairPath, NoxPositionWithRepairOriginal))
+        {
+            bool x = MainFrame(noxPositionWithRepair, "NoxPositionWithRepair");
+            if (x)
             {
                 se.RepairNoxPosition();
                 NotePad.DoErrorLog("fail after ads");
@@ -184,43 +223,37 @@ namespace WindowsFormsApp1
 
         public bool WrongNoxPosition()
         {
-            Rectangle bounds = new Rectangle(880, 20, 15, 15);
-            bool x = MainFrame(bounds, "WrongNoxPosition");
+            bool x = MainFrame(wrongNoxPosition, "WrongNoxPosition");
             return x;
         }
 
         public bool TypeIsOpenned()
         {
-            Rectangle bounds = new Rectangle(1082, 250, 25, 20);
-            bool x = MainFrame(bounds, "TypeIsOpenned");
+            bool x = MainFrame(typeIsOpenned, "TypeIsOpenned");
             return x;
         }
 
         public bool FilterIsOpenned()
         {
-            Rectangle bounds = new Rectangle(935, 250, 25, 20);
-            bool x = MainFrame(bounds, "FilterIsOpenned");
+            bool x = MainFrame(filterIsOpenned, "FilterIsOpenned");
             return x;
         }
 
         public bool MissClick()
         {
-            Rectangle bounds = new Rectangle(1136, 231, 20, 20);
-            bool x = MainFrame(bounds, "WrongClick");
+            bool x = MainFrame(missClick, "WrongClick");
             return x;
         }
 
         public bool Google()
         {
-            Rectangle bounds = new Rectangle(875, 555, 25, 15);
-            bool x = MainFrame(bounds, "Google");
+            bool x = MainFrame(google, "Google");
             return x;
         }
 
         public bool FBcontinue()
         {
-            Rectangle bounds = new Rectangle(580, 615, 120, 20);
-            bool x = MainFrame(bounds, "FBcontinue");
+            bool x = MainFrame(fbcontinue, "FBcontinue");
             return x;
         }
 
@@ -230,7 +263,6 @@ namespace WindowsFormsApp1
             string SeasonEndsPath = "HeadPictures\\TestSeasonEnds";
             string SeasonEndsOriginal = "HeadPictures\\OriginalSeasonEnds";
             string SeasonEndsOriginal1 = "HeadPictures\\OriginalSeasonEnds1";
-            Rectangle SeasonEndsBounds = new Rectangle(520, 645, 240, 25);
             MasterOfPictures.MakePicture(SeasonEndsBounds, SeasonEndsPath);
             if (MasterOfPictures.Verify(SeasonEndsPath, SeasonEndsOriginal))
             {
@@ -245,20 +277,15 @@ namespace WindowsFormsApp1
 
         public bool Bounty()
         {
-            bool x = false;
-            string ClubBounty = "HeadPictures\\TestClubBounty";
-            string ClubBountyOriginal = "HeadPictures\\OriginalClubBounty";
-            Rectangle ClubBountyBounds = new Rectangle(520, 740, 240, 25);
-            MasterOfPictures.MakePicture(ClubBountyBounds, ClubBounty);
-            if (MasterOfPictures.Verify(ClubBountyOriginal, ClubBounty))
+            bool x = MainFrame(clubBounty, "ClubBounty");
+            if (x)
             {
                 if (NoActiveBooster())
                 {
                     se.ActivateClubBooster();
                 }
-
                 Thread.Sleep(200);
-                Rat.Clk(635, 750);
+                Rat.Clk(acceptbounty);
                 x = true;
             }
             return x;
@@ -266,43 +293,37 @@ namespace WindowsFormsApp1
 
         public bool ActiveEvent()
         {
-            Rectangle bounds = new Rectangle(1055, 790, 20, 20);
-            bool x = MainFrame(bounds, "ButtonToEvent");
+            bool x = MainFrame(activeEvent, "ButtonToEvent");
             return x;
         }
         
         public bool ControlScreen()
         {
-            Rectangle bounds = new Rectangle(790, 790, 85, 25);
-            bool x = MainFrame(bounds, "ControlScreen");
+            bool x = MainFrame(controlScreen, "ControlScreen");
             return x;
         }
 
         public bool BugControlScreen()
         {
-            Rectangle bounds = new Rectangle(790, 790, 85, 25);
-            bool x = MainFrame(bounds, "BugControlScreen");
+            bool x = MainFrame(controlScreen, "BugControlScreen");
             return x;
         }
 
         public bool ClubMap()
         {
-            Rectangle bounds = new Rectangle(800, 720, 30, 30);
-            bool x = MainFrame(bounds, "ClubMap");
+            bool x = MainFrame(clubMap, "ClubMap");
             return x;
         }
 
         public bool RaceOn()
         {
-            Rectangle bounds = new Rectangle(60, 185, 40, 40);
-            bool x = MainFrame(bounds, "Race");
+            bool x = MainFrame(raceOn, "Race");
             return x;
         }
 
         public bool Ending()
         {
-            Rectangle bounds = new Rectangle(723, 718, 189, 20);
-            bool x = MainFrame(bounds, "PointsForRace");
+            bool x = MainFrame(ending, "PointsForRace");
             return x;
         }
 
@@ -312,40 +333,25 @@ namespace WindowsFormsApp1
             {
                 se.RestartBot();
             } //если свернулась игра
-            bool x = false;
-            string InGaragePath = "HeadPictures\\TestInGarage";
-            string InGarageOriginal = "HeadPictures\\OriginalInGarage";
-            Rectangle InGarageBounds = new Rectangle(200, 190, 90, 30);
-            MasterOfPictures.MakePicture(InGarageBounds, InGaragePath);
-            if (MasterOfPictures.Verify(InGaragePath, InGarageOriginal))
-            {
-                x = true;
-            }
+            bool x = MainFrame(inGarage, "InGarage");
             return x;
         }
 
         public bool EventEnds()
         {
-            Rectangle bounds = new Rectangle(560, 580, 160, 20);
-            bool x = MainFrame(bounds, "EventEnds");
+            bool x = MainFrame(eventEnds, "EventEnds");
             return x;
         }
 
         public bool Upgrade()
         {
-            Rectangle bounds = new Rectangle(425, 251, 135, 30);
-            bool x = MainFrame(bounds, "Upgrade");
+            bool x = MainFrame(upgrade, "Upgrade");
             return x;
         }
 
         public bool ServerError()
         {
-            bool x = false;
-            string ErrorPath = "HeadPictures\\TestError";
-            string ErrorOriginal = "HeadPictures\\OriginalError";
-            Rectangle ErrorBounds = new Rectangle(546, 794, 185, 25);
-            MasterOfPictures.BW2Capture(ErrorBounds, ErrorPath);
-            if (MasterOfPictures.VerifyBW(ErrorPath, ErrorOriginal, 100)) x = true;
+            bool x = MainFrameBW(error, "Error", 100);
             return x;
         }
 
@@ -360,28 +366,27 @@ namespace WindowsFormsApp1
 
         public bool EventisFull()
         {
-            Rectangle bounds = new Rectangle(560, 564, 156, 20);
-            bool x = MainFrame(bounds, "FullEvent");
+            bool x = MainFrame(eventisFull, "FullEvent");
+            return x;
+        }
+
+        public bool ArrangementWindow()
+        {
+            bool x = MainFrame(arrangementWindow, "Arrangement");
             return x;
         }
 
         public bool RedReadytoRace()
         {
-            Rectangle bounds = new Rectangle(1075, 795, 95, 20);
-            bool x = MainFrame(bounds, "RedRaceButton");
+            bool x = MainFrame(readyToRace, "RedRaceButton");
             return x;
         }
 
         public bool EnemyIsReady()
         {
-            bool x = false;
-            string ChooseanEnemyPath = "HeadPictures\\TestChooseanEnemy";
-            string ChooseanEnemyOriginal = "HeadPictures\\OriginalChooseanEnemy";
-            Rectangle ChooseanEnemyBounds = new Rectangle(154, 605, 35, 35);
-            MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
-            if (MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
+            bool x = MainFrameBW(chooseanEnemy, "ChooseanEnemy", 90);
+            if (x)
             {
-                x = true;
                 NotePad.DoLog("противник загрузился, готов фотать трассы");
             }
             return x;
@@ -389,85 +394,67 @@ namespace WindowsFormsApp1
 
         public bool RaceEnd()
         {
-            bool x = false;
-            string RaceEndPath = "HeadPictures\\TestRaceEnd";
-            string RaceEndOriginal = "HeadPictures\\OriginalRaceEnd";
-            Rectangle RaceEndBounds = new Rectangle(545, 750, 190, 30);
-            MasterOfPictures.BW2Capture(RaceEndBounds, RaceEndPath);
-            if (MasterOfPictures.VerifyBW(RaceEndPath, RaceEndOriginal, 220))//для начала проверяем на 100 ошибок
+            bool x = MainFrameBW(raceEnd, "RaceEnd", 220);
+            if (x)
             {
-                x = true;
-                NotePad.DoLog("первую трассу проехал, жму пропуск");                
+                NotePad.DoLog("первую трассу проехал, жму пропуск");
             }
             return x;
         }
 
         public bool AcceptThrow()
         {
-            Rectangle bounds = new Rectangle(885, 615, 35, 25);
-            bool x = MainFrame(bounds, "AcceptThrow");
+            bool x = MainFrame(acceptThrow, "AcceptThrow");
             return x;
         }
 
         public bool WonSet()
         {
-            Rectangle bounds = new Rectangle(370, 540, 230, 50);
-            bool x = MainFrame(bounds, "WonSet");
+            bool x = MainFrame(wonSet, "WonSet");
             return x;
         }
 
         public bool LostSet()
         {
-            Rectangle bounds = new Rectangle(370, 540, 325, 45);
-            bool x = MainFrame(bounds, "LostSet");
+            bool x = MainFrame(lostSet, "LostSet");
             return x;
         }
 
         public bool DrawSet()
         {
-            Rectangle bounds = new Rectangle(370, 540, 195, 45);
-            bool x = MainFrame(bounds, "DrawSet");
+            bool x = MainFrame(drawSet, "DrawSet");
             return x;
         }
 
         public bool DailyBounty()
         {
-            Rectangle bounds = new Rectangle(80, 200, 290, 30);
-            bool x = MainFrame(bounds, "DailyBounty");
+            bool x = MainFrame(dailyBounty, "DailyBounty");
             return x;
         }
 
         public bool DailyBountyEnd()
         {
-            Rectangle bounds = new Rectangle(560, 760, 160, 20);
-            bool x = MainFrame(bounds, "DailyBountyEnd");
+            bool x = MainFrame(dailyBountyEnd, "DailyBountyEnd");
             return x;
         }
 
         public bool TimeIsOut()
         {
-            Rectangle bounds = new Rectangle(565, 580, 155, 20);
-            bool x = MainFrame(bounds, "TimeIsOut");
+            bool x = MainFrame(timeIsOut, "TimeIsOut");
             return x;
         }
 
         public bool FaultNox()
         {
-            Rectangle bounds = new Rectangle(933, 314, 26, 26);
-            bool x = MainFrame(bounds, "FaultNox");
+            bool x = MainFrame(faultNox, "FaultNox");
             return x;
         }
 
         public bool CardBug()
         {
-            bool x = false;
-            string CardBugPath = "HeadPictures\\TestCardBug";
-            string CardBugOriginal = "HeadPictures\\OriginalCardBug";
-            Rectangle CardBugBounds = new Rectangle(860, 290, 115, 15);
-            MasterOfPictures.BW2Capture(CardBugBounds, CardBugPath);
-            if (MasterOfPictures.VerifyBW(CardBugPath, CardBugOriginal, 130))
+            bool x = MainFrameBW(cardBug, "CardBug", 130);
+            if (x)
             {
-                x = true;
                 NotePad.DoLog("Вылезла карта");
             }
             return x;
@@ -475,14 +462,9 @@ namespace WindowsFormsApp1
 
         public bool InCommonEvent()
         {
-            bool x = false;
-            string InCommonEventPath = "HeadPictures\\TestInCommonEvent";
-            string InCommonEventOriginal = "HeadPictures\\OriginalInCommonEvent";
-            Rectangle InCommonEventBounds = new Rectangle(935, 790, 90, 25);
-            MasterOfPictures.BW2Capture(InCommonEventBounds, InCommonEventPath);
-            if (MasterOfPictures.Verify(InCommonEventPath, InCommonEventOriginal))
+            bool x = MainFrameBW(inCommonEvent, "InCommonEvent", 10);
+            if (x)
             {
-                x = true;
                 NotePad.DoLog("Зашел в событие");
             }
             return x;

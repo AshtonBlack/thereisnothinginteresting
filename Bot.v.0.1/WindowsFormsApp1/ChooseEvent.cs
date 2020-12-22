@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal
 {
     class ChooseEvent
     {
@@ -17,14 +17,19 @@ namespace WindowsFormsApp1
         Rectangle RQBounds = new Rectangle(1135, 370, 85, 18);
         string RQPath = "RQ\\test";
 
+        Point clktoClubs = new Point(240, 500);
+        //events
+        Point eventN1 = new Point(960, 570);
+        Point eventN2 = new Point(960, 660);
+        Point eventN3 = new Point(960, 750);
+        Point eventN4 = new Point(960, 830);
+        Point toeventlist = new Point(920, 270);
+        
+
         public int Selection(int eventN)
         {
-            SpecialEvents se = new SpecialEvents();
-            Point n1 = new Point(960, 570);
-            Point n2 = new Point(960, 660);
-            Point n3 = new Point(960, 750);
-            Point n4 = new Point(960, 830);
-            Point[] events = { n1, n2, n3, n4 };
+            SpecialEvents se = new SpecialEvents();            
+            Point[] events = { eventN1, eventN2, eventN3, eventN4 };
 
             int c = 0;//подсчет известных эвентов
             for (int i = 0; i < 100; i++)
@@ -43,7 +48,7 @@ namespace WindowsFormsApp1
                 if (fc.EventPage())
                 {
                     NotePad.DoLog("Вылетел из клубов");
-                    Rat.Clk(240, 500);//Clubs
+                    Rat.Clk(clktoClubs);//Clubs
                     flag = false;
                     Thread.Sleep(15000);
                 }
@@ -127,7 +132,7 @@ namespace WindowsFormsApp1
 
                     if (x == 500)
                     {
-                        Rat.Clk(920, 270);//Back
+                        Rat.Clk(toeventlist);//Back
                         Thread.Sleep(3000);
                     }
                     else break;

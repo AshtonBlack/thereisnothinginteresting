@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal make universal dragndrop
 {
     class Rat
     {
@@ -110,13 +110,13 @@ namespace WindowsFormsApp1
                     se.RestartBot();
                 }
                 x1 = MasterOfPictures.PixelIndicator(xy1);//контрольный пиксель
-                Rat.MoveMouse(xy1);
+                MoveMouse(xy1);
                 Thread.Sleep(100);
-                Rat.LMBdown(xy1);
+                LMBdown(xy1);
                 Thread.Sleep(1000);
-                Rat.MoveMouse(xy2);
+                MoveMouse(xy2);
                 Thread.Sleep(2500);
-                Rat.LMBup(xy2);
+                LMBup(xy2);
                 Thread.Sleep(500);
                 x2 = MasterOfPictures.PixelIndicator(xy1);//контрольный пиксель фото 2
                 error++;

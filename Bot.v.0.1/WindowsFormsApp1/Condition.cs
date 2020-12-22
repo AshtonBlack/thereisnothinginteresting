@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Threading;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
 {
     static class Condition
     {
@@ -23,8 +23,8 @@ namespace WindowsFormsApp1
         static int[] standartTyres { get; set; }
         static int[] allseasonTyres { get; set; }
         static int[] offroadTyres { get; set; }
-        static int[] lowestRqCars { get; set; } //записывать рк
-        
+        static int[] lowestRqCars { get; set; } //записывать рк        
+
         static int[] rqCost = { 19, 29, 39, 49, 64, 79, 100 };
 
         static Condition() { }
@@ -363,7 +363,7 @@ namespace WindowsFormsApp1
         }
 
         static void ChooseTyresMechanic()
-        {            
+        {
             Point tiresMenu = new Point(200, 635);
 
             Point dynamic = new Point(490, 450);

@@ -25,3 +25,4 @@ D:\Bot.v.0.1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.re
 D:\Bot.v.0.1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
 D:\Bot.v.0.1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 D:\Bot.v.0.1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+D:\Bot.v.0.1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal
 {
     static class CarsDB
     {
@@ -628,6 +628,13 @@ namespace WindowsFormsApp1
                             x = true;
                         }
                     }                    
+                    break;
+                case 73:
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1969 && year < 1980)
+                    {
+                        x = true;
+                    }
                     break;
                 default:
                     break;

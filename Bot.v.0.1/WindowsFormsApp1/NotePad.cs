@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal but update saves
 {
     class NotePad
     {
@@ -133,6 +133,87 @@ namespace WindowsFormsApp1
                 sr.Close();
             }
             return coverage;
+        }
+
+        public static int GetInfoFileLength(string path)
+        {
+            int length = 0;
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null && line != " " && line != "")
+                {
+                    length++;
+                }
+                sr.Close();
+            }
+            return length;
+        }
+
+        public static string[,] ReadInfoFromTXT(string path)
+        {
+            int length = 0;
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null && line != " " && line != "")
+                {
+                    length++;
+                }
+                sr.Close();
+            }
+            string[,] picturetoname = new string[length, 2];
+
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    string theline = sr.ReadLine();
+                    picturetoname[i, 0] = Transform3(theline, 1);
+                    picturetoname[i, 1] = Transform3(theline, 2);
+                }
+                sr.Close();
+            }
+
+            return picturetoname;
+        }
+
+        public static string Transform3(string t, int wordN)
+        {
+            string forreturn;
+            string a = t.Trim();
+            char[] word = a.ToCharArray();
+
+            int wordBlength = 0;
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (word[i] != ' ')
+                {
+                    wordBlength++;
+                }
+                else break;
+            }
+            char[] wordB = new char[wordBlength];
+            for (int i = 0; i < wordB.Length; i++)
+            {
+                wordB[i] = word[i];
+            }
+
+            char[] wordC = new char[word.Length - wordBlength - 1];
+            for (int i = 0; i < wordC.Length; i++)
+            {
+                wordC[i] = word[i + wordBlength + 1];
+            }
+
+            if (wordN == 1)
+            {
+                forreturn = new string(wordB);
+            }
+            else
+            {
+                forreturn = new string(wordC);
+            }
+            return forreturn;
         }
     }
 }

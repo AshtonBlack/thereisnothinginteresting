@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal
 {
     public class MasterOfPictures
     {
@@ -36,8 +36,7 @@ namespace WindowsFormsApp1
                 catch(Exception ex)
                 {
                     NotePad.DoErrorLog("Unknown error with save picture");
-                }
-                
+                }                
             }
             gdi.Dispose();
             captured.Dispose();

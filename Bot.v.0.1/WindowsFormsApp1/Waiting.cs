@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using System.Threading;
+﻿using System.Threading;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal delete the rest
 {
     class Waiting
     {
@@ -30,53 +29,41 @@ namespace WindowsFormsApp1
         
         public void ReadytoRace()
         {
-            string GarageRaceButtonPath = "HeadPictures\\TestGarageRaceButton";
-            string GarageRaceButtonOriginal = "HeadPictures\\OriginalGarageRaceButton";
-            Rectangle GarageRaceButtonBounds = new Rectangle(1075, 795, 95, 20);
+            bool x;            
             do
             {
                 se.UniversalErrorDefense();
-                MasterOfPictures.MakePicture(GarageRaceButtonBounds, GarageRaceButtonPath);
+                x = fc.ReadyToRace();
                 Thread.Sleep(500);
-            } while (!MasterOfPictures.Verify(GarageRaceButtonPath, GarageRaceButtonOriginal));
+            } while (!x);
         }
 
         public void ArrangementWindow()
         {
-            string ArrangementPath = "HeadPictures\\TestArrangement";
-            string ArrangementOriginal = "HeadPictures\\OriginalArrangement";
-            Rectangle ArrangementBounds = new Rectangle(75, 515, 5, 5);
+            bool x;
             do
             {
                 se.UniversalErrorDefense();
-                MasterOfPictures.MakePicture(ArrangementBounds, ArrangementPath);
+                x = fc.ArrangementWindow();
                 Thread.Sleep(1000);
-            } while (!MasterOfPictures.Verify(ArrangementPath, ArrangementOriginal));
+            } while (!x);
         }
 
         public void RaceOn()
-        {
-            SpecialEvents se = new SpecialEvents();
-            string RacePath = "HeadPictures\\TestRace";
-            string RaceOriginal = "HeadPictures\\OriginalRace";
-            string RaceOriginal1 = "HeadPictures\\OriginalRace1";
-            Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
+        {            
             int waiter = 0;
-            bool x = false;
+            bool x;
             do
             {
                 if (waiter == 180) se.RestartBot();
                 se.UniversalErrorDefense();
-                MasterOfPictures.MakePicture(RaceBounds, RacePath);
                 Thread.Sleep(1000);
                 waiter++;
-                if (MasterOfPictures.Verify(RacePath, RaceOriginal) || MasterOfPictures.Verify(RacePath, RaceOriginal1))
-                {
-                    x = true;
-                }
+                x = fc.RaceOn();
             } while (!x);
         }
 
+        /*
         public void PointsForRace()
         {
             string RacePointsPath = "HeadPictures\\TestRace";
@@ -88,43 +75,31 @@ namespace WindowsFormsApp1
                 Thread.Sleep(500);
             } while (!MasterOfPictures.Verify(RacePointsPath, RacePointsOriginal));
         }
+        */
 
         public void RaceOff()
-        {
-            string RacePath = "HeadPictures\\TestRace";
-            string RaceOriginal = "HeadPictures\\OriginalRace";
-            string RaceOriginal1 = "HeadPictures\\OriginalRace1";
-            bool x = true;
-            Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
+        {            
+            bool x;
             do
             {
-                MasterOfPictures.MakePicture(RaceBounds, RacePath);
                 Thread.Sleep(500);
-                if(!MasterOfPictures.Verify(RacePath, RaceOriginal) && !MasterOfPictures.Verify(RacePath, RaceOriginal1))
-                {
-                    x = false;
-                }
+                x = fc.RaceOn();
             } while (x);
         }
         
         public bool ForEnemy()
         {
-            bool x = false;
-            string ChooseanEnemyPath = "HeadPictures\\TestChooseanEnemy";
-            string ChooseanEnemyOriginal = "HeadPictures\\OriginalChooseanEnemy";
-            Rectangle ChooseanEnemyBounds = new Rectangle(154, 605, 35, 35);
-
+            bool enemyIsReady = false;
             bool flag = false;
             do
             {
                 if (se.UnavailableEvent())
                 {
                     se.UniversalErrorDefense();
-                    MasterOfPictures.BW2Capture(ChooseanEnemyBounds, ChooseanEnemyPath);
-                    if (MasterOfPictures.VerifyBW(ChooseanEnemyPath, ChooseanEnemyOriginal, 90))//для начала проверяем на 100 ошибок
+                    enemyIsReady = fc.EnemyIsReady();
+                    if (enemyIsReady)
                     {
                         flag = true;
-                        x = true;
                     }
                     if (fc.ClubMap() || fc.Bounty())
                     {
@@ -138,17 +113,18 @@ namespace WindowsFormsApp1
                 Thread.Sleep(1000);
             } while (!flag);
 
-            return x;
+            return enemyIsReady;
         }
         
         public void Table()
         {
-            FastCheck fc = new FastCheck();
+            bool x;
             do
             {
                 se.UniversalErrorDefense();
+                x = fc.Ending();
                 Thread.Sleep(2000);
-            } while (!fc.Ending());
+            } while (!x);
         }
     }
 }

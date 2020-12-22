@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1 //universal but get stats from txt file
 {
     public class IdentifyCar
     {
