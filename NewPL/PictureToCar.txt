@@ -572,3 +572,25 @@
 564 Chevrolet Camaro SS Convertible 2012
 811 Mitsubishi L200 2016
 308 Nissan Pathfinder 2006
+600 Alfa Romeo GT 2003
+789 Maserati 3200 GT Assetto Corsa 1998
+624 Lotus Elise 1996
+721 TVR Griffith 500 1993
+535 Dodge Nitro R/T 2007
+1012 De Tomaso Pantera SI 1991
+1013 Ford Fusion Sport 2017
+501 Nissan Pathfinder 2016
+352 Mazda Cosmo 1990
+673 Mitsubishi Montero SG4 2011
+1014 Chrysler 300M Concept 1991
+1015 Acura TL Type S 2007
+1016 Chrysler Atlantic 1995
+1017 Koenigsegg CCXR Edition 2008
+1018 Jaguar F-Type Project 7 2015
+1019 Ford F-150 Lightning 2001
+819 Ford Sierra RS Cosworth 1986
+810 Aston Martin DB7 Vantage 1999
+679 Land Rover Series 1 1948
+133 Ariel Atom 2 Supercharged 2003
+1020 Chrysler New Yorker 1969
+1021 Alfa Romeo Spider Veloce (S2) 1971
