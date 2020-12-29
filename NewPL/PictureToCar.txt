@@ -594,3 +594,5 @@
 133 Ariel Atom 2 Supercharged 2003
 1020 Chrysler New Yorker 1969
 1021 Alfa Romeo Spider Veloce (S2) 1971
+750 Jaguar XKSS 1957
+439 Porsche 924 Carrera GTS Rallye 1981
