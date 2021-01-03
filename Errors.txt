@@ -1,46 +1,8 @@
-600 is unknown car
-789 is unknown car
-624 is unknown car
-721 is unknown car
-535 is unknown car
-1012 is unknown car
-501 is unknown car
-1013 is unknown car
-352 is unknown car
-673 is unknown car
-1014 is unknown car
-819 is unknown car
-1016 is unknown car
-1017 is unknown car
-810 is unknown car
-1018 is unknown car
-1019 is unknown car
-679 is unknown car
-133 is unknown car
-1020 is unknown car
-1021 is unknown car
 Написать логику для Пляжный слалом у океана
 Написать логику для Длинная трасса у океана
-1022 is unknown car
-1015 is unknown car
-750 is unknown car
-не дождался улучшения за рекламу
-439 is unknown car
-374 is unknown car
-26 is unknown car
-1023 is unknown car
-1024 is unknown car
-Неизвестная трасса позиция 2
-Неизвестная трасса позиция 5
 Написать логику для Магистраль у океана
 Написать логику для Городские улицы у океана
 Написать логику для Парковка у океана
 Написать логику для Короткая трасса у океана
-192 is unknown car
-1026 is unknown car
-Неизвестная трасса позиция 1
-Неизвестная трасса позиция 4
-569 is unknown car
-1027 is unknown car
 Не знаю статы для BMW M3 Convertible 2001
 Не знаю статы для Cadillac CTS 2016

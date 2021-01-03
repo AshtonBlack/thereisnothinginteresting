@@ -596,3 +596,12 @@
 1021 Alfa Romeo Spider Veloce (S2) 1971
 750 Jaguar XKSS 1957
 439 Porsche 924 Carrera GTS Rallye 1981
+1027 Maserati Coupe GranSport 2004
+569 Chevrolet Colorado ZR2 2018
+1026 Dodge D-100 1964
+192 Alfa Romeo Tipo 33 Stradale 1967
+1022 Ford Mustang SVT Cobra R 2000
+1023 Dodge Super 8 HEMI 2001
+1024 Lotus Essex Turbo Esprit 1980
+374 BMW M5 1988
+26 Mercedes-Benz AMG G 63 2015
