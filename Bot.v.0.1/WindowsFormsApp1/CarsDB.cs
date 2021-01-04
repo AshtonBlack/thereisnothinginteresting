@@ -6,8 +6,8 @@ namespace WindowsFormsApp1 //universal
 {
     static class CarsDB
     {
-        static string commonpath = @"C:\Bot\NewRqPL12\";
-        static string cashcarspath = @"C:\Bot\NewRqPL12\CashCarsPL12.txt";
+        static string commonpath = @"C:\Bot\NewPL\";
+        static string cashcarspath = @"C:\Bot\NewPL\CashCars.txt";
         public static string[,] fulltablearray { get; set; }
         public static int linenumber { get; set; }        
 

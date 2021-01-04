@@ -182,6 +182,7 @@ namespace WindowsFormsApp1 //universal but read info from txt files
                     if (b1[i] == Convert.ToInt32(theTable[l, 0]))
                     {
                         name = theTable[l, 1];
+                        b2[i] = name;
                         break;
                     }
                 }
@@ -230,6 +231,7 @@ namespace WindowsFormsApp1 //universal but read info from txt files
                     if (c1[i] == Convert.ToInt32(theTable[l, 0]))
                     {
                         name = theTable[l, 1];
+                        c2[i] = name;
                         break;
                     }
                 }
@@ -275,12 +277,13 @@ namespace WindowsFormsApp1 //universal but read info from txt files
             {
                 string name = "unknown";
                 int length = NotePad.GetInfoFileLength("C:\\Bot\\Track" + (i + 1) + "\\info.txt");
-                string[,] theTable = NotePad.ReadInfoFromTXT("C:\\Bot\\Track" + (i + 1) + "\\info.txt");
+                string[,] theTable = NotePad.ReadInfoFromTXT("C:\\Bot\\Track" + (i + 1) + "\\info.txt");                
                 for (int l = 0; l < length; l++)
                 {
                     if (a1[i] == Convert.ToInt32(theTable[l, 0]))
                     {
                         name = theTable[l, 1];
+                        a2[i] = name;
                         break;
                     }
                 }
@@ -291,88 +294,6 @@ namespace WindowsFormsApp1 //universal but read info from txt files
                 }                
             }
             return a2;
-        }
-
-        public int[] TrackRank(string[] a2)
-        {
-            int[] a3 = new int[5];
-            string[] ar = {"Улица ср",
-                            "Улица мал",
-                            "Подъем на холм",
-                            "Горы подъем на холм",
-                            "Трасса для мотокросса",
-                            "50-150",
-                            "75-125",
-                            "0-100",
-                            "0-100-0",
-                            "1",
-                            "1/2",
-                            "1/4",
-                            "0-60",
-                            "Токио трасса",
-                            "Трасса набережная",
-                            "Тестовый круг",
-                            "Токио мостик",
-                            "Нюрбург 1",
-                            "Нюрбург 2",
-                            "Нюрбург 3",
-                            "Нюрбург 4",
-                            "Нюрбург 5",
-                            "Токио петля",
-                            "Горная экспедиция",
-                            "Горы дорога с уклоном",
-                            "Замерзшее озеро",
-                            "Горы серпантин",
-                            "Горы извилистая дорога",
-                            "Извилистая дорога",
-                            "Быстрая трасса",
-                            "Highway",
-                            "Монако длинные городские улицы",
-                            "Каньон экспедиция",
-                            "Серпантин",
-                            "Монако серпантин",
-                            "Извилистая трасса",
-                            "Токио мост",
-                            "Токио съезд",
-                            "Монако городские",
-                            "Обзор",
-                            "Каньон грунтовая дорога",
-                            "Каньон крутой холм",
-                            "Лесная переправа",
-                            "Ралли-кросс мал",
-                            "Ралли-кросс ср",
-                            "Лесная дорога",
-                            "Монако узкие улицы",
-                            "Монако тест на перегрузки",
-                            "Токио тест на перегрузки",
-                            "Трасса для картинга",
-                            "Парковка",
-                            "Лесной слалом",
-                            "Закрытый картинг",
-                            "Горы слалом",
-                            "Слалом",
-                            "Перегрузка",
-                            "Неизвестная трасса"
-            };//иерархия трасс
-            for (int i = 0; i < 5; ++i)
-            {
-                int flag = 0;
-                for (int j = 0; j < ar.Length; ++j)
-                {
-                    if (a2[i] == ar[j])
-                    {
-                        a3[i] = j + 1;
-                        flag = 1;
-                        break;
-                    }
-                }
-                if (flag == 0)
-                {
-                    NotePad.DoErrorLog("Исправить название " + a2[i]);
-                    a3[i] = 100;
-                }
-            }
-            return a3;
-        }        
+        }      
     }
 }

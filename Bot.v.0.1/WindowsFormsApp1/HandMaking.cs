@@ -333,7 +333,6 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             Rat.Clk(clear);
             Thread.Sleep(1000);
             Rat.DragnDropSlow(xy1, xy2, 8);
-            Thread.Sleep(1000);
             Rat.Clk(rarity);
             Thread.Sleep(1000);
             switch (cls)
@@ -450,15 +449,13 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                 {
                     if (x > 3 && drag == 0)
                     {
-                        Rat.DragnDropSlow(ds1, de1, 5);                        
-                        Thread.Sleep(1000);
+                        Rat.DragnDropSlow(ds1, de1, 5); 
                         drag = 1;
                     }//сдвиг 
 
                     if (x > 5 && drag == 1)
                     {
                         Rat.DragnDropSlow(ds2, de2, 5);
-                        Thread.Sleep(1000);
                         drag = 2;
                     }//сдвиг 
 

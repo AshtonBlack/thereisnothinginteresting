@@ -193,7 +193,6 @@ namespace WindowsFormsApp1 //not Universal hardwork
             FastCheck fc = new FastCheck();
             fc.Bounty();
             Rat.DragnDropSlow(dragMapS, dragMapE, 8);
-            Thread.Sleep(1000);
         }
 
         public void RestartBot()
@@ -241,7 +240,6 @@ namespace WindowsFormsApp1 //not Universal hardwork
             for (int i = 0; i < 5; i++)
             {
                 Rat.DragnDropSlow(a[i], b[i], 10);
-                Thread.Sleep(1000);
             }
         }
 

@@ -10,7 +10,7 @@ namespace WindowsFormsApp1 //universal
 
         public void PictureToNameTable()
         {
-            string commonpath = @"C:\Bot\NewRqPL12\";
+            string commonpath = @"C:\Bot\NewPL\";
             string path = "PictureToCar.txt";
             length = 0;
             using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
@@ -119,7 +119,14 @@ namespace WindowsFormsApp1 //universal
                     clearance = clearanceConverter(carsArray[i, 3]);
                     tires = tiresConverter(carsArray[i, 13]);
                     drive = driveConverter(carsArray[i, 5]);
-                    acceleration = Convert.ToInt32(carsArray[i, 0]);
+                    try
+                    {
+                        acceleration = Convert.ToDouble(carsArray[i, 0]);
+                    }
+                    catch
+                    {
+                        NotePad.DoErrorLog("can not convert " + carsArray[i, 0] + " to double");
+                    }
                     maxspeed = Convert.ToInt32(carsArray[i, 12]);
                     grip = Convert.ToInt32(carsArray[i, 7]);
                     weight = Convert.ToInt32(carsArray[i, 14]);

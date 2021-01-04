@@ -110,31 +110,13 @@ namespace WindowsFormsApp1 //universal
             MoveMouse(dox1, doy1);
             Thread.Sleep(100);
             LMBdown(dox1, doy1);
-            Thread.Sleep(2000);
-
-            if(dox1 < dox2)
-            {
-                for (int i = dox1; i < dox2; i += speed)
-                {
-                    MoveMouse(i, doy1);
-                    Thread.Sleep(60);
-                }
-            }
-
-            if (dox1 > dox2)
-            {
-                for (int i = dox1; i > dox2; i -= speed)
-                {
-                    MoveMouse(i, doy1);
-                    Thread.Sleep(60);
-                }
-            }
+            Thread.Sleep(1000);
 
             if (doy1 < doy2)
             {
                 for (int i = doy1; i < doy2; i += speed)
                 {
-                    MoveMouse(dox2, i);
+                    MoveMouse(dox1, i);
                     Thread.Sleep(60);
                 }
             }
@@ -143,14 +125,32 @@ namespace WindowsFormsApp1 //universal
             {
                 for (int i = doy1; i > doy2; i -= speed)
                 {
-                    MoveMouse(dox2, i);
+                    MoveMouse(dox1, i);
                     Thread.Sleep(60);
                 }
             }
 
-            Thread.Sleep(1000);
+            if (dox1 < dox2)
+            {
+                for (int i = dox1; i < dox2; i += speed)
+                {
+                    MoveMouse(i, doy2);
+                    Thread.Sleep(60);
+                }
+            }
+
+            if (dox1 > dox2)
+            {
+                for (int i = dox1; i > dox2; i -= speed)
+                {
+                    MoveMouse(i, doy2);
+                    Thread.Sleep(60);
+                }
+            }            
+
+            Thread.Sleep(100);
             MoveMouse(dox2, doy2);
-            Thread.Sleep(2000);
+            Thread.Sleep(100);
             LMBup(dox2, doy2);
             Thread.Sleep(1000);
         }
