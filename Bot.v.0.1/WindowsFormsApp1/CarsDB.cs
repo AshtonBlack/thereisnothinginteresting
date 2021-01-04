@@ -9,7 +9,7 @@ namespace WindowsFormsApp1 //universal
         static string commonpath = @"C:\Bot\NewRqPL12\";
         static string cashcarspath = @"C:\Bot\NewRqPL12\CashCarsPL12.txt";
         public static string[,] fulltablearray { get; set; }
-        static int linenumber { get; set; }        
+        public static int linenumber { get; set; }        
 
         public static int[] lowestcars;
         public static int[] slikTyres { get; set; }

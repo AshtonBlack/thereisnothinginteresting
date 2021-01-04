@@ -324,6 +324,77 @@
 
             switch (track)
             {
+                case "Длинная трасса у океана":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
+                    if (coverage != "Асфальт")
+                    {
+                        if (drive == 4) x += 200;
+                    }
+                    x -= acceleration * 100;
+                    x -= grip * 5;
+                    x += weight / 10;
+                    x += maxSpeed;
+                    break;
+                case "Короткая трасса у океана":
+                    if (coverage == "Асфальт")
+                    {
+                        if (tires == 2)
+                        {
+                            x += 200;
+                        }
+                        if (drive == 4)
+                        {
+                            x -= 200;
+                        }
+                    }
+                    if (coverage != "Асфальт")
+                    {
+                        if (drive == 4) x += 300;
+                    }
+                    x -= acceleration * 120;
+                    x -= grip * 5;
+                    x += weight / 10;
+                    x += maxSpeed / 2;
+                    break;
+                case "Магистраль у океана":
+                    x += maxSpeed;
+                    x -= acceleration * 50;
+                    x += grip;
+                    break;
+                case "Парковка у океана":
+                    x -= acceleration * 30;
+                    x += grip * 8;
+                    x -= weight;
+                    break;
+                case "Пляжный слалом у океана":
+                    x -= acceleration * 30;
+                    x += grip * 8;
+                    x -= weight;
+                    break;
+                case "Городские улицы у океана":
+                    switch (clearance)
+                    {
+                        case 1:
+                            x += 0;
+                            break;
+                        case 2:
+                            x += 700;
+                            break;
+                        case 3:
+                            x += 300;
+                            break;
+                    }
+                    break;
                 case "Улица ср":
                     switch (clearance)
                     {

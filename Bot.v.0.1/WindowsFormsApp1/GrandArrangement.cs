@@ -91,7 +91,7 @@ namespace WindowsFormsApp1 //universal
             for (int j = 0; j < 5; j++)//logic for dragndrop
             {
                 Thread.Sleep(1000);
-                Rat.DragnDrop(a[rightarranfement[j]], b[j]);//set choosen car on track
+                Rat.DragnDropFast(a[rightarranfement[j]], b[j]);//set choosen car on track
             }
         }        
     }    

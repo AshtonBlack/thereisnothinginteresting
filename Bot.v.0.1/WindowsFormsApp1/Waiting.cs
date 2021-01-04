@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace WindowsFormsApp1 //universal delete the rest
+namespace WindowsFormsApp1 //universal
 {
     class Waiting
     {
@@ -62,20 +62,6 @@ namespace WindowsFormsApp1 //universal delete the rest
                 x = fc.RaceOn();
             } while (!x);
         }
-
-        /*
-        public void PointsForRace()
-        {
-            string RacePointsPath = "HeadPictures\\TestRace";
-            string RacePointsOriginal = "HeadPictures\\OriginalRace";
-            Rectangle RaceBounds = new Rectangle(60, 185, 40, 40);
-            do
-            {
-                MasterOfPictures.MakePicture(RaceBounds, RacePointsPath);
-                Thread.Sleep(500);
-            } while (!MasterOfPictures.Verify(RacePointsPath, RacePointsOriginal));
-        }
-        */
 
         public void RaceOff()
         {            

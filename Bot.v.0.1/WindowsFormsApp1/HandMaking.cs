@@ -56,12 +56,10 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
         Point GarageSlot2 = new Point(535, 590);
         Point GarageSlot3 = new Point(830, 400);
         Point GarageSlot4 = new Point(830, 590);
-        //точки для сдвига 1010/495 и 665/495
         Point ds1 = new Point(1010, 495);
         Point de1 = new Point(665, 495);
         Point GarageSlot5 = new Point(750, 400);
         Point GarageSlot6 = new Point(750, 590);
-        //точки для сдвига 660/495 и 330/495
         Point ds2 = new Point(660, 495);
         Point de2 = new Point(330, 495);
         Point GarageSlot7 = new Point(750, 400);
@@ -334,7 +332,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             Thread.Sleep(200);
             Rat.Clk(clear);
             Thread.Sleep(1000);
-            Rat.DragnDropGarage(xy1, xy2);
+            Rat.DragnDropSlow(xy1, xy2, 8);
             Thread.Sleep(1000);
             Rat.Clk(rarity);
             Thread.Sleep(1000);
@@ -452,38 +450,14 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                 {
                     if (x > 3 && drag == 0)
                     {
-                        Rat.MoveMouse(1010, 495);
-                        Thread.Sleep(100);
-                        Rat.LMBdown(1010, 495);
-                        Thread.Sleep(2000);
-                        for (int i = 1010; i > 665; i -= 5)
-                        {
-                            Rat.MoveMouse(i, 495);
-                            Thread.Sleep(70);
-                        }
-                        Thread.Sleep(1000);
-                        Rat.MoveMouse(665, 495);
-                        Thread.Sleep(2000);
-                        Rat.LMBup(665, 495);
+                        Rat.DragnDropSlow(ds1, de1, 5);                        
                         Thread.Sleep(1000);
                         drag = 1;
                     }//сдвиг 
 
                     if (x > 5 && drag == 1)
                     {
-                        Rat.MoveMouse(660, 495);
-                        Thread.Sleep(100);
-                        Rat.LMBdown(660, 495);
-                        Thread.Sleep(2000);
-                        for (int i = 660; i > 330; i -= 5)
-                        {
-                            Rat.MoveMouse(i, 495);
-                            Thread.Sleep(70);
-                        }
-                        Thread.Sleep(1000);
-                        Rat.MoveMouse(330, 495);
-                        Thread.Sleep(2000);
-                        Rat.LMBup(330, 495);
+                        Rat.DragnDropSlow(ds2, de2, 5);
                         Thread.Sleep(1000);
                         drag = 2;
                     }//сдвиг 
@@ -497,7 +471,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                     {
                         NotePad.DoLog("Тачка " + (x + 1) + " исправна");
                         while (!fc.ItsGarage()) Thread.Sleep(2000);
-                        Rat.DragnDropGarage(b[x], a[h + uhl]);
+                        Rat.DragnDropSlow(b[x], a[h + uhl], 8);
                         h++;
                         n--;
                     }

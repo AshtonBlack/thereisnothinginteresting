@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace WindowsFormsApp1 //universal make universal dragndrop
+namespace WindowsFormsApp1 //universal
 {
     class Rat
     {
@@ -24,7 +24,7 @@ namespace WindowsFormsApp1 //universal make universal dragndrop
         public static void MoveMouse(int x, int y)
         {            
             SetCursorPos(x, y);
-        }//используется в SpecialEvents
+        }
 
         private static void MoveMouse(Point xy)
         {
@@ -54,7 +54,7 @@ namespace WindowsFormsApp1 //universal make universal dragndrop
         public static void LMBdown(int x, int y)
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
-        }//используется в SpecialEvents
+        }
 
         private static void LMBdown(Point xy)
         {
@@ -66,7 +66,7 @@ namespace WindowsFormsApp1 //universal make universal dragndrop
         public static void LMBup(int x, int y)
         {
             mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
-        }//используется в SpecialEvents
+        }
 
         private static void LMBup(Point xy)
         {
@@ -75,29 +75,7 @@ namespace WindowsFormsApp1 //universal make universal dragndrop
             mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
 
-        public static void DragnDropGarage(Point xy1, Point xy2)
-        {
-            int dox1 = xy1.X;
-            int doy1 = xy1.Y;
-            int dox2 = xy2.X;
-            int doy2 = xy2.Y;
-            MoveMouse(dox1, doy1);
-            Thread.Sleep(100);
-            LMBdown(dox1, doy1);
-            Thread.Sleep(2000);
-            for (int i = doy1; i < doy2; i += 8)
-            {
-                MoveMouse(dox1, i);
-                Thread.Sleep(60);
-            }
-            Thread.Sleep(1000);
-            MoveMouse(dox2, doy2);
-            Thread.Sleep(2000);
-            LMBup(dox2, doy2);
-            Thread.Sleep(1000);
-        }
-
-        public static void DragnDrop(Point xy1, Point xy2)
+        public static void DragnDropFast(Point xy1, Point xy2)
         {
             SpecialEvents se = new SpecialEvents();
             int error = 0;
@@ -121,6 +99,60 @@ namespace WindowsFormsApp1 //universal make universal dragndrop
                 x2 = MasterOfPictures.PixelIndicator(xy1);//контрольный пиксель фото 2
                 error++;
             } while (x1 == x2);//переместил ли машину
+        }
+
+        public static void DragnDropSlow(Point xy1, Point xy2, int speed)
+        {
+            int dox1 = xy1.X;
+            int doy1 = xy1.Y;
+            int dox2 = xy2.X;
+            int doy2 = xy2.Y;
+            MoveMouse(dox1, doy1);
+            Thread.Sleep(100);
+            LMBdown(dox1, doy1);
+            Thread.Sleep(2000);
+
+            if(dox1 < dox2)
+            {
+                for (int i = dox1; i < dox2; i += speed)
+                {
+                    MoveMouse(i, doy1);
+                    Thread.Sleep(60);
+                }
+            }
+
+            if (dox1 > dox2)
+            {
+                for (int i = dox1; i > dox2; i -= speed)
+                {
+                    MoveMouse(i, doy1);
+                    Thread.Sleep(60);
+                }
+            }
+
+            if (doy1 < doy2)
+            {
+                for (int i = doy1; i < doy2; i += speed)
+                {
+                    MoveMouse(dox2, i);
+                    Thread.Sleep(60);
+                }
+            }
+
+            if (doy1 > doy2)
+            {
+                for (int i = doy1; i > doy2; i -= speed)
+                {
+                    MoveMouse(dox2, i);
+                    Thread.Sleep(60);
+                }
+            }
+
+            Thread.Sleep(1000);
+            MoveMouse(dox2, doy2);
+            Thread.Sleep(2000);
+            LMBup(dox2, doy2);
+            Thread.Sleep(1000);
         }
     }
 }
