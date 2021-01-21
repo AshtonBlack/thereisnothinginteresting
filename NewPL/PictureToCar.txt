@@ -269,7 +269,7 @@
 556 Land Rover Defender 110 2016
 559 Nissan X-Trail 2010
 565 Ford Thunderbird 3.9l V8 2002
-570 Cadillac CTS 2016
+570 Cadillac CTS 2008
 572 TVR Taimar Turbo 1977
 574 Fiat Abarth 124 Spider 2017
 577 Alfa Romeo GTV 1998
@@ -375,7 +375,7 @@
 800 Mercedes-Benz E 500 1994
 801 Nissan Qashqai 2016
 807 Dodge Caliber R/T AWD 2007
-808 GMC Acadia 2016
+808 GMC Acadia 2017
 812 Alfa Romeo 147 GTA 2002
 814 Volkswagen up! 2013
 815 Subaru Legacy 2003
@@ -605,3 +605,38 @@
 1024 Lotus Essex Turbo Esprit 1980
 374 BMW M5 1988
 26 Mercedes-Benz AMG G 63 2015
+1029 Chrysler Pacifica Hybrid 2018
+1030 Dodge Neon SRT-4 2003
+1031 Volvo 850 BTCC 1994
+1032 Dodge Hornet 2006
+1033 Acura TSX 2004
+1034 BMW 750Li 2009
+1035 Ford Mustang Boss 302 1970
+1036 Ford F-100 302ci 1973
+1037 Dodge Slingshot 2004
+1038 Vauxhall Tigra TwinTop 2004
+1039 Suzuki SX4 S-Cross 2016
+1040 Dodge Charger R/T 1969
+1041 Acura Integra Type R 1998
+1042 Dodge Venom 1994
+1043 BMW 325i Convertible 2009
+1044 Bentley Continental Supersports Convertible 2011
+1045 Chrysler Aviat 1994
+1046 Lotus Evora S 2010
+1047 Lotus Esprit Turbo 1981
+1048 Lotus Exige S2 2005
+1049 Chrysler 300C 2013
+1050 Porsche 911 GT3 RS 2006
+1051 Nissan Juke 2013
+1025 Chrysler Conquest TSi 1988
+1028 De Tomaso Mangusta 1967
+256 Rover 216 1984
+257 Nissan Navara 2016
+148 Honda NSX 1990
+723 TVR Griffith 4.3 1992
+573 Porsche 968 1992
+388 BMW 335i 2008
+532 Caterham Seven 360 2015
+700 Maserati Ghibli 2018
+781 Audi S4 1998
+445 BMW X3 xDrive 28d 2016
