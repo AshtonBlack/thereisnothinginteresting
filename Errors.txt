@@ -1,38 +1,18 @@
-Написать логику для 
-1029 is unknown car
-1031 is unknown car
-1030 is unknown car
-1032 is unknown car
-256 is unknown car
-не дождался улучшения за рекламу
-257 is unknown car
-148 is unknown car
-723 is unknown car
-1025 is unknown car
-1034 is unknown car
-1035 is unknown car
-1036 is unknown car
-1037 is unknown car
-573 is unknown car
-1038 is unknown car
-388 is unknown car
-1039 is unknown car
-532 is unknown car
-1028 is unknown car
-1033 is unknown car
-Can't send message
-1041 is unknown car
-1040 is unknown car
-700 is unknown car
-Не знаю статы для GMC Acadia 2016
-Не знаю статы для Cadillac CTS 2016
-1042 is unknown car
-1043 is unknown car
-1044 is unknown car
-1045 is unknown car
-1046 is unknown car
-781 is unknown car
-1047 is unknown car
-1048 is unknown car
-1049 is unknown car
-445 is unknown car
+151 is unknown car
+Не знаю статы для BMW M3 Convertible 2001
+1052 is unknown car
+1053 is unknown car
+1055 is unknown car
+1054 is unknown car
+35 is unknown car
+1056 is unknown car
+1057 is unknown car
+1058 is unknown car
+1059 is unknown car
+1061 is unknown car
+1062 is unknown car
+1063 is unknown car
+1064 is unknown car
+1065 is unknown car
+63 is unknown car
+1066 is unknown car
