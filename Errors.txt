@@ -1,18 +1,10 @@
-151 is unknown car
-Не знаю статы для BMW M3 Convertible 2001
-1052 is unknown car
-1053 is unknown car
-1055 is unknown car
-1054 is unknown car
-35 is unknown car
-1056 is unknown car
-1057 is unknown car
-1058 is unknown car
-1059 is unknown car
-1061 is unknown car
-1062 is unknown car
-1063 is unknown car
-1064 is unknown car
-1065 is unknown car
-63 is unknown car
 1066 is unknown car
+1060 is unknown car
+332 is unknown car
+1067 is unknown car
+1068 is unknown car
+430 is unknown car
+768 is unknown car
+1069 is unknown car
+270 is unknown car
+Can't send message
