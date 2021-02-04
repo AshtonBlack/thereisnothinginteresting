@@ -234,7 +234,7 @@
 485 BMW 320d 2005
 487 Nissan Datsun 240Z Rally Car 1969
 488 Vauxhall Opel Kadett GT/E 1975
-489 BMW M3 Convertible 2001
+489 BMW M3 2001
 493 Land Rover Range Rover 4.4 V8 2002
 498 Hummer H2 SUV 2003
 499 TVR 400SE 1988
@@ -640,3 +640,21 @@
 700 Maserati Ghibli 2018
 781 Audi S4 1998
 445 BMW X3 xDrive 28d 2016
+151 Honda S2000 Type S 2008
+35 Vauxhall VX220 Turbo 2003
+63 Mercedes-Benz S 350 4MATIC 2007
+1052 Ford Explorer Sport-Trac Adrenalin 2008
+1053 Buick LaCrosse CXL 2005
+1054 Dodge Circuit EV 2011
+1055 Dodge Demon Roadster 2007
+1056 Dodge Charger III 1968
+1057 Bugatti EB110 GT 1992
+1058 BMW 520d Touring 2012
+1059 Ford F-150 Tremor FX2 2014
+1060 Ford Maya II EM 1985
+1061 Ford Bronco V8 1969
+1062 Acura TLX 2014
+1063 Mitsubishi Mirage 2013
+1064 Audi S8 plus 2015
+1065 BMW 330e 2016
+1066 Chrysler 300C Hemi 2005
