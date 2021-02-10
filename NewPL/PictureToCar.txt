@@ -658,3 +658,25 @@
 1064 Audi S8 plus 2015
 1065 BMW 330e 2016
 1066 Chrysler 300C Hemi 2005
+1067 Peugeot 207 RC 2007
+1068 Alfa Romeo Spider (S3) 1983
+1069 Chrysler ecoVoyager 2008
+1070 Chrysler Crossfire Concept 2001
+1071 Acura ZDX 2010
+1072 Dodge Challenger Concept 2006
+1073 Dodge Sidewinder 1997
+1074 GMC Sierra All Terrain X 2017
+1075 Chrysler 300S 2015
+1076 Land Rover Range Rover Sport 2018
+1077 Aston Martin Virage Volante 2011
+1078 Aston Martin Rapide S 2014
+1079 Buick Verano 2012
+332 Citroen Metropolis 2010
+430 Porsche 968 Turbo S 1993
+768 Jaguar S-Type R 2007
+270 Mercedes-Benz AMG SLK Black Series 2007
+792 BMW 750d xDrive 2013
+55 Honda Civic Type R 2016
+737 Ford F-150 SVT Raptor 2014
+630 Ford Mustang GT 2016
+822 Aston Martin Vanquish Volante 2013
