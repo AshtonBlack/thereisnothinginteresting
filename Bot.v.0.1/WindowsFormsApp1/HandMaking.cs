@@ -451,12 +451,14 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                     {
                         Rat.DragnDropSlow(ds1, de1, 5); 
                         drag = 1;
+                        Thread.Sleep(500);
                     }//сдвиг 
 
                     if (x > 5 && drag == 1)
                     {
                         Rat.DragnDropSlow(ds2, de2, 5);
                         drag = 2;
+                        Thread.Sleep(500);
                     }//сдвиг 
 
                     if (x > 7)
