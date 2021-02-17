@@ -680,3 +680,9 @@
 737 Ford F-150 SVT Raptor 2014
 630 Ford Mustang GT 2016
 822 Aston Martin Vanquish Volante 2013
+1080 Ford Bronco V8 351 Windsor 1988
+1081 Dodge Charger SRT8 2012
+1082 Ford Torino Talladega 1969
+1083 Ford Explorer 1991
+1084 Dodge Avenger R/T 2013
+1085 AMC Javelin AMX 1971

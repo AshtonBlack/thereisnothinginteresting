@@ -17,7 +17,8 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
         public static string coverage { get; set; }//покрытия эвента
 
         // Tyres [0f, 1e, 2d, 3c, 4b, 5a, 6s]
-        public static int conditionNumber { get; set; }
+        public static int firstConditionNumber { get; set; }
+        public static int secondConditionNumber { get; set; }
         static int[] slikTyres { get; set; }
         static int[] dynamicTyres { get; set; }
         static int[] standartTyres { get; set; }
@@ -411,12 +412,13 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
             }
         }
 
-        public static void MakeCondition(int number)
+        public static void MakeCondition(int number1, int number2)
         {            
-            conditionNumber = number;
+            firstConditionNumber = number1;
+            secondConditionNumber = number2;
             weather = "с прояснением";
             coverage = "Смешанное";
-            CarsDB.MakeCondAuto(number);
+            CarsDB.MakeCondAuto(number1, number2);
             lowestRqCars = CarsDB.lowestcars;
             slikTyres = CarsDB.slikTyres;
             dynamicTyres = CarsDB.dynamicTyres;

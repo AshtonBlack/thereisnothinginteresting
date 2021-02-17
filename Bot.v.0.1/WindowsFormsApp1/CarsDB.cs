@@ -116,7 +116,7 @@ namespace WindowsFormsApp1 //universal
             }
         }
 
-        public static void MakeCondAuto(int i)
+        public static void MakeCondAuto(int firstCond, int secondCond)
         {
             List<int> rq;            
             string grade;
@@ -132,58 +132,61 @@ namespace WindowsFormsApp1 //universal
             rq = new List<int>(0);
             for (int j = 1; j < linenumber; j++)
             {
-                if (SatisfyTheCondition(i, j))
+                if (SatisfyFirstCondition(firstCond, j))
                 {
-                    grade = fulltablearray[j, 2];
-                    t = fulltablearray[j, 13];
-                    n = Convert.ToInt32(fulltablearray[j, 16]);
-                    int y;
-                    switch (grade)
+                    if (SatisfySecondCondition(secondCond, j))
                     {
-                        case "e":
-                            y = 1;
-                            break;
-                        case "d":
-                            y = 2;
-                            break;
-                        case "c":
-                            y = 3;
-                            break;
-                        case "b":
-                            y = 4;
-                            break;
-                        case "a":
-                            y = 5;
-                            break;
-                        case "s":
-                            y = 6;
-                            break;
-                        default:
-                            y = 0;
-                            break;
-                    }
-                    switch (t)
-                    {
-                        case "per":
-                            dynamicTyres[y] += n;
-                            break;
-                        case "std":
-                            standartTyres[y] += n;
-                            break;
-                        case "all":
-                            allseasonTyres[y] += n;
-                            break;
-                        case "off":
-                            offroadTyres[y] += n;
-                            break;
-                        default:
-                            slikTyres[y] += n;
-                            break;
-                    }
-                    for (int k = 0; k < n; k++)
-                    {
-                        rq.Add(Convert.ToInt32(fulltablearray[j, 10]));
-                    }
+                        grade = fulltablearray[j, 2];
+                        t = fulltablearray[j, 13];
+                        n = Convert.ToInt32(fulltablearray[j, 16]);
+                        int y;
+                        switch (grade)
+                        {
+                            case "e":
+                                y = 1;
+                                break;
+                            case "d":
+                                y = 2;
+                                break;
+                            case "c":
+                                y = 3;
+                                break;
+                            case "b":
+                                y = 4;
+                                break;
+                            case "a":
+                                y = 5;
+                                break;
+                            case "s":
+                                y = 6;
+                                break;
+                            default:
+                                y = 0;
+                                break;
+                        }
+                        switch (t)
+                        {
+                            case "per":
+                                dynamicTyres[y] += n;
+                                break;
+                            case "std":
+                                standartTyres[y] += n;
+                                break;
+                            case "all":
+                                allseasonTyres[y] += n;
+                                break;
+                            case "off":
+                                offroadTyres[y] += n;
+                                break;
+                            default:
+                                slikTyres[y] += n;
+                                break;
+                        }
+                        for (int k = 0; k < n; k++)
+                        {
+                            rq.Add(Convert.ToInt32(fulltablearray[j, 10]));
+                        }
+                    }                        
                 }
             }
             if (rq.Count > 4)
@@ -196,7 +199,7 @@ namespace WindowsFormsApp1 //universal
             }          
         }
 
-        public static bool SatisfyTheCondition(int n, int car)
+        public static bool SatisfyFirstCondition(int n, int car)
         {
             bool x = false;
             int year;
@@ -636,6 +639,23 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                default:
+                    break;
+            }
+            return x;
+        }
+
+        public static bool SatisfySecondCondition(int n, int car)
+        {
+            bool x = false;
+            int year;
+            string tag;
+            string bodytype;
+            switch (n)
+            {
+                case 0:
+                    x = true;
+                    break;                
                 default:
                     break;
             }

@@ -63,7 +63,8 @@ namespace WindowsFormsApp1 //universal but update saves
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, System.Text.Encoding.Default))//true для дописывания 
             {
                 sw.WriteLine(Condition.eventrq);
-                sw.WriteLine(Condition.conditionNumber);
+                sw.WriteLine(Condition.firstConditionNumber);
+                sw.WriteLine(Condition.secondConditionNumber);
                 for (int i = 0; i < 5; i++)
                 {
                     sw.WriteLine(carsid[i]);
@@ -74,12 +75,12 @@ namespace WindowsFormsApp1 //universal but update saves
 
         public static int[] ReadSaves()
         {
-            int[] a = new int[7];
+            int[] a = new int[8];
             using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", System.Text.Encoding.Default))
             {
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < a.Length; i++)
                 {
-                    a[i] = Convert.ToInt32(sr.ReadLine());//rq, condition, tires, carsid(5)
+                    a[i] = Convert.ToInt32(sr.ReadLine());//rq, condition1, condition2, carsid(5)
                 }
                 sr.Close();
             }

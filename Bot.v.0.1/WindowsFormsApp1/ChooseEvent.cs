@@ -24,20 +24,41 @@ namespace WindowsFormsApp1 //universal
         Point eventN3 = new Point(960, 750);
         Point eventN4 = new Point(960, 830);
         Point toeventlist = new Point(920, 270);
-        
+
+        public void ChooseNormalEvent()
+        {
+            SpecialEvents se = new SpecialEvents();
+            NotePad.DoLog("Проверяю условия");
+            int x = 500;
+            while (x == 500)
+            {
+                for (int i = 1; i < 5; i++)
+                {
+                    do
+                    {
+                        se.MissClick();
+                        se.ToClubs();
+                    } while (!fc.ClubMap());
+
+                    Thread.Sleep(500);
+                    NotePad.DoLog("Проверяю условие " + i);
+                    x = Selection(i);
+
+                    if (x == 500)
+                    {
+                        Rat.Clk(toeventlist);//Back
+                        Thread.Sleep(3000);
+                    }
+                    else break;
+                }
+            }
+        }
 
         public int Selection(int eventN)
         {
             SpecialEvents se = new SpecialEvents();            
             Point[] events = { eventN1, eventN2, eventN3, eventN4 };
-
-            int c = 0;//подсчет известных эвентов
-            for (int i = 0; i < 100; i++)
-            {
-                if (File.Exists(@"C:\Bot\Condition1\C" + i + ".jpg")) c = i; 
-                else break;
-            }
-
+                        
             bool flag;
             do
             {
@@ -56,91 +77,106 @@ namespace WindowsFormsApp1 //universal
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
 
-            int x = 500;//номер условия
             MasterOfPictures.MakePicture(Condition1Bounds, Condition1);
             MasterOfPictures.MakePicture(Condition2Bounds, Condition2);
-            if (MasterOfPictures.Verify(Condition2, "Condition2\\CC0"))
+            int x = DefineFirstEvevntConditionByPicture();
+            int y = DefineSecondEvevntConditionByPicture();
+
+            if (x != 500 && y != 500)//Исключаю неизвестный
             {
-                for (x = 0; x < (c + 1); x++)
+                Condition.MakeCondition(x, y);
+                if (GotRQ())
+                {
+                    NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
+                    NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
+                    if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
+                    {
+                        NotePad.DoLog("Минимальное рк для условия больше требуемого");
+                        x = 500;
+                    }
+                }
+                else
+                {
+                    x = 500;
+                }
+            }
+
+            return x;
+        }
+
+        private int DefineFirstEvevntConditionByPicture()
+        {
+            int x;
+            for (x = 0; x < 500; x++)
+            {
+                if (File.Exists(@"C:\Bot\Condition1\C" + x + ".jpg"))
                 {
                     if (MasterOfPictures.Verify(Condition1, ("Condition1\\C" + x)))
                     {
-                        NotePad.DoLog("Условие номер " + x );
+                        NotePad.DoLog("Условие номер " + x);
                         break;
                     }
                 }
-                if (x == (c + 1))
-                {                    
+                else
+                {
                     NotePad.DoLog("Неизвестное условие");
-                    for (x = 1; x < 100; x++)
+                    for (int i = 1; i < 500; i++)
                     {
-                        if (File.Exists("C:\\Bot\\Condition1\\UnknownCondition" + x + ".jpg"))
+                        if (File.Exists("C:\\Bot\\Condition1\\UnknownCondition" + i + ".jpg"))
                         {
-                            if (MasterOfPictures.Verify(Condition1, ("Condition1\\UnknownCondition" + x))) break;
+                            if (MasterOfPictures.Verify(Condition1, ("Condition1\\UnknownCondition" + i))) break;
                         }
                         else
                         {
-                            File.Move("C:\\Bot\\" + Condition1 + ".jpg", "C:\\Bot\\Condition1\\UnknownCondition" + x + ".jpg");
-                            NotePad.DoLog("Сделал скрин");
+                            File.Move("C:\\Bot\\" + Condition1 + ".jpg", "C:\\Bot\\Condition1\\UnknownCondition" + i + ".jpg");
                             break;
                         }
                     }
                     x = 500;
-                }
-                if (x != 500)//Исключаю неизвестный
-                {
-                    NotePad.DoLog("Создаю событие на основе шаблона " + x);
-                    Condition.MakeCondition(x);
-                    NotePad.DoLog("Вычисляю РК эвента");
-                    if (GotRQ())
-                    {
-                        NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
-                        NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
-                        if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
-                        {
-                            NotePad.DoLog("Минимальное рк для условия больше требуемого");
-                            x = 500;
-                        }
-                    }
-                    else
-                    {
-                        x = 500;
-                    }                                   
+                    break;
                 }
             }
+            
             return x;
         }
 
-        public void ChooseNormalEvent()
+        private int DefineSecondEvevntConditionByPicture()
         {
-            SpecialEvents se = new SpecialEvents();
-            NotePad.DoLog("Проверяю условия");
-            int x = 500;
-            while (x == 500)
+            int x;
+            for (x = 0; x < 500; x++)
             {
-                for (int i = 1; i < 5; i++)
+                if (File.Exists(@"C:\Bot\Condition2\C" + x + ".jpg"))
                 {
-                    do
+                    if (MasterOfPictures.Verify(Condition2, ("Condition2\\CC" + x)))
                     {
-                        se.MissClick();
-                        se.ToClubs();
-                    } while (!fc.ClubMap());
-                    
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Проверяю условие " + i);
-                    x = Selection(i);
-
-                    if (x == 500)
-                    {
-                        Rat.Clk(toeventlist);//Back
-                        Thread.Sleep(3000);
+                        NotePad.DoLog("Условие номер " + x);
+                        break;
                     }
-                    else break;
+                }
+                else
+                {
+                    NotePad.DoLog("Неизвестное условие");
+                    for (int i = 1; i < 500; i++)
+                    {
+                        if (File.Exists("C:\\Bot\\Condition2\\UnknownCondition" + i + ".jpg"))
+                        {
+                            if (!MasterOfPictures.Verify(Condition2, ("Condition2\\UnknownCondition" + i))) break;
+                        }
+                        else
+                        {
+                            File.Move("C:\\Bot\\" + Condition2 + ".jpg", "C:\\Bot\\Condition2\\UnknownCondition" + i + ".jpg");
+                            break;
+                        }
+                    }
+                    x = 500;
+                    break;
                 }
             }
+
+            return x;
         }
 
-        public bool GotRQ()
+        private bool GotRQ()
         {
             bool isRqKnown = false;
             Condition.eventrq = 0;
@@ -160,8 +196,6 @@ namespace WindowsFormsApp1 //universal
 
             if (Condition.eventrq == 0)
             {
-                NotePad.DoLog("неизвестное рк");
-
                 for (int x = 1; x < 500; x++)
                 {
                     if (File.Exists("C:\\Bot\\RQ\\UnknownRQ" + x + ".jpg"))
@@ -174,7 +208,6 @@ namespace WindowsFormsApp1 //universal
                     else
                     {
                         File.Move("C:\\Bot\\" + RQPath + ".jpg", "C:\\Bot\\RQ\\UnknownRQ" + x + ".jpg");
-                        NotePad.DoLog("Сделал скрин");
                         break;
                     }
                 }

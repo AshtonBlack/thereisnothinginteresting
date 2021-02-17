@@ -141,7 +141,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             int emptycars; //недобор
             int conditionAvailableCars;
             int usedhandslots = 0;
-            if (Condition.conditionNumber != 0 && Condition.conditionNumber != 3 && Condition.conditionNumber != 36 && !fc.ConditionActivated()) 
+            if (Condition.firstConditionNumber != 0 && Condition.firstConditionNumber != 3 && Condition.firstConditionNumber != 36 && !fc.ConditionActivated()) 
                 Rat.Clk(commoncondition); //включить фильтр условия события. Исключения: нет условий, 3 машины одной редкости, фильтр включен              
             char[] cls = { 's', 'a', 'b', 'c', 'd', 'e', 'f' };
             for (int i = 0; i < 7; i++)
@@ -378,10 +378,10 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             Random rand = new Random();
             while (!fc.ItsGarage()) Thread.Sleep(2000);
 
-            if ((Condition.conditionNumber == 11 && Condition.eventrq < 320)//условие определееной редкости
-                || (Condition.conditionNumber == 10 && Condition.eventrq < 195)
-                || (Condition.conditionNumber == 6 && Condition.eventrq < 145)
-                || (Condition.conditionNumber == 40 && Condition.eventrq < 245)
+            if ((Condition.firstConditionNumber == 11 && Condition.eventrq < 320)//условие определееной редкости
+                || (Condition.firstConditionNumber == 10 && Condition.eventrq < 195)
+                || (Condition.firstConditionNumber == 6 && Condition.eventrq < 145)
+                || (Condition.firstConditionNumber == 40 && Condition.eventrq < 245)
                 || Condition.eventrq < 95)
             {
                 NotePad.DoLog("сортирую по рк");
@@ -451,14 +451,14 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                     {
                         Rat.DragnDropSlow(ds1, de1, 5); 
                         drag = 1;
-                        Thread.Sleep(500);
+                        Thread.Sleep(1000);
                     }//сдвиг 
 
                     if (x > 5 && drag == 1)
                     {
                         Rat.DragnDropSlow(ds2, de2, 5);
                         drag = 2;
-                        Thread.Sleep(500);
+                        Thread.Sleep(1000);
                     }//сдвиг 
 
                     if (x > 7)

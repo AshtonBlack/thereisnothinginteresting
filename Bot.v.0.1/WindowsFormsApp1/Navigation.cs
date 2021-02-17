@@ -38,7 +38,7 @@ namespace WindowsFormsApp1 //universal
                     Rat.Clk(clubEventEnter);//ClubEventEnter
                     int[] a = NotePad.ReadSaves();
                     Condition.eventrq = a[0];
-                    Condition.MakeCondition(a[1]);
+                    Condition.MakeCondition(a[1], a[2]);
                     while (i < 100)
                     {
                         i++;
