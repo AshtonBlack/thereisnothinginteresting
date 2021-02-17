@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 
@@ -29,8 +30,8 @@ namespace WindowsFormsApp1 //universal
         {
             SpecialEvents se = new SpecialEvents();
             NotePad.DoLog("Проверяю условия");
-            int x = 500;
-            while (x == 500)
+            bool eventIsOK = false;
+            while (!eventIsOK)
             {
                 for (int i = 1; i < 5; i++)
                 {
@@ -42,9 +43,9 @@ namespace WindowsFormsApp1 //universal
 
                     Thread.Sleep(500);
                     NotePad.DoLog("Проверяю условие " + i);
-                    x = Selection(i);
+                    eventIsOK = Selection(i);
 
-                    if (x == 500)
+                    if (!eventIsOK)
                     {
                         Rat.Clk(toeventlist);//Back
                         Thread.Sleep(3000);
@@ -54,11 +55,12 @@ namespace WindowsFormsApp1 //universal
             }
         }
 
-        public int Selection(int eventN)
+        public bool Selection(int eventN)
         {
             SpecialEvents se = new SpecialEvents();            
             Point[] events = { eventN1, eventN2, eventN3, eventN4 };
-                        
+
+            bool eventIsOK = false;
             bool flag;
             do
             {
@@ -84,6 +86,7 @@ namespace WindowsFormsApp1 //universal
 
             if (x != 500 && y != 500)//Исключаю неизвестный
             {
+                eventIsOK = true;
                 Condition.MakeCondition(x, y);
                 if (GotRQ())
                 {
@@ -92,16 +95,16 @@ namespace WindowsFormsApp1 //universal
                     if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
                     {
                         NotePad.DoLog("Минимальное рк для условия больше требуемого");
-                        x = 500;
+                        eventIsOK = false;
                     }
                 }
                 else
                 {
-                    x = 500;
+                    eventIsOK = false;
                 }
             }
 
-            return x;
+            return eventIsOK;
         }
 
         private int DefineFirstEvevntConditionByPicture()
@@ -216,5 +219,26 @@ namespace WindowsFormsApp1 //universal
 
             return isRqKnown;
         }        
+
+        private string ConvertPictureToCond(int picture, int cond)
+        {
+            string name = "unknown";
+            int length = NotePad.GetInfoFileLength("C:\\Bot\\Condition" + cond + "\\info.txt");
+            string[,] theTable = NotePad.ReadInfoFromTXT("C:\\Bot\\Condition" + cond + "\\info.txt");
+            for (int l = 0; l < length; l++)
+            {
+                if (picture == Convert.ToInt32(theTable[l, 0]))
+                {
+                    name = theTable[l, 1];
+                    break;
+                }
+            }
+            if (name == "unknown")
+            {
+                NotePad.DoErrorLog("Неизвестное условие");
+            }
+
+            return name;
+        } //new, not in use
     }
 }

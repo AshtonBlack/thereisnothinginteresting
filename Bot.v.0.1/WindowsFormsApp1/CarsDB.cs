@@ -199,13 +199,13 @@ namespace WindowsFormsApp1 //universal
             }          
         }
 
-        public static bool SatisfyFirstCondition(int n, int car)
+        public static bool SatisfyFirstCondition(int cond, int car)
         {
             bool x = false;
             int year;
             string tag;
             string bodytype;
-            switch (n)
+            switch (cond)
             {
                 case 0:
                     x = true;
@@ -645,13 +645,13 @@ namespace WindowsFormsApp1 //universal
             return x;
         }
 
-        public static bool SatisfySecondCondition(int n, int car)
+        public static bool SatisfySecondCondition(int cond, int car)
         {
             bool x = false;
             int year;
             string tag;
             string bodytype;
-            switch (n)
+            switch (cond)
             {
                 case 0:
                     x = true;
@@ -661,6 +661,23 @@ namespace WindowsFormsApp1 //universal
             }
             return x;
         }
+
+        public static bool SatisfyCondition(string cond, int car)
+        {
+            bool x = false;
+            int year;
+            string tag;
+            string bodytype;
+            switch (cond)
+            {
+                case "empty":
+                    x = true;
+                    break;
+                default:
+                    break;
+            }
+            return x;
+        } //new, not in use
 
         public static bool SearchTag(int car, string tag)
         {
