@@ -113,7 +113,7 @@ namespace WindowsFormsApp1 //universal
                 {
                     if (MasterOfPictures.Verify(Condition1, ("Condition1\\C" + x)))
                     {
-                        NotePad.DoLog("Условие номер " + x);
+                        NotePad.DoLog("Первое условие: " + x);
                         break;
                     }
                 }
@@ -145,11 +145,11 @@ namespace WindowsFormsApp1 //universal
             int x;
             for (x = 0; x < 500; x++)
             {
-                if (File.Exists(@"C:\Bot\Condition2\C" + x + ".jpg"))
+                if (File.Exists(@"C:\Bot\Condition2\CC" + x + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify(Condition2, ("Condition2\\CC" + x)))
+                    if (MasterOfPictures.Verify(Condition2, "Condition2\\CC" + x))
                     {
-                        NotePad.DoLog("Условие номер " + x);
+                        NotePad.DoLog("Второе условие: " + x);
                         break;
                     }
                 }
