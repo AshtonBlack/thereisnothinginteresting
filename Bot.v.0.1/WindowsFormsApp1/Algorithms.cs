@@ -18,67 +18,30 @@
                 case "Асфальт":
                     switch (weather)
                     {
-                        case "Солнечно":
-                            switch (tires)
-                            {
-                                case 1:
-                                    x += 500;
-                                    break;
-                                case 2:
-                                    x += 400;
-                                    break;
-                                case 3:
-                                    x += 200;
-                                    break;
-                                case 4:
-                                    x += 100;
-                                    break;
-                                case 5:
-                                    x += 200;
-                                    break;
-                            }
-                            if (drive == 4) x -= 50;
+                        case "Солнечно":                            
                             break;
                         case "Дождь":
+                            if (drive == 4) x += 50;
                             switch (tires)
                             {
                                 case 1:
-                                    x += 0;
+                                    x -= 500;
                                     break;
-                                case 2:
-                                    if (drive == 4) x += 50;
-                                    x += 200;
+                                case 2:                                    
+                                    x -= 200;
                                     break;
                                 case 3:
-                                    x += 500;
+                                    x += 0;
                                     break;
                                 case 4:
-                                    x += 100;
+                                    x -= 100;
                                     break;
                                 case 5:
-                                    x += 0;
+                                    x += 500;
                                     break;
                             }
                             break;
                         default:
-                            switch (tires)
-                            {
-                                case 1:
-                                    x += 0;
-                                    break;
-                                case 2:
-                                    x += 200;
-                                    break;
-                                case 3:
-                                    x += 500;
-                                    break;
-                                case 4:
-                                    x += 100;
-                                    break;
-                                case 5:
-                                    x += 0;
-                                    break;
-                            }
                             break;
                     }
                     break;
@@ -86,22 +49,22 @@
                     switch (tires)
                     {
                         case 1:
-                            x += 0;
+                            x -= 300;
                             break;
                         case 2:
-                            x += 100;
+                            x -= 250;
                             break;
                         case 3:
-                            x += 300;
+                            x += 100;
                             break;
                         case 4:
-                            x += 450;
+                            x -= 50;
                             break;
                         case 5:
-                            x += 250;
+                            x += 0;
                             break;
                     }
-                    if (drive == 4) x += 50;
+                    if (drive == 4) x += 100;
                     break;
                 case "Грунт":
                     switch (weather)
@@ -110,63 +73,45 @@
                             switch (tires)
                             {
                                 case 1:
-                                    x += 100;
+                                    x -= 400;
                                     break;
                                 case 2:
-                                    x += 100;
+                                    x -= 300;
                                     break;
                                 case 3:
-                                    x += 250;
+                                    x -= 200;
                                     break;
                                 case 4:
-                                    x += 500;
+                                    x -= 50;
                                     break;
                                 case 5:
-                                    x += 500;
+                                    x += 0;
                                     break;
                             }
-                            if (drive == 4) x += 50;
+                            if (drive == 4) x += 100;
                             break;
                         case "Дождь":
                             switch (tires)
                             {
                                 case 1:
-                                    x += 0;
+                                    x -= 1000;
                                     break;
                                 case 2:
-                                    x += 50;
+                                    x -= 800;
                                     break;
                                 case 3:
-                                    x += 200;
+                                    x -= 300;
                                     break;
                                 case 4:
-                                    x += 500;
+                                    x -= 100;
                                     break;
                                 case 5:
-                                    x += 500;
+                                    x += 0;
                                     break;
                             }
-                            if (drive == 4) x += 100;
+                            if (drive == 4) x += 200;
                             break;
                         default:
-                            switch (tires)
-                            {
-                                case 1:
-                                    x += 0;
-                                    break;
-                                case 2:
-                                    x += 50;
-                                    break;
-                                case 3:
-                                    x += 200;
-                                    break;
-                                case 4:
-                                    x += 500;
-                                    break;
-                                case 5:
-                                    x += 500;
-                                    break;
-                            }
                             break;
                     }
                     break;
@@ -174,43 +119,43 @@
                     switch (tires)
                     {
                         case 1:
-                            x += 0;
+                            x -= 300;
                             break;
                         case 2:
-                            x += 50;
+                            x -= 250;
                             break;
                         case 3:
-                            x += 250;
+                            x -= 150;
                             break;
                         case 4:
-                            x += 500;
+                            x -= 50;
                             break;
                         case 5:
-                            x += 500;
+                            x += 0;
                             break;
                     }
-                    if (drive == 4) x += 50;
+                    if (drive == 4) x += 100;
                     break;
                 case "Снег":
                     switch (tires)
                     {
                         case 1:
-                            x += 0;
+                            x -= 1000;
                             break;
                         case 2:
-                            x += 50;
+                            x -= 800;
                             break;
                         case 3:
-                            x += 100;
+                            x -= 300;
                             break;
                         case 4:
-                            x += 500;
+                            x -= 100;
                             break;
                         case 5:
-                            x += 500;
+                            x += 0;
                             break;
                     }
-                    if (drive == 4) x += 100;
+                    if (drive == 4) x += 150;
                     break;
                 case "Смешанное":
                     switch (weather)
@@ -219,19 +164,19 @@
                             switch (tires)
                             {
                                 case 1:
-                                    x += 0;
+                                    x -= 300;
                                     break;
                                 case 2:
-                                    x += 50;
+                                    x -= 200;
                                     break;
                                 case 3:
-                                    x += 100;
+                                    x -= 0;
                                     break;
                                 case 4:
-                                    x += 400;
+                                    x -= 0;
                                     break;
                                 case 5:
-                                    x += 300;
+                                    x += 0;
                                     break;
                             }
                             break;
@@ -239,128 +184,80 @@
                             switch (tires)
                             {
                                 case 1:
-                                    x += 0;
+                                    x -= 1000;
                                     break;
                                 case 2:
-                                    x += 50;
+                                    x -= 600;
                                     break;
                                 case 3:
-                                    x += 100;
+                                    x -= 300;
                                     break;
                                 case 4:
-                                    x += 500;
+                                    x -= 0;
                                     break;
                                 case 5:
-                                    x += 250;
+                                    x -= 300;
                                     break;
                             }
                             break;
                         default:
-                            switch (tires)
-                            {
-                                case 1:
-                                    x += 0;
-                                    break;
-                                case 2:
-                                    x += 50;
-                                    break;
-                                case 3:
-                                    x += 100;
-                                    break;
-                                case 4:
-                                    x += 500;
-                                    break;
-                                case 5:
-                                    x += 500;
-                                    break;
-                            }
                             break;
                     }
-                    if (drive == 4) x += 50;
+                    if (drive == 4) x += 200;
                     break;
                 case "Трава":
                     switch (tires)
                     {
                         case 1:
-                            x += 0;
+                            x -= 1000;
                             break;
                         case 2:
-                            x += 50;
+                            x -= 800;
                             break;
                         case 3:
-                            x += 100;
+                            x -= 300;
                             break;
                         case 4:
-                            x += 350;
+                            x -= 100;
                             break;
                         case 5:
-                            x += 500;
+                            x += 0;
                             break;
                     }
-                    if (drive == 4) x += 50;
+                    if (drive == 4) x += 150;
                     break;
                 case "Лед":
                     switch (tires)
                     {
                         case 1:
-                            x += 0;
+                            x -= 1000;
                             break;
                         case 2:
-                            x += 50;
+                            x -= 800;
                             break;
                         case 3:
-                            x += 100;
+                            x -= 500;
                             break;
                         case 4:
-                            x += 400;
+                            x -= 200;
                             break;
                         case 5:
-                            x += 500;
+                            x += 0;
                             break;
                     }
-                    if (drive == 4) x += 50;
+                    if (drive == 4) x += 150;
                     break;
             }
 
             switch (track)
             {
-                case "Длинная трасса у океана":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 200;
-                    }
+                case "Длинная трасса у океана":                    
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed;
                     break;
-                case "Короткая трасса у океана":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 300;
-                    }
+                case "Короткая трасса у океана":                    
                     x -= acceleration * 120;
                     x -= grip * 5;
                     x += weight / 10;
@@ -457,18 +354,7 @@
                             break;
                     }
                     break;
-                case "50-150":
-                    if(coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }                    
+                case "50-150":                           
                     x -= acceleration * 100;
                     x -= grip;
                     x += weight / 10;
@@ -479,17 +365,6 @@
                     }
                     break;
                 case "75-125":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
                     x -= acceleration * 150;
                     x -= grip;
                     x += weight / 10;
@@ -500,21 +375,6 @@
                     }
                     break;
                 case "0-100":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 200;
-                    }
                     x -= acceleration * 200;
                     x -= grip*5;
                     x += weight / 10;
@@ -525,21 +385,6 @@
                     }
                     break;
                 case "0-100-0":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 200;
-                    }
                     x -= acceleration * 100;
                     x -= grip*5;
                     x += weight / 10;
@@ -550,84 +395,24 @@
                     }
                     break;
                 case "1":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 100;
-                    }
                     x -= acceleration * 80;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed * 3;
                     break;
                 case "1/2":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 200;
-                    }
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed;
                     break;
                 case "1/4":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 300;
-                    }
                     x -= acceleration * 120;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed / 2;
                     break;
                 case "0-60":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 300;
-                    }
                     x -= acceleration * 120;
                     x -= grip*5;
                     x += weight / 10;
@@ -637,42 +422,12 @@
                     }
                     break;
                 case "Токио трасса":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 200;
-                    }
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed;
                     break;
                 case "Трасса набережная":
-                    if (coverage == "Асфальт")
-                    {
-                        if (tires == 2)
-                        {
-                            x += 200;
-                        }
-                        if (drive == 4)
-                        {
-                            x -= 200;
-                        }
-                    }
-                    if (coverage != "Асфальт")
-                    {
-                        if (drive == 4) x += 200;
-                    }
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;

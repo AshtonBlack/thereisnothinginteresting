@@ -163,7 +163,7 @@ namespace WindowsFormsApp1 //universal
                     {
                         if (File.Exists("C:\\Bot\\Condition2\\UnknownCondition" + i + ".jpg"))
                         {
-                            if (!MasterOfPictures.Verify(Condition2, ("Condition2\\UnknownCondition" + i))) break;
+                            if (MasterOfPictures.Verify(Condition2, ("Condition2\\UnknownCondition" + i))) break;
                         }
                         else
                         {
