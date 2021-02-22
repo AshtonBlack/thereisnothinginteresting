@@ -251,34 +251,40 @@
 
             switch (track)
             {
-                case "Длинная трасса у океана":                    
+                case "Длинная трасса у океана":
+                    x *= 1;
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed;
                     break;
-                case "Короткая трасса у океана":                    
+                case "Короткая трасса у океана":
+                    x *= 1;
                     x -= acceleration * 120;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed / 2;
                     break;
                 case "Магистраль у океана":
+                    x *= 1;
                     x += maxSpeed;
                     x -= acceleration * 50;
                     x += grip;
                     break;
                 case "Парковка у океана":
+                    x *= 2;
                     x -= acceleration * 30;
                     x += grip * 8;
                     x -= weight;
                     break;
                 case "Пляжный слалом у океана":
+                    x *= 3;
                     x -= acceleration * 30;
                     x += grip * 8;
                     x -= weight;
                     break;
                 case "Городские улицы у океана":
+                    x *= 2;
                     switch (clearance)
                     {
                         case 1:
@@ -293,6 +299,7 @@
                     }
                     break;
                 case "Улица ср":
+                    x *= 2;
                     switch (clearance)
                     {
                         case 1:
@@ -307,6 +314,7 @@
                     }
                     break;
                 case "Улица мал":
+                    x *= 2;
                     switch (clearance)
                     {
                         case 1:
@@ -322,9 +330,10 @@
                     break;
                 case "Подъем на холм":                    
                     x -= acceleration * 50;
+                    x *= 1.5;
                     if (coverage != "Асфальт")
                     {
-                        if (drive == 4) x += 400;
+                        if (drive == 4) x += 100;
                         switch (clearance)
                         {
                             case 1:
@@ -340,7 +349,8 @@
                     }
                     break;
                 case "Трасса для мотокросса":
-                    if (drive == 4) x += 100;
+                    x *= 2;
+                    if (drive == 4) x += 50;
                     switch (clearance)
                     {
                         case 1:
@@ -354,7 +364,8 @@
                             break;
                     }
                     break;
-                case "50-150":                           
+                case "50-150":
+                    x *= 1;
                     x -= acceleration * 100;
                     x -= grip;
                     x += weight / 10;
@@ -365,6 +376,7 @@
                     }
                     break;
                 case "75-125":
+                    x *= 1;
                     x -= acceleration * 150;
                     x -= grip;
                     x += weight / 10;
@@ -375,6 +387,7 @@
                     }
                     break;
                 case "0-100":
+                    x *= 1.5;
                     x -= acceleration * 200;
                     x -= grip*5;
                     x += weight / 10;
@@ -385,6 +398,7 @@
                     }
                     break;
                 case "0-100-0":
+                    x *= 1.7;
                     x -= acceleration * 100;
                     x -= grip*5;
                     x += weight / 10;
@@ -395,24 +409,28 @@
                     }
                     break;
                 case "1":
+                    x *= 1;
                     x -= acceleration * 80;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed * 3;
                     break;
                 case "1/2":
+                    x *= 1.3;
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed;
                     break;
                 case "1/4":
+                    x *= 1.7;
                     x -= acceleration * 120;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed / 2;
                     break;
                 case "0-60":
+                    x *= 2;
                     x -= acceleration * 120;
                     x -= grip*5;
                     x += weight / 10;
@@ -422,39 +440,48 @@
                     }
                     break;
                 case "Токио трасса":
+                    x *= 1.3;
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed;
                     break;
                 case "Трасса набережная":
+                    x *= 1.3;
                     x -= acceleration * 100;
                     x -= grip * 5;
                     x += weight / 10;
                     x += maxSpeed;
                     break;
                 case "Тестовый круг":
+                    x *= 0.8;
                     x += maxSpeed * 5;
                     x -= grip*10;
                     x += weight / 10;
                     break;
                 case "Токио мостик":
+                    x *= 1.5;
                     x += maxSpeed * 3;
                     x -= acceleration * 6;
                     break;
                 case "Нюрбург 1":
+                    x *= 1.7;
                     x += maxSpeed * 3;
                     break;
                 case "Нюрбург 2":
+                    x *= 1.7;
                     x += maxSpeed * 3;
                     break;
                 case "Нюрбург 3":
+                    x *= 1.7;
                     x += maxSpeed * 3;
                     break;
                 case "Нюрбург 4":
+                    x *= 1.7;
                     x += maxSpeed * 3;
                     break;
                 case "Нюрбург 5":
+                    x *= 1.7;
                     x += maxSpeed * 3;
                     break;
                 case "Токио петля":
@@ -462,6 +489,7 @@
                     x -= acceleration * 80;
                     break;
                 case "Замерзшее озеро":
+                    x *= 2.2;
                     if (tires == 5)
                     {
                         x += 500;
@@ -472,21 +500,25 @@
                     }
                     break;
                 case "Горы серпантин":
+                    x *= 2.2;
                     if (coverage != "Асфальт" || weather != "Солнечно")
                     {
-                        if (drive == 4) x += 100;
+                        if (drive == 4) x += 50;
                     }                        
                     break;
                 case "Горы извилистая дорога":
+                    x *= 2.2;
                     x -= acceleration * 30;
                     x += grip * 4;
                     break;
                 case "Горы дорога с уклоном":
+                    x *= 2;
                     x += maxSpeed;
                     x -= acceleration * 50;
                     x += grip;
                     break;
                 case "Горы подъем на холм":
+                    x *= 1.8;
                     switch (clearance)
                     {
                         case 1:
@@ -503,14 +535,16 @@
                     x += grip;
                     if (coverage != "Асфальт")
                     {
-                        if (drive == 4) x += 400;
+                        if (drive == 4) x += 200;
                     }                    
                     break;
                 case "Горная экспедиция":
+                    x *= 1.8;
                     x += maxSpeed;
                     x += grip / 2;
                     break;
                 case "Извилистая дорога":
+                    x *= 2.2;
                     if (coverage != "Асфальт")
                     {
                         switch (clearance)
@@ -529,125 +563,152 @@
                     }
                     break;
                 case "Быстрая трасса":
+                    x *= 1.8;
                     x -= acceleration * 40;
                     x -= grip / 2;
                     x += weight / 5;
                     x += maxSpeed*2;
                     break;
                 case "Highway":
+                    x *= 1.8;
                     x -= acceleration * 40;
                     x += weight / 5;
                     x += grip*2;
                     x += maxSpeed;
                     break;
                 case "Монако длинные городские улицы":
+                    x *= 2;
                     x -= acceleration * 40;
                     x -= grip / 2;
                     x += maxSpeed;
                     break;
                 case "Каньон экспедиция":
+                    x *= 1.8;
                     x -= acceleration * 30;
                     x -= grip / 4;
                     x += maxSpeed;
                     break;
                 case "Серпантин":
+                    x *= 2.2;
                     x -= acceleration * 50;
                     break;
                 case "Монако серпантин":
+                    x *= 2.2;
                     x -= acceleration * 50;
                     x += grip;
                     break;
                 case "Извилистая трасса":
+                    x *= 2.3;
                     x -= acceleration * 20;
                     x += grip*10;
                     break;
                 case "Токио мост":
+                    x *= 1.9;
                     x += maxSpeed * 2;
                     x -= acceleration * 50;
                     x += grip;
                     break;
                 case "Токио съезд":
+                    x *= 1.9;
                     x += maxSpeed * 2;
                     x -= acceleration * 50;
                     x += grip;
                     break;
                 case "Монако городские":
+                    x *= 1.9;
                     x += maxSpeed * 2;
                     x -= acceleration * 50;
                     x += grip;
                     break;
                 case "Обзор":
+                    x *= 2;
                     x += maxSpeed * 2;
                     x -= acceleration * 50;
                     x += grip;
                     break;
                 case "Каньон грунтовая дорога":
+                    x *= 2;
                     x -= acceleration * 40;
                     x += grip * 2;
                     break;
                 case "Каньон крутой холм":
+                    x *= 2.1;
                     x -= acceleration * 40;
                     x += grip * 2;
                     break;
                 case "Лесная переправа":
+                    x *= 2;
                     x -= acceleration * 40;
                     x += grip * 2;
                     break;
                 case "Ралли-кросс мал":
+                    x *= 2;
                     x -= acceleration * 40;
                     x += grip * 2;
                     break;
                 case "Ралли-кросс ср":
+                    x *= 2;
                     x -= acceleration * 40;
                     x += grip * 2;
                     break;
                 case "Лесная дорога":
+                    x *= 2.2;
                     x -= acceleration * 20;
                     x += grip * 10;
                     break;
                 case "Монако узкие улицы":
+                    x *= 2;
                     x -= acceleration * 40;
                     x += grip * 5;
                     x -= weight;
                     break;
                 case "Монако тест на перегрузки":
+                    x *= 2.7;
                     x -= acceleration * 30;
                     x += grip * 8;
                     x -= weight;
                     break;
                 case "Токио тест на перегрузки":
+                    x *= 2.6;
                     x -= acceleration * 30;
                     x += grip * 8;
                     x -= weight;
                     break;
                 case "Трасса для картинга":
+                    x *= 2.7;
                     x -= acceleration * 25;
                     x += grip * 10;
                     x -= weight;
                     break;
                 case "Парковка":
+                    x *= 3;
                     x -= acceleration * 20;
                     x += grip * 10;
                     x -= weight * 2;
                     break;
                 case "Лесной слалом":
+                    x *= 3;
                     x += grip * 10;
                     x -= weight * 3;
                     break;
                 case "Закрытый картинг":
+                    x *= 3;
                     x -= acceleration * 10;
                     x += grip * 15;
                     x -= weight * 3;
                     break;
                 case "Горы слалом":
+                    x *= 2.8;
                     x += grip * 10;
                     x -= weight * 3;
                     break;
                 case "Слалом":
+                    x *= 3;
                     x += grip * 10;
                     x -= weight * 3;
                     break;
                 case "Перегрузка":
+                    x *= 3;
                     x -= acceleration * 10;
                     x += grip * 15;
                     x -= weight * 2;
