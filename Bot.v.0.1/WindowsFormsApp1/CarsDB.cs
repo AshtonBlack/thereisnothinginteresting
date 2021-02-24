@@ -745,7 +745,7 @@ namespace WindowsFormsApp1 //universal
             return x;
         }
 
-        public static bool SatisfyCondition(string cond, int car) //fill with name of conditions
+        public static bool SatisfyCondition(string cond, int car) //repair hot hutch
         {
             bool x = false;
             int year;
@@ -872,129 +872,254 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "alfa romeo":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Alfa Romeo")
+                    {
+                        x = true;
+                    }
                     break;
                 case "французский ренессанс":
-                    x = true;
+                    tag = "French Renaissance";
+                    x = SearchTag(car, tag);
                     break;
                 case "машины франции":
-                    x = true;
+                    if (fulltablearray[car, 4] == "France")
+                    {
+                        x = true;
+                    }
                     break;
                 case "all-surface tyres":
-                    x = true;
+                    if (fulltablearray[car, 13] == "all")
+                    {
+                        x = true;
+                    }
                     break;
                 case "ford":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Ford")
+                    {
+                        x = true;
+                    }
                     break;
                 case "bmw":
-                    x = true;
+                    if (fulltablearray[car, 8] == "BMW")
+                    {
+                        x = true;
+                    }
                     break;
                 case "машины италии":
-                    x = true;
+                    if (fulltablearray[car, 4] == "Italy")
+                    {
+                        x = true;
+                    }
                     break;
                 case "5-местные":
-                    x = true;
+                    if (fulltablearray[car, 11] == "5")
+                    {
+                        x = true;
+                    }
                     break;
                 case "mazda":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Mazda")
+                    {
+                        x = true;
+                    }
                     break;
                 case "машины германии":
-                    x = true;
+                    if (fulltablearray[car, 4] == "Germany")
+                    {
+                        x = true;
+                    }
                     break;
                 case "американская мечта":
-                    x = true;
+                    tag = "American Dream";
+                    x = (SearchTag(car, tag));
                     break;
                 case "dodge":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Dodge")
+                    {
+                        x = true;
+                    }
                     break;
                 case "суперская":
-                    x = true;
+                    if (fulltablearray[car, 2] == "c")
+                    {
+                        x = true;
+                    }
                     break;
                 case "машины 1980":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1979 && year < 1990)
+                    {
+                        x = true;
+                    }
                     break;
                 case "porsche":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Porsche")
+                    {
+                        x = true;
+                    }
                     break;
                 case "opel":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Vauxhall")
+                    {
+                        x = true;
+                    }
                     break;
                 case "2-местные":
-                    x = true;
+                    if (fulltablearray[car, 11] == "2")
+                    {
+                        x = true;
+                    }
                     break;
                 case "2000s 4wd":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (fulltablearray[car, 5] == "4wd" && (year > 1999 && year < 2010))
+                    {
+                        x = true;
+                    }
                     break;
                 case "седаны":
-                    x = true;
+                    bodytype = "saloon";
+                    x = SearchBody(car, bodytype);
                     break;
-                case "горячий хэтчбек":
-                    x = true;
+                case "горячий хэтчбек": //исправить
+                    bodytype = "hatchback";
+                    x = SearchBody(car, bodytype);
                     break;
                 case "экологичная":
-                    x = true;
+                    tag = "Eco Friendly";
+                    x = (SearchTag(car, tag));
                     break;
                 case "italian renaissance":
-                    x = true;
+                    tag = "Italian Renaissance";
+                    x = (SearchTag(car, tag));
                     break;
                 case "cadillac":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Cadillac")
+                    {
+                        x = true;
+                    }
                     break;
                 case "citroen":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Citroen")
+                    {
+                        x = true;
+                    }
                     break;
                 case "pre-1970":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year < 1970)
+                    {
+                        x = true;
+                    }
                     break;
                 case "pontiac":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Pontiac")
+                    {
+                        x = true;
+                    }
                     break;
                 case "1975-1984":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1974 && year < 1985)
+                    {
+                        x = true;
+                    }
                     break;
                 case "немецкое возрождение":
-                    x = true;
+                    tag = "German Renaissance";
+                    x = (SearchTag(car, tag));
                     break;
                 case "fiat":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Fiat")
+                    {
+                        x = true;
+                    }
                     break;
                 case "nissan":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Nissan")
+                    {
+                        x = true;
+                    }
                     break;
                 case "chevrolet":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Chevrolet")
+                    {
+                        x = true;
+                    }
                     break;
                 case "2000-2004":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1999 && year < 2005)
+                    {
+                        x = true;
+                    }
                     break;
                 case "икона стиля":
-                    x = true;
+                    tag = "Style Icon";
+                    x = (SearchTag(car, tag));
                     break;
                 case "2005-2009":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 2004 && year < 2010)
+                    {
+                        x = true;
+                    }
                     break;
                 case "1985-1994":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1984 && year < 1995)
+                    {
+                        x = true;
+                    }
                     break;
                 case "subaru":
-                    x = true;
+                    if (fulltablearray[car, 8] == "Subaru")
+                    {
+                        x = true;
+                    }
                     break;
                 case "автоспорт":
-                    x = true;
+                    tag = "Motorsport";
+                    x = (SearchTag(car, tag));
                     break;
                 case "отк.верх":
-                    x = true;
+                    bool x1;
+                    bool x2;
+                    bodytype = "roadster";
+                    x1 = SearchBody(car, bodytype);
+                    bodytype = "cabrio";
+                    x2 = SearchBody(car, bodytype);
+                    if (x1 || x2)
+                    {
+                        x = true;
+                    }
                     break;
                 case "машины 1990":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1989 && year < 2000)
+                    {
+                        x = true;
+                    }
                     break;
                 case "2000 rwd":
-                    x = true;
+                    if (fulltablearray[car, 5] == "rwd")
+                    {
+                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        if (year > 1999 && year < 2010)
+                        {
+                            x = true;
+                        }
+                    }
                     break;
                 case "машины 1970":
-                    x = true;
+                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    if (year > 1969 && year < 1980)
+                    {
+                        x = true;
+                    }
                     break;
                 default:
+                    NotePad.DoErrorLog("don't know condition: " + cond);
                     break;
             }
             return x;
