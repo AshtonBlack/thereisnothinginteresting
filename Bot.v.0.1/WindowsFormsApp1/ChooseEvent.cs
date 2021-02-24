@@ -61,6 +61,7 @@ namespace WindowsFormsApp1 //universal
             Point[] events = { eventN1, eventN2, eventN3, eventN4 };
 
             bool eventIsOK = false;
+
             bool flag;
             do
             {
@@ -84,6 +85,9 @@ namespace WindowsFormsApp1 //universal
             int x = DefineFirstEvevntConditionByPicture();
             int y = DefineSecondEvevntConditionByPicture();
 
+            //string cond1 = ConvertPictureToCond(x, 1);
+            //string cond2 = ConvertPictureToCond(y, 2);
+
             if (x != 500 && y != 500)//Исключаю неизвестный
             {
                 eventIsOK = true;
@@ -104,6 +108,27 @@ namespace WindowsFormsApp1 //universal
                 }
             }
 
+            /*
+            if (cond1 != "Неизвестное условие" && cond2 != "Неизвестное условие")//Исключаю неизвестный
+            {
+                eventIsOK = true;
+                Condition.MakeCondition(cond1, cond2);
+                if (GotRQ())
+                {
+                    NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
+                    NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
+                    if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
+                    {
+                        NotePad.DoLog("Минимальное рк для условия больше требуемого");
+                        eventIsOK = false;
+                    }
+                }
+                else
+                {
+                    eventIsOK = false;
+                }
+            }
+            */
             return eventIsOK;
         }
 
@@ -220,7 +245,7 @@ namespace WindowsFormsApp1 //universal
             return isRqKnown;
         }        
 
-        private string ConvertPictureToCond(int picture, int cond)
+        private string ConvertPictureToCond(int picture, int cond) //fill info.txt files
         {
             string name = "unknown";
             int length = NotePad.GetInfoFileLength("C:\\Bot\\Condition" + cond + "\\info.txt");

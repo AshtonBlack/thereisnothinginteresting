@@ -199,6 +199,89 @@ namespace WindowsFormsApp1 //universal
             }          
         }
 
+        public static void MakeCondAuto(string firstCond, string secondCond)
+        {
+            List<int> rq;
+            string grade;
+            string t;
+            int n;
+
+            slikTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            dynamicTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            standartTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            allseasonTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            offroadTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            lowestcars = new int[5];
+            rq = new List<int>(0);
+            for (int j = 1; j < linenumber; j++)
+            {
+                if (SatisfyCondition(firstCond, j))
+                {
+                    if (SatisfyCondition(secondCond, j))
+                    {
+                        grade = fulltablearray[j, 2];
+                        t = fulltablearray[j, 13];
+                        n = Convert.ToInt32(fulltablearray[j, 16]);
+                        int y;
+                        switch (grade)
+                        {
+                            case "e":
+                                y = 1;
+                                break;
+                            case "d":
+                                y = 2;
+                                break;
+                            case "c":
+                                y = 3;
+                                break;
+                            case "b":
+                                y = 4;
+                                break;
+                            case "a":
+                                y = 5;
+                                break;
+                            case "s":
+                                y = 6;
+                                break;
+                            default:
+                                y = 0;
+                                break;
+                        }
+                        switch (t)
+                        {
+                            case "per":
+                                dynamicTyres[y] += n;
+                                break;
+                            case "std":
+                                standartTyres[y] += n;
+                                break;
+                            case "all":
+                                allseasonTyres[y] += n;
+                                break;
+                            case "off":
+                                offroadTyres[y] += n;
+                                break;
+                            default:
+                                slikTyres[y] += n;
+                                break;
+                        }
+                        for (int k = 0; k < n; k++)
+                        {
+                            rq.Add(Convert.ToInt32(fulltablearray[j, 10]));
+                        }
+                    }
+                }
+            }
+            if (rq.Count > 4)
+            {
+                rq.Sort();
+                for (int k = 0; k < lowestcars.Length; k++)
+                {
+                    lowestcars[k] = rq[k];
+                }
+            }
+        } //new, not in use
+
         public static bool SatisfyFirstCondition(int cond, int car)
         {
             bool x = false;
@@ -662,7 +745,7 @@ namespace WindowsFormsApp1 //universal
             return x;
         }
 
-        public static bool SatisfyCondition(string cond, int car)
+        public static bool SatisfyCondition(string cond, int car) //fill with name of conditions
         {
             bool x = false;
             int year;
@@ -671,6 +754,244 @@ namespace WindowsFormsApp1 //universal
             switch (cond)
             {
                 case "empty":
+                    x = true;
+                    break;
+                case "задний привод":
+                    if (fulltablearray[car, 5] == "rwd")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "передний привод":
+                    if (fulltablearray[car, 5] == "fwd")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "обычная х3":
+                    x = true;
+                    break;
+                case "audi":
+                    if (fulltablearray[car, 8] == "Audi")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "бензиновые машины":
+                    if (fulltablearray[car, 6] == "petrol")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "необычная":
+                    if (fulltablearray[car, 2] == "e")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины японии":
+                    if (fulltablearray[car, 4] == "Japan")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "jaguar":
+                    if (fulltablearray[car, 8] == "Jaguar")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины сша":
+                    if (fulltablearray[car, 4] == "United States")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "редкостная":
+                    if (fulltablearray[car, 2] == "d")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "экстремальная":
+                    if (fulltablearray[car, 2] == "b")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "standard tires":
+                    if (fulltablearray[car, 13] == "std")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "пикапы":
+                    bodytype = "pickup";
+                    x = SearchBody(car, bodytype);
+                    break;
+                case "mercedes-benz":
+                    if (fulltablearray[car, 8] == "Mercedes-Benz")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "renault":
+                    if (fulltablearray[car, 8] == "Renault")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "полный привод":
+                    if (fulltablearray[car, 5] == "4wd")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины англии":
+                    if (fulltablearray[car, 4] == "United Kingdom")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "chrysler":
+                    if (fulltablearray[car, 8] == "Chrysler")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "peugeot":
+                    if (fulltablearray[car, 8] == "Peugeot")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "honda":
+                    if (fulltablearray[car, 8] == "Honda")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "alfa romeo":
+                    x = true;
+                    break;
+                case "французский ренессанс":
+                    x = true;
+                    break;
+                case "машины франции":
+                    x = true;
+                    break;
+                case "all-surface tyres":
+                    x = true;
+                    break;
+                case "ford":
+                    x = true;
+                    break;
+                case "bmw":
+                    x = true;
+                    break;
+                case "машины италии":
+                    x = true;
+                    break;
+                case "5-местные":
+                    x = true;
+                    break;
+                case "mazda":
+                    x = true;
+                    break;
+                case "машины германии":
+                    x = true;
+                    break;
+                case "американская мечта":
+                    x = true;
+                    break;
+                case "dodge":
+                    x = true;
+                    break;
+                case "суперская":
+                    x = true;
+                    break;
+                case "машины 1980":
+                    x = true;
+                    break;
+                case "porsche":
+                    x = true;
+                    break;
+                case "opel":
+                    x = true;
+                    break;
+                case "2-местные":
+                    x = true;
+                    break;
+                case "2000s 4wd":
+                    x = true;
+                    break;
+                case "седаны":
+                    x = true;
+                    break;
+                case "горячий хэтчбек":
+                    x = true;
+                    break;
+                case "экологичная":
+                    x = true;
+                    break;
+                case "italian renaissance":
+                    x = true;
+                    break;
+                case "cadillac":
+                    x = true;
+                    break;
+                case "citroen":
+                    x = true;
+                    break;
+                case "pre-1970":
+                    x = true;
+                    break;
+                case "pontiac":
+                    x = true;
+                    break;
+                case "1975-1984":
+                    x = true;
+                    break;
+                case "немецкое возрождение":
+                    x = true;
+                    break;
+                case "fiat":
+                    x = true;
+                    break;
+                case "nissan":
+                    x = true;
+                    break;
+                case "chevrolet":
+                    x = true;
+                    break;
+                case "2000-2004":
+                    x = true;
+                    break;
+                case "икона стиля":
+                    x = true;
+                    break;
+                case "2005-2009":
+                    x = true;
+                    break;
+                case "1985-1994":
+                    x = true;
+                    break;
+                case "subaru":
+                    x = true;
+                    break;
+                case "автоспорт":
+                    x = true;
+                    break;
+                case "отк.верх":
+                    x = true;
+                    break;
+                case "машины 1990":
+                    x = true;
+                    break;
+                case "2000 rwd":
+                    x = true;
+                    break;
+                case "машины 1970":
                     x = true;
                     break;
                 default:
