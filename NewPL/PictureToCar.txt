@@ -686,3 +686,10 @@
 1083 Ford Explorer 1991
 1084 Dodge Avenger R/T 2013
 1085 AMC Javelin AMX 1971
+856 BMW H2R 2004
+302 Lotus Esprit Sport 350 1999
+229 Bentley Mulsanne Grand Convertible 2014
+261 Mercedes-Benz SL 500 2016
+589 Aston Martin DB9 2004
+1086 Lamborghini Countach LP400 1974
+1087 BMW 545i 2004
