@@ -197,7 +197,7 @@ namespace WindowsFormsApp1 //universal
                     lowestcars[k] = rq[k];
                 }
             }          
-        }
+        } //old
 
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
@@ -280,7 +280,7 @@ namespace WindowsFormsApp1 //universal
                     lowestcars[k] = rq[k];
                 }
             }
-        } //new, not in use
+        } //new
 
         public static bool SatisfyFirstCondition(int cond, int car)
         {
@@ -726,7 +726,7 @@ namespace WindowsFormsApp1 //universal
                     break;
             }
             return x;
-        }
+        } //old
 
         public static bool SatisfySecondCondition(int cond, int car)
         {
@@ -743,7 +743,7 @@ namespace WindowsFormsApp1 //universal
                     break;
             }
             return x;
-        }
+        } //old
 
         public static bool SatisfyCondition(string cond, int car) //repair hot hutch
         {
@@ -1123,7 +1123,7 @@ namespace WindowsFormsApp1 //universal
                     break;
             }
             return x;
-        } //new, not in use
+        } //new
 
         public static bool SearchTag(int car, string tag)
         {
