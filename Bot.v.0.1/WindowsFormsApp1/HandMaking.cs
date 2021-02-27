@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 
-namespace WindowsFormsApp1 //not universal in DragnDpopHand
+namespace WindowsFormsApp1 //universal
 {
     public class HandMaking
     {
@@ -22,7 +22,10 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
         Rectangle Car7Bounds = new Rectangle(670, 325, 290, 150);
         Rectangle Car8Bounds = new Rectangle(670, 530, 290, 150);
         
-        Point commoncondition = new Point(640, 265);
+        Point commonCondition = new Point(640, 265);
+        Point cond1 = new Point(640, 265); //rewrite
+        Point cond2 = new Point(640, 265); //rewrite
+        Point commonConditionCross = new Point(640, 265); //rewrite
 
         Point filter = new Point(945, 265);
         Point clear = new Point(525, 785);
@@ -74,15 +77,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
         public int[] ConditionHandling()
         {
             int[] rqclass = new int[] { 19, 29, 39, 49, 64, 79, 100 }; //рк для классов 
-            int[,] hand = new int[5, 7];
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 7; j++)
-                {
-                    hand[i, j] = rqclass[j];
-                }
-            }
-
+            
             Random r = new Random();
             int handrq = 0;
             Condition.ActualRQ();
@@ -91,7 +86,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             int[] finger = Condition.LowestClassCars();
             for (int x = 0; x < 5; x++)
             {
-                handrq += hand[x, finger[x]];
+                handrq += rqclass[finger[x]];
             }//начальная рука
             int n;
             while(Condition.actualRQ - handrq > 0)
@@ -105,7 +100,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                 handrq = 0;
                 for (int x = 0; x < 5; x++)
                 {
-                    handrq += hand[x, finger[x]];
+                    handrq += rqclass[finger[x]];
                 }
             }//сборка руки
             
@@ -122,12 +117,12 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                     }
             }//сортировка карт по возрастанию
 
-            int[] classcars = { 0, 0, 0, 0, 0, 0, 0 };//запись будет инвертирована            
+            int[] classcars = { 0, 0, 0, 0, 0, 0, 0 };           
             for (int k = 0; k < finger.Length; k++)
             {
-                classcars[6 - finger[k]]++;
+                classcars[finger[k]]++;
             }
-            return classcars;//порядок S,A,B,C,D,E,F
+            return classcars;//порядок F,E,D,C,B,A,S
         }
 
         public void MakingHand()
@@ -135,24 +130,54 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             FastCheck fc = new FastCheck();            
 
             int[] classcars = ConditionHandling();
-            NotePad.DoLog("Собираю " + classcars[0] + "S, " + classcars[1] + "A, " + classcars[2] + "B, " + classcars[3] + "C, " + classcars[4] + "D, " + classcars[5] + "E, " + classcars[6] + "F");
+            NotePad.DoLog("Собираю " + classcars[0] + "F, " 
+                + classcars[1] + "E, "
+                + classcars[2] + "D, "
+                + classcars[3] + "C, "
+                + classcars[4] + "B, "
+                + classcars[5] + "A, "
+                + classcars[6] + "S");
             Thread.Sleep(1000);
 
             int emptycars; //недобор
             int conditionAvailableCars;
             int usedhandslots = 0;
-            if (Condition.firstConditionNumber != 0 && Condition.firstConditionNumber != 3 && Condition.firstConditionNumber != 36 && !fc.ConditionActivated()) 
-                Rat.Clk(commoncondition); //включить фильтр условия события. Исключения: нет условий, 3 машины одной редкости, фильтр включен              
-            char[] cls = { 's', 'a', 'b', 'c', 'd', 'e', 'f' };
-            for (int i = 0; i < 7; i++)
+            /*old
+            if (Condition.firstConditionNumber != 0 
+                && Condition.firstConditionNumber != 3 
+                && Condition.firstConditionNumber != 36 
+                && !fc.ConditionActivated()) 
+                Rat.Clk(commoncondition); //old, включить фильтр условия события. Исключения: нет условий, 3 машины одной редкости, фильтр включен     
+            */
+            if (Condition.ConditionNumber1 != "empty"
+                && Condition.ConditionNumber1 != "обычная х3"
+                && Condition.ConditionNumber2 == "empty"
+                && !fc.ConditionActivated())
+            {
+                if(Condition.ConditionNumber2 == "empty")
+                {
+                    Rat.Clk(commonCondition);
+                }
+                else
+                {
+                    Rat.Clk(commonCondition);
+                    Thread.Sleep(1000);
+                    Rat.Clk(cond1);
+                    Rat.Clk(cond2);
+                    Rat.Clk(commonConditionCross);
+                }
+            } //включить фильтр условия события.
+
+            Point[] cls = { f, e, d, c, b, a, s };
+            for (int i = 6; i > -1; i--)
             {
                 if (classcars[i] > 0)
                 {
                     Randomizer();
                     UseFilter(cls[i]);
-                    conditionAvailableCars = Condition.AvailableCars(cls[i]);
+                    conditionAvailableCars = Condition.AvailableCars(i);
 
-                    if (i == 6)//для серых нет возврата недобора
+                    if (i == 0)//для серых нет возврата недобора
                     {                                                                       
                         DragnDpopHand(classcars[i], usedhandslots, conditionAvailableCars);
                     }
@@ -161,7 +186,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
                         emptycars = 0;                               
                         emptycars += DragnDpopHand(classcars[i], usedhandslots, conditionAvailableCars);
                         usedhandslots += classcars[i] - emptycars;
-                        classcars[i + 1] += emptycars;
+                        classcars[i - 1] += emptycars;
                     }
                 }
             }//механизм расстановки
@@ -320,7 +345,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             return carsid;
         }
 
-        private void UseFilter(char cls)
+        private void UseFilter(Point cls)
         {
             FastCheck fc = new FastCheck();
                         
@@ -335,30 +360,7 @@ namespace WindowsFormsApp1 //not universal in DragnDpopHand
             Rat.DragnDropSlow(xy1, xy2, 8);
             Rat.Clk(rarity);
             Thread.Sleep(1000);
-            switch (cls)
-            {
-                case 'f':
-                    Rat.Clk(f);//выбрать класс                    
-                    break;
-                case 'e':
-                    Rat.Clk(e);//выбрать класс                    
-                    break;
-                case 'd':
-                    Rat.Clk(d);//выбрать класс                    
-                    break;
-                case 'c':
-                    Rat.Clk(c);//выбрать класс                    
-                    break;
-                case 'b':
-                    Rat.Clk(b);//выбрать класс                    
-                    break;
-                case 'a':
-                    Rat.Clk(a);//выбрать класс                    
-                    break;
-                case 's':
-                    Rat.Clk(s);//выбрать класс
-                    break;
-            }
+            Rat.Clk(cls);//выбрать класс             
             Thread.Sleep(500);
             Condition.ChooseTyres();
             Thread.Sleep(1000);

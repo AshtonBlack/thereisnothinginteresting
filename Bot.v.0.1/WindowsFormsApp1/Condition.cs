@@ -32,33 +32,8 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
 
         static Condition() { }
 
-        public static int AvailableCars(char litClass)
-        {
-            int carClass;
-            switch (litClass)
-            {
-                case 'e':
-                    carClass = 1;
-                    break;
-                case 'd':
-                    carClass = 2;
-                    break;
-                case 'c':
-                    carClass = 3;
-                    break;
-                case 'b':
-                    carClass = 4;
-                    break;
-                case 'a':
-                    carClass = 5;
-                    break;
-                case 's':
-                    carClass = 6;
-                    break;
-                default:
-                    carClass = 0;
-                    break;
-            }
+        public static int AvailableCars(int carClass)
+        {           
             int number = 0;
 
             int[] overNumber = { slikTyres[carClass],
@@ -74,8 +49,6 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
                 }
             }
 
-            NotePad.DoLog("По условию доступны " + number + " машин " + litClass + " класса");
-
             if (number > 4)
             {   
                 if(number % 2 == 0)
@@ -88,7 +61,6 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
                     number -= 1;
                     NotePad.DoLog("недостигаема 1 машина");
                 }
-                NotePad.DoLog("Остается доступно " + number + " машин " + litClass + " класса");
             } //исключаем сломаные места            
             return number;
         } //доступные машины
