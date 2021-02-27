@@ -23,9 +23,9 @@ namespace WindowsFormsApp1 //universal
         Rectangle Car8Bounds = new Rectangle(670, 530, 290, 150);
         
         Point commonCondition = new Point(640, 265);
-        Point cond1 = new Point(640, 265); //rewrite
-        Point cond2 = new Point(640, 265); //rewrite
-        Point commonConditionCross = new Point(640, 265); //rewrite
+        Point cond1 = new Point(560, 335);
+        Point cond2 = new Point(560, 405);
+        Point commonConditionCross = new Point(845, 260);
 
         Point filter = new Point(945, 265);
         Point clear = new Point(525, 785);
@@ -142,13 +142,7 @@ namespace WindowsFormsApp1 //universal
             int emptycars; //недобор
             int conditionAvailableCars;
             int usedhandslots = 0;
-            /*old
-            if (Condition.firstConditionNumber != 0 
-                && Condition.firstConditionNumber != 3 
-                && Condition.firstConditionNumber != 36 
-                && !fc.ConditionActivated()) 
-                Rat.Clk(commoncondition); //old, включить фильтр условия события. Исключения: нет условий, 3 машины одной редкости, фильтр включен     
-            */
+            
             if (Condition.ConditionNumber1 != "empty"
                 && Condition.ConditionNumber1 != "обычная х3"
                 && Condition.ConditionNumber2 == "empty"
@@ -380,11 +374,11 @@ namespace WindowsFormsApp1 //universal
             Random rand = new Random();
             while (!fc.ItsGarage()) Thread.Sleep(2000);
 
-            if ((Condition.firstConditionNumber == 11 && Condition.eventrq < 320)//условие определееной редкости
-                || (Condition.firstConditionNumber == 10 && Condition.eventrq < 195)
-                || (Condition.firstConditionNumber == 6 && Condition.eventrq < 145)
-                || (Condition.firstConditionNumber == 40 && Condition.eventrq < 245)
-                || Condition.eventrq < 95)
+            if (Condition.ConditionNumber2 == "empty" && ((Condition.ConditionNumber1 == "экстремальная" && Condition.eventrq < 320)//условие определееной редкости
+                || (Condition.ConditionNumber1 == "редкостная" && Condition.eventrq < 195)
+                || (Condition.ConditionNumber1 == "необычная" && Condition.eventrq < 145)
+                || (Condition.ConditionNumber1 == "суперская" && Condition.eventrq < 245)
+                || Condition.eventrq < 95))
             {
                 NotePad.DoLog("сортирую по рк");
                 Thread.Sleep(200);

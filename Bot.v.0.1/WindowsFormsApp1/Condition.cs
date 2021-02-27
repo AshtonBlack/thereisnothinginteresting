@@ -17,10 +17,8 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
         public static string coverage { get; set; }//покрытия эвента
 
         // Tyres [0f, 1e, 2d, 3c, 4b, 5a, 6s]
-        public static int firstConditionNumber { get; set; }//old
-        public static int secondConditionNumber { get; set; }//old
-        public static string ConditionNumber1 { get; set; } //new
-        public static string ConditionNumber2 { get; set; } //new
+        public static string ConditionNumber1 { get; set; }
+        public static string ConditionNumber2 { get; set; }
         static int[] slikTyres { get; set; }
         static int[] dynamicTyres { get; set; }
         static int[] standartTyres { get; set; }
@@ -386,28 +384,6 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
             }
         }
 
-        public static void MakeCondition(int number1, int number2)
-        {            
-            firstConditionNumber = number1;
-            secondConditionNumber = number2;
-            weather = "с прояснением";
-            coverage = "Смешанное";
-            CarsDB.MakeCondAuto(number1, number2);
-            lowestRqCars = CarsDB.lowestcars;
-            slikTyres = CarsDB.slikTyres;
-            dynamicTyres = CarsDB.dynamicTyres;
-            standartTyres = CarsDB.standartTyres;
-            allseasonTyres = CarsDB.allseasonTyres;
-            offroadTyres = CarsDB.offroadTyres;
-            minrq = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                minrq += lowestRqCars[i];
-            }
-            MaxRq();
-            NotePad.DoLog("Условия сформированы");
-        } //old
-
         public static void MakeCondition(string number1, string number2)
         {
             ConditionNumber1 = number1;
@@ -428,6 +404,6 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
             }
             MaxRq();
             NotePad.DoLog("Условия сформированы");
-        } //new
+        }
     }
 }

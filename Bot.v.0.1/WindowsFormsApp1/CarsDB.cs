@@ -114,90 +114,7 @@ namespace WindowsFormsApp1 //universal
                 fulltablearray[i, 16] = cash[i];
                 fulltablearray[i, 17] = tags[i];
             }
-        }
-
-        public static void MakeCondAuto(int firstCond, int secondCond)
-        {
-            List<int> rq;            
-            string grade;
-            string t;
-            int n;
-
-            slikTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            dynamicTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            standartTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            allseasonTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            offroadTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            lowestcars = new int[5];
-            rq = new List<int>(0);
-            for (int j = 1; j < linenumber; j++)
-            {
-                if (SatisfyFirstCondition(firstCond, j))
-                {
-                    if (SatisfySecondCondition(secondCond, j))
-                    {
-                        grade = fulltablearray[j, 2];
-                        t = fulltablearray[j, 13];
-                        n = Convert.ToInt32(fulltablearray[j, 16]);
-                        int y;
-                        switch (grade)
-                        {
-                            case "e":
-                                y = 1;
-                                break;
-                            case "d":
-                                y = 2;
-                                break;
-                            case "c":
-                                y = 3;
-                                break;
-                            case "b":
-                                y = 4;
-                                break;
-                            case "a":
-                                y = 5;
-                                break;
-                            case "s":
-                                y = 6;
-                                break;
-                            default:
-                                y = 0;
-                                break;
-                        }
-                        switch (t)
-                        {
-                            case "per":
-                                dynamicTyres[y] += n;
-                                break;
-                            case "std":
-                                standartTyres[y] += n;
-                                break;
-                            case "all":
-                                allseasonTyres[y] += n;
-                                break;
-                            case "off":
-                                offroadTyres[y] += n;
-                                break;
-                            default:
-                                slikTyres[y] += n;
-                                break;
-                        }
-                        for (int k = 0; k < n; k++)
-                        {
-                            rq.Add(Convert.ToInt32(fulltablearray[j, 10]));
-                        }
-                    }                        
-                }
-            }
-            if (rq.Count > 4)
-            {
-                rq.Sort();
-                for (int k = 0; k < lowestcars.Length; k++)
-                {
-                    lowestcars[k] = rq[k];
-                }
-            }          
-        } //old
+        }        
 
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
@@ -280,472 +197,9 @@ namespace WindowsFormsApp1 //universal
                     lowestcars[k] = rq[k];
                 }
             }
-        } //new
+        }
 
-        public static bool SatisfyFirstCondition(int cond, int car)
-        {
-            bool x = false;
-            int year;
-            string tag;
-            string bodytype;
-            switch (cond)
-            {
-                case 0:
-                    x = true;
-                    break;
-                case 1:
-                    if (fulltablearray[car, 5] == "rwd")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 2:
-                    if (fulltablearray[car, 5] == "fwd")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 3:
-                    x = true;
-                    break;
-                case 4:
-                    if (fulltablearray[car, 8] == "Audi")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 5:
-                    if (fulltablearray[car, 6] == "petrol")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 6:
-                    if (fulltablearray[car, 2] == "e")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 7:
-                    if (fulltablearray[car, 4] == "Japan")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 8:
-                    if (fulltablearray[car, 8] == "Jaguar")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 9:
-                    if (fulltablearray[car, 4] == "United States")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 10:
-                    if (fulltablearray[car, 2] == "d")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 11:
-                    if (fulltablearray[car, 2] == "b")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 12:
-                    if (fulltablearray[car, 13] == "std")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 13:
-                    bodytype = "pickup";
-                    x = SearchBody(car, bodytype);
-                    break;
-                case 14:
-                    if (fulltablearray[car, 8] == "Mercedes-Benz")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 15:
-                    if (fulltablearray[car, 8] == "Renault")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 16:
-                    if (fulltablearray[car, 5] == "4wd")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 17:
-                    if (fulltablearray[car, 4] == "United Kingdom")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 18:
-                    if (fulltablearray[car, 8] == "Chrysler")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 19:
-                    if (fulltablearray[car, 8] == "Peugeot")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 20:
-                    if (fulltablearray[car, 8] == "Honda")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 21:
-                    if (fulltablearray[car, 8] == "Alfa Romeo")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 22:
-                    tag = "French Renaissance";
-                    x = SearchTag(car, tag);
-                    break;
-                case 23:
-                    if (fulltablearray[car, 4] == "France")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 24:
-                    if (fulltablearray[car, 13] == "all")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 25:
-                    if (fulltablearray[car, 8] == "Ford")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 26:
-                    if (fulltablearray[car, 8] == "BMW")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 27:
-                    if (fulltablearray[car, 4] == "Italy")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 28:
-                    if (fulltablearray[car, 11] == "5")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 29:
-                    if (fulltablearray[car, 8] == "Mazda")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 30:
-                    if (fulltablearray[car, 4] == "United States")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 31:
-                    if (fulltablearray[car, 11] == "5")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 32:
-                    if (fulltablearray[car, 4] == "Germany")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 33:
-                    tag = "American Dream";
-                    x = (SearchTag(car, tag));
-                    break;
-                case 34:
-                    if (fulltablearray[car, 8] == "Dodge")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 35:
-                    if (fulltablearray[car, 5] == "rwd")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 36:
-                    x = true;
-                    break;
-                case 37:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year > 1979 && year < 1990)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 38:
-                    if (fulltablearray[car, 8] == "Porsche")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 39:
-                    if (fulltablearray[car, 8] == "Vauxhall")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 40:
-                    if (fulltablearray[car, 2] == "c")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 41:
-                    if (fulltablearray[car, 11] == "2")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 42:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (fulltablearray[car, 5] == "4wd" && (year > 1999 && year < 2010))
-                    {
-                        x = true;
-                    }
-                    break;
-                case 43:
-                    bodytype = "saloon";
-                    x = SearchBody(car, bodytype);
-                    break;
-                case 44:
-                    bodytype = "hatchback";
-                    x = SearchBody(car, bodytype);
-                    break;
-                case 45:
-                    tag = "Eco Friendly";
-                    x = (SearchTag(car, tag));
-                    break;
-                case 46:
-                    tag = "Italian Renaissance";
-                    x = (SearchTag(car, tag));
-                    break;
-                case 47:
-                    if (fulltablearray[car, 8] == "Cadillac")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 48:
-                    if (fulltablearray[car, 8] == "Citroen")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 49:
-                    if (fulltablearray[car, 4] == "France")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 50:
-                    if (fulltablearray[car, 5] == "fwd")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 51:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year < 1970)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 52:
-                    if (fulltablearray[car, 8] == "Pontiac")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 53:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year > 1974 && year < 1985)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 54:
-                    if (fulltablearray[car, 4] == "United Kingdom")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 55:
-                    if (fulltablearray[car, 13] == "std")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 56:
-                    bodytype = "pickup";
-                    x = SearchBody(car, bodytype);
-                    break;
-                case 57:
-                    tag = "German Renaissance";
-                    x = (SearchTag(car, tag));
-                    break;
-                case 58:
-                    if (fulltablearray[car, 8] == "Fiat")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 59:
-                    if (fulltablearray[car, 8] == "Nissan")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 60:
-                    if (fulltablearray[car, 8] == "Chevrolet")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 61:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year > 1999 && year < 2005)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 62:
-                    if (fulltablearray[car, 5] == "4wd")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 63:
-                    tag = "Style Icon";
-                    x = (SearchTag(car, tag));
-                    break;
-                case 64:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year > 2004 && year < 2010)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 65:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year > 1984 && year < 1995)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 66:
-                    if (fulltablearray[car, 8] == "Porsche")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 67:
-                    if (fulltablearray[car, 8] == "Subaru")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 68:
-                    if (fulltablearray[car, 11] == "2")
-                    {
-                        x = true;
-                    }
-                    break;
-                case 69:
-                    tag = "Motorsport";
-                    x = (SearchTag(car, tag));
-                    break;
-                case 70:
-                    bool x1;
-                    bool x2;
-                    bodytype = "roadster";
-                    x1 = SearchBody(car, bodytype);
-                    bodytype = "cabrio";
-                    x2 = SearchBody(car, bodytype);
-                    if (x1 || x2)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 71:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year > 1989 && year < 2000)
-                    {
-                        x = true;
-                    }
-                    break;
-                case 72:
-                    if (fulltablearray[car, 5] == "rwd")
-                    {
-                        year = Convert.ToInt32(fulltablearray[car, 15]);
-                        if (year > 1999 && year < 2010)
-                        {
-                            x = true;
-                        }
-                    }                    
-                    break;
-                case 73:
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (year > 1969 && year < 1980)
-                    {
-                        x = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return x;
-        } //old
-
-        public static bool SatisfySecondCondition(int cond, int car)
-        {
-            bool x = false;
-            int year;
-            string tag;
-            string bodytype;
-            switch (cond)
-            {
-                case 0:
-                    x = true;
-                    break;                
-                default:
-                    break;
-            }
-            return x;
-        } //old
-
-        public static bool SatisfyCondition(string cond, int car) //repair hot hutch
+        public static bool SatisfyCondition(string cond, int car)
         {
             bool x = false;
             int year;
@@ -981,9 +435,9 @@ namespace WindowsFormsApp1 //universal
                     bodytype = "saloon";
                     x = SearchBody(car, bodytype);
                     break;
-                case "горячий хэтчбек": //исправить
-                    bodytype = "hatchback";
-                    x = SearchBody(car, bodytype);
+                case "горячий хэтчбек":
+                    tag = "Hot Hatch";
+                    x = SearchTag(car, tag); 
                     break;
                 case "экологичная":
                     tag = "Eco Friendly";
@@ -1118,12 +572,61 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "машины италии х3":
+                    if (fulltablearray[car, 4] == "Italy")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины италии х2":
+                    if (fulltablearray[car, 4] == "Italy")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины франции х3":
+                    if (fulltablearray[car, 4] == "France")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины англии х3":
+                    if (fulltablearray[car, 4] == "United Kingdom")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины англии х2":
+                    if (fulltablearray[car, 4] == "United Kingdom")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины японии х2":
+                    if (fulltablearray[car, 4] == "Japan")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины германии х2":
+                    if (fulltablearray[car, 4] == "Germany")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "ford x3":
+                    if (fulltablearray[car, 8] == "Ford")
+                    {
+                        x = true;
+                    }
+                    break;
                 default:
                     NotePad.DoErrorLog("don't know condition: " + cond);
+                    x = false;
                     break;
             }
             return x;
-        } //new
+        }
 
         public static bool SearchTag(int car, string tag)
         {
