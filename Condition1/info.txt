@@ -21,7 +21,7 @@
 20 honda
 21 alfa romeo
 22 французский ренессанс
-23 машина франции
+23 машины франции
 24 all-surface tyres
 25 ford
 26 bmw
