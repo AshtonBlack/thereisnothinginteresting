@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Threading;
 
-namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
+namespace WindowsFormsApp1 //universal
 {
     static class Condition
     {
@@ -25,6 +25,16 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
         static int[] allseasonTyres { get; set; }
         static int[] offroadTyres { get; set; }
         static int[] lowestRqCars { get; set; } //записывать рк        
+
+        static Point tiresMenu = new Point(200, 635);
+        static Point dynamic = new Point(490, 450);
+        static Point standart = new Point(700, 450);
+        static Point allseason = new Point(910, 450);
+        static Point offroad = new Point(1120, 450);
+        static Point slik = new Point(490, 600);
+        static Point fwd = new Point(700, 600);
+        static Point rwd = new Point(910, 600);
+        static Point awd = new Point(1120, 600);
 
         static int[] rqCost = { 19, 29, 39, 49, 64, 79, 100 };
 
@@ -337,18 +347,6 @@ namespace WindowsFormsApp1 //not universal points in ChooseTyresMechanic
 
         static void ChooseTyresMechanic()
         {
-            Point tiresMenu = new Point(200, 635);
-
-            Point dynamic = new Point(490, 450);
-            Point standart = new Point(700, 450);
-            Point allseason = new Point(910, 450);
-            Point offroad = new Point(1120, 450);
-            Point slik = new Point(490, 600);
-
-            Point fwd = new Point(700, 600);
-            Point rwd = new Point(910, 600);
-            Point awd = new Point(1120, 600);
-
             Rat.Clk(tiresMenu);
 
             for(int i = 0; i < tires.Length; i++)
