@@ -92,8 +92,8 @@ namespace WindowsFormsApp1 //universal
             SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
             NotePad.DoLog("Rq = " + Condition.eventrq 
-                + ", условие 1: " + Condition.firstConditionNumber 
-                + ", условие 2: " + Condition.secondConditionNumber 
+                + ", условие 1: " + Condition.ConditionNumber1
+                + ", условие 2: " + Condition.ConditionNumber2
                 +  " заезд: " + i);
 
             int wronghandnumber = 0;//счетчик неправильного сбора руки

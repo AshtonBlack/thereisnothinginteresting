@@ -26,10 +26,8 @@ namespace WindowsFormsApp1 //universal
             Point[] a = { Finger1, Finger2, Finger3, Finger4, Finger5 };
             Point[] b = { Track1, Track2, Track3, Track4, Track5 };
 
-            int[] saves = NotePad.ReadSaves();
-            int[] carpicture = new int[5];
+            int[] carpicture = NotePad.ReadCars();
             string[] carsname = new string[5];
-            Array.Copy(saves, 3, carpicture, 0, 5);//читаем машины из текстовика
             carsname[0] = idcar.Identify1Car(carpicture[0]);//converting picture id to car id
             carsname[1] = idcar.Identify1Car(carpicture[1]);
             carsname[2] = idcar.Identify1Car(carpicture[2]);

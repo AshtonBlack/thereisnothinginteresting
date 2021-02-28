@@ -36,9 +36,9 @@ namespace WindowsFormsApp1 //universal
                     NotePad.DoLog("вхожу в активный эвент");
                     i = 1;
                     Rat.Clk(clubEventEnter);//ClubEventEnter
-                    int[] a = NotePad.ReadSaves();
-                    Condition.eventrq = a[0];
-                    Condition.MakeCondition(a[1], a[2]);
+                    string[] conds = NotePad.ReadConditions();
+                    Condition.eventrq = NotePad.ReadRQ();
+                    Condition.MakeCondition(conds[0], conds[1]);
                     while (i < 100)
                     {
                         i++;

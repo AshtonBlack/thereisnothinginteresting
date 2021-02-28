@@ -63,8 +63,8 @@ namespace WindowsFormsApp1 //universal but update saves
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, System.Text.Encoding.Default))//true для дописывания 
             {
                 sw.WriteLine(Condition.eventrq);
-                sw.WriteLine(Condition.firstConditionNumber);
-                sw.WriteLine(Condition.secondConditionNumber);
+                sw.WriteLine(Condition.ConditionNumber1);
+                sw.WriteLine(Condition.ConditionNumber2);
                 for (int i = 0; i < 5; i++)
                 {
                     sw.WriteLine(carsid[i]);
@@ -73,7 +73,7 @@ namespace WindowsFormsApp1 //universal but update saves
             }
         }
 
-        public static int[] ReadSaves()
+        public static int[] ReadSaves1()
         {
             int[] a = new int[8];
             using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", System.Text.Encoding.Default))
@@ -85,6 +85,54 @@ namespace WindowsFormsApp1 //universal but update saves
                 sr.Close();
             }
             return a;
+        }
+
+        public static int[] ReadCars()
+        {
+            int[] cars = new int[5];
+            string[] a = new string[8];
+            using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < a.Length; i++)
+                {
+                    a[i] = sr.ReadLine();//rq, condition1, condition2, carsid(5)
+                }
+                sr.Close();
+            }
+            for (int i = 0; i < cars.Length; i++)
+            {
+                cars[i] = Convert.ToInt32(a[i + 3]);//rq, condition1, condition2, carsid(5)
+            }
+
+            return cars;
+        }
+
+        public static string[] ReadConditions()
+        {
+            string[] conds = new string[2];
+            string [] a = new string[8];
+            using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < a.Length; i++)
+                {
+                    a[i] = sr.ReadLine();//rq, condition1, condition2, carsid(5)
+                }
+                sr.Close();
+            }
+            conds[0] = a[1];
+            conds[1] = a[2];
+            return conds;
+        }
+
+        public static int ReadRQ()
+        {
+            int rq;
+            using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", System.Text.Encoding.Default))
+            {
+                rq = Convert.ToInt32(sr.ReadLine());
+                sr.Close();
+            }
+            return rq;
         }
 
         public static void ClearLog()
