@@ -145,7 +145,6 @@ namespace WindowsFormsApp1 //universal
             
             if (Condition.ConditionNumber1 != "empty"
                 && Condition.ConditionNumber1 != "обычная х3"
-                && Condition.ConditionNumber2 == "empty"
                 && !fc.ConditionActivated())
             {
                 if(Condition.ConditionNumber2 == "empty")
