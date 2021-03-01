@@ -693,3 +693,10 @@
 589 Aston Martin DB9 2004
 1086 Lamborghini Countach LP400 1974
 1087 BMW 545i 2004
+1088 Acura RSX 2002
+1089 Acura ILX 2017
+1090 Dodge Copperhead 1997
+1091 Chrysler Airflite 2003
+1092 Ford Escape 2001
+379 Porsche Boxster S 2015
+99 Dodge SRT-4 2004

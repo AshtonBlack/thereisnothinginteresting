@@ -156,7 +156,9 @@ namespace WindowsFormsApp1 //universal
                     Rat.Clk(commonCondition);
                     Thread.Sleep(1000);
                     Rat.Clk(cond1);
+                    Thread.Sleep(200);
                     Rat.Clk(cond2);
+                    Thread.Sleep(200);
                     Rat.Clk(commonConditionCross);
                 }
             } //включить фильтр условия события.
