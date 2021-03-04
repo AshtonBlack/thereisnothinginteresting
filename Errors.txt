@@ -1,7 +1,9 @@
 Can't send message
-1090 is unknown car
-1088 is unknown car
-379 is unknown car
+1093 is unknown car
+1094 is unknown car
+1095 is unknown car
 Неизвестное условие
-1091 is unknown car
-99 is unknown car
+1096 is unknown car
+1097 is unknown car
+420 is unknown car
+1098 is unknown car
