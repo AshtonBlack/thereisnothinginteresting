@@ -313,6 +313,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "chrysler x3":
+                    if (fulltablearray[car, 8] == "Chrysler")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "peugeot":
                     if (fulltablearray[car, 8] == "Peugeot")
                     {
