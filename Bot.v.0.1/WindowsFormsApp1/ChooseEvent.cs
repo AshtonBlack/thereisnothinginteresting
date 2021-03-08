@@ -91,7 +91,7 @@ namespace WindowsFormsApp1 //universal
             {
                 eventIsOK = true;
                 Condition.MakeCondition(cond1, cond2);
-                if (GotRQ())
+                if (GotRQ() && Condition.minrq != 0)
                 {
                     NotePad.DoLog("Минимальное рк для условия " + Condition.minrq);
                     NotePad.DoLog("Требуемое рк для условия " + Condition.eventrq);
