@@ -7,3 +7,4 @@
 6 opel x3
 7 машины сша х2
 8 chrysler x3
+9 italian 60-80 x3

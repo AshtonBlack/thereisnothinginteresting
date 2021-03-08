@@ -700,3 +700,18 @@
 1092 Ford Escape 2001
 379 Porsche Boxster S 2015
 99 Dodge SRT-4 2004
+420 BMW M6 Convertible 2006
+490 BMW M Coupe 1998
+149 Honda CR-V 2.2 i-DTEC 2007
+160 Honda CR-V 1.6 i-DTEC 2016
+1093 Dodge Razor 2002
+1094 AMC AMX/3 1970
+1095 Acura Integra Type R 2001
+1096 Acura TSX 2009
+1097 Ford Mustang Cobra 1998
+1098 Subaru BRZ 2016
+1099 DS DS Numero 9 2012
+1100 Honda Pilot 4WD 2009
+1101 Subaru Tribeca 2006
+1102 Alfa Romeo Disco Volante (8C) 2013
+1103 Mercedes-Benz 57S Maybach 2012
