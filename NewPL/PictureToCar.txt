@@ -715,3 +715,32 @@
 1101 Subaru Tribeca 2006
 1102 Alfa Romeo Disco Volante (8C) 2013
 1103 Mercedes-Benz 57S Maybach 2012
+591 Maserati Quattroporte Diesel 2018
+1104 Lamborghini Miura P 400 1966
+1105 Ford Bronco 1996
+1106 Acura SLX 1996
+1107 Volvo 850 BTCC 1994
+1108 Bentley Continental 24 2017
+1109 Acura 3.2 CL Type-S 2003
+1110 Ford Flex 3.5L 2013
+1111 Porsche 911 Carrera 2.7 RS 1973
+1112 BMW 330d Touring 2014
+1113 Mercedes-Benz AMG G 55 2006
+1114 Dodge Charger R/T 2006
+232 Lancia Delta Integrale Evoluzione II 1993
+752 Jaguar X-Type 2001
+342 Ford Scorpio 24-valve 1991
+743 Vauxhall Opel GTC Concept 2007
+795 Fiat Coupe 20v Turbo 1993
+481 BMW 135i Convertible 2008
+276 Porsche 911 Carrera Cabriolet 2000
+521 Audi S8 2006
+664 Mercedes-Benz C 250d 2015
+665 Jaguar XKR-R 2001
+271 Mercedes-Benz C 350e 2015
+432 Mercedes-Benz AMG SL 73 1999
+687 Mercedes-Benz GL 350 2015
+999 BMW X3 2003
+684 Alfa Romeo Giulia Veloce 2017
+668 Porsche 911 Carrera 2004
+293 Chevrolet Cobalt SS Turbo 2009
