@@ -20,6 +20,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
         Point dragMapS = new Point(750, 500);
         Point dragMapE = new Point(240, 500);
 
+        Point clkGalaxy = new Point(1160, 230);
         Point endOfRaceSet = new Point(635, 570);
         Point endOfTheFirstEace = new Point(640, 215);
         Point acceptanceToThrowRaces = new Point(890, 625);
@@ -114,16 +115,24 @@ namespace WindowsFormsApp1 //not Universal hardwork
 
             if (!fc.NoxPosition())
             {
-                if (fc.WrongADS())
+                if (fc.IsGalaxy())
                 {
-                    Rat.Clk(itsWrongADS);
+                    Rat.Clk(clkGalaxy);
                     Thread.Sleep(2000);
                 }
                 else
                 {
-                    Rat.Clk(itsRightADS);
-                    Thread.Sleep(2000);
-                }
+                    if (fc.WrongADS())
+                    {
+                        Rat.Clk(itsWrongADS);
+                        Thread.Sleep(2000);
+                    }
+                    else
+                    {
+                        Rat.Clk(itsRightADS);
+                        Thread.Sleep(2000);
+                    }
+                }                
             }
             else
             {
@@ -152,7 +161,16 @@ namespace WindowsFormsApp1 //not Universal hardwork
             }
             if (fc.Upgrade())
             {
-                RestartBot();
+                bool notok;
+                int badtry = 0;
+                do
+                {
+                    if(badtry > 5) RestartBot();
+                    Rat.Clk(startToWatchADS);
+                    Thread.Sleep(4000);
+                    notok = fc.Upgrade();
+                    badtry++;
+                } while (notok);                
             } //против глюка рекламы
             wait.CarIsUpgraded();
             Rat.Clk(upgradeAcceptance); //подтвердить проркачку

@@ -23,8 +23,8 @@ namespace WindowsFormsApp1 //universal
         Rectangle Car8Bounds = new Rectangle(670, 530, 290, 150);
         
         Point commonCondition = new Point(640, 265);
-        Point cond1 = new Point(560, 335);
-        Point cond2 = new Point(560, 405);
+        Point cond1 = new Point(425, 310);
+        Point cond2 = new Point(425, 400);
         Point commonConditionCross = new Point(845, 260);
 
         Point filter = new Point(945, 265);
@@ -374,12 +374,18 @@ namespace WindowsFormsApp1 //universal
             Point[] a = new Point[] { r1, r2, r3, r4, r5, r6, r7, r8, r9, r10 };
             Random rand = new Random();
             while (!fc.ItsGarage()) Thread.Sleep(2000);
-
+            /*
             if (Condition.ConditionNumber2 == "empty" && ((Condition.ConditionNumber1 == "экстремальная" && Condition.eventrq < 320)//условие определееной редкости
                 || (Condition.ConditionNumber1 == "редкостная" && Condition.eventrq < 195)
                 || (Condition.ConditionNumber1 == "необычная" && Condition.eventrq < 145)
                 || (Condition.ConditionNumber1 == "суперская" && Condition.eventrq < 245)
                 || Condition.eventrq < 95))
+                */
+            if ((Condition.ConditionNumber1 == "экстремальная" && Condition.eventrq < 320)//условие определееной редкости
+            || (Condition.ConditionNumber1 == "редкостная" && Condition.eventrq < 195)
+            || (Condition.ConditionNumber1 == "необычная" && Condition.eventrq < 145)
+            || (Condition.ConditionNumber1 == "суперская" && Condition.eventrq < 245)
+            || Condition.eventrq < 95)
             {
                 NotePad.DoLog("сортирую по рк");
                 Thread.Sleep(200);

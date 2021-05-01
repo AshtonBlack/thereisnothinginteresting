@@ -237,6 +237,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "обычная":
+                    if (fulltablearray[car, 2] == "f")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "необычная":
                     if (fulltablearray[car, 2] == "e")
                     {
@@ -244,6 +250,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "машины японии":
+                    if (fulltablearray[car, 4] == "Japan")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины японии х3":
                     if (fulltablearray[car, 4] == "Japan")
                     {
                         x = true;
@@ -267,12 +279,19 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "редкостная х2":
+                    if (fulltablearray[car, 2] == "d")
+                    {
+                        x = true;
+                    }
+                    break;                    
                 case "экстремальная":
                     if (fulltablearray[car, 2] == "b")
                     {
                         x = true;
                     }
                     break;
+                case "standard tyres":
                 case "standard tires":
                     if (fulltablearray[car, 13] == "std")
                     {
@@ -291,6 +310,24 @@ namespace WindowsFormsApp1 //universal
                     break;
                 case "renault":
                     if (fulltablearray[car, 8] == "Renault")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "renault x3":
+                    if (fulltablearray[car, 8] == "Renault")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "suzuki x3":
+                    if (fulltablearray[car, 8] == "Suzuki")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "nissan x3":
+                    if (fulltablearray[car, 8] == "Nissan")
                     {
                         x = true;
                     }
@@ -347,6 +384,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "машины франции х2":
+                    if (fulltablearray[car, 4] == "France")
+                    {
+                        x = true;
+                    }
+                    break;                    
                 case "all-surface tyres":
                     if (fulltablearray[car, 13] == "all")
                     {
@@ -418,6 +461,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "mercedes-benz x3":
+                    if (fulltablearray[car, 8] == "Mercedes-Benz")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "opel":
                     if (fulltablearray[car, 8] == "Vauxhall")
                     {
@@ -450,6 +499,10 @@ namespace WindowsFormsApp1 //universal
                     x = (SearchTag(car, tag));
                     break;
                 case "italian renaissance":
+                    tag = "Italian Renaissance";
+                    x = (SearchTag(car, tag));
+                    break;
+                case "italian renaissance x3":
                     tag = "Italian Renaissance";
                     x = (SearchTag(car, tag));
                     break;
@@ -486,6 +539,10 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "немецкое возрождение":
+                    tag = "German Renaissance";
+                    x = (SearchTag(car, tag));
+                    break;
+                case "немецкое возрождение х3":
                     tag = "German Renaissance";
                     x = (SearchTag(car, tag));
                     break;
@@ -620,7 +677,23 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "german 2015-2019 x3":
+                    if (fulltablearray[car, 4] == "Germany")
+                    {
+                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        if (year > 2014 && year < 2020)
+                        {
+                            x = true;
+                        }
+                    }                    
+                    break;
                 case "машины сша х2":
+                    if (fulltablearray[car, 4] == "United States")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины сша х3":
                     if (fulltablearray[car, 4] == "United States")
                     {
                         x = true;
@@ -634,6 +707,12 @@ namespace WindowsFormsApp1 //universal
                     break;
                 case "opel x3":
                     if (fulltablearray[car, 8] == "Vauxhall")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "необычная х3":
+                    if (fulltablearray[car, 2] == "e")
                     {
                         x = true;
                     }

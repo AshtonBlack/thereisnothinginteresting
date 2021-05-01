@@ -61,13 +61,14 @@ namespace WindowsFormsApp1 //universal
         Rectangle cardBug = new Rectangle(860, 290, 115, 15);
         Rectangle inCommonEvent = new Rectangle(935, 790, 90, 25);
         Rectangle clubBounty = new Rectangle(520, 740, 240, 25);
+        Rectangle Galaxy = new Rectangle(1150, 220, 18, 18);
 
         public bool AnyHandSlotIsEmpty()
         {
             bool x = false;
             if (CheckHandSlot(1, 5) > 0) x = true;
             return x;
-        }
+        }        
 
         public bool MainFrame(Rectangle bounds, string name)
         {
@@ -136,6 +137,12 @@ namespace WindowsFormsApp1 //universal
             MasterOfPictures.MakePicture(EventBounds, EventPath);
             if (MasterOfPictures.Verify(EventPath, EventOriginal)) x = true;
             if (MasterOfPictures.Verify(EventPath, EventOriginal1)) x = true;
+            return x;
+        }
+
+        public bool IsGalaxy()
+        {
+            bool x = MainFrame(Galaxy, "Galaxy");
             return x;
         }
 
