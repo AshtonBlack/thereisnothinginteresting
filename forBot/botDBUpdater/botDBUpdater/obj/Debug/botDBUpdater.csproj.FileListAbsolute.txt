@@ -1,0 +1,10 @@
+D:\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe.config
+D:\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe
+D:\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.pdb
+D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csprojAssemblyReference.cache
+D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Form1.resources
+D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Properties.Resources.resources
+D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.GenerateResource.cache
+D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.exe
+D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.pdb
+D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.CoreCompileInputs.cache
