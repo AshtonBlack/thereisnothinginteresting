@@ -14,16 +14,14 @@ namespace botDBUpdater
         {
             InitializeComponent();
         }
-
         public string[,] fulltablearray { get; set; }
         public int linenumber { get; set; }
         public string[,] picturetoname { get; set; }
         public int length { get; set; }
         public static int foundcarsforSortDB {get; set; }
-
         private void Fulltable()//формирование таблицы из исходных файлов
         {
-            string commonpath = @"C:\Bot\NewPL\";
+            string commonpath = @"C:\projects\bot\thereisnothinginteresting\NewPL\";
             linenumber = 0;
             using (StreamReader sr = new StreamReader(commonpath + "manufacturer.txt", System.Text.Encoding.Default))
             {
@@ -52,9 +50,9 @@ namespace botDBUpdater
             string[] cashSR()
             {
                 string[] a = new string[linenumber];
-                if (File.Exists(@"C:\Bot\NewPL\CashCars.txt"))
+                if (File.Exists(@"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt"))
                 {
-                    using (StreamReader sr = new StreamReader(@"C:\Bot\NewPL\CashCars.txt", System.Text.Encoding.Default))
+                    using (StreamReader sr = new StreamReader(@"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt", System.Text.Encoding.Default))
                     {
                         for (int i = 0; i < a.Length; i++)
                         {
@@ -114,7 +112,7 @@ namespace botDBUpdater
                 fulltablearray[i, 17] = tags[i];
             }
 
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\fulltabletest.txt", false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\fulltabletest.txt", false, System.Text.Encoding.Default))
             {
                 for (int i = 0; i < linenumber; i++)
                 {
@@ -133,7 +131,6 @@ namespace botDBUpdater
 
             Filter();
         }        
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             label52.Text = "default";
@@ -194,7 +191,6 @@ namespace botDBUpdater
                     break;
             }
         } //дописывать марки вручную
-
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             label52.Text = "default";
@@ -456,7 +452,6 @@ namespace botDBUpdater
                     break;
             }
         } //формируется функцией ManModY
-
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             label49.Text = "default";
@@ -471,11 +466,10 @@ namespace botDBUpdater
                     break;
                 }
             }
-        }
-        
+        }        
         private void WriteCashCars()
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\NewPL\CashCars.txt", false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt", false, System.Text.Encoding.Default))
             {
                 for (int i = 0; i < linenumber; i++)
                 {
@@ -484,7 +478,7 @@ namespace botDBUpdater
                 sw.Close();
             }
 
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\bettertest.txt", false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\bettertest.txt", false, System.Text.Encoding.Default))
             {
                 string thecar;
                 for (int i = 0; i < linenumber; i++)
@@ -498,7 +492,6 @@ namespace botDBUpdater
 
             Filter();
         }
-
         private void AddCashCar()
         {
             string thecar;
@@ -527,7 +520,6 @@ namespace botDBUpdater
             }
             WriteCashCars();
         }
-
         private void SetCashCar()
         {
             string thecar;
@@ -555,7 +547,6 @@ namespace botDBUpdater
             }
             WriteCashCars();
         }
-
         private void RemoveCashCar()
         {
             string thecar;
@@ -584,22 +575,18 @@ namespace botDBUpdater
             }
             WriteCashCars();
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             AddCashCar();
         }
-
         private void button6_Click(object sender, EventArgs e)
         {
             SetCashCar();
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             RemoveCashCar();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             Fulltable();
@@ -609,10 +596,9 @@ namespace botDBUpdater
         //===================================================================
 
         //Дебаг
-
         public void Filter()
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\filter.txt", false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\filter.txt", false, System.Text.Encoding.Default))
             {
                 string thecar;
                 for (int i = 0; i < linenumber; i++)
@@ -650,7 +636,7 @@ namespace botDBUpdater
             {
                 if (fulltablearray[i, 8] != prevmanufacturer)
                 {
-                    using (StreamWriter sw = new StreamWriter(@"C:\Bot\switchcase.txt", true, System.Text.Encoding.Default))
+                    using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\switchcase.txt", true, System.Text.Encoding.Default))
                     {
                         sw.WriteLine("case \"" + fulltablearray[i, 8] + "\":");
                         sw.WriteLine("comboBox3.Items.AddRange(" + fulltablearray[i, 8] + "cars);");
@@ -658,7 +644,7 @@ namespace botDBUpdater
                         sw.Close();
                     }
 
-                    using (StreamWriter sw = new StreamWriter(@"C:\Bot\allmanufacturer.txt", true, System.Text.Encoding.Default))
+                    using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\allmanufacturer.txt", true, System.Text.Encoding.Default))
                     {
                         if (prevmanufacturer != "default")
                         {
@@ -669,7 +655,7 @@ namespace botDBUpdater
                         sw.Close();
                     }
 
-                    using (StreamWriter sw = new StreamWriter(@"C:\Bot\allmanufacturer.txt", true, System.Text.Encoding.Default))
+                    using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\allmanufacturer.txt", true, System.Text.Encoding.Default))
                     {
                         sw.Write("\"" + fulltablearray[i, 9] + " " + fulltablearray[i, 15] + "\"");
                         sw.Close();
@@ -677,7 +663,7 @@ namespace botDBUpdater
                 }
                 else
                 {
-                    using (StreamWriter sw = new StreamWriter(@"C:\Bot\allmanufacturer.txt", true, System.Text.Encoding.Default))
+                    using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\allmanufacturer.txt", true, System.Text.Encoding.Default))
                     {
                         sw.Write(", ");
                         sw.Write("\"" + fulltablearray[i, 9] + " " + fulltablearray[i, 15] + "\"");
@@ -686,19 +672,17 @@ namespace botDBUpdater
                 }
             }
         } //формирует список для комбо бокса2
-
         private void button1_Click(object sender, EventArgs e)
         {
             CarStats();
         }
-
         public void CarStats()//создание списка статов для бота на основе фуллтэйбл
         {
             int clearance;
             int tires;
             int drive;
             double acceleration;
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CarStats.txt", false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\CarStats.txt", false, System.Text.Encoding.Default))
             {
                 sw.WriteLine("switch (carname)");
                 sw.WriteLine("{");
@@ -775,7 +759,7 @@ namespace botDBUpdater
 
         public void PictureToNameTable()
         {
-            string commonpath = @"C:\Bot\NewPL\";
+            string commonpath = @"C:\projects\bot\thereisnothinginteresting\NewPL\";
             string path = "PictureToCar.txt";
             length = 0;
             using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
@@ -800,7 +784,6 @@ namespace botDBUpdater
                 sr.Close();
             }
         }
-
         public string Transform3(string t, int wordN)
         {
             string forreturn;
@@ -838,10 +821,9 @@ namespace botDBUpdater
             }
             return forreturn;
         }
-
         public void PictureToNameTableAdd()
         {
-            string commonpath = @"C:\Bot\NewPL\";
+            string commonpath = @"C:\projects\bot\thereisnothinginteresting\NewPL\";
             string path = "PictureToCar.txt";
             string thecar = comboBox5.Text + " " + comboBox6.Text;
             using (StreamWriter sw = new StreamWriter(commonpath + path, true, System.Text.Encoding.Default))
@@ -852,10 +834,9 @@ namespace botDBUpdater
             PictureToNameTable();
             textBox1.Text = (Convert.ToInt32(textBox1.Text) + 1).ToString();
         }          
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string path = @"D:\Bot\thereisnothinginteresting\Finger1\";
+            string path = @"C:\projects\bot\thereisnothinginteresting\Finger1\";
             string ending = ".jpg";
             if(File.Exists(path + textBox1.Text + ending))
             {
@@ -877,7 +858,6 @@ namespace botDBUpdater
                 }
             }            
         }
-
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
             System.Object[] DEcars = { "Audi", "BMW", "Apollo", "Mercedes-Benz", "Porsche", "Vauxhall", "Volkswagen", "Mini", "RUF", "Smart" };
@@ -936,7 +916,6 @@ namespace botDBUpdater
                     break;
             }
         } //копия комбобокса1
-
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
             System.Object[] Acuracars = { "3.0CL 2000", "3.2 CL Type-S 2003", "3.2TL 1999", "CSX Type-S 2009", "DN-X 2002", "HSC 2003", "ILX 2017", "Integra GS-R 1992", "Integra GS-R 1994", "Integra GS-R 2001", "Integra LS 1987", "Integra Type R 1998", "Integra Type R 2001", "Legend 3.2 V6 1990", "MDX 2012", "MDX 2019", "NSX 1991", "NSX 2002", "NSX 2016", "NSX-T 1998", "RDX 2007", "RDX 2017", "RDX 2019", "RLX Sport Hybrid 2015", "RSX 2002", "RSX Type S 2003", "SLX 1996", "TL SH-AWD 2009", "TL Type S 2007", "TLX 2014", "TSX 2004", "TSX 2009", "TSX Sport Wagon 2011", "ZDX 2010" };
@@ -1197,7 +1176,6 @@ namespace botDBUpdater
                     break;
             }
         } //копия комбобокса2
-
         private void button2_Click(object sender, EventArgs e)
         {            
             PictureToNameTableAdd();
@@ -1213,7 +1191,6 @@ namespace botDBUpdater
             label14.Text = foundcarsforSortDB.ToString();
             label15.Text = "done!";            
         }
-
         private void button8_Click(object sender, EventArgs e)
         {
             DevKit dk = new DevKit();
@@ -1221,7 +1198,6 @@ namespace botDBUpdater
             string text2 = textBox3.Text;
             label6.Text = dk.CalculateDifShades(text1, text2);
         }
-
         private void button9_Click(object sender, EventArgs e)
         {
             int x0 = Convert.ToInt32(textBox4.Text);
@@ -1230,7 +1206,7 @@ namespace botDBUpdater
             int y1 = Convert.ToInt32(textBox7.Text);
             int rectwidth = x1 - x0;
             int rectheight = y1 - y0;
-            string commonpath = @"C:\Bot\";
+            string commonpath = @"C:\projects\bot\thereisnothinginteresting\";
             string path = "test.jpg";
             this.WindowState = FormWindowState.Minimized;
             Thread.Sleep(2000);
@@ -1238,7 +1214,6 @@ namespace botDBUpdater
             MasterOfPictures.MakePicture(rect, commonpath + path);
             this.WindowState = FormWindowState.Normal;
         }
-
         private void button10_Click(object sender, EventArgs e)
         {
             DevKit dk = new DevKit();
@@ -1246,12 +1221,11 @@ namespace botDBUpdater
             string text2 = textBox3.Text;
             label6.Text = dk.CalculateDifs(text1, text2);
         }
-
         public class NotePad
         {
             public static void DoErrorLog(string text)
             {
-                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, System.Text.Encoding.Default))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\Errors.txt", true, System.Text.Encoding.Default))//true для дописывания 
                 {
                     sw.WriteLine(text);
                     sw.Close();
@@ -1260,7 +1234,7 @@ namespace botDBUpdater
 
             public static void DoLog(string text)
             {
-                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, System.Text.Encoding.Default))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\Log.txt", true, System.Text.Encoding.Default))//true для дописывания 
                 {
                     sw.WriteLine(text + "  " + DateTime.Now.ToLongTimeString());
                     sw.Close();
@@ -1269,14 +1243,13 @@ namespace botDBUpdater
 
             public static void ClearLog()
             {
-                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", false, System.Text.Encoding.Default))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\Log.txt", false, System.Text.Encoding.Default))//true для дописывания 
                 {
                     sw.WriteLine("Начинаю новую сессию");
                     sw.Close();
                 }
             }
         }
-
         public class MasterOfPictures
         {
             private static Bitmap captured; //создаем объект Bitmap (растровое изображение), будет нужен как при самом получении изображения, так и при сохранении изображения
@@ -1411,7 +1384,6 @@ namespace botDBUpdater
                 return flag1;
             }
         }
-
         public class DevKit
         {            
             public async void SortCarDBAsync()
@@ -1792,7 +1764,6 @@ namespace botDBUpdater
                 sw.Close();
             }
         }
-
         public int Transform(string t)
         {
             string a = t.Trim();
@@ -1807,7 +1778,6 @@ namespace botDBUpdater
             c = Convert.ToInt32(b);
             return c;
         }
-
         public string Transform1(string t)
         {
             string a = t.Trim();
@@ -1820,7 +1790,6 @@ namespace botDBUpdater
             b = new string(word);
             return b;
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             //CutTheRest();

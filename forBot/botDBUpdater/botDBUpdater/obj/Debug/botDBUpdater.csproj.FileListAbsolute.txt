@@ -8,3 +8,13 @@ D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.GenerateResour
 D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.exe
 D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.pdb
 D:\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.CoreCompileInputs.cache
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe.config
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.pdb
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csprojAssemblyReference.cache
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Form1.resources
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Properties.Resources.resources
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.GenerateResource.cache
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.CoreCompileInputs.cache
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.exe
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.pdb

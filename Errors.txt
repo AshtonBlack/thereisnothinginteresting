@@ -44,8 +44,6 @@
 1139 is unknown car
 127 is unknown car
 669 is unknown car
-Can't send message
-Неизвестное условие
 265 is unknown car
 1130 is unknown car
 1140 is unknown car
