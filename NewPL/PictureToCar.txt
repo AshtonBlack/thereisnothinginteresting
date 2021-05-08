@@ -61,3 +61,37 @@
 61 Renault Sport Clio 220 Trophy 2016
 62 Honda City Turbo 1981
 63 Chevrolet Volt 2012
+64 Chrysler 200 2017
+65 Buick LaCrosse CXL 2005
+66 Bugatti EB110 GT 1992
+67 Vauxhall GTC VXR 2016
+68 Dodge Caliber SRT4 2008
+69 Peugeot 208 GTi 2018
+70 Renault Sport Clio 172 Cup 1999
+71 Nissan Qashqai 2016
+72 Volkswagen Lupo GTI 2001
+73 Dodge Stealth 1995
+74 Ford Mondeo 2017
+75 Citroen Metropolis 2010
+76 Peugeot 205 T16 1984
+77 DS Wild Rubis 2013
+78 DS Survolt 2010
+79 Peugeot 308 GTi 2018
+80 Dodge Neon SRT-4 2003
+81 Bentley Azure T 2009
+82 DS DS 7 Crossback E-Tense 4x4 PHEV 2018
+83 Renault DeZir 2010
+84 Renault Sport Spider 1996
+85 Lancia Fulvia Coupe 1965
+86 Acura TL Type S 2007
+87 Peugeot 607 Pescarolo 2002
+88 MG Montego Turbo 1985
+89 Ford Fusion Sport 2017
+90 BMW M6 Gran Coupe 2013
+91 Audi S8 plus 2015
+92 Jaguar XJR 575 2018
+93 Maserati Quattroporte GTS 2016
+94 Mitsubishi Lancer Evo VI T.M. Edition 2000
+95 Aston Martin Rapide S 2014
+96 Bentley Mulsanne Grand Limousine 2019
+97 Chrysler 300C Hemi 2005
