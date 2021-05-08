@@ -26,3 +26,38 @@
 26 Chevrolet Corvette 2009
 27 Ford Mustang 2.3 2016
 28 Mercedes-Benz CLS 400 2015
+29 Ford Focus RS500 2010
+30 Volvo 850 BTCC 1994
+31 Ford Focus RS 2009
+32 Mercedes-Benz SL 500 2016
+33 Honda Civic Type R 2016
+34 Mercedes-Benz AMG C 63 2015
+35 Mercedes-Benz AMG G 63 6x6 2013
+36 DS 5 2012
+37 Volkswagen Polo 2009
+38 DS DS 3 Racing 2011
+39 Acura TLX 2014
+40 Chevrolet HHR SS Turbocharged 2008
+41 Rover 216 1984
+42 Dodge SRT-4 2004
+43 Alfa Romeo MiTo GTA 2009
+44 Mercedes-Benz E 320 CDI 2005
+45 Nissan Juke Nismo 2016
+46 Fiat Seicento Rally Spec 1998
+47 Jaguar XFR-S Sportbrake 2016
+48 Mercedes-Benz AMG G 55 2006
+49 Renault Sport Megane 275 Trophy-R 2016
+50 Chevrolet Cobalt SS S/C 2006
+51 Renault Sport Clio Cup Car 2014
+52 Chrysler Pacifica Hybrid 2018
+53 Alfa Romeo GT 2003
+54 Lamborghini Miura S 1968
+55 Ford Focus ST 2012
+56 Renault Sport Megane IV R.S. 2018
+57 Volkswagen Golf GTI 2013
+58 TVR Tuscan Convertible 2005
+59 Aston Martin V12 Vanquish 2001
+60 Mini John Cooper Works 2016
+61 Renault Sport Clio 220 Trophy 2016
+62 Honda City Turbo 1981
+63 Chevrolet Volt 2012
