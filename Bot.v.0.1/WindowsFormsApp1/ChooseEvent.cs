@@ -10,12 +10,12 @@ namespace WindowsFormsApp1 //universal
         int accountLVL = Condition.accountLVL;
         FastCheck fc = new FastCheck();
 
-        Rectangle Condition1Bounds = new Rectangle(990, 395, 205, 20);
-        Rectangle Condition2Bounds = new Rectangle(990, 420, 205, 20);
+        Rectangle Condition1Bounds = new Rectangle(1000, 392, 205, 20);//new
+        Rectangle Condition2Bounds = new Rectangle(1000, 418, 205, 20);//new
         string Condition1 = "Condition1\\test";
         string Condition2 = "Condition2\\test";
         
-        Rectangle RQBounds = new Rectangle(1135, 370, 85, 18);
+        Rectangle RQBounds = new Rectangle(1150, 367, 85, 18);//new
         string RQPath = "RQ\\test";
 
         Point clktoClubs = new Point(240, 500);
@@ -29,7 +29,7 @@ namespace WindowsFormsApp1 //universal
         public void ChooseNormalEvent()
         {
             SpecialEvents se = new SpecialEvents();
-            NotePad.DoLog("Проверяю условия");
+            NotePad.DoLog("Проверяю событие");
             bool eventIsOK = false;
             while (!eventIsOK)
             {
@@ -45,13 +45,16 @@ namespace WindowsFormsApp1 //universal
                     NotePad.DoLog("Проверяю условие " + i);
                     eventIsOK = Selection(i);
 
+                    //eventIsOK = false;//Delete!!!
+                    //NotePad.DoLog("цикл для сбора инфы");//Delete!!!
+
                     if (!eventIsOK)
                     {
                         Rat.Clk(toeventlist);//Back
                         Thread.Sleep(3000);
                     }
                     else break;
-                }
+                }                
             }
         }
 
@@ -202,6 +205,7 @@ namespace WindowsFormsApp1 //universal
 
             if (Condition.eventrq == 0)
             {
+                NotePad.DoLog("Unknown rq");
                 for (int x = 1; x < 500; x++)
                 {
                     if (File.Exists("C:\\Bot\\RQ\\UnknownRQ" + x + ".jpg"))

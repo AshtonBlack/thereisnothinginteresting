@@ -7,6 +7,8 @@ namespace WindowsFormsApp1 //universal
 {
     public class MasterOfPictures
     {
+        const int xCorrection = -3;//TEMPORARY
+        const int yCorrection = 1;//TEMPORARY
         private static Bitmap captured; //создаем объект Bitmap (растровое изображение), будет нужен как при самом получении изображения, так и при сохранении изображения
 
         public static string PixelIndicator(Point p)
@@ -14,7 +16,7 @@ namespace WindowsFormsApp1 //universal
             PixelFormat format = PixelFormat.Format24bppRgb;
             Bitmap indicator = new Bitmap(1, 1, format);
             Graphics gdi = Graphics.FromImage(indicator);
-            gdi.CopyFromScreen(p.X, p.Y, 0, 0, new Size(1, 1));
+            gdi.CopyFromScreen(p.X + xCorrection, p.Y + yCorrection, 0, 0, new Size(1, 1));
             string pix = indicator.GetPixel(0, 0).ToString();
             gdi.Dispose();
             indicator.Dispose();
@@ -26,7 +28,7 @@ namespace WindowsFormsApp1 //universal
             PixelFormat format = PixelFormat.Format24bppRgb;
             captured = new Bitmap(bounds.Width, bounds.Height, format);
             Graphics gdi = Graphics.FromImage(captured);
-            gdi.CopyFromScreen(bounds.Left, bounds.Top, 0, 0, bounds.Size);
+            gdi.CopyFromScreen(bounds.Left + xCorrection, bounds.Top + yCorrection, 0, 0, bounds.Size);
             if (captured != null)
             {
                 try
@@ -81,7 +83,7 @@ namespace WindowsFormsApp1 //universal
             captured = new Bitmap(bounds.Width, bounds.Height, format);
             Bitmap BW = new Bitmap(bounds.Width, bounds.Height, format);
             Graphics gdi = Graphics.FromImage(captured);
-            gdi.CopyFromScreen(bounds.Left, bounds.Top, 0, 0, bounds.Size);
+            gdi.CopyFromScreen(bounds.Left + xCorrection, bounds.Top + yCorrection, 0, 0, bounds.Size);
             for (int row = 0; row < captured.Width; row++) // Indicates row number
             {
                 for (int column = 0; column < captured.Height; column++) // Indicate column number
@@ -107,7 +109,7 @@ namespace WindowsFormsApp1 //universal
             captured = new Bitmap(bounds.Width, bounds.Height, format);
             Bitmap BW = new Bitmap(bounds.Width, bounds.Height, format);
             Graphics gdi = Graphics.FromImage(captured);
-            gdi.CopyFromScreen(bounds.Left, bounds.Top, 0, 0, bounds.Size);
+            gdi.CopyFromScreen(bounds.Left + xCorrection, bounds.Top + yCorrection, 0, 0, bounds.Size);
             for (int row = 0; row < captured.Width; row++) // Indicates row number
             {
                 for (int column = 0; column < captured.Height; column++) // Indicate column number

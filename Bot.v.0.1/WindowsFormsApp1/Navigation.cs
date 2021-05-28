@@ -77,9 +77,10 @@ namespace WindowsFormsApp1 //universal
                 bool foundplace = false;
                 do
                 {
+                    se.CarRepair();
                     se.UniversalErrorDefense();
                     se.UnavailableEvent();
-                    se.CardBug();
+                    //se.CardBug();
                     if(fc.ReadyToRace())
                     {
                         Rat.Clk(startTheRace);

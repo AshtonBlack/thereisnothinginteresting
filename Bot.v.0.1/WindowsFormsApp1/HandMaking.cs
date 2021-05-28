@@ -7,11 +7,11 @@ namespace WindowsFormsApp1 //universal
 {
     public class HandMaking
     {
-        Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
-        Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
-        Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
-        Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
-        Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
+        Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);//new
+        Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);//new
+        Rectangle HandSlot3 = new Rectangle(475, 725, 115, 65);//new
+        Rectangle HandSlot4 = new Rectangle(669, 725, 115, 65);//new
+        Rectangle HandSlot5 = new Rectangle(864, 725, 115, 65);//new
 
         Rectangle Car1Bounds = new Rectangle(390, 325, 290, 150);
         Rectangle Car2Bounds = new Rectangle(390, 530, 290, 150);
@@ -374,13 +374,7 @@ namespace WindowsFormsApp1 //universal
             Point[] a = new Point[] { r1, r2, r3, r4, r5, r6, r7, r8, r9, r10 };
             Random rand = new Random();
             while (!fc.ItsGarage()) Thread.Sleep(2000);
-            /*
-            if (Condition.ConditionNumber2 == "empty" && ((Condition.ConditionNumber1 == "экстремальная" && Condition.eventrq < 320)//условие определееной редкости
-                || (Condition.ConditionNumber1 == "редкостная" && Condition.eventrq < 195)
-                || (Condition.ConditionNumber1 == "необычная" && Condition.eventrq < 145)
-                || (Condition.ConditionNumber1 == "суперская" && Condition.eventrq < 245)
-                || Condition.eventrq < 95))
-                */
+            
             if ((Condition.ConditionNumber1 == "экстремальная" && Condition.eventrq < 320)//условие определееной редкости
             || (Condition.ConditionNumber1 == "редкостная" && Condition.eventrq < 195)
             || (Condition.ConditionNumber1 == "необычная" && Condition.eventrq < 145)

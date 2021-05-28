@@ -35,7 +35,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
         Point clubBoosterActivation = new Point(1025, 665);
         Point clubBoosterAcceptance = new Point(905, 610);
         Point noxClosing = new Point(1230, 150);
-        Point noxClosingAcceptance = new Point(670, 560);
+        Point noxClosingAcceptance = new Point(675, 540);//new
         Point cardBugClosing = new Point(1120, 800);
         Point missClickCancelation = new Point(1145, 240);
         Point eventEndsAcceptance = new Point(640, 590);
@@ -224,6 +224,17 @@ namespace WindowsFormsApp1 //not Universal hardwork
             Process.GetCurrentProcess().Kill();
         }
 
+        public void CarRepair()
+        {
+            FastCheck fc = new FastCheck();
+
+            if (fc.CarRepair())
+            {
+                RestartBot();
+            }
+        }
+
+        /*
         public void CardBug()
         {
             FastCheck fc = new FastCheck();
@@ -233,7 +244,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
                 Thread.Sleep(500);
             }           
         }
-
+        */
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();

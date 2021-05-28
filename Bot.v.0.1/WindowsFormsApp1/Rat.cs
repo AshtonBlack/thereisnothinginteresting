@@ -15,22 +15,25 @@ namespace WindowsFormsApp1 //universal
         const int MOUSEEVENTF_LEFTDOWN = 0X02;
         const int MOUSEEVENTF_LEFTUP = 0X04;
 
+        const int xCorrection = -3;//TEMPORARY
+        const int yCorrection = 1;//TEMPORARY
+
         private static void DoMouseLeftClick(int x, int y)
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
         }
 
         public static void MoveMouse(int x, int y)
         {            
-            SetCursorPos(x, y);
+            SetCursorPos(x + xCorrection, y + yCorrection);
         }
 
         private static void MoveMouse(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            SetCursorPos(x, y);
+            SetCursorPos(x + xCorrection, y + yCorrection);
         }
 
         public static void Clk(int dox, int doy)
@@ -53,26 +56,26 @@ namespace WindowsFormsApp1 //universal
 
         public static void LMBdown(int x, int y)
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
         }
 
         private static void LMBdown(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
         }
 
         public static void LMBup(int x, int y)
         {
-            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
         }
 
         private static void LMBup(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
         }
 
         public static void DragnDropFast(Point xy1, Point xy2)

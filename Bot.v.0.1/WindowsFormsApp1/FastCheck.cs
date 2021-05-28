@@ -9,19 +9,19 @@ namespace WindowsFormsApp1 //universal
 
         Point acceptbounty = new Point(635, 750);
 
-        Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
-        Rectangle HandSlot2 = new Rectangle(277, 725, 115, 65);
-        Rectangle HandSlot3 = new Rectangle(469, 725, 115, 65);
-        Rectangle HandSlot4 = new Rectangle(661, 725, 115, 65);
-        Rectangle HandSlot5 = new Rectangle(853, 725, 115, 65);
-        Rectangle carMenu = new Rectangle(1075, 345, 60, 60);
+        Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);//new
+        Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);//new
+        Rectangle HandSlot3 = new Rectangle(475, 725, 115, 65);//new
+        Rectangle HandSlot4 = new Rectangle(669, 725, 115, 65);//new
+        Rectangle HandSlot5 = new Rectangle(864, 725, 115, 65);//new
+        Rectangle carMenu = new Rectangle(1085, 343, 62, 62);//new
         Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
-        Rectangle EventBounds = new Rectangle(196, 187, 134, 30);//for eventpage
-        Rectangle wrongParty = new Rectangle(830, 615, 150, 30);
-        Rectangle readyToRace = new Rectangle(1075, 795, 95, 20);
-        Rectangle startIcon = new Rectangle(805, 350, 50, 40);
-        Rectangle startButton = new Rectangle(291, 593, 85, 21);
-        Rectangle headPage = new Rectangle(196, 187, 124, 30);
+        Rectangle EventBounds = new Rectangle(196, 183, 134, 30);//for eventpage//new
+        Rectangle wrongParty = new Rectangle(838, 617, 150, 26);//new
+        Rectangle readyToRace = new Rectangle(1084, 796, 95, 20);//new
+        Rectangle startIcon = new Rectangle(884, 355, 50, 35);//new
+        Rectangle startButton = new Rectangle(291, 593, 85, 21);//new
+        Rectangle headPage = new Rectangle(196, 183, 124, 30);//new
         Rectangle wrongADS = new Rectangle(63, 193, 25, 25);
         Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
         Rectangle noActiveBooster = new Rectangle(1023, 657, 43, 19);
@@ -31,37 +31,39 @@ namespace WindowsFormsApp1 //universal
         Rectangle noxPosition = new Rectangle(1221, 143, 18, 15);
         Rectangle noxPositionWithRepair = new Rectangle(1190, 135, 12, 12);
         Rectangle wrongNoxPosition = new Rectangle(880, 20, 15, 15);
-        Rectangle typeIsOpenned = new Rectangle(1082, 250, 25, 20);
-        Rectangle filterIsOpenned = new Rectangle(935, 250, 25, 20);
-        Rectangle missClick = new Rectangle(1136, 231, 20, 20);
+        Rectangle typeIsOpenned = new Rectangle(1092, 247, 25, 20);//new
+        Rectangle filterIsOpenned = new Rectangle(943, 247, 25, 20);//new
+        Rectangle missClick = new Rectangle(1147, 227, 20, 20);//new
         Rectangle google = new Rectangle(875, 555, 25, 15);
         Rectangle fbcontinue = new Rectangle(580, 615, 120, 20);
-        Rectangle SeasonEndsBounds = new Rectangle(520, 645, 240, 25);
-        Rectangle activeEvent = new Rectangle(1055, 790, 20, 20);
-        Rectangle controlScreen = new Rectangle(790, 790, 85, 25);
-        Rectangle clubMap = new Rectangle(800, 720, 30, 30);
-        Rectangle raceOn = new Rectangle(60, 185, 40, 40);
-        Rectangle ending = new Rectangle(723, 718, 189, 20);
-        Rectangle inGarage = new Rectangle(200, 190, 90, 30); //for itsgarage
-        Rectangle eventEnds = new Rectangle(560, 580, 160, 20);
+        Rectangle SeasonEndsBounds = new Rectangle(565, 560, 155, 25);//new
+        Rectangle SeasonEndBounty = new Rectangle(525, 645, 240, 25);//new
+        Rectangle activeEvent = new Rectangle(1064, 794, 20, 20);//new
+        Rectangle controlScreen = new Rectangle(796, 793, 85, 25);//new
+        Rectangle clubMap = new Rectangle(800, 720, 30, 30);//new
+        Rectangle raceOn = new Rectangle(50, 175, 60, 60);//new
+        Rectangle ending = new Rectangle(730, 720, 189, 20);//new
+        Rectangle inGarage = new Rectangle(195, 183, 160, 30); //for itsgarage //new
+        Rectangle eventEnds = new Rectangle(560, 580, 160, 20);//new
         Rectangle upgrade = new Rectangle(425, 251, 135, 30);
         Rectangle error = new Rectangle(546, 794, 185, 25);
         Rectangle eventisFull = new Rectangle(560, 564, 156, 20);
-        Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);
-        Rectangle acceptThrow = new Rectangle(885, 615, 35, 25);
-        Rectangle wonSet = new Rectangle(370, 540, 230, 50);
-        Rectangle lostSet = new Rectangle(370, 540, 325, 45);
+        Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);//new
+        Rectangle acceptThrow = new Rectangle(895, 615, 35, 25);//new
+        Rectangle wonSet = new Rectangle(370, 540, 230, 50);//new
+        Rectangle lostSet = new Rectangle(370, 540, 325, 45);//new
         Rectangle drawSet = new Rectangle(370, 540, 195, 45);
-        Rectangle dailyBounty = new Rectangle(80, 200, 290, 30);
-        Rectangle dailyBountyEnd = new Rectangle(560, 760, 160, 20);
+        Rectangle dailyBounty = new Rectangle(78, 195, 290, 30);//new
+        Rectangle dailyBountyEnd = new Rectangle(564, 763, 160, 20);//new
         Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);
         Rectangle faultNox = new Rectangle(933, 314, 26, 26);
-        Rectangle chooseanEnemy = new Rectangle(154, 605, 35, 35);
-        Rectangle raceEnd = new Rectangle(545, 750, 190, 30);
-        Rectangle cardBug = new Rectangle(860, 290, 115, 15);
+        Rectangle chooseanEnemy = new Rectangle(148, 605, 35, 35);//new
+        Rectangle raceEnd = new Rectangle(546, 750, 190, 30);//new
+        //Rectangle cardBug = new Rectangle(860, 290, 115, 15);
         Rectangle inCommonEvent = new Rectangle(935, 790, 90, 25);
-        Rectangle clubBounty = new Rectangle(520, 740, 240, 25);
+        Rectangle clubBounty = new Rectangle(525, 742, 240, 25);//new
         Rectangle Galaxy = new Rectangle(1150, 220, 18, 18);
+        Rectangle carRepair = new Rectangle(208, 447, 870, 55);//new
 
         public bool AnyHandSlotIsEmpty()
         {
@@ -93,6 +95,12 @@ namespace WindowsFormsApp1 //universal
         public bool CarMenu()
         {
             bool x = MainFrame(carMenu, "CarMenu");
+            return x;
+        }
+
+        public bool CarRepair()
+        {
+            bool x = MainFrame(carRepair, "CarRepair");
             return x;
         }
 
@@ -132,11 +140,9 @@ namespace WindowsFormsApp1 //universal
         {
             bool x = false;
             string EventPath = "HeadPictures\\TestEvent";
-            string EventOriginal = "HeadPictures\\OriginalEvent";
-            string EventOriginal1 = "HeadPictures\\OriginalEvent2";            
+            string EventOriginal = "HeadPictures\\OriginalEvent";           
             MasterOfPictures.MakePicture(EventBounds, EventPath);
             if (MasterOfPictures.Verify(EventPath, EventOriginal)) x = true;
-            if (MasterOfPictures.Verify(EventPath, EventOriginal1)) x = true;
             return x;
         }
 
@@ -269,13 +275,8 @@ namespace WindowsFormsApp1 //universal
             bool x = false;
             string SeasonEndsPath = "HeadPictures\\TestSeasonEnds";
             string SeasonEndsOriginal = "HeadPictures\\OriginalSeasonEnds";
-            string SeasonEndsOriginal1 = "HeadPictures\\OriginalSeasonEnds1";
             MasterOfPictures.MakePicture(SeasonEndsBounds, SeasonEndsPath);
             if (MasterOfPictures.Verify(SeasonEndsPath, SeasonEndsOriginal))
-            {
-                x = true;
-            }
-            if (MasterOfPictures.Verify(SeasonEndsPath, SeasonEndsOriginal1))
             {
                 x = true;
             }
@@ -456,7 +457,7 @@ namespace WindowsFormsApp1 //universal
             bool x = MainFrame(faultNox, "FaultNox");
             return x;
         }
-
+        /*
         public bool CardBug()
         {
             bool x = MainFrameBW(cardBug, "CardBug", 130);
@@ -466,7 +467,7 @@ namespace WindowsFormsApp1 //universal
             }
             return x;
         }
-
+        */
         public bool InCommonEvent()
         {
             bool x = MainFrameBW(inCommonEvent, "InCommonEvent", 10);

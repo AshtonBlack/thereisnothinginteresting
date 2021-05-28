@@ -2,27 +2,27 @@
 using System.Drawing;
 using System.IO;
 
-namespace WindowsFormsApp1 //universal but read info from txt files
+namespace WindowsFormsApp1 //universal
 {
     public class TrackInfo
     {
-        Rectangle Track1 = new Rectangle(150, 525, 165, 35);
-        Rectangle Track2 = new Rectangle(355, 525, 165, 35);
-        Rectangle Track3 = new Rectangle(555, 525, 165, 35);
-        Rectangle Track4 = new Rectangle(760, 525, 165, 35);
-        Rectangle Track5 = new Rectangle(965, 525, 165, 35);
+        Rectangle Track1 = new Rectangle(148, 524, 165, 35);//new
+        Rectangle Track2 = new Rectangle(353, 524, 165, 35);//new
+        Rectangle Track3 = new Rectangle(563, 524, 165, 35);//new
+        Rectangle Track4 = new Rectangle(768, 524, 165, 35);//new
+        Rectangle Track5 = new Rectangle(973, 524, 165, 35);//new
 
-        Rectangle Ground1 = new Rectangle(198, 605, 115, 30);
-        Rectangle Ground2 = new Rectangle(401, 605, 115, 30);
-        Rectangle Ground3 = new Rectangle(605, 605, 115, 30);
-        Rectangle Ground4 = new Rectangle(808, 605, 115, 30);
-        Rectangle Ground5 = new Rectangle(1013, 605, 115, 30);
+        Rectangle Ground1 = new Rectangle(196, 604, 115, 30);//new
+        Rectangle Ground2 = new Rectangle(399, 604, 115, 30);//new
+        Rectangle Ground3 = new Rectangle(613, 604, 115, 30);//new
+        Rectangle Ground4 = new Rectangle(816, 604, 115, 30);//new
+        Rectangle Ground5 = new Rectangle(1021, 604, 115, 30);//new
 
-        Rectangle Weather1 = new Rectangle(198, 562, 75, 34);
-        Rectangle Weather2 = new Rectangle(401, 562, 75, 34);
-        Rectangle Weather3 = new Rectangle(605, 562, 75, 34);
-        Rectangle Weather4 = new Rectangle(808, 562, 75, 34);
-        Rectangle Weather5 = new Rectangle(1013, 562, 75, 34);
+        Rectangle Weather1 = new Rectangle(196, 561, 75, 34);//new
+        Rectangle Weather2 = new Rectangle(399, 561, 75, 34);//new
+        Rectangle Weather3 = new Rectangle(613, 561, 75, 34);//new
+        Rectangle Weather4 = new Rectangle(816, 561, 75, 34);//new
+        Rectangle Weather5 = new Rectangle(1021, 561, 75, 34);//new
 
         public int[] Tracks()
         {            

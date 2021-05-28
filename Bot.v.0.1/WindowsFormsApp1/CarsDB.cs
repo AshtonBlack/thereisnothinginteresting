@@ -362,6 +362,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "peugeot x3":
+                    if (fulltablearray[car, 8] == "Peugeot")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "honda":
                     if (fulltablearray[car, 8] == "Honda")
                     {
@@ -403,6 +409,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "bmw":
+                    if (fulltablearray[car, 8] == "BMW")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "bmw x3":
                     if (fulltablearray[car, 8] == "BMW")
                     {
                         x = true;
@@ -526,6 +538,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "pontiac":
+                    if (fulltablearray[car, 8] == "Pontiac")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "pontiac x3":
                     if (fulltablearray[car, 8] == "Pontiac")
                     {
                         x = true;
@@ -672,6 +690,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "машины германии х2":
+                    if (fulltablearray[car, 4] == "Germany")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "машины германии х3":
                     if (fulltablearray[car, 4] == "Germany")
                     {
                         x = true;
