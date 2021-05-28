@@ -334,3 +334,63 @@
 335 Lotus M100 Elan 1989
 336 Volkswagen Scirocco R 2009
 337 Ford Ranger 2016
+338 Pontiac Trans Am 35th Anniversary 2002
+339 Pontiac Solstice GXP Coupe 2009
+340 Pontiac G8 GXP 2010
+341 Pontiac GTO 2006
+342 Pontiac Grand Prix GXP 2006
+343 Renault Fuego Turbo 1984
+344 Volvo C30 T5 R-Design 2008
+345 Jaguar XKR 175 2010
+346 Jaguar XJR 1995
+347 Lotus Evora S 2010
+348 Dodge Charger III 1968
+349 Dodge Super 8 HEMI 2001
+350 Ford Explorer Sport-Trac Adrenalin 2008
+351 Mercedes-Benz AMG SLK Black Series 2007
+352 Bentley Azure 2006
+353 Chevrolet Impala SS427 1967
+354 Infiniti M35 2009
+355 Chrysler Laser XT 1984
+356 Mazda Eunos Roadster RS-Limited 1994
+357 Donkervoort S7 1978
+358 Renault Alpine A110 1971
+359 Donkervoort D10 1988
+360 Bentley Mulsanne Extended Wheelbase 2017
+361 Jaguar XJ-S Trans-Am 1978
+362 De Tomaso Vallelunga Competizione 1964
+363 Infiniti QX50 2016
+364 Subaru Tribeca 2006
+365 De Tomaso Pantera GT5-S 1989
+366 Mazda RX-8 PZ 2006
+367 Infiniti FX35 2003
+368 Mazda RX-8 PZ 2006
+369 Peugeot Rally 504 1971
+370 Renault Sport Clio V6 2001
+371 BMW M240i Convertible 2016
+372 Ram Dodge Li'l Red Express Truck 1978
+373 Cadillac Escalade 2011
+374 Acura RDX 2007
+375 Dodge Stealth R/T Twin Turbo 1990
+376 Chrysler Aspen Hybrid 2009
+377 Suzuki Swift Rally Spec 2008
+378 Chevrolet El Camino SS 454 1969
+379 Cadillac Escalade ESV 2016
+380 Fiat Coupe 20v Turbo 1993
+381 Volvo S90 T5 2016
+382 Ford F-150 Tremor FX2 2014
+383 RUF RGT 2000
+384 GMC Denali XT 2008
+385 Maserati Coupe GranSport 2004
+386 Maserati Ghibli SS 1969
+387 Ford Escort RS2000 1974
+388 Dodge Charger R/T 2006
+389 Aston Martin Virage 1989
+390 Fiat 124 Sport Spider 1966
+391 Aston Martin DB4 GT Zagato 1961
+392 Porsche 550 Spyder 1955
+393 Lotus Europa Special 1973
+394 Plymouth HEMI 'Cuda 1970
+395 Porsche 911 Carrera 2 Targa 1989
+396 Lotus Europa 47 Twin Cam 1966
+397 Mazda MX-5 1998
