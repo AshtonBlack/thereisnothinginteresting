@@ -377,11 +377,15 @@ namespace WindowsFormsApp1 //not Universal hardwork
                 if (fc.NoxRestartMessage())
                 {
                     Rat.Clk(noxRestartMessageAcceptance);
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                     Rat.Clk(edgeOfTheScreen);
-                    Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_3");                    
+                    Thread.Sleep(120000);
+                    Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_1");                    
                 }//nox restart message
-                if (fc.StartIcon()) Rat.Clk(clkTheIcon);//Icon  
+                if (fc.StartIcon())//Icon
+                {
+                    Rat.Clk(clkTheIcon);
+                }                
                 if (fc.BrokenInterface()) Rat.Clk(brokenInterfaceAcceptance);//close notify
                 if (fc.LostConnection()) Rat.Clk(reconnectionAfterLostConnection);//reconnect
                 if (fc.Google()) Rat.Clk(googleNotificationAcceptance);//google notify

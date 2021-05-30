@@ -26,7 +26,7 @@ namespace WindowsFormsApp1 //universal
         Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
         Rectangle noActiveBooster = new Rectangle(1023, 657, 43, 19);
         Rectangle lostConnection = new Rectangle(365, 385, 300, 30);
-        Rectangle noxRestartMessage = new Rectangle(405, 405, 475, 180);
+        Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);//new
         Rectangle brokenInterface = new Rectangle(335, 415, 610, 185);
         Rectangle noxPosition = new Rectangle(1221, 143, 18, 15);
         Rectangle noxPositionWithRepair = new Rectangle(1190, 135, 12, 12);
@@ -36,7 +36,7 @@ namespace WindowsFormsApp1 //universal
         Rectangle missClick = new Rectangle(1147, 227, 20, 20);//new
         Rectangle google = new Rectangle(875, 555, 25, 15);
         Rectangle fbcontinue = new Rectangle(580, 615, 120, 20);
-        Rectangle SeasonEndsBounds = new Rectangle(565, 560, 155, 25);//new
+        Rectangle SeasonEndsBounds = new Rectangle(345, 463, 600, 25);//new
         Rectangle SeasonEndBounty = new Rectangle(525, 645, 240, 25);//new
         Rectangle activeEvent = new Rectangle(1064, 794, 20, 20);//new
         Rectangle controlScreen = new Rectangle(796, 793, 85, 25);//new
@@ -169,7 +169,7 @@ namespace WindowsFormsApp1 //universal
             bool x = MainFrame(startIcon, "Icon");
             return x;
         }
-
+                
         public bool StartButton()
         {
             bool x = MainFrame(startButton, "Start");
@@ -271,15 +271,14 @@ namespace WindowsFormsApp1 //universal
         }
 
         public bool SeasonEndsBounty()
-        {            
-            bool x = false;
-            string SeasonEndsPath = "HeadPictures\\TestSeasonEnds";
-            string SeasonEndsOriginal = "HeadPictures\\OriginalSeasonEnds";
-            MasterOfPictures.MakePicture(SeasonEndsBounds, SeasonEndsPath);
-            if (MasterOfPictures.Verify(SeasonEndsPath, SeasonEndsOriginal))
-            {
-                x = true;
-            }
+        {      
+            bool x = MainFrame(SeasonEndBounty, "SeasonEndBounty");
+            return x;
+        }
+
+        public bool SeasonIsEnded()
+        {
+            bool x = MainFrame(SeasonEndsBounds, "SeasonEnds");
             return x;
         }
 

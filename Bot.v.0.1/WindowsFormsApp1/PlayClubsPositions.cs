@@ -12,6 +12,7 @@ namespace WindowsFormsApp1 //universal
         Point bugwithControlScreen = new Point(70, 205);
         Point ChooseAnEnemy = new Point(640, 705);
         Point forceTheRace = new Point(180, 580);
+        Point acceptSeasonEnd = new Point(635, 570);
 
         public bool PathToGarage()
         {
@@ -24,6 +25,13 @@ namespace WindowsFormsApp1 //universal
                 {
                     NotePad.DoLog("получил награду");
                     positionflag = true;
+                }
+
+                if (fc.SeasonIsEnded())
+                {
+                    Thread.Sleep(500);
+                    Rat.Clk(acceptSeasonEnd);
+                    NotePad.DoLog("сезон окончен");
                 }
 
                 if (fc.SeasonEndsBounty())
