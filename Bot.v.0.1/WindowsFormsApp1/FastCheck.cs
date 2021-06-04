@@ -24,7 +24,7 @@ namespace WindowsFormsApp1 //universal
         Rectangle headPage = new Rectangle(196, 183, 124, 30);//new
         Rectangle wrongADS = new Rectangle(63, 193, 25, 25);
         Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
-        Rectangle noActiveBooster = new Rectangle(1023, 657, 43, 19);
+        Rectangle noActiveBooster = new Rectangle(1033, 658, 43, 19);//new
         Rectangle lostConnection = new Rectangle(365, 385, 300, 30);
         Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);//new
         Rectangle brokenInterface = new Rectangle(335, 415, 610, 185);
@@ -44,15 +44,16 @@ namespace WindowsFormsApp1 //universal
         Rectangle raceOn = new Rectangle(50, 175, 60, 60);//new
         Rectangle ending = new Rectangle(730, 720, 189, 20);//new
         Rectangle inGarage = new Rectangle(195, 183, 160, 30); //for itsgarage //new
-        Rectangle eventEnds = new Rectangle(560, 580, 160, 20);//new
-        Rectangle upgrade = new Rectangle(425, 251, 135, 30);
+        Rectangle eventEnds = new Rectangle(561, 565, 160, 20);//new
+        Rectangle upgrade = new Rectangle(427, 247, 135, 30);//new
         Rectangle error = new Rectangle(546, 794, 185, 25);
         Rectangle eventisFull = new Rectangle(560, 564, 156, 20);
+        Rectangle eventisnotavailable = new Rectangle(564, 580, 156, 20);//new
         Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);//new
         Rectangle acceptThrow = new Rectangle(895, 615, 35, 25);//new
         Rectangle wonSet = new Rectangle(370, 540, 230, 50);//new
         Rectangle lostSet = new Rectangle(370, 540, 325, 45);//new
-        Rectangle drawSet = new Rectangle(370, 540, 195, 45);
+        Rectangle drawSet = new Rectangle(370, 540, 195, 45);//new
         Rectangle dailyBounty = new Rectangle(78, 195, 290, 30);//new
         Rectangle dailyBountyEnd = new Rectangle(564, 763, 160, 20);//new
         Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);
@@ -350,6 +351,12 @@ namespace WindowsFormsApp1 //universal
             return x;
         }
 
+        public bool EventIsNotAvailable()
+        {
+            bool x = MainFrame(eventisnotavailable, "EventIsNotAvailable");
+            return x;
+        }
+
         public bool Upgrade()
         {
             bool x = MainFrame(upgrade, "Upgrade");
@@ -450,12 +457,13 @@ namespace WindowsFormsApp1 //universal
             bool x = MainFrame(timeIsOut, "TimeIsOut");
             return x;
         }
-
+        
         public bool FaultNox()
         {
             bool x = MainFrame(faultNox, "FaultNox");
             return x;
         }
+        
         /*
         public bool CardBug()
         {

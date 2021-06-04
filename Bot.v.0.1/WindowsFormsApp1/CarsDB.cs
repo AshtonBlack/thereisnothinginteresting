@@ -454,6 +454,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "dodge x3":
+                    if (fulltablearray[car, 8] == "Dodge")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "суперская":
                     if (fulltablearray[car, 2] == "c")
                     {
@@ -519,6 +525,12 @@ namespace WindowsFormsApp1 //universal
                     x = (SearchTag(car, tag));
                     break;
                 case "cadillac":
+                    if (fulltablearray[car, 8] == "Cadillac")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "cadillac x3":
                     if (fulltablearray[car, 8] == "Cadillac")
                     {
                         x = true;

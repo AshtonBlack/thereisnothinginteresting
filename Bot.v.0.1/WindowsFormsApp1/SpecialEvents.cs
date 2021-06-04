@@ -40,6 +40,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
         Point missClickCancelation = new Point(1145, 240);
         Point eventEndsAcceptance = new Point(640, 590);
         Point eventIsFullAcceptance = new Point(645, 575);
+        Point eventIsNotAvailableAcceptance = new Point(640, 590);
         Point buttonBack = new Point(85, 215);
         Point dailyBountyStart = new Point(640, 770);
         Point dailyBountyEnd = new Point(630, 770);
@@ -104,7 +105,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
             } while (!nextstep);            
         }
 
-        public void UpgradeAdsKiller()
+        public void UpgradeAdsKiller1()
         {
             FastCheck fc = new FastCheck();
             Waiting wait = new Waiting();
@@ -178,7 +179,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
             UniversalErrorDefense();
         }
 
-        public void UpgradeAdsKiller1()//switch off ads watching
+        public void UpgradeAdsKiller()//switch off ads watching
         {
             NotePad.DoLog("Пропускаю рекламу на прокачку");
             Rat.Clk(upgradeCancelation); //отменить просмотр
@@ -287,6 +288,14 @@ namespace WindowsFormsApp1 //not Universal hardwork
             {
                 NotePad.DoLog("эвент окончен");
                 Rat.Clk(eventEndsAcceptance);//Accept Message
+                Thread.Sleep(3000);
+                x = false;
+            }
+
+            if (fc.EventIsNotAvailable())
+            {
+                NotePad.DoLog("эвент не доступен");
+                Rat.Clk(eventIsNotAvailableAcceptance);//Accept Message                    
                 Thread.Sleep(3000);
                 x = false;
             }

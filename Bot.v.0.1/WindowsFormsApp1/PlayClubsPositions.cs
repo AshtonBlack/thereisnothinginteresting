@@ -7,6 +7,7 @@ namespace WindowsFormsApp1 //universal
     {
         Point bountyForSeason = new Point(635, 660);
         Point eventIsEnd = new Point(640, 590);
+        Point eventIsNotAvailableAcceptance = new Point(640, 590);
         Point closeCarCard = new Point(685, 280);
         Point controlScreenToGarage = new Point(820, 790);
         Point bugwithControlScreen = new Point(70, 205);
@@ -56,6 +57,14 @@ namespace WindowsFormsApp1 //universal
                 {
                     NotePad.DoLog("эвент окончен");
                     Rat.Clk(eventIsEnd);//Accept Message                    
+                    Thread.Sleep(3000);
+                    positionflag = true;
+                }
+
+                if (fc.EventIsNotAvailable())
+                {
+                    NotePad.DoLog("эвент не доступен");
+                    Rat.Clk(eventIsNotAvailableAcceptance);//Accept Message                    
                     Thread.Sleep(3000);
                     positionflag = true;
                 }
