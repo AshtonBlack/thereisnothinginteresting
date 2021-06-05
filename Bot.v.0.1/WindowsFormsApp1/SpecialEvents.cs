@@ -7,8 +7,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
     public class SpecialEvents
     {
         public void EndRace()
-        {
-            
+        {            
             FastCheck fc = new FastCheck();
             SpecialEvents se = new SpecialEvents();
             int flag1 = 0;

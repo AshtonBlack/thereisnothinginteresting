@@ -56,7 +56,7 @@ namespace WindowsFormsApp1
         public static Rectangle headPage = new Rectangle(196, 183, 124, 30);//new
         public static Rectangle wrongADS = new Rectangle(63, 193, 25, 25);
         public static Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
-        public static Rectangle noActiveBooster = new Rectangle(1023, 657, 43, 19);//new
+        public static Rectangle noActiveBooster = new Rectangle(1033, 658, 43, 19);//new
         public static Rectangle lostConnection = new Rectangle(365, 385, 300, 30);
         public static Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);//new
         public static Rectangle brokenInterface = new Rectangle(335, 415, 610, 185);
@@ -73,8 +73,8 @@ namespace WindowsFormsApp1
         public static Rectangle raceOn = new Rectangle(50, 175, 60, 60);//new
         public static Rectangle ending = new Rectangle(730, 720, 189, 20);//new
         public static Rectangle inGarage = new Rectangle(195, 183, 160, 30); //for itsgarage //new
-        public static Rectangle eventEnds = new Rectangle(560, 580, 160, 20);//new
-        public static Rectangle upgrade = new Rectangle(425, 251, 135, 30);//new
+        public static Rectangle eventEnds = new Rectangle(561, 565, 160, 20);//new
+        public static Rectangle upgrade = new Rectangle(427, 247, 135, 30);//new
         public static Rectangle error = new Rectangle(546, 794, 185, 25);
         public static Rectangle eventisFull = new Rectangle(560, 564, 156, 20);
         public static Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);//new
@@ -91,6 +91,7 @@ namespace WindowsFormsApp1
         public static Rectangle inCommonEvent = new Rectangle(935, 790, 90, 25);
         public static Rectangle clubBounty = new Rectangle(525, 742, 240, 25);//new
         public static Rectangle carRepair = new Rectangle(208, 447, 870, 55);//new
+        public static Rectangle eventisnotavailable = new Rectangle(564, 580, 156, 20);//new
         //GrandArrangement
         public static Point Finger1 = new Point(350, 770);
         public static Point Finger2 = new Point(540, 770);
@@ -211,6 +212,7 @@ namespace WindowsFormsApp1
         public static Point reconnectionAfterLostConnection = new Point(785, 615);
         public static Point brokenInterfaceAcceptance = new Point(380, 555);
         public static Point googleNotificationAcceptance = new Point(890, 565);
+        public static Point eventIsNotAvailableAcceptance = new Point(640, 590);//new
         //TrackInfo
         public static Rectangle Track1 = new Rectangle(148, 524, 165, 35);//new
         public static Rectangle Track2 = new Rectangle(353, 524, 165, 35);//new
