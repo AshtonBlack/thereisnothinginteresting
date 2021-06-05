@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Threading;
+﻿using System.Threading;
 
 namespace WindowsFormsApp1 //universal
 {
@@ -24,17 +23,7 @@ namespace WindowsFormsApp1 //universal
         static int[] standartTyres { get; set; }
         static int[] allseasonTyres { get; set; }
         static int[] offroadTyres { get; set; }
-        static int[] lowestRqCars { get; set; } //записывать рк        
-
-        static Point tiresMenu = new Point(200, 635);
-        static Point dynamic = new Point(490, 450);
-        static Point standart = new Point(700, 450);
-        static Point allseason = new Point(910, 450);
-        static Point offroad = new Point(1120, 450);
-        static Point slik = new Point(490, 600);
-        static Point fwd = new Point(700, 600);
-        static Point rwd = new Point(910, 600);
-        static Point awd = new Point(1120, 600);
+        static int[] lowestRqCars { get; set; } //записывать рк 
 
         static int[] rqCost = { 19, 29, 39, 49, 64, 79, 100 };
 
@@ -347,7 +336,7 @@ namespace WindowsFormsApp1 //universal
 
         static void ChooseTyresMechanic()
         {
-            Rat.Clk(tiresMenu);
+            Rat.Clk(PointsAndRectangles.tiresMenu);
 
             for(int i = 0; i < tires.Length; i++)
             {
@@ -356,23 +345,23 @@ namespace WindowsFormsApp1 //universal
                     switch (i)
                     {
                         case 0:
-                            Rat.Clk(slik);
+                            Rat.Clk(PointsAndRectangles.slik);
                             Thread.Sleep(200);
                             break;
                         case 1:
-                            Rat.Clk(dynamic);
+                            Rat.Clk(PointsAndRectangles.dynamic);
                             Thread.Sleep(200);
                             break;
                         case 2:
-                            Rat.Clk(standart);
+                            Rat.Clk(PointsAndRectangles.standart);
                             Thread.Sleep(200);
                             break;
                         case 3:
-                            Rat.Clk(allseason);
+                            Rat.Clk(PointsAndRectangles.allseason);
                             Thread.Sleep(200);
                             break;
                         case 4:
-                            Rat.Clk(offroad);
+                            Rat.Clk(PointsAndRectangles.offroad);
                             Thread.Sleep(200);
                             break;
                         default:

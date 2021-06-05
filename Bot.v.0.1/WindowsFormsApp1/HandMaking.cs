@@ -7,73 +7,6 @@ namespace WindowsFormsApp1 //universal
 {
     public class HandMaking
     {
-        Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);//new
-        Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);//new
-        Rectangle HandSlot3 = new Rectangle(475, 725, 115, 65);//new
-        Rectangle HandSlot4 = new Rectangle(669, 725, 115, 65);//new
-        Rectangle HandSlot5 = new Rectangle(864, 725, 115, 65);//new
-
-        Rectangle Car1Bounds = new Rectangle(390, 325, 290, 150);
-        Rectangle Car2Bounds = new Rectangle(390, 530, 290, 150);
-        Rectangle Car3Bounds = new Rectangle(705, 325, 290, 150);
-        Rectangle Car4Bounds = new Rectangle(705, 530, 290, 150);
-        Rectangle Car5Bounds = new Rectangle(670, 325, 290, 150);
-        Rectangle Car6Bounds = new Rectangle(670, 530, 290, 150);
-        Rectangle Car7Bounds = new Rectangle(670, 325, 290, 150);
-        Rectangle Car8Bounds = new Rectangle(670, 530, 290, 150);
-        
-        Point commonCondition = new Point(640, 265);
-        Point cond1 = new Point(425, 310);
-        Point cond2 = new Point(425, 400);
-        Point commonConditionCross = new Point(845, 260);
-
-        Point filter = new Point(945, 265);
-        Point clear = new Point(525, 785);
-        Point accept = new Point(940, 785);
-        Point rarity = new Point(200, 415);
-        Point f = new Point(490, 450);
-        Point e = new Point(700, 450);
-        Point d = new Point(910, 450);
-        Point c = new Point(1120, 450);
-        Point b = new Point(490, 600);
-        Point a = new Point(700, 600);
-        Point s = new Point(910, 600);
-        Point xy1 = new Point(180, 430);
-        Point xy2 = new Point(180, 630);
-
-        Point clearall = new Point(240, 795);//сброс
-        Point sorting = new Point(1090, 265);//сортировка
-        Point closesorting = new Point(840, 790);//закрыть сортировку
-        Point r1 = new Point(100, 410);//rarity
-        Point r2 = new Point(100, 475);//rq
-        Point r3 = new Point(100, 545);//max speed
-        Point r4 = new Point(100, 615);//0-60
-        Point r5 = new Point(430, 410);//handling
-        Point r6 = new Point(430, 475);//wheels drive
-        Point r7 = new Point(430, 545);//country
-        Point r8 = new Point(430, 615);//width
-        Point r9 = new Point(765, 410);//height
-        Point r10 = new Point(765, 475);//weight
-
-        Point GarageSlot1 = new Point(535, 400);
-        Point GarageSlot2 = new Point(535, 590);
-        Point GarageSlot3 = new Point(830, 400);
-        Point GarageSlot4 = new Point(830, 590);
-        Point ds1 = new Point(1010, 495);
-        Point de1 = new Point(665, 495);
-        Point GarageSlot5 = new Point(750, 400);
-        Point GarageSlot6 = new Point(750, 590);
-        Point ds2 = new Point(660, 495);
-        Point de2 = new Point(330, 495);
-        Point GarageSlot7 = new Point(750, 400);
-        Point GarageSlot8 = new Point(750, 590);
-
-        Point pHandSlot1 = new Point(170, 770);
-        Point pHandSlot2 = new Point(350, 770);
-        Point pHandSlot3 = new Point(540, 770);
-        Point pHandSlot4 = new Point(730, 770);
-        Point pHandSlot5 = new Point(910, 770);
-
         public int[] ConditionHandling()
         {
             int[] rqclass = new int[] { 19, 29, 39, 49, 64, 79, 100 }; //рк для классов 
@@ -149,21 +82,21 @@ namespace WindowsFormsApp1 //universal
             {
                 if(Condition.ConditionNumber2 == "empty")
                 {
-                    Rat.Clk(commonCondition);
+                    Rat.Clk(PointsAndRectangles.commonCondition);
                 }
                 else
                 {
-                    Rat.Clk(commonCondition);
+                    Rat.Clk(PointsAndRectangles.commonCondition);
                     Thread.Sleep(1000);
-                    Rat.Clk(cond1);
+                    Rat.Clk(PointsAndRectangles.cond1);
                     Thread.Sleep(200);
-                    Rat.Clk(cond2);
+                    Rat.Clk(PointsAndRectangles.cond2);
                     Thread.Sleep(200);
-                    Rat.Clk(commonConditionCross);
+                    Rat.Clk(PointsAndRectangles.commonConditionCross);
                 }
             } //включить фильтр условия события.
 
-            Point[] cls = { f, e, d, c, b, a, s };
+            Point[] cls = { PointsAndRectangles.f, PointsAndRectangles.e, PointsAndRectangles.d, PointsAndRectangles.c, PointsAndRectangles.b, PointsAndRectangles.a, PointsAndRectangles.s };
             for (int i = 6; i > -1; i--)
             {
                 if (classcars[i] > 0)
@@ -197,7 +130,7 @@ namespace WindowsFormsApp1 //universal
         {
             string path = "Check//";            
 
-            Rectangle[] bounds = new Rectangle[] { Car1Bounds, Car2Bounds, Car3Bounds, Car4Bounds, Car5Bounds, Car6Bounds, Car7Bounds, Car8Bounds };
+            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.Car1Bounds, PointsAndRectangles.Car2Bounds, PointsAndRectangles.Car3Bounds, PointsAndRectangles.Car4Bounds, PointsAndRectangles.Car5Bounds, PointsAndRectangles.Car6Bounds, PointsAndRectangles.Car7Bounds, PointsAndRectangles.Car8Bounds };
             string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
             Thread.Sleep(2000);
@@ -210,7 +143,7 @@ namespace WindowsFormsApp1 //universal
             string path = "Check//";
             
             bool x = true;
-            Rectangle[] bounds = new Rectangle[] { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
+            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.HandSlot1, PointsAndRectangles.HandSlot2, PointsAndRectangles.HandSlot3, PointsAndRectangles.HandSlot4, PointsAndRectangles.HandSlot5 };
             string[] n = new string[] { "finger1", "finger2", "finger3", "finger4", "finger5" };
             for (int i = 0; i < 5; i++)
             {
@@ -259,7 +192,7 @@ namespace WindowsFormsApp1 //universal
             int lastcar = 3000;
             int[] carsid = new int[5];
             bool flag;
-            Rectangle[] b = { HandSlot1, HandSlot2, HandSlot3, HandSlot4, HandSlot5 };
+            Rectangle[] b = { PointsAndRectangles.HandSlot1, PointsAndRectangles.HandSlot2, PointsAndRectangles.HandSlot3, PointsAndRectangles.HandSlot4, PointsAndRectangles.HandSlot5 };
 
             for (int i = 0; i < 5; i++)
             {
@@ -346,14 +279,14 @@ namespace WindowsFormsApp1 //universal
                         
             do
             {
-                Rat.Clk(filter);
+                Rat.Clk(PointsAndRectangles.filter);
                 Thread.Sleep(1000);
             } while (!fc.FilterIsOpenned());//100% FilterOpenner
             Thread.Sleep(200);
-            Rat.Clk(clear);
+            Rat.Clk(PointsAndRectangles.clear);
             Thread.Sleep(1000);
-            Rat.DragnDropSlow(xy1, xy2, 8);
-            Rat.Clk(rarity);
+            Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);
+            Rat.Clk(PointsAndRectangles.rarity);
             Thread.Sleep(1000);
             Rat.Clk(cls);//выбрать класс             
             Thread.Sleep(500);
@@ -361,7 +294,7 @@ namespace WindowsFormsApp1 //universal
             Thread.Sleep(1000);
             do
             {
-                Rat.Clk(accept);
+                Rat.Clk(PointsAndRectangles.accept);
                 Thread.Sleep(500);
             } while (fc.FilterIsOpenned());//100% FilterCloser            
             Thread.Sleep(2000);            
@@ -371,7 +304,7 @@ namespace WindowsFormsApp1 //universal
         {            
             FastCheck fc = new FastCheck();
             
-            Point[] a = new Point[] { r1, r2, r3, r4, r5, r6, r7, r8, r9, r10 };
+            Point[] a = new Point[] { PointsAndRectangles.r1, PointsAndRectangles.r2, PointsAndRectangles.r3, PointsAndRectangles.r4, PointsAndRectangles.r5, PointsAndRectangles.r6, PointsAndRectangles.r7, PointsAndRectangles.r8, PointsAndRectangles.r9, PointsAndRectangles.r10 };
             Random rand = new Random();
             while (!fc.ItsGarage()) Thread.Sleep(2000);
             
@@ -385,22 +318,22 @@ namespace WindowsFormsApp1 //universal
                 Thread.Sleep(200);
                 do
                 {
-                    Rat.Clk(sorting);//сортировка
+                    Rat.Clk(PointsAndRectangles.sorting);//сортировка
                     Thread.Sleep(1000);
                 } while (!fc.TypeIsOpenned());//100% SorterOpenner
                 Thread.Sleep(200);
-                Rat.Clk(clearall);//сброс
+                Rat.Clk(PointsAndRectangles.clearall);//сброс
                 Thread.Sleep(1000);
-                Rat.Clk(sorting);//сортировка
+                Rat.Clk(PointsAndRectangles.sorting);//сортировка
                 Thread.Sleep(1000);
-                Rat.Clk(r2);//сортировка по рк  
+                Rat.Clk(PointsAndRectangles.r2);//сортировка по рк  
             }
             else
             {
                 Thread.Sleep(200); 
                 do
                 {
-                    Rat.Clk(sorting);//сортировка
+                    Rat.Clk(PointsAndRectangles.sorting);//сортировка
                     Thread.Sleep(1000);
                 } while (!fc.TypeIsOpenned());//100% SorterOpenner
                 Thread.Sleep(200);
@@ -416,7 +349,7 @@ namespace WindowsFormsApp1 //universal
             Thread.Sleep(500);
             do
             {
-                Rat.Clk(closesorting);//закрыть сортировку
+                Rat.Clk(PointsAndRectangles.closesorting);//закрыть сортировку
                 Thread.Sleep(500);
             } while (fc.TypeIsOpenned());//100% SorterCloser            
             Thread.Sleep(4000);
@@ -429,8 +362,8 @@ namespace WindowsFormsApp1 //universal
             FastCheck fc = new FastCheck();
             HandMaking hm = new HandMaking();
             
-            Point[] a = new Point[] { pHandSlot1, pHandSlot2, pHandSlot3, pHandSlot4, pHandSlot5 };
-            Point[] b = new Point[] { GarageSlot1, GarageSlot2, GarageSlot3, GarageSlot4, GarageSlot5, GarageSlot6, GarageSlot7, GarageSlot8 };            
+            Point[] a = new Point[] { PointsAndRectangles.pHandSlot1, PointsAndRectangles.pHandSlot2, PointsAndRectangles.pHandSlot3, PointsAndRectangles.pHandSlot4, PointsAndRectangles.pHandSlot5 };
+            Point[] b = new Point[] { PointsAndRectangles.GarageSlot1, PointsAndRectangles.GarageSlot2, PointsAndRectangles.GarageSlot3, PointsAndRectangles.GarageSlot4, PointsAndRectangles.GarageSlot5, PointsAndRectangles.GarageSlot6, PointsAndRectangles.GarageSlot7, PointsAndRectangles.GarageSlot8 };            
             int drag = 0; //сдвиги            
             int x = 0; //слот гаража
             int h = 0; //слот руки, uhl использованные слоты в предыдущем подборе
@@ -446,14 +379,14 @@ namespace WindowsFormsApp1 //universal
                 {
                     if (x > 3 && drag == 0)
                     {
-                        Rat.DragnDropSlow(ds1, de1, 5); 
+                        Rat.DragnDropSlow(PointsAndRectangles.ds1, PointsAndRectangles.de1, 5); 
                         drag = 1;
                         Thread.Sleep(1000);
                     }//сдвиг 
 
                     if (x > 5 && drag == 1)
                     {
-                        Rat.DragnDropSlow(ds2, de2, 5);
+                        Rat.DragnDropSlow(PointsAndRectangles.ds2, PointsAndRectangles.de2, 5);
                         drag = 2;
                         Thread.Sleep(1000);
                     }//сдвиг 

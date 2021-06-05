@@ -11,7 +11,6 @@ namespace WindowsFormsApp1 //universal
         {
             int i = 0;
             bool x;
-            fc.NoxPositionWithRepair();
             do
             {
                 if(i == 10)

@@ -6,57 +6,6 @@ namespace WindowsFormsApp1 //not Universal hardwork
 {
     public class SpecialEvents
     {
-        Point handSlot1s = new Point(160, 775);
-        Point handSlot2s = new Point(355, 775);
-        Point handSlot3s = new Point(545, 775);
-        Point handSlot4s = new Point(740, 775);
-        Point handSlot5s = new Point(930, 775);
-        Point handSlot1e = new Point(160, 500);
-        Point handSlot2e = new Point(355, 500);
-        Point handSlot3e = new Point(545, 500);
-        Point handSlot4e = new Point(740, 500);
-        Point handSlot5e = new Point(930, 500);
-
-        Point dragMapS = new Point(750, 500);
-        Point dragMapE = new Point(240, 500);
-
-        Point clkGalaxy = new Point(1160, 230);
-        Point endOfRaceSet = new Point(635, 570);
-        Point endOfTheFirstEace = new Point(640, 215);
-        Point acceptanceToThrowRaces = new Point(890, 625);
-        Point startToWatchADS = new Point(965, 745);
-        Point itsWrongADS = new Point(75, 205);
-        Point itsRightADS = new Point(1205, 200);
-        Point itsWrongNoxPosition2 = new Point(880, 65);
-        Point itsWrongNoxPosition = new Point(805, 55);
-        Point itsClickedWrongADS = new Point(75, 205);
-        Point upgradeAcceptance = new Point(635, 720);
-        Point upgradeCancelation = new Point(570, 745);
-        Point clubBoosterActivation = new Point(1025, 665);
-        Point clubBoosterAcceptance = new Point(905, 610);
-        Point noxClosing = new Point(1230, 150);
-        Point noxClosingAcceptance = new Point(675, 540);//new
-        Point cardBugClosing = new Point(1120, 800);
-        Point missClickCancelation = new Point(1145, 240);
-        Point eventEndsAcceptance = new Point(640, 590);
-        Point eventIsFullAcceptance = new Point(645, 575);
-        Point eventIsNotAvailableAcceptance = new Point(640, 590);
-        Point buttonBack = new Point(85, 215);
-        Point dailyBountyStart = new Point(640, 770);
-        Point dailyBountyEnd = new Point(630, 770);
-        Point dailyBountyThrow = new Point(640, 510);
-        Point toClubs = new Point(240, 500);
-        Point toEvents = new Point(630, 390);
-        Point seasonEndAcceptance = new Point(635, 660);
-        Point buttonStart = new Point(340, 600);
-        Point noxRestartMessageAcceptance = new Point(820, 560);
-        Point edgeOfTheScreen = new Point(1200, 0);
-        Point clkTheIcon = new Point(830, 375);
-        Point fbFucksBrain = new Point(640, 625);
-        Point reconnectionAfterLostConnection = new Point(785, 615);
-        Point brokenInterfaceAcceptance = new Point(380, 555);
-        Point googleNotificationAcceptance = new Point(890, 565);        
-
         public void EndRace()
         {
             
@@ -76,27 +25,27 @@ namespace WindowsFormsApp1 //not Universal hardwork
                 }
                 if (fc.RaceEnd())
                 {
-                    Rat.Clk(endOfTheFirstEace); //кнопка "пропустить"
+                    Rat.Clk(PointsAndRectangles.endOfTheFirstEace); //кнопка "пропустить"
                     flag1++;
                 }
                 if (fc.AcceptThrow())
                 {
-                    Rat.Clk(acceptanceToThrowRaces);//подтвержение "пропуска"
+                    Rat.Clk(PointsAndRectangles.acceptanceToThrowRaces);//подтвержение "пропуска"
                     flag2++;
                 }
                 if (fc.WonSet())
                 {
-                    Rat.Clk(endOfRaceSet);//звезды 
+                    Rat.Clk(PointsAndRectangles.endOfRaceSet);//звезды 
                     flag3++;
                 }
                 if (fc.LostSet())
                 {
-                    Rat.Clk(endOfRaceSet);//звезды 
+                    Rat.Clk(PointsAndRectangles.endOfRaceSet);//звезды 
                     flag3++;
                 }
                 if (fc.DrawSet())
                 {
-                    Rat.Clk(endOfRaceSet);//звезды 
+                    Rat.Clk(PointsAndRectangles.endOfRaceSet);//звезды 
                     flag3++;
                 }
                 Thread.Sleep(1500);
@@ -111,53 +60,23 @@ namespace WindowsFormsApp1 //not Universal hardwork
             Waiting wait = new Waiting();
 
             NotePad.DoLog("Смотрю рекламу на прокачку");
-            Rat.Clk(startToWatchADS); //начать просмотр
-            Thread.Sleep(70000);//
-
-            if (!fc.NoxPosition())
+            Rat.Clk(PointsAndRectangles.startToWatchADS); //начать просмотр
+            Thread.Sleep(70000);
+            if (fc.WrongADS())
             {
-                if (fc.IsGalaxy())
-                {
-                    Rat.Clk(clkGalaxy);
-                    Thread.Sleep(2000);
-                }
-                else
-                {
-                    if (fc.WrongADS())
-                    {
-                        Rat.Clk(itsWrongADS);
-                        Thread.Sleep(2000);
-                    }
-                    else
-                    {
-                        Rat.Clk(itsRightADS);
-                        Thread.Sleep(2000);
-                    }
-                }                
+                Rat.Clk(PointsAndRectangles.itsWrongADS);
+                Thread.Sleep(2000);
             }
             else
             {
-                if (fc.WrongNoxPosition())
-                {
-                    Rat.Clk(itsWrongNoxPosition2);
-                    Thread.Sleep(2000);
-                    RepairNoxPosition();
-                    NotePad.DoErrorLog("ебучая реклама N2");
-                }
-                else
-                {
-                    Rat.Clk(itsWrongNoxPosition);
-                    Thread.Sleep(2000);
-                    RepairNoxPosition();
-                    NotePad.DoErrorLog("ебучая реклама");
-                }
+                Rat.Clk(PointsAndRectangles.itsRightADS);
+                Thread.Sleep(2000);
             }
-            
             if (fc.ClickedWrongADS())
             {
-                Rat.Clk(itsClickedWrongADS);
+                Rat.Clk(PointsAndRectangles.itsClickedWrongADS);
                 Thread.Sleep(2000);
-                Rat.Clk(itsClickedWrongADS);
+                Rat.Clk(PointsAndRectangles.itsClickedWrongADS);
                 Thread.Sleep(2000);
             }
             if (fc.Upgrade())
@@ -167,14 +86,14 @@ namespace WindowsFormsApp1 //not Universal hardwork
                 do
                 {
                     if(badtry > 5) RestartBot();
-                    Rat.Clk(startToWatchADS);
+                    Rat.Clk(PointsAndRectangles.startToWatchADS);
                     Thread.Sleep(4000);
                     notok = fc.Upgrade();
                     badtry++;
                 } while (notok);                
             } //против глюка рекламы
             wait.CarIsUpgraded();
-            Rat.Clk(upgradeAcceptance); //подтвердить проркачку
+            Rat.Clk(PointsAndRectangles.upgradeAcceptance); //подтвердить проркачку
             Thread.Sleep(3000);
             UniversalErrorDefense();
         }
@@ -182,7 +101,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
         public void UpgradeAdsKiller()//switch off ads watching
         {
             NotePad.DoLog("Пропускаю рекламу на прокачку");
-            Rat.Clk(upgradeCancelation); //отменить просмотр
+            Rat.Clk(PointsAndRectangles.upgradeCancelation); //отменить просмотр
             Thread.Sleep(3000);
             UniversalErrorDefense();
         }
@@ -201,9 +120,9 @@ namespace WindowsFormsApp1 //not Universal hardwork
 
         public void ActivateClubBooster()
         {            
-            Rat.Clk(clubBoosterActivation);
+            Rat.Clk(PointsAndRectangles.clubBoosterActivation);
             Thread.Sleep(2000);
-            Rat.Clk(clubBoosterAcceptance);
+            Rat.Clk(PointsAndRectangles.clubBoosterAcceptance);
             Thread.Sleep(3000);
         }
 
@@ -211,15 +130,15 @@ namespace WindowsFormsApp1 //not Universal hardwork
         {
             FastCheck fc = new FastCheck();
             fc.Bounty();
-            Rat.DragnDropSlow(dragMapS, dragMapE, 8);
+            Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
         }
 
         public void RestartBot()
         {
             Mail.MailMessage("Forced to reboot...");
-            Rat.Clk(noxClosing);//close Nox
+            Rat.Clk(PointsAndRectangles.noxClosing);//close Nox
             Thread.Sleep(1000);
-            Rat.Clk(noxClosingAcceptance);//accept Nox close
+            Rat.Clk(PointsAndRectangles.noxClosingAcceptance);//accept Nox close
             Thread.Sleep(1000);
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             Process.GetCurrentProcess().Kill();
@@ -235,17 +154,6 @@ namespace WindowsFormsApp1 //not Universal hardwork
             }
         }
 
-        /*
-        public void CardBug()
-        {
-            FastCheck fc = new FastCheck();
-            if (fc.CardBug())
-            {
-                Rat.Clk(cardBugClosing);
-                Thread.Sleep(500);
-            }           
-        }
-        */
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();
@@ -265,8 +173,8 @@ namespace WindowsFormsApp1 //not Universal hardwork
 
         public void ClearHand()
         {
-            Point[] a = new Point[] { handSlot1s, handSlot2s, handSlot3s, handSlot4s, handSlot5s };
-            Point[] b = new Point[] { handSlot1e, handSlot2e, handSlot3e, handSlot4e, handSlot5e };
+            Point[] a = new Point[] { PointsAndRectangles.pHandSlot1, PointsAndRectangles.pHandSlot2, PointsAndRectangles.pHandSlot3, PointsAndRectangles.pHandSlot4, PointsAndRectangles.pHandSlot5 };
+            Point[] b = new Point[] { PointsAndRectangles.handSlot1e, PointsAndRectangles.handSlot2e, PointsAndRectangles.handSlot3e, PointsAndRectangles.handSlot4e, PointsAndRectangles.handSlot5e };
             for (int i = 0; i < 5; i++)
             {
                 Rat.DragnDropSlow(a[i], b[i], 10);
@@ -287,7 +195,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
             if (fc.EventEnds())
             {
                 NotePad.DoLog("эвент окончен");
-                Rat.Clk(eventEndsAcceptance);//Accept Message
+                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//Accept Message
                 Thread.Sleep(3000);
                 x = false;
             }
@@ -295,7 +203,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
             if (fc.EventIsNotAvailable())
             {
                 NotePad.DoLog("эвент не доступен");
-                Rat.Clk(eventIsNotAvailableAcceptance);//Accept Message                    
+                Rat.Clk(PointsAndRectangles.eventIsNotAvailableAcceptance);//Accept Message                    
                 Thread.Sleep(3000);
                 x = false;
             }
@@ -303,13 +211,13 @@ namespace WindowsFormsApp1 //not Universal hardwork
             if (fc.EventisFull())
             {
                 NotePad.DoLog("эвент заполнен");
-                Rat.Clk(eventIsFullAcceptance);//Accept Message
+                Rat.Clk(PointsAndRectangles.eventIsFullAcceptance);//Accept Message
 
                 if (fc.ItsGarage())
                 {
-                    Rat.Clk(buttonBack);//back
+                    Rat.Clk(PointsAndRectangles.buttonBack);//back
                     Thread.Sleep(2000);
-                    Rat.Clk(buttonBack);//back to club map
+                    Rat.Clk(PointsAndRectangles.buttonBack);//back to club map
                 }
                 Thread.Sleep(3000);
                 x = false;
@@ -324,7 +232,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
             if (fc.MissClick())
             {
                 NotePad.DoLog("Промах");
-                Rat.Clk(missClickCancelation);
+                Rat.Clk(PointsAndRectangles.missClickCancelation);
                 NotePad.DoLog("Исправился");
                 Thread.Sleep(1000);
             }
@@ -343,20 +251,20 @@ namespace WindowsFormsApp1 //not Universal hardwork
                 if (clkcounter > 25) RestartBot();
                 if (fc.DailyBounty())
                 {
-                    Rat.Clk(dailyBountyStart);
+                    Rat.Clk(PointsAndRectangles.dailyBountyStart);
                     bountyisavailable = true;
                     Thread.Sleep(15000);
                 }
                 else 
                 if (fc.DailyBountyEnd())
                 {
-                    Rat.Clk(dailyBountyEnd);
+                    Rat.Clk(PointsAndRectangles.confirmdailyBountyEnd);
                     bountyisavailable = false;
                     Thread.Sleep(15000);
                 }
                 else if (bountyisavailable)
                 {
-                    Rat.Clk(dailyBountyThrow);
+                    Rat.Clk(PointsAndRectangles.dailyBountyThrow);
                     clkcounter++;
                 }                   
                 Thread.Sleep(15000);
@@ -385,28 +293,28 @@ namespace WindowsFormsApp1 //not Universal hardwork
             {
                 if (fc.NoxRestartMessage())
                 {
-                    Rat.Clk(noxRestartMessageAcceptance);
+                    Rat.Clk(PointsAndRectangles.noxRestartMessageAcceptance);
                     Thread.Sleep(1000);
-                    Rat.Clk(edgeOfTheScreen);
+                    Rat.Clk(PointsAndRectangles.edgeOfTheScreen);
                     Thread.Sleep(120000);
                     Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_1");                    
                 }//nox restart message
                 if (fc.StartIcon())//Icon
                 {
-                    Rat.Clk(clkTheIcon);
+                    Rat.Clk(PointsAndRectangles.clkTheIcon);
                 }                
-                if (fc.BrokenInterface()) Rat.Clk(brokenInterfaceAcceptance);//close notify
-                if (fc.LostConnection()) Rat.Clk(reconnectionAfterLostConnection);//reconnect
-                if (fc.Google()) Rat.Clk(googleNotificationAcceptance);//google notify
-                if (fc.FBcontinue()) Rat.Clk(fbFucksBrain);//fb fucks brain
+                if (fc.BrokenInterface()) Rat.Clk(PointsAndRectangles.brokenInterfaceAcceptance);//close notify
+                if (fc.LostConnection()) Rat.Clk(PointsAndRectangles.reconnectionAfterLostConnection);//reconnect
+                if (fc.Google()) Rat.Clk(PointsAndRectangles.googleNotificationAcceptance);//google notify
+                if (fc.FBcontinue()) Rat.Clk(PointsAndRectangles.fbFucksBrain);//fb fucks brain
                 if (fc.StartButton())
                 {
-                    Rat.Clk(buttonStart);//Start game
+                    Rat.Clk(PointsAndRectangles.buttonStart);//Start game
                     Thread.Sleep(5000);
                 }                    
                 if (fc.HeadPage())
                 {
-                    Rat.Clk(toEvents);//Events
+                    Rat.Clk(PointsAndRectangles.toEvents);//Events
                     Thread.Sleep(2000);
                 }                    
                 if (fc.DailyBounty()) AcceptDailyBounty();
@@ -414,7 +322,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
                 if (fc.SeasonEndsBounty())
                 {
                     Thread.Sleep(500);
-                    Rat.Clk(seasonEndAcceptance);
+                    Rat.Clk(PointsAndRectangles.seasonEndAcceptance);
                     NotePad.DoLog("получил награду за сезон");
                 }
                 CheckConnection();
@@ -424,12 +332,12 @@ namespace WindowsFormsApp1 //not Universal hardwork
                     if (fc.InCommonEvent())
                     {
                         Thread.Sleep(500);
-                        Rat.Clk(buttonBack);//back
+                        Rat.Clk(PointsAndRectangles.buttonBack);//back
                     }
                     else
                     {
                         Thread.Sleep(500);
-                        Rat.Clk(toClubs);//Clubs
+                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
                         needToDragMap = true;
                     }                    
                 }                

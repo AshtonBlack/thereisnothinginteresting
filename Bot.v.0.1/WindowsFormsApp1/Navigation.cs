@@ -9,11 +9,6 @@ namespace WindowsFormsApp1 //universal
         ChooseEvent ce = new ChooseEvent();
         FastCheck fc = new FastCheck();
         SpecialEvents se = new SpecialEvents();
-
-        Point clubEventEnter = new Point(1060, 800);
-        Point startTheRace = new Point(1120, 800);
-        Point passTheTableAfterRace = new Point(820, 730);
-        Point backToClubMap = new Point(70, 205);
         
         public void ToClubMap()
         {
@@ -35,7 +30,7 @@ namespace WindowsFormsApp1 //universal
                 {
                     NotePad.DoLog("вхожу в активный эвент");
                     i = 1;
-                    Rat.Clk(clubEventEnter);//ClubEventEnter
+                    Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter
                     string[] conds = NotePad.ReadConditions();
                     Condition.eventrq = NotePad.ReadRQ();
                     Condition.MakeCondition(conds[0], conds[1]);
@@ -51,7 +46,7 @@ namespace WindowsFormsApp1 //universal
                     NotePad.DoLog("Подбираю эвент с одним условием");
                     ce.ChooseNormalEvent();
                     NotePad.DoLog("Вхожу в эвент " + Condition.eventrq + " рк");
-                    Rat.Clk(clubEventEnter);//ClubEventEnter   
+                    Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter   
                     while (i < 100)
                     {
                         i++;
@@ -83,7 +78,7 @@ namespace WindowsFormsApp1 //universal
                     //se.CardBug();
                     if(fc.ReadyToRace())
                     {
-                        Rat.Clk(startTheRace);
+                        Rat.Clk(PointsAndRectangles.startTheRace);
                         Thread.Sleep(2000);
                     }                        
                     if (fc.EnemyIsReady())
@@ -128,7 +123,7 @@ namespace WindowsFormsApp1 //universal
 
                         if (fc.Ending())
                         {
-                            Rat.Clk(passTheTableAfterRace);//Table
+                            Rat.Clk(PointsAndRectangles.passTheTableAfterRace);//Table
                             Thread.Sleep(1000);
                         }
 
@@ -149,7 +144,7 @@ namespace WindowsFormsApp1 //universal
                         {
                             Thread.Sleep(500);
                             NotePad.DoLog("Bug with Control Screen");
-                            Rat.Clk(backToClubMap);//Back
+                            Rat.Clk(PointsAndRectangles.backToClubMap);//Back
                             Thread.Sleep(1000);
                         }
 

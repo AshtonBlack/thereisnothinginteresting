@@ -1,20 +1,9 @@
-﻿using System.Drawing;
-using System.Threading;
+﻿using System.Threading;
 
 namespace WindowsFormsApp1 //universal
 {
     public class PlayClubsPositions
-    {
-        Point bountyForSeason = new Point(635, 660);
-        Point eventIsEnd = new Point(640, 590);
-        Point eventIsNotAvailableAcceptance = new Point(640, 590);
-        Point closeCarCard = new Point(685, 280);
-        Point controlScreenToGarage = new Point(820, 790);
-        Point bugwithControlScreen = new Point(70, 205);
-        Point ChooseAnEnemy = new Point(640, 705);
-        Point forceTheRace = new Point(180, 580);
-        Point acceptSeasonEnd = new Point(635, 570);
-
+    {        
         public bool PathToGarage()
         {
             FastCheck fc = new FastCheck();
@@ -31,14 +20,14 @@ namespace WindowsFormsApp1 //universal
                 if (fc.SeasonIsEnded())
                 {
                     Thread.Sleep(500);
-                    Rat.Clk(acceptSeasonEnd);
+                    Rat.Clk(PointsAndRectangles.acceptSeasonEnd);
                     NotePad.DoLog("сезон окончен");
                 }
 
                 if (fc.SeasonEndsBounty())
                 {
                     Thread.Sleep(500);
-                    Rat.Clk(bountyForSeason);
+                    Rat.Clk(PointsAndRectangles.bountyForSeason);
                     NotePad.DoLog("получил награду за сезон");
                 }
 
@@ -56,15 +45,7 @@ namespace WindowsFormsApp1 //universal
                 if (fc.EventEnds())
                 {
                     NotePad.DoLog("эвент окончен");
-                    Rat.Clk(eventIsEnd);//Accept Message                    
-                    Thread.Sleep(3000);
-                    positionflag = true;
-                }
-
-                if (fc.EventIsNotAvailable())
-                {
-                    NotePad.DoLog("эвент не доступен");
-                    Rat.Clk(eventIsNotAvailableAcceptance);//Accept Message                    
+                    Rat.Clk(PointsAndRectangles.eventIsEnd);//Accept Message                    
                     Thread.Sleep(3000);
                     positionflag = true;
                 }
@@ -73,7 +54,7 @@ namespace WindowsFormsApp1 //universal
                 {
                     Thread.Sleep(500);
                     NotePad.DoLog("Закрываю меню автомобиля");
-                    Rat.Clk(closeCarCard);
+                    Rat.Clk(PointsAndRectangles.closeCarCard);
                     Thread.Sleep(1000);
                 }
 
@@ -81,7 +62,7 @@ namespace WindowsFormsApp1 //universal
                 {
                     Thread.Sleep(500);
                     NotePad.DoLog("Перехожу в гараж");
-                    Rat.Clk(controlScreenToGarage);//Play
+                    Rat.Clk(PointsAndRectangles.controlScreenToGarage);//Play
                     Thread.Sleep(1000);
                 }
 
@@ -89,7 +70,7 @@ namespace WindowsFormsApp1 //universal
                 {
                     Thread.Sleep(500);
                     NotePad.DoLog("Bug with Control Screen");
-                    Rat.Clk(bugwithControlScreen);//Back
+                    Rat.Clk(PointsAndRectangles.bugwithControlScreen);//Back
                     Thread.Sleep(1000);
                 }
 
@@ -164,7 +145,7 @@ namespace WindowsFormsApp1 //universal
 
             do
             {
-                Rat.Clk(ChooseAnEnemy);//ChooseanEnemy
+                Rat.Clk(PointsAndRectangles.ChooseAnEnemy);//ChooseanEnemy
                 Thread.Sleep(500);
             } while (fc.EnemyIsReady()); //100% ChooseanEnemy           
             NotePad.DoLog("противник выбран");
@@ -174,7 +155,7 @@ namespace WindowsFormsApp1 //universal
             ga.Arrangement(a1, b1, c1);
             wait.RaceOn();
             Thread.Sleep(2000);
-            Rat.Clk(forceTheRace); //ускорить заезд, клик в пусой области
+            Rat.Clk(PointsAndRectangles.forceTheRace); //ускорить заезд, клик в пусой области
             wait.RaceOff();
         }        
     }    

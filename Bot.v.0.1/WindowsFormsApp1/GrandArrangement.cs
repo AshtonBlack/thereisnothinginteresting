@@ -10,21 +10,10 @@ namespace WindowsFormsApp1 //universal
         {
             Algorithms al = new Algorithms();
             TrackInfo ti = new TrackInfo();
-            IdentifyCar idcar = new IdentifyCar();
+            IdentifyCar idcar = new IdentifyCar();            
 
-            Point Finger1 = new Point(350, 770);
-            Point Finger2 = new Point(540, 770);
-            Point Finger3 = new Point(730, 770);
-            Point Finger4 = new Point(900, 770);
-            Point Finger5 = new Point(1100, 770);
-            Point Track1 = new Point(185, 610);
-            Point Track2 = new Point(410, 610);
-            Point Track3 = new Point(635, 610);
-            Point Track4 = new Point(865, 610);
-            Point Track5 = new Point(1090, 610);
-
-            Point[] a = { Finger1, Finger2, Finger3, Finger4, Finger5 };
-            Point[] b = { Track1, Track2, Track3, Track4, Track5 };
+            Point[] a = { PointsAndRectangles.Finger1, PointsAndRectangles.Finger2, PointsAndRectangles.Finger3, PointsAndRectangles.Finger4, PointsAndRectangles.Finger5 };
+            Point[] b = { PointsAndRectangles.Track1position, PointsAndRectangles.Track2position, PointsAndRectangles.Track3position, PointsAndRectangles.Track4position, PointsAndRectangles.Track5position };
 
             int[] carpicture = NotePad.ReadCars();
             string[] carsname = new string[5];

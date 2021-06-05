@@ -10,21 +10,9 @@ namespace WindowsFormsApp1 //universal
         int accountLVL = Condition.accountLVL;
         FastCheck fc = new FastCheck();
 
-        Rectangle Condition1Bounds = new Rectangle(1000, 392, 205, 20);//new
-        Rectangle Condition2Bounds = new Rectangle(1000, 418, 205, 20);//new
         string Condition1 = "Condition1\\test";
         string Condition2 = "Condition2\\test";
-        
-        Rectangle RQBounds = new Rectangle(1150, 367, 85, 18);//new
         string RQPath = "RQ\\test";
-
-        Point clktoClubs = new Point(240, 500);
-        //events
-        Point eventN1 = new Point(960, 570);
-        Point eventN2 = new Point(960, 660);
-        Point eventN3 = new Point(960, 750);
-        Point eventN4 = new Point(960, 830);
-        Point toeventlist = new Point(920, 270);
 
         public void ChooseNormalEvent()
         {
@@ -50,7 +38,7 @@ namespace WindowsFormsApp1 //universal
 
                     if (!eventIsOK)
                     {
-                        Rat.Clk(toeventlist);//Back
+                        Rat.Clk(PointsAndRectangles.toeventlist);//Back
                         Thread.Sleep(3000);
                     }
                     else break;
@@ -61,7 +49,7 @@ namespace WindowsFormsApp1 //universal
         public bool Selection(int eventN)
         {
             SpecialEvents se = new SpecialEvents();            
-            Point[] events = { eventN1, eventN2, eventN3, eventN4 };
+            Point[] events = { PointsAndRectangles.eventN1, PointsAndRectangles.eventN2, PointsAndRectangles.eventN3, PointsAndRectangles.eventN4 };
 
             bool eventIsOK = false;
 
@@ -75,7 +63,7 @@ namespace WindowsFormsApp1 //universal
                 if (fc.EventPage())
                 {
                     NotePad.DoLog("Вылетел из клубов");
-                    Rat.Clk(clktoClubs);//Clubs
+                    Rat.Clk(PointsAndRectangles.clktoClubs);//Clubs
                     flag = false;
                     Thread.Sleep(15000);
                 }
@@ -83,8 +71,8 @@ namespace WindowsFormsApp1 //universal
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
 
-            MasterOfPictures.MakePicture(Condition1Bounds, Condition1);
-            MasterOfPictures.MakePicture(Condition2Bounds, Condition2);
+            MasterOfPictures.MakePicture(PointsAndRectangles.Condition1Bounds, Condition1);
+            MasterOfPictures.MakePicture(PointsAndRectangles.Condition2Bounds, Condition2);
             int x = DefineFirstEvevntConditionByPicture();
             int y = DefineSecondEvevntConditionByPicture();
             string cond1 = ConvertPictureToCond(x, 1);
@@ -189,7 +177,7 @@ namespace WindowsFormsApp1 //universal
         {
             bool isRqKnown = false;
             Condition.eventrq = 0;
-            MasterOfPictures.MakePicture(RQBounds, RQPath);
+            MasterOfPictures.MakePicture(PointsAndRectangles.RQBounds, RQPath);
             for (int i = 1; i < 501; i++)
             {
                 if(File.Exists("C:\\Bot\\RQ\\" + i.ToString() + ".jpg"))

@@ -6,29 +6,11 @@ namespace WindowsFormsApp1 //universal
 {
     public class TrackInfo
     {
-        Rectangle Track1 = new Rectangle(148, 524, 165, 35);//new
-        Rectangle Track2 = new Rectangle(353, 524, 165, 35);//new
-        Rectangle Track3 = new Rectangle(563, 524, 165, 35);//new
-        Rectangle Track4 = new Rectangle(768, 524, 165, 35);//new
-        Rectangle Track5 = new Rectangle(973, 524, 165, 35);//new
-
-        Rectangle Ground1 = new Rectangle(196, 604, 115, 30);//new
-        Rectangle Ground2 = new Rectangle(399, 604, 115, 30);//new
-        Rectangle Ground3 = new Rectangle(613, 604, 115, 30);//new
-        Rectangle Ground4 = new Rectangle(816, 604, 115, 30);//new
-        Rectangle Ground5 = new Rectangle(1021, 604, 115, 30);//new
-
-        Rectangle Weather1 = new Rectangle(196, 561, 75, 34);//new
-        Rectangle Weather2 = new Rectangle(399, 561, 75, 34);//new
-        Rectangle Weather3 = new Rectangle(613, 561, 75, 34);//new
-        Rectangle Weather4 = new Rectangle(816, 561, 75, 34);//new
-        Rectangle Weather5 = new Rectangle(1021, 561, 75, 34);//new
-
         public int[] Tracks()
         {            
             int n;
             bool flag;
-            Rectangle[] a = { Track1, Track2, Track3, Track4, Track5 };
+            Rectangle[] a = { PointsAndRectangles.Track1, PointsAndRectangles.Track2, PointsAndRectangles.Track3, PointsAndRectangles.Track4, PointsAndRectangles.Track5 };
             int[] a1 = new int[5];
 
             for (int i = 0; i < 5; i++)
@@ -69,7 +51,7 @@ namespace WindowsFormsApp1 //universal
 
         public int[] Grounds()
         {
-            Rectangle[] b = { Ground1, Ground2, Ground3, Ground4, Ground5 };
+            Rectangle[] b = { PointsAndRectangles.Ground1, PointsAndRectangles.Ground2, PointsAndRectangles.Ground3, PointsAndRectangles.Ground4, PointsAndRectangles.Ground5 };
             int n;
             bool flag;
             int[] b1 = new int[5];
@@ -111,7 +93,7 @@ namespace WindowsFormsApp1 //universal
 
         public int[] Weathers()
         {
-            Rectangle[] c = { Weather1, Weather2, Weather3, Weather4, Weather5 };
+            Rectangle[] c = { PointsAndRectangles.Weather1, PointsAndRectangles.Weather2, PointsAndRectangles.Weather3, PointsAndRectangles.Weather4, PointsAndRectangles.Weather5 };
             int n;
             bool flag;
             int[] c1 = new int[5];
