@@ -29,14 +29,14 @@ namespace WindowsFormsApp1 //universal
                 for (int i = 0; i < length; i++)
                 {
                     string theline = sr.ReadLine();
-                    picturetoname[i, 0] = Transform3(theline, 1);
-                    picturetoname[i, 1] = Transform3(theline, 2);
+                    picturetoname[i, 0] = Transform(theline, 1);
+                    picturetoname[i, 1] = Transform(theline, 2);
                 }
                 sr.Close();
             }
         }
 
-        public string Transform3(string t, int wordN)
+        public string Transform(string t, int wordN)
         {
             string forreturn;
             string a = t.Trim();

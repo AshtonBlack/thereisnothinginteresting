@@ -1,20 +1,86 @@
 ﻿using System.Drawing;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
     static class PointsAndRectangles
     {
+        public static int allpointslength { get; set; }
         public static string[,] allpoints { get; set; }
         public static string[,] allrectangles { get; set; }
+
         static PointsAndRectangles()
         {
-            AllpointsMakeTable();
-            AllrectanglesMakeTable();
+            //AllpointsMakeTable();
+            //AllrectanglesMakeTable();
         }
+
         public static void AllpointsMakeTable()
         {
+            string commonpath = @"C:\Bot\NewPL\";
+            string path = "PictureToCar.txt";
+            allpointslength = 0;
+            using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null && line != " " && line != "")
+                {
+                    allpointslength++;
+                }
+                sr.Close();
+            }
+            allpoints = new string[allpointslength, 3];
 
+            using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < allpoints.Length; i++)
+                {
+                    string theline = sr.ReadLine();
+                    allpoints[i, 0] = Transform(theline, 1);
+                    allpoints[i, 1] = Transform(theline, 2);
+                }
+                sr.Close();
+            }
         }
+
+        static string Transform(string t, int wordN)
+        {
+            string forreturn;
+            string a = t.Trim();
+            char[] word = a.ToCharArray();
+
+            int wordBlength = 0;
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (word[i] != ' ')
+                {
+                    wordBlength++;
+                }
+                else break;
+            }
+            char[] wordB = new char[wordBlength];
+            for (int i = 0; i < wordB.Length; i++)
+            {
+                wordB[i] = word[i];
+            }
+
+            char[] wordC = new char[word.Length - wordBlength - 1];
+            for (int i = 0; i < wordC.Length; i++)
+            {
+                wordC[i] = word[i + wordBlength + 1];
+            }
+
+            if (wordN == 1)
+            {
+                forreturn = new string(wordB);
+            }
+            else
+            {
+                forreturn = new string(wordC);
+            }
+            return forreturn;
+        }
+
         public static void AllrectanglesMakeTable()
         {
 
@@ -174,15 +240,10 @@ namespace WindowsFormsApp1
         public static Point forceTheRace = new Point(180, 580);
         public static Point acceptSeasonEnd = new Point(635, 570);
         //SpecialEvents
-        public static Point handSlot1e = new Point(160, 500);
-        public static Point handSlot2e = new Point(355, 500);
-        public static Point handSlot3e = new Point(545, 500);
-        public static Point handSlot4e = new Point(740, 500);
-        public static Point handSlot5e = new Point(930, 500);
         public static Point dragMapS = new Point(750, 500);
         public static Point dragMapE = new Point(240, 500);
         public static Point endOfRaceSet = new Point(635, 570);
-        public static Point endOfTheFirstEace = new Point(640, 215);
+        public static Point endOfTheFirstRace = new Point(640, 215);
         public static Point acceptanceToThrowRaces = new Point(890, 625);
         public static Point startToWatchADS = new Point(965, 745);
         public static Point itsWrongADS = new Point(75, 205);

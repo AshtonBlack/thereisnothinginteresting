@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Threading;
 
-namespace WindowsFormsApp1 //not Universal hardwork
+namespace WindowsFormsApp1 //universal
 {
     public class SpecialEvents
     {
@@ -24,7 +24,7 @@ namespace WindowsFormsApp1 //not Universal hardwork
                 }
                 if (fc.RaceEnd())
                 {
-                    Rat.Clk(PointsAndRectangles.endOfTheFirstEace); //кнопка "пропустить"
+                    Rat.Clk(PointsAndRectangles.endOfTheFirstRace); //кнопка "пропустить"
                     flag1++;
                 }
                 if (fc.AcceptThrow())
@@ -172,11 +172,15 @@ namespace WindowsFormsApp1 //not Universal hardwork
 
         public void ClearHand()
         {
-            Point[] a = new Point[] { PointsAndRectangles.pHandSlot1, PointsAndRectangles.pHandSlot2, PointsAndRectangles.pHandSlot3, PointsAndRectangles.pHandSlot4, PointsAndRectangles.pHandSlot5 };
-            Point[] b = new Point[] { PointsAndRectangles.handSlot1e, PointsAndRectangles.handSlot2e, PointsAndRectangles.handSlot3e, PointsAndRectangles.handSlot4e, PointsAndRectangles.handSlot5e };
+            Point[] a = new Point[] { PointsAndRectangles.pHandSlot1, 
+                PointsAndRectangles.pHandSlot2, 
+                PointsAndRectangles.pHandSlot3, 
+                PointsAndRectangles.pHandSlot4, 
+                PointsAndRectangles.pHandSlot5 };
             for (int i = 0; i < 5; i++)
             {
-                Rat.DragnDropSlow(a[i], b[i], 10);
+                Point endPoint = new Point(a[i].X, a[i].Y-270);
+                Rat.DragnDropSlow(a[i], endPoint, 10);
             }
         }
 
