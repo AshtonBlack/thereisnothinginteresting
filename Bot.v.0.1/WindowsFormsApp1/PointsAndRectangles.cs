@@ -123,7 +123,7 @@ namespace WindowsFormsApp1
         public static Rectangle wrongADS = new Rectangle(63, 193, 25, 25);
         public static Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
         public static Rectangle noActiveBooster = new Rectangle(1033, 658, 43, 19);//new
-        public static Rectangle lostConnection = new Rectangle(365, 385, 300, 30);
+        public static Rectangle lostConnection = new Rectangle(365, 385, 300, 30);//new
         public static Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);//new
         public static Rectangle brokenInterface = new Rectangle(335, 415, 610, 185);
         public static Rectangle typeIsOpenned = new Rectangle(1092, 247, 25, 20);//new
@@ -150,7 +150,7 @@ namespace WindowsFormsApp1
         public static Rectangle drawSet = new Rectangle(370, 540, 195, 45);//new
         public static Rectangle dailyBounty = new Rectangle(78, 195, 290, 30);//new
         public static Rectangle dailyBountyEnd = new Rectangle(564, 763, 160, 20);//new
-        public static Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);
+        public static Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);//new
         public static Rectangle faultNox = new Rectangle(933, 314, 26, 26);
         public static Rectangle chooseanEnemy = new Rectangle(148, 605, 35, 35);//new
         public static Rectangle raceEnd = new Rectangle(546, 750, 190, 30);//new
