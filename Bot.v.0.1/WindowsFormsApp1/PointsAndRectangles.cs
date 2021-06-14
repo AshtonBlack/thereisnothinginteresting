@@ -141,7 +141,7 @@ namespace WindowsFormsApp1
         public static Rectangle inGarage = new Rectangle(195, 183, 160, 30); //for itsgarage //new
         public static Rectangle eventEnds = new Rectangle(561, 565, 160, 20);//new
         public static Rectangle upgrade = new Rectangle(427, 247, 135, 30);//new
-        public static Rectangle error = new Rectangle(546, 794, 185, 25);
+        public static Rectangle error = new Rectangle(548, 797, 185, 25);//new
         public static Rectangle eventisFull = new Rectangle(560, 564, 156, 20);
         public static Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);//new
         public static Rectangle acceptThrow = new Rectangle(895, 615, 35, 25);//new
@@ -154,7 +154,7 @@ namespace WindowsFormsApp1
         public static Rectangle faultNox = new Rectangle(933, 314, 26, 26);
         public static Rectangle chooseanEnemy = new Rectangle(148, 605, 35, 35);//new
         public static Rectangle raceEnd = new Rectangle(546, 750, 190, 30);//new
-        public static Rectangle inCommonEvent = new Rectangle(935, 790, 90, 25);
+        public static Rectangle inCommonEvent = new Rectangle(944, 794, 90, 25);//new
         public static Rectangle clubBounty = new Rectangle(525, 742, 240, 25);//new
         public static Rectangle carRepair = new Rectangle(208, 447, 870, 55);//new
         public static Rectangle eventisnotavailable = new Rectangle(564, 580, 156, 20);//new
