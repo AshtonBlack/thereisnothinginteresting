@@ -48,6 +48,8 @@ namespace WindowsFormsApp1 //universal
                     flag3++;
                 }
                 Thread.Sleep(1500);
+                if (fc.Bounty()) nextstep = true;
+                if (fc.ClubMap()) nextstep = true;
                 if (fc.Ending()) nextstep = true;
                 if (fc.Upgrade()) nextstep = true;
             } while (!nextstep);            

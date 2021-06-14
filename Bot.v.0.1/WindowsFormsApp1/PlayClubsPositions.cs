@@ -153,10 +153,13 @@ namespace WindowsFormsApp1 //universal
             NotePad.DoLog("загрузился экран расстановки");
             Thread.Sleep(1000);
             ga.Arrangement(a1, b1, c1);
+            NotePad.DoLog("расстановка выполнена");
             wait.RaceOn();
+            NotePad.DoLog("заезд начался");
             Thread.Sleep(2000);
             Rat.Clk(PointsAndRectangles.forceTheRace); //ускорить заезд, клик в пусой области
             wait.RaceOff();
+            NotePad.DoLog("заезд окончен");
         }        
     }    
 }

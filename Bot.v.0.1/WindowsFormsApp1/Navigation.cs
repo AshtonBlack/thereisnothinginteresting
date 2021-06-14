@@ -101,7 +101,7 @@ namespace WindowsFormsApp1 //universal
                         foundplace = true;
                         Thread.Sleep(1000);
                     }
-                } while (foundplace == false);//ожидание противника
+                } while (!foundplace);//ожидание противника
 
                 if (eventisactive)
                 {
