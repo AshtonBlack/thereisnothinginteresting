@@ -36,41 +36,6 @@ namespace WindowsFormsApp1 //universal
                 Thread.Sleep(500);
             } while (!x);
         }
-
-        public void ArrangementWindow()
-        {
-            bool x;
-            do
-            {
-                se.UniversalErrorDefense();
-                x = fc.ArrangementWindow();
-                Thread.Sleep(1000);
-            } while (!x);
-        }
-
-        public void RaceOn()
-        {            
-            int waiter = 0;
-            bool x;
-            do
-            {
-                if (waiter == 180) se.RestartBot();
-                se.UniversalErrorDefense();
-                Thread.Sleep(1000);
-                waiter++;
-                x = fc.RaceOn();
-            } while (!x);
-        }
-
-        public void RaceOff()
-        {            
-            bool x;
-            do
-            {
-                Thread.Sleep(500);
-                x = fc.RaceOn();
-            } while (x);
-        }
         
         public bool ForEnemy()
         {

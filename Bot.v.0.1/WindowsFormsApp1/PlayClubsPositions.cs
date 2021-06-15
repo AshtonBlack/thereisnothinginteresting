@@ -135,31 +135,59 @@ namespace WindowsFormsApp1 //universal
         public void TimeToRace()
         {
             FastCheck fc = new FastCheck();
-            Waiting wait = new Waiting();
+            SpecialEvents se = new SpecialEvents();
             TrackInfo ti = new TrackInfo();
             GrandArrangement ga = new GrandArrangement();
 
             int[] a1 = ti.Tracks();//Track info
             int[] b1 = ti.Grounds();//Ground info
-            int[] c1 = ti.Weathers();//Weather info
+            int[] c1 = ti.Weathers();//Weather info            
 
+            bool raceIsEnd = false;
+            bool raceIsStart = false;
+            int waiter = 0;
             do
             {
-                Rat.Clk(PointsAndRectangles.ChooseAnEnemy);//ChooseanEnemy
-                Thread.Sleep(500);
-            } while (fc.EnemyIsReady()); //100% ChooseanEnemy           
-            NotePad.DoLog("противник выбран");
-            wait.ArrangementWindow();
-            NotePad.DoLog("загрузился экран расстановки");
-            Thread.Sleep(1000);
-            ga.Arrangement(a1, b1, c1);
-            NotePad.DoLog("расстановка выполнена");
-            wait.RaceOn();
-            NotePad.DoLog("заезд начался");
-            Thread.Sleep(2000);
-            Rat.Clk(PointsAndRectangles.forceTheRace); //ускорить заезд, клик в пусой области
-            wait.RaceOff();
-            NotePad.DoLog("заезд окончен");
+                if (waiter == 180) se.RestartBot();
+                se.UniversalErrorDefense();
+                if (fc.ClubMap())
+                {
+                    NotePad.DoLog("вылетел из заезда");
+                    raceIsEnd = true;
+                }
+                if (fc.Bounty())
+                {
+                    NotePad.DoLog("вылетел из заезда");
+                    raceIsEnd = true;
+                }
+                if (fc.EnemyIsReady())
+                {
+                    Thread.Sleep(1000);
+                    Rat.Clk(PointsAndRectangles.ChooseAnEnemy);//ChooseanEnemy
+                    NotePad.DoLog("противник выбран");
+                }
+                if (fc.ArrangementWindow())
+                {
+                    NotePad.DoLog("загрузился экран расстановки");
+                    Thread.Sleep(1000);
+                    ga.Arrangement(a1, b1, c1);
+                    NotePad.DoLog("расстановка выполнена");
+                }
+                if (fc.RaceOn())
+                {
+                    raceIsStart = true;
+                    NotePad.DoLog("заезд начался");                    
+                    Thread.Sleep(2000);
+                    Rat.Clk(PointsAndRectangles.forceTheRace); //ускорить заезд, клик в пусой области
+                }
+                if (!fc.RaceOn() && raceIsStart)
+                {
+                    NotePad.DoLog("заезд окончен");
+                    raceIsEnd = true;
+                }                
+                Thread.Sleep(1000);
+                waiter++;
+            } while (!raceIsEnd);
         }        
     }    
 }
