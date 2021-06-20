@@ -33,9 +33,6 @@ namespace WindowsFormsApp1 //universal
                     NotePad.DoLog("Проверяю условие " + i);
                     eventIsOK = Selection(i);
 
-                    //eventIsOK = false;//Delete!!!
-                    //NotePad.DoLog("цикл для сбора инфы");//Delete!!!
-
                     if (!eventIsOK)
                     {
                         Rat.Clk(PointsAndRectangles.toeventlist);//Back

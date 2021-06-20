@@ -9,7 +9,6 @@ namespace WindowsFormsApp1 //universal
         public void EndRace()
         {            
             FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
             int flag1 = 0;
             int flag2 = 0;
             int flag3 = 0;
@@ -20,7 +19,7 @@ namespace WindowsFormsApp1 //universal
                 if(flag1 > 3 || flag2 > 3 || flag3 > 3)
                 {
                     NotePad.DoErrorLog("образовалась петля");
-                    se.RestartBot();
+                    RestartBot();
                 }
                 if (fc.RaceEnd())
                 {

@@ -129,7 +129,7 @@ namespace WindowsFormsApp1 //universal
                         hm.MakingHand();
                     }
                 }
-            } while (!hm.VerifyHand() || !hm.VerifyHand());
+            } while (!hm.VerifyHand());
         }
 
         public void TimeToRace()
@@ -173,7 +173,7 @@ namespace WindowsFormsApp1 //universal
                     ga.Arrangement(a1, b1, c1);
                     NotePad.DoLog("расстановка выполнена");
                 }
-                if (fc.RaceOn())
+                if (fc.RaceOn() && !raceIsStart)
                 {
                     raceIsStart = true;
                     NotePad.DoLog("заезд начался");                    

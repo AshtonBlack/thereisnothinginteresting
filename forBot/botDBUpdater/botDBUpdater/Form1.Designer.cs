@@ -73,7 +73,10 @@
             this.label15 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox42
@@ -290,7 +293,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(13, 81);
+            this.button7.Location = new System.Drawing.Point(11, 212);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(81, 50);
             this.button7.TabIndex = 114;
@@ -451,7 +454,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(106, 87);
+            this.label13.Location = new System.Drawing.Point(98, 249);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(37, 13);
             this.label13.TabIndex = 133;
@@ -460,7 +463,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(149, 87);
+            this.label14.Location = new System.Drawing.Point(141, 249);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(13, 13);
             this.label14.TabIndex = 134;
@@ -476,7 +479,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(478, 87);
+            this.button5.Location = new System.Drawing.Point(542, 87);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 136;
@@ -494,11 +497,30 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(14, 87);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(56, 13);
+            this.label16.TabIndex = 138;
+            this.label16.Text = "CarPicture";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(189, 85);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(196, 61);
+            this.pictureBox2.TabIndex = 139;
+            this.pictureBox2.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 438);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label15);
@@ -548,6 +570,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -599,6 +622,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
