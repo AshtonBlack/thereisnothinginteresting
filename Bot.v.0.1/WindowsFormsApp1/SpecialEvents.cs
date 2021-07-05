@@ -209,6 +209,10 @@ namespace WindowsFormsApp1 //universal
                 NotePad.DoLog("эвент не доступен");
                 Rat.Clk(PointsAndRectangles.eventIsNotAvailableAcceptance);//Accept Message                    
                 Thread.Sleep(3000);
+                if (fc.ItsGarage())
+                {
+                    RestartBot();
+                }
                 x = false;
             }
 

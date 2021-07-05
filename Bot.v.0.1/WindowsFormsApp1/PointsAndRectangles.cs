@@ -130,7 +130,7 @@ namespace WindowsFormsApp1
         public static Rectangle filterIsOpenned = new Rectangle(943, 247, 25, 20);//new
         public static Rectangle missClick = new Rectangle(1147, 227, 20, 20);//new
         public static Rectangle google = new Rectangle(875, 555, 25, 15);
-        public static Rectangle fbcontinue = new Rectangle(580, 615, 120, 20);
+        public static Rectangle fbcontinue = new Rectangle(575, 630, 140, 20);//new
         public static Rectangle SeasonEndsBounds = new Rectangle(345, 463, 600, 25);//new
         public static Rectangle SeasonEndBounty = new Rectangle(525, 645, 240, 25);//new
         public static Rectangle activeEvent = new Rectangle(1064, 794, 20, 20);//new
@@ -269,7 +269,7 @@ namespace WindowsFormsApp1
         public static Point noxRestartMessageAcceptance = new Point(820, 560);
         public static Point edgeOfTheScreen = new Point(1200, 0);
         public static Point clkTheIcon = new Point(830, 375);
-        public static Point fbFucksBrain = new Point(640, 625);
+        public static Point fbFucksBrain = new Point(640, 640);
         public static Point reconnectionAfterLostConnection = new Point(785, 615);
         public static Point brokenInterfaceAcceptance = new Point(380, 555);
         public static Point googleNotificationAcceptance = new Point(890, 565);

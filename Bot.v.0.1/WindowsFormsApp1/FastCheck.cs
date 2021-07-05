@@ -282,7 +282,11 @@ namespace WindowsFormsApp1 //universal
 
         public bool ServerError()
         {
-            bool x = MainFrameBW(PointsAndRectangles.error, "Error", 100);
+            bool x = false;
+            bool x1 = MainFrameBW(PointsAndRectangles.error, "Error", 100);
+            bool x2 = MainFrameBW(PointsAndRectangles.error, "Error1", 100);
+            bool x3 = MainFrameBW(PointsAndRectangles.error, "Error2", 100);
+            if (x1 || x2 || x3) x = true;
             return x;
         }
 
@@ -380,6 +384,7 @@ namespace WindowsFormsApp1 //universal
             bool x = MainFrame(PointsAndRectangles.faultNox, "FaultNox");
             return x;
         }
+
         public bool InCommonEvent()
         {
             bool x = MainFrameBW(PointsAndRectangles.inCommonEvent, "InCommonEvent", 10);
