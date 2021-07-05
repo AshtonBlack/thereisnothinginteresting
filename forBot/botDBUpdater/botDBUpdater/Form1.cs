@@ -16,8 +16,8 @@ namespace botDBUpdater
         }
         public string[,] fulltablearray { get; set; }
         public int linenumber { get; set; }
-        public string[,] picturetoname { get; set; }
-        public int length { get; set; }
+        public string[,] picturetoname { get; set; }        
+        public int length { get; set; }        
         public static int foundcarsforSortDB {get; set; }
         private void Fulltable()//формирование таблицы из исходных файлов
         {
@@ -783,7 +783,7 @@ namespace botDBUpdater
                 }
                 sr.Close();
             }
-        }
+        }        
         public string Transform3(string t, int wordN)
         {
             string forreturn;
@@ -1179,17 +1179,15 @@ namespace botDBUpdater
         private void button2_Click(object sender, EventArgs e)
         {            
             PictureToNameTableAdd();
-        }
+        }        
 
         //From bot.v.0.07 ====================================================
 
         private void button7_Click(object sender, EventArgs e)
         {
             DevKit dk = new DevKit();
-            label15.Text = "processing...";
             dk.SortCarDBAsync();
             label14.Text = foundcarsforSortDB.ToString();
-            label15.Text = "done!";            
         }
         private void button8_Click(object sender, EventArgs e)
         {
