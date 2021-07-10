@@ -7,3 +7,13 @@ C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.Properties.Resources.res
 C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csproj.GenerateResource.cache
 C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.exe
 C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.pdb
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe.config
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\bin\Debug\BotRestarter.pdb
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csprojAssemblyReference.cache
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\obj\Debug\BotRestarter.Form1.resources
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\obj\Debug\BotRestarter.Properties.Resources.resources
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csproj.GenerateResource.cache
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csproj.CoreCompileInputs.cache
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\obj\Debug\BotRestarter.exe
+C:\projects\bot\thereisnothinginteresting\BotRestarter\BotRestarter\obj\Debug\BotRestarter.pdb
