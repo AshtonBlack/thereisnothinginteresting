@@ -1,0 +1,9 @@
+C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe.config
+C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe
+C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.pdb
+C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csprojAssemblyReference.cache
+C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.Form1.resources
+C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.Properties.Resources.resources
+C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csproj.GenerateResource.cache
+C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.exe
+C:\Bot\BotRestarter\BotRestarter\obj\Debug\BotRestarter.pdb
