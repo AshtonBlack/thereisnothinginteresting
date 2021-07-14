@@ -16,9 +16,9 @@ namespace BotRestarter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread.Sleep(20000);
+            Thread.Sleep(5000);
 
-            string[] names = { "notepad" };
+            string[] names = { "Nox", "NoxVMHandle", "NoxVMSVC", "nox_adb" };
             ClearNoxProcesses(names);
         
             Process.Start(@"C:\Bot\Bot.v.0.1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe");
@@ -33,7 +33,15 @@ namespace BotRestarter
                 Process[] processes = Process.GetProcessesByName(name);
                 foreach (Process process in processes)
                 {
-                    process.Kill();
+                    try
+                    {
+                        process.Kill();
+                        //Console.WriteLine(process.ProcessName + "killed");
+                    }
+                    catch (Exception)
+                    {
+
+                    }                   
                 }
             }
         }
