@@ -16,34 +16,35 @@ namespace BotRestarter
         }
         public void WaitForAvailableTime()
         {
-            bool itsTimeToPlay = true;
+            bool itsTimeToPlay;
             do
             {
+                itsTimeToPlay = true;
                 for (int i = 1; i < timings.Length; i += 2)
                 {
                     BreakTime bt = new BreakTime(timings[i], timings[i + 1]);
                     if (bt.isTimeToBreak())
                     {                       
                         itsTimeToPlay = false;
+                        Thread.Sleep(60000);
                         break;
                     }
-                }
-                Thread.Sleep(60000);
+                }                
             } while (!itsTimeToPlay);  
         }
         public void DefineNewBreakTimes()
         {
             NotePad np = new NotePad();
             lastUpdateTime = DateTime.Now.Date;
-            string[] times = new string[6];
+            string[] times = new string[8];
             times[0] = DateTime.Today.ToShortDateString();
-            times[1] = DateTime.Today.ToShortDateString() + " 01:00:00";
-            times[2] = DateTime.Today.ToShortDateString() + " 08:00:00";
-            times[3] = DateTime.Today.ToShortDateString() + " 13:00:00";
-            times[4] = DateTime.Today.ToShortDateString() + " 16:00:00";
-            times[5] = DateTime.Today.ToShortDateString() + " 19:00:00";
-            times[6] = DateTime.Today.ToShortDateString() + " 23:00:00";
-            times[7] = DateTime.Today.AddDays(1).ToShortDateString() + " 01:00:00";
+            times[1] = DateTime.Today.AddHours(1).AddMinutes(AdditionalMinutes()).ToString();
+            times[2] = DateTime.Today.AddHours(8).AddMinutes(AdditionalMinutes()).ToString();
+            times[3] = DateTime.Today.AddHours(13).AddMinutes(AdditionalMinutes()).ToString();
+            times[4] = DateTime.Today.AddHours(16).AddMinutes(AdditionalMinutes()).ToString();
+            times[5] = DateTime.Today.AddHours(19).AddMinutes(AdditionalMinutes()).ToString();
+            times[6] = DateTime.Today.AddHours(23).AddMinutes(AdditionalMinutes()).ToString();
+            times[7] = DateTime.Today.AddHours(25).AddMinutes(AdditionalMinutes()).ToString();
             timings[0] = lastUpdateTime;
             for(int i = 1; i < timings.Length; i++)
             {
@@ -59,6 +60,13 @@ namespace BotRestarter
                 isUpDated = true;
             }
             return isUpDated;
+        }
+        public int AdditionalMinutes()
+        {
+            Random r = new Random();
+            int minutes = r.Next(51)-25;
+            Thread.Sleep(37);
+            return minutes;
         }
     }
 }
