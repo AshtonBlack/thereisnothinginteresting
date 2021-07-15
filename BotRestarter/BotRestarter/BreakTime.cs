@@ -17,7 +17,6 @@ namespace BotRestarter
             {                
                 return true;
             }
-            Console.WriteLine("start: " + breakStart + " now: " + DateTime.Now + " end: " + breakEnd);
             return false;
         }
     }
