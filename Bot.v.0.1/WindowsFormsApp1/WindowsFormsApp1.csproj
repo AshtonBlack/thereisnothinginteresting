@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms.cs" />
+    <Compile Include="BreakTime.cs" />
     <Compile Include="CarsDB.cs" />
     <Compile Include="ChooseEvent.cs" />
     <Compile Include="Condition.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rat.cs" />
     <Compile Include="SpecialEvents.cs" />
+    <Compile Include="TimingUnit.cs" />
     <Compile Include="TrackInfo.cs" />
     <Compile Include="Waiting.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -23,6 +23,8 @@ namespace WindowsFormsApp1 //universal
             while (true)
             {
                 se.ToClubs();
+                TimingUnit tu = new TimingUnit();
+                tu.CheckTime();
                 Thread.Sleep(2000);
                 int i = 0;
                 if (fc.ActiveEvent())
@@ -39,7 +41,6 @@ namespace WindowsFormsApp1 //universal
                         if (!PlayClubs(i)) break;
                     }
                 }
-
                 else
                 {
                     NotePad.DoLog("Подбираю эвент с одним условием");

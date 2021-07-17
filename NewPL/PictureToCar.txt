@@ -98,3 +98,21 @@
 98 Rover 216 1984
 99 Nissan Juke 2013
 100 Acura TL Type S 2007
+101 Ford Puma 1.7 1997
+102 Ford Focus ST 2012
+103 Maserati Quattroporte Sport GT S 2009
+104 De Tomaso Pantera SI 1991
+105 De Tomaso Guara 1993
+106 Chevrolet Cobalt SS S/C 2006
+107 Cadillac XLR roadster 2004
+108 Koenigsegg CCXR Edition 2008
+109 Renault Alpine A310 V6 Group 4/B 1983
+110 Mercedes-Benz 57S Maybach 2012
+111 Lotus Elise 1996
+112 Porsche 911S 2.7 1974
+113 Mazda Eunos Roadster RS-Limited 1994
+114 Chrysler 300H 1962
+115 Renault R5 MAXI TURBO 1987
+116 Mercedes-Benz E 430 1999
+117 Mercedes-Benz 300 SL 1963
+118 Ford F-100 302ci 1973

@@ -245,5 +245,31 @@ namespace WindowsFormsApp1 //universal but update saves
             }
             return forreturn;
         }
+        public static string timePath = @"C:\projects\time.txt";        
+        public static DateTime[] ReadTime()
+        {
+            int linenumber = 0;
+            using (StreamReader sr = new StreamReader(timePath, System.Text.Encoding.Default))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null && line != " " && line != "")
+                {
+                    linenumber++;
+                }
+                sr.Close();
+            }
+            DateTime[] thetime = new DateTime[linenumber];
+            using (StreamReader sr = new StreamReader(timePath, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < thetime.Length; i++)
+                {
+                    thetime[i] = Convert.ToDateTime(sr.ReadLine());
+                }
+
+                sr.Close();
+            }
+
+            return thetime;
+        }
     }
 }
