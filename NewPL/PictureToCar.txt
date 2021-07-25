@@ -297,3 +297,53 @@
 298 De Tomaso Vallelunga Competizione 1964
 299 Lotus Europa Special 1973
 300 Bentley Mulsanne Extended Wheelbase 2017
+301 Spyker C8 Preliator 2016
+302 Chrysler ecoVoyager 2008
+303 Acura Integra Type R 2001
+304 Chevrolet Cobalt SS Turbo 2009
+305 Dodge Daytona IROC R/T 1992
+306 Subaru Impreza WRX 1993
+307 RUF CTR "Yellowbird" 1987
+308 BMW M3 CSL 2003
+309 Lotus Elise Sport 135 2003
+310 BMW X3 M40i 2018
+311 RUF 3800S 2013
+312 Buick Regal Turbo 2011
+313 Buick Regal GS 2012
+314 Spyker C8 Laviolette 2001
+315 Jaguar XE R-Dynamic S 2020
+316 Porsche 968 Turbo S 1993
+317 Aston Martin DB9 2004
+318 RUF Turbo 3.3 1977
+319 Ford Taurus SHO 2017
+320 Lotus Essex Turbo Esprit 1980
+321 Suzuki Vitara S 2016
+322 Audi RS Q3 2015
+323 Bentley Continental 24 2017
+324 Dodge Hornet 2006
+325 Dodge Avenger R/T 2013
+326 Acura TSX 2009
+327 Mercedes-Benz AMG C 43 1999
+328 Porsche Boxster 2015
+329 Bentley Azure T 2009
+330 Chevrolet Corvette 2009
+331 Alfa Romeo Carabo 1968
+332 Jaguar XJR 1995
+333 Hummer H3T 2009
+334 BMW 330d 2005
+335 Lotus Europa S 2006
+336 Vauxhall Chevette HSR 1980
+337 Ford Mustang GT-R Concept 2004
+338 Jaguar XK Convertible 2010
+339 Pontiac G8 GXP 2010
+340 Lancia Delta HF 4WD 1986
+341 Ford Bronco V8 351 Windsor 1988
+342 Renault R21 Turbo Europa Cup 1988
+343 Ford Fiesta ST 2016
+344 De Tomaso Pantera GT5-S 1989
+345 TVR Tuscan race car 1989
+346 Jaguar XFR-S Sportbrake 2016
+347 Renault Sport Clio Cup Car 2014
+348 BMW M6 2016
+349 KTM X-Bow GT4 2016
+350 Jaguar F-Type Project 7 2015
