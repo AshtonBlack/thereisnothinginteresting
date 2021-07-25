@@ -38,10 +38,10 @@ namespace BotRestarter
             lastUpdateTime = DateTime.Now.Date;
             string[] times = new string[8];
             times[0] = DateTime.Today.ToShortDateString();
-            times[1] = DateTime.Today.AddHours(1).AddMinutes(AdditionalMinutes()).ToString();
-            times[2] = DateTime.Today.AddHours(8).AddMinutes(AdditionalMinutes()).ToString();
-            times[3] = DateTime.Today.AddHours(13).AddMinutes(AdditionalMinutes()).ToString();
-            times[4] = DateTime.Today.AddHours(16).AddMinutes(AdditionalMinutes()).ToString();
+            times[1] = DateTime.Today.AddHours(6.5).AddMinutes(AdditionalMinutes()).ToString();
+            times[2] = DateTime.Today.AddHours(9.5).AddMinutes(AdditionalMinutes()).ToString();
+            times[3] = DateTime.Today.AddHours(12.75).AddMinutes(AdditionalMinutes()).ToString();
+            times[4] = DateTime.Today.AddHours(17).AddMinutes(AdditionalMinutes()).ToString();
             times[5] = DateTime.Today.AddHours(19).AddMinutes(AdditionalMinutes()).ToString();
             times[6] = DateTime.Today.AddHours(23).AddMinutes(AdditionalMinutes()).ToString();
             times[7] = DateTime.Today.AddHours(25).AddMinutes(AdditionalMinutes()).ToString();

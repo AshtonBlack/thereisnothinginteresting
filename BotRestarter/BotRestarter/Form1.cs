@@ -16,12 +16,12 @@ namespace BotRestarter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Thread.Sleep(15000);
-            //string[] names = { "Nox", "NoxVMHandle", "NoxVMSVC", "nox_adb" };
-            //ClearNoxProcesses(names);
+            Thread.Sleep(15000);
+            string[] names = { "Nox", "NoxVMHandle", "NoxVMSVC", "nox_adb" };
+            ClearNoxProcesses(names);
             TimingUnit tu = new TimingUnit();
-            //tu.WaitForAvailableTime();
-            //Process.Start(@"C:\Bot\Bot.v.0.1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe");
+            tu.WaitForAvailableTime();
+            Process.Start(@"C:\Bot\Bot.v.0.1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe");
             Application.Exit();
         }
 
