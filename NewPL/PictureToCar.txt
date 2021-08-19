@@ -457,3 +457,53 @@
 458 Jaguar XJR 575 2018
 459 Mazda RX-7 Spirit R 2002
 460 Audi S8 2006
+461 Fiat 124 Spider 2017
+462 Jaguar X-Type 2001
+463 Jaguar S-Type R 2007
+464 Volvo 850 AWD 1997
+465 Honda Accord Type R 1997
+466 TVR S-Series V8S 1986
+467 Peugeot 205 T16 1984
+468 Alfa Romeo 75 1985
+469 Maserati Ghibli SS Spyder 1969
+470 Maserati Ghibli SS 1969
+471 Mini Cooper S Works GP 2006
+472 Mercedes-Benz AMG SL 73 1999
+473 Jaguar XK8 1997
+474 Mazda MX-5 BBR Turbo 1990
+475 Chrysler 300 2018
+476 Donkervoort D8 270 RS 2006
+477 Nissan Terrano II 2002
+478 Nissan 200SX 1993
+479 BMW 320d 2005
+480 Porsche 968 Clubsport 1993
+481 Maserati Royale 1986
+482 Alfa Romeo Giulia GTA Stradale 1965
+483 Lotus Seven 1957
+484 Ford Escort RS2000 1974
+485 BMW 328i Gran Turismo 2014
+486 Vauxhall Opel Manta 400 1979
+487 Mercedes-Benz 600 1964
+488 Chrysler 300S 2015
+489 TVR 280i 1984
+490 Jaguar XKR 4.2-S 2005
+491 Chrysler 300 SRT8 2012
+492 Chevrolet Aerovette 1977
+493 Pontiac Grand Prix GTP 1997
+494 Pontiac Trans Am 35th Anniversary 2002
+495 Honda Accord Euro-R 2006
+496 Acura CSX Type-S 2009
+497 Aston Martin Virage Volante 2011
+498 Jaguar XKR-R 2001
+499 MG Metro Turbo 1982
+500 Volkswagen Scirocco 2008
+501 Lotus Europa SE 2008
+502 Lotus Mk1 Cortina 1967
+503 Hummer H2 SUV 2003
+504 TVR Vixen S2 1970
+505 TVR Grantura 1958
+506 Vauxhall Tigra TwinTop 2004
+507 Aston Martin Cygnet 2011
+508 TVR 1600M 1972
+509 Jaguar XK120 1948
+510 Lotus Elite 1957
