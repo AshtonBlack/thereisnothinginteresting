@@ -507,3 +507,58 @@
 508 TVR 1600M 1972
 509 Jaguar XK120 1948
 510 Lotus Elite 1957
+511 BMW 335i 2008
+512 Porsche 911 Turbo 2006
+513 Aston Martin V8 Vantage N400 2007
+514 Mazda RX-7 1992
+515 Cadillac Escalade ESV 2016
+516 Lamborghini Countach LP400 1974
+517 Fiat Abarth 1000TC Berlina Corsa 1967
+518 Bentley Continental Supersports Convertible 2011
+519 Peugeot e-Legend 2018
+520 Cadillac Sedan De Ville 2000
+521 Honda Clarity 2016
+522 Ford Ranger 2016
+523 Alfa Romeo GT 2003
+524 Volvo V40 T5 2018
+525 Jaguar XKSS 1957
+526 Jaguar E-PACE 2018
+527 BMW M2 (delimited) 2016
+528 Ariel Atom 1 1999
+529 Nissan 370Z 2011
+530 Bentley Continental GT 2006
+531 BMW 850CSi 1992
+532 MG Montego Turbo 1985
+533 Mercedes-Benz 280 GE 1990
+534 Mazda 6 MPS 2005
+535 Mercedes-Benz AMG G 63 2015
+536 BMW 2002 turbo 1973
+537 Chevrolet Trailblazer SS 2006
+538 Nissan Murano 2002
+539 Nissan 350Z 2002
+540 Nissan 350Z Roadster 2005
+541 Nissan Murano GT-C 2006
+542 Nissan Skyline GT-R (R33) 1997
+543 Nissan Skyline GT-R (R32) 1989
+544 Nissan Murano CrossCabriolet 2008
+545 Nissan Navara 2016
+546 Nissan NP300 Navara 2017
+547 TVR 400SE 1988
+548 Citroen Mehari 4x4 1980
+549 Nissan Qashqai 2008
+550 Citroen ZX Volcane TD 1991
+551 Nissan X-Trail 2001
+552 Aston Martin V8 Vantage 1977
+553 Renault Scenic 1996
+554 Dodge Copperhead 1997
+555 Alfa Romeo 156 GTA 2002
+556 Subaru BRZ 2016
+557 Pagani Zonda S 2000
+558 Alfa Romeo GTV 1998
+559 Alfa Romeo 164 Super 1993
+560 Chevrolet SSR 6.0L 2007
+561 Lotus Carlton 1991
+562 Honda Civic Type R 1999
+563 Peugeot 205 GTi 1.9 1986
+564 Buick LaCrosse CXL 2005
+565 Vauxhall Vectra VXR 2006
