@@ -123,7 +123,7 @@ namespace WindowsFormsApp1
         public static Rectangle wrongADS = new Rectangle(63, 193, 25, 25);
         public static Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
         public static Rectangle noActiveBooster = new Rectangle(1033, 658, 43, 19);//new
-        public static Rectangle lostConnection = new Rectangle(365, 385, 300, 30);//new
+        public static Rectangle lostConnection = new Rectangle(365, 380, 300, 35);//new
         public static Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);//new
         public static Rectangle brokenInterface = new Rectangle(335, 415, 610, 185);
         public static Rectangle typeIsOpenned = new Rectangle(1092, 247, 25, 20);//new
@@ -152,7 +152,7 @@ namespace WindowsFormsApp1
         public static Rectangle dailyBountyEnd = new Rectangle(564, 763, 160, 20);//new
         public static Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);//new
         public static Rectangle faultNox = new Rectangle(933, 314, 26, 26);
-        public static Rectangle chooseanEnemy = new Rectangle(148, 605, 35, 35);//new
+        public static Rectangle chooseanEnemy = new Rectangle(148, 537, 35, 35);//new
         public static Rectangle raceEnd = new Rectangle(546, 750, 190, 30);//new
         public static Rectangle inCommonEvent = new Rectangle(944, 794, 90, 25);//new
         public static Rectangle clubBounty = new Rectangle(525, 742, 240, 25);//new
@@ -236,7 +236,7 @@ namespace WindowsFormsApp1
         public static Point closeCarCard = new Point(685, 280);
         public static Point controlScreenToGarage = new Point(820, 790);
         public static Point bugwithControlScreen = new Point(70, 205);
-        public static Point ChooseAnEnemy = new Point(640, 705);
+        public static Point ChooseAnEnemy = new Point(640, 645);
         public static Point forceTheRace = new Point(180, 580);
         public static Point acceptSeasonEnd = new Point(635, 570);
         //SpecialEvents
@@ -270,25 +270,25 @@ namespace WindowsFormsApp1
         public static Point edgeOfTheScreen = new Point(1200, 0);
         public static Point clkTheIcon = new Point(830, 375);
         public static Point fbFucksBrain = new Point(640, 640);
-        public static Point reconnectionAfterLostConnection = new Point(785, 615);
+        public static Point reconnectionAfterLostConnection = new Point(785, 615);//new
         public static Point brokenInterfaceAcceptance = new Point(380, 555);
         public static Point googleNotificationAcceptance = new Point(890, 565);
-        public static Point eventIsNotAvailableAcceptance = new Point(640, 590);//new
+        public static Point eventIsNotAvailableAcceptance = new Point(640, 590);//new        
         //TrackInfo
-        public static Rectangle Track1 = new Rectangle(148, 524, 165, 35);//new
-        public static Rectangle Track2 = new Rectangle(353, 524, 165, 35);//new
-        public static Rectangle Track3 = new Rectangle(563, 524, 165, 35);//new
-        public static Rectangle Track4 = new Rectangle(768, 524, 165, 35);//new
-        public static Rectangle Track5 = new Rectangle(973, 524, 165, 35);//new
-        public static Rectangle Ground1 = new Rectangle(196, 604, 115, 30);//new
-        public static Rectangle Ground2 = new Rectangle(399, 604, 115, 30);//new
-        public static Rectangle Ground3 = new Rectangle(613, 604, 115, 30);//new
-        public static Rectangle Ground4 = new Rectangle(816, 604, 115, 30);//new
-        public static Rectangle Ground5 = new Rectangle(1021, 604, 115, 30);//new
-        public static Rectangle Weather1 = new Rectangle(196, 561, 75, 34);//new
-        public static Rectangle Weather2 = new Rectangle(399, 561, 75, 34);//new
-        public static Rectangle Weather3 = new Rectangle(613, 561, 75, 34);//new
-        public static Rectangle Weather4 = new Rectangle(816, 561, 75, 34);//new
-        public static Rectangle Weather5 = new Rectangle(1021, 561, 75, 34);//new
+        public static Rectangle Track1 = new Rectangle(148, 459, 165, 35);//new
+        public static Rectangle Track2 = new Rectangle(353, 459, 165, 35);//new
+        public static Rectangle Track3 = new Rectangle(563, 459, 165, 35);//new
+        public static Rectangle Track4 = new Rectangle(768, 459, 165, 35);//new
+        public static Rectangle Track5 = new Rectangle(973, 459, 165, 35);//new
+        public static Rectangle Ground1 = new Rectangle(196, 539, 115, 30);//new
+        public static Rectangle Ground2 = new Rectangle(399, 539, 115, 30);//new
+        public static Rectangle Ground3 = new Rectangle(613, 539, 115, 30);//new
+        public static Rectangle Ground4 = new Rectangle(816, 539, 115, 30);//new
+        public static Rectangle Ground5 = new Rectangle(1021, 539, 115, 30);//new
+        public static Rectangle Weather1 = new Rectangle(196, 496, 75, 34);//new
+        public static Rectangle Weather2 = new Rectangle(399, 496, 75, 34);//new
+        public static Rectangle Weather3 = new Rectangle(613, 496, 75, 34);//new
+        public static Rectangle Weather4 = new Rectangle(816, 496, 75, 34);//new
+        public static Rectangle Weather5 = new Rectangle(1021, 496, 75, 34);//new
     }
 }

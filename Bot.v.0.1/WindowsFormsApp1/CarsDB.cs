@@ -231,6 +231,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "audi x3":
+                    if (fulltablearray[car, 8] == "Audi")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "бензиновые машины":
                     if (fulltablearray[car, 6] == "petrol")
                     {
@@ -238,6 +244,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "обычная":
+                    if (fulltablearray[car, 2] == "f")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "обычная х2":
                     if (fulltablearray[car, 2] == "f")
                     {
                         x = true;
@@ -277,6 +289,16 @@ namespace WindowsFormsApp1 //universal
                     if (fulltablearray[car, 4] == "United States")
                     {
                         x = true;
+                    }
+                    break;
+                case "italian 60s-80s":
+                    if (fulltablearray[car, 4] == "Italy")
+                    {
+                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        if (year > 1959 && year < 1990)
+                        {
+                            x = true;
+                        }
                     }
                     break;
                 case "редкостная":
@@ -381,6 +403,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "alfa romeo":
+                    if (fulltablearray[car, 8] == "Alfa Romeo")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "alfa romeo x3":
                     if (fulltablearray[car, 8] == "Alfa Romeo")
                     {
                         x = true;
@@ -548,6 +576,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "citroen x3":
+                    if (fulltablearray[car, 8] == "Citroen")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "pre-1970":
                     year = Convert.ToInt32(fulltablearray[car, 15]);
                     if (year < 1970)
@@ -583,6 +617,12 @@ namespace WindowsFormsApp1 //universal
                     x = (SearchTag(car, tag));
                     break;
                 case "fiat":
+                    if (fulltablearray[car, 8] == "Fiat")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "fiat x3":
                     if (fulltablearray[car, 8] == "Fiat")
                     {
                         x = true;
@@ -626,6 +666,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "subaru":
+                    if (fulltablearray[car, 8] == "Subaru")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "subaru x3":
                     if (fulltablearray[car, 8] == "Subaru")
                     {
                         x = true;
@@ -757,6 +803,32 @@ namespace WindowsFormsApp1 //universal
                     if (fulltablearray[car, 2] == "e")
                     {
                         x = true;
+                    }
+                    break;
+                case "суперская х2":
+                    if (fulltablearray[car, 2] == "c")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "german 2010-2014 x3":
+                    if (fulltablearray[car, 4] == "German")
+                    {
+                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        if (year > 2009 && year < 2015)
+                        {
+                            x = true;
+                        }
+                    }
+                    break;
+                case "italian 90s x3":
+                    if (fulltablearray[car, 4] == "Italy")
+                    {
+                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        if (year > 1989 && year < 2000)
+                        {
+                            x = true;
+                        }
                     }
                     break;
                 default:

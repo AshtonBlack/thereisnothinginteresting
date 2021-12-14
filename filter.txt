@@ -1,9 +1,0 @@
-f Bentley Mulsanne S 1987 1
-f Chrysler New Yorker 1969 1
-f Ford Escort RS1600 1968 1
-f Lotus Mk1 Cortina 1967 1
-f Mercedes-Benz 600 1964 1
-f Peugeot 203 1948 3
-f Peugeot 305 1977 3
-f Peugeot 404 1962 3
-f Pontiac 6000 STE AWD 1988 1

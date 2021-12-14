@@ -127,7 +127,14 @@ namespace WindowsFormsApp1 //universal
                 {
                     c1[i] = 0;
                     NotePad.DoLog("Добавляю новую погоду");
-                    File.Move("C:\\Bot\\Weather" + (i + 1) + "\\test.jpg", "C:\\Bot\\Weather" + (i + 1) + "\\" + (n + 1) + ".jpg");
+                    try
+                    {
+                        File.Move("C:\\Bot\\Weather" + (i + 1) + "\\test.jpg", "C:\\Bot\\Weather" + (i + 1) + "\\" + (n + 1) + ".jpg");
+                    }
+                    catch(Exception e)
+                    {
+
+                    }
                 }
             }
 

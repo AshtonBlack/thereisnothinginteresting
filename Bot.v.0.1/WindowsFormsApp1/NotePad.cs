@@ -245,7 +245,7 @@ namespace WindowsFormsApp1 //universal but update saves
             }
             return forreturn;
         }
-        public static string timePath = @"C:\projects\time.txt";        
+        public static string timePath = @"C:\Bot\time.txt";        
         public static DateTime[] ReadTime()
         {
             int linenumber = 0;

@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
                 BreakTime bt = new BreakTime(timings[i], timings[i + 1]);
                 if (bt.isTimeToBreak())
                 {
+                    NotePad.DoLog("Time is over");
                     SpecialEvents se = new SpecialEvents();
                     se.RestartBot();
                 }
