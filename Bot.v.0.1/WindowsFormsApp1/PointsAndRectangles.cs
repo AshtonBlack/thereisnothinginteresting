@@ -90,6 +90,7 @@ namespace WindowsFormsApp1
         public static Rectangle Condition2Bounds = new Rectangle(1000, 418, 205, 20);//new
         public static Rectangle RQBounds = new Rectangle(1150, 367, 85, 18);//new
         public static Point clktoClubs = new Point(240, 500);
+        public static Point clkoutofClubs = new Point(62, 200);
         public static Point eventN1 = new Point(960, 570);
         public static Point eventN2 = new Point(960, 660);
         public static Point eventN3 = new Point(960, 750);

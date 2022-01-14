@@ -243,6 +243,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "дизели":
+                    if (fulltablearray[car, 6] == "diesel")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "обычная":
                     if (fulltablearray[car, 2] == "f")
                     {
@@ -397,6 +403,12 @@ namespace WindowsFormsApp1 //universal
                     }
                     break;
                 case "honda":
+                    if (fulltablearray[car, 8] == "Honda")
+                    {
+                        x = true;
+                    }
+                    break;
+                case "honda x3":
                     if (fulltablearray[car, 8] == "Honda")
                     {
                         x = true;
@@ -640,6 +652,12 @@ namespace WindowsFormsApp1 //universal
                         x = true;
                     }
                     break;
+                case "chevrolet x3":
+                    if (fulltablearray[car, 8] == "Chevrolet")
+                    {
+                        x = true;
+                    }
+                    break;
                 case "2000-2004":
                     year = Convert.ToInt32(fulltablearray[car, 15]);
                     if (year > 1999 && year < 2005)
@@ -681,6 +699,7 @@ namespace WindowsFormsApp1 //universal
                     tag = "Motorsport";
                     x = (SearchTag(car, tag));
                     break;
+                case "отк. верх":
                 case "отк.верх":
                     bool x1;
                     bool x2;

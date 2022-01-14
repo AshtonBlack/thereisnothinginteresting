@@ -30,3 +30,6 @@
 29 суперская х2
 30 german 2010-2014 x3
 31 italian 90s x3
+32 renault x3
+33 chevrolet x3
+34 honda x3
