@@ -36,8 +36,7 @@ namespace WindowsFormsApp1 //universal
                     if (!eventIsOK)
                     {
                         Rat.Clk(PointsAndRectangles.toeventlist);//Back
-                        Thread.Sleep(3000);
-                        if (i==4) Rat.Clk(PointsAndRectangles.clkoutofClubs);
+                        Thread.Sleep(3000);                        
                     }
                     else break;
                 }                
@@ -93,6 +92,7 @@ namespace WindowsFormsApp1 //universal
                 else
                 {
                     eventIsOK = false;
+                    if (eventN == 4) Rat.Clk(PointsAndRectangles.clkoutofClubs);
                 }
             }
             
