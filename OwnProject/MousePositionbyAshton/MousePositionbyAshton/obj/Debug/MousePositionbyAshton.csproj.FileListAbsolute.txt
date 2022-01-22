@@ -7,3 +7,13 @@ C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositio
 C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.csproj.GenerateResource.cache
 C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.exe
 C:\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.pdb
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\bin\Debug\MousePositionbyAshton.exe.config
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\bin\Debug\MousePositionbyAshton.exe
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\bin\Debug\MousePositionbyAshton.pdb
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.csprojAssemblyReference.cache
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.Form1.resources
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.Properties.Resources.resources
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.csproj.GenerateResource.cache
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.csproj.CoreCompileInputs.cache
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.exe
+C:\projects\bot\thereisnothinginteresting\OwnProject\MousePositionbyAshton\MousePositionbyAshton\obj\Debug\MousePositionbyAshton.pdb

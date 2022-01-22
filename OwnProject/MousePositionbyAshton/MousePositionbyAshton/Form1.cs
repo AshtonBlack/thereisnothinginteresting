@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -19,7 +11,7 @@ namespace MousePositionbyAshton
             InitializeComponent();
 
             Timer t = new Timer();
-            t.Interval = 100;
+            t.Interval = 20;
             t.Tick += new EventHandler(t_Tick);
             t.Start();            
         }
@@ -29,6 +21,5 @@ namespace MousePositionbyAshton
             label1.Text = Cursor.Position.X.ToString();
             label2.Text = Cursor.Position.Y.ToString();
         }
-
     }
 }
