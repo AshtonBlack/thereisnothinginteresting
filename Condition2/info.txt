@@ -33,4 +33,3 @@
 32 renault x3
 33 chevrolet x3
 34 honda x3
-35 honda x3
