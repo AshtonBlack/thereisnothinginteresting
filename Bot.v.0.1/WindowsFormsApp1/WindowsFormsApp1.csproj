@@ -61,7 +61,6 @@
     <Compile Include="GrandArrangement.cs" />
     <Compile Include="HandMaking.cs" />
     <Compile Include="IdentifyCar.cs" />
-    <Compile Include="Mail.cs" />
     <Compile Include="MasterOfPictures.cs" />
     <Compile Include="Navigation.cs" />
     <Compile Include="NotePad.cs" />

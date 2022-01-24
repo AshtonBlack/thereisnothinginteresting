@@ -54,68 +54,12 @@ namespace WindowsFormsApp1 //universal
             } while (!nextstep);            
         }
 
-        public void UpgradeAdsKiller1()
-        {
-            FastCheck fc = new FastCheck();
-            Waiting wait = new Waiting();
-
-            NotePad.DoLog("Смотрю рекламу на прокачку");
-            Rat.Clk(PointsAndRectangles.startToWatchADS); //начать просмотр
-            Thread.Sleep(70000);
-            if (fc.WrongADS())
-            {
-                Rat.Clk(PointsAndRectangles.itsWrongADS);
-                Thread.Sleep(2000);
-            }
-            else
-            {
-                Rat.Clk(PointsAndRectangles.itsRightADS);
-                Thread.Sleep(2000);
-            }
-            if (fc.ClickedWrongADS())
-            {
-                Rat.Clk(PointsAndRectangles.itsClickedWrongADS);
-                Thread.Sleep(2000);
-                Rat.Clk(PointsAndRectangles.itsClickedWrongADS);
-                Thread.Sleep(2000);
-            }
-            if (fc.Upgrade())
-            {
-                bool notok;
-                int badtry = 0;
-                do
-                {
-                    if(badtry > 5) RestartBot();
-                    Rat.Clk(PointsAndRectangles.startToWatchADS);
-                    Thread.Sleep(4000);
-                    notok = fc.Upgrade();
-                    badtry++;
-                } while (notok);                
-            } //против глюка рекламы
-            wait.CarIsUpgraded();
-            Rat.Clk(PointsAndRectangles.upgradeAcceptance); //подтвердить проркачку
-            Thread.Sleep(3000);
-            UniversalErrorDefense();
-        }
-
         public void UpgradeAdsKiller()//switch off ads watching
         {
             NotePad.DoLog("Пропускаю рекламу на прокачку");
             Rat.Clk(PointsAndRectangles.upgradeCancelation); //отменить просмотр
             Thread.Sleep(3000);
             UniversalErrorDefense();
-        }
-
-        public void RepairNoxPosition()//not universal
-        {
-            Rat.Clk(1102, 142);
-            Thread.Sleep(500);
-            Rat.Clk(335, 325);
-            Thread.Sleep(500);
-            Rat.Clk(790, 600);
-            Thread.Sleep(500);
-            Rat.Clk(740, 740);
-            Thread.Sleep(500);
         }
 
         public void ActivateClubBooster()
@@ -135,7 +79,6 @@ namespace WindowsFormsApp1 //universal
 
         public void RestartBot()
         {
-            Mail.MailMessage("Forced to reboot...");
             Rat.Clk(PointsAndRectangles.noxClosing);//close Nox
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.noxClosingAcceptance);//accept Nox close

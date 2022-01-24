@@ -28,11 +28,6 @@ namespace WindowsFormsApp1 //universal but update saves
             }            
             if (!match)
             {
-                if(text != "ебучая реклама" && text != "не дождался улучшения за рекламу" && text != "Can't send message")
-                {
-                    Mail.MailMessage(text);
-                }
-
                 using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, System.Text.Encoding.Default))//true для дописывания 
                 {
                     sw.WriteLine(text);

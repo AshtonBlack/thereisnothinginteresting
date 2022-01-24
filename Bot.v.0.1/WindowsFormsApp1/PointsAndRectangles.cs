@@ -114,15 +114,12 @@ namespace WindowsFormsApp1
         public static Rectangle HandSlot4 = new Rectangle(669, 725, 115, 65);//new
         public static Rectangle HandSlot5 = new Rectangle(864, 725, 115, 65);//new
         public static Rectangle carMenu = new Rectangle(1085, 343, 62, 62);//new
-        public static Rectangle ClickedWrongADSBounds = new Rectangle(60, 630, 25, 25);
         public static Rectangle EventBounds = new Rectangle(196, 183, 134, 30);//for eventpage//new
         public static Rectangle wrongParty = new Rectangle(838, 617, 150, 26);//new
         public static Rectangle readyToRace = new Rectangle(1084, 796, 95, 20);//new
         public static Rectangle startIcon = new Rectangle(884, 355, 50, 35);//new
         public static Rectangle startButton = new Rectangle(291, 593, 85, 21);//new
         public static Rectangle headPage = new Rectangle(196, 183, 124, 30);//new
-        public static Rectangle wrongADS = new Rectangle(63, 193, 25, 25);
-        public static Rectangle carIsUpgraded = new Rectangle(576, 707, 128, 27);
         public static Rectangle noActiveBooster = new Rectangle(1033, 658, 43, 19);//new
         public static Rectangle lostConnection = new Rectangle(365, 380, 300, 35);//new
         public static Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);//new
@@ -182,7 +179,7 @@ namespace WindowsFormsApp1
         public static Point commonCondition = new Point(640, 265);
         public static Point cond1 = new Point(425, 310);
         public static Point cond2 = new Point(425, 400);
-        public static Point commonConditionCross = new Point(845, 260);
+        public static Point commonConditionCross = new Point(845, 260);//исправить!!!!!!
         public static Point filter = new Point(945, 265);
         public static Point clear = new Point(525, 785);
         public static Point accept = new Point(940, 785);
@@ -194,8 +191,8 @@ namespace WindowsFormsApp1
         public static Point b = new Point(490, 600);
         public static Point a = new Point(700, 600);
         public static Point s = new Point(910, 600);
-        public static Point xy1 = new Point(180, 430);
-        public static Point xy2 = new Point(180, 630);
+        public static Point xy1 = new Point(180, 430);//сдвиг
+        public static Point xy2 = new Point(180, 630);//сдвиг
         public static Point clearall = new Point(240, 795);//сброс
         public static Point sorting = new Point(1090, 265);//сортировка
         public static Point closesorting = new Point(840, 790);//закрыть сортировку
@@ -246,11 +243,6 @@ namespace WindowsFormsApp1
         public static Point endOfRaceSet = new Point(635, 570);
         public static Point endOfTheFirstRace = new Point(640, 215);
         public static Point acceptanceToThrowRaces = new Point(890, 625);
-        public static Point startToWatchADS = new Point(965, 745);
-        public static Point itsWrongADS = new Point(75, 205);
-        public static Point itsRightADS = new Point(1205, 200);
-        public static Point itsClickedWrongADS = new Point(75, 205);
-        public static Point upgradeAcceptance = new Point(635, 720);
         public static Point upgradeCancelation = new Point(570, 745);
         public static Point clubBoosterActivation = new Point(1025, 665);
         public static Point clubBoosterAcceptance = new Point(905, 610);

@@ -131,7 +131,7 @@ namespace WindowsFormsApp1 //universal
                     {
                         File.Move("C:\\Bot\\Weather" + (i + 1) + "\\test.jpg", "C:\\Bot\\Weather" + (i + 1) + "\\" + (n + 1) + ".jpg");
                     }
-                    catch(Exception e)
+                    catch(Exception ex)
                     {
 
                     }

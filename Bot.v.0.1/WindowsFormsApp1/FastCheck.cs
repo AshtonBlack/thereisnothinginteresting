@@ -67,21 +67,7 @@ namespace WindowsFormsApp1 //universal
 
             return x;
         }
-
-        public bool ClickedWrongADS()
-        {
-            bool x = false;
-            string ClickedWrongADSPath = "HeadPictures\\TestClickedWrongADS";
-            string ClickedWrongADSOriginal = "HeadPictures\\OriginalClickedWrongADS";
-            string ClickedWrongADSOriginal1 = "HeadPictures\\OriginalClickedWrongADS1";
-            string ClickedWrongADSOriginal2 = "HeadPictures\\OriginalClickedWrongADS2";            
-            MasterOfPictures.MakePicture(PointsAndRectangles.ClickedWrongADSBounds, ClickedWrongADSPath);
-            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal)) x = true;
-            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal1)) x = true;
-            if (MasterOfPictures.Verify(ClickedWrongADSPath, ClickedWrongADSOriginal2)) x = true;
-            return x;
-        }
-
+        
         public bool EventPage()
         {
             bool x = false;
@@ -120,19 +106,7 @@ namespace WindowsFormsApp1 //universal
         {            
             bool x = MainFrame(PointsAndRectangles.headPage, "Head");
             return x;
-        }        
-
-        public bool WrongADS()
-        {
-            bool x = MainFrame(PointsAndRectangles.wrongADS, "WrongADS");
-            return x;
-        }
-
-        public bool CarIsUpgraded()
-        {
-            bool x = MainFrame(PointsAndRectangles.carIsUpgraded, "CarIsUpgraded");
-            return x;
-        }
+        } 
 
         public bool NoActiveBooster()
         {
