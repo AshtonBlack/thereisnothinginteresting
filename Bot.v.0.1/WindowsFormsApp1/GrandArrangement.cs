@@ -1,37 +1,34 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 
 namespace WindowsFormsApp1 //universal
 {
     public class GrandArrangement
     {
-        public void Arrangement(int[] a1, int[] b1, int[] c1)
+        public void Arrangement(int[] trackName, int[] coverage, int[] weather)
         {
             Algorithms al = new Algorithms();
             TrackInfo ti = new TrackInfo();
-            IdentifyCar idcar = new IdentifyCar();            
+            Car car = new Car();            
 
             Point[] a = { PointsAndRectangles.Finger1, PointsAndRectangles.Finger2, PointsAndRectangles.Finger3, PointsAndRectangles.Finger4, PointsAndRectangles.Finger5 };
             Point[] b = { PointsAndRectangles.Track1position, PointsAndRectangles.Track2position, PointsAndRectangles.Track3position, PointsAndRectangles.Track4position, PointsAndRectangles.Track5position };
 
-            int[] carpicture = NotePad.ReadCars();
-            string[] carsname = new string[5];
-            carsname[0] = idcar.Identify1Car(carpicture[0]);//converting picture id to car id
-            carsname[1] = idcar.Identify1Car(carpicture[1]);
-            carsname[2] = idcar.Identify1Car(carpicture[2]);
-            carsname[3] = idcar.Identify1Car(carpicture[3]);
-            carsname[4] = idcar.Identify1Car(carpicture[4]);
+            int[] carpictures = NotePad.ReadCars();
+            List<string> carnames = new List<string>();
+            foreach(int carpicture in carpictures)
+            {
+                carnames.Add(car.IdentifyCar(carpicture)); //converting picture id to car id
+            }
 
             double[][] carstats = new double[5][];
             for (int m = 0; m < 5; m++)
             {
-                carstats[m] = idcar.CarStats(carsname[m]);
+                carstats[m] = car.CarStats(carnames[m]);
             }
 
-            string[] a2 = ti.IdentifyTracks(a1);//Track name                        
-            string[] b2 = ti.IdentifyGround(b1);//Coverage            
-            string[] c2 = ti.IdentifyWeather(c1);//Weather
-            string[,] d = ti.TrackPackage(a2, b2, c2);//race full info
+            string[,] d = ti.TrackPackage(trackName, coverage, weather);//race full info
             
             int[] rightarranfement = new int[5];
             double arrangementPoints = -1000000;
