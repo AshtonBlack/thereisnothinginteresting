@@ -10,22 +10,16 @@ namespace WindowsFormsApp1 //universal
         {
             Algorithms al = new Algorithms();
             TrackInfo ti = new TrackInfo();
-            Car car = new Car();            
 
             Point[] a = { PointsAndRectangles.Finger1, PointsAndRectangles.Finger2, PointsAndRectangles.Finger3, PointsAndRectangles.Finger4, PointsAndRectangles.Finger5 };
             Point[] b = { PointsAndRectangles.Track1position, PointsAndRectangles.Track2position, PointsAndRectangles.Track3position, PointsAndRectangles.Track4position, PointsAndRectangles.Track5position };
 
             int[] carpictures = NotePad.ReadCars();
-            List<string> carnames = new List<string>();
+            List<Car> cars = new List<Car>();
+
             foreach(int carpicture in carpictures)
             {
-                carnames.Add(car.IdentifyCar(carpicture)); //converting picture id to car id
-            }
-
-            double[][] carstats = new double[5][];
-            for (int m = 0; m < 5; m++)
-            {
-                carstats[m] = car.CarStats(carnames[m]);
+                cars.Add(new Car(carpicture));
             }
 
             string[,] d = ti.TrackPackage(trackName, coverage, weather);//race full info
@@ -51,11 +45,11 @@ namespace WindowsFormsApp1 //universal
                                         {
                                             if (i5 != i1 && i5 != i2 && i5 != i3 && i5 != i4)
                                             {
-                                                double point = al.CalculateCompatibility(d[0, 0], d[1, 0], d[2, 0], carstats[i1]) +
-                                                    al.CalculateCompatibility(d[0, 1], d[1, 1], d[2, 1], carstats[i2]) +
-                                                    al.CalculateCompatibility(d[0, 2], d[1, 2], d[2, 2], carstats[i3]) +
-                                                    al.CalculateCompatibility(d[0, 3], d[1, 3], d[2, 3], carstats[i4]) +
-                                                    al.CalculateCompatibility(d[0, 4], d[1, 4], d[2, 4], carstats[i5]);
+                                                double point = al.CalculateCompatibility(d[0, 0], d[1, 0], d[2, 0], cars[i1]) +
+                                                    al.CalculateCompatibility(d[0, 1], d[1, 1], d[2, 1], cars[i2]) +
+                                                    al.CalculateCompatibility(d[0, 2], d[1, 2], d[2, 2], cars[i3]) +
+                                                    al.CalculateCompatibility(d[0, 3], d[1, 3], d[2, 3], cars[i4]) +
+                                                    al.CalculateCompatibility(d[0, 4], d[1, 4], d[2, 4], cars[i5]);
                                                 if (point > arrangementPoints)
                                                 {
                                                     rightarranfement = new int[] { i1, i2, i3, i4, i5 };

@@ -6,10 +6,19 @@ using System.Text;
 namespace WindowsFormsApp1 //universal
 {
     public class Car
-    {        
-        public List<Tuple<string,string>> picturetoname = new List<Tuple<string, string>>();        
+    {
+        public string carname = "unknown";
+        public int clearance = 1;
+        public int tires = 2;
+        public int drive = 2;
+        public double acceleration = 36;
+        public int maxSpeed = 100;
+        public int grip = 45;
+        public int weight = 2500;
 
-        public void PictureToNameTable()
+        List<Tuple<string,string>> picturetoname = new List<Tuple<string, string>>();        
+
+        void PictureToNameTable()
         {
             string commonpath = @"C:\Bot\NewPL\";
             string path = "PictureToCar.txt";
@@ -25,7 +34,7 @@ namespace WindowsFormsApp1 //universal
             }
         }
 
-        public string Transform(string line, int wordN)
+        string Transform(string line, int wordN)
         {
             char[] word = line.Trim().ToCharArray();
             StringBuilder firstWord = new StringBuilder();
@@ -58,10 +67,8 @@ namespace WindowsFormsApp1 //universal
             }
         }
 
-        public string IdentifyCar(int carPicture)
+        void IdentifyCar(int carPicture)
         {
-            string carname = "unknown";
-
             PictureToNameTable();
             foreach(Tuple<string,string> pair in picturetoname)
             {
@@ -76,20 +83,11 @@ namespace WindowsFormsApp1 //universal
             {
                 NotePad.DoErrorLog(carPicture + " is unknown car");
             }
-            
-            return carname;
         }
         
-        public double[] CarStats(string carname)
+        public Car(int carPicture)
         {
-            int clearance = 1;
-            int tires = 2;
-            int drive = 2;
-            double acceleration = 36;
-            int maxspeed = 100;
-            int grip = 45;
-            int weight = 2500;
-
+            IdentifyCar(carPicture);
             string [,] carsArray = CarsDB.fulltablearray;
             int lenght = CarsDB.linenumber;
             bool carIsFounded = false;
@@ -112,7 +110,7 @@ namespace WindowsFormsApp1 //universal
                     {
                         NotePad.DoErrorLog("can not convert " + carsArray[i, 0] + " to double");
                     }
-                    maxspeed = Convert.ToInt32(carsArray[i, 12]);
+                    maxSpeed = Convert.ToInt32(carsArray[i, 12]);
                     grip = Convert.ToInt32(carsArray[i, 7]);
                     weight = Convert.ToInt32(carsArray[i, 14]);
                     break;
@@ -129,10 +127,7 @@ namespace WindowsFormsApp1 //universal
             else
             {
                 NotePad.DoLog(carname);
-            }            
-                        
-            double[] stats = { clearance, tires, drive, acceleration, maxspeed, grip, weight };
-            return stats;
+            }  
         }
 
         int clearanceConverter(string stat)
