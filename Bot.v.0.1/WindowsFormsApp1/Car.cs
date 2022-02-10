@@ -72,7 +72,7 @@ namespace WindowsFormsApp1 //universal
             PictureToNameTable();
             foreach(Tuple<string,string> pair in picturetoname)
             {
-                if (carPicture == Convert.ToInt32(pair.Item1))
+                if (carPicture.ToString().Equals(pair.Item1))
                 {
                     carname = pair.Item2;
                     break;

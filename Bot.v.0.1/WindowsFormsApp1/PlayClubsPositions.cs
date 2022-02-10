@@ -121,6 +121,8 @@ namespace WindowsFormsApp1 //universal
                         hm.MakingHand();
                     }
 
+                    Thread.Sleep(5000);
+
                     if (!hm.HandCarFixed() || !hm.VerifyHand())
                     {
                         se.ClearHand();

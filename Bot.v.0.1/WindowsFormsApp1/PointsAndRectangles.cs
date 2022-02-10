@@ -179,7 +179,7 @@ namespace WindowsFormsApp1
         public static Point commonCondition = new Point(640, 265);
         public static Point cond1 = new Point(425, 310);
         public static Point cond2 = new Point(425, 400);
-        public static Point commonConditionCross = new Point(845, 260);//исправить!!!!!!
+        public static Point commonConditionCross = new Point(790, 260);//new
         public static Point filter = new Point(945, 265);
         public static Point clear = new Point(525, 785);
         public static Point accept = new Point(940, 785);
