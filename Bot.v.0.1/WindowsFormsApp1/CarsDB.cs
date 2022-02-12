@@ -860,52 +860,12 @@ namespace WindowsFormsApp1 //universal
 
         public static bool SearchTag(int car, string tag)
         {
-            bool x = false;
-            string cartags = fulltablearray[car, 17];
-            for (int i = 0; i < ((cartags.Length - tag.Length) + 1); i++)
-            {
-                bool isthesame = true;
-                for (int j = 0; j < tag.Length; j++)
-                {
-                    if (cartags[j + i] != tag[j])
-                    {
-                        isthesame = false;
-                        break;
-                    }
-                }
-                if (isthesame)
-                {
-                    x = true;
-                    break;
-                }
-            }
-
-            return x;
+            return fulltablearray[car, 17].Contains(tag);
         }
 
         public static bool SearchBody(int car, string bodytype)
         {
-            bool x = false;
-            string cartags = fulltablearray[car, 1];
-            for (int i = 0; i < ((cartags.Length - bodytype.Length) + 1); i++)
-            {
-                bool isthesame = true;
-                for (int j = 0; j < bodytype.Length; j++)
-                {
-                    if (cartags[j + i] != bodytype[j])
-                    {
-                        isthesame = false;
-                        break;
-                    }
-                }
-                if (isthesame)
-                {
-                    x = true;
-                    break;
-                }
-            }
-
-            return x;
+            return fulltablearray[car, 1].Contains(bodytype);
         }
     }
 }

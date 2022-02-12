@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -14,25 +13,7 @@ namespace WindowsFormsApp1 //universal
         public double acceleration = 36;
         public int maxSpeed = 100;
         public int grip = 45;
-        public int weight = 2500;
-
-        List<Tuple<string,string>> picturetoname = new List<Tuple<string, string>>();        
-
-        void PictureToNameTable()
-        {
-            string commonpath = @"C:\Bot\NewPL\";
-            string path = "PictureToCar.txt";
-
-            using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null && line != " " && line != "")
-                {
-                    picturetoname.Add(new Tuple<string, string>(Transform(line, 0), Transform(line, 1)));
-                }
-                sr.Close();
-            }
-        }
+        public int weight = 2500;                
 
         string Transform(string line, int wordN)
         {
@@ -69,14 +50,21 @@ namespace WindowsFormsApp1 //universal
 
         void IdentifyCar(int carPicture)
         {
-            PictureToNameTable();
-            foreach(Tuple<string,string> pair in picturetoname)
+            string commonpath = @"C:\Bot\NewPL\";
+            string path = "PictureToCar.txt";
+
+            using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
             {
-                if (carPicture.ToString().Equals(pair.Item1))
+                string line;
+                while ((line = sr.ReadLine()) != null && line != " " && line != "")
                 {
-                    carname = pair.Item2;
-                    break;
+                    if (carPicture.ToString().Equals(Transform(line, 1)))
+                    {
+                        carname = Transform(line, 2);
+                        break;
+                    }
                 }
+                sr.Close();
             }
             
             if(carname == "unknown" && carPicture != 10000)
