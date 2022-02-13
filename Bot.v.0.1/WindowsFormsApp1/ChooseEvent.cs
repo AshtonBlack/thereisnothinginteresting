@@ -9,7 +9,10 @@ namespace WindowsFormsApp1 //universal
     {
         int accountLVL = Condition.accountLVL;
         FastCheck fc = new FastCheck();
-        string RQPath = @"RQ\test";
+
+        string Condition1 = "Condition1\\test";
+        string Condition2 = "Condition2\\test";
+        string RQPath = "RQ\\test";
 
         public void ChooseNormalEvent()
         {
@@ -65,10 +68,12 @@ namespace WindowsFormsApp1 //universal
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
 
-            MasterOfPictures.MakePicture(PointsAndRectangles.Condition1Bounds, @"Condition1\test");
-            MasterOfPictures.MakePicture(PointsAndRectangles.Condition2Bounds, @"Condition2\test");
-            string cond1 = ConvertPictureToCond(DefineFirstEvevntConditionByPicture(), 1);
-            string cond2 = ConvertPictureToCond(DefineSecondEvevntConditionByPicture(), 2);
+            MasterOfPictures.MakePicture(PointsAndRectangles.Condition1Bounds, Condition1);
+            MasterOfPictures.MakePicture(PointsAndRectangles.Condition2Bounds, Condition2);
+            int x = DefineFirstEvevntConditionByPicture();
+            int y = DefineSecondEvevntConditionByPicture();
+            string cond1 = ConvertPictureToCond(x, 1);
+            string cond2 = ConvertPictureToCond(y, 2);
                         
             if (cond1 != "unknown" && cond2 != "unknown")//Исключаю неизвестный
             {
@@ -94,16 +99,16 @@ namespace WindowsFormsApp1 //universal
             return eventIsOK;
         }
 
-        int DefineEvevntConditionByPicture(int conditionNumber)
-        { 
+        private int DefineFirstEvevntConditionByPicture()
+        {
             int x;
             for (x = 0; x < 500; x++)
             {
-                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\C" + x + ".jpg"))
+                if (File.Exists(@"C:\Bot\Condition1\C" + x + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", ("Condition" + conditionNumber + @"\C" + x)))
+                    if (MasterOfPictures.Verify(Condition1, ("Condition1\\C" + x)))
                     {
-                        NotePad.DoLog(conditionNumber + " условие: " + x);
+                        NotePad.DoLog("Первое условие: " + x);
                         break;
                     }
                 }
@@ -112,13 +117,49 @@ namespace WindowsFormsApp1 //universal
                     NotePad.DoLog("Неизвестное условие");
                     for (int i = 1; i < 500; i++)
                     {
-                        if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\UnknownCondition" + i + ".jpg"))
+                        if (File.Exists("C:\\Bot\\Condition1\\UnknownCondition" + i + ".jpg"))
                         {
-                            if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", ("Condition" + conditionNumber + @"\UnknownCondition" + i))) break;
+                            if (MasterOfPictures.Verify(Condition1, ("Condition1\\UnknownCondition" + i))) break;
                         }
                         else
                         {
-                            File.Move(@"C:\Bot\" + "Condition" + conditionNumber + @"\test" + ".jpg", @"C:\Bot\Condition" + conditionNumber + @"\UnknownCondition" + i + ".jpg");
+                            File.Move("C:\\Bot\\" + Condition1 + ".jpg", "C:\\Bot\\Condition1\\UnknownCondition" + i + ".jpg");
+                            break;
+                        }
+                    }
+                    x = 500;
+                    break;
+                }
+            }
+            
+            return x;
+        }
+
+        private int DefineSecondEvevntConditionByPicture()
+        {
+            int x;
+            for (x = 0; x < 500; x++)
+            {
+                if (File.Exists(@"C:\Bot\Condition2\CC" + x + ".jpg"))
+                {
+                    if (MasterOfPictures.Verify(Condition2, "Condition2\\CC" + x))
+                    {
+                        NotePad.DoLog("Второе условие: " + x);
+                        break;
+                    }
+                }
+                else
+                {
+                    NotePad.DoLog("Неизвестное условие");
+                    for (int i = 1; i < 500; i++)
+                    {
+                        if (File.Exists("C:\\Bot\\Condition2\\UnknownCondition" + i + ".jpg"))
+                        {
+                            if (MasterOfPictures.Verify(Condition2, ("Condition2\\UnknownCondition" + i))) break;
+                        }
+                        else
+                        {
+                            File.Move("C:\\Bot\\" + Condition2 + ".jpg", "C:\\Bot\\Condition2\\UnknownCondition" + i + ".jpg");
                             break;
                         }
                     }
@@ -130,16 +171,6 @@ namespace WindowsFormsApp1 //universal
             return x;
         }
 
-        int DefineFirstEvevntConditionByPicture()
-        {            
-            return DefineEvevntConditionByPicture(1);
-        }
-
-        int DefineSecondEvevntConditionByPicture()
-        {
-            return DefineEvevntConditionByPicture(2);
-        }
-
         private bool GotRQ()
         {
             bool isRqKnown = false;
@@ -147,9 +178,9 @@ namespace WindowsFormsApp1 //universal
             MasterOfPictures.MakePicture(PointsAndRectangles.RQBounds, RQPath);
             for (int i = 1; i < 501; i++)
             {
-                if(File.Exists(@"C:\Bot\RQ\" + i.ToString() + ".jpg"))
+                if(File.Exists("C:\\Bot\\RQ\\" + i.ToString() + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify(RQPath, @"RQ\" + i.ToString()))
+                    if (MasterOfPictures.Verify(RQPath, "RQ\\" + i.ToString()))
                     {
                         Condition.eventrq = i;
                         NotePad.DoLog("рк =  " + Condition.eventrq);
@@ -163,16 +194,16 @@ namespace WindowsFormsApp1 //universal
                 NotePad.DoLog("Unknown rq");
                 for (int x = 1; x < 500; x++)
                 {
-                    if (File.Exists(@"C:\Bot\RQ\UnknownRQ" + x + ".jpg"))
+                    if (File.Exists("C:\\Bot\\RQ\\UnknownRQ" + x + ".jpg"))
                     {
-                        if (MasterOfPictures.Verify(RQPath, (@"RQ\UnknownRQ" + x)))
+                        if (MasterOfPictures.Verify(RQPath, ("RQ\\UnknownRQ" + x)))
                         {
                             break;
                         }
                     }
                     else
                     {
-                        File.Move(@"C:\Bot\" + RQPath + ".jpg", @"C:\Bot\RQ\UnknownRQ" + x + ".jpg");
+                        File.Move("C:\\Bot\\" + RQPath + ".jpg", "C:\\Bot\\RQ\\UnknownRQ" + x + ".jpg");
                         break;
                     }
                 }
@@ -185,8 +216,8 @@ namespace WindowsFormsApp1 //universal
         private string ConvertPictureToCond(int picture, int cond)
         {
             string name = "unknown";
-            int length = NotePad.GetInfoFileLength(@"C:\Bot\Condition" + cond + @"\info.txt");
-            string[,] theTable = NotePad.ReadInfoFromTXT(@"C:\Bot\Condition" + cond + @"\info.txt");
+            int length = NotePad.GetInfoFileLength("C:\\Bot\\Condition" + cond + "\\info.txt");
+            string[,] theTable = NotePad.ReadInfoFromTXT("C:\\Bot\\Condition" + cond + "\\info.txt");
             for (int l = 0; l < length; l++)
             {
                 if (picture == Convert.ToInt32(theTable[l, 0]))

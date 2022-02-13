@@ -121,7 +121,7 @@ namespace WindowsFormsApp1 //universal
                         hm.MakingHand();
                     }
 
-                    Thread.Sleep(5000);
+                    Thread.Sleep(5000); //to avoid blur in handcarfixed method
 
                     if (!hm.HandCarFixed() || !hm.VerifyHand())
                     {
