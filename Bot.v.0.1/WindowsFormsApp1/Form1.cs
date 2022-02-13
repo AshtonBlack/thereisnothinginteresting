@@ -13,10 +13,10 @@ namespace WindowsFormsApp1
         }        
 
         private void Form1_Load(object sender, EventArgs e)
-        {           
+        {
             Navigation navigation = new Navigation();
             navigation.ToClubMap();
-            navigation.InClubs();            
+            navigation.InClubs();
         }
     }
 }

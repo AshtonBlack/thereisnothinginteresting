@@ -50,10 +50,9 @@ namespace WindowsFormsApp1 //universal
 
         void IdentifyCar(int carPicture)
         {
-            string commonpath = @"C:\Bot\NewPL\";
-            string path = "PictureToCar.txt";
-
-            using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
+            string path = @"C:\Bot\NewPL\PictureToCar.txt";
+            /*
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null && line != " " && line != "")
@@ -61,13 +60,39 @@ namespace WindowsFormsApp1 //universal
                     if (carPicture.ToString().Equals(Transform(line, 1)))
                     {
                         carname = Transform(line, 2);
+                        NotePad.DoLog("машина определена: " + carname);
                         break;
                     }
                 }
                 sr.Close();
             }
-            
-            if(carname == "unknown" && carPicture != 10000)
+            */
+
+            int length = NotePad.GetInfoFileLength(path);
+            string[,] picturetoname = new string[length, 2];
+
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    string theline = sr.ReadLine();
+                    picturetoname[i, 0] = Transform(theline, 1);
+                    picturetoname[i, 1] = Transform(theline, 2);
+                }
+                sr.Close();
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                if (carPicture == Convert.ToInt32(picturetoname[i, 0]))
+                {
+                    carname = picturetoname[i, 1];
+                    NotePad.DoLog("машина определена: " + carname);
+                    break;
+                }
+            }
+
+            if (carname == "unknown" && carPicture != 10000)
             {
                 NotePad.DoErrorLog(carPicture + " is unknown car");
             }
@@ -78,7 +103,6 @@ namespace WindowsFormsApp1 //universal
             IdentifyCar(carPicture);
             string [,] carsArray = CarsDB.fulltablearray;
             int lenght = CarsDB.linenumber;
-            bool carIsFounded = false;
 
             for(int i = 0; i<lenght; i++)
             {
@@ -86,7 +110,6 @@ namespace WindowsFormsApp1 //universal
                 if(testcar == carname)
                 {
                     NotePad.DoLog(carname);
-                    carIsFounded = true;
                     clearance = clearanceConverter(carsArray[i, 3]);
                     tires = tiresConverter(carsArray[i, 13]);
                     drive = driveConverter(carsArray[i, 5]);
@@ -104,18 +127,6 @@ namespace WindowsFormsApp1 //universal
                     break;
                 }
             }
-
-            if(carname != "unknown")
-            {
-                if (!carIsFounded)
-                {
-                    NotePad.DoErrorLog("Не знаю статы для " + carname);
-                }
-            }
-            else
-            {
-                NotePad.DoLog(carname);
-            }  
         }
 
         int clearanceConverter(string stat)

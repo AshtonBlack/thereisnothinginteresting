@@ -141,17 +141,18 @@ namespace WindowsFormsApp1 //universal
             return c1;
         }
 
-        public string[,] TrackPackage(string[] a2, string[] b2, string[] c2)
+        public string[,] TrackPackage(int[] trackName, int[] coverage, int[] weather)
         {
+            string[] a2 = IdentifyTracks(trackName);                        
+            string[] b2 = IdentifyGround(coverage);            
+            string[] c2 = IdentifyWeather(weather);
             string[,] d = new string[3, 5];
             for (int i = 0; i < 5; i++)
             {
                 d[0, i] = a2[i];
                 d[1, i] = b2[i];
                 d[2, i] = c2[i];
-            }
-            for (int i = 0; i < 5; i++)
-            {
+
                 NotePad.DoLog((i + 1) + " Трэк: " + d[0, i] + " " + d[1, i] + " " + d[2, i]);
             }
 
@@ -160,7 +161,7 @@ namespace WindowsFormsApp1 //universal
 
         public string[] IdentifyGround(int[] b1)
         {
-            string[] b2 = new string[5];
+            string[] grounds = new string[5];
             for (int i = 0; i < 5; i++)
             {
                 string name = "unknown";
@@ -171,21 +172,21 @@ namespace WindowsFormsApp1 //universal
                     if (b1[i] == Convert.ToInt32(theTable[l, 0]))
                     {
                         name = theTable[l, 1];
-                        b2[i] = name;
+                        grounds[i] = name;
                         break;
                     }
                 }
                 if (name == "unknown")
                 {
                     NotePad.DoErrorLog("Неизвестное покрытие позиция " + (i + 1));
-                    b2[i] = "Неизвестная покрытие";
+                    grounds[i] = "Неизвестная покрытие";
                 }
             }
 
             bool asphalt = false;
             bool mud = false;
 
-            foreach (string x in b2)
+            foreach (string x in grounds)
             {
                 if (x == "Асфальт")
                 {
@@ -204,12 +205,12 @@ namespace WindowsFormsApp1 //universal
             }
             else Condition.coverage = "Бездорожье";
             NotePad.LastCoverage(Condition.coverage);
-            return b2;
+            return grounds;
         }
 
         public string[] IdentifyWeather(int[] c1)
         {
-            string[] c2 = new string[5];
+            string[] weathers = new string[5];
             for (int i = 0; i < 5; i++)
             {
                 string name = "unknown";
@@ -220,21 +221,21 @@ namespace WindowsFormsApp1 //universal
                     if (c1[i] == Convert.ToInt32(theTable[l, 0]))
                     {
                         name = theTable[l, 1];
-                        c2[i] = name;
+                        weathers[i] = name;
                         break;
                     }
                 }
                 if (name == "unknown")
                 {
                     NotePad.DoErrorLog("Неизвестная погода позиция " + (i + 1));
-                    c2[i] = "Неизвестная погода";
+                    weathers[i] = "Неизвестная погода";
                 }
             }
 
             bool dry = false;
             bool wet = false;
 
-            foreach (string x in c2)
+            foreach (string x in weathers)
             {
                 if (x == "Дождь")
                 {
@@ -255,12 +256,12 @@ namespace WindowsFormsApp1 //universal
             }
             NotePad.LastWeather(Condition.weather);
 
-            return c2;
+            return weathers;
         }
 
         public string[] IdentifyTracks(int[] a1)
         {
-            string[] a2 = new string[5];            
+            string[] tracks = new string[5];            
 
             for (int i = 0; i < 5; i++)
             {
@@ -272,17 +273,17 @@ namespace WindowsFormsApp1 //universal
                     if (a1[i] == Convert.ToInt32(theTable[l, 0]))
                     {
                         name = theTable[l, 1];
-                        a2[i] = name;
+                        tracks[i] = name;
                         break;
                     }
                 }
                 if (name == "unknown")
                 {
                     NotePad.DoErrorLog("Неизвестная трасса позиция " + (i + 1));
-                    a2[i] = "Неизвестная трасса";
+                    tracks[i] = "Неизвестная трасса";
                 }                
             }
-            return a2;
+            return tracks;
         }      
     }
 }

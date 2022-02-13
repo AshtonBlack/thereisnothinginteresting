@@ -177,16 +177,7 @@ namespace WindowsFormsApp1 //universal but update saves
 
         public static string[,] ReadInfoFromTXT(string path)
         {
-            int length = 0;
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null && line != " " && line != "")
-                {
-                    length++;
-                }
-                sr.Close();
-            }
+            int length = GetInfoFileLength(path);            
             string[,] picturetoname = new string[length, 2];
 
             using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
