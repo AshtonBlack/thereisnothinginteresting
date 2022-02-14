@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Caitlyn_v1._0
 {
@@ -185,8 +186,8 @@ namespace Caitlyn_v1._0
                 for (int i = 0; i < length; i++)
                 {
                     string theline = sr.ReadLine();
-                    picturetoname[i, 0] = Transform3(theline, 1);
-                    picturetoname[i, 1] = Transform3(theline, 2);
+                    picturetoname[i, 0] = Transform(theline, 1);
+                    picturetoname[i, 1] = Transform(theline, 2);
                 }
                 sr.Close();
             }
@@ -194,57 +195,42 @@ namespace Caitlyn_v1._0
             return picturetoname;
         }
 
-        public static string Transform3(string t, int wordN)
+        public static string Transform(string line, int wordN)
         {
-            string forreturn;
-            string a = t.Trim();
-            char[] word = a.ToCharArray();
+            char[] word = line.Trim().ToCharArray();
+            StringBuilder firstWord = new StringBuilder();
+            StringBuilder secondWord = new StringBuilder();
 
-            int wordBlength = 0;
-            for (int i = 0; i < word.Length; i++)
+            bool firstwordcomplete = false;
+            foreach (char literal in word)
             {
-                if (word[i] != ' ')
+                if (firstwordcomplete)
                 {
-                    wordBlength++;
+                    secondWord.Append(literal);
                 }
-                else break;
-            }
-            char[] wordB = new char[wordBlength];
-            for (int i = 0; i < wordB.Length; i++)
-            {
-                wordB[i] = word[i];
-            }
-
-            char[] wordC = new char[word.Length - wordBlength - 1];
-            for (int i = 0; i < wordC.Length; i++)
-            {
-                wordC[i] = word[i + wordBlength + 1];
+                else
+                {
+                    if (literal != ' ')
+                    {
+                        firstWord.Append(literal);
+                    }
+                    else firstwordcomplete = true;
+                }                
             }
 
             if (wordN == 1)
             {
-                forreturn = new string(wordB);
+                return firstWord.ToString();
             }
             else
             {
-                forreturn = new string(wordC);
+                return secondWord.ToString();
             }
-            return forreturn;
         }
         public static string timePath = @"C:\Bot\time.txt";
         public static DateTime[] ReadTime()
         {
-            int linenumber = 0;
-            using (StreamReader sr = new StreamReader(timePath, System.Text.Encoding.Default))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null && line != " " && line != "")
-                {
-                    linenumber++;
-                }
-                sr.Close();
-            }
-            DateTime[] thetime = new DateTime[linenumber];
+            DateTime[] thetime = new DateTime[GetInfoFileLength(timePath)];
             using (StreamReader sr = new StreamReader(timePath, System.Text.Encoding.Default))
             {
                 for (int i = 0; i < thetime.Length; i++)
