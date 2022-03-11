@@ -19,7 +19,7 @@ namespace botDBUpdater
         public string[,] picturetoname { get; set; }        
         public int length { get; set; }        
         public static int foundcarsforSortDB {get; set; }
-        private void Fulltable()//формирование таблицы из исходных файлов
+        void Fulltable()//формирование таблицы из исходных файлов
         {
             string commonpath = @"C:\projects\bot\thereisnothinginteresting\NewPL\";
             linenumber = 0;
@@ -129,8 +129,46 @@ namespace botDBUpdater
                 sw.Close();
             }
 
-            Filter();
         }        
+        void NewFullTable()
+        {
+            string excelFilePath = @"C:\projects\bot\cars.xlsx";
+            string commonpath = @"C:\projects\bot\thereisnothinginteresting\NewPL\";
+
+            fulltablearray = new string[linenumber, 18];
+
+            string[] cashSR()
+            {
+                string[] a = new string[linenumber];
+                if (File.Exists(@"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt"))
+                {
+                    using (StreamReader sr = new StreamReader(@"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt", System.Text.Encoding.Default))
+                    {
+                        for (int i = 0; i < a.Length; i++)
+                        {
+                            a[i] = sr.ReadLine();
+                        }
+                        sr.Close();
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < a.Length; i++)
+                    {
+                        a[i] = "0";
+                    }
+                }
+                return a;
+            } //удалить после обновы наличие автомобилей, переписать файл с нуля
+                        
+            string[] cash = cashSR();
+
+            for (int i = 0; i < linenumber; i++)
+            {
+                fulltablearray[i, 16] = cash[i];
+            }
+
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             label52.Text = "default";
@@ -490,7 +528,6 @@ namespace botDBUpdater
                 sw.Close();
             }
 
-            Filter();
         }
         private void AddCashCar()
         {
@@ -593,38 +630,7 @@ namespace botDBUpdater
             PictureToNameTable();
         }
         
-        //===================================================================
-
-        //Дебаг
-        public void Filter()
-        {
-            using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\filter.txt", false, System.Text.Encoding.Default))
-            {
-                string thecar;
-                for (int i = 0; i < linenumber; i++)
-                {
-                    thecar = fulltablearray[i, 2] + " " + fulltablearray[i, 8] + " " + fulltablearray[i, 9] + " " + fulltablearray[i, 15];
-                    if (Convert.ToInt32(fulltablearray[i, 16]) > 0)
-                    {
-                        if (fulltablearray[i, 2] == "f")
-                        {
-                            if(fulltablearray[i, 1] == "saloon")
-                            {
-                                sw.WriteLine(thecar + " " + fulltablearray[i, 16]);
-                            }                            
-                        }
-                    }
-                }
-                sw.Close();
-            }
-
-            int allcars = 0;
-            for (int i = 0; i < linenumber; i++)
-            {
-                allcars += Convert.ToInt32(fulltablearray[i, 16]);
-            }
-            textBox8.Text = allcars.ToString();
-        }
+       
 
         //Для обновы
 

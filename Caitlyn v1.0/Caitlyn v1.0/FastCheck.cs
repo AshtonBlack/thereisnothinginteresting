@@ -216,8 +216,9 @@ namespace Caitlyn_v1._0
 
         public bool RaceOn()
         {
-            bool x = MainFrame(PointsAndRectangles.raceOn, "Race");
-            return x;
+            if (MainFrame(PointsAndRectangles.raceOn, "Race") || MainFrame(PointsAndRectangles.raceOn, "Race2"))
+                return true;
+            return false;
         }
 
         public bool Ending()
