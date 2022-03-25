@@ -17,3 +17,5 @@ C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\D
 C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.CoreCompileInputs.cache
 C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.exe
 C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.pdb
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csprojAssemblyReference.cache
+C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.ResolveComReference.cache

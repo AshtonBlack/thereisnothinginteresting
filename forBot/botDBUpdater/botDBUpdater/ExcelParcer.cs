@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -9,11 +8,10 @@ namespace botDBUpdater
     {
         static int rows;
         static int columns;
-        public static List<ArrayList> Parse(string excelFilePath)
+        public static List<Car> Parse(string excelFilePath)
         { 
             return HandleTable(Parser(excelFilePath));            
         }
-
         static object[,] Parser(string excelFilePath)
         {
             Excel.Application ObjWorkExcel = new Excel.Application();
@@ -29,18 +27,16 @@ namespace botDBUpdater
 
             return arrData;
         }
-
-        static List<ArrayList> HandleTable(object[,] fulltable)
+        static List<Car> HandleTable(object[,] fulltable)
         {
-            int[] neededCells = { 2, 3, 4, 5, 6, 7, 8, 9, 12, 14, 17, 20, 22, 23, 24, 25, 26 };
-            List<ArrayList> usefultable = new List<ArrayList>();
+            List<Car> usefultable = new List<Car>();
             for (int i = 0; i < rows; i++)
             {
-                ArrayList car = new ArrayList();
-                foreach (int cell in neededCells)
-                {
-                    car.Add(fulltable[i + 1, cell]);
-                }
+                Car car = new Car();
+                car.country = fulltable[i + 1, 4].ToString();
+                car.manufacturer = fulltable[i + 1, 5].ToString();
+                car.model = fulltable[i + 1, 6].ToString();
+                car.year = fulltable[i + 1, 7].ToString();
                 usefultable.Add(car);
             }
 
