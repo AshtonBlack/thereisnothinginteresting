@@ -8,9 +8,11 @@ namespace Caitlyn_v1._0
     {
         static string commonpath = @"C:\Bot\NewPL\";
         static string cashcarspath = @"C:\Bot\NewPL\CashCars.txt";
-        public static string[,] fulltablearray { get; set; }
-        public static int linenumber { get; set; }
 
+        static string excelFilePath = @"C:\projects\bot\cars.xlsx";
+        static string cashCarsPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt";
+        static string pictureToCarPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\PictureToCar.txt";
+        public static List<CarForExcel> fulltablearray { get; set; }
         public static int[] lowestcars;
         public static int[] slikTyres { get; set; }
         public static int[] dynamicTyres { get; set; }
@@ -22,106 +24,96 @@ namespace Caitlyn_v1._0
         {
             Fulltable();
         }
-
-        public static void Fulltable()//формирование таблицы из исходных файлов
+        static string GetWordFromText(string line, int wordN)
         {
-            linenumber = 0;
-            using (StreamReader sr = new StreamReader(commonpath + "manufacturer.txt", System.Text.Encoding.Default))
+            char[] word = line.Trim().ToCharArray();
+
+            int firstwordlength = 0;
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (word[i] != ' ')
+                {
+                    firstwordlength++;
+                }
+                else break;
+            }
+            char[] firstword = new char[firstwordlength];
+            for (int i = 0; i < firstword.Length; i++)
+            {
+                firstword[i] = word[i];
+            }
+
+            char[] secondword = new char[word.Length - firstwordlength - 1];
+            for (int i = 0; i < secondword.Length; i++)
+            {
+                secondword[i] = word[i + firstwordlength + 1];
+            }
+
+            if (wordN == 1)
+            {
+                return new string(firstword);
+            }
+            else
+            {
+                return new string(secondword);
+            }
+        }
+        static void PictureToNameTable()
+        {
+            using (StreamReader sr = new StreamReader(pictureToCarPath, System.Text.Encoding.Default))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null && line != " " && line != "")
                 {
-                    linenumber++;
+                    string carname = GetWordFromText(line, 2);
+                    int pictureNumber = Convert.ToInt32(GetWordFromText(line, 1));
+
+                    foreach (CarForExcel car in fulltablearray)
+                    {
+                        if (car.fullname() == carname)
+                        {
+                            fulltablearray.Find(thecar => thecar.fullname() == carname).pictureNumber = pictureNumber;
+                            break;
+                        }
+                    }
                 }
                 sr.Close();
             }
-            fulltablearray = new string[linenumber, 18];
-
-            string[] SR(string path)
+        }
+        static void cashSR()
+        {
+            if (File.Exists(cashCarsPath))
             {
-                string[] a = new string[linenumber];
-                using (StreamReader sr = new StreamReader(commonpath + path + ".txt", System.Text.Encoding.Default))
+                using (StreamReader sr = new StreamReader(cashCarsPath, System.Text.Encoding.Default))
                 {
-                    for (int i = 0; i < a.Length; i++)
+                    string line;
+                    while ((line = sr.ReadLine()) != null && line != " " && line != "")
                     {
-                        a[i] = sr.ReadLine();
+                        string carname = GetWordFromText(line, 2);
+                        int amount = Convert.ToInt32(GetWordFromText(line, 1));
+
+                        foreach (CarForExcel car in fulltablearray)
+                        {
+                            if (car.fullname() == carname)
+                            {
+                                fulltablearray.Find(thecar => thecar.fullname() == carname).amount = amount;
+                                break;
+                            }
+                        }
                     }
                     sr.Close();
                 }
-                return a;
-            } //считывание статов из файлов
-            string[] cashSR()
-            {
-                string[] a = new string[linenumber];
-                if (File.Exists(cashcarspath))
-                {
-                    using (StreamReader sr = new StreamReader(cashcarspath, System.Text.Encoding.Default))
-                    {
-                        for (int i = 0; i < a.Length; i++)
-                        {
-                            a[i] = sr.ReadLine();
-                        }
-                        sr.Close();
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < a.Length; i++)
-                    {
-                        a[i] = "0";
-                    }
-                }
-                return a;
-            } //удалить после обновы наличие автомобилей, переписать файл с нуля
-
-            string[] acc = SR("acceleration");
-            string[] body = SR("body");
-            string[] grade = SR("class");
-            string[] clearance = SR("clearance");
-            string[] country = SR("country");
-            string[] drive = SR("drive");
-            string[] fuel = SR("fuel");
-            string[] grip = SR("grip");
-            string[] manufacturer = SR("manufacturer");
-            string[] model = SR("model");
-            string[] rq = SR("rq");
-            string[] seats = SR("seats");
-            string[] speed = SR("speed");
-            string[] tires = SR("tires");
-            string[] weight = SR("weight");
-            string[] year = SR("year");
-            string[] cash = cashSR();
-            string[] tags = SR("tags");
-
-            for (int i = 0; i < linenumber; i++)
-            {
-                fulltablearray[i, 0] = acc[i];
-                fulltablearray[i, 1] = body[i];
-                fulltablearray[i, 2] = grade[i];
-                fulltablearray[i, 3] = clearance[i];
-                fulltablearray[i, 4] = country[i];
-                fulltablearray[i, 5] = drive[i];
-                fulltablearray[i, 6] = fuel[i];
-                fulltablearray[i, 7] = grip[i];
-                fulltablearray[i, 8] = manufacturer[i];
-                fulltablearray[i, 9] = model[i];
-                fulltablearray[i, 10] = rq[i];
-                fulltablearray[i, 11] = seats[i];
-                fulltablearray[i, 12] = speed[i];
-                fulltablearray[i, 13] = tires[i];
-                fulltablearray[i, 14] = weight[i];
-                fulltablearray[i, 15] = year[i];
-                fulltablearray[i, 16] = cash[i];
-                fulltablearray[i, 17] = tags[i];
             }
         }
-
+        public static void Fulltable()//формирование таблицы из исходных файлов
+        {
+            ExcelParcer.Parse(excelFilePath); //считывание статов из файлов
+            cashSR(); //удалить после обновы наличие автомобилей, переписать файл с нуля
+            PictureToNameTable();
+        }
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             List<int> rq;
-            string grade;
-            string t;
-            int n;
 
             slikTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
             dynamicTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
@@ -130,17 +122,14 @@ namespace Caitlyn_v1._0
             offroadTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
             lowestcars = new int[5];
             rq = new List<int>(0);
-            for (int j = 1; j < linenumber; j++)
+            foreach (CarForExcel car in fulltablearray)
             {
-                if (SatisfyCondition(firstCond, j))
+                if (SatisfyCondition(firstCond, car))
                 {
-                    if (SatisfyCondition(secondCond, j))
-                    {
-                        grade = fulltablearray[j, 2];
-                        t = fulltablearray[j, 13];
-                        n = Convert.ToInt32(fulltablearray[j, 16]);
+                    if (SatisfyCondition(secondCond, car))
+                    {   
                         int y;
-                        switch (grade)
+                        switch (car.rarity)
                         {
                             case "e":
                                 y = 1;
@@ -164,27 +153,27 @@ namespace Caitlyn_v1._0
                                 y = 0;
                                 break;
                         }
-                        switch (t)
+                        switch (car.tires)
                         {
                             case "per":
-                                dynamicTyres[y] += n;
+                                dynamicTyres[y] += car.amount;
                                 break;
                             case "std":
-                                standartTyres[y] += n;
+                                standartTyres[y] += car.amount;
                                 break;
                             case "all":
-                                allseasonTyres[y] += n;
+                                allseasonTyres[y] += car.amount;
                                 break;
                             case "off":
-                                offroadTyres[y] += n;
+                                offroadTyres[y] += car.amount;
                                 break;
                             default:
-                                slikTyres[y] += n;
+                                slikTyres[y] += car.amount;
                                 break;
                         }
-                        for (int k = 0; k < n; k++)
+                        for (int k = 0; k < car.amount; k++)
                         {
-                            rq.Add(Convert.ToInt32(fulltablearray[j, 10]));
+                            rq.Add(Convert.ToInt32(car.rq));
                         }
                     }
                 }
@@ -198,8 +187,7 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
-        public static bool SatisfyCondition(string cond, int car)
+        public static bool SatisfyCondition(string cond, CarForExcel car)
         {
             bool x = false;
             int year;
@@ -211,13 +199,13 @@ namespace Caitlyn_v1._0
                     x = true;
                     break;
                 case "задний привод":
-                    if (fulltablearray[car, 5] == "rwd")
+                    if (car.drive == "rwd")
                     {
                         x = true;
                     }
                     break;
                 case "передний привод":
-                    if (fulltablearray[car, 5] == "fwd")
+                    if (car.drive == "fwd")
                     {
                         x = true;
                     }
@@ -226,81 +214,81 @@ namespace Caitlyn_v1._0
                     x = true;
                     break;
                 case "audi":
-                    if (fulltablearray[car, 8] == "Audi")
+                    if (car.manufacturer == "Audi")
                     {
                         x = true;
                     }
                     break;
                 case "audi x3":
-                    if (fulltablearray[car, 8] == "Audi")
+                    if (car.manufacturer == "Audi")
                     {
                         x = true;
                     }
                     break;
                 case "бензиновые машины":
-                    if (fulltablearray[car, 6] == "petrol")
+                    if (car.fuel == "petrol")
                     {
                         x = true;
                     }
                     break;
                 case "дизели":
-                    if (fulltablearray[car, 6] == "diesel")
+                    if (car.fuel == "diesel")
                     {
                         x = true;
                     }
                     break;
                 case "обычная":
-                    if (fulltablearray[car, 2] == "f")
+                    if (car.rarity == "f")
                     {
                         x = true;
                     }
                     break;
                 case "обычная х2":
-                    if (fulltablearray[car, 2] == "f")
+                    if (car.rarity == "f")
                     {
                         x = true;
                     }
                     break;
                 case "необычная":
-                    if (fulltablearray[car, 2] == "e")
+                    if (car.rarity == "e")
                     {
                         x = true;
                     }
                     break;
                 case "машины японии":
-                    if (fulltablearray[car, 4] == "Japan")
+                    if (car.country == "Japan")
                     {
                         x = true;
                     }
                     break;
                 case "машины японии х3":
-                    if (fulltablearray[car, 4] == "Japan")
+                    if (car.country == "Japan")
                     {
                         x = true;
                     }
                     break;
                 case "jaguar":
-                    if (fulltablearray[car, 8] == "Jaguar")
+                    if (car.manufacturer == "Jaguar")
                     {
                         x = true;
                     }
                     break;
                 case "jaguar x3":
-                    if (fulltablearray[car, 8] == "Jaguar")
+                    if (car.manufacturer == "Jaguar")
                     {
                         x = true;
                     }
                     break;
                 case "машины сша":
-                    if (fulltablearray[car, 4] == "United States")
+                    if (car.country == "United States")
                     {
                         x = true;
                     }
                     break;
                 case "italian 60s-80s":
-                    if (fulltablearray[car, 4] == "Italy")
+                    if (car.country == "Italy")
                     {
-                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        year = Convert.ToInt32(car.year);
                         if (year > 1959 && year < 1990)
                         {
                             x = true;
@@ -308,26 +296,26 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "редкостная":
-                    if (fulltablearray[car, 2] == "d")
+                    if (car.rarity == "d")
                     {
                         x = true;
                     }
                     break;
                 case "редкостная х2":
-                    if (fulltablearray[car, 2] == "d")
+                    if (car.rarity == "d")
                     {
                         x = true;
                     }
                     break;
                 case "экстремальная":
-                    if (fulltablearray[car, 2] == "b")
+                    if (car.rarity == "b")
                     {
                         x = true;
                     }
                     break;
                 case "standard tyres":
                 case "standard tires":
-                    if (fulltablearray[car, 13] == "std")
+                    if (car.tires == "std")
                     {
                         x = true;
                     }
@@ -337,91 +325,91 @@ namespace Caitlyn_v1._0
                     x = SearchBody(car, bodytype);
                     break;
                 case "mercedes-benz":
-                    if (fulltablearray[car, 8] == "Mercedes-Benz")
+                    if (car.manufacturer == "Mercedes-Benz")
                     {
                         x = true;
                     }
                     break;
                 case "renault":
-                    if (fulltablearray[car, 8] == "Renault")
+                    if (car.manufacturer == "Renault")
                     {
                         x = true;
                     }
                     break;
                 case "renault x3":
-                    if (fulltablearray[car, 8] == "Renault")
+                    if (car.manufacturer == "Renault")
                     {
                         x = true;
                     }
                     break;
                 case "suzuki x3":
-                    if (fulltablearray[car, 8] == "Suzuki")
+                    if (car.manufacturer == "Suzuki")
                     {
                         x = true;
                     }
                     break;
                 case "nissan x3":
-                    if (fulltablearray[car, 8] == "Nissan")
+                    if (car.manufacturer == "Nissan")
                     {
                         x = true;
                     }
                     break;
                 case "полный привод":
-                    if (fulltablearray[car, 5] == "4wd")
+                    if (car.drive == "4wd")
                     {
                         x = true;
                     }
                     break;
                 case "машины англии":
-                    if (fulltablearray[car, 4] == "United Kingdom")
+                    if (car.country == "United Kingdom")
                     {
                         x = true;
                     }
                     break;
                 case "chrysler":
-                    if (fulltablearray[car, 8] == "Chrysler")
+                    if (car.manufacturer == "Chrysler")
                     {
                         x = true;
                     }
                     break;
                 case "chrysler x3":
-                    if (fulltablearray[car, 8] == "Chrysler")
+                    if (car.manufacturer == "Chrysler")
                     {
                         x = true;
                     }
                     break;
                 case "peugeot":
-                    if (fulltablearray[car, 8] == "Peugeot")
+                    if (car.manufacturer == "Peugeot")
                     {
                         x = true;
                     }
                     break;
                 case "peugeot x3":
-                    if (fulltablearray[car, 8] == "Peugeot")
+                    if (car.manufacturer == "Peugeot")
                     {
                         x = true;
                     }
                     break;
                 case "honda":
-                    if (fulltablearray[car, 8] == "Honda")
+                    if (car.manufacturer == "Honda")
                     {
                         x = true;
                     }
                     break;
                 case "honda x3":
-                    if (fulltablearray[car, 8] == "Honda")
+                    if (car.manufacturer == "Honda")
                     {
                         x = true;
                     }
                     break;
                 case "alfa romeo":
-                    if (fulltablearray[car, 8] == "Alfa Romeo")
+                    if (car.manufacturer == "Alfa Romeo")
                     {
                         x = true;
                     }
                     break;
                 case "alfa romeo x3":
-                    if (fulltablearray[car, 8] == "Alfa Romeo")
+                    if (car.manufacturer == "Alfa Romeo")
                     {
                         x = true;
                     }
@@ -431,61 +419,61 @@ namespace Caitlyn_v1._0
                     x = SearchTag(car, tag);
                     break;
                 case "машины франции":
-                    if (fulltablearray[car, 4] == "France")
+                    if (car.country == "France")
                     {
                         x = true;
                     }
                     break;
                 case "машины франции х2":
-                    if (fulltablearray[car, 4] == "France")
+                    if (car.country == "France")
                     {
                         x = true;
                     }
                     break;
                 case "all-surface tyres":
-                    if (fulltablearray[car, 13] == "all")
+                    if (car.tires == "all")
                     {
                         x = true;
                     }
                     break;
                 case "ford":
-                    if (fulltablearray[car, 8] == "Ford")
+                    if (car.manufacturer == "Ford")
                     {
                         x = true;
                     }
                     break;
                 case "bmw":
-                    if (fulltablearray[car, 8] == "BMW")
+                    if (car.manufacturer == "BMW")
                     {
                         x = true;
                     }
                     break;
                 case "bmw x3":
-                    if (fulltablearray[car, 8] == "BMW")
+                    if (car.manufacturer == "BMW")
                     {
                         x = true;
                     }
                     break;
                 case "машины италии":
-                    if (fulltablearray[car, 4] == "Italy")
+                    if (car.country == "Italy")
                     {
                         x = true;
                     }
                     break;
                 case "5-местные":
-                    if (fulltablearray[car, 11] == "5")
+                    if (Convert.ToInt32(car.seats) == 5)
                     {
                         x = true;
                     }
                     break;
                 case "mazda":
-                    if (fulltablearray[car, 8] == "Mazda")
+                    if (car.manufacturer == "Mazda")
                     {
                         x = true;
                     }
                     break;
                 case "машины германии":
-                    if (fulltablearray[car, 4] == "Germany")
+                    if (car.country == "Germany")
                     {
                         x = true;
                     }
@@ -495,57 +483,57 @@ namespace Caitlyn_v1._0
                     x = (SearchTag(car, tag));
                     break;
                 case "dodge":
-                    if (fulltablearray[car, 8] == "Dodge")
+                    if (car.manufacturer == "Dodge")
                     {
                         x = true;
                     }
                     break;
                 case "dodge x3":
-                    if (fulltablearray[car, 8] == "Dodge")
+                    if (car.manufacturer == "Dodge")
                     {
                         x = true;
                     }
                     break;
                 case "суперская":
-                    if (fulltablearray[car, 2] == "c")
+                    if (car.rarity == "c")
                     {
                         x = true;
                     }
                     break;
                 case "машины 1980":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year > 1979 && year < 1990)
                     {
                         x = true;
                     }
                     break;
                 case "porsche":
-                    if (fulltablearray[car, 8] == "Porsche")
+                    if (car.manufacturer == "Porsche")
                     {
                         x = true;
                     }
                     break;
                 case "mercedes-benz x3":
-                    if (fulltablearray[car, 8] == "Mercedes-Benz")
+                    if (car.manufacturer == "Mercedes-Benz")
                     {
                         x = true;
                     }
                     break;
                 case "opel":
-                    if (fulltablearray[car, 8] == "Vauxhall")
+                    if (car.manufacturer == "Vauxhall")
                     {
                         x = true;
                     }
                     break;
                 case "2-местные":
-                    if (fulltablearray[car, 11] == "2")
+                    if (Convert.ToInt32(car.seats) == 2)
                     {
                         x = true;
                     }
                     break;
                 case "2000s 4wd":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
-                    if (fulltablearray[car, 5] == "4wd" && (year > 1999 && year < 2010))
+                    year = Convert.ToInt32(car.year);
+                    if (car.drive == "4wd" && (year > 1999 && year < 2010))
                     {
                         x = true;
                     }
@@ -571,50 +559,50 @@ namespace Caitlyn_v1._0
                     x = (SearchTag(car, tag));
                     break;
                 case "cadillac":
-                    if (fulltablearray[car, 8] == "Cadillac")
+                    if (car.manufacturer == "Cadillac")
                     {
                         x = true;
                     }
                     break;
                 case "cadillac x3":
-                    if (fulltablearray[car, 8] == "Cadillac")
+                    if (car.manufacturer == "Cadillac")
                     {
                         x = true;
                     }
                     break;
                 case "citroen":
-                    if (fulltablearray[car, 8] == "Citroen")
+                    if (car.manufacturer == "Citroen")
                     {
                         x = true;
                     }
                     break;
                 case "citroen x3":
-                    if (fulltablearray[car, 8] == "Citroen")
+                    if (car.manufacturer == "Citroen")
                     {
                         x = true;
                     }
                     break;
                 case "pre-1970":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year < 1970)
                     {
                         x = true;
                     }
                     break;
                 case "pontiac":
-                    if (fulltablearray[car, 8] == "Pontiac")
+                    if (car.manufacturer == "Pontiac")
                     {
                         x = true;
                     }
                     break;
                 case "pontiac x3":
-                    if (fulltablearray[car, 8] == "Pontiac")
+                    if (car.manufacturer == "Pontiac")
                     {
                         x = true;
                     }
                     break;
                 case "1975-1984":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year > 1974 && year < 1985)
                     {
                         x = true;
@@ -629,37 +617,37 @@ namespace Caitlyn_v1._0
                     x = (SearchTag(car, tag));
                     break;
                 case "fiat":
-                    if (fulltablearray[car, 8] == "Fiat")
+                    if (car.manufacturer == "Fiat")
                     {
                         x = true;
                     }
                     break;
                 case "fiat x3":
-                    if (fulltablearray[car, 8] == "Fiat")
+                    if (car.manufacturer == "Fiat")
                     {
                         x = true;
                     }
                     break;
                 case "nissan":
-                    if (fulltablearray[car, 8] == "Nissan")
+                    if (car.manufacturer == "Nissan")
                     {
                         x = true;
                     }
                     break;
                 case "chevrolet":
-                    if (fulltablearray[car, 8] == "Chevrolet")
+                    if (car.manufacturer == "Chevrolet")
                     {
                         x = true;
                     }
                     break;
                 case "chevrolet x3":
-                    if (fulltablearray[car, 8] == "Chevrolet")
+                    if (car.manufacturer == "Chevrolet")
                     {
                         x = true;
                     }
                     break;
                 case "2000-2004":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year > 1999 && year < 2005)
                     {
                         x = true;
@@ -670,27 +658,27 @@ namespace Caitlyn_v1._0
                     x = (SearchTag(car, tag));
                     break;
                 case "2005-2009":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year > 2004 && year < 2010)
                     {
                         x = true;
                     }
                     break;
                 case "1985-1994":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year > 1984 && year < 1995)
                     {
                         x = true;
                     }
                     break;
                 case "subaru":
-                    if (fulltablearray[car, 8] == "Subaru")
+                    if (car.manufacturer == "Subaru")
                     {
                         x = true;
                     }
                     break;
                 case "subaru x3":
-                    if (fulltablearray[car, 8] == "Subaru")
+                    if (car.manufacturer == "Subaru")
                     {
                         x = true;
                     }
@@ -713,16 +701,16 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины 1990":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year > 1989 && year < 2000)
                     {
                         x = true;
                     }
                     break;
                 case "2000 rwd":
-                    if (fulltablearray[car, 5] == "rwd")
+                    if (car.drive == "rwd")
                     {
-                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        year = Convert.ToInt32(car.year);
                         if (year > 1999 && year < 2010)
                         {
                             x = true;
@@ -730,64 +718,64 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины 1970":
-                    year = Convert.ToInt32(fulltablearray[car, 15]);
+                    year = Convert.ToInt32(car.year);
                     if (year > 1969 && year < 1980)
                     {
                         x = true;
                     }
                     break;
                 case "машины италии х3":
-                    if (fulltablearray[car, 4] == "Italy")
+                    if (car.country == "Italy")
                     {
                         x = true;
                     }
                     break;
                 case "машины италии х2":
-                    if (fulltablearray[car, 4] == "Italy")
+                    if (car.country == "Italy")
                     {
                         x = true;
                     }
                     break;
                 case "машины франции х3":
-                    if (fulltablearray[car, 4] == "France")
+                    if (car.country == "France")
                     {
                         x = true;
                     }
                     break;
                 case "машины англии х3":
-                    if (fulltablearray[car, 4] == "United Kingdom")
+                    if (car.country == "United Kingdom")
                     {
                         x = true;
                     }
                     break;
                 case "машины англии х2":
-                    if (fulltablearray[car, 4] == "United Kingdom")
+                    if (car.country == "United Kingdom")
                     {
                         x = true;
                     }
                     break;
                 case "машины японии х2":
-                    if (fulltablearray[car, 4] == "Japan")
+                    if (car.country == "Japan")
                     {
                         x = true;
                     }
                     break;
                 case "машины германии х2":
-                    if (fulltablearray[car, 4] == "Germany")
+                    if (car.country == "Germany")
                     {
                         x = true;
                     }
                     break;
                 case "машины германии х3":
-                    if (fulltablearray[car, 4] == "Germany")
+                    if (car.country == "Germany")
                     {
                         x = true;
                     }
                     break;
                 case "german 2015-2019 x3":
-                    if (fulltablearray[car, 4] == "Germany")
+                    if (car.country == "Germany")
                     {
-                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        year = Convert.ToInt32(car.year);
                         if (year > 2014 && year < 2020)
                         {
                             x = true;
@@ -795,45 +783,45 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины сша х2":
-                    if (fulltablearray[car, 4] == "United States")
+                    if (car.country == "United States")
                     {
                         x = true;
                     }
                     break;
                 case "машины сша х3":
-                    if (fulltablearray[car, 4] == "United States")
+                    if (car.country == "United States")
                     {
                         x = true;
                     }
                     break;
                 case "ford x3":
-                    if (fulltablearray[car, 8] == "Ford")
+                    if (car.manufacturer == "Ford")
                     {
                         x = true;
                     }
                     break;
                 case "opel x3":
-                    if (fulltablearray[car, 8] == "Vauxhall")
+                    if (car.manufacturer == "Vauxhall")
                     {
                         x = true;
                     }
                     break;
                 case "необычная х3":
-                    if (fulltablearray[car, 2] == "e")
+                    if (car.rarity == "e")
                     {
                         x = true;
                     }
                     break;
                 case "суперская х2":
-                    if (fulltablearray[car, 2] == "c")
+                    if (car.rarity == "c")
                     {
                         x = true;
                     }
                     break;
                 case "german 2010-2014 x3":
-                    if (fulltablearray[car, 4] == "German")
+                    if (car.country == "German")
                     {
-                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        year = Convert.ToInt32(car.year);
                         if (year > 2009 && year < 2015)
                         {
                             x = true;
@@ -841,9 +829,9 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "italian 90s x3":
-                    if (fulltablearray[car, 4] == "Italy")
+                    if (car.country == "Italy")
                     {
-                        year = Convert.ToInt32(fulltablearray[car, 15]);
+                        year = Convert.ToInt32(car.year);
                         if (year > 1989 && year < 2000)
                         {
                             x = true;
@@ -857,15 +845,13 @@ namespace Caitlyn_v1._0
             }
             return x;
         }
-
-        public static bool SearchTag(int car, string tag)
+        public static bool SearchTag(CarForExcel car, string tag)
         {
-            return fulltablearray[car, 17].Contains(tag);
+            return car.tags.Contains(tag);
         }
-
-        public static bool SearchBody(int car, string bodytype)
+        public static bool SearchBody(CarForExcel car, string bodytype)
         {
-            return fulltablearray[car, 1].Contains(bodytype);
+            return car.body.Contains(bodytype);
         }
     }
 }

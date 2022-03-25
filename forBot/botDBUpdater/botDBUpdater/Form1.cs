@@ -297,9 +297,7 @@ namespace botDBUpdater
             {
                 excelFilePath = openFileDialog.FileName;
             }
-
-            FullTable();
-            comboBox1.Items.AddRange(CollectCountries());
+                        
             label17.Text = excelFilePath;
         }
         private void button5_Click(object sender, EventArgs e)
@@ -311,7 +309,8 @@ namespace botDBUpdater
                 cashCarsPath = openFileDialog.FileName;
             }
 
-            PictureToNameTable();
+            FullTable();
+            comboBox1.Items.AddRange(CollectCountries());
             label18.Text = cashCarsPath;
         }
         private void button11_Click(object sender, EventArgs e)
@@ -323,6 +322,7 @@ namespace botDBUpdater
                 pictureToCarPath = openFileDialog.FileName;
             }
 
+            PictureToNameTable();
             label19.Text = pictureToCarPath;
         }
 

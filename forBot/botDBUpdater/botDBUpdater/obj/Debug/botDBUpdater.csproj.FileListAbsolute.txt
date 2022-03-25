@@ -19,3 +19,15 @@ C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\D
 C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.pdb
 C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csprojAssemblyReference.cache
 C:\projects\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.ResolveComReference.cache
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe.config
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.pdb
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.AssemblyReference.cache
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.SuggestedBindingRedirects.cache
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.ResolveComReference.cache
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Form1.resources
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Properties.Resources.resources
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.GenerateResource.cache
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.CoreCompileInputs.cache
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.exe
+D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.pdb

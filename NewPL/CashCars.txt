@@ -37,7 +37,7 @@
 0 Suzuki Splash 2008
 0 Suzuki Splash 2012
 0 Chevrolet Bel Air 1957
-0 Chevrolet Caprice 1991
+1 Chevrolet Caprice 1991
 0 Ford C-Max 2015
 0 Ford Escort XR3i 1982
 0 Ford Fiesta 1983
@@ -57,7 +57,7 @@
 0 Honda Jazz Hybrid 2007
 0 Renault Clio 2005
 0 Renault Espace 1997
-0 Fiat Qubo 2009
+1 Fiat Qubo 2009
 0 Renault 8 Gordini 1964
 0 Renault Scenic 2003
 0 Fiat Punto Cabrio 1993
@@ -96,7 +96,7 @@
 0 Austin Maxi 1969
 0 Porsche 356 Speedster 1955
 0 Fiat 500L 2012
-0 Fiat Multipla 1998
+1 Fiat Multipla 1998
 0 Renault 16 1965
 0 Chevrolet Matiz 2005
 0 Renault 17 Coupe 1976
@@ -111,12 +111,12 @@
 0 Renault Espace 1991
 0 Smart Crossblade 2002
 0 Smart Forfour 2016
-0 Citroen Mehari 4x4 1980
+1 Citroen Mehari 4x4 1980
 0 Mini Cooper S 1971
 0 Subaru Rex 1986
 0 Ford Cortina 1974
 0 Ford Fiesta 1976
-0 Chrysler Imperial 1990
+1 Chrysler Imperial 1990
 0 Vauxhall Astra 1.2 1984
 0 Chrysler Town and Country 1990
 0 Vauxhall Astra 1.4i 1991
@@ -142,9 +142,9 @@
 0 Renault 5 1984
 0 Renault 6 1968
 0 Citroen 2CV 6 1979
-0 Citroen Ami Super 1973
+1 Citroen Ami Super 1973
 0 Citroen Axel 12 TRS 1984
-0 Citroen C-Zero 2016
+1 Citroen C-Zero 2016
 0 Citroen GSA 1979
 0 Citroen Xsara Picasso 1997
 0 Subaru Rex 1972
@@ -173,9 +173,9 @@
 0 Renault Kadjar 2016
 0 Fiat Dino Spider 1966
 0 Chevrolet Camaro Z/28 1977
-0 Chevrolet Impala SS 427 1967
+1 Chevrolet Impala SS 427 1967
 0 Chevrolet Orlando LTZ 2010
-0 Citroen CX GTi Turbo 1974
+1 Citroen CX GTi Turbo 1974
 0 Citroen Xantia VSX 1993
 0 Mercedes-Benz E 320 1994
 0 Mazda 6 2016
@@ -188,7 +188,7 @@
 0 Ford Focus Bioethanol 2006
 0 Chevrolet El Camino 1963
 0 Chevrolet Impala SS 1964
-0 Chevrolet Lumina Z34 1991
+1 Chevrolet Lumina Z34 1991
 0 Chevrolet S-10 Blazer Xtreme 1999
 0 Ford Mondeo 2004
 0 Ford Ranger 2006
@@ -198,7 +198,7 @@
 0 Nissan Note 2013
 0 Nissan Pulsar 2015
 0 Volvo 740 Turbo 1990
-0 Dodge Stealth 1995
+1 Dodge Stealth 1995
 0 Honda Civic Tourer 1.6d 2016
 0 Honda CR-Z 2016
 0 Buick Rendezvous 2002
@@ -240,7 +240,7 @@
 0 Vauxhall Insignia 2.0 CDTi 2016
 0 Nissan Patrol (type 60) 1959
 0 Vauxhall Nova GTE 1987
-0 Chrysler PT Cruiser 2004
+1 Chrysler PT Cruiser 2004
 0 Chrysler Sebring 2007
 0 Nissan S-Cargo 1989
 0 Nissan Silvia 1975
@@ -252,11 +252,11 @@
 0 Porsche 911 1965
 0 Cadillac Eldorado 1979
 0 Cadillac Eldorado 1991
-0 Fiat Panda 2017
+1 Fiat Panda 2017
 0 Renault Laguna 2001
 0 Renault Scenic 2016
 0 Chevrolet Cruze LS 2009
-0 Chevrolet Blazer S-10 1983
+1 Chevrolet Blazer S-10 1983
 0 Lancia Beta Montecarlo 1975
 0 Lancia Fulvia Coupe 1965
 0 Citroen AX GTi 1993
@@ -264,7 +264,7 @@
 0 Citroen C5 Saloon 1.6 L 2004
 0 Smart Fortwo Coupe T 2016
 0 Mercedes-Benz A 200 CDI 2004
-0 DS 5 2012
+1 DS 5 2012
 0 Mini One 2016
 0 Mazda Autozam AZ-1 1992
 0 Mazda 2 2018
@@ -299,14 +299,14 @@
 0 Infiniti Q30 2016
 0 Porsche 914 1969
 0 Fiat Panda 4x4 1983
-0 Fiat X1/9 1972
+1 Fiat X1/9 1972
 0 Fiat 500 2017
 0 Renault 30 1975
 0 Fiat Tipo 2017
 0 Renault 21 Savanna 1986
 0 Chevrolet Cruze LT 2012
 0 Chevrolet Cruze SW 2012
-0 Chevrolet Monte Carlo SS 1983
+1 Chevrolet Monte Carlo SS 1983
 0 Lancia Beta HPE 1978
 0 Smart Brabus Roadster 2005
 0 Citroen C1 VTi 68 2015
@@ -314,7 +314,7 @@
 0 Citroen Visa GTi 1978
 0 Mercedes-Benz 300 SL 1963
 0 Citroen C3 Picasso 2016
-0 Citroen ZX Volcane TD 1991
+1 Citroen ZX Volcane TD 1991
 0 Mercedes-Benz S 280 1995
 0 Mercedes-Benz V 250d 2015
 0 Mazda Cosmo 1981
@@ -323,7 +323,7 @@
 0 Mitsubishi Mirage 2013
 0 Nissan Primera eGT 1990
 0 Nissan Terrano II 2002
-0 Chrysler Crossfire Roadster 2004
+2 Chrysler Crossfire Roadster 2004
 1 Audi quattro 1980
 0 Volvo C70 T5 2013
 0 Ford Mondeo 2013
@@ -337,7 +337,7 @@
 0 Alfa Romeo 159 2005
 1 Alfa Romeo Brera S 2008
 0 Alfa Romeo 146 ti 1996
-0 Fiat 124 Sport Spider 1966
+1 Fiat 124 Sport Spider 1966
 0 Fiat 124 Spider 2017
 0 Mercedes-Benz 280 GE 1990
 0 Mercedes-Benz E 220 2015
@@ -358,13 +358,13 @@
 0 Ford Kuga 2016
 0 Ford Mondeo 2017
 0 Ford Ranger 2012
-0 Chevrolet Malibu 2019
-0 Chevrolet Monte Carlo SS Jeff Gordon Edition 2003
+1 Chevrolet Malibu 2019
+1 Chevrolet Monte Carlo SS Jeff Gordon Edition 2003
 0 Acura Integra GS-R 1994
 0 Acura Legend 3.2 V6 1990
 0 Volvo C70 T5 2.3 2003
 0 Dodge Challenger T/A 1970
-0 Dodge Grand Caravan 2018
+1 Dodge Grand Caravan 2018
 0 Honda Prelude Type S 1996
 0 Honda Accord Hybrid 2016
 0 Honda Civic Si 1995
@@ -384,9 +384,9 @@
 0 Renault Safrane Biturbo 1992
 0 Renault 21 2.0l Turbo Quadra 1986
 0 Renault Megane 1995
-0 Chevrolet Corvette 396 1965
-0 Citroen C2 VTS 2003
-0 Citroen C4 2.0 16v VTS 2004
+1 Chevrolet Corvette 396 1965
+1 Citroen C2 VTS 2003
+1 Citroen C4 2.0 16v VTS 2004
 0 Citroen BX 16v 1987
 0 Citroen C5 Tourer 3.0 L 2016
 0 Mercedes-Benz 190 E 2.3-16 1984
@@ -405,7 +405,7 @@
 0 Nissan Patrol 2000
 0 Vauxhall Mokka 4x4 2016
 0 Chrysler Prowler 2001
-0 Dodge Dart 2017
+1 Dodge Dart 2017
 0 Honda CRX VTEC 1988
 0 Honda City Turbo 1981
 0 Honda Odyssey 2016
@@ -418,7 +418,7 @@
 0 Alfa Romeo Alfasud 1982
 0 Alfa Romeo Montreal 1970
 0 Renault 19 16S 1988
-0 Fiat Panda 100hp 2006
+1 Fiat Panda 100hp 2006
 0 Renault 25 V6 Turbo 1983
 0 Renault Sport Twingo 133 Cup 2012
 0 Chevrolet Camaro Z/28 1970
@@ -427,13 +427,13 @@
 0 Fiat Punto 1.4 GT 1993
 0 Chevrolet Impala SS 1996
 0 Fiat Strada Abarth 130TC 1982
-0 Chevrolet Monte Carlo SS 454 1970
+1 Chevrolet Monte Carlo SS 454 1970
 0 Fiat Punto HGT 1999
 0 Citroen C4 Picasso THP 165 2016
 0 Citroen C6 3.0 L V6 HDi 2005
 0 Citroen Grand C4 Picasso 2015
 0 Citroen Saxo VTS 16V 1996
-0 Citroen Xsara VTS 1997
+1 Citroen Xsara VTS 1997
 0 Mercedes-Benz A 200 2012
 0 Mazda 3 2018
 0 Mazda BT-50 2018
@@ -441,14 +441,14 @@
 0 DS 3 Convertible 2016
 0 Ford Focus 2006
 0 Ford Escort RS2000 1996
-0 Chevrolet SSR 2003
+1 Chevrolet SSR 2003
 0 Nissan Juke 2013
 0 Nissan Patrol 1987
 0 Vauxhall Astra GTE 1988
 0 Vauxhall Cascada 2016
 0 Nissan Primera 2004
 0 Vauxhall Vectra 2.5 V6 1995
-0 Chrysler 300 Touring 2005
+1 Chrysler 300 Touring 2005
 0 Plymouth Fury 1958
 0 Honda Legend 2.7 V6 1985
 0 Honda Prelude 2.0Si 4WS 1987
@@ -466,14 +466,14 @@
 0 Alfa Romeo 90 1984
 1 Alfa Romeo Giulietta 2017
 0 Lotus Elan 1962
-0 Fiat Barchetta 1995
+1 Fiat Barchetta 1995
 0 Renault Espace 2016
 0 Renault Wind 2010
-0 Fiat Dino Coupe 1966
+1 Fiat Dino Coupe 1966
 0 Chevrolet Chevelle SS 454 1970
-0 Chevrolet Volt 2012
-0 Chevrolet Captiva 2007
-0 Fiat Uno Turbo 1985
+1 Chevrolet Volt 2012
+1 Chevrolet Captiva 2007
+1 Fiat Uno Turbo 1985
 0 Lancia Beta Coupe 1982
 0 Citroen XM V6 24V 1989
 0 Mercedes-Benz C 200 K 2002
@@ -507,10 +507,10 @@
 1 Cadillac Escalade 2011
 0 Renault Sport Clio 200 2009
 0 Renault Sport Megane 2002
-0 Fiat Abarth 695 Biposto 2017
-0 Chevrolet Suburban 2016
+1 Fiat Abarth 695 Biposto 2017
+1 Chevrolet Suburban 2016
 0 Lancia Delta Integrale 8v 1989
-0 Citroen BX 4TC 1982
+1 Citroen BX 4TC 1982
 0 Lancia Rally 037 Stradale 1982
 0 Mercedes-Benz E 320 CDI 2005
 0 Mercedes-Benz GLA 220d 2015
@@ -524,8 +524,8 @@
 0 Ford Focus ST Superchips 2005
 0 Ford Mustang GT Convertible 2005
 0 Ford Ranger Wildtrak 2012
-0 Chevrolet Corvette ZR2 1972
-0 Chevrolet Monte Carlo SS 2006
+1 Chevrolet Corvette ZR2 1972
+1 Chevrolet Monte Carlo SS 2006
 0 Nissan 350Z Roadster 2004
 0 Nissan Juke Nismo 2016
 0 Nissan Qashqai 2008
@@ -533,12 +533,12 @@
 0 Nissan X-Trail 2010
 0 Vauxhall Antara 2.2CDTi 2016
 0 Vauxhall Corsa VXR 2016
-0 Chrysler 200 S 2017
-0 Chrysler 300S 2018
+1 Chrysler 200 S 2017
+1 Chrysler 300S 2018
 0 Honda Pilot 4WD 2009
 0 Honda Ridgeline 2016
 0 Honda Civic Type R 2001
-0 Dodge Durango GT 2018
+1 Dodge Durango GT 2018
 0 Honda CR-V 1.6 i-DTEC 2016
 1 BMW M1 1978
 1 BMW 320d 2005
@@ -551,8 +551,8 @@
 1 Alfa Romeo 164 Super 1993
 0 Renault Sport Clio V6 2003
 0 Renault Sport Clio 182 Trophy 2005
-0 Fiat Abarth 124 Spider 2017
-0 Fiat Coupe 20v Turbo 1993
+1 Fiat Abarth 124 Spider 2017
+1 Fiat Coupe 20v Turbo 1993
 0 Lancia Stratos 1973
 0 Lancia Thema 8.32 1986
 0 Mercedes-Benz AMG C 43 1999
@@ -569,14 +569,14 @@
 0 Ford Fiesta ST 2016
 0 Ford Galaxy 2015
 0 Ford Thunderbird 3.9l V8 2002
-0 Chevrolet Camaro IROC Z/28 1990
-0 Chevrolet HHR SS Turbocharged 2008
-0 Chevrolet Silverado SS 2006
+1 Chevrolet Camaro IROC Z/28 1990
+1 Chevrolet HHR SS Turbocharged 2008
+1 Chevrolet Silverado SS 2006
 0 Nissan Datsun 240Z Rally Car 1973
 0 Nissan X-Trail 2001
 0 Nissan Navara 2005
 0 Vauxhall Vectra VXR 2006
-0 Chrysler Crossfire SRT-6 Coupe 2004
+1 Chrysler Crossfire SRT-6 Coupe 2004
 0 Volvo 850 R 1997
 0 Volvo C30 T5 R-Design 2008
 0 Honda Accord Type R 1997
@@ -598,10 +598,10 @@
 2 Caterham Seven 270 2015
 0 Renault Alpine GTA V6 Turbo Le Mans 1990
 0 Renault Sport Clio 172 Cup 1999
-0 Chevrolet Camaro Z/28 1993
-0 Chevrolet Captiva LTX 2008
-0 Chevrolet Silverado 2016
-0 Citroen C-Crosser 2.2 L HDi 2007
+1 Chevrolet Camaro Z/28 1993
+2 Chevrolet Captiva LTX 2008
+1 Chevrolet Silverado 2016
+1 Citroen C-Crosser 2.2 L HDi 2007
 0 Mercedes-Benz SLK 200 2016
 0 Mazda Jota MX-5 GT 2013
 0 Subaru BRZ 2016
@@ -616,15 +616,15 @@
 0 Suzuki SX4 S-Cross 2016
 0 Ford Mondeo ST220 2000
 0 Chevrolet Camaro IROC-Z 1985
-0 Chevrolet K5 Blazer 5.7L 1972
+1 Chevrolet K5 Blazer 5.7L 1972
 0 Nissan Almera GTI 1997
 0 Nissan 200SX 1993
 0 Nissan Skyline Hardtop 2000 GT-R (C10) 1971
 0 Nissan NP300 Navara 2017
 0 Vauxhall Chevette HSR 1980
-0 Chrysler Crossfire Coupe 2004
+1 Chrysler Crossfire Coupe 2004
 0 Volvo 850 T-5R 1995
-0 Dodge SRT-4 2004
+1 Dodge SRT-4 2004
 0 Honda Accord Euro-R 2006
 0 Honda Civic Type R 1999
 0 Honda Integra Type R 2002
@@ -648,10 +648,10 @@
 1 Alfa Romeo GTV 1998
 0 Renault Alpine A110 1971
 0 Renault 5 Turbo 1980
-0 Fiat Abarth 131 Rally 1976
+1 Fiat Abarth 131 Rally 1976
 0 Renault Sport Clio V6 2001
-0 Chevrolet Corvette C4 1984
-0 Chevrolet El Camino SS 454 1969
+1 Chevrolet Corvette C4 1984
+1 Chevrolet El Camino SS 454 1969
 0 Lancia Delta HF 4WD 1986
 0 Mercedes-Benz 190 E Evo II 1990
 0 Mazda RX-7 Turbo 1985
@@ -665,8 +665,8 @@
 0 Ford Scorpio 24-valve 1991
 0 Ford Ranger 2016
 0 Chrysler 300 SRT-8 2005
-0 GMC Terrain 2010
-0 GMC Yukon 2010
+2 GMC Terrain 2010
+1 GMC Yukon 2010
 0 Honda Civic Type R 2016
 0 Honda Legend 3.7 SH-AWD 2004
 1 Audi S1 2014
@@ -699,7 +699,7 @@
 0 Ford RS200 1984
 0 Ford Focus RS500 2010
 0 Ford Focus RS 2009
-0 Chevrolet Camaro SS Coupe 2010
+1 Chevrolet Camaro SS Coupe 2010
 0 Nissan Skyline GT-R (R33) 1995
 0 Nissan Patrol Nismo 2016
 0 TVR Tamora 2001
@@ -725,8 +725,8 @@
 0 Lotus 340R 2000
 0 Renault Sport Megane 275 Trophy-R 2016
 1 Caterham Seven 360 2015
-0 Chevrolet Camaro SS Convertible 2012
-0 Chevrolet Corvette C5 1997
+1 Chevrolet Camaro SS Convertible 2012
+1 Chevrolet Corvette C5 1997
 0 Mercedes-Benz AMG C 55 2007
 0 Mercedes-Benz AMG SL 73 1999
 0 Mercedes-Benz AMG SLK 32 2004
@@ -737,10 +737,10 @@
 0 Mitsubishi Lancer Evo I 1992
 0 Ford Sierra RS Cosworth 4x4 1990
 0 Porsche 924 Carrera GTS Rallye 1981
-0 Chevrolet Aerovette 1977
+1 Chevrolet Aerovette 1977
 0 Chevrolet Corvette Grand Sport 1996
 0 Nissan Skyline GT-R (R32) 1989
-0 Chevrolet Tahoe Custom 2018
+1 Chevrolet Tahoe Custom 2018
 0 Nissan Murano 2008
 0 Nissan Murano GT-C 2006
 0 Nissan Silvia 240RS 1983
@@ -750,10 +750,10 @@
 0 Vauxhall Calibra Turbo 1992
 0 GMC Yukon XL 2014
 0 Honda NSX 1990
-0 Dodge Charger Daytona 2017
-0 Dodge Charger SRT-8 2006
-0 Dodge Magnum SRT-8 2006
-0 Dodge Viper RT/10 1992
+1 Dodge Charger Daytona 2017
+1 Dodge Charger SRT-8 2006
+1 Dodge Magnum SRT-8 2006
+2 Dodge Viper RT/10 1992
 0 Ram 1500 Rebel 2019
 1 BMW 640d 2016
 1 BMW M3 2001
@@ -796,7 +796,7 @@
 0 Vauxhall VX220 2000
 0 Honda Accord 3.5l V6 2016
 0 Volvo XC90 V8 2010
-0 Dodge Challenger GT AWD 2018
+1 Dodge Challenger GT AWD 2018
 1 BMW 540i 1993
 1 BMW 530i 1996
 1 BMW M5 1994
@@ -811,7 +811,7 @@
 0 Lotus Elise 111S 2002
 0 Lotus Elise Sport 135 2003
 0 Renault Sport Clio 220 Trophy 2016
-0 Chevrolet Trailblazer SS 2006
+1 Chevrolet Trailblazer SS 2006
 0 Mercedes-Benz E 500 1994
 0 Mercedes-Benz GLC 250d 2015
 0 Mercedes-Benz S 350 4MATIC 2007
@@ -827,8 +827,8 @@
 0 Mitsubishi Outlander PHEV 2016
 0 Mitsubishi Outlander 2012
 0 Ford Escort RS Cosworth 1992
-0 Chevrolet Camaro Z28 SS 1999
-0 Chevrolet Cobalt SS S/C 2006
+1 Chevrolet Camaro Z28 SS 1999
+2 Chevrolet Cobalt SS S/C 2006
 0 Nissan 350Z 2002
 0 Nissan Pathfinder 2010
 0 Nissan Murano CrossCabriolet 2011
@@ -845,8 +845,8 @@
 0 Audi RS 4 Avant 2006
 1 Audi RS 5 Cabriolet 2012
 1 Audi RS Q3 2015
-0 Dodge Challenger SRT Hellcat 2015
-0 Dodge Challenger SRT Hellcat Widebody 2018
+1 Dodge Challenger SRT Hellcat 2015
+1 Dodge Challenger SRT Hellcat Widebody 2018
 0 BMW M3 GTS 2010
 1 BMW M4 2014
 1 BMW X5 M50d 2016
@@ -864,7 +864,7 @@
 0 Lotus 2-Eleven GT4 Supersport 2009
 0 Lotus 2-Eleven S'charged 2007
 1 Caterham Superlight R500 2008
-0 Chevrolet Corvette Z06 2006
+1 Chevrolet Corvette Z06 2006
 0 Chevrolet Corvette Z06 Lingenfelter 2006
 0 Chevrolet Corvette Stingray Z51 2016
 0 Mercedes-Benz AMG A 45 2016
@@ -899,7 +899,7 @@
 0 KTM X-Bow GT 2016
 0 Caterham JPE 1992
 0 Caterham CSR 2005
-0 Chevrolet Camaro Z/28 2015
+1 Chevrolet Camaro Z/28 2015
 0 Mercedes-Benz AMG C 63 2015
 0 Mercedes-Benz AMG CLK 63 Black Series 2007
 0 Mercedes-Benz AMG CLK DTM 2007
@@ -908,8 +908,8 @@
 0 Ford Mustang BOSS 302 2012
 0 Mitsubishi Lancer Evo VI T.M. Edition 2000
 0 Mitsubishi Lancer Evo VIII MR FQ-340 2005
-0 Chevrolet Corvette 2009
-0 Chevrolet Corvette Grand Sport 2017
+1 Chevrolet Corvette 2009
+1 Chevrolet Corvette Grand Sport 2017
 1 Audi S8 2006
 0 Volvo 850 BTCC 1994
 0 BMW 1-series M coupe 2011
@@ -964,7 +964,7 @@
 0 Infiniti G35 2007
 0 Infiniti QX70 2014
 0 Lotus Esprit Sport 350 1999
-0 Chevrolet Corvette Z06 2001
+1 Chevrolet Corvette Z06 2001
 0 Mercedes-Benz AMG G 63 6x6 2013
 0 Mercedes-Benz 57S Maybach 2012
 0 Mercedes-Benz AMG E 55 2003
@@ -1072,30 +1072,30 @@
 0 Cadillac Cimarron 1982
 0 Chevrolet Fleetline 1948
 0 Citroen GZ 1973
-0 Citroen M35 1969
+1 Citroen M35 1969
 0 Citroen Traction Avant 1934
 0 DS DS Convertible 1958
-0 GMC Caballero Diablo 1984
+1 GMC Caballero Diablo 1984
 0 Peugeot 204 Coupe 1965
 0 Plymouth Reliant 1981
-0 Chrysler Turbine Car 1963
-0 Dodge Monaco 1974
+1 Chrysler Turbine Car 1963
+1 Dodge Monaco 1974
 0 GMC Safari 1996
 0 Peugeot 404 Coupe 1963
 0 Peugeot 505 Break 1982
 0 Pontiac Firebird 1985
 0 Cadillac DeVille 1977
-0 Chrysler Drifter 1977
+1 Chrysler Drifter 1977
 0 Peugeot 108 2018
 0 Peugeot 208 2018
 0 Peugeot iOn 2018
 0 Pontiac 6000 STE AWD 1988
 0 Renault R12 Gordini 1973
 0 Renault 17 Gordini 1979
-0 Chrysler TC by Maserati 1990
+1 Chrysler TC by Maserati 1990
 0 Plymouth Scamp 1982
 0 Pontiac Tempest Le Mans GTO 1966
-0 Chrysler 300H 1962
+1 Chrysler 300H 1962
 0 Chrysler Sebring Convertible 1996
 0 Dodge Caravan Turbo 1989
 0 Peugeot 504 Coupe 1968
@@ -1119,14 +1119,14 @@
 0 Renault Twizy F1 2013
 0 Chrysler LHS 1994
 0 Citroen C5 Aircross 2018
-0 GMC Granite 2010
+1 GMC Granite 2010
 0 Peugeot 205 GTi 1.6 1984
 0 Peugeot 5008 2018
 0 Cadillac Escalade 1999
 0 Chrysler 300M Special Edition 2002
-0 Chrysler Laser XT 1984
+1 Chrysler Laser XT 1984
 0 Citroen C5 Crosstourer 2014
-0 Dodge Dakota R/T 1998
+1 Dodge Dakota R/T 1998
 0 Peugeot 106 Rallye (S2) 1997
 0 Peugeot 206 CC 2000
 0 Peugeot 309 GTi 1986
@@ -1146,8 +1146,8 @@
 0 Cadillac Escalade 2002
 0 Citroen C5 V6 2003
 0 Citroen Xantia Activa V6 1997
-0 DS DS 6 2015
-0 Dodge Neon R/T Coupe 1998
+1 DS DS 6 2015
+1 Dodge Neon R/T Coupe 1998
 0 Volkswagen Golf 1991
 0 Peugeot 306 GTi-6 1996
 0 Peugeot 407 Coupe 2006
@@ -1158,8 +1158,8 @@
 0 Renault Koleos 2008
 0 BMW 316 1975
 0 BMW 1800 1963
-0 Chevrolet Tru 140S 2012
-0 GMC Denali XT 2008
+1 Chevrolet Tru 140S 2012
+1 GMC Denali XT 2008
 0 Peugeot 306 Rallye 1998
 0 Pontiac Fiero GT 1988
 0 Pontiac Firebird Trans Am 1970
@@ -1179,8 +1179,8 @@
 0 Renault Alaskan 2015
 1 BMW 507 1956
 0 Volkswagen up! 2013
-0 Citroen C2-R2 Max 2008
-0 Dodge Caliber R/T AWD 2007
+1 Citroen C2-R2 Max 2008
+1 Dodge Caliber R/T AWD 2007
 0 Pontiac Bonneville Special 1954
 0 Ram Dodge Ramcharger 1974
 0 Ram Dodge Ramcharger 1981
@@ -1188,15 +1188,15 @@
 0 Volkswagen New Beetle Cabriolet 2003
 1 Cadillac ELR 2016
 0 Volkswagen Polo 2009
-0 Dodge Spirit R/T 1991
+1 Dodge Spirit R/T 1991
 0 Pontiac Grand Prix GTP 1997
-0 Dodge Daytona IROC R/T 1992
-0 GMC Acadia 2017
-0 GMC Yukon Denali 2004
+1 Dodge Daytona IROC R/T 1992
+1 GMC Acadia 2017
+1 GMC Yukon Denali 2004
 0 Renault R21 Turbo Europa Cup 1988
-0 Chevrolet SSR 6.0L 2007
-0 DS DS 3 Racing 2011
-0 DS Wild Rubis 2013
+1 Chevrolet SSR 6.0L 2007
+1 DS DS 3 Racing 2011
+1 DS Wild Rubis 2013
 0 Pontiac Grand Prix GXP 2006
 0 Renault DeZir 2010
 0 Renault R20 Turbo 4x4 1979
@@ -1207,29 +1207,29 @@
 0 Pontiac Trans Am 35th Anniversary 2002
 0 Renault Sport Clio Cup Car 2014
 0 Renault Sport Clio R.S.16 2016
-0 Chrysler Aspen Hybrid 2009
-0 Dodge Caliber SRT4 2008
-0 Dodge Nitro R/T 2007
+1 Chrysler Aspen Hybrid 2009
+1 Dodge Caliber SRT4 2008
+1 Dodge Nitro R/T 2007
 0 Peugeot 205 T16 1984
 0 Peugeot 308 GTi 2018
 0 Peugeot RCZ R 2013
 0 Pontiac Trans Am 30th Anniversary 1999
-0 Chevrolet Cobalt SS Turbo 2009
-0 Dodge Stealth R/T Twin Turbo 1990
-0 GMC Sierra All Terrain X 2017
+1 Chevrolet Cobalt SS Turbo 2009
+1 Dodge Stealth R/T Twin Turbo 1990
+1 GMC Sierra All Terrain X 2017
 0 Pontiac GTO 2006
 0 Volkswagen Fox 2005
 0 Cadillac Elmiraj 2013
-0 Chevrolet Colorado ZR2 2018
+2 Chevrolet Colorado ZR2 2018
 0 Chevrolet COPO Camaro 2012
-0 Chevrolet Miray 2011
-0 Citroen Metropolis 2010
+2 Chevrolet Miray 2011
+1 Citroen Metropolis 2010
 0 Pontiac Torrent GXP 2008
-0 Chrysler 300 SRT8 2012
-0 Citroen CXperience 2016
-0 GMC Acadia Denali 2018
+1 Chrysler 300 SRT8 2012
+1 Citroen CXperience 2016
+1 GMC Acadia Denali 2018
 0 GMC Syclone 1991
-0 GMC Typhoon 1993
+1 GMC Typhoon 1993
 0 Renault Sport Laguna BTCC 1999
 0 Cadillac CTS Vsport 2015
 0 Cadillac CTS-V 2004
@@ -1237,8 +1237,8 @@
 0 Peugeot 3008 DKR 2017
 0 Pontiac G8 GXP 2010
 0 BMW 2002 Tii 1972
-0 DS DS Numero 9 2012
-0 DS Survolt 2010
+1 DS DS Numero 9 2012
+1 DS Survolt 2010
 0 Renault Sport Megane Trophy 2009
 0 Renault Trezor 2016
 0 BMW 2800 CS 1968
@@ -1248,7 +1248,7 @@
 0 Renault Sport R.S. 01 2015
 0 Cadillac ATS-V 2016
 0 Cadillac CTS-V Sport Wagon 2010
-0 Citroen GT 2008
+1 Citroen GT 2008
 0 Peugeot 405 T16 Pikes Peak 1988
 0 Cadillac Cien 2002
 0 Cadillac Sixteen 2003
@@ -1511,7 +1511,7 @@
 0 Lamborghini Islero S 1969
 0 Lamborghini Silhouette 1976
 1 Alfa Romeo Giulia GTA Stradale 1965
-0 Fiat Abarth Grande Punto 2010
+1 Fiat Abarth Grande Punto 2010
 0 Fiat Panda Cross 4x4 Mark 3 2014
 0 Lamborghini 350GT 1964
 0 Lamborghini Espada Serie I 1968
@@ -1522,31 +1522,31 @@
 0 Lamborghini Urraco P300 1973
 0 Maserati Merak SS 1976
 0 Fiat Campagnola 1951
-0 Fiat Panda 4x4 2019
-0 Fiat Turbina 1954
+1 Fiat Panda 4x4 2019
+1 Fiat Turbina 1954
 0 Lamborghini 400GT 1966
 0 Lamborghini Urraco P250 1973
 0 Lancia Stratos Zero 1970
 0 Maserati Mistral 1963
-0 Fiat Abarth Stilo Group N 2002
-0 Fiat Seicento Rally Spec 1998
+1 Fiat Abarth Stilo Group N 2002
+1 Fiat Seicento Rally Spec 1998
 0 Lamborghini LM002 1986
 0 Lancia D24 Pininfarina Spider Sport 1953
 0 Maserati Racing 1991
-0 Fiat Abarth Simca 1300 Bialbero 1962
+1 Fiat Abarth Simca 1300 Bialbero 1962
 0 Maserati Quattroporte Diesel 2018
 0 Maserati Royale 1986
 1 Alfa Romeo Carabo 1968
 1 Alfa Romeo Giulia TZ 1963
-0 Fiat Abarth 1000TC Berlina Corsa 1967
-0 Fiat Abarth 695 Tributo Ferrari 2009
-0 Fiat Fullback Cross 2017
+1 Fiat Abarth 1000TC Berlina Corsa 1967
+1 Fiat Abarth 695 Tributo Ferrari 2009
+1 Fiat Fullback Cross 2017
 0 Lamborghini Miura Roadster 1968
 0 Maserati 430 1987
 0 Maserati Bora 1971
 0 Maserati Ghibli Diesel 2018
 0 Alfa Romeo Autodelta 156 GTA 3.7 V6 2004
-0 Fiat Abarth 030 1974
+1 Fiat Abarth 030 1974
 0 Lancia 037 Rally 1982
 0 Maserati GranCabrio MC 2016
 0 Maserati GranTurismo 2018
@@ -1571,7 +1571,7 @@
 0 Maserati Ghibli 2018
 0 Maserati Ghibli Cup 1992
 0 Maserati Shamal 1990
-0 Fiat Abarth Grande Punto S2000 2006
+1 Fiat Abarth Grande Punto S2000 2006
 0 Lamborghini Diablo GT 1999
 0 Lamborghini Diablo VT Roadster 1995
 0 Lamborghini Gallardo LP550-2 (2nd gen) 2010
@@ -1920,47 +1920,47 @@
 0 Peugeot 405 1987
 0 Volvo V40 T5 2018
 0 De Tomaso Longchamp 1973
-0 De Tomaso Vallelunga Competizione 1964
+1 De Tomaso Vallelunga Competizione 1964
 0 De Tomaso Longchamp GTS 1989
 0 Volvo 960 3.0 1991
-0 De Tomaso Mangusta 1967
+2 De Tomaso Mangusta 1967
 0 Peugeot 206 GTi 1999
 0 De Tomaso Deauville 1971
-0 Donkervoort S7 1978
+1 Donkervoort S7 1978
 0 Peugeot Rally 504 1971
 0 Peugeot 607 Pescarolo 2002
 0 Peugeot RC Diamonds 2002
-0 De Tomaso Pantera L 1973
+1 De Tomaso Pantera L 1973
 0 Peugeot 405 T16 1993
 0 Peugeot RC Spades 2002
 0 Volvo S90 T5 2016
 0 De Tomaso Mangusta 1967
-0 Donkervoort S8 1980
-0 Donkervoort S8A 1983
+1 Donkervoort S8 1980
+1 Donkervoort S8A 1983
 0 Peugeot 207 RC 2007
 0 Peugeot 208 R2 2012
 0 Peugeot 206 RC 2003
 0 Volvo XC90 T5 AWD 2018
-0 Donkervoort D8 Cosworth 1994
-0 De Tomaso Pantera GT5 1984
-0 De Tomaso Guara 1998
-0 De Tomaso Pantera GT5-S 1989
+1 Donkervoort D8 Cosworth 1994
+1 De Tomaso Pantera GT5 1984
+2 De Tomaso Guara 1998
+1 De Tomaso Pantera GT5-S 1989
 0 Donkervoort D8 Zetec Sport 1994
 0 Volvo V90 T8 AWD 2018
-0 De Tomaso Guara 1993
-0 Donkervoort D10 1988
+1 De Tomaso Guara 1993
+1 Donkervoort D10 1988
 0 Volvo S60 T6 AWD 2013
-0 De Tomaso Pantera GTS 1974
-0 De Tomaso Pantera SI 1991
-0 Donkervoort S8AT 1986
+1 De Tomaso Pantera GTS 1974
+1 De Tomaso Pantera SI 1991
+1 Donkervoort S8AT 1986
 0 Spyker C8 Preliator 2016
 0 Peugeot 308 R HYbrid 2016
 0 Peugeot e-Legend 2018
 0 Volvo C30 Polestar Performance 2010
 0 Donkervoort D8 270 2008
-0 Donkervoort D8 270 RS 2006
+1 Donkervoort D8 270 RS 2006
 0 Volvo V60 T8 Polestar 2020
-0 Donkervoort D8 GT 2007
+1 Donkervoort D8 GT 2007
 0 Spyker C12 La Turbie 2006
 0 Spyker C8 Spyder T 2003
 0 Spyker D12 Peking-to-Paris 2006
@@ -1980,7 +1980,7 @@
 0 Peugeot 208 T16 R5 2014
 0 Spyker C8 Laviolette 2001
 0 Donkervoort D8 Audi (AGU) 1999
-0 Donkervoort D8 Audi (E-gas) Wide Track 2004
+1 Donkervoort D8 Audi (E-gas) Wide Track 2004
 0 Peugeot 306 Maxi 1999
 0 Volvo S60 R AWD 2004
 0 Volvo S90 T8 AWD 2018
@@ -2032,18 +2032,18 @@
 0 Ford Explorer Sport-Trac Adrenalin 2008
 0 Ford Fairlane Torino GT 1968
 0 Acura 3.2TL 1999
-0 Chrysler Airflite 2003
+2 Chrysler Airflite 2003
 1 Acura Integra Type R 1998
-0 Dodge Charger SRT8 2012
-0 Dodge Charger Daytona 1969
-0 Chrysler 300M Concept 1991
+1 Dodge Charger SRT8 2012
+2 Dodge Charger Daytona 1969
+1 Chrysler 300M Concept 1991
 0 Ford Indigo 1996
 0 Dodge Challenger SRT-10 Concept 2009
-0 Dodge Charger Juiced 2013
-0 Chrysler Nassau 2007
+1 Dodge Charger Juiced 2013
+1 Chrysler Nassau 2007
 0 Ford Mustang SVT Cobra R 2000
 0 Dodge Viper SRT-10 ACR 2008
-0 Dodge Avenger Rally Sedan 2011
+1 Dodge Avenger Rally Sedan 2011
 0 Dodge Viper SRT-10 2008
 0 Chrysler Firepower 2005
 0 Acura MDX 2019
@@ -2055,29 +2055,29 @@
 0 Ford GTX1 2005
 1 Acura CSX Type-S 2009
 2 Acura NSX 2002
-0 Dodge Charger III 1968
+1 Dodge Charger III 1968
 0 Ford Edge ST 2019
 0 Dodge Viper ACR 1999
 0 Chrysler 300C 1957
 0 Dodge Regal Lancer Super D-500 1958
 0 AMC AMX 390 1968
-0 Chrysler ecoVoyager 2008
+1 Chrysler ecoVoyager 2008
 0 Dodge Dakota Laramie 4.7L 2009
 0 Dodge Shadow ES 1987
-0 Chrysler 300S 2015
-0 Dodge Copperhead 1997
+1 Chrysler 300S 2015
+1 Dodge Copperhead 1997
 1 AMC Javelin AMX 1971
 1 Acura RSX 2002
 0 Dodge Powerbox 2001
 0 Acura Integra GS-R 2001
 0 Chrysler D’Elegance 1952
-0 Chrysler Aviat 1994
+1 Chrysler Aviat 1994
 0 Chrysler LeBaron GTC 1988
 0 Ford LTD 1986
 0 Chrysler Fifth Avenue 1985
-0 Dodge Aspen R/T 1978
+1 Dodge Aspen R/T 1978
 0 AMC Spirit GT 1979
-0 Chrysler New Yorker 1969
+1 Chrysler New Yorker 1969
 0 Chrysler New Yorker 1987
 0 Ford Country Squire 1988
 0 Dodge Aries 1986
@@ -2085,8 +2085,8 @@
 0 Ford Mustang II 1974
 0 Ford Mustang II King Cobra 1978
 0 Chrysler Falcon 1955
-0 Chrysler Imperial 1964
-0 Chrysler Imperial 1972
+2 Chrysler Imperial 1964
+2 Chrysler Imperial 1972
 0 Chrysler Imperial Frank Sinatra Edition 1981
 0 Dodge Ram Van Street Van 1978
 0 Ford Tempo 1984
@@ -2097,54 +2097,54 @@
 0 Ford EXP 1982
 1 Acura Integra GS-R 1992
 0 Acura Integra LS 1987
-0 Chrysler Conquest TSi 1988
+1 Chrysler Conquest TSi 1988
 0 Dodge Intrepid ES 3.5L V6 1993
 0 Ford F-100 302ci 1973
 0 Ford Taurus SHO 1996
-0 Chrysler Cirrus LXi 1997
+1 Chrysler Cirrus LXi 1997
 0 Dodge Conquest TSi 1987
 0 Ford Mustang Boss 302 1970
 0 Ford Thunderbird Turbo Coupe 1987
-0 Dodge D-100 1964
+1 Dodge D-100 1964
 0 Ford Crown Victoria 1992
-0 Dodge Slingshot 2004
-0 Dodge Colt Vista AWD 1989
-0 Dodge Daytona Turbo Z 1986
+1 Dodge Slingshot 2004
+1 Dodge Colt Vista AWD 1989
+1 Dodge Daytona Turbo Z 1986
 0 Chrysler New Yorker 1992
 0 Ford Mustang Cobra 1979
-0 Chrysler 200C EV 2009
+1 Chrysler 200C EV 2009
 0 Chrysler LHS 2001
 0 Chrysler LHX 1996
 0 Chrysler 200 Convertible 2013
-0 Chrysler PT Cruiser GT Convertible 2005
-0 Dodge Demon Roadster 2007
+1 Chrysler PT Cruiser GT Convertible 2005
+1 Dodge Demon Roadster 2007
 0 Dodge Neon ACR 2002
 0 Ford F-150 2007
 0 Ford Mustang GT 1988
 0 Ford Mustang GT 1996
 0 Ford Ranchero 1971
-0 Dodge Charger R/T 1969
-0 Dodge Hornet 2006
+1 Dodge Charger R/T 1969
+1 Dodge Hornet 2006
 0 Ford Bronco II 1986
 0 Dodge Charger GLHS 1987
 0 Dodge Dart Swinger 340 1970
-0 Chrysler Pacifica Hybrid 2018
-0 Dodge Stratus R/T Coupe 2004
+1 Chrysler Pacifica Hybrid 2018
+1 Dodge Stratus R/T Coupe 2004
 0 Ford Probe GT 1989
 0 Acura TSX Sport Wagon 2011
 1 AMC Eagle Wagon 1980
 0 AMC Rebel Machine 1970
-0 Dodge Colt GT Turbo 1989
+1 Dodge Colt GT Turbo 1989
 0 Ford 021C 1999
 0 Ford Maya 1984
 0 Ford Mustang SVO 1984
 0 Ford Taurus SHO 1993
 0 Ford Thunderbird SC 1990
 1 Acura RDX 2019
-0 Dodge Charger R/T 2006
-0 Dodge Razor 2002
-0 Dodge Super 8 HEMI 2001
-0 Dodge Venom 1994
+1 Dodge Charger R/T 2006
+1 Dodge Razor 2002
+1 Dodge Super 8 HEMI 2001
+1 Dodge Venom 1994
 0 Ford F-150 Lightning 2001
 0 Ford Flex 3.5L 2013
 1 Acura RSX Type S 2003
@@ -2153,43 +2153,43 @@
 1 Acura 3.2 CL Type-S 2003
 1 Acura Integra Type R 2001
 1 AMC AMX/3 1970
-0 Chrysler 300 Motown Edition 2013
-0 Dodge Charger R/T Concept 1999
+1 Chrysler 300 Motown Edition 2013
+1 Dodge Charger R/T Concept 1999
 0 Ford Bronco V8 351 Windsor 1988
 0 Ford F-250 Super Chief 2006
 0 Ford Maya II EM 1985
-0 Dodge Magnum R/T 2005
+1 Dodge Magnum R/T 2005
 0 Ford Bronco 1996
 1 Acura TSX 2009
-0 Chrysler Chronos 1998
-0 Chrysler Crossfire Concept 2001
+1 Chrysler Chronos 1998
+1 Chrysler Crossfire Concept 2001
 0 Ford Bronco V8 1969
 1 Acura SLX 1996
 1 Acura TSX 2004
-0 Dodge Avenger R/T 2013
+1 Dodge Avenger R/T 2013
 0 Ford Explorer 1991
 1 Acura 3.0CL 2000
 0 Ford Torino Talladega 1969
 1 Acura RDX 2007
-0 Dodge Challenger SRT 392 2015
+1 Dodge Challenger SRT 392 2015
 0 Ford Edge Sport 2015
-0 Chrysler Citadel 1999
+1 Chrysler Citadel 1999
 0 Ford Expedition Platinum 2018
-0 Dodge Challenger Concept 2006
+1 Dodge Challenger Concept 2006
 2 Acura ZDX 2010
-0 Chrysler 300 Glacier Edition 2013
-0 Chrysler 300C Hemi 2005
-0 Dodge Challenger SRT8 2009
+1 Chrysler 300 Glacier Edition 2013
+1 Chrysler 300C Hemi 2005
+1 Dodge Challenger SRT8 2009
 0 Ford Police Interceptor Sedan 2016
-0 Chrysler Imperial Concept 2006
-0 Chrysler Phaeton 1997
+1 Chrysler Imperial Concept 2006
+2 Chrysler Phaeton 1997
 1 Acura TLX 2014
-0 Chrysler 300C 2013
-0 Chrysler Atlantic 1995
+1 Chrysler 300C 2013
+1 Chrysler Atlantic 1995
 0 Ford Bronco Concept 2004
-0 Dodge Circuit EV 2011
-0 Dodge Neon SRT-4 2003
-0 Dodge M80 2002
+2 Dodge Circuit EV 2011
+1 Dodge Neon SRT-4 2003
+2 Dodge M80 2002
 0 Ford Escape 2001
 0 Ford Mustang FR500GT 2007
 0 Dodge Viper GTS-R Concept 2000
@@ -2198,9 +2198,9 @@
 0 Ford Mustang GT4 2017
 0 Ford Mustang GT-R Concept 2004
 0 Dodge M4S 1981
-0 Dodge Sidewinder 1997
+1 Dodge Sidewinder 1997
 0 Dodge Viper SRT-10 2006
-0 Dodge Durango SRT 2018
+1 Dodge Durango SRT 2018
 0 Dodge Viper SRT-10 2003
 0 Ford F-150 Raptor 2018
 0 Ford Fusion Sport 2017

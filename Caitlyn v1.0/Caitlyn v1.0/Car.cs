@@ -42,29 +42,26 @@ namespace Caitlyn_v1._0
         public Car(int carPicture)
         {
             IdentifyCar(carPicture);
-            string[,] carsArray = CarsDB.fulltablearray;
-            int lenght = CarsDB.linenumber;
 
-            for (int i = 0; i < lenght; i++)
+            foreach (CarForExcel car in CarsDB.fulltablearray)
             {
-                string testcar = carsArray[i, 8] + " " + carsArray[i, 9] + " " + carsArray[i, 15];
-                if (testcar == carname)
+                if (car.fullname() == carname)
                 {
                     NotePad.DoLog(carname);
-                    clearance = clearanceConverter(carsArray[i, 3]);
-                    tires = tiresConverter(carsArray[i, 13]);
-                    drive = driveConverter(carsArray[i, 5]);
+                    clearance = clearanceConverter(car.clearance);
+                    tires = tiresConverter(car.tires);
+                    drive = driveConverter(car.drive);
                     try
                     {
-                        acceleration = Convert.ToDouble(carsArray[i, 0]);
+                        acceleration = Convert.ToDouble(car.acceleration);
                     }
                     catch
                     {
-                        NotePad.DoErrorLog("can not convert " + carsArray[i, 0] + " to double");
+                        NotePad.DoErrorLog("can not convert " + car.acceleration + " to double");
                     }
-                    maxSpeed = Convert.ToInt32(carsArray[i, 12]);
-                    grip = Convert.ToInt32(carsArray[i, 7]);
-                    weight = Convert.ToInt32(carsArray[i, 14]);
+                    maxSpeed = Convert.ToInt32(car.speed);
+                    grip = Convert.ToInt32(car.grip);
+                    weight = Convert.ToInt32(car.weight);
                     break;
                 }
             }
