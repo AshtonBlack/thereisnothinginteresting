@@ -24,7 +24,7 @@
 0 Fiat Cinquecento Sporting 1994
 0 Renault Captur 2016
 0 Fiat Punto 2017
-0 Renault Laguna 1994
+1 Renault Laguna 1994
 0 Renault Laguna 2007
 0 Chevrolet Spark 2009
 0 Mercedes-Benz 190 E 2.0 1985
@@ -45,7 +45,7 @@
 0 Ford B-Max 2012
 0 Vauxhall Astra 1.6 CDTi 2009
 0 Ford Ecosport 2016
-0 Vauxhall Tigra TwinTop 2004
+1 Vauxhall Tigra TwinTop 2004
 0 Vauxhall Astra 1.6i 2004
 0 Chrysler Town and Country 2001
 0 Nissan Micra 2004
@@ -58,10 +58,10 @@
 0 Renault Clio 2005
 0 Renault Espace 1997
 1 Fiat Qubo 2009
-0 Renault 8 Gordini 1964
+1 Renault 8 Gordini 1964
 0 Renault Scenic 2003
 0 Fiat Punto Cabrio 1993
-0 Renault Twingo 2007
+1 Renault Twingo 2007
 0 Renault Twizy 2016
 0 Renault Zoe 2016
 0 Chevrolet Tahoe 1995
@@ -94,7 +94,7 @@
 0 Austin Allegro 1979
 1 Honda Beat 1991
 0 Austin Maxi 1969
-0 Porsche 356 Speedster 1955
+1 Porsche 356 Speedster 1955
 0 Fiat 500L 2012
 1 Fiat Multipla 1998
 0 Renault 16 1965
@@ -107,13 +107,13 @@
 0 Renault Espace 1984
 0 Renault Espace 2002
 0 Renault Megane 2002
-0 Renault Scenic 1996
+1 Renault Scenic 1996
 0 Renault Espace 1991
 0 Smart Crossblade 2002
 0 Smart Forfour 2016
 1 Citroen Mehari 4x4 1980
 0 Mini Cooper S 1971
-0 Subaru Rex 1986
+1 Subaru Rex 1986
 1 Ford Cortina 1974
 0 Ford Fiesta 1976
 1 Chrysler Imperial 1990
@@ -121,7 +121,7 @@
 0 Chrysler Town and Country 1990
 0 Vauxhall Astra 1.4i 1991
 0 Chrysler Town and Country 1996
-0 Vauxhall Astra 1.4i 1998
+1 Vauxhall Astra 1.4i 1998
 0 Chrysler Town and Country 1991
 0 Vauxhall Astra 1.6 1979
 0 Honda Accord 1.8 1976
@@ -130,7 +130,7 @@
 0 Honda EV Plus 1997
 0 Honda Prelude 1978
 0 Cadillac Seville 1980
-0 Porsche 356 1955
+1 Porsche 356 1955
 0 Porsche 356 1948
 0 Porsche 356 B Convertible 1600 1965
 0 Fiat Panda 1980
@@ -148,7 +148,7 @@
 0 Citroen GSA 1979
 0 Citroen Xsara Picasso 1997
 0 Subaru Rex 1972
-0 Subaru Rex 1981
+1 Subaru Rex 1981
 1 Nissan Pathfinder 1985
 1 Nissan Patrol 1986
 1 Nissan Patrol 1997
@@ -167,9 +167,9 @@
 1 Land Rover Defender 90 2011
 0 BMW 728i 1977
 0 Buick Riviera Coupe 1965
-0 Porsche 924 1976
+1 Porsche 924 1976
 1 Alfa Romeo 166 1998
-0 Renault 9 Turbo 1981
+1 Renault 9 Turbo 1981
 0 Renault Kadjar 2016
 0 Fiat Dino Spider 1966
 0 Chevrolet Camaro Z/28 1977
@@ -192,7 +192,7 @@
 0 Chevrolet S-10 Blazer Xtreme 1999
 0 Ford Mondeo 2004
 0 Ford Ranger 2006
-1 Ford Ranger 2016
+0 Ford Ranger 2016
 0 Vauxhall Opel Vectra GSi 1988
 1 Nissan Cube 2010
 0 Nissan Note 2013
@@ -203,9 +203,9 @@
 0 Honda CR-Z 2016
 0 Buick Rendezvous 2002
 0 Buick Roadmaster 1954
-0 Rover 623 1993
+1 Rover 623 1993
 0 Buick Roadmaster Skylark 1954
-0 Rover 800 1986
+1 Rover 800 1986
 1 Buick Verano 2012
 0 Rover 400 1995
 0 Cadillac Allante 1989
@@ -214,8 +214,8 @@
 0 Alfa Romeo 155 1992
 0 Alfa Romeo Spider 2006
 0 Fiat 500X 2017
-0 Renault Megane 2008
-0 Renault Sport Twingo GT 2016
+1 Renault Megane 2008
+1 Renault Sport Twingo GT 2016
 0 Renault Twingo 2007
 0 Renault Vel Satis 2002
 0 Chevrolet Aveo 2011
@@ -244,7 +244,7 @@
 0 Chrysler Sebring 2007
 0 Nissan S-Cargo 1989
 0 Nissan Silvia 1975
-0 Volvo 480 Turbo 1988
+1 Volvo 480 Turbo 1988
 0 Dodge Journey 2018
 0 Honda Civic CRX Si 1983
 1 MG Metro Turbo 1982
@@ -297,18 +297,18 @@
 0 Rover P6 1963
 0 Rover 200 1995
 0 Infiniti Q30 2016
-0 Porsche 914 1969
+1 Porsche 914 1969
 0 Fiat Panda 4x4 1983
 1 Fiat X1/9 1972
 0 Fiat 500 2017
 0 Renault 30 1975
 0 Fiat Tipo 2017
-0 Renault 21 Savanna 1986
+1 Renault 21 Savanna 1986
 0 Chevrolet Cruze LT 2012
 0 Chevrolet Cruze SW 2012
 1 Chevrolet Monte Carlo SS 1983
 1 Lancia Beta HPE 1978
-0 Smart Brabus Roadster 2005
+1 Smart Brabus Roadster 2005
 0 Citroen C1 VTi 68 2015
 0 Citroen C4 Cactus 2.0 HDi 16v 2014
 0 Citroen Visa GTi 1978
@@ -325,7 +325,7 @@
 1 Nissan Terrano II 2002
 2 Chrysler Crossfire Roadster 2004
 1 Audi quattro 1980
-0 Volvo C70 T5 2013
+2 Volvo C70 T5 2013
 0 Ford Mondeo 2013
 0 Plymouth Barracuda Fastback 1968
 0 Plymouth Roadrunner 383 1968
@@ -345,14 +345,14 @@
 0 Mazda MX-5 2018
 1 Mazda RX-7 Turbo 1983
 1 Mini Cooper 2016
-0 Subaru Forester 1997
-0 Subaru XT 1985
-0 Suzuki Ignis Sport 2004
-0 Suzuki Jimny 2007
+1 Subaru Forester 1997
+1 Subaru XT 1985
+1 Suzuki Ignis Sport 2004
+1 Suzuki Jimny 2007
 0 Suzuki Swift Sport 2006
-0 Suzuki Vitara 2005
+1 Suzuki Vitara 2005
 0 Ford Focus ST170 2002
-0 Suzuki X-90 1995
+1 Suzuki X-90 1995
 0 Ford Mondeo ST200 1998
 0 Ford Focus ST TDCi Estate 2016
 0 Ford Kuga 2016
@@ -371,19 +371,19 @@
 0 Plymouth Duster 340 1972
 1 Honda Prelude VTEC 1991
 1 Honda CR-V 1997
-0 Ram Dodge 1st Gen 1981
+1 Ram Dodge 1st Gen 1981
 0 Jaguar XJ12 1972
 0 Land Rover Freelander 2 TD4 2012
 1 MG Montego Turbo 1985
 1 Buick LaCrosse CXL 2005
-0 Rover 216 1984
+1 Rover 216 1984
 0 Cadillac Eldorado 1995
 0 Porsche 911S 2.4 Targa 1972
 0 Alfa Romeo 145 Cloverleaf 1994
 1 Caterham 21 1995
-0 Renault Safrane Biturbo 1992
-0 Renault 21 2.0l Turbo Quadra 1986
-0 Renault Megane 1995
+1 Renault Safrane Biturbo 1992
+1 Renault 21 2.0l Turbo Quadra 1986
+1 Renault Megane 1995
 1 Chevrolet Corvette 396 1965
 1 Citroen C2 VTS 2003
 1 Citroen C4 2.0 16v VTS 2004
@@ -398,7 +398,7 @@
 0 DS 3 DSport HDi 2016
 0 Mini Cooper SD 2011
 0 Mini Cooper Convertible 2016
-0 Subaru Alcyone SVX 1991
+1 Subaru Alcyone SVX 1991
 0 Ford Racing Puma 2000
 2 Ford Escort Rally Spec 1970
 2 Ford Escort RS2000 1974
@@ -417,9 +417,9 @@
 1 Alfa Romeo 33 1993
 0 Alfa Romeo Alfasud 1982
 0 Alfa Romeo Montreal 1970
-0 Renault 19 16S 1988
+1 Renault 19 16S 1988
 1 Fiat Panda 100hp 2006
-0 Renault 25 V6 Turbo 1983
+1 Renault 25 V6 Turbo 1983
 0 Renault Sport Twingo 133 Cup 2012
 0 Chevrolet Camaro Z/28 1970
 0 Chevrolet Corvette LT-1 1970
@@ -445,7 +445,7 @@
 1 Nissan Juke 2013
 0 Nissan Patrol 1987
 0 Vauxhall Astra GTE 1988
-0 Vauxhall Cascada 2016
+1 Vauxhall Cascada 2016
 0 Nissan Primera 2004
 0 Vauxhall Vectra 2.5 V6 1995
 1 Chrysler 300 Touring 2005
@@ -462,13 +462,13 @@
 0 Buick Reatta 1988
 0 Rover 220 GSi 1989
 0 Rover SD1 1976
-0 Porsche 944 1982
+1 Porsche 944 1982
 0 Alfa Romeo 90 1984
 1 Alfa Romeo Giulietta 2017
 1 Lotus Elan 1962
 1 Fiat Barchetta 1995
 0 Renault Espace 2016
-0 Renault Wind 2010
+1 Renault Wind 2010
 1 Fiat Dino Coupe 1966
 0 Chevrolet Chevelle SS 454 1970
 1 Chevrolet Volt 2012
@@ -481,7 +481,7 @@
 1 Mazda Eunos Roadster RS-Limited 1994
 1 Mazda MX-5 1998
 0 Subaru Legacy 1993
-0 Subaru Leone 1984
+1 Subaru Leone 1984
 1 Mitsubishi ASX 2010
 0 Suzuki Swift 2016
 0 Ford Escort RS Turbo 1984
@@ -490,23 +490,23 @@
 0 Chevrolet Impala 1959
 1 Honda S2000 1999
 1 Honda S2000 Type S 2008
-0 Volvo 850 AWD 1997
+1 Volvo 850 AWD 1997
 1 Honda Civic Type R 2006
 1 Audi quattro 20V 1990
 1 Audi S6 1995
-0 Plymouth Superbird 1970
+1 Plymouth Superbird 1970
 1 BMW 730d 2008
 1 BMW Z4 sDrive28i 2016
 1 BMW 328i 1995
 1 BMW M5 1985
 1 Land Rover Discovery Sport 2016
-0 Porsche Boxster 2005
+2 Porsche Boxster 2005
 2 Cadillac CTS 2008
 1 Alfa Romeo 147 GTA 2002
 1 Alfa Romeo 156 GTA 2002
 1 Cadillac Escalade 2011
-0 Renault Sport Clio 200 2009
-0 Renault Sport Megane 2002
+1 Renault Sport Clio 200 2009
+1 Renault Sport Megane 2002
 1 Fiat Abarth 695 Biposto 2017
 1 Chevrolet Suburban 2016
 1 Lancia Delta Integrale 8v 1989
@@ -514,12 +514,12 @@
 1 Lancia Rally 037 Stradale 1982
 1 Mercedes-Benz E 320 CDI 2005
 1 Mercedes-Benz GLA 220d 2015
-0 Subaru Legacy 2016
+1 Subaru Legacy 2016
 1 Mini JCW Convertible 2016
 1 Mini JCW Coupe 2016
 1 Ford Edge 2016
 2 Ford Focus RS 2002
-0 Suzuki XL-7 1998
+1 Suzuki XL-7 1998
 1 Ford Focus ST 2012
 1 Ford Focus ST Superchips 2005
 1 Ford Mustang GT Convertible 2005
@@ -531,8 +531,8 @@
 2 Nissan Qashqai 2008
 2 Nissan X-Trail 2016
 1 Nissan X-Trail 2010
-0 Vauxhall Antara 2.2CDTi 2016
-0 Vauxhall Corsa VXR 2016
+1 Vauxhall Antara 2.2CDTi 2016
+1 Vauxhall Corsa VXR 2016
 1 Chrysler 200 S 2017
 1 Chrysler 300S 2018
 1 Honda Pilot 4WD 2009
@@ -547,10 +547,10 @@
 1 Buick Regal Turbo 2011
 0 Porsche 924 Carrera GTS 1981
 0 Porsche 968 1992
-0 Porsche 968 Clubsport 1993
+1 Porsche 968 Clubsport 1993
 1 Alfa Romeo 164 Super 1993
-0 Renault Sport Clio V6 2003
-0 Renault Sport Clio 182 Trophy 2005
+1 Renault Sport Clio V6 2003
+2 Renault Sport Clio 182 Trophy 2005
 1 Fiat Abarth 124 Spider 2017
 1 Fiat Coupe 20v Turbo 1993
 1 Lancia Stratos 1973
@@ -558,13 +558,13 @@
 1 Mercedes-Benz AMG C 43 1999
 2 Mazda RX-8 Spirit R 2012
 1 Mini Cooper S Works GP 2006
-0 Subaru Forester 2016
-0 Subaru Levorg 2016
+1 Subaru Forester 2016
+2 Subaru Levorg 2016
 1 Mini Cooper S 2016
-0 Subaru Outback 2008
-0 Subaru Legacy 2003
+1 Subaru Outback 2008
+1 Subaru Legacy 2003
 1 Mitsubishi ASX 2015
-0 Suzuki Ignis 2016
+2 Suzuki Ignis 2016
 1 Ford Sierra RS Cosworth 1986
 1 Ford Fiesta ST 2016
 1 Ford Galaxy 2015
@@ -575,10 +575,10 @@
 2 Nissan Datsun 240Z Rally Car 1973
 1 Nissan X-Trail 2001
 1 Nissan Navara 2005
-0 Vauxhall Vectra VXR 2006
+1 Vauxhall Vectra VXR 2006
 1 Chrysler Crossfire SRT-6 Coupe 2004
-0 Volvo 850 R 1997
-0 Volvo C30 T5 R-Design 2008
+1 Volvo 850 R 1997
+1 Volvo C30 T5 R-Design 2008
 1 Honda Accord Type R 1997
 1 Honda Integra Type R 1995
 1 Honda Pilot 4WD 2003
@@ -586,34 +586,34 @@
 1 Honda CR-V 2.2 i-DTEC 2007
 1 Jaguar XK8 1997
 1 Jaguar XKSS 1957
-0 Rover 220 Coupe Turbo 1992
-0 Porsche Boxster 1996
+1 Rover 220 Coupe Turbo 1992
+1 Porsche Boxster 1996
 2 Cadillac XLR roadster 2004
 1 Cadillac DTS 2006
 2 Alfa Romeo GT 2003
 1 Lotus Esprit 1976
 0 Alfa Romeo SZ 1989
 1 Lotus Elise 1996
-0 Renault Alpine A310 V6 Group 4/B 1983
+1 Renault Alpine A310 V6 Group 4/B 1983
 2 Caterham Seven 270 2015
-0 Renault Alpine GTA V6 Turbo Le Mans 1990
-0 Renault Sport Clio 172 Cup 1999
+1 Renault Alpine GTA V6 Turbo Le Mans 1990
+2 Renault Sport Clio 172 Cup 1999
 1 Chevrolet Camaro Z/28 1993
 2 Chevrolet Captiva LTX 2008
 1 Chevrolet Silverado 2016
 1 Citroen C-Crosser 2.2 L HDi 2007
 2 Mercedes-Benz SLK 200 2016
 1 Mazda Jota MX-5 GT 2013
-0 Subaru BRZ 2016
-0 Subaru Baja Turbo 2003
-0 Subaru Forester 2008
-0 Subaru Legacy 2009
-0 Subaru Legacy 1998
+1 Subaru BRZ 2016
+1 Subaru Baja Turbo 2003
+2 Subaru Forester 2008
+2 Subaru Legacy 2009
+1 Subaru Legacy 1998
 1 Mitsubishi Montero Black Edition 2011
 1 Mitsubishi Montero SG4 2011
-0 Suzuki SX4 2006
-0 Suzuki Vitara S 2016
-0 Suzuki SX4 S-Cross 2016
+1 Suzuki SX4 2006
+1 Suzuki Vitara S 2016
+1 Suzuki SX4 S-Cross 2016
 1 Ford Mondeo ST220 2000
 0 Chevrolet Camaro IROC-Z 1985
 1 Chevrolet K5 Blazer 5.7L 1972
@@ -621,14 +621,14 @@
 1 Nissan 200SX 1993
 1 Nissan Skyline Hardtop 2000 GT-R (C10) 1971
 1 Nissan NP300 Navara 2017
-0 Vauxhall Chevette HSR 1980
+1 Vauxhall Chevette HSR 1980
 1 Chrysler Crossfire Coupe 2004
-0 Volvo 850 T-5R 1995
+1 Volvo 850 T-5R 1995
 1 Dodge SRT-4 2004
 1 Honda Accord Euro-R 2006
 1 Honda Civic Type R 1999
 1 Honda Integra Type R 2002
-0 Plymouth HEMI 'Cuda 1970
+1 Plymouth HEMI 'Cuda 1970
 1 Jaguar XJ-S Trans-Am 1978
 0 BMW 330d 1998
 1 BMW 520i 2011
@@ -639,29 +639,29 @@
 1 Hummer H2 SUT 2005
 1 Hummer H2 SUV 2003
 1 Infiniti Q50 2014
-0 Porsche 924 Turbo 1979
-0 Porsche 928 S 1980
-0 Porsche 911S 2.7 1974
+1 Porsche 924 Turbo 1979
+1 Porsche 928 S 1980
+1 Porsche 911S 2.7 1974
 1 Cadillac SRX 2006
 1 Lotus Elan SE 1989
 1 Lotus Elise 1.6 2015
 1 Alfa Romeo GTV 1998
-0 Renault Alpine A110 1971
-0 Renault 5 Turbo 1980
+1 Renault Alpine A110 1971
+1 Renault 5 Turbo 1980
 1 Fiat Abarth 131 Rally 1976
-0 Renault Sport Clio V6 2001
+1 Renault Sport Clio V6 2001
 1 Chevrolet Corvette C4 1984
 1 Chevrolet El Camino SS 454 1969
 1 Lancia Delta HF 4WD 1986
 1 Mercedes-Benz 190 E Evo II 1990
 1 Mazda RX-7 Turbo 1985
 1 Mazda RX-8 PZ 2006
-0 Subaru Forester 2002
-0 Subaru XV Crosstrek 2015
+2 Subaru Forester 2002
+1 Subaru XV Crosstrek 2015
 1 Mitsubishi Colt Ralliart Version-R 2009
 1 Mitsubishi L200 2016
-0 Porsche 550 Spyder 1955
-0 Suzuki Swift Sport Cup 2008
+1 Porsche 550 Spyder 1955
+1 Suzuki Swift Sport Cup 2008
 1 Ford Scorpio 24-valve 1991
 0 Ford Ranger 2016
 0 Chrysler 300 SRT-8 2005
@@ -676,16 +676,16 @@
 2 Jaguar XFR-S Sportbrake 2016
 1 Jaguar XE S 2016
 0 Land Rover Range Rover 5.0 V8 2016
-0 Porsche 911 Carrera 2004
-0 Porsche Boxster Spyder 2009
-0 Porsche 718 Boxster 2017
-0 Porsche 718 Cayman 2016
-0 Porsche 911 RS 1992
-0 Porsche 911 Turbo Martini 1978
+1 Porsche 911 Carrera 2004
+1 Porsche Boxster Spyder 2009
+1 Porsche 718 Boxster 2017
+1 Porsche 718 Cayman 2016
+1 Porsche 911 RS 1992
+1 Porsche 911 Turbo Martini 1978
 1 Infiniti FX35 2003
 1 Infiniti M45 2003
-0 Porsche Cayman 2012
-0 Porsche 911 Carrera 4 1989
+1 Porsche Cayman 2012
+1 Porsche 911 Carrera 4 1989
 2 Cadillac CTS Coupe 2014
 0 Cadillac XT5 2016
 1 Cadillac STS 2005
@@ -702,10 +702,10 @@
 1 Chevrolet Camaro SS Coupe 2010
 1 Nissan Skyline GT-R (R33) 1995
 0 Nissan Patrol Nismo 2016
-0 TVR Tamora 2001
-0 TVR Tuscan Convertible 2005
+1 TVR Tamora 2001
+1 TVR Tuscan Convertible 2005
 0 Vauxhall Maloo R8 LSA 2016
-0 Vauxhall VX220 Turbo 2003
+1 Vauxhall VX220 Turbo 2003
 0 Acura NSX-T 1998
 2 Honda Pilot 4WD 2016
 1 Audi S2 Coupe 1993
@@ -713,17 +713,17 @@
 0 BMW Z8 2000
 1 Jaguar XF S 2016
 1 Jaguar XJ 3.0 V6 2016
-0 Porsche Cayman 2009
+1 Porsche Cayman 2009
 2 Infiniti G37 2009
-0 Porsche 911 Carrera Cabriolet 2000
+1 Porsche 911 Carrera Cabriolet 2000
 1 Infiniti QX30 2017
-0 Porsche 911 Turbo 1975
-0 Porsche Boxster 2015
+1 Porsche 911 Turbo 1975
+1 Porsche Boxster 2015
 1 Infiniti M35 2009
 1 Cadillac XLR-V 2006
 1 Alfa Romeo Giulia Veloce 2017
 2 Lotus 340R 2000
-0 Renault Sport Megane 275 Trophy-R 2016
+2 Renault Sport Megane 275 Trophy-R 2016
 1 Caterham Seven 360 2015
 1 Chevrolet Camaro SS Convertible 2012
 1 Chevrolet Corvette C5 1997
@@ -733,10 +733,10 @@
 2 Lancia Delta Integrale Evoluzione II 1993
 1 Mercedes-Benz AMG G 63 2015
 1 Mini JCW ALL4 Countryman 2016
-0 Subaru Impreza WRX 1993
+1 Subaru Impreza WRX 1993
 1 Mitsubishi Lancer Evo I 1992
 1 Ford Sierra RS Cosworth 4x4 1990
-0 Porsche 924 Carrera GTS Rallye 1981
+1 Porsche 924 Carrera GTS Rallye 1981
 1 Chevrolet Aerovette 1977
 0 Chevrolet Corvette Grand Sport 1996
 1 Nissan Skyline GT-R (R32) 1989
@@ -744,17 +744,17 @@
 1 Nissan Murano 2008
 1 Nissan Murano GT-C 2006
 1 Nissan Silvia 240RS 1983
-0 TVR Cerbera Speed Six 1998
-0 TVR Griffith 500 1993
-0 Vauxhall Insignia VXR S'sport 2016
-0 Vauxhall Calibra Turbo 1992
+2 TVR Cerbera Speed Six 1998
+1 TVR Griffith 500 1993
+1 Vauxhall Insignia VXR S'sport 2016
+1 Vauxhall Calibra Turbo 1992
 0 GMC Yukon XL 2014
 1 Honda NSX 1990
 1 Dodge Charger Daytona 2017
 1 Dodge Charger SRT-8 2006
 1 Dodge Magnum SRT-8 2006
 2 Dodge Viper RT/10 1992
-0 Ram 1500 Rebel 2019
+1 Ram 1500 Rebel 2019
 1 BMW 640d 2016
 1 BMW M3 2001
 0 Jaguar F-Type Coupe 2016
@@ -765,9 +765,9 @@
 1 BMW X5 40e 2016
 0 Buick Enclave 2008
 1 Infiniti G35 2002
-0 Porsche 911 Carrera 1994
-0 Porsche 911 Carrera 2 Targa 1989
-0 Porsche 911 Carrera RS 2.7 1973
+1 Porsche 911 Carrera 1994
+1 Porsche 911 Carrera 2 Targa 1989
+1 Porsche 911 Carrera RS 2.7 1973
 0 Cadillac Escalade EXT 2011
 1 Cadillac Escalade ESV 2016
 0 Renault Sport Megane R26.R 2008
@@ -779,23 +779,23 @@
 1 Mercedes-Benz E 430 1999
 1 Mercedes-Benz G 500 2012
 1 Mazda Cosmo 1990
-0 Subaru B9 Tribeca 2006
+1 Subaru B9 Tribeca 2006
 2 Ford Escort Rally Spec 1979
 1 Ford Focus ST Mountune 2014
 1 Ford Mustang GT 2005
 0 Ford Mustang 2.3 2016
 1 Ford Sierra RS500 1987
 1 Ford Taurus SHO 2017
-0 Suzuki Kizashi 4x4 2010
+1 Suzuki Kizashi 4x4 2010
 1 Nissan 370Z 2009
 1 Nissan Murano 2003
 1 Nissan Pathfinder 2013
 1 Nissan Pathfinder 2006
-0 TVR Chimaera 5.0 1993
-0 Vauxhall GTC VXR 2016
-0 Vauxhall VX220 2000
+1 TVR Chimaera 5.0 1993
+1 Vauxhall GTC VXR 2016
+1 Vauxhall VX220 2000
 1 Honda Accord 3.5l V6 2016
-0 Volvo XC90 V8 2010
+1 Volvo XC90 V8 2010
 1 Dodge Challenger GT AWD 2018
 1 BMW 540i 1993
 1 BMW 530i 1996
@@ -806,11 +806,11 @@
 1 Buick GNX 1987
 1 Hummer H3T 2009
 1 Infiniti QX50 2016
-0 Porsche Cayman 2005
+1 Porsche Cayman 2005
 0 Cadillac CTS Sport Wagon 2014
 1 Lotus Elise 111S 2002
 1 Lotus Elise Sport 135 2003
-0 Renault Sport Clio 220 Trophy 2016
+1 Renault Sport Clio 220 Trophy 2016
 1 Chevrolet Trailblazer SS 2006
 1 Mercedes-Benz E 500 1994
 1 Mercedes-Benz GLC 250d 2015
@@ -854,7 +854,7 @@
 0 Porsche 911 Carrera S 2015
 0 Porsche 911 GT1 race car 1997
 0 Porsche 911 GT2 2001
-0 Porsche 911 GT3 RS 2006
+2 Porsche 911 GT3 RS 2006
 0 Land Rover Range Rover Sport SVR 2016
 0 Porsche 911 Turbo 1995
 0 Cadillac CT6 2016
@@ -886,12 +886,12 @@
 1 Jaguar XJ13 1966
 1 Jaguar XKR-S GT 2014
 0 Porsche 911 Carrera GTS 2015
-0 Porsche 911 GT3 2006
+1 Porsche 911 GT3 2006
 0 Porsche 911 Targa 4S 2015
 0 Porsche Cayenne Turbo 2002
 0 Porsche 718 Boxster S 2017
 0 Porsche 911 GT3 RS 2004
-0 Porsche 911 Targa 4S 2004
+1 Porsche 911 Targa 4S 2004
 0 Porsche Boxster Spyder 2016
 0 Porsche Cayman GT4 2015
 0 Infiniti Q60 Red Sport 400 AWD 2017
@@ -911,7 +911,7 @@
 1 Chevrolet Corvette 2009
 1 Chevrolet Corvette Grand Sport 2017
 1 Audi S8 2006
-0 Volvo 850 BTCC 1994
+1 Volvo 850 BTCC 1994
 0 BMW 1-series M coupe 2011
 0 BMW M3 2008
 2 BMW M5 2012
@@ -919,23 +919,23 @@
 0 Jaguar XKR-S Convertible 2011
 0 Jaguar F-Pace 3.0 D 2016
 0 BMW 335d 2016
-0 Porsche 911 Carrera 4 2000
-0 Porsche 911 Carrera S Cabriolet 2016
+1 Porsche 911 Carrera 4 2000
+1 Porsche 911 Carrera S Cabriolet 2016
 0 MG Metro 6R4 Clubman 1985
 0 Infiniti M45 2006
 0 Infiniti Q70 2016
 1 Cadillac STS-V 2005
 0 Alfa Romeo 4C 2017
 0 Alfa Romeo 8C Competizione 2007
-0 Renault R5 MAXI TURBO 1987
+1 Renault R5 MAXI TURBO 1987
 1 Caterham Seven 420 2015
 0 Mercedes-Benz AMG C 63 2012
 0 Mercedes-Benz AMG E 63 2011
 0 Mercedes-Benz AMG E 63 S 2015
 0 Mercedes-Benz CLA 250 4MATIC 2015
 1 Mercedes-Benz CLS 400 2015
-0 Subaru Impreza WRX STI 2010
-0 Subaru WRX STI 2015
+1 Subaru Impreza WRX STI 2010
+1 Subaru WRX STI 2015
 0 Subaru Impreza WRX STI 2004
 1 Ford F-150 SVT Raptor 2014
 1 Ford Mustang GT Power Pack 2016
@@ -953,14 +953,14 @@
 0 Audi S3 2006
 1 BMW M135i 2012
 1 BMW M3 CSL 2003
-0 Porsche 911 Carrera 2016
-0 Porsche 911 GT3 1999
-0 Porsche Boxster GTS 2015
-0 Porsche Boxster S 2015
+1 Porsche 911 Carrera 2016
+1 Porsche 911 GT3 1999
+1 Porsche Boxster GTS 2015
+2 Porsche Boxster S 2015
 0 Porsche 911 Carrera S 2004
-0 Porsche 911 Turbo 1990
-0 Porsche 968 Turbo S 1993
-0 Porsche Cayman GTS 2014
+1 Porsche 911 Turbo 1990
+1 Porsche 968 Turbo S 1993
+1 Porsche Cayman GTS 2014
 0 Infiniti G35 2007
 0 Infiniti QX70 2014
 1 Lotus Esprit Sport 350 1999
@@ -1005,7 +1005,7 @@
 0 Pagani Zonda 760RS 2012
 0 Pagani Zonda Cinque Roadster 2009
 0 Jaguar F-Type SVR Coupe 2017
-0 Porsche 911 Turbo 2006
+1 Porsche 911 Turbo 2006
 0 Porsche Macan Turbo Performance Pack 2017
 0 Porsche Macan Turbo 2016
 0 Porsche Panamera Turbo 2017
@@ -1023,15 +1023,15 @@
 0 Audi R8 Spyder V10 2013
 0 Dodge Challenger SRT Demon 2017
 0 Pagani Zonda F 2005
-0 Porsche 911 GT2 RS 2011
+1 Porsche 911 GT2 RS 2011
 0 Porsche 911 GT3 2013
 0 Porsche 911 GT3 RS 2015
 0 Porsche Carrera GT 2003
-0 Porsche 911 GT1 road car 1997
-0 Porsche 911 R 2016
-0 Porsche Cayenne Turbo 2017
+1 Porsche 911 GT1 road car 1997
+1 Porsche 911 R 2016
+1 Porsche Cayenne Turbo 2017
 0 Porsche Macan GTS 2015
-0 Porsche Cayenne GTS 2016
+1 Porsche Cayenne GTS 2016
 0 Alfa Romeo Giulia Quadrifoglio 2017
 0 Caterham RST-V8 Levante 2008
 0 McLaren F1 1994
@@ -1083,14 +1083,14 @@
 0 GMC Safari 1996
 0 Peugeot 404 Coupe 1963
 0 Peugeot 505 Break 1982
-0 Pontiac Firebird 1985
+1 Pontiac Firebird 1985
 0 Cadillac DeVille 1977
 1 Chrysler Drifter 1977
 0 Peugeot 108 2018
 0 Peugeot 208 2018
 0 Peugeot iOn 2018
-0 Pontiac 6000 STE AWD 1988
-0 Renault R12 Gordini 1973
+1 Pontiac 6000 STE AWD 1988
+1 Renault R12 Gordini 1973
 0 Renault 17 Gordini 1979
 1 Chrysler TC by Maserati 1990
 0 Plymouth Scamp 1982
@@ -1100,8 +1100,8 @@
 0 Dodge Caravan Turbo 1989
 0 Peugeot 504 Coupe 1968
 0 Pontiac Fiero 1984
-0 Pontiac Sunbird GT 1986
-0 Renault Fuego Turbo 1984
+1 Pontiac Sunbird GT 1986
+1 Renault Fuego Turbo 1984
 0 Citroen C3 Aircross 2018
 0 Citroen C3-XR 2014
 0 Citroen C5 HPi 2001
@@ -1112,11 +1112,11 @@
 0 Peugeot 3008 2018
 0 Peugeot 308 2018
 0 Pontiac Aztek 2001
-0 Pontiac Grand Prix 2+2 1986
+1 Pontiac Grand Prix 2+2 1986
 0 Pontiac Montana 2005
 0 Pontiac Trans Am 1978
 0 Renault Koleos 2018
-0 Renault Twizy F1 2013
+1 Renault Twizy F1 2013
 0 Chrysler LHS 1994
 0 Citroen C5 Aircross 2018
 1 GMC Granite 2010
@@ -1131,8 +1131,8 @@
 0 Peugeot 206 CC 2000
 1 Peugeot 309 GTi 1986
 0 Peugeot 406 Coupe 1997
-0 Plymouth GTX 1968
-0 Pontiac Grand Am 1986
+1 Plymouth GTX 1968
+1 Pontiac Grand Am 1986
 0 Pontiac Sunfire 1995
 0 Renault Avantime 3.0 V6 2002
 0 Renault Sport Megane 2.0 dCi 175 2008
@@ -1141,8 +1141,8 @@
 0 GMC Envoy 1998
 1 Peugeot 205 GTi 1.9 1986
 0 Peugeot 405 Mi16 1987
-0 Ram Dodge Li'l Red Express Truck 1978
-0 Renault 5 GT Turbo 1985
+1 Ram Dodge Li'l Red Express Truck 1978
+1 Renault 5 GT Turbo 1985
 0 Cadillac Escalade 2002
 0 Citroen C5 V6 2003
 0 Citroen Xantia Activa V6 1997
@@ -1154,7 +1154,7 @@
 0 Peugeot 605 1989
 0 Volkswagen Golf 1983
 0 Pontiac G6 2005
-0 Pontiac Trans Am 20th Anniversary 1989
+1 Pontiac Trans Am 20th Anniversary 1989
 0 Renault Koleos 2008
 0 BMW 316 1975
 0 BMW 1800 1963
@@ -1163,12 +1163,12 @@
 0 Peugeot 306 Rallye 1998
 0 Pontiac Fiero GT 1988
 0 Pontiac Firebird Trans Am 1970
-0 Pontiac GTO Judge Ram Air IV 1970
+1 Pontiac GTO Judge Ram Air IV 1970
 0 Pontiac Vibe GT 2003
 0 Renault Fluence 2013
-0 Renault Laguna Coupe 2010
+1 Renault Laguna Coupe 2010
 0 Renault Talisman 2015
-0 Renault 3.5l V6 Espace MK4 2002
+1 Renault 3.5l V6 Espace MK4 2002
 0 Chevrolet Code 130R 2012
 0 DS DS 7 Crossback 2018
 0 BMW 524td 1983
@@ -1176,49 +1176,49 @@
 0 Peugeot 607 1999
 0 Pontiac Bonneville SSEi 2000
 0 Pontiac Grand Am GT 1992
-0 Renault Alaskan 2015
+2 Renault Alaskan 2015
 1 BMW 507 1956
 0 Volkswagen up! 2013
 1 Citroen C2-R2 Max 2008
 1 Dodge Caliber R/T AWD 2007
 0 Pontiac Bonneville Special 1954
-0 Ram Dodge Ramcharger 1974
-0 Ram Dodge Ramcharger 1981
-0 Renault Sport Spider 1996
-0 Volkswagen New Beetle Cabriolet 2003
+1 Ram Dodge Ramcharger 1974
+1 Ram Dodge Ramcharger 1981
+1 Renault Sport Spider 1996
+1 Volkswagen New Beetle Cabriolet 2003
 1 Cadillac ELR 2016
-0 Volkswagen Polo 2009
+1 Volkswagen Polo 2009
 1 Dodge Spirit R/T 1991
-0 Pontiac Grand Prix GTP 1997
+1 Pontiac Grand Prix GTP 1997
 1 Dodge Daytona IROC R/T 1992
 1 GMC Acadia 2017
 1 GMC Yukon Denali 2004
-0 Renault R21 Turbo Europa Cup 1988
+2 Renault R21 Turbo Europa Cup 1988
 1 Chevrolet SSR 6.0L 2007
 1 DS DS 3 Racing 2011
 1 DS Wild Rubis 2013
-0 Pontiac Grand Prix GXP 2006
-0 Renault DeZir 2010
-0 Renault R20 Turbo 4x4 1979
-0 Renault Sport Megane IV R.S. 2018
+1 Pontiac Grand Prix GXP 2006
+2 Renault DeZir 2010
+2 Renault R20 Turbo 4x4 1979
+1 Renault Sport Megane IV R.S. 2018
 0 DS DS 7 Crossback E-Tense 4x4 PHEV 2018
 1 Peugeot 208 GTi 2018
-0 Pontiac Solstice GXP Coupe 2009
-0 Pontiac Trans Am 35th Anniversary 2002
-0 Renault Sport Clio Cup Car 2014
-0 Renault Sport Clio R.S.16 2016
+1 Pontiac Solstice GXP Coupe 2009
+1 Pontiac Trans Am 35th Anniversary 2002
+2 Renault Sport Clio Cup Car 2014
+2 Renault Sport Clio R.S.16 2016
 1 Chrysler Aspen Hybrid 2009
 1 Dodge Caliber SRT4 2008
 1 Dodge Nitro R/T 2007
 1 Peugeot 205 T16 1984
 1 Peugeot 308 GTi 2018
 0 Peugeot RCZ R 2013
-0 Pontiac Trans Am 30th Anniversary 1999
+1 Pontiac Trans Am 30th Anniversary 1999
 1 Chevrolet Cobalt SS Turbo 2009
 1 Dodge Stealth R/T Twin Turbo 1990
 1 GMC Sierra All Terrain X 2017
-0 Pontiac GTO 2006
-0 Volkswagen Fox 2005
+1 Pontiac GTO 2006
+1 Volkswagen Fox 2005
 0 Cadillac Elmiraj 2013
 2 Chevrolet Colorado ZR2 2018
 0 Chevrolet COPO Camaro 2012
@@ -1230,12 +1230,12 @@
 1 GMC Acadia Denali 2018
 0 GMC Syclone 1991
 1 GMC Typhoon 1993
-0 Renault Sport Laguna BTCC 1999
+1 Renault Sport Laguna BTCC 1999
 0 Cadillac CTS Vsport 2015
 0 Cadillac CTS-V 2004
 0 Dodge Charger R/T Scat Pack 2015
 0 Peugeot 3008 DKR 2017
-0 Pontiac G8 GXP 2010
+1 Pontiac G8 GXP 2010
 0 BMW 2002 Tii 1972
 1 DS DS Numero 9 2012
 1 DS Survolt 2010
@@ -1256,7 +1256,7 @@
 0 Chrysler ME Four-Twelve 2004
 0 Bugatti Chiron Sport 2019
 0 Bugatti EB110 Super Sport 1992
-0 Volkswagen Golf 1974
+1 Volkswagen Golf 1974
 0 Volkswagen Jetta 1980
 0 Volkswagen Passat 1988
 0 Volkswagen Passat 1975
@@ -1274,18 +1274,18 @@
 0 Volkswagen Type 2 1970
 0 Volkswagen Type 2 1979
 0 Volkswagen Type 2 1966
-0 Volkswagen Corrado 16v G60 1988
+1 Volkswagen Corrado 16v G60 1988
 0 Volkswagen Golf GTI G60 1990
-0 Volkswagen Jetta 2008
+1 Volkswagen Jetta 2008
 0 Volkswagen Polo 2003
 0 Volkswagen Polo GTI 1999
 0 Volkswagen Scirocco GTI 1986
-0 Volkswagen up! GTI 2018
+1 Volkswagen up! GTI 2018
 0 BMW 116d 2015
 0 Volkswagen Corrado 1988
-0 Volkswagen Golf GTI 1985
+1 Volkswagen Golf GTI 1985
 0 Volkswagen Passat 1993
-0 Volkswagen Polo GT G40 1987
+1 Volkswagen Polo GT G40 1987
 0 Volkswagen T-Roc 2017
 0 BMW 730i 1986
 0 Volkswagen Golf 2003
@@ -1296,14 +1296,14 @@
 0 Volkswagen Sharan 2015
 0 Volkswagen Touran 2003
 0 Volkswagen Touran 2015
-0 Volkswagen Golf 1997
+1 Volkswagen Golf 1997
 0 Volkswagen Passat 1983
 0 Volkswagen Scirocco 1982
 0 BMW 320d Touring 2010
 0 BMW 323i 1995
 0 BMW 325iX 1988
 0 Volkswagen Passat 2018
-0 Volkswagen Polo GTI 2010
+1 Volkswagen Polo GTI 2010
 1 BMW 220d Active Tourer 2018
 0 BMW 525iX 1991
 1 BMW i3 S 2017
@@ -1311,67 +1311,67 @@
 0 Volkswagen Golf GTI 1997
 0 Volkswagen Golf VR6 1991
 0 Volkswagen Jetta 2004
-0 Volkswagen Jetta 2019
+1 Volkswagen Jetta 2019
 0 Volkswagen Jetta VR6 1992
 0 BMW X1 2010
 0 BMW Z4 sDrive18i 2013
-0 Volkswagen Beetle Cabriolet 2012
-0 Volkswagen Jetta GTI 1988
+1 Volkswagen Beetle Cabriolet 2012
+1 Volkswagen Jetta GTI 1988
 0 Volkswagen Passat 2006
 0 Volkswagen Polo GTI 2006
 0 BMW 320Si 2005
 0 BMW 635CSi 1980
 1 BMW i3 2013
-0 Volkswagen Golf G60 Rallye 1988
+1 Volkswagen Golf G60 Rallye 1988
 0 Volkswagen Jetta 2011
 1 BMW 220d xDrive Gran Tourer 2018
 1 BMW 750iL 1995
 1 BMW Z4 3.0si 2006
-0 RUF R56.11 2011
-0 Volkswagen Phaeton 2014
-0 Volkswagen Scirocco R 2009
-0 Volkswagen Tiguan 2017
-0 Volkswagen Touareg 2010
+1 RUF R56.11 2011
+2 Volkswagen Phaeton 2014
+2 Volkswagen Scirocco R 2009
+1 Volkswagen Tiguan 2017
+1 Volkswagen Touareg 2010
 1 BMW 850CSi 1992
-0 RUF SCR 1978
-0 Volkswagen Golf GTI 2009
-0 Volkswagen New Beetle RSi 2000
-0 Volkswagen Tiguan 2011
+1 RUF SCR 1978
+1 Volkswagen Golf GTI 2009
+1 Volkswagen New Beetle RSi 2000
+2 Volkswagen Tiguan 2011
 1 BMW 123d 2007
 1 BMW 325i Convertible 2009
 1 BMW 330i 1998
 1 BMW 520d Touring 2017
-0 Volkswagen Beetle 2011
-0 Volkswagen Corrado VR6 1992
-0 Volkswagen Golf GTI 2004
-0 Volkswagen Polo GTI 2018
+1 Volkswagen Beetle 2011
+1 Volkswagen Corrado VR6 1992
+1 Volkswagen Golf GTI 2004
+1 Volkswagen Polo GTI 2018
 1 BMW 520d Touring 2012
-0 Volkswagen Atlas 2018
-0 Volkswagen Golf GTD 2009
-0 Volkswagen Lupo GTI 2001
-0 Volkswagen Scirocco 2008
+1 Volkswagen Atlas 2018
+1 Volkswagen Golf GTD 2009
+1 Volkswagen Lupo GTI 2001
+1 Volkswagen Scirocco 2008
 1 BMW 330d Touring 2014
 1 BMW 440i 2018
 1 BMW 640i xDrive 2014
 2 BMW M6 Convertible 2006
 1 BMW X1 2017
 1 BMW X6 2012
-0 RUF 3400S 1999
-0 RUF BTR 1983
+1 RUF 3400S 1999
+2 RUF BTR 1983
 1 BMW 535d Touring 2009
 1 BMW 650i Convertible 2012
 1 BMW X3 2006
 0 BMW X5 2008
 1 BMW Z4M Coupe 2006
-0 Volkswagen Golf GTI TCR 2018
-0 Volkswagen Golf R32 2005
-0 Volkswagen Touareg R50 2008
+2 Volkswagen Golf GTI TCR 2018
+1 Volkswagen Golf R32 2005
+1 Volkswagen Touareg R50 2008
 1 BMW 130i 2007
 1 BMW 328i Gran Turismo 2014
 1 BMW 335i 2008
 1 BMW 520d xDrive 2017
 1 BMW 640d 2011
-0 RUF Turbo 3.3 1977
+1 RUF Turbo 3.3 1977
 1 BMW 130i 2005
 1 BMW 135i Convertible 2008
 1 BMW 330d 2005
@@ -1382,7 +1382,7 @@
 0 BMW 650i Convertible 2005
 2 BMW H2R 2004
 1 BMW X5 4.4i 2000
-0 Volkswagen Golf GTI 2013
+2 Volkswagen Golf GTI 2013
 1 BMW 750d xDrive 2013
 0 BMW M3 CS 2018
 0 BMW M3 GTR 2001
@@ -1390,11 +1390,11 @@
 0 BMW M850i xDrive Convertible 2019
 2 BMW X3 M40i 2018
 0 BMW X6 50i 2015
-0 RUF 3800S 2013
-0 RUF BTR2 1993
-0 RUF CTR "Yellowbird" 1987
+1 RUF 3800S 2013
+1 RUF BTR2 1993
+1 RUF CTR "Yellowbird" 1987
 0 RUF R Kompressor 2006
-0 RUF RK Coupe 2006
+2 RUF RK Coupe 2006
 0 Volkswagen W12 Roadster 1997
 0 Volkswagen W12 Syncro 1997
 0 BMW 750i 2016
@@ -1402,7 +1402,7 @@
 0 BMW i8 Roadster 2018
 1 BMW M1 Procar Group 4 1979
 0 BMW M2 Competition (delimited) 2019
-0 Volkswagen Arteon 2017
+1 Volkswagen Arteon 2017
 2 BMW 750Li 2009
 0 BMW M140i 2017
 1 BMW M2 (delimited) 2016
@@ -1411,16 +1411,16 @@
 1 BMW Nazca C2 1992
 1 BMW X3 35d 2014
 0 BMW X4 2018
-0 RUF RCT 1991
-0 RUF RGT 2000
-0 Volkswagen CC 2008
-0 Volkswagen Golf R 2015
-0 Volkswagen Phaeton 2002
+1 RUF RCT 1991
+1 RUF RGT 2000
+1 Volkswagen CC 2008
+1 Volkswagen Golf R 2015
+1 Volkswagen Phaeton 2002
 0 BMW 535i 2010
 1 BMW 545i 2004
 1 BMW M240i Convertible 2016
 0 BMW X2 2018
-0 Volkswagen Golf R 2012
+1 Volkswagen Golf R 2012
 0 Volkswagen Touareg 2018
 0 BMW M5 2018
 0 BMW M5 Competition (delimited) 2018
@@ -1498,7 +1498,7 @@
 0 Fiat Campagnola 1974
 0 Lancia Dedra 1996
 0 Maserati 3500 GT 1957
-0 Volkswagen Country Buggy 1968
+1 Volkswagen Country Buggy 1968
 0 Fiat Abarth 595 Turismo 2012
 0 Fiat Abarth 695 Tributo Maserati 2012
 1 Lamborghini Jalpa 1981
@@ -1648,16 +1648,16 @@
 1 Bentley Mulsanne S 1987
 4 Jaguar XK120 1948
 1 Land Rover Series 1 1948
-0 Vauxhall Opel GT 1968
+1 Vauxhall Opel GT 1968
 0 Jaguar Mark 1 1957
 0 Jaguar XK140 1954
 1 Lotus Seven 1957
-0 TVR 1600M 1972
-0 TVR Vixen S2 1970
+1 TVR 1600M 1972
+1 TVR Vixen S2 1970
 0 Jaguar SS 100 1936
 1 Lotus Elite 1957
 1 Lotus Mk1 Cortina 1967
-0 TVR Grantura 1958
+1 TVR Grantura 1958
 0 Vauxhall PA Velox 1959
 0 Bentley Brooklands 1992
 0 Jaguar XJ12 1980
@@ -1669,7 +1669,7 @@
 0 Jaguar XJ6 1974
 1 Land Rover Defender 110 2016
 1 Land Rover Discovery 2 1998
-0 TVR 280i 1984
+1 TVR 280i 1984
 0 Aston Martin DB4 1958
 0 Aston Martin DB5 1963
 0 Aston Martin DBS 1967
@@ -1678,12 +1678,12 @@
 0 TVR Taimar 1976
 0 Vauxhall Corsa 1.4Si 1993
 0 Vauxhall Opel Diplomat A V8 Coupe 1965
-0 Vauxhall Opel Kadett GT/E 1975
+1 Vauxhall Opel Kadett GT/E 1975
 0 Vauxhall Senator 1987
 0 Jaguar XK150 1957
 0 Land Rover Discovery 1 1989
 0 Vauxhall Firenza 2000 SL Coupe 1971
-0 Vauxhall HP Firenza 1973
+1 Vauxhall HP Firenza 1973
 0 Vauxhall Opel Admiral V8 1965
 1 Aston Martin DB4 GT Zagato 1961
 0 Aston Martin Lagonda Vignale 1993
@@ -1692,8 +1692,8 @@
 0 Bentley Azure 1995
 0 Land Rover Discovery 3 2004
 0 Land Rover Freelander 1997
-0 TVR Taimar Turbo 1977
-0 Vauxhall Carlton GSi3000 24v 1989
+1 TVR Taimar Turbo 1977
+1 Vauxhall Carlton GSi3000 24v 1989
 0 Vauxhall Signum 2003
 0 Aston Martin V8 1972
 1 Aston Martin Virage Volante 1992
@@ -1701,7 +1701,7 @@
 1 Lotus Europa Special 1973
 0 TVR Tasmin 350i Convertible 1984
 0 TVR Tuscan V8 1967
-0 Vauxhall Opel GT Concept 2016
+1 Vauxhall Opel GT Concept 2016
 1 Aston Martin V8 Volante 1996
 1 Bentley Mulsanne Turbo 1983
 0 Bentley Turbo R 1985
@@ -1711,14 +1711,14 @@
 1 Aston Martin V8 Volante 1986
 0 Vauxhall Adam Rocks S 2015
 0 Vauxhall Opel Insignia Country Tourer 2013
-0 Vauxhall Opel Manta 400 1979
+1 Vauxhall Opel Manta 400 1979
 0 Vauxhall Opel Monza GSE 1983
 1 Bentley Mulsanne Grand Limousine 2019
 1 Jaguar XK Convertible 2010
 1 Jaguar XKR 100 2002
 2 Lotus Elise Sprint 2017
-0 TVR 400SE 1988
-0 Vauxhall Insignia Grand Sport 2018
+1 TVR 400SE 1988
+1 Vauxhall Insignia Grand Sport 2018
 1 Aston Martin DB7 1993
 2 Aston Martin V8 Coupe 1996
 1 Aston Martin V8 Vantage 1977
@@ -1726,9 +1726,9 @@
 1 Bentley Continental T 1999
 1 Jaguar X-Type 2001
 2 Land Rover Range Rover 4.4 V8 2002
-2 Land Rover Range Rover Evoque 2018
+0 Land Rover Range Rover Evoque 2018
 1 Land Rover Range Rover 4.6 HSE 1994
-0 Vauxhall Opel GT 2007
+2 Vauxhall Opel GT 2007
 1 Bentley Continental R 1991
 1 Jaguar E-PACE 2018
 1 Jaguar XJR 1995
@@ -1741,8 +1741,8 @@
 1 Jaguar XKR-R 2001
 1 Lotus Europa SE 2008
 1 Lotus Exige S1 2000
-0 TVR 450 SEAC 1988
-0 Vauxhall Opel GTC Concept 2007
+1 TVR 450 SEAC 1988
+1 Vauxhall Opel GTC Concept 2007
 0 Aston Martin DB3S 1953
 1 Aston Martin DB7 GT 2002
 1 Aston Martin DB9 2004
@@ -1762,7 +1762,7 @@
 0 Land Rover Range Rover Evoque 2018
 1 Land Rover Range Rover Sport 2018
 0 Land Rover Range Rover Velar 2018
-0 TVR 450SE 1989
+1 TVR 450SE 1989
 0 Vauxhall Opel Corsa Super 1600 2001
 1 Ariel Atom 1 1999
 1 Aston Martin DB7 Vantage 1999
@@ -1779,18 +1779,18 @@
 1 Lotus Essex Turbo Esprit 1980
 1 Lotus Europa S 2006
 1 Lotus Exige S2 2005
-0 TVR Griffith 400 1964
-0 Vauxhall Firenza Old Nail 1971
+1 TVR Griffith 400 1964
+1 Vauxhall Firenza Old Nail 1971
 1 Aston Martin Bulldog 1980
 1 Aston Martin DB AR1 2002
 2 Aston Martin V8 Zagato 1986
 1 Bentley Azure T 2009
 1 Jaguar XJR 1998
 0 Land Rover Range Rover Sport 2005
-0 TVR Griffith 200 1965
-0 TVR S-Series V8S 1986
-0 Vauxhall Astra VXR 2010
-0 Vauxhall Opel Adam R2 2016
+1 TVR Griffith 200 1965
+1 TVR S-Series V8S 1986
+1 Vauxhall Astra VXR 2010
+1 Vauxhall Opel Adam R2 2016
 0 Vauxhall Opel OPC Extreme 2014
 1 Aston Martin CC100 Speedster 2013
 0 Aston Martin DB11 2016
@@ -1803,7 +1803,7 @@
 1 Lotus Evora 400 2015
 0 Lotus Evora GT4 2011
 0 TVR Griffith 2020
-0 TVR Tuscan race car 1989
+1 TVR Tuscan race car 1989
 0 TVR Typhon 2000
 1 Aston Martin DB10 2015
 0 Aston Martin V12 Vantage 2009
@@ -1823,7 +1823,7 @@
 0 Lotus Exige 265E 2007
 0 Lotus Exige Cup 260 2009
 2 Lotus Exige Scura 2009
-0 Vauxhall Firenza Baby Bertha 1974
+1 Vauxhall Firenza Baby Bertha 1974
 1 Ariel Nomad 2018
 1 Aston Martin DBS V12 2007
 1 Bentley Continental Flying Spur 2005
@@ -1900,7 +1900,7 @@
 0 Lotus Evora GTE Road Car 2011
 0 Lotus Evora Sport 410 2019
 0 Vauxhall Opel Kadett Rallye E-4S 1985
-0 Volvo V70 R 2000
+1 Volvo V70 R 2000
 1 Peugeot 1007 2005
 1 Peugeot 307 2003
 0 Volvo 1800ES 1972
@@ -1918,7 +1918,7 @@
 0 Volvo 440 GLT 1992
 0 Volvo C303 Paris Dakar 1983
 0 Peugeot 405 1987
-0 Volvo V40 T5 2018
+1 Volvo V40 T5 2018
 0 De Tomaso Longchamp 1973
 1 De Tomaso Vallelunga Competizione 1964
 0 De Tomaso Longchamp GTS 1989
@@ -1933,36 +1933,36 @@
 1 De Tomaso Pantera L 1973
 1 Peugeot 405 T16 1993
 0 Peugeot RC Spades 2002
-0 Volvo S90 T5 2016
+1 Volvo S90 T5 2016
 0 De Tomaso Mangusta 1967
 1 Donkervoort S8 1980
 1 Donkervoort S8A 1983
 1 Peugeot 207 RC 2007
 1 Peugeot 208 R2 2012
 1 Peugeot 206 RC 2003
-0 Volvo XC90 T5 AWD 2018
+1 Volvo XC90 T5 AWD 2018
 1 Donkervoort D8 Cosworth 1994
 1 De Tomaso Pantera GT5 1984
 2 De Tomaso Guara 1998
 1 De Tomaso Pantera GT5-S 1989
 0 Donkervoort D8 Zetec Sport 1994
-0 Volvo V90 T8 AWD 2018
+1 Volvo V90 T8 AWD 2018
 1 De Tomaso Guara 1993
 1 Donkervoort D10 1988
-0 Volvo S60 T6 AWD 2013
+1 Volvo S60 T6 AWD 2013
 1 De Tomaso Pantera GTS 1974
 1 De Tomaso Pantera SI 1991
 1 Donkervoort S8AT 1986
-0 Spyker C8 Preliator 2016
+1 Spyker C8 Preliator 2016
 0 Peugeot 308 R HYbrid 2016
 1 Peugeot e-Legend 2018
-0 Volvo C30 Polestar Performance 2010
+1 Volvo C30 Polestar Performance 2010
 0 Donkervoort D8 270 2008
 1 Donkervoort D8 270 RS 2006
-0 Volvo V60 T8 Polestar 2020
+1 Volvo V60 T8 Polestar 2020
 1 Donkervoort D8 GT 2007
-0 Spyker C12 La Turbie 2006
-0 Spyker C8 Spyder T 2003
+1 Spyker C12 La Turbie 2006
+1 Spyker C8 Spyder T 2003
 0 Spyker D12 Peking-to-Paris 2006
 0 Volvo XC60 T8 2018
 0 Spyker C12 Zagato 2007
@@ -1971,14 +1971,14 @@
 0 Spyker C8 Aileron 2009
 0 Spyker C8 Aileron Spyder 2010
 0 Peugeot 907 2004
-0 Volvo S80 V8 2006
-0 Volvo XC40 T5 2019
-0 Spyker C8 Laviolette LM85 2008
-0 Volvo S60 T8 AWD 2020
+1 Volvo S80 V8 2006
+1 Volvo XC40 T5 2019
+1 Spyker C8 Laviolette LM85 2008
+2 Volvo S60 T8 AWD 2020
 1 Peugeot 207 S2000 2007
-0 Spyker C8 Spyder SWB 2000
+1 Spyker C8 Spyder SWB 2000
 0 Peugeot 208 T16 R5 2014
-0 Spyker C8 Laviolette 2001
+1 Spyker C8 Laviolette 2001
 0 Donkervoort D8 Audi (AGU) 1999
 1 Donkervoort D8 Audi (E-gas) Wide Track 2004
 1 Peugeot 306 Maxi 1999
@@ -2219,7 +2219,7 @@
 0 Nissan Wingroad Aero Sport Limited (Y11) 2000
 0 Subaru R1 2005
 0 Subaru R2 2003
-0 Suzuki Alto Works 2016
+1 Suzuki Alto Works 2016
 0 Suzuki Hustler Hybrid X Turbo 2019
 0 Nissan Datsun 810 SSS 1976
 0 Nissan March Turbo (K10) 1985
@@ -2231,13 +2231,13 @@
 0 Nissan Patrol (4W60) 1951
 1 Nissan Skyline 2000 GT-EL (C210) 1977
 0 Nissan Skyline 2000 GT-EX (C210) 1977
-0 Suzuki Cervo (CG72) 1988
+1 Suzuki Cervo (CG72) 1988
 0 Suzuki Swift 1.3 GS (SA) 1985
 0 Nissan Datsun Bluebird 2000SSS-EX (910) 1980
 0 Nissan Datsun Sunny (B210) 1973
 0 Nissan EXA (N12) 1982
 0 Nissan Sunny (B12) 1985
-0 Suzuki Cappuccino (EA11R) 1991
+1 Suzuki Cappuccino (EA11R) 1991
 0 Nissan Datsun Sunny (B10) 1966
 0 Nissan Pao 1989
 1 Nissan Prince Skyline Sports Coupe 1963
@@ -2250,34 +2250,34 @@
 0 INFINITI G20 (P10) 1991
 0 Nissan Fairlady Z432R 1969
 1 Nissan Primera (P10) 1990
-0 Suzuki Swift Sport Hybrid (A2L) 2020
+1 Suzuki Swift Sport Hybrid (A2L) 2020
 0 INFINITI I30 (A32) 1996
 1 Nissan Datsun Bluebird 1300SS Rally Car (410) 1966
 1 Nissan Juke 2020
 1 Nissan Micra Super Turbo (K10) 1988
 0 Nissan President Sovereign (G50) 1992
-0 Subaru Impreza Casa Blanca 1999
+1 Subaru Impreza Casa Blanca 1999
 1 Nissan Juke 2010
 0 Nissan Leopard Turbo 2000SGX (F30) 1982
 0 Nissan Terrano 2013
 0 Subaru Rex Combi 4WD Turbo 1984
-0 Subaru Impreza 2002
+1 Subaru Impreza 2002
 0 INFINITI M30 Convertible (F31) 1991
 0 Nissan 240SX (S13) 1989
 1 Nissan Datsun Sports 2000 1968
 0 Nissan Silvia Varietta (S15) 2000
-0 Suzuki Mighty Boy (SS40) 1987
+1 Suzuki Mighty Boy (SS40) 1987
 1 Nissan 280Z 1975
 0 Nissan 280ZX Turbo 1981
 1 Nissan Leaf Nismo (ZE1) 2017
 0 Nissan Navara (D22) 1997
 0 Nissan Silvia J's (S13) 1988
-0 Subaru Sumo 1986
+1 Subaru Sumo 1986
 0 Suzuki Swift GTi (SF) 1989
 0 Nissan EXA Turbo (N12) 1983
 0 Nissan Sunny Turbo Leprix (B11) 1983
-0 Suzuki Alto Turbo RS 4WD (HA36) 2015
-0 Suzuki Cara 1993
+1 Suzuki Alto Turbo RS 4WD (HA36) 2015
+1 Suzuki Cara 1993
 0 Suzuki Forenza 2004
 0 Nissan 280ZX 1978
 0 Nissan Cedric (Y30) 1983
@@ -2286,19 +2286,19 @@
 0 INFINITI Q45t (Y33) 1997
 1 Nissan Pathfinder (R50) 1995
 1 Nissan Silvia K's (S14a) 1996
-0 Subaru Exiga Crossover 7 2017
+1 Subaru Exiga Crossover 7 2017
 1 Nissan Stagea X Four (WC34) 1996
-0 Suzuki Jimny Sierra 2019
+1 Suzuki Jimny Sierra 2019
 1 Nissan 300ZX (Z32) 1990
-0 Subaru Impreza 2000
+1 Subaru Impreza 2000
 0 Nissan Terrano R3M-R (R50) 1999
 1 Nissan Datsun 720 Bushmaster 1985
 0 Nissan Silvia RS-X (S12) 1983
-0 Subaru Legacy Outback (BG) 1995
+1 Subaru Legacy Outback (BG) 1995
 0 Suzuki Jimny 2019
 0 Suzuki Jimny 1000 1982
-0 Suzuki Swift Sport (A2L) 2018
-0 Suzuki Vitara 1995
+1 Suzuki Swift Sport (A2L) 2018
+1 Suzuki Vitara 1995
 0 Suzuki Vitara 1998
 1 Nissan 300ZX Turbo (Z31) 1984
 0 Nissan Skyline RS-X (R30) 1983
@@ -2309,20 +2309,20 @@
 1 Nissan 300ZX Twin Turbo (Z32) 1990
 1 Nissan Cima 450XV (F50) 2001
 1 Nissan Silvia Spec-R (S15) 1999
-0 Subaru Legacy B4 RS30 (BE) 2001
-0 Subaru Legacy GT-B Touring Wagon (BG) 1997
+1 Subaru Legacy B4 RS30 (BE) 2001
+2 Subaru Legacy GT-B Touring Wagon (BG) 1997
 2 Nissan Cedric (Y34) 2000
-1 Nissan Cherry Coupe X-1 1973
+0 Nissan Cherry Coupe X-1 1973
 1 Nissan Frontier Attack (D23) 2017
 1 Nissan Skyline 370GT Type-S (V36) 2007
 1 Nissan Leopard Type-X (Y32) 1992
 1 Nissan Pulsar VZR N1 (N15) 1998
-0 Subaru Forester (SJ) 2012
+2 Subaru Forester (SJ) 2012
 1 Nissan Bluebird SSS ATTESA Limited (U13) 1991
 1 Nissan Bluebird 2.0SSS Attesa X (U12) 1990
 1 Nissan Bluebird SSS ATTESA (U14) 1996
-0 Subaru XV (GT) 2019
-0 Subaru BRZ tS 2018
+1 Subaru XV (GT) 2019
+1 Subaru BRZ tS 2018
 0 Nissan Violet Rally Car (A10) 1979
 2 INFINITI QX4 (R50) 1997
 1 Nissan Juke Nismo RS 2015
@@ -2332,76 +2332,76 @@
 2 INFINITI I35 (A33) 2002
 1 Nissan Cefiro 3.0 Brougham VIP (A33) 2002
 1 Nissan Xterra (WD22) 1999
-0 Subaru Forester S-Edition (SH) 2011
+1 Subaru Forester S-Edition (SH) 2011
 0 Subaru Legacy (BW) 2020
-0 Subaru Legacy B4 RSK (BE) 2001
-0 Subaru Legacy STI S402 (BL) 2008
+1 Subaru Legacy B4 RSK (BE) 2001
+1 Subaru Legacy STI S402 (BL) 2008
 0 INFINITI Q70 Hybrid (Y51) 2016
 1 Nissan X-Trail GT (T30) 2003
-0 Subaru Impreza WRX (GC8D) 1996
+1 Subaru Impreza WRX (GC8D) 1996
 0 Subaru Legacy STI S401 (BE) 2002
-0 Subaru Outback XT (BT) 2020
+1 Subaru Outback XT (BT) 2020
 0 Subaru Forester STI 2004
-0 Subaru Impreza WRX 300 2005
+1 Subaru Impreza WRX 300 2005
 0 Subaru Legacy Touring Wagon 2.0GT Spec B (BP) 2006
 0 Subaru Impreza Gravel Express (GC8C) 1995
-0 Subaru Impreza WRX (GC8G) 1999
-0 Suzuki C2 1997
+1 Subaru Impreza WRX (GC8G) 1999
+1 Suzuki C2 1997
 0 Nissan Skyline GT-R LM Nismo (R33) Road Car 1995
-0 Subaru Impreza WRX (GDG) 2006
-0 Subaru Legacy 2.5GT tS Touring Wagon (BR) 2010
+1 Subaru Impreza WRX (GDG) 2006
+1 Subaru Legacy 2.5GT tS Touring Wagon (BR) 2010
 1 INFINITI QX80 AWD (Y62) 2018
 2 Nissan 370Z Nismo 2015
 1 Nissan Pulsar GTI-R (N14) 1990
 2 Nissan Silvia 200SX Group A (S12) 1987
 0 Subaru Impreza WRX (GDD) 2003
-0 Subaru Impreza WRX (GDF) 2005
+1 Subaru Impreza WRX (GDF) 2005
 2 Nissan Xterra Off-Road (N50) 2010
 0 Subaru Crosstrek Limited 2021
-0 Subaru Crosstrek Sport 2021
+1 Subaru Crosstrek Sport 2021
 0 Subaru Forester tS 300 (SJ) 2014
 0 Subaru Impreza WRX (GDB) 2002
 0 Subaru Legacy 2.5GT Touring Wagon (BR) 2010
 1 Nissan 370Z Nismo 2009
-0 Subaru Legacy 2.0GT (BP) 2005
-0 Subaru Ascent 2019
+1 Subaru Legacy 2.0GT (BP) 2005
+1 Subaru Ascent 2019
 0 Subaru Impreza WRX Sedan (GE) 2008
-0 Suzuki Ignis Super 1600 2002
+2 Suzuki Ignis Super 1600 2002
 0 INFINITI Q50S 2014
-0 Subaru Legacy B4 Blitzen (BH) 2001
+1 Subaru Legacy B4 Blitzen (BH) 2001
 0 INFINITI Q45 (F50) 2002
 1 INFINITI Q60S 2016
 0 Nissan Silvia Nismo 270R (S14) 1994
 0 Subaru Legacy B4 Blitzen (BE) 2000
 0 Nissan Micra 350SR (K12) 2005
-0 Subaru Legacy RS (BC) 1990
+1 Subaru Legacy RS (BC) 1990
 0 INFINITI G37 IPL 2011
 1 INFINITI QX60 AWD 2018
-0 Subaru Levorg (VN) 2021
-0 Subaru Tribeca 2008
+1 Subaru Levorg (VN) 2021
+1 Subaru Tribeca 2008
 0 INFINITI QX56 (JA60) 2008
 0 Nissan 370Z Roadster 2010
 1 INFINITI Q60 3.0t 2017
 0 Nissan Pulsar Nismo Concept 2015
-0 Subaru Forester GT Turbo (SF) 1998
+1 Subaru Forester GT Turbo (SF) 1998
 0 Nissan Skyline GT-R LM Nismo (R33) Race Car 1995
 0 Subaru WRX STI S209 (VAF) 2019
 0 Subaru WRX STI Type RA-R (VAB) 2018
 0 Nissan Silvia JGTC GT-300 (S14a) 1998
-0 Subaru Impreza Cosworth WRX STI CS400 (GR) 2010
+1 Subaru Impreza Cosworth WRX STI CS400 (GR) 2010
 0 Subaru Impreza WRX STI S202 (GDB) 2002
 0 Subaru WRX STI S207 (VAB) 2016
 0 Subaru WRX STI S208 (VAB) 2017
 0 INFINITI Q60 Black S 2017
 0 Subaru Impreza WRX STI S203 (GDE) 2004
 0 Subaru Impreza WRX STI S204 (GDF) 2005
-0 Suzuki Hayabusa Sport Prototype 2003
+1 Suzuki Hayabusa Sport Prototype 2003
 0 INFINITI FX Vettel Edition (S51) 2013
 0 Subaru Impreza WRX STI R205 (GR) 2010
 1 INFINITI M56 (Y51) 2011
 0 Nissan Leaf Nismo RC 2019
-0 Subaru Impreza RB320 2006
-0 Subaru Impreza WRX STI Hatch (GR) 2010
+1 Subaru Impreza RB320 2006
+2 Subaru Impreza WRX STI Hatch (GR) 2010
 0 Nissan Primera BTCC (P11) 1999
 0 Suzuki GSX-R/4 2001
 0 Subaru Impreza WRX STI Version V (GC8F) 1998
@@ -2421,12 +2421,12 @@
 0 INFINITI Q50 Red Sport 400 2019
 0 Nissan Primera eGT BTCC (P10) 1994
 0 Subaru WRX 2018
-0 Subaru WRX (VAG) 2015
+1 Subaru WRX (VAG) 2015
 0 Nissan Bluebird SSS-R (U12) 1988
 0 Nissan Cima VIP (Y51) 2012
 0 Subaru Impreza Turbo 2000 RB5 (GC8F) 1998
-0 Subaru Impreza WRX (GC8F) 1998
-0 Subaru Impreza WRX STI Version II (GC8C) 1995
+1 Subaru Impreza WRX (GC8F) 1998
+1 Subaru Impreza WRX STI Version II (GC8C) 1995
 0 Subaru Impreza WRX STI Version III Sports Wagon (GC8D) 1996
 0 Nissan GT-R LM Nismo 2015
 0 Nissan R85V 1986
