@@ -23,9 +23,9 @@ namespace Caitlyn_v1._0
                 string line;
                 while ((line = sr.ReadLine()) != null && line != " " && line != "")
                 {
-                    if (carPicture.ToString().Equals(NotePad.Transform(line, 1)))
+                    if (carPicture.ToString().Equals(NotePad.GetWordFromString(line, 1)))
                     {
-                        carname = NotePad.Transform(line, 2);
+                        carname = NotePad.GetWordFromString(line, 2);
                         NotePad.DoLog("машина определена: " + carname);
                         break;
                     }

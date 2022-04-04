@@ -16,6 +16,7 @@ namespace BotRestarter
         }
         public void WaitForAvailableTime()
         {
+            CarSorter carsorter = new CarSorter();
             bool itsTimeToPlay;
             do
             {
@@ -26,6 +27,10 @@ namespace BotRestarter
                     if (bt.isTimeToBreak())
                     {                       
                         itsTimeToPlay = false;
+                        if (bt.isTimeToSortCars())
+                        {
+                            carsorter.Sort();
+                        }
                         Thread.Sleep(60000);
                         break;
                     }

@@ -24,40 +24,6 @@ namespace Caitlyn_v1._0
         {
             Fulltable();
         }
-        static string GetWordFromText(string line, int wordN)
-        {
-            char[] word = line.Trim().ToCharArray();
-
-            int firstwordlength = 0;
-            for (int i = 0; i < word.Length; i++)
-            {
-                if (word[i] != ' ')
-                {
-                    firstwordlength++;
-                }
-                else break;
-            }
-            char[] firstword = new char[firstwordlength];
-            for (int i = 0; i < firstword.Length; i++)
-            {
-                firstword[i] = word[i];
-            }
-
-            char[] secondword = new char[word.Length - firstwordlength - 1];
-            for (int i = 0; i < secondword.Length; i++)
-            {
-                secondword[i] = word[i + firstwordlength + 1];
-            }
-
-            if (wordN == 1)
-            {
-                return new string(firstword);
-            }
-            else
-            {
-                return new string(secondword);
-            }
-        }
         static void PictureToNameTable()
         {
             using (StreamReader sr = new StreamReader(pictureToCarPath, System.Text.Encoding.Default))
@@ -65,8 +31,8 @@ namespace Caitlyn_v1._0
                 string line;
                 while ((line = sr.ReadLine()) != null && line != " " && line != "")
                 {
-                    string carname = GetWordFromText(line, 2);
-                    int pictureNumber = Convert.ToInt32(GetWordFromText(line, 1));
+                    string carname = NotePad.GetWordFromString(line, 2);
+                    int pictureNumber = Convert.ToInt32(NotePad.GetWordFromString(line, 1));
 
                     foreach (CarForExcel car in fulltablearray)
                     {
@@ -89,8 +55,8 @@ namespace Caitlyn_v1._0
                     string line;
                     while ((line = sr.ReadLine()) != null && line != " " && line != "")
                     {
-                        string carname = GetWordFromText(line, 2);
-                        int amount = Convert.ToInt32(GetWordFromText(line, 1));
+                        string carname = NotePad.GetWordFromString(line, 2);
+                        int amount = Convert.ToInt32(NotePad.GetWordFromString(line, 1));
 
                         foreach (CarForExcel car in fulltablearray)
                         {
@@ -107,8 +73,8 @@ namespace Caitlyn_v1._0
         }
         public static void Fulltable()//формирование таблицы из исходных файлов
         {
-            ExcelParcer.Parse(excelFilePath); //считывание статов из файлов
-            cashSR(); //удалить после обновы наличие автомобилей, переписать файл с нуля
+            ExcelParcer.Parse(excelFilePath);
+            cashSR();
             PictureToNameTable();
         }
         public static void MakeCondAuto(string firstCond, string secondCond)

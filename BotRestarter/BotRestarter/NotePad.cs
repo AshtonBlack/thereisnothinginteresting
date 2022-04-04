@@ -48,5 +48,21 @@ namespace BotRestarter
 
             return thetime;
         }
+        public static void ClearLog()
+        {
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", false, System.Text.Encoding.Default)) 
+            {
+                sw.WriteLine("Начинаю новую сессию");
+                sw.Close();
+            }
+        }
+        public static void DoLog(string text)
+        {
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CarSorting.txt", true, System.Text.Encoding.Default))//true для дописывания 
+            {
+                sw.WriteLine(text + "  " + DateTime.Now.ToLongTimeString());
+                sw.Close();
+            }
+        }
     }
 }

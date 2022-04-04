@@ -175,7 +175,6 @@ namespace Caitlyn_v1._0
             }
             return length;
         }
-
         public static string[,] ReadInfoFromTXT(string path)
         {
             int length = GetInfoFileLength(path);
@@ -186,16 +185,15 @@ namespace Caitlyn_v1._0
                 for (int i = 0; i < length; i++)
                 {
                     string theline = sr.ReadLine();
-                    picturetoname[i, 0] = Transform(theline, 1);
-                    picturetoname[i, 1] = Transform(theline, 2);
+                    picturetoname[i, 0] = NotePad.GetWordFromString(theline, 1);
+                    picturetoname[i, 1] = NotePad.GetWordFromString(theline, 2);
                 }
                 sr.Close();
             }
 
             return picturetoname;
         }
-
-        public static string Transform(string line, int wordN)
+        public static string GetWordFromString(string line, int wordN)
         {
             char[] word = line.Trim().ToCharArray();
             StringBuilder firstWord = new StringBuilder();

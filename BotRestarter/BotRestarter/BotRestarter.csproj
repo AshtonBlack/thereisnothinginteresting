@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreakTime.cs" />
+    <Compile Include="CarSorter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -19,5 +19,13 @@ namespace BotRestarter
             }
             return false;
         }
+        public bool isTimeToSortCars()
+        {
+            if (breakEnd > DateTime.Now.AddHours(3))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
