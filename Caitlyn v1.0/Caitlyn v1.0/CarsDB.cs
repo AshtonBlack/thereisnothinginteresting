@@ -77,7 +77,6 @@ namespace Caitlyn_v1._0
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             List<int> rq;
-
             slikTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
             dynamicTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
             standartTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
@@ -87,57 +86,54 @@ namespace Caitlyn_v1._0
             rq = new List<int>(0);
             foreach (CarForExcel car in fulltablearray)
             {
-                if (SatisfyCondition(firstCond, car))
+                if (SatisfyCondition(firstCond, car) && SatisfyCondition(secondCond, car))
                 {
-                    if (SatisfyCondition(secondCond, car))
-                    {   
-                        int y;
-                        switch (car.rarity)
-                        {
-                            case "e":
-                                y = 1;
-                                break;
-                            case "d":
-                                y = 2;
-                                break;
-                            case "c":
-                                y = 3;
-                                break;
-                            case "b":
-                                y = 4;
-                                break;
-                            case "a":
-                                y = 5;
-                                break;
-                            case "s":
-                                y = 6;
-                                break;
-                            default:
-                                y = 0;
-                                break;
-                        }
-                        switch (car.tires)
-                        {
-                            case "per":
-                                dynamicTyres[y] += car.amount;
-                                break;
-                            case "std":
-                                standartTyres[y] += car.amount;
-                                break;
-                            case "all":
-                                allseasonTyres[y] += car.amount;
-                                break;
-                            case "off":
-                                offroadTyres[y] += car.amount;
-                                break;
-                            default:
-                                slikTyres[y] += car.amount;
-                                break;
-                        }
-                        for (int k = 0; k < car.amount; k++)
-                        {
-                            rq.Add(Convert.ToInt32(car.rq));
-                        }
+                    int y;
+                    switch (car.rarity)
+                    {
+                        case "e":
+                            y = 1;
+                            break;
+                        case "d":
+                            y = 2;
+                            break;
+                        case "c":
+                            y = 3;
+                            break;
+                        case "b":
+                            y = 4;
+                            break;
+                        case "a":
+                            y = 5;
+                            break;
+                        case "s":
+                            y = 6;
+                            break;
+                        default:
+                            y = 0;
+                            break;
+                    }
+                    switch (car.tires)
+                    {
+                        case "per":
+                            dynamicTyres[y] += car.amount;
+                            break;
+                        case "std":
+                            standartTyres[y] += car.amount;
+                            break;
+                        case "all":
+                            allseasonTyres[y] += car.amount;
+                            break;
+                        case "off":
+                            offroadTyres[y] += car.amount;
+                            break;
+                        default:
+                            slikTyres[y] += car.amount;
+                            break;
+                    }
+                    for (int k = 0; k < car.amount; k++)
+                    {
+                        rq.Add(Convert.ToInt32(car.rq));
                     }
                 }
             }

@@ -10,11 +10,9 @@ namespace Caitlyn_v1._0
         public static int maxrq { get; set; }
         public static int maxclass { get; set; }
         public static int actualRQ { get; set; }
-
         public static int eventrq { get; set; }//рк эвента
         public static string weather { get; set; }//погода эвента
         public static string coverage { get; set; }//покрытия эвента
-
         // Tyres [0f, 1e, 2d, 3c, 4b, 5a, 6s]
         public static string ConditionNumber1 { get; set; }
         public static string ConditionNumber2 { get; set; }
@@ -23,12 +21,9 @@ namespace Caitlyn_v1._0
         static int[] standartTyres { get; set; }
         static int[] allseasonTyres { get; set; }
         static int[] offroadTyres { get; set; }
-        static int[] lowestRqCars { get; set; } //записывать рк 
-
+        static int[] lowestRqCars { get; set; } //записывать рк
         static int[] rqCost = { 19, 29, 39, 49, 64, 79, 100 };
-
         static Condition() { }
-
         public static int AvailableCars(int carClass)
         {
             int number = 0;
@@ -61,14 +56,12 @@ namespace Caitlyn_v1._0
             } //исключаем сломаные места            
             return number;
         } //доступные машины
-
         public static void ActualRQ()
         {
             actualRQ = eventrq;
             if (actualRQ > maxrq) actualRQ = maxrq;
             if (actualRQ > accountLVL) actualRQ = accountLVL;
         }
-
         public static int[] LowestClassCars()
         {
             int[] classes = { 0, 0, 0, 0, 0 }; //f f f f f           
@@ -84,7 +77,6 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("Стартовые классы для условия " + classes[0] + " " + classes[1] + " " + classes[2] + " " + classes[3] + " " + classes[4]);
             return classes;
         }
-
         public static void MaxRq()
         {
             maxclass = 0;
@@ -122,7 +114,6 @@ namespace Caitlyn_v1._0
                 if (carnumber > 4) break;
             }
         }
-
         public static void ChooseTyres()
         {
             tires = new bool[] { false, false, false, false, false };
@@ -142,7 +133,6 @@ namespace Caitlyn_v1._0
             }
             ChooseTyresMechanic();
         }
-
         static void ChooseDryAsphaltTyres()
         {
             int minrq = 0;
@@ -201,7 +191,6 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
         static void ChooseWetAsphaltTyres()
         {
             int minrq = 0;
@@ -232,7 +221,6 @@ namespace Caitlyn_v1._0
                 tires[3] = true;
             }
         }
-
         static void ChooseMixedAsphaltTyres()
         {
             int minrq = 0;
@@ -267,7 +255,6 @@ namespace Caitlyn_v1._0
                 tires[4] = true;
             }
         }
-
         static void ChooseOffroadTyres()
         {
             int minrq = 0;
@@ -325,7 +312,6 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
         static void ChooseMixedCoverageTyres()
         {
             tires[1] = true;
@@ -333,7 +319,6 @@ namespace Caitlyn_v1._0
             tires[3] = true;
             tires[4] = true;
         }
-
         static void ChooseTyresMechanic()
         {
             Rat.Clk(PointsAndRectangles.tiresMenu);
@@ -370,7 +355,6 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
         public static void MakeCondition(string number1, string number2)
         {
             ConditionNumber1 = number1;
