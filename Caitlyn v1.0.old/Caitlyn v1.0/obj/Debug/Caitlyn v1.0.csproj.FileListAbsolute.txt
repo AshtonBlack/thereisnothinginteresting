@@ -1,9 +1,0 @@
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\bin\Debug\Caitlyn v1.0.exe.config
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\bin\Debug\Caitlyn v1.0.exe
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\bin\Debug\Caitlyn v1.0.pdb
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.csprojAssemblyReference.cache
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn_v1._0.Form1.resources
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn_v1._0.Properties.Resources.resources
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.csproj.GenerateResource.cache
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.exe
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.pdb
