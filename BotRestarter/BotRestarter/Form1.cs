@@ -21,7 +21,7 @@ namespace BotRestarter
             ClearNoxProcesses(names);
             TimingUnit tu = new TimingUnit();
             tu.WaitForAvailableTime();
-            Process.Start(@"C:\Bot\Bot.v.0.1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe");
+            Process.Start(@"C:\Bot\Caitlyn v1.0\Caitlyn v1.0\bin\Debug\Caitlyn v1.0.exe");
             Application.Exit();
         }
 

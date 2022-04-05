@@ -25,15 +25,13 @@ namespace Bot.v._0._07
 
             DevKit dk = new DevKit();
 
-            Rectangle connectionIsFailed = new Rectangle(365, 380, 300, 35);
-            Rectangle typeIsOpenned = new Rectangle(1092, 247, 25, 20);//new
-            Rectangle filterIsOpenned = new Rectangle(943, 247, 25, 20);//new
+            Rectangle prizesForRace = new Rectangle(195, 182, 100, 34);
 
             Clk(1170, 16);
             Thread.Sleep(2000);
                        
-            Rectangle bounds = filterIsOpenned;
-            MasterOfPictures.MakePicture(bounds, "HeadPictures\\filterIsOpenned");
+            Rectangle bounds = prizesForRace;
+            MasterOfPictures.MakePicture(bounds, "HeadPictures\\prizesForRace");
             
             //MasterOfPictures.BW2Capture(bounds, "HeadPictures\\OriginalError");            
 

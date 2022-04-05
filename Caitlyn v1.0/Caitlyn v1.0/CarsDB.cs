@@ -6,12 +6,9 @@ namespace Caitlyn_v1._0
 {
     static class CarsDB
     {
-        static string commonpath = @"C:\Bot\NewPL\";
-        static string cashcarspath = @"C:\Bot\NewPL\CashCars.txt";
-
-        static string excelFilePath = @"C:\projects\bot\cars.xlsx";
-        static string cashCarsPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt";
-        static string pictureToCarPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\PictureToCar.txt";
+        static string excelFilePath = @"C:\Bot\NewPL\cars.xlsx";
+        static string cashCarsPath = @"C:\Bot\NewPL\CashCars.txt";
+        static string pictureToCarPath = @"C:\Bot\NewPL\PictureToCar.txt";
         public static List<CarForExcel> fulltablearray { get; set; }
         public static int[] lowestcars;
         public static int[] slikTyres { get; set; }
@@ -73,7 +70,7 @@ namespace Caitlyn_v1._0
         }
         public static void Fulltable()//формирование таблицы из исходных файлов
         {
-            ExcelParcer.Parse(excelFilePath);
+            fulltablearray = ExcelParcer.Parse(excelFilePath);
             cashSR();
             PictureToNameTable();
         }

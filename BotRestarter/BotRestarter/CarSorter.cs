@@ -48,15 +48,19 @@ namespace BotRestarter
                                         shadesdifs0 += shadesdifs1;
                                     }
                                 }
+                                picture.Dispose();
                                 if (shadesdifs0 < 40000)
-                                {
-                                    picture.Dispose();
+                                {                                    
                                     NotePad.DoLog("");
                                     NotePad.DoLog("Считаю одинаковыми Finger" + (i + 1) + "\\unsorted" + i1);
                                     NotePad.DoLog("и Finger1\\" + i0);
                                     NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
                                     if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg"))
                                     {
+                                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg"))
+                                        {
+                                            File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg");
+                                        }
                                         File.Move("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg",
                                             "C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg");
                                         NotePad.DoLog("Обновляю C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg" + i0);
@@ -69,28 +73,38 @@ namespace BotRestarter
                                 }
                                 if (shadesdifs0 >= 40000 && shadesdifs0 < 60000)
                                 {
-                                    picture.Dispose();
                                     NotePad.DoLog("");
                                     NotePad.DoLog("Вероятно, одинаковые Finger" + (i + 1) + "\\unsorted" + i1);
                                     NotePad.DoLog("и Finger1\\" + i0);
                                     NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
-                                    File.Copy("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
+                                    if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg"))
+                                    {
+                                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg"))
+                                        {
+                                            File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg");
+                                        }
+                                        File.Move("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg",
+                                            "C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg");
+                                        NotePad.DoLog("Обновляю C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg" + i0);
+                                        Console.WriteLine("Обновляю C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg" + i0);
+                                    }
+                                    File.Move("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
                                         "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
                                     predictcars++;
                                     break;
                                 }
                                 picturetest.Dispose();
                             }
-                            else break; //ВЫКЛЮЧИТЬ если есть пробелы нумерации
+                            else break;
                         }
                         picture.Dispose();
                     }
                 }
             }
 
-            NotePad.DoLog("найдено машин: " + foundcars);
-            NotePad.DoLog("вероятных совпадений " + predictcars);
-            NotePad.DoLog("осталось неизвестных " + (unknowncarsN - foundcars));
+            NotePad.DoLogWithTime("найдено машин: " + foundcars);
+            NotePad.DoLogWithTime("вероятных совпадений " + predictcars);
+            NotePad.DoLogWithTime("осталось неизвестных " + (unknowncarsN - foundcars));
         }
     }
 }

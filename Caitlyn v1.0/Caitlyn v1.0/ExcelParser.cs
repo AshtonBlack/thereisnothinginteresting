@@ -44,7 +44,14 @@ namespace Caitlyn_v1._0
                 car.fuel = fulltable[i + 1, 23].ToString();
                 car.body = fulltable[i + 1, 24].ToString();
                 car.seats = fulltable[i + 1, 25].ToString();
-                car.tags = fulltable[i + 1, 26].ToString();
+                try
+                {
+                    car.tags = fulltable[i + 1, 26].ToString();
+                }
+                catch(Exception ex)
+                {
+
+                }
                 car.clearance = fulltable[i + 1, 18].ToString();
                 car.acceleration = fulltable[i + 1, 9].ToString();
                 car.speed = fulltable[i + 1, 8].ToString();

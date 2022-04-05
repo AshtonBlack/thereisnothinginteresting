@@ -6,7 +6,6 @@ namespace BotRestarter
     class NotePad
     {
         string timePath = @"C:\Bot\time.txt";
-        //string timePath = @"C:\projects\time.txt";
         public void WriteTime(DateTime[] times)
         {
             using (StreamWriter sw = new StreamWriter(timePath, false, System.Text.Encoding.Default))
@@ -57,6 +56,14 @@ namespace BotRestarter
             }
         }
         public static void DoLog(string text)
+        {
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CarSorting.txt", true, System.Text.Encoding.Default))//true для дописывания 
+            {
+                sw.WriteLine(text);
+                sw.Close();
+            }
+        }
+        public static void DoLogWithTime(string text)
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\CarSorting.txt", true, System.Text.Encoding.Default))//true для дописывания 
             {
