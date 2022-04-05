@@ -83,12 +83,11 @@ namespace Caitlyn_v1._0
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
                         eventIsOK = false;
                     }
-                }
-                else
-                {
-                    eventIsOK = false;
-                    if (eventN == 4) Rat.Clk(PointsAndRectangles.clkoutofClubs);
-                }
+                }   
+            }
+            if(!eventIsOK && eventN == 4)
+            {
+                Rat.Clk(PointsAndRectangles.clkoutofClubs);
             }
 
             return eventIsOK;
