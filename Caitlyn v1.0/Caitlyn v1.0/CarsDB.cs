@@ -502,7 +502,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "седаны":
-                    bodytype = "saloon";
+                    bodytype = "sedan";
                     x = SearchBody(car, bodytype);
                     break;
                 case "горячий хэтчбек":
