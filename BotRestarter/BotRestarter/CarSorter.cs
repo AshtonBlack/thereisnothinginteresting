@@ -13,37 +13,20 @@ namespace BotRestarter
         int y0 = 7;
         int foundcars = 0;
         int predictcars = 0;
-        bool isPictureMatch(int shadesdifs, int fingerN, int unsortedPictureN, int pictureInFinger1)
-        {            
-            if (shadesdifs < 60000)
+        void UpdatePicture(int fingerN, int unsortedPictureN, int pictureInFinger1)
+        {
+            if (File.Exists("C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg"))
             {
-                if (shadesdifs < 40000)
+                if (File.Exists("C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg"))
                 {
-                    NotePad.DoLog("Считаю одинаковыми");
-                    foundcars++;
+                    File.Delete("C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg");
                 }
-                else
-                {
-                    NotePad.DoLog("Вероятно, одинаковые");
-                    predictcars++;
-                }
-                NotePad.DoLog("Finger" + fingerN + "\\unsorted" + unsortedPictureN + " и Finger1\\" + pictureInFinger1);
-                NotePad.DoLog("Различие в " + shadesdifs + " оттенков");
-                if (File.Exists("C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg"))
-                {
-                    if (File.Exists("C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg"))
-                    {
-                        File.Delete("C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg");
-                    }
-                    File.Move("C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg",
-                        "C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg");
-                    NotePad.DoLog("Обновляю C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg");
-                }
-                File.Move("C:\\Bot\\Finger" + fingerN + "\\unsorted" + unsortedPictureN + ".jpg",
-                    "C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg");
-                return true;
+                File.Move("C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg",
+                    "C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg");
+                NotePad.DoLog("Обновляю C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg");
             }
-            return false;
+            File.Move("C:\\Bot\\Finger" + fingerN + "\\unsorted" + unsortedPictureN + ".jpg",
+                "C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg");
         }
         public void Sort()
         {
@@ -57,10 +40,6 @@ namespace BotRestarter
                     if (File.Exists(unsortedPicture)) //несортированные
                     {
                         unknowncarsN++;
-                        if (File.Exists("C:\\Bot\\Finger" + fingerN + "\\" + unsortedPictureN + "old.jpg"))
-                        {
-                            File.Move("C:\\Bot\\Finger" + fingerN + "\\" + unsortedPictureN + "old.jpg", "C:\\Bot\\Finger" + fingerN + "\\old" + unsortedPictureN + ".jpg");
-                        } //delete
                         Bitmap picture = new Bitmap(unsortedPicture);
                         for (int pictureInFinger1 = 1; pictureInFinger1 < lastcar; pictureInFinger1++)
                         {
@@ -81,7 +60,24 @@ namespace BotRestarter
                                     }
                                 }                                
                                 picturetest.Dispose();
-                                if(isPictureMatch(shadesdifs, fingerN, unsortedPictureN, pictureInFinger1)) break;
+                                if (shadesdifs < 60000)
+                                {
+                                    picture.Dispose();
+                                    if (shadesdifs < 40000)
+                                    {
+                                        NotePad.DoLog("Считаю одинаковыми");
+                                        foundcars++;
+                                    }
+                                    else
+                                    {
+                                        NotePad.DoLog("Вероятно, одинаковые");
+                                        predictcars++;
+                                    }
+                                    NotePad.DoLog("Finger" + fingerN + "\\unsorted" + unsortedPictureN + " и Finger1\\" + pictureInFinger1);
+                                    NotePad.DoLog("Различие в " + shadesdifs + " оттенков");
+                                    UpdatePicture(fingerN, unsortedPictureN, pictureInFinger1);
+                                    break;
+                                }                                
                             }
                             else break;
                         }

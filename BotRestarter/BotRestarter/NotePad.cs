@@ -49,9 +49,9 @@ namespace BotRestarter
         }
         public static void ClearLog()
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", false, System.Text.Encoding.Default)) 
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CarSorting.txt", false, System.Text.Encoding.Default)) 
             {
-                sw.WriteLine("Начинаю новую сессию");
+                sw.WriteLine("Запускаю сортировку машин");
                 sw.Close();
             }
         }
