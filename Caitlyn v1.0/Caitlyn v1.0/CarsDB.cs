@@ -806,7 +806,11 @@ namespace Caitlyn_v1._0
         }
         public static bool SearchTag(CarForExcel car, string tag)
         {
-            return car.tags.Contains(tag);
+            if(car.tags != null)
+            {
+                return car.tags.Contains(tag);
+            }
+            return false;
         }
         public static bool SearchBody(CarForExcel car, string bodytype)
         {
