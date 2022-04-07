@@ -13,20 +13,22 @@ namespace BotRestarter
         int y0 = 7;
         int foundcars = 0;
         int predictcars = 0;
+        string fingerDirectory = @"C:\Bot\Finger";
         void UpdatePicture(int fingerN, int unsortedPictureN, int pictureInFinger1)
         {
-            if (File.Exists("C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg"))
+            string unsortedPicture = fingerDirectory + fingerN + "\\unsorted" + unsortedPictureN + ".jpg";
+            string oldPicture = fingerDirectory + fingerN + "\\old" + pictureInFinger1 + ".jpg";
+            string newPicture = fingerDirectory + fingerN + "\\" + pictureInFinger1 + ".jpg";
+            if (File.Exists(newPicture))
             {
-                if (File.Exists("C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg"))
+                if (File.Exists(oldPicture))
                 {
-                    File.Delete("C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg");
+                    File.Delete(oldPicture);
                 }
-                File.Move("C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg",
-                    "C:\\Bot\\Finger" + fingerN + "\\old" + pictureInFinger1 + ".jpg");
-                NotePad.DoLog("Обновляю C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg");
+                File.Move(newPicture, oldPicture);
+                NotePad.DoLog("Обновляю " + newPicture);
             }
-            File.Move("C:\\Bot\\Finger" + fingerN + "\\unsorted" + unsortedPictureN + ".jpg",
-                "C:\\Bot\\Finger" + fingerN + "\\" + pictureInFinger1 + ".jpg");
+            File.Move(unsortedPicture, newPicture);
         }
         public void Sort()
         {
@@ -36,7 +38,7 @@ namespace BotRestarter
             {
                 for (int unsortedPictureN = 1; unsortedPictureN < lastcar + 1; unsortedPictureN++)
                 {
-                    string unsortedPicture = "C:\\Bot\\Finger" + fingerN + "\\unsorted" + unsortedPictureN + ".jpg";
+                    string unsortedPicture = fingerDirectory + fingerN + "\\unsorted" + unsortedPictureN + ".jpg";
                     if (File.Exists(unsortedPicture)) //несортированные
                     {
                         unknowncarsN++;

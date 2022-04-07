@@ -8,7 +8,6 @@ namespace Caitlyn_v1._0
     {
         public static void DoErrorLog(string text)
         {
-            DoLog("Найдена ошибка: " + text);
             bool match = false;
             if (File.Exists(@"C:\Bot\Errors.txt"))
             {
@@ -20,7 +19,6 @@ namespace Caitlyn_v1._0
                         if (line == text)
                         {
                             match = true;
-                            DoLog("повторная ошибка: " + text);
                             break;
                         }
                     }

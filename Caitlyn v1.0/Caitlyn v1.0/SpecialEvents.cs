@@ -100,10 +100,11 @@ namespace Caitlyn_v1._0
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();
+            /*
             if (fc.FaultNox())
             {
                 RestartBot();
-            }
+            }*/
             if (fc.ServerError())
             {
                 Thread.Sleep(5000);
@@ -254,9 +255,9 @@ namespace Caitlyn_v1._0
                 {
                     Rat.Clk(PointsAndRectangles.clkTheIcon);
                 }
-                if (fc.BrokenInterface()) Rat.Clk(PointsAndRectangles.brokenInterfaceAcceptance);//close notify
+                //if (fc.BrokenInterface()) Rat.Clk(PointsAndRectangles.brokenInterfaceAcceptance);//close notify
                 if (fc.LostConnection()) Rat.Clk(PointsAndRectangles.reconnectionAfterLostConnection);//reconnect
-                if (fc.Google()) Rat.Clk(PointsAndRectangles.googleNotificationAcceptance);//google notify
+                //if (fc.Google()) Rat.Clk(PointsAndRectangles.googleNotificationAcceptance);//google notify
                 if (fc.FBcontinue()) Rat.Clk(PointsAndRectangles.fbFucksBrain);//fb fucks brain
                 if (fc.StartButton())
                 {

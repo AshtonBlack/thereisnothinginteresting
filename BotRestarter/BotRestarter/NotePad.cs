@@ -51,7 +51,7 @@ namespace BotRestarter
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\CarSorting.txt", false, System.Text.Encoding.Default)) 
             {
-                sw.WriteLine("Запускаю сортировку машин");
+                sw.WriteLine("Запускаю сортировку машин " + DateTime.Now.ToLongTimeString());
                 sw.Close();
             }
         }

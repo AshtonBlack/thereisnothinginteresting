@@ -6,12 +6,15 @@ namespace Caitlyn_v1._0
 {
     public class TrackInfo
     {
+        string trackDirectory = @"C:\Bot\Track";
+        string groundDirectory = @"C:\Bot\Ground";
+        string weatherDirectory = @"C:\Bot\Weather";
         public int[] Tracks()
         {
             int n;
             bool flag;
             Rectangle[] a = { PointsAndRectangles.Track1, PointsAndRectangles.Track2, PointsAndRectangles.Track3, PointsAndRectangles.Track4, PointsAndRectangles.Track5 };
-            int[] a1 = new int[5];
+            int[] a1 = new int[5];            
 
             for (int i = 0; i < 5; i++)
             {
@@ -20,7 +23,7 @@ namespace Caitlyn_v1._0
                 n = 0;
                 for (int i1 = 1; i1 < 100; i1++)
                 {
-                    if (File.Exists("C:\\Bot\\Track" + (i + 1) + "\\" + i1 + ".jpg"))
+                    if (File.Exists(trackDirectory + (i + 1) + "\\" + i1 + ".jpg"))
                     {
                         n = i1;
                     }
@@ -32,7 +35,7 @@ namespace Caitlyn_v1._0
                     if (MasterOfPictures.VerifyBW(("Track" + (i + 1) + "\\" + i2), ("Track" + (i + 1) + "\\test"), 120))
                     {
                         a1[i] = i2;
-                        File.Delete("C:\\Bot\\Track" + (i + 1) + "\\test.jpg");
+                        File.Delete(trackDirectory + (i + 1) + "\\test.jpg");
                         flag = false;
                         break;
                     }
@@ -42,7 +45,7 @@ namespace Caitlyn_v1._0
                 {
                     a1[i] = 0;
                     NotePad.DoLog("Добавляю новый трэк");
-                    File.Move("C:\\Bot\\Track" + (i + 1) + "\\test.jpg", "C:\\Bot\\Track" + (i + 1) + "\\" + (n + 1) + ".jpg");
+                    File.Move(trackDirectory + (i + 1) + "\\test.jpg", trackDirectory + (i + 1) + "\\" + (n + 1) + ".jpg");
                 }
             }
 
@@ -62,7 +65,7 @@ namespace Caitlyn_v1._0
                 n = 0;
                 for (int i1 = 1; i1 < 100; i1++)
                 {
-                    if (File.Exists("C:\\Bot\\Ground" + (i + 1) + "\\" + i1 + ".jpg"))
+                    if (File.Exists(groundDirectory + (i + 1) + "\\" + i1 + ".jpg"))
                     {
                         n = i1;
                     }
@@ -74,7 +77,7 @@ namespace Caitlyn_v1._0
                     if (MasterOfPictures.VerifyBW(("Ground" + (i + 1) + "\\" + i2), ("Ground" + (i + 1) + "\\test"), 150))
                     {
                         b1[i] = i2;
-                        File.Delete("C:\\Bot\\Ground" + (i + 1) + "\\test.jpg");
+                        File.Delete(groundDirectory + (i + 1) + "\\test.jpg");
                         flag = false;
                         break;
                     }
@@ -84,7 +87,7 @@ namespace Caitlyn_v1._0
                 {
                     b1[i] = 0;
                     NotePad.DoLog("Добавляю новое покрытие");
-                    File.Move("C:\\Bot\\Ground" + (i + 1) + "\\test.jpg", "C:\\Bot\\Ground" + (i + 1) + "\\" + (n + 1) + ".jpg");
+                    File.Move(groundDirectory + (i + 1) + "\\test.jpg", groundDirectory + (i + 1) + "\\" + (n + 1) + ".jpg");
                 }
             }
 
@@ -105,7 +108,7 @@ namespace Caitlyn_v1._0
                 n = 0;
                 for (int i1 = 1; i1 < 10; i1++)
                 {
-                    if (File.Exists("C:\\Bot\\Weather" + (i + 1) + "\\" + i1 + ".jpg"))
+                    if (File.Exists(weatherDirectory + (i + 1) + "\\" + i1 + ".jpg"))
                     {
                         n = i1;
                     }
@@ -117,7 +120,7 @@ namespace Caitlyn_v1._0
                     if (MasterOfPictures.VerifyBW(("Weather" + (i + 1) + "\\" + i2), ("Weather" + (i + 1) + "\\test"), 30))
                     {
                         c1[i] = i2;
-                        File.Delete("C:\\Bot\\Weather" + (i + 1) + "\\test.jpg");
+                        File.Delete(weatherDirectory + (i + 1) + "\\test.jpg");
                         flag = false;
                         break;
                     }
@@ -129,7 +132,7 @@ namespace Caitlyn_v1._0
                     NotePad.DoLog("Добавляю новую погоду");
                     try
                     {
-                        File.Move("C:\\Bot\\Weather" + (i + 1) + "\\test.jpg", "C:\\Bot\\Weather" + (i + 1) + "\\" + (n + 1) + ".jpg");
+                        File.Move(weatherDirectory + (i + 1) + "\\test.jpg", weatherDirectory + (i + 1) + "\\" + (n + 1) + ".jpg");
                     }
                     catch (Exception ex)
                     {
@@ -165,8 +168,8 @@ namespace Caitlyn_v1._0
             for (int i = 0; i < 5; i++)
             {
                 string name = "unknown";
-                int length = NotePad.GetInfoFileLength("C:\\Bot\\Ground" + (i + 1) + "\\info.txt");
-                string[,] theTable = NotePad.ReadInfoFromTXT("C:\\Bot\\Ground" + (i + 1) + "\\info.txt");
+                int length = NotePad.GetInfoFileLength(groundDirectory + (i + 1) + "\\info.txt");
+                string[,] theTable = NotePad.ReadInfoFromTXT(groundDirectory + (i + 1) + "\\info.txt");
                 for (int l = 0; l < length; l++)
                 {
                     if (b1[i] == Convert.ToInt32(theTable[l, 0]))
@@ -214,8 +217,8 @@ namespace Caitlyn_v1._0
             for (int i = 0; i < 5; i++)
             {
                 string name = "unknown";
-                int length = NotePad.GetInfoFileLength("C:\\Bot\\Weather" + (i + 1) + "\\info.txt");
-                string[,] theTable = NotePad.ReadInfoFromTXT("C:\\Bot\\Weather" + (i + 1) + "\\info.txt");
+                int length = NotePad.GetInfoFileLength(weatherDirectory + (i + 1) + "\\info.txt");
+                string[,] theTable = NotePad.ReadInfoFromTXT(weatherDirectory + (i + 1) + "\\info.txt");
                 for (int l = 0; l < length; l++)
                 {
                     if (c1[i] == Convert.ToInt32(theTable[l, 0]))
@@ -266,8 +269,8 @@ namespace Caitlyn_v1._0
             for (int i = 0; i < 5; i++)
             {
                 string name = "unknown";
-                int length = NotePad.GetInfoFileLength("C:\\Bot\\Track" + (i + 1) + "\\info.txt");
-                string[,] theTable = NotePad.ReadInfoFromTXT("C:\\Bot\\Track" + (i + 1) + "\\info.txt");
+                int length = NotePad.GetInfoFileLength(trackDirectory + (i + 1) + "\\info.txt");
+                string[,] theTable = NotePad.ReadInfoFromTXT(trackDirectory + (i + 1) + "\\info.txt");
                 for (int l = 0; l < length; l++)
                 {
                     if (a1[i] == Convert.ToInt32(theTable[l, 0]))

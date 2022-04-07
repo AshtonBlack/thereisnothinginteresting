@@ -125,12 +125,12 @@ namespace Caitlyn_v1._0
             bool x = MainFrame(PointsAndRectangles.noxRestartMessage, "NoxRestartMessage");
             return x;
         }
-
+        /*
         public bool BrokenInterface()
         {
             bool x = MainFrame(PointsAndRectangles.brokenInterface, "BrokenInterface");
             return x;
-        }
+        }*/
 
         public bool TypeIsOpenned()
         {
@@ -149,12 +149,12 @@ namespace Caitlyn_v1._0
             bool x = MainFrame(PointsAndRectangles.missClick, "WrongClick");
             return x;
         }
-
+        /*
         public bool Google()
         {
             bool x = MainFrame(PointsAndRectangles.google, "Google");
             return x;
-        }
+        }*/
 
         public bool FBcontinue()
         {
@@ -353,12 +353,12 @@ namespace Caitlyn_v1._0
             bool x = MainFrame(PointsAndRectangles.timeIsOut, "TimeIsOut");
             return x;
         }
-
+        /*
         public bool FaultNox()
         {
             bool x = MainFrame(PointsAndRectangles.faultNox, "FaultNox");
             return x;
-        }
+        }*/
 
         public bool InCommonEvent()
         {

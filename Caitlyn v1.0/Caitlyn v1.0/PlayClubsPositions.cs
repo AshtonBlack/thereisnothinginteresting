@@ -65,14 +65,14 @@ namespace Caitlyn_v1._0
                     Rat.Clk(PointsAndRectangles.controlScreenToGarage);//Play
                     Thread.Sleep(1000);
                 }
-
+                /*
                 if (fc.BugControlScreen())
                 {
                     Thread.Sleep(500);
                     NotePad.DoLog("Bug with Control Screen");
                     Rat.Clk(PointsAndRectangles.bugwithControlScreen);//Back
                     Thread.Sleep(1000);
-                }
+                }*/
 
                 if (fc.ItsGarage())
                 {
