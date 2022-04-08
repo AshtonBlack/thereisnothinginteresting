@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace botDBUpdater
@@ -15,8 +14,7 @@ namespace botDBUpdater
         {
             InitializeComponent();
         }
-        List<Car> fulltablearray { get; set; }
-        static int foundcarsforSortDB {get; set; }
+        List<Car> fulltablearray { get; set; }        
         string excelFilePath = @"C:\projects\bot\cars.xlsx";
         string cashCarsPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt";
         string pictureToCarPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\PictureToCar.txt";
@@ -296,8 +294,7 @@ namespace botDBUpdater
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 excelFilePath = openFileDialog.FileName;
-            }
-                        
+            }                        
             label17.Text = excelFilePath;
         }
         private void button5_Click(object sender, EventArgs e)
@@ -308,7 +305,6 @@ namespace botDBUpdater
             {
                 cashCarsPath = openFileDialog.FileName;
             }
-
             FullTable();
             comboBox1.Items.AddRange(CollectCountries());
             label18.Text = cashCarsPath;
@@ -321,25 +317,16 @@ namespace botDBUpdater
             {
                 pictureToCarPath = openFileDialog.FileName;
             }
-
             PictureToNameTable();
             label19.Text = pictureToCarPath;
         }
 
         //From bot.v.0.07 ====================================================
-
-        void button7_Click(object sender, EventArgs e)
-        {
-            DevKit dk = new DevKit();
-            dk.SortCarDBAsync();
-            label14.Text = foundcarsforSortDB.ToString();
-        }
+                
         void button8_Click(object sender, EventArgs e)
         {
             DevKit dk = new DevKit();
-            string text1 = textBox2.Text;
-            string text2 = textBox3.Text;
-            label6.Text = dk.CalculateDifShades(text1, text2);
+            label6.Text = dk.CalculateDifShades(textBox2.Text, textBox3.Text);
         }
         void button9_Click(object sender, EventArgs e)
         {
@@ -360,9 +347,7 @@ namespace botDBUpdater
         void button10_Click(object sender, EventArgs e)
         {
             DevKit dk = new DevKit();
-            string text1 = textBox2.Text;
-            string text2 = textBox3.Text;
-            label6.Text = dk.CalculateDifs(text1, text2);
+            label6.Text = dk.CalculateDifs(textBox2.Text, textBox3.Text);
         }
         public class NotePad
         {
@@ -373,30 +358,11 @@ namespace botDBUpdater
                     sw.WriteLine(text);
                     sw.Close();
                 }
-            }
-
-            public static void DoLog(string text)
-            {
-                using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\Log.txt", true, System.Text.Encoding.Default))//true для дописывания 
-                {
-                    sw.WriteLine(text + "  " + DateTime.Now.ToLongTimeString());
-                    sw.Close();
-                }
-            }
-
-            public static void ClearLog()
-            {
-                using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\thereisnothinginteresting\Log.txt", false, System.Text.Encoding.Default))//true для дописывания 
-                {
-                    sw.WriteLine("Начинаю новую сессию");
-                    sw.Close();
-                }
-            }
+            }            
         }
         public class MasterOfPictures
         {
             private static Bitmap captured; //создаем объект Bitmap (растровое изображение), будет нужен как при самом получении изображения, так и при сохранении изображения
-
             public static void MakePicture(Rectangle bounds, string PATH)
             {
                 PixelFormat format = PixelFormat.Format24bppRgb;
@@ -410,32 +376,6 @@ namespace botDBUpdater
                 gdi.Dispose();
                 captured.Dispose();
             }
-
-            public static bool Verify(string PATH, string ORIGINALPATH)
-            {
-                Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
-                Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
-                bool flag1 = true;
-                for (int x = 0; x < picturetest.Width; x++)
-                {
-                    if (flag1 == true)
-                    {
-                        for (int y = 0; y < picturetest.Height; y++)
-                        {
-                            if (picturetest.GetPixel(x, y) != picture.GetPixel(x, y))
-                            {
-                                Console.WriteLine("разные");
-                                flag1 = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-                picturetest.Dispose();
-                picture.Dispose();
-                return flag1;
-            }
-
             public static void TrackCapture(Rectangle bounds, string PATH)
             {
                 PixelFormat format = PixelFormat.Format24bppRgb;
@@ -461,7 +401,6 @@ namespace botDBUpdater
                 captured.Dispose();
                 BW.Dispose();
             }
-
             public static void BW2Capture(Rectangle bounds, string PATH)
             {
                 PixelFormat format = PixelFormat.Format24bppRgb;
@@ -487,7 +426,6 @@ namespace botDBUpdater
                 captured.Dispose();
                 BW.Dispose();
             }
-
             public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
             {
                 Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
@@ -528,12 +466,7 @@ namespace botDBUpdater
             }
         }
         public class DevKit
-        {            
-            public async void SortCarDBAsync()
-            {
-                await Task.Run(() => SortCarDB());
-            }
-            
+        { 
             public void BestPiece()
             {
                 Bitmap picture = new Bitmap("C:\\Bot\\testcars1\\test1.jpg");
@@ -576,7 +509,6 @@ namespace botDBUpdater
                 picture.Dispose();
                 picturetest.Dispose();
             } //pay attention
-
             public void MapsofDifs()
             {
                 Bitmap picture = new Bitmap("C:\\Bot\\testcars1\\test.jpg");
@@ -645,7 +577,6 @@ namespace botDBUpdater
                 picture.Dispose();
                 picturetest.Dispose();
             } //for fun
-
             public void TestPictures()
             {
                 Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
@@ -661,7 +592,6 @@ namespace botDBUpdater
                     MasterOfPictures.MakePicture(b[i], (carsDB + (i + 1) + "\\test1"));
                 }
             } //fingers for test
-
             public string CalculateDifShades(string first, string second)
             {
                 string result;
@@ -685,7 +615,6 @@ namespace botDBUpdater
                 picture.Dispose();
                 return result;
             }
-
             public string CalculateDifs(string first, string second)
             {
                 string result;
@@ -708,134 +637,7 @@ namespace botDBUpdater
                 picturetest.Dispose();
                 picture.Dispose();
                 return result;
-            }
-
-            public void SortCarDB()
-            {
-                int unknowncarsN = 0;
-                int lastcar = 2000;
-                int x0 = 32;
-                int y0 = 7;
-                NotePad.ClearLog();
-                int foundcars = 0;
-                int predictcars = 0;
-                /*
-                for(int i = 1; i < 1000; i++)
-                {
-                    if (File.Exists("C:\\Bot\\Finger1\\" + i + ".jpg"))
-                    {
-                        Bitmap picture = new Bitmap("C:\\Bot\\Finger1\\" + i + ".jpg");
-                        for (int i1 = 1; i1 < 1000 - i; i1++)
-                        {
-                            if(File.Exists("C:\\Bot\\Finger1\\" + (i1 + i) + ".jpg"))
-                            {
-                                Bitmap picturetest = new Bitmap("C:\\Bot\\Finger1\\" + (i1 + i) + ".jpg");
-                                int shadesdifs0 = 0;
-                                Console.WriteLine("проверяю: позиция " + i + ", " + (i1 + i));
-                                for (int x = 0; x < 50; x++)
-                                {
-                                    for (int y = 0; y < 50; y++)
-                                    {
-                                        var colorValue0 = picture.GetPixel(x + x0, y + y0);
-                                        var colorValue1 = picturetest.GetPixel(x + x0, y + y0);
-                                        int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
-                                            Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
-                                            Math.Abs((int)colorValue0.B - (int)colorValue1.B));
-                                        shadesdifs0 += shadesdifs1;
-                                    }
-                                }
-                                if(shadesdifs0 > 0 && shadesdifs0 < 2000)
-                                {
-                                    Console.WriteLine("Проверь " + i + " и " + (i1 + i));
-                                    NotePad.DoLog("");
-                                }
-                                picturetest.Dispose();
-                            }
-                        }
-                        picture.Dispose();
-                    }
-                }
-                */
-
-                for (int i = 1; i < 5; i++)
-                {
-                    for (int i1 = 1; i1 < lastcar + 1; i1++)
-                    {
-                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg")) //несортированные
-                        {
-                            unknowncarsN++;
-                            if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i1 + "old.jpg"))
-                            {
-                                File.Move("C:\\Bot\\Finger" + (i + 1) + "\\" + i1 + "old.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\old" + i1 + ".jpg");
-                            }
-                            Bitmap picture = new Bitmap("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg");
-                            Console.WriteLine("проверяю: позиция " + (i + 1) + ", unsorted " + i1);
-                            for (int i0 = 1; i0 < lastcar; i0++)
-                            {
-                                if (File.Exists("C:\\Bot\\Finger1\\" + i0 + ".jpg"))
-                                {
-                                    Bitmap picturetest = new Bitmap("C:\\Bot\\Finger1\\" + i0 + ".jpg");
-                                    int shadesdifs0 = 0;
-                                    for (int x = 0; x < 50; x++)
-                                    {
-                                        for (int y = 0; y < 50; y++)
-                                        {
-                                            var colorValue0 = picture.GetPixel(x + x0, y + y0);
-                                            var colorValue1 = picturetest.GetPixel(x + x0, y + y0);
-                                            int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
-                                                Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
-                                                Math.Abs((int)colorValue0.B - (int)colorValue1.B));
-                                            shadesdifs0 += shadesdifs1;
-                                        }
-                                    }
-                                    if (shadesdifs0 < 40000)
-                                    {
-                                        picture.Dispose();
-                                        Console.WriteLine("совпали");
-                                        NotePad.DoLog("");
-                                        NotePad.DoLog("Считаю одинаковыми Finger" + (i + 1) + "\\unsorted" + i1);
-                                        NotePad.DoLog("и Finger1\\" + i0);
-                                        NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
-                                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg"))
-                                        {
-                                            File.Move("C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg",
-                                                "C:\\Bot\\Finger" + (i + 1) + "\\old" + i0 + ".jpg");
-                                            NotePad.DoLog("Обновляю C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg" + i0);
-                                            Console.WriteLine("Обновляю C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg" + i0);
-                                        }
-                                        File.Move("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
-                                            "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
-                                        foundcars++;
-                                        break;
-                                    }
-                                    if (shadesdifs0 >= 40000 && shadesdifs0 < 60000)
-                                    {
-                                        picture.Dispose();
-                                        Console.WriteLine("похожи");
-                                        NotePad.DoLog("");
-                                        NotePad.DoLog("Вероятно, одинаковые Finger" + (i + 1) + "\\unsorted" + i1);
-                                        NotePad.DoLog("и Finger1\\" + i0);
-                                        NotePad.DoLog("Различие в " + shadesdifs0 + " оттенков");
-                                        File.Copy("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i1 + ".jpg",
-                                            "C:\\Bot\\Finger" + (i + 1) + "\\" + i0 + ".jpg");
-                                        predictcars++;
-                                        break;
-                                    }
-                                    picturetest.Dispose();
-                                }
-                                else break; //ВЫКЛЮЧИТЬ если есть пробелы нумерации
-                            }
-                            picture.Dispose();
-                        }
-                    }
-                }
-
-                NotePad.DoLog("найдено машин: " + foundcars);
-                NotePad.DoLog("вероятных совпадений " + predictcars);
-                Console.WriteLine("осталось неизвестных " + (unknowncarsN - foundcars));
-
-                foundcarsforSortDB = foundcars;
-            }
+            }            
         }
     }
 }

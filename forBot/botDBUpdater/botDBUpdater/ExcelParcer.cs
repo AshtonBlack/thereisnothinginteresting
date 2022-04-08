@@ -23,6 +23,9 @@ namespace botDBUpdater
             var arrData = (object[,])ObjWorkSheet.Range["A1:Z" + lastCell.Row].Value;
             ObjWorkBook.Close(false, Type.Missing, Type.Missing); //закрыть не сохраняя
             ObjWorkExcel.Quit(); // выйти из Excel
+            ObjWorkSheet = null;
+            ObjWorkBook = null;
+            ObjWorkExcel = null;
             GC.Collect(); // убрать за собой
 
             return arrData;

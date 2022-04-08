@@ -8,17 +8,21 @@ namespace BotRestarter
     {
         public bool started = false;
         int unknowncarsN = 0;
-        int lastcar = 2000;
         int x0 = 32;
         int y0 = 7;
         int foundcars = 0;
         int predictcars = 0;
         string fingerDirectory = @"C:\Bot\Finger";
-        void UpdatePicture(int fingerN, int unsortedPictureN, int pictureInFinger1)
+        string[] picturesFromFinger1;
+        string finger1Path = @"C:\Bot\Finger1\";
+        string[] readFilesFromDirectory(string PathToFolder)
         {
-            string unsortedPicture = fingerDirectory + fingerN + "\\unsorted" + unsortedPictureN + ".jpg";
-            string oldPicture = fingerDirectory + fingerN + "\\old" + pictureInFinger1 + ".jpg";
-            string newPicture = fingerDirectory + fingerN + "\\" + pictureInFinger1 + ".jpg";
+            return Directory.GetFiles(PathToFolder);
+        }
+        void UpdatePicture(int fingerN, string pictureNameFromFinger, string pictureNameFromFinger1)
+        {
+            string oldPicture = fingerDirectory + fingerN + "\\old" + Path.GetFileName(pictureNameFromFinger1);
+            string newPicture = fingerDirectory + fingerN + "\\" + Path.GetFileName(pictureNameFromFinger1);
             if (File.Exists(newPicture))
             {
                 if (File.Exists(oldPicture))
@@ -28,43 +32,43 @@ namespace BotRestarter
                 File.Move(newPicture, oldPicture);
                 NotePad.DoLog("Обновляю " + newPicture);
             }
-            File.Move(unsortedPicture, newPicture);
+            File.Move(pictureNameFromFinger, newPicture);
         }
         public void Sort()
         {
             started = true;
-            NotePad.ClearLog();            
+            NotePad.ClearLog();
+            picturesFromFinger1 = readFilesFromDirectory(finger1Path);
             for (int fingerN = 2; fingerN < 6; fingerN++)
             {
-                for (int unsortedPictureN = 1; unsortedPictureN < lastcar + 1; unsortedPictureN++)
+                string[] picturesFromFinger = readFilesFromDirectory(fingerDirectory + fingerN);
+                foreach(string pictureNameFromFinger in picturesFromFinger)
                 {
-                    string unsortedPicture = fingerDirectory + fingerN + "\\unsorted" + unsortedPictureN + ".jpg";
-                    if (File.Exists(unsortedPicture)) //несортированные
+                    if (pictureNameFromFinger.Contains("Unsorted"))
                     {
                         unknowncarsN++;
-                        Bitmap picture = new Bitmap(unsortedPicture);
-                        for (int pictureInFinger1 = 1; pictureInFinger1 < lastcar; pictureInFinger1++)
+                        Bitmap pictureFromFinger = new Bitmap(pictureNameFromFinger);
+                        foreach(string pictureNameFromFinger1 in picturesFromFinger1)
                         {
-                            string testPictureFromFinger1 = "C:\\Bot\\Finger1\\" + pictureInFinger1 + ".jpg";
-                            if (File.Exists(testPictureFromFinger1))
+                            if (pictureNameFromFinger1.Contains("jpg"))
                             {
-                                Bitmap picturetest = new Bitmap(testPictureFromFinger1);
+                                Bitmap pictureFromFinger1 = new Bitmap(pictureNameFromFinger1);
                                 int shadesdifs = 0;
                                 for (int x = 0; x < 50; x++)
                                 {
                                     for (int y = 0; y < 50; y++)
                                     {
-                                        var colorValue0 = picture.GetPixel(x + x0, y + y0);
-                                        var colorValue1 = picturetest.GetPixel(x + x0, y + y0);
+                                        var colorValue0 = pictureFromFinger.GetPixel(x + x0, y + y0);
+                                        var colorValue1 = pictureFromFinger1.GetPixel(x + x0, y + y0);
                                         shadesdifs += (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
                                             Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
                                             Math.Abs((int)colorValue0.B - (int)colorValue1.B));
                                     }
-                                }                                
-                                picturetest.Dispose();
+                                }
+                                pictureFromFinger1.Dispose();
                                 if (shadesdifs < 60000)
                                 {
-                                    picture.Dispose();
+                                    pictureFromFinger.Dispose();
                                     if (shadesdifs < 40000)
                                     {
                                         NotePad.DoLog("Считаю одинаковыми");
@@ -75,17 +79,17 @@ namespace BotRestarter
                                         NotePad.DoLog("Вероятно, одинаковые");
                                         predictcars++;
                                     }
-                                    NotePad.DoLog("Finger" + fingerN + "\\unsorted" + unsortedPictureN + " и Finger1\\" + pictureInFinger1);
+                                    NotePad.DoLog(pictureNameFromFinger);
+                                    NotePad.DoLog("и " + pictureNameFromFinger1);
                                     NotePad.DoLog("Различие в " + shadesdifs + " оттенков");
-                                    UpdatePicture(fingerN, unsortedPictureN, pictureInFinger1);
+                                    UpdatePicture(fingerN, pictureNameFromFinger, pictureNameFromFinger1);
                                     break;
-                                }                                
+                                }
                             }
-                            else break;
                         }
-                        picture.Dispose();
-                    }
-                }
+                        pictureFromFinger.Dispose();
+                    }                    
+                }                
             }
 
             NotePad.DoLogWithTime("найдено машин: " + foundcars);

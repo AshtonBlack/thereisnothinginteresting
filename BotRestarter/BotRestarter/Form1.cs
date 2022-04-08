@@ -22,7 +22,7 @@ namespace BotRestarter
             TimingUnit tu = new TimingUnit();
             tu.WaitForAvailableTime();
             Process.Start(@"C:\Bot\Caitlyn v1.0\Caitlyn v1.0\bin\Debug\Caitlyn v1.0.exe");
-            Application.Exit();
+            Application.Exit();            
         }
 
         public void ClearNoxProcesses(string[] processnames)
