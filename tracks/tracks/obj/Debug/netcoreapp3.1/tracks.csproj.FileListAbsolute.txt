@@ -1,0 +1,15 @@
+C:\projects\bot\tracks\tracks\bin\Debug\netcoreapp3.1\tracks.exe
+C:\projects\bot\tracks\tracks\bin\Debug\netcoreapp3.1\tracks.deps.json
+C:\projects\bot\tracks\tracks\bin\Debug\netcoreapp3.1\tracks.runtimeconfig.json
+C:\projects\bot\tracks\tracks\bin\Debug\netcoreapp3.1\tracks.runtimeconfig.dev.json
+C:\projects\bot\tracks\tracks\bin\Debug\netcoreapp3.1\tracks.dll
+C:\projects\bot\tracks\tracks\bin\Debug\netcoreapp3.1\tracks.pdb
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.csprojAssemblyReference.cache
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.Form1.resources
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.csproj.GenerateResource.cache
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.AssemblyInfoInputs.cache
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.AssemblyInfo.cs
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.csproj.CoreCompileInputs.cache
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.dll
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.pdb
+C:\projects\bot\tracks\tracks\obj\Debug\netcoreapp3.1\tracks.genruntimeconfig.cache
