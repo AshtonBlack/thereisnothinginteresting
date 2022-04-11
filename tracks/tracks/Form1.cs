@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace tracks
@@ -15,6 +10,11 @@ namespace tracks
     {
         public string[,] trackpicturetoname { get; set; }
         public int tracklength { get; set; }
+        string thereisnothinginterestingDirectory { get; set; } //or bot directory
+        string trackList = @"C:\projects\bot\1.txt";
+        string commonpath = @"C:\projects\bot\thereisnothinginteresting\Track";
+        string path = @"\info.txt";
+        string ending = ".jpg";
         public Form1()
         {
             InitializeComponent();
@@ -27,8 +27,6 @@ namespace tracks
 
         public void TrackPictureToNameTable()
         {
-            string commonpath = @"C:\projects\bot\thereisnothinginteresting\Track";
-            string path = @"\info.txt";
             tracklength = 0;
             using (StreamReader sr = new StreamReader(commonpath + comboBox1.Text + path, System.Text.Encoding.Default))
             {
@@ -55,18 +53,16 @@ namespace tracks
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string path = @"C:\projects\bot\thereisnothinginteresting\";
-            string ending = ".jpg";
-            if (File.Exists(path + "Track" + comboBox1.Text + "\\" + textBox1.Text + ending))
+            if (File.Exists(commonpath + comboBox1.Text + "\\" + textBox1.Text + ending))
             {
-                pictureBox1.Image = Image.FromFile(path + "Track" + comboBox1.Text + "\\" + textBox1.Text + ending);
+                pictureBox1.Image = Image.FromFile(commonpath + comboBox1.Text + "\\" + textBox1.Text + ending);
             }
             else
             {
                 pictureBox1.Image = null;
             }
 
-            label1.Text = path + "Track" + comboBox1.Text + "\\" + textBox1.Text + ending;
+            label1.Text = commonpath + comboBox1.Text + "\\" + textBox1.Text + ending;
             comboBox2.Text = "unknown";
 
             for (int i = 0; i < tracklength; i++)
@@ -118,9 +114,7 @@ namespace tracks
         }
 
         public void TrackPictureToNameTableAdd()
-        {
-            string commonpath = @"C:\projects\bot\thereisnothinginteresting\Track";
-            string path = @"\info.txt";
+        {            
             string thetrack = comboBox2.Text;
             using (StreamWriter sw = new StreamWriter(commonpath + comboBox1.Text + path, true, System.Text.Encoding.Default))
             {
@@ -144,7 +138,7 @@ namespace tracks
         public List<String> ReadTracks()
         {
             List<String> tracks = new List<String>();
-            using (StreamReader sr = new StreamReader(@"C:\projects\bot\1.txt", System.Text.Encoding.UTF8))
+            using (StreamReader sr = new StreamReader(trackList, System.Text.Encoding.UTF8))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null && line != " " && line != "")
@@ -161,9 +155,8 @@ namespace tracks
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(@"C:\projects\bot\1.txt", true, System.Text.Encoding.UTF8))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(trackList, true, System.Text.Encoding.UTF8))
                 {
-                    //sw.WriteLine();
                     sw.WriteLine(text);
                     sw.Close();
                 }
@@ -178,6 +171,26 @@ namespace tracks
         {
             SaveNewTrack(textBox2.Text);
             comboBox2.Items.AddRange(ReadTracks().ToArray());
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = @"C:\";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                trackList = openFileDialog.FileName;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = @"C:\";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                thereisnothinginterestingDirectory = openFileDialog.FileName;
+            }
         }
     }
 }
