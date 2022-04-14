@@ -460,7 +460,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины 1980":
-                    year = Convert.ToInt16(car.year);
+                    year = GetYear(car);
                     if (year > 1979 && year < 1990)
                     {
                         x = true;
