@@ -247,7 +247,7 @@ namespace Caitlyn_v1._0
                 case "italian 60s-80s":
                     if (car.country == "Italy")
                     {
-                        year = Convert.ToInt32(car.year);
+                        year = GetYear(car);
                         if (year > 1959 && year < 1990)
                         {
                             x = true;
@@ -420,7 +420,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "5-местные":
-                    if (Convert.ToInt32(car.seats) == 5)
+                    if (GetSeats(car) == 5)
                     {
                         x = true;
                     }
@@ -460,7 +460,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины 1980":
-                    year = Convert.ToInt32(car.year);
+                    year = Convert.ToInt16(car.year);
                     if (year > 1979 && year < 1990)
                     {
                         x = true;
@@ -485,13 +485,13 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "2-местные":
-                    if (Convert.ToInt32(car.seats) == 2)
+                    if (GetSeats(car) == 2)
                     {
                         x = true;
                     }
                     break;
                 case "2000s 4wd":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (car.drive == "4wd" && (year > 1999 && year < 2010))
                     {
                         x = true;
@@ -542,7 +542,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "pre-1970":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (year < 1970)
                     {
                         x = true;
@@ -561,7 +561,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "1975-1984":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (year > 1974 && year < 1985)
                     {
                         x = true;
@@ -606,7 +606,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "2000-2004":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (year > 1999 && year < 2005)
                     {
                         x = true;
@@ -617,14 +617,14 @@ namespace Caitlyn_v1._0
                     x = (SearchTag(car, tag));
                     break;
                 case "2005-2009":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (year > 2004 && year < 2010)
                     {
                         x = true;
                     }
                     break;
                 case "1985-1994":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (year > 1984 && year < 1995)
                     {
                         x = true;
@@ -660,7 +660,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины 1990":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (year > 1989 && year < 2000)
                     {
                         x = true;
@@ -669,7 +669,7 @@ namespace Caitlyn_v1._0
                 case "2000 rwd":
                     if (car.drive == "rwd")
                     {
-                        year = Convert.ToInt32(car.year);
+                        year = GetYear(car);
                         if (year > 1999 && year < 2010)
                         {
                             x = true;
@@ -677,7 +677,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины 1970":
-                    year = Convert.ToInt32(car.year);
+                    year = GetYear(car);
                     if (year > 1969 && year < 1980)
                     {
                         x = true;
@@ -734,7 +734,7 @@ namespace Caitlyn_v1._0
                 case "german 2015-2019 x3":
                     if (car.country == "Germany")
                     {
-                        year = Convert.ToInt32(car.year);
+                        year = GetYear(car);
                         if (year > 2014 && year < 2020)
                         {
                             x = true;
@@ -780,7 +780,7 @@ namespace Caitlyn_v1._0
                 case "german 2010-2014 x3":
                     if (car.country == "German")
                     {
-                        year = Convert.ToInt32(car.year);
+                        year = GetYear(car);
                         if (year > 2009 && year < 2015)
                         {
                             x = true;
@@ -790,7 +790,7 @@ namespace Caitlyn_v1._0
                 case "italian 90s x3":
                     if (car.country == "Italy")
                     {
-                        year = Convert.ToInt32(car.year);
+                        year = GetYear(car);
                         if (year > 1989 && year < 2000)
                         {
                             x = true;
@@ -815,6 +815,30 @@ namespace Caitlyn_v1._0
         public static bool SearchBody(CarForExcel car, string bodytype)
         {
             return car.body.Contains(bodytype);
+        }
+        public static int GetYear(CarForExcel car)
+        {
+            try
+            {
+                return Convert.ToInt32(car.year);
+            }
+            catch(Exception ex)
+            {
+                NotePad.DoErrorLog("can't convert to int " + car.year);
+                return 2100;
+            }
+        }
+        public static int GetSeats(CarForExcel car)
+        {
+            try
+            {
+                return Convert.ToInt32(car.seats);
+            }
+            catch (Exception ex)
+            {
+                NotePad.DoErrorLog("can't convert to int " + car.seats);
+                return 0;
+            }
         }
     }
 }

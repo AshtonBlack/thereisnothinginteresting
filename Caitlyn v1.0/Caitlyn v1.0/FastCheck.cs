@@ -261,7 +261,8 @@ namespace Caitlyn_v1._0
             bool x1 = MainFrameBW(PointsAndRectangles.error, "Error", 100);
             bool x2 = MainFrameBW(PointsAndRectangles.error, "Error1", 100);
             bool x3 = MainFrameBW(PointsAndRectangles.error, "Error2", 100);
-            if (x1 || x2 || x3) x = true;
+            bool x4 = MainFrameBW(PointsAndRectangles.error, "Error3", 100);
+            if (x1 || x2 || x3 || x4) x = true;
             return x;
         }
 
