@@ -73,6 +73,7 @@
     <Compile Include="Rat.cs" />
     <Compile Include="SpecialEvents.cs" />
     <Compile Include="TimingUnit.cs" />
+    <Compile Include="TrackConditions.cs" />
     <Compile Include="TrackInfo.cs" />
     <Compile Include="Waiting.cs" />
     <EmbeddedResource Include="Form1.resx">

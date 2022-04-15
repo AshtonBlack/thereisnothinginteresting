@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Caitlyn_v1._0
@@ -23,12 +24,25 @@ namespace Caitlyn_v1._0
             var arrData = (object[,])ObjWorkSheet.Range["A1:Z" + lastCell.Row].Value;
             ObjWorkBook.Close(false, Type.Missing, Type.Missing); //закрыть не сохраняя
             ObjWorkExcel.Quit(); // выйти из Excel
-            ObjWorkSheet = null;
-            ObjWorkBook = null;
-            ObjWorkExcel = null;
-            GC.Collect(); // убрать за собой
+            //GC.Collect(); // убрать за собой
+            KillExcel();
 
             return arrData;
+        }
+        static void KillExcel()
+        {
+            Process[] processes = Process.GetProcessesByName("Microsoft Excel");
+            foreach (Process process in processes)
+            {
+                try
+                {
+                    process.Kill();
+                }
+                catch (Exception)
+                {
+
+                }
+            }
         }
         static List<CarForExcel> HandleTable(object[,] fulltable)
         {
