@@ -1,0 +1,19 @@
+D:\bot\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.exe
+D:\bot\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.deps.json
+D:\bot\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.runtimeconfig.json
+D:\bot\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.runtimeconfig.dev.json
+D:\bot\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.dll
+D:\bot\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.pdb
+D:\bot\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Excel.dll
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.AssemblyReference.cache
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Excel.dll
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.ResolveComReference.cache
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin_v1._1.Form1.resources
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.GenerateResource.cache
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.GeneratedMSBuildEditorConfig.editorconfig
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.AssemblyInfoInputs.cache
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.AssemblyInfo.cs
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.CoreCompileInputs.cache
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.dll
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.pdb
+D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.genruntimeconfig.cache

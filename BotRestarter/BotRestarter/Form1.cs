@@ -16,8 +16,8 @@ namespace BotRestarter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread.Sleep(15000);
-            string[] names = { "Nox", "NoxVMHandle", "NoxVMSVC", "nox_adb" };
+            //Thread.Sleep(15000);
+            string[] names = { "Nox", "NoxVMHandle", "NoxVMSVC", "nox_adb", "Microsoft Excel", "EXCEL" };
             ClearNoxProcesses(names);
             TimingUnit tu = new TimingUnit();
             tu.WaitForAvailableTime();
