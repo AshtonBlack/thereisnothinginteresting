@@ -6,15 +6,14 @@ namespace BotRestarter
 {
     internal class CarSorter
     {
-        public bool started = false;
+        public static bool started = false;
         int unknowncarsN = 0;
         int x0 = 32;
         int y0 = 7;
         int foundcars = 0;
         int predictcars = 0;
-        string fingerDirectory = @"C:\Bot\Finger";
-        string[] picturesFromFinger1;
-        string finger1Path = @"C:\Bot\Finger1\";
+        string fingerDirectory = @"C:\Bot\Finger";        
+        string finger1Path = @"C:\Bot\Finger1";
         string[] readFilesFromDirectory(string PathToFolder)
         {
             return Directory.GetFiles(PathToFolder);
@@ -38,13 +37,15 @@ namespace BotRestarter
         {
             started = true;
             NotePad.ClearLog();
-            picturesFromFinger1 = readFilesFromDirectory(finger1Path);
+            string[] picturesFromFinger1 = readFilesFromDirectory(finger1Path);
+            NotePad.DoLog("В Finger1 " + picturesFromFinger1.Length + " файлов");
             for (int fingerN = 2; fingerN < 6; fingerN++)
             {
                 string[] picturesFromFinger = readFilesFromDirectory(fingerDirectory + fingerN);
-                foreach(string pictureNameFromFinger in picturesFromFinger)
+                NotePad.DoLog("В Finger" + fingerN + " " + picturesFromFinger.Length + " файлов");
+                foreach (string pictureNameFromFinger in picturesFromFinger)
                 {
-                    if (pictureNameFromFinger.Contains("Unsorted"))
+                    if (pictureNameFromFinger.Contains("unsorted"))
                     {
                         unknowncarsN++;
                         Bitmap pictureFromFinger = new Bitmap(pictureNameFromFinger);

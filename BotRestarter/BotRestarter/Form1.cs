@@ -16,13 +16,13 @@ namespace BotRestarter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Thread.Sleep(15000);
-            string[] names = { "Nox", "NoxVMHandle", "NoxVMSVC", "nox_adb", "Microsoft Excel", "EXCEL" };
+            Thread.Sleep(15000);
+            string[] names = { "Nox", "NoxVMHandle", "NoxVMSVC", "nox_adb", "EXCEL" };
             ClearNoxProcesses(names);
             TimingUnit tu = new TimingUnit();
             tu.WaitForAvailableTime();
             Process.Start(@"C:\Bot\Caitlyn v1.0\Caitlyn v1.0\bin\Debug\Caitlyn v1.0.exe");
-            Application.Exit();            
+            Application.Exit();
         }
 
         public void ClearNoxProcesses(string[] processnames)

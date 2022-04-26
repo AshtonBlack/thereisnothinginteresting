@@ -27,7 +27,7 @@ namespace BotRestarter
                     if (bt.isTimeToBreak())
                     {                       
                         itsTimeToPlay = false;
-                        if (bt.isTimeToSortCars())
+                        if (bt.isTimeToSortCars() && !CarSorter.started)
                         {
                             carsorter.Sort();
                         }
