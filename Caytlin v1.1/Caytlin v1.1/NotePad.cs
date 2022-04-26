@@ -9,9 +9,12 @@ namespace Caytlin_v1._1
         public static void DoErrorLog(string text)
         {
             bool match = false;
-            if (File.Exists(@"C:\Bot\Errors.txt"))
+            //ToDelete
+            string path = @"D:\bot\Errors.txt";
+            //string path = @"C:\Bot\Errors.txt";
+            if (File.Exists(path))
             {
-                using (StreamReader sr = new StreamReader(@"C:\Bot\Errors.txt", Encoding.Default))
+                using (StreamReader sr = new StreamReader(path, Encoding.Default))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -27,7 +30,7 @@ namespace Caytlin_v1._1
             }
             if (!match)
             {                
-                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, Encoding.Default))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(path, true, Encoding.Default))//true для дописывания 
                 {
                     sw.WriteLine(text);
                     sw.Close();

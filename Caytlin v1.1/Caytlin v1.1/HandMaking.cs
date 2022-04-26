@@ -79,25 +79,22 @@ namespace Caytlin_v1._1
             }
             return resultedCars;
         }
-        public List<(string rarity, string tires, string drive, string country, string clearance, int count)> GroupCars(CarForExcel[] car)
+        public List<(CarDescriptionForFilter description, int count)> GroupCars(CarForExcel[] car)
         {
-            List<(string rarity, string tires, string drive, string country, string clearance, int count)> carsDescription = new List<(string rarity, string tires, string drive, string country, string clearace, int count)>();
-            carsDescription.Add((car[0].rarity, car[0].tires, car[0].drive, car[0].clearance, car[0].country, 1));   
+            List<(CarDescriptionForFilter description, int count)> carsDescription = new List<(CarDescriptionForFilter description, int count)>();
+            carsDescription.Add((new CarDescriptionForFilter(car[0]), 1));   
             for(int i = 1; i < car.Length; i++)
             {
-                for(int j = 0; j < carsDescription.Count; j++)
-                {
-                    if(carsDescription[j].rarity == car[i].rarity &&
-                        carsDescription[j].tires == car[i].tires &&
-                        carsDescription[j].drive == car[i].drive &&
-                        carsDescription[j].country == car[i].country &&
-                        carsDescription[j].clearance == car[i].clearance)
+                CarDescriptionForFilter additionalDescription = new CarDescriptionForFilter(car[i]);
+                for(int j = 0; j < carsDescription.Count; j++)      
+                {                    
+                    if(carsDescription[j].Equals(additionalDescription))
                     {
-                        carsDescription[j] = (carsDescription[j].rarity, carsDescription[j].tires, carsDescription[j].drive, carsDescription[j].country, carsDescription[j].clearance, carsDescription[j].count+1);
+                        carsDescription[j] = (additionalDescription, carsDescription[j].count+1);
                     }
                     else
                     {
-                        carsDescription.Add((car[i].rarity, car[i].tires, car[i].drive, car[i].country, car[i].clearance, 1));
+                        carsDescription.Add((additionalDescription, 1));
                     }
                 }
             }
@@ -110,7 +107,7 @@ namespace Caytlin_v1._1
             foreach(var carsDescriptions in GroupCars(ChooseCars()))
             {
                 Randomizer();
-                UseFilter(carsDescriptions.rarity, carsDescriptions.tires, carsDescriptions.drive, carsDescriptions.country, carsDescriptions.clearance);
+                UseFilter(carsDescriptions.description);
                 DragnDpopHand(carsDescriptions.count, usedhandslots);
                 usedhandslots+=carsDescriptions.count;
             }//механизм расстановки
@@ -278,7 +275,7 @@ namespace Caytlin_v1._1
 
             return carsid;
         }
-        void UseFilter(string rarity, string tires, string drive, string country, string clearance)
+        void UseFilter(CarDescriptionForFilter carDescription)
         {
             FastCheck fc = new FastCheck();
             do
@@ -289,18 +286,19 @@ namespace Caytlin_v1._1
             Thread.Sleep(200);
             Rat.Clk(PointsAndRectangles.clear);
             Thread.Sleep(1000);
-            //Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);
+            //Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);//legacy
             Rat.Clk(PointsAndRectangles.rarity);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.rarityClasses[rarity]);//выбрать класс
+            Rat.Clk(PointsAndRectangles.rarityClasses[carDescription.rarity]);//выбрать класс
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.tiresMenu);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.tires[tires]);
+            Rat.Clk(PointsAndRectangles.tires[carDescription.tires]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.drive[drive]);
+            Rat.Clk(PointsAndRectangles.drive[carDescription.drive]);
             Thread.Sleep(1000);
             //TODO choose country
+            //TODO choose clearance
             do
             {
                 Rat.Clk(PointsAndRectangles.accept);

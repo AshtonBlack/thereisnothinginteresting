@@ -26,10 +26,10 @@ namespace Caytlin_v1._1
         void MyTest()
         {
             NotePad.ClearLog();
-            Condition.eventRQ = 240;
+            Condition.eventRQ = 270;
             TrackInfo testTrack = new TrackInfo();
             testTrack.weather = "Дождь";
-            testTrack.ground = "Асфальт";
+            testTrack.ground = "Грунт";
             testTrack.track = "Подъем на холм";
             Condition.previousTracks = new TrackInfo[5];
             Condition.previousTracks[0] = testTrack;
@@ -37,7 +37,7 @@ namespace Caytlin_v1._1
             Condition.previousTracks[2] = testTrack;
             Condition.previousTracks[3] = testTrack;
             Condition.previousTracks[4] = testTrack;
-            CarsDB.MakeCondAuto("автоспорт", "empty"); 
+            CarsDB.MakeCondAuto("экологичная", "empty"); 
             HandMaking hm = new HandMaking();
             hm.ChooseCars();
         }
