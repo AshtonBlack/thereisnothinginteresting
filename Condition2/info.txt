@@ -1,0 +1,35 @@
+0 empty
+1 машины германии х2
+2 nissan x3
+3 машины италии х2
+4 chrysler x3
+5 машины франции х2
+6 машины англии х2
+7 dodge x3
+8 cadillac x3
+9 машины сша х2
+10 машины €понии х2
+11 bmw x3
+12 немецкое возрождение х3
+13 jaguar x3
+14 porsche x3
+15 italian renaissance x3
+16 subaru x3
+17 обычна€ х2
+18 mercedes-benz x3
+19 opel x3
+20 audi x3
+21 alfa romeo x3
+22 pontiac x3
+23 peugeot x3
+24 suzuki x3
+25 ford x3
+26 citroen x3
+27 italian 60s-80s x3
+28 fiat x3
+29 суперска€ х2
+30 german 2010-2014 x3
+31 italian 90s x3
+32 renault x3
+33 chevrolet x3
+34 honda x3

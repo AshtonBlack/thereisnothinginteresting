@@ -133,11 +133,11 @@ namespace Caitlyn_v1._0
         public static Rectangle SeasonEndBounty = new Rectangle(525, 645, 240, 25);//new
         public static Rectangle activeEvent = new Rectangle(1064, 794, 20, 20);//new
         public static Rectangle controlScreen = new Rectangle(796, 793, 85, 25);//new
-        public static Rectangle clubMap = new Rectangle(800, 720, 30, 30);//new
+        public static Rectangle clubMap = new Rectangle(1093, 249, 140, 35);//new
         public static Rectangle raceOn = new Rectangle(50, 175, 60, 60);//new
         public static Rectangle ending = new Rectangle(730, 720, 189, 20);//new
         public static Rectangle inGarage = new Rectangle(195, 183, 160, 30); //for itsgarage //new
-        public static Rectangle eventEnds = new Rectangle(561, 565, 160, 20);//new
+        public static Rectangle eventEnds = new Rectangle(245, 450, 800, 150);//?
         public static Rectangle upgrade = new Rectangle(427, 247, 135, 30);//new
         public static Rectangle error = new Rectangle(548, 797, 185, 25);//new
         public static Rectangle eventisFull = new Rectangle(560, 564, 156, 20);
@@ -177,8 +177,8 @@ namespace Caitlyn_v1._0
         public static Rectangle Car7Bounds = new Rectangle(670, 325, 290, 150);
         public static Rectangle Car8Bounds = new Rectangle(670, 530, 290, 150);
         public static Point commonCondition = new Point(640, 265);
-        public static Point cond1 = new Point(425, 310);
-        public static Point cond2 = new Point(425, 400);
+        public static Point cond1 = new Point(400, 300);
+        public static Point cond2 = new Point(400, 390);
         public static Point commonConditionCross = new Point(790, 260);//new
         public static Point filter = new Point(945, 265);
         public static Point clear = new Point(525, 785);
@@ -230,10 +230,10 @@ namespace Caitlyn_v1._0
         public static Point backToClubMap = new Point(70, 205);
         //PlayClubsPositions
         public static Point bountyForSeason = new Point(635, 660);
-        public static Point eventIsEnd = new Point(640, 590);
+        public static Point eventIsEnd = new Point(640, 580);//?
         public static Point closeCarCard = new Point(685, 280);
         public static Point controlScreenToGarage = new Point(820, 790);
-        //public static Point bugwithControlScreen = new Point(70, 205);
+        public static Point bugwithControlScreen = new Point(70, 205);
         public static Point ChooseAnEnemy = new Point(640, 645);
         public static Point forceTheRace = new Point(180, 580);
         public static Point acceptSeasonEnd = new Point(635, 570);
@@ -249,7 +249,7 @@ namespace Caitlyn_v1._0
         public static Point noxClosing = new Point(1230, 150);
         public static Point noxClosingAcceptance = new Point(675, 540);//new
         public static Point missClickCancelation = new Point(1145, 240);
-        public static Point eventEndsAcceptance = new Point(640, 590);
+        public static Point eventEndsAcceptance = new Point(640, 580);//?
         public static Point eventIsFullAcceptance = new Point(645, 575);
         public static Point buttonBack = new Point(85, 215);
         public static Point dailyBountyStart = new Point(640, 770);

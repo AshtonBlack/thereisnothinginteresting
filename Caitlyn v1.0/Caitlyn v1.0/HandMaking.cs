@@ -7,6 +7,7 @@ namespace Caitlyn_v1._0
 {
     public class HandMaking
     {
+        bool eventIsNotEnd = true;
         public int[] ConditionHandling()
         {
             int[] rqclass = new int[] { 19, 29, 39, 49, 64, 79, 100 }; //рк для классов 
@@ -58,7 +59,30 @@ namespace Caitlyn_v1._0
             return classcars;//порядок F,E,D,C,B,A,S
         }
 
-        public void MakingHand()
+        bool CheckForEventIsOn()
+        {
+            FastCheck fc = new FastCheck();
+            SpecialEvents se = new SpecialEvents();
+            se.MissClick();
+            if (fc.EventEnds())
+            {
+                NotePad.DoLog("Событие закончилось");
+                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
+                Thread.Sleep(2000);
+            }
+            if (fc.ClubMap())
+            {
+                NotePad.DoLog("вылетел на карту");
+                eventIsNotEnd = false;
+            }
+            if (fc.Bounty())
+            {
+                eventIsNotEnd = false;
+            }
+            return true;
+        }
+
+        public bool MakingHand()
         {
             FastCheck fc = new FastCheck();
 
@@ -78,31 +102,42 @@ namespace Caitlyn_v1._0
 
             if (Condition.ConditionNumber1 != "empty"
                 && Condition.ConditionNumber1 != "обычная х3"
-                && !fc.ConditionActivated())
+                && !fc.ConditionActivated()
+                && eventIsNotEnd)
             {
-                if (Condition.ConditionNumber2 == "empty")
+                if (CheckForEventIsOn() && eventIsNotEnd)
                 {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
-                }
-                else
-                {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
-                    Thread.Sleep(1000);
-                    Rat.Clk(PointsAndRectangles.cond1);
-                    Thread.Sleep(200);
-                    Rat.Clk(PointsAndRectangles.cond2);
-                    Thread.Sleep(200);
-                    Rat.Clk(PointsAndRectangles.commonConditionCross);
-                }
+                    if (Condition.ConditionNumber2 == "empty")
+                    {
+                        Rat.Clk(PointsAndRectangles.commonCondition);
+                    }
+                    else
+                    {
+                        Rat.Clk(PointsAndRectangles.commonCondition);
+                        Thread.Sleep(1000);
+                        Rat.Clk(PointsAndRectangles.cond1);
+                        Thread.Sleep(200);
+                        Rat.Clk(PointsAndRectangles.cond2);
+                        Thread.Sleep(200);
+                        Rat.Clk(PointsAndRectangles.commonConditionCross);
+                    }
+                }                
             } //включить фильтр условия события.
 
             Point[] cls = { PointsAndRectangles.f, PointsAndRectangles.e, PointsAndRectangles.d, PointsAndRectangles.c, PointsAndRectangles.b, PointsAndRectangles.a, PointsAndRectangles.s };
             for (int i = 6; i > -1; i--)
             {
-                if (classcars[i] > 0)
+
+                if (classcars[i] > 0 && eventIsNotEnd)
                 {
-                    Randomizer();
-                    UseFilter(cls[i]);
+                    if (!Randomizer())
+                    {
+                        return false;
+                    }
+                    if (!UseFilter(cls[i]))
+                    {
+                        return false;
+                    }                    
                     conditionAvailableCars = Condition.AvailableCars(i);
 
                     if (i == 0)//для серых нет возврата недобора
@@ -118,12 +153,16 @@ namespace Caitlyn_v1._0
                     }
                 }
             }//механизм расстановки
-
-            if (VerifyHand())
+            if (eventIsNotEnd)
             {
-                int[] carsid = RememberHand();
-                NotePad.Saves(carsid);
-            } //сохранение руки
+                if (VerifyHand())
+                {
+                    int[] carsid = RememberHand();
+                    NotePad.Saves(carsid);
+                } //сохранение руки
+            }
+            
+            return eventIsNotEnd;
         }
 
         public bool CarFixed(int slot)
@@ -171,19 +210,23 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
 
-            bool x = true;
+            bool handIsOk = true;
 
             Thread.Sleep(2000);
 
-            if (fc.AnyHandSlotIsEmpty()) x = false;
+            if (fc.AnyHandSlotIsEmpty()) handIsOk = false;
 
             if (fc.RedReadytoRace())
             {
                 NotePad.DoLog("Рука не соответствует условию");
-                x = false;
+                handIsOk = false;
+            }
+            if (!CheckForEventIsOn())
+            {
+                handIsOk = false;
             }
 
-            return x;
+            return handIsOk;
         }
 
         public int[] RememberHand()
@@ -273,19 +316,23 @@ namespace Caitlyn_v1._0
             return carsid;
         }
 
-        private void UseFilter(Point cls)
+        private bool UseFilter(Point cls)
         {
             FastCheck fc = new FastCheck();
-
+            NotePad.DoLog("накладываю фильтры");
             do
             {
+                if (!CheckForEventIsOn() || !eventIsNotEnd)
+                {
+                    return false;
+                }
                 Rat.Clk(PointsAndRectangles.filter);
                 Thread.Sleep(1000);
             } while (!fc.FilterIsOpenned());//100% FilterOpenner
             Thread.Sleep(200);
             Rat.Clk(PointsAndRectangles.clear);
             Thread.Sleep(1000);
-            Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);
+            //Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);
             Rat.Clk(PointsAndRectangles.rarity);
             Thread.Sleep(1000);
             Rat.Clk(cls);//выбрать класс             
@@ -294,19 +341,33 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             do
             {
+                if (!CheckForEventIsOn() || !eventIsNotEnd)
+                {
+                    return false;
+                }
                 Rat.Clk(PointsAndRectangles.accept);
                 Thread.Sleep(500);
             } while (fc.FilterIsOpenned());//100% FilterCloser            
             Thread.Sleep(2000);
+
+            return true;
         }
 
-        private void Randomizer()
+        private bool Randomizer()
         {
             FastCheck fc = new FastCheck();
 
             Point[] a = new Point[] { PointsAndRectangles.r1, PointsAndRectangles.r2, PointsAndRectangles.r3, PointsAndRectangles.r4, PointsAndRectangles.r5, PointsAndRectangles.r6, PointsAndRectangles.r7, PointsAndRectangles.r8, PointsAndRectangles.r9, PointsAndRectangles.r10 };
             Random rand = new Random();
-            while (!fc.ItsGarage()) Thread.Sleep(2000);
+            NotePad.DoLog("рандомизирование");
+            while (!fc.ItsGarage())
+            {
+                if (!CheckForEventIsOn() || !eventIsNotEnd)
+                {
+                    return false;
+                }
+                Thread.Sleep(2000);
+            }           
 
             if ((Condition.ConditionNumber1 == "экстремальная" && Condition.eventrq < 320)//условие определееной редкости
             || (Condition.ConditionNumber1 == "редкостная" && Condition.eventrq < 195)
@@ -318,6 +379,10 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(200);
                 do
                 {
+                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    {
+                        return false;
+                    }
                     Rat.Clk(PointsAndRectangles.sorting);//сортировка
                     Thread.Sleep(1000);
                 } while (!fc.TypeIsOpenned());//100% SorterOpenner
@@ -333,6 +398,10 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(200);
                 do
                 {
+                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    {
+                        return false;
+                    }
                     Rat.Clk(PointsAndRectangles.sorting);//сортировка
                     Thread.Sleep(1000);
                 } while (!fc.TypeIsOpenned());//100% SorterOpenner
@@ -353,6 +422,8 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(500);
             } while (fc.TypeIsOpenned());//100% SorterCloser            
             Thread.Sleep(4000);
+
+            return true;
         }
 
         public int DragnDpopHand(int n, int uhl, int caCars)
@@ -377,6 +448,10 @@ namespace Caitlyn_v1._0
                 } //x имеет значение и при нуле
                 else
                 {
+                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    {
+                        break;
+                    }
                     if (x > 3 && drag == 0)
                     {
                         Rat.DragnDropSlow(PointsAndRectangles.ds1, PointsAndRectangles.de1, 5);
@@ -397,9 +472,16 @@ namespace Caitlyn_v1._0
                     }//прерывание цикла в случае множества сломанных
 
                     if (hm.CarFixed(x))
-                    {
+                    {                        
                         NotePad.DoLog("Тачка " + (x + 1) + " исправна");
-                        while (!fc.ItsGarage()) Thread.Sleep(2000);
+                        while (!fc.ItsGarage())
+                        {
+                            Thread.Sleep(2000);
+                            if (!CheckForEventIsOn() || !eventIsNotEnd)
+                            {
+                                break;
+                            }
+                        }                            
                         Rat.DragnDropSlow(b[x], a[h + uhl], 8);
                         h++;
                         n--;

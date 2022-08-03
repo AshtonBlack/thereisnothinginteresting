@@ -12,7 +12,7 @@ namespace Caitlyn_v1._0
         public void ToClubMap()
         {
             NotePad.ClearLog();
-            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_1");
+            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe"); //, "-clone:Nox_1"
             Thread.Sleep(10000);
 
             se.ToClubs();
@@ -59,15 +59,22 @@ namespace Caitlyn_v1._0
         private bool PlayClubs(int i)
         {
             SpecialEvents se = new SpecialEvents();
-            Waiting wait = new Waiting();
             FastCheck fc = new FastCheck();
             PlayClubsPositions pcp = new PlayClubsPositions();
 
             bool eventisactive = pcp.PathToGarage();
             if (eventisactive)
             {
-                pcp.PrepareToRace(i);//набор/проверка руки
-                wait.ReadytoRace();
+                if (!pcp.PrepareToRace(i))//набор/проверка руки
+                {
+                    eventisactive = false;
+                }
+                /*
+                else
+                {
+                    wait.ReadytoRace();
+                }   
+                */
 
                 bool foundplace = false;
                 do
@@ -76,6 +83,11 @@ namespace Caitlyn_v1._0
                     se.UniversalErrorDefense();
                     se.UnavailableEvent();
                     //se.CardBug();
+                    if (fc.EventEnds())
+                    {
+                        NotePad.DoLog("Событие закончилось");
+                        Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
+                    }
                     if (fc.ReadyToRace())
                     {
                         Rat.Clk(PointsAndRectangles.startTheRace);
@@ -132,6 +144,12 @@ namespace Caitlyn_v1._0
                             eventisactive = false;
                             foundplace = true;
                             Thread.Sleep(1000);
+                        }
+
+                        if (fc.EventEnds())
+                        {
+                            NotePad.DoLog("Событие закончилось");
+                            Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
                         }
 
                         if (fc.ControlScreen())

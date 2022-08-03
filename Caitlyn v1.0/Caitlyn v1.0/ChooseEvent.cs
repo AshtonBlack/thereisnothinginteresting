@@ -15,29 +15,45 @@ namespace Caitlyn_v1._0
         {
             SpecialEvents se = new SpecialEvents();
             NotePad.DoLog("Проверяю событие");
-            bool eventIsOK = false;
-            while (!eventIsOK)
+            if (fc.ActiveEvent())
             {
-                for (int i = 1; i < 5; i++)
+                do
                 {
-                    do
-                    {
-                        se.MissClick();
-                        se.ToClubs();
-                    } while (!fc.ClubMap());
-
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Проверяю условие " + i);
-                    eventIsOK = Selection(i);
-
-                    if (!eventIsOK)
-                    {
-                        Rat.Clk(PointsAndRectangles.toeventlist);//Back
-                        Thread.Sleep(3000);
-                    }
-                    else break;
-                }
+                    se.MissClick();
+                    se.ToClubs();
+                } while (!fc.ClubMap());
+                NotePad.DoLog("вхожу в активный эвент");
+                Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter
+                string[] conds = NotePad.ReadConditions();
+                Condition.eventrq = NotePad.ReadRQ();
+                Condition.MakeCondition(conds[0], conds[1]);
             }
+            else
+            {
+                bool eventIsOK = false;
+                while (!eventIsOK)
+                {
+                    for (int i = 1; i < 5; i++)
+                    {
+                        do
+                        {
+                            se.MissClick();
+                            se.ToClubs();
+                        } while (!fc.ClubMap());
+
+                        Thread.Sleep(500);
+                        NotePad.DoLog("Проверяю условие " + i);
+                        eventIsOK = Selection(i);
+
+                        if (!eventIsOK)
+                        {
+                            Rat.Clk(PointsAndRectangles.toeventlist);//Back
+                            Thread.Sleep(3000);
+                        }
+                        else break;
+                    }
+                }
+            }            
         }
 
         public bool Selection(int eventN)

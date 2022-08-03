@@ -46,11 +46,17 @@ namespace Caitlyn_v1._0
                     Rat.Clk(PointsAndRectangles.endOfRaceSet);//звезды 
                     flag3++;
                 }
+                if (fc.EventEnds())
+                {
+                    Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
+                }
                 Thread.Sleep(1500);
+                if(fc.EventEnds()) nextstep = true;
                 if (fc.Bounty()) nextstep = true;
                 if (fc.ClubMap()) nextstep = true;
                 if (fc.Ending()) nextstep = true;
                 if (fc.Upgrade()) nextstep = true;
+                UniversalErrorDefense();
             } while (!nextstep);
         }
 
@@ -74,6 +80,10 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
             fc.Bounty();
+            if (fc.EventEnds())
+            {
+                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
+            }
             Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
         }
 
@@ -105,6 +115,11 @@ namespace Caitlyn_v1._0
             {
                 RestartBot();
             }*/
+            CheckConnection();
+            if (fc.EventEnds())
+            {
+                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
+            }
             if (fc.ServerError())
             {
                 Thread.Sleep(5000);
@@ -117,6 +132,7 @@ namespace Caitlyn_v1._0
 
         public void ClearHand()
         {
+            FastCheck fc = new FastCheck();
             Point[] a = new Point[] { PointsAndRectangles.pHandSlot1,
                 PointsAndRectangles.pHandSlot2,
                 PointsAndRectangles.pHandSlot3,
@@ -124,8 +140,15 @@ namespace Caitlyn_v1._0
                 PointsAndRectangles.pHandSlot5 };
             for (int i = 0; i < 5; i++)
             {
-                Point endPoint = new Point(a[i].X, a[i].Y - 270);
-                Rat.DragnDropSlow(a[i], endPoint, 10);
+                if (fc.ItsGarage())
+                {
+                    Point endPoint = new Point(a[i].X, a[i].Y - 270);
+                    Rat.DragnDropSlow(a[i], endPoint, 10);
+                }
+                else
+                {
+                    break;
+                }                
             }
         }
 
@@ -133,6 +156,9 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
             bool x = true;
+
+            UniversalErrorDefense();
+            Thread.Sleep(3000);
 
             if (fc.WrongParty())
             {
@@ -145,7 +171,7 @@ namespace Caitlyn_v1._0
                 NotePad.DoLog("эвент окончен");
                 Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//Accept Message
                 Thread.Sleep(3000);
-                x = false;
+                //x = false;
             }
 
             if (fc.EventIsNotAvailable())
@@ -180,7 +206,11 @@ namespace Caitlyn_v1._0
         public void MissClick()
         {
             FastCheck fc = new FastCheck();
-
+            if (fc.EventEnds())
+            {
+                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
+                Thread.Sleep(2000);
+            }
             if (fc.MissClick())
             {
                 NotePad.DoLog("Промах");
@@ -241,8 +271,10 @@ namespace Caitlyn_v1._0
             FastCheck fc = new FastCheck();
             bool flag = false;
 
+            int waiter = 0;
             do
             {
+                if (waiter > 200) RestartBot();
                 if (fc.NoxRestartMessage())
                 {
                     Rat.Clk(PointsAndRectangles.noxRestartMessageAcceptance);
@@ -277,7 +309,6 @@ namespace Caitlyn_v1._0
                     Rat.Clk(PointsAndRectangles.seasonEndAcceptance);
                     NotePad.DoLog("получил награду за сезон");
                 }
-                CheckConnection();
                 UniversalErrorDefense();
                 if (fc.EventPage())
                 {
@@ -295,6 +326,7 @@ namespace Caitlyn_v1._0
                 }
                 if (fc.ClubMap()) flag = true;
                 Thread.Sleep(1500);
+                waiter++;
             } while (!flag);
 
             if (needToDragMap) DragMap();

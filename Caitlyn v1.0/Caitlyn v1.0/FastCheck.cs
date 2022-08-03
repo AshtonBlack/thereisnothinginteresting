@@ -210,13 +210,22 @@ namespace Caitlyn_v1._0
 
         public bool ClubMap()
         {
-            bool x = MainFrame(PointsAndRectangles.clubMap, "ClubMap");
-            return x;
+            if(MainFrameBW(PointsAndRectangles.clubMap, "ClubMap", 400))
+            {
+                return true;
+            }
+            if (ActiveEvent())
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool RaceOn()
         {
-            if (MainFrame(PointsAndRectangles.raceOn, "Race") || MainFrame(PointsAndRectangles.raceOn, "Race2"))
+            if (MainFrame(PointsAndRectangles.raceOn, "Race")
+                || MainFrame(PointsAndRectangles.raceOn, "Race1")
+                || MainFrame(PointsAndRectangles.raceOn, "Race2"))
                 return true;
             return false;
         }
@@ -239,8 +248,15 @@ namespace Caitlyn_v1._0
 
         public bool EventEnds()
         {
-            bool x = MainFrame(PointsAndRectangles.eventEnds, "EventEnds");
-            return x;
+            if (MainFrame(PointsAndRectangles.eventEnds, "EventEnds"))
+            {
+                return true;
+            }
+            if (MainFrame(PointsAndRectangles.eventEnds, "EventEnds1"))
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool EventIsNotAvailable()
@@ -269,7 +285,7 @@ namespace Caitlyn_v1._0
         public bool ConditionActivated()
         {
             bool x = false;
-            string active = "Color [A=255, R=56, G=56, B=56]";
+            string active = "Color [A=255, R=4, G=4, B=5]";
             Point p = new Point(415, 260);
             if (MasterOfPictures.PixelIndicator(p) == active) x = true;
             return x;

@@ -9,8 +9,13 @@ namespace Caitlyn_v1._0
             FastCheck fc = new FastCheck();
             bool positionflag = false;
             bool continuegame = false;
+            SpecialEvents se = new SpecialEvents();
+            int waiter = 0;
             do
             {
+                if (waiter == 120) se.RestartBot();
+                se.UniversalErrorDefense();
+                se.MissClick();
                 if (fc.Bounty())
                 {
                     NotePad.DoLog("получил награду");
@@ -42,14 +47,6 @@ namespace Caitlyn_v1._0
                     }
                 }
 
-                if (fc.EventEnds())
-                {
-                    NotePad.DoLog("эвент окончен");
-                    Rat.Clk(PointsAndRectangles.eventIsEnd);//Accept Message                    
-                    Thread.Sleep(3000);
-                    positionflag = true;
-                }
-
                 if (fc.CarMenu())
                 {
                     Thread.Sleep(500);
@@ -65,14 +62,14 @@ namespace Caitlyn_v1._0
                     Rat.Clk(PointsAndRectangles.controlScreenToGarage);//Play
                     Thread.Sleep(1000);
                 }
-                /*
+                
                 if (fc.BugControlScreen())
                 {
                     Thread.Sleep(500);
                     NotePad.DoLog("Bug with Control Screen");
                     Rat.Clk(PointsAndRectangles.bugwithControlScreen);//Back
                     Thread.Sleep(1000);
-                }*/
+                }
 
                 if (fc.ItsGarage())
                 {
@@ -80,12 +77,14 @@ namespace Caitlyn_v1._0
                     NotePad.DoLog("Нахожусь в гараже");
                     continuegame = true;
                 }
+                Thread.Sleep(1000);
+                waiter++;
             } while (!positionflag);
 
             return continuegame;
         }
 
-        public void PrepareToRace(int i)
+        public bool PrepareToRace(int i)
         {
             SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
@@ -110,7 +109,10 @@ namespace Caitlyn_v1._0
                         se.ClearHand();
                         Thread.Sleep(500);
                         NotePad.DoLog("Собираю пробную руку");
-                        hm.MakingHand();
+                        if (!hm.MakingHand())
+                        {
+                            return false;
+                        }
                     }
 
                     if (i == 2)//пересборка по покрытию
@@ -118,7 +120,10 @@ namespace Caitlyn_v1._0
                         se.ClearHand();
                         Thread.Sleep(500);
                         NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
-                        hm.MakingHand();
+                        if (!hm.MakingHand())
+                        {
+                            return false;
+                        }
                     }
 
                     Thread.Sleep(5000);
@@ -128,10 +133,14 @@ namespace Caitlyn_v1._0
                         se.ClearHand();
                         Thread.Sleep(500);
                         NotePad.DoLog("Меняю руку");
-                        hm.MakingHand();
+                        if (!hm.MakingHand())
+                        {
+                            return false;
+                        }
                     }
                 }
             } while (!hm.VerifyHand());
+            return true;
         }
 
         public void TimeToRace()
@@ -152,6 +161,7 @@ namespace Caitlyn_v1._0
             {
                 if (waiter == 180) se.RestartBot();
                 se.UniversalErrorDefense();
+                se.MissClick();
                 if (fc.ClubMap())
                 {
                     NotePad.DoLog("вылетел из заезда");
