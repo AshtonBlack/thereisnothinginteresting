@@ -253,7 +253,7 @@ namespace botDBUpdater
         }          
         void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string path = @"C:\projects\bot\thereisnothinginteresting\Finger1\";
+            string path = @"D:\bot\thereisnothinginteresting\Finger1\";
             string ending = ".jpg";
             if(File.Exists(path + textBox1.Text + ending))
             {
