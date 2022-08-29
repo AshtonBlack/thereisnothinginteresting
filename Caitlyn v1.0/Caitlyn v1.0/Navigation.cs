@@ -69,16 +69,12 @@ namespace Caitlyn_v1._0
                 {
                     eventisactive = false;
                 }
-                /*
-                else
-                {
-                    wait.ReadytoRace();
-                }   
-                */
 
                 bool foundplace = false;
+                int waiter = 0;
                 do
                 {
+                    if (waiter == 120) se.RestartBot();
                     se.CarRepair();
                     se.UniversalErrorDefense();
                     se.UnavailableEvent();
@@ -91,6 +87,7 @@ namespace Caitlyn_v1._0
                     if (fc.ReadyToRace())
                     {
                         Rat.Clk(PointsAndRectangles.startTheRace);
+                        NotePad.DoLog("Перехожу к гонке");
                         Thread.Sleep(2000);
                     }
                     if (fc.EnemyIsReady())
@@ -113,17 +110,20 @@ namespace Caitlyn_v1._0
                         foundplace = true;
                         Thread.Sleep(1000);
                     }
+                    Thread.Sleep(1000);
+                    waiter++;
                 } while (!foundplace);//ожидание противника
-
+                
                 if (eventisactive)
                 {
                     pcp.TimeToRace();//расстановка
-
                     se.EndRace();//завершение заезда
 
                     foundplace = false;
+                    waiter = 0;
                     do
                     {
+                        if (waiter == 180) se.RestartBot();
                         se.UniversalErrorDefense();
 
                         if (fc.Upgrade())
@@ -172,7 +172,9 @@ namespace Caitlyn_v1._0
                             foundplace = true;
                             Thread.Sleep(1000);
                         }
-                    } while (foundplace == false);//переход на экран контроля
+                        Thread.Sleep(1000);
+                        waiter++;
+                    } while (!foundplace);//переход на экран контроля
                 }
             }
 
