@@ -18,7 +18,6 @@ namespace botDBUpdater
         string excelFilePath = @"C:\projects\bot\cars.xlsx";
         string cashCarsPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt";
         string pictureToCarPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\PictureToCar.txt";
-        string finger1Path = @"C:\Bot\Finger1\";
         void FullTable()
         {
             fulltablearray = ExcelParcer.Parse(excelFilePath);
@@ -254,7 +253,8 @@ namespace botDBUpdater
         }          
         void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string path = finger1Path;
+            string path = @"C:\Bot\Finger1\";
+            //string path = @"C:\projects\bot\thereisnothinginteresting\Finger1\";
             string ending = ".jpg";
             if(File.Exists(path + textBox1.Text + ending))
             {
@@ -639,17 +639,6 @@ namespace botDBUpdater
                 picture.Dispose();
                 return result;
             }            
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = @"C:\";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                finger1Path = openFileDialog.FileName;
-            }
-            label2.Text = finger1Path;
         }
     }
 }
