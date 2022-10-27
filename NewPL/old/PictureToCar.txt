@@ -757,25 +757,3 @@
 758 Mini JCW Coupe 2016
 759 Volkswagen Jetta GTI 1988
 760 Ram Dodge Ramcharger 1981
-761 Subaru Impreza WRX (GC8G) 1999
-762 Alfa Romeo Spider (S1) 1969
-763 Alfa Romeo Spider Veloce (S2) 1971
-764 Audi S1 2014
-765 Volvo C30 Polestar Performance 2013
-766 Vauxhall Antara 2.2CDTi 2016
-767 Audi RS 4 Avant 2000
-768 Infiniti Q50 2014
-769 BMW 330d Touring 2014
-770 Acura 3.2TL 1999
-771 Ford Galaxy 2015
-772 Vauxhall Corsa VXR 2016
-773 Porsche 911 Carrera 4 1989
-774 Nissan Stagea X Four (WC34) 1996
-775 BMW 535d Touring 2009
-776 Mitsubishi i-MiEV 2007
-777 Subaru Impreza WRX STI Hatch (GR) 2010
-778 Land Rover Range Rover Mk 1 1970
-779 Subaru Forester S-Edition (SH) 2011
-780 Honda NSX 1990
-781 Land Rover Range Rover 4.6 HSE 1994
-782 Aston Martin DB7 GT 2002
