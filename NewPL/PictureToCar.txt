@@ -778,4 +778,32 @@
 779 Subaru Forester S-Edition (SH) 2011
 780 Honda NSX 1990
 781 Land Rover Range Rover 4.6 HSE 1994
-782 Aston Martin DB7 GT 2002
+782 Aston Martin DB7 GT 200278 Honda Clarity 2016
+783 Porsche 911 Carrera 4 2000
+784 Porsche 911 GT3 1999
+785 Jaguar XJ-S Trans-Am 1978
+786 Alfa Romeo Alfasud Sprint 1976
+787 Chevrolet HHR SS Turbocharged 2008
+788 Alfa Romeo 166 1998
+789 Spyker C8 Laviolette LM85 2008
+790 Peugeot 5008 2018
+791 TVR Griffith 500 1993
+792 Lancia Stratos 1973
+793 Fiat Abarth Stilo Group N 2002
+794 Bentley Continental T 1999
+795 Subaru Legacy 2.5GT tS Touring Wagon (BR) 2010
+796 BMW X5 40e 2016
+797 Donkervoort S8AT 1986
+798 Dodge Avenger Rally Sedan 2011
+799 Mercedes-Benz A 180d 2012
+800 INFINITI I35 (A33) 2002
+801 INFINITI Q45t (Y33) 1997
+802 Dodge Charger Juiced 2013
+803 BMW 530d 2004
+804 BMW M Coupe 1998
+805 BMW X5 4.4i 2000
+806 BMW 435i Gran Coupe 2014
+807 BMW M135i 2012
+808 Mini JCW ALL4 Countryman 2016
+809 BMW Z8 2000
+810 Nissan Terrano Rally Car (R50) 1996
