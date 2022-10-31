@@ -871,3 +871,130 @@
 872 Nissan Silvia Spec-R (S15) 1999
 873 Fiat Barchetta 1995
 874 De Tomaso Pantera L 1973
+875 Ford Scorpio 24-valve 1991
+876 Subaru Legacy 2016
+877 Audi S4 1998
+878 Chevrolet Suburban 2016
+879 AMC Javelin AMX 1971
+880 Alfa Romeo 2000 Sportiva 1954
+881 Suzuki Swift Sport Hybrid (A2L) 2020
+882 Acura Integra Type R 1998
+883 Mitsubishi Lancer Evo IX MR FQ-360 2007
+884 Jaguar XJR 1998
+885 INFINITI QX80 AWD (Y62) 2018
+886 Dodge Dakota R/T 1998
+887 Nissan Patrol 1986
+888 Citroen CXperience 2016
+889 Subaru Impreza WRX STI Version II (GC8C) 1995
+890 Nissan Xterra Off-Road (N50) 2010
+891 Subaru Legacy B4 Blitzen (BH) 2001
+892 Subaru Legacy B4 RSK (BE) 2001
+893 Nissan 370Z Nismo 2015
+894 Lotus Exige S1 2000
+895 BMW 740i 1994
+896 Smart Brabus Roadster 2005
+897 Mazda RX-7 Type RS 1998
+898 Mitsubishi Lancer Evo IV 1996
+899 Mazda RX-7 Type RZ 2000
+900 Mini Cooper 2016
+901 Subaru WRX (VAG) 2015
+902 Nissan Xterra (WD22) 1999
+903 Volkswagen Jetta 2019
+904 Caterham 21 1995
+905 BMW 530i 1996
+906 Ford Fiesta 1.0 2016
+907 Nissan Cefiro 3.0 Brougham VIP (A33) 2002
+908 Volvo 850 T-5R 1995
+909 INFINITI Q60 3.0t 2017
+910 Mitsubishi ASX 2015
+911 Aston Martin Vantage 1993
+912 Chrysler 300 Touring 2005
+913 Ford Thunderbird 3.9l V8 2002
+914 Volkswagen Golf 1997
+915 Nissan Frontier Attack (D23) 2017
+916 Aston Martin V8 Volante 1996
+917 Mercedes-Benz AMG SLK 32 2004
+918 De Tomaso Pantera GTS 1974
+919 TVR Chimaera 5.0 1993
+920 BMW M3 CRT 2011
+921 BMW M760Li xDrive V12 2017
+922 Dodge Durango SRT 2018
+923 Volvo S80 V8 2008
+924 Dodge Venom 1994
+925 Volkswagen Polo GTI 2018
+926 Subaru Legacy 1998
+927 Chevrolet Corvette Z06 2001
+928 Mercedes-Benz SLK 200 2015
+929 Ford Sierra RS500 1987
+930 Maserati 3200 GT Assetto Corsa 2001
+931 Ford Probe GT 1993
+932 Chevrolet Captiva 2007
+933 Chrysler Imperial Concept 2006
+934 Nissan 260Z 1974
+935 Suzuki Swift Sport (A2L) 2018
+936 Chrysler New Yorker 1969
+937 Land Rover Range Rover Evoque 2015
+938 Vauxhall Cascada 2016
+939 Mercedes-Benz AMG C 55 2007
+940 AMC Eagle Wagon 1980
+941 Subaru Legacy B4 RS30 (BE) 2001
+942 Aston Martin V8 Zagato 1986
+943 Mitsubishi Lancer GS4 2007
+944 Suzuki SX4 2006
+945 Fiat 124 Sport Spider 1966
+946 Maserati Birdcage 75th 2005
+947 BMW i3 2013
+948 Chrysler Crossfire Roadster 2004
+949 Nissan Silvia 200SX Group A (S12) 1987
+950 Nissan 300ZX Twin Turbo (Z32) 1990
+951 Alfa Romeo Spider (S3) 1983
+952 Land Rover Range Rover Evoque 2018
+953 Subaru Outback XT (BT) 2020
+954 Cadillac Escalade 2011
+955 Fiat Multipla 1998
+956 Citroen M35 1969
+957 Honda CR-V 1997
+958 Renault 9 Turbo 1981
+959 Subaru Impreza Casa Blanca 1999
+960 Subaru Levorg 2016
+961 Subaru Levorg (VN) 2021
+962 Subaru Forester 2008
+963 Lotus Elan Sprint 1971
+964 Volvo 480 Turbo 1988
+965 BMW 540i 1996
+966 Subaru Impreza 2002
+967 Renault Megane 2008
+968 BMW Nazca C2 1992
+969 BMW 520i 2011
+970 Nissan 280Z 1975
+971 Aston Martin Lagonda 1976
+972 Dodge Magnum R/T 2005
+973 Volkswagen Golf GTI TCR 2018
+974 Dodge Charger Daytona 2017
+975 Honda Prelude VTEC 1991
+976 Subaru BRZ tS 2015
+219 Renault Espace 1984
+977 Alfa Romeo GTA 1300 Junior 1968
+978 De Tomaso Mangusta 1967
+979 Maserati Racing 1991
+980 Vauxhall VX220 Turbo 2003
+981 Vauxhall Firenza Old Nail 1971
+982 Spyker C8 Spyder SWB 2000
+983 Caterham Seven 420 2015
+984 Chevrolet SSR 2003
+985 Chrysler PT Cruiser GT Convertible 2005
+986 Volkswagen Golf 2017
+987 INFINITI M56 (Y51) 2011
+988 Suzuki Hayabusa Sport Prototype 2003
+989 Porsche 911 GT3 2006
+990 Nissan Micra 350SR (K12) 2005
+991 Chrysler 300 Glacier Edition 2013
+992 Ford Flex 3.5L 2016
+993 Pontiac Trans Am 30th Anniversary 1999
+994 Nissan Cube 2010
+995 Aston Martin Virage Volante 1992
+996 Ford Focus 1.0 2016
+997 Jaguar XJ13 1966
+998 Aston Martin V8 Coupe 1996
+999 Mercedes-Benz S 400h L 2015
+1000 Dodge Challenger GT AWD 2018
