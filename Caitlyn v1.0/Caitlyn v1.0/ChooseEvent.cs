@@ -90,16 +90,18 @@ namespace Caitlyn_v1._0
             {
                 eventIsOK = true;
                 Condition.MakeCondition(cond1, cond2);
-                if (GotRQ() && Condition.minrq != 0)
+                NotePad.DoLog("Максимальное рк для события " + Condition.maxrq);
+                NotePad.DoLog("Минимальное рк для события " + Condition.minrq);
+                if (GotRQ() && (Condition.maxrq != 0))
                 {
-                    NotePad.DoLog("Минимальное рк для события " + Condition.minrq);
                     NotePad.DoLog("Требуемое рк для события " + Condition.eventrq);
                     if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
                     {
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
                         eventIsOK = false;
                     }
-                }   
+                }  
+                else eventIsOK = false;
             }
             if(!eventIsOK && eventN == 4)
             {

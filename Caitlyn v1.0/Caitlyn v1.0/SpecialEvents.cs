@@ -110,11 +110,6 @@ namespace Caitlyn_v1._0
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();
-            /*
-            if (fc.FaultNox())
-            {
-                RestartBot();
-            }*/
             CheckConnection();
             if (fc.EventEnds())
             {
@@ -291,6 +286,7 @@ namespace Caitlyn_v1._0
                 if (fc.LostConnection()) Rat.Clk(PointsAndRectangles.reconnectionAfterLostConnection);//reconnect
                 //if (fc.Google()) Rat.Clk(PointsAndRectangles.googleNotificationAcceptance);//google notify
                 if (fc.FBcontinue()) Rat.Clk(PointsAndRectangles.fbFucksBrain);//fb fucks brain
+                if (fc.FbFuckBrain()) Rat.Clk(PointsAndRectangles.fbFuckBrainClick);
                 if (fc.StartButton())
                 {
                     Rat.Clk(PointsAndRectangles.buttonStart);//Start game

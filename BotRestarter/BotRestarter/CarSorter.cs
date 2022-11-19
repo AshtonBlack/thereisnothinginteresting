@@ -97,6 +97,7 @@ namespace BotRestarter
                 }                
             }
             
+            /*
             //update
             for(int number = 1; number < 1500; number++)
             {
@@ -142,7 +143,8 @@ namespace BotRestarter
                     }
                     currentPicture.Dispose();
                 }
-            }       
+            } 
+            */
 
             NotePad.DoLogWithTime("найдено машин: " + foundcars);
             NotePad.DoLogWithTime("вероятных совпадений " + predictcars);

@@ -1,0 +1,9 @@
+C:\Bot\short\short\bin\Debug\@short.exe.config
+C:\Bot\short\short\bin\Debug\@short.exe
+C:\Bot\short\short\bin\Debug\@short.pdb
+C:\Bot\short\short\obj\Debug\short.csprojAssemblyReference.cache
+C:\Bot\short\short\obj\Debug\short.Form1.resources
+C:\Bot\short\short\obj\Debug\short.Properties.Resources.resources
+C:\Bot\short\short\obj\Debug\short.csproj.GenerateResource.cache
+C:\Bot\short\short\obj\Debug\@short.exe
+C:\Bot\short\short\obj\Debug\@short.pdb

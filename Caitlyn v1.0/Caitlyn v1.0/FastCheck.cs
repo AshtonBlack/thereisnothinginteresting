@@ -149,6 +149,12 @@ namespace Caitlyn_v1._0
             bool x = MainFrame(PointsAndRectangles.missClick, "WrongClick");
             return x;
         }
+
+        public bool FbFuckBrain()
+        {
+            bool x = MainFrame(PointsAndRectangles.fbFuckBrain, "fbFuckBrain");
+            return x;
+        }
         /*
         public bool Google()
         {
@@ -179,6 +185,7 @@ namespace Caitlyn_v1._0
             bool x = MainFrame(PointsAndRectangles.clubBounty, "ClubBounty");
             if (x)
             {
+                Thread.Sleep(1000);
                 if (NoActiveBooster())
                 {
                     se.ActivateClubBooster();
@@ -370,12 +377,6 @@ namespace Caitlyn_v1._0
             bool x = MainFrame(PointsAndRectangles.timeIsOut, "TimeIsOut");
             return x;
         }
-        /*
-        public bool FaultNox()
-        {
-            bool x = MainFrame(PointsAndRectangles.faultNox, "FaultNox");
-            return x;
-        }*/
 
         public bool InCommonEvent()
         {

@@ -105,22 +105,9 @@ namespace Caitlyn_v1._0
                 && !fc.ConditionActivated()
                 && eventIsNotEnd)
             {
-                if (CheckForEventIsOn() && eventIsNotEnd)
+                if (CheckForEventIsOn())
                 {
-                    if (Condition.ConditionNumber2 == "empty")
-                    {
-                        Rat.Clk(PointsAndRectangles.commonCondition);
-                    }
-                    else
-                    {
-                        Rat.Clk(PointsAndRectangles.commonCondition);
-                        Thread.Sleep(1000);
-                        Rat.Clk(PointsAndRectangles.cond1);
-                        Thread.Sleep(200);
-                        Rat.Clk(PointsAndRectangles.cond2);
-                        Thread.Sleep(200);
-                        Rat.Clk(PointsAndRectangles.commonConditionCross);
-                    }
+                    ActivateEventNativeCondition();
                 }                
             } //включить фильтр условия события.
 
@@ -163,6 +150,23 @@ namespace Caitlyn_v1._0
             }
             
             return eventIsNotEnd;
+        }
+        void ActivateEventNativeCondition()
+        {
+            if (Condition.ConditionNumber2 == "empty")
+            {
+                Rat.Clk(PointsAndRectangles.commonCondition);
+            }
+            else
+            {
+                Rat.Clk(PointsAndRectangles.commonCondition);
+                Thread.Sleep(1500);
+                Rat.Clk(PointsAndRectangles.cond1);
+                Thread.Sleep(500);
+                Rat.Clk(PointsAndRectangles.cond2);
+                Thread.Sleep(500);
+                Rat.Clk(PointsAndRectangles.commonConditionCross);
+            }
         }
 
         public bool CarFixed(int slot)

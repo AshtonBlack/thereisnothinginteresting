@@ -107,6 +107,7 @@ namespace Caitlyn_v1._0
         public static Point rwd = new Point(910, 600);
         public static Point awd = new Point(1120, 600);
         //FastCheck
+        public static Rectangle fbFuckBrain = new Rectangle(465, 670, 360, 48);
         public static Point acceptbounty = new Point(635, 750);
         public static Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);//new
         public static Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);//new
@@ -149,7 +150,6 @@ namespace Caitlyn_v1._0
         public static Rectangle dailyBounty = new Rectangle(78, 195, 290, 30);//new
         public static Rectangle dailyBountyEnd = new Rectangle(564, 763, 160, 20);//new
         public static Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);//new
-        //public static Rectangle faultNox = new Rectangle(933, 314, 26, 26);
         public static Rectangle chooseanEnemy = new Rectangle(148, 537, 35, 35);//new
         public static Rectangle raceEnd = new Rectangle(546, 750, 190, 30);//new
         public static Rectangle inCommonEvent = new Rectangle(944, 794, 90, 25);//new
@@ -238,6 +238,7 @@ namespace Caitlyn_v1._0
         public static Point forceTheRace = new Point(180, 580);
         public static Point acceptSeasonEnd = new Point(635, 570);
         //SpecialEvents
+        public static Point fbFuckBrainClick = new Point(1265, 750);        
         public static Point dragMapS = new Point(750, 500);
         public static Point dragMapE = new Point(240, 500);
         public static Point endOfRaceSet = new Point(635, 570);

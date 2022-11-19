@@ -43,13 +43,13 @@ namespace BotRestarter
             lastUpdateTime = DateTime.Now.Date;
             string[] times = new string[8];
             times[0] = DateTime.Today.ToShortDateString();
-            times[1] = DateTime.Today.AddHours(6.5).AddMinutes(AdditionalMinutes()).ToString();
-            times[2] = DateTime.Today.AddHours(9.5).AddMinutes(AdditionalMinutes()).ToString();
+            times[1] = DateTime.Today.AddHours(5.5).AddMinutes(AdditionalMinutes()).ToString();
+            times[2] = DateTime.Today.AddHours(8).AddMinutes(AdditionalMinutes()).ToString();
             times[3] = DateTime.Today.AddHours(12.75).AddMinutes(AdditionalMinutes()).ToString();
             times[4] = DateTime.Today.AddHours(17).AddMinutes(AdditionalMinutes()).ToString();
-            times[5] = DateTime.Today.AddHours(19).AddMinutes(AdditionalMinutes()).ToString();
-            times[6] = DateTime.Today.AddHours(23).AddMinutes(AdditionalMinutes()).ToString();
-            times[7] = DateTime.Today.AddHours(25).AddMinutes(AdditionalMinutes()).ToString();
+            times[5] = DateTime.Today.AddHours(18).AddMinutes(AdditionalMinutes()).ToString();
+            times[6] = DateTime.Today.AddHours(23.25).AddMinutes(AdditionalMinutes()).ToString();
+            times[7] = DateTime.Today.AddHours(26).AddMinutes(AdditionalMinutes()).ToString();
             timings[0] = lastUpdateTime;
             for(int i = 1; i < timings.Length; i++)
             {
@@ -69,7 +69,7 @@ namespace BotRestarter
         public int AdditionalMinutes()
         {
             Random r = new Random();
-            int minutes = r.Next(51)-25;
+            int minutes = r.Next(56)-25;
             Thread.Sleep(37);
             return minutes;
         }

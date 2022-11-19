@@ -1,0 +1,9 @@
+C:\Bot\NotNeural\NotNeural\bin\Debug\NotNeural.exe.config
+C:\Bot\NotNeural\NotNeural\bin\Debug\NotNeural.exe
+C:\Bot\NotNeural\NotNeural\bin\Debug\NotNeural.pdb
+C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.csprojAssemblyReference.cache
+C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.Form1.resources
+C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.Properties.Resources.resources
+C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.csproj.GenerateResource.cache
+C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.exe
+C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.pdb

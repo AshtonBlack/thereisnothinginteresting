@@ -139,6 +139,7 @@ namespace Caitlyn_v1._0
             }
             if (rq.Count > 4)
             {
+                NotePad.DoLog("Подходящих машин " + rq.Count);                
                 rq.Sort();
                 for (int k = 0; k < lowestcars.Length; k++)
                 {
