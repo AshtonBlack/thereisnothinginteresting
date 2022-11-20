@@ -149,7 +149,7 @@ namespace Caitlyn_v1._0
             TrackInfo[] tracksInfo = new TrackInfo[5];
             for (int i = 0; i < tracksInfo.Length; i++)
             {
-                tracksInfo[i].BuildTrack(i + 1);
+                tracksInfo[i]= new TrackInfo(i+1);
             }
             Condition.setPreviousTracks(tracksInfo);
             //temporary for ground and weather

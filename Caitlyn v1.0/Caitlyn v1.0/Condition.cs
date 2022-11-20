@@ -11,9 +11,7 @@ namespace Caitlyn_v1._0
             previousTracks = new TrackInfo[5];
             for (int i = 0; i < previousTracks.Length; i++)
             {
-                previousTracks[i].ground = "Неизвестное покрытие";
-                previousTracks[i].weather = "Неизвестная погода";
-                previousTracks[i].track = "Неизвестная трасса";
+                previousTracks[i] = new TrackInfo("Неизвестное покрытие", "Неизвестная погода", "Неизвестная трасса");
             }
         }
         public static void setPreviousTracks(TrackInfo[] trackInfo)

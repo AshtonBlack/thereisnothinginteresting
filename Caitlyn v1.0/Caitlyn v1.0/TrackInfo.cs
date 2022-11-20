@@ -10,12 +10,28 @@ namespace Caitlyn_v1._0
         public string ground { get; set; }
         public string weather { get; set; }
         public string track { get; set; }
+        public TrackInfo(int position)
+        {
+            IdentifyGround(position);
+            IdentifyWeather(position);
+            IdentifyTrack(position);
+        }
+        public TrackInfo(string ground, string weather, string track)
+        {
+            this.ground = ground;
+            this.weather = weather;
+            this.track = track;
+        }
+        /*
+        //error
         public void BuildTrack(int position)
         {
             IdentifyGround(position);
             IdentifyWeather(position);
             IdentifyTrack(position);
         }
+        //error
+        */
         void IdentifyGround(int position)
         {
             ground = "Неизвестное покрытие";
