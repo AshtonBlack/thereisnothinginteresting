@@ -83,7 +83,6 @@ namespace Caitlyn_v1._0
 
             return continuegame;
         }
-
         public bool PrepareToRace(int i)
         {
             SpecialEvents se = new SpecialEvents();
@@ -142,21 +141,70 @@ namespace Caitlyn_v1._0
             } while (!hm.VerifyHand());
             return true;
         }
-
         public void TimeToRace()
         {
-            FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
-            TrackInfo ti = new TrackInfo();
-            GrandArrangement ga = new GrandArrangement();
+            FastCheck fc = new FastCheck(); 
 
+            //new
+            TrackInfo[] tracksInfo = new TrackInfo[5];
+            for (int i = 0; i < tracksInfo.Length; i++)
+            {
+                tracksInfo[i].BuildTrack(i + 1);
+            }
+            Condition.setPreviousTracks(tracksInfo);
+            //temporary for ground and weather
+            bool dry = false;
+            bool wet = false;
+            bool asphalt = false;
+            bool mud = false;
+            foreach (TrackInfo track in Condition.previousTracks)
+            {
+                if (track.weather == "Дождь")
+                {
+                    wet = true;
+                }
+                if (track.weather == "Солнечно")
+                {
+                    dry = true;
+                }
+                if (track.ground == "Асфальт")
+                {
+                    asphalt = true;
+                }
+                else
+                {
+                    mud = true;
+                }
+            }
+            if (asphalt)
+            {
+                Condition.coverage = "Асфальт";
+                if (mud) Condition.coverage = "Смешанное";
+            }
+            else Condition.coverage = "Бездорожье";
+            NotePad.LastCoverage(Condition.coverage);  
+            Condition.weather = "ясно";
+            if (wet)
+            {
+                if (dry) Condition.weather = "с прояснением";
+                else Condition.weather = "дождь";
+            }
+            NotePad.LastWeather(Condition.weather);
+            //temporary
+            //new
+            /*
+            //legacy
+            TrackInfo ti = new TrackInfo();
             int[] a1 = ti.Tracks();//Track info
             int[] b1 = ti.Grounds();//Ground info
             int[] c1 = ti.Weathers();//Weather info            
-
+            //legacy
+            */
             bool raceIsEnd = false;
             bool raceIsStart = false;
             int waiter = 0;
+            SpecialEvents se = new SpecialEvents();
+            GrandArrangement ga = new GrandArrangement();
             do
             {
                 if (waiter == 180) se.RestartBot();
@@ -182,7 +230,10 @@ namespace Caitlyn_v1._0
                 {
                     NotePad.DoLog("загрузился экран расстановки");
                     Thread.Sleep(1000);
+                    ga.Arrangement();
+                    /*legacy
                     ga.Arrangement(a1, b1, c1);
+                    */
                     NotePad.DoLog("расстановка выполнена");
                 }
                 if (fc.RaceOn() && !raceIsStart)

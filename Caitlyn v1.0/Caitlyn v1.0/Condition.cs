@@ -4,6 +4,23 @@ namespace Caitlyn_v1._0
 {
     static class Condition
     {
+        //new
+        public static TrackInfo[] previousTracks { get; set; }
+        public static void setDefaultTracks()
+        {
+            previousTracks = new TrackInfo[5];
+            for (int i = 0; i < previousTracks.Length; i++)
+            {
+                previousTracks[i].ground = "Неизвестное покрытие";
+                previousTracks[i].weather = "Неизвестная погода";
+                previousTracks[i].track = "Неизвестная трасса";
+            }
+        }
+        public static void setPreviousTracks(TrackInfo[] trackInfo)
+        {
+            previousTracks = trackInfo;
+        }
+        //new
         public static int accountLVL = 500;
         public static bool[] tires { get; set; }
         public static int minrq { get; set; }
@@ -11,8 +28,10 @@ namespace Caitlyn_v1._0
         public static int maxclass { get; set; }
         public static int actualRQ { get; set; }
         public static int eventrq { get; set; }//рк эвента
+        //to be deleted
         public static string weather { get; set; }//погода эвента
         public static string coverage { get; set; }//покрытия эвента
+        //to be deleted
         // Tyres [0f, 1e, 2d, 3c, 4b, 5a, 6s]
         public static string ConditionNumber1 { get; set; }
         public static string ConditionNumber2 { get; set; }

@@ -8,7 +8,6 @@ namespace Caitlyn_v1._0
         ChooseEvent ce = new ChooseEvent();
         FastCheck fc = new FastCheck();
         SpecialEvents se = new SpecialEvents();
-
         public void ToClubMap()
         {
             NotePad.ClearLog();
@@ -17,7 +16,6 @@ namespace Caitlyn_v1._0
 
             se.ToClubs();
         }
-
         public void InClubs()
         {
             while (true)
@@ -55,7 +53,6 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
         private bool PlayClubs(int i)
         {
             SpecialEvents se = new SpecialEvents();
@@ -92,20 +89,19 @@ namespace Caitlyn_v1._0
                     }
                     if (fc.EnemyIsReady())
                     {
+                        NotePad.DoLog("Выбор противника");
                         eventisactive = true;
                         foundplace = true;
                         Thread.Sleep(1000);
                     }
                     if (fc.Bounty())
                     {
-                        NotePad.DoLog("эвент закончен");
-                        eventisactive = false;
-                        foundplace = true;
+                        NotePad.DoLog("Получил награду за эвент");
                         Thread.Sleep(1000);
                     }
                     if (fc.ClubMap())
                     {
-                        NotePad.DoLog("эвент закончен");
+                        NotePad.DoLog("Нахожусь на карте");
                         eventisactive = false;
                         foundplace = true;
                         Thread.Sleep(1000);
@@ -135,14 +131,14 @@ namespace Caitlyn_v1._0
 
                         if (fc.Ending())
                         {
+                            NotePad.DoLog("Таблица результатов");
                             Rat.Clk(PointsAndRectangles.passTheTableAfterRace);//Table
                             Thread.Sleep(1000);
                         }
 
                         if (fc.Bounty())
                         {
-                            eventisactive = false;
-                            foundplace = true;
+                            NotePad.DoLog("Получил награду за эвент");
                             Thread.Sleep(1000);
                         }
 
@@ -154,6 +150,7 @@ namespace Caitlyn_v1._0
 
                         if (fc.ControlScreen())
                         {
+                            NotePad.DoLog("Нахожусь на экране контроля");
                             foundplace = true;
                             Thread.Sleep(1000);
                         }
@@ -168,6 +165,7 @@ namespace Caitlyn_v1._0
 
                         if (fc.ClubMap())
                         {
+                            NotePad.DoLog("Нахожусь на карте");
                             eventisactive = false;
                             foundplace = true;
                             Thread.Sleep(1000);

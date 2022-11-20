@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -8,6 +9,81 @@ namespace Caitlyn_v1._0
     public class HandMaking
     {
         bool eventIsNotEnd = true;
+        //new
+        /*
+        public CarForExcel[] ChooseCars()
+        {
+            List<CarForExcel>[] carsForEveryFinger = new List<CarForExcel>[5];
+            for (int i = 0; i < 5; i++)
+            {
+                carsForEveryFinger[i] = CarsDB.DefinePreferedCarPull(Condition.previousTracks[i]);
+            }
+
+            int[] fingerCarNumber = new int[5];
+            //NotePad.DoLog("максимальные авто:");//debug
+            for (int i = 0; i < fingerCarNumber.Length; i++)
+            {
+                //NotePad.DoLog("подбираю тачку в " + i + " слот");//debug
+                //NotePad.DoLog(carsForEveryFinger[i].Count + " отобранных тачек для первого слота");//debug
+                for (int j = 0; j < carsForEveryFinger[i].Count; j++)
+                {
+                    //NotePad.DoLog("Проверяю тачку" + carsForEveryFinger[i][j].fullname());//debug
+                    int index = Condition.selectedCars.IndexOf(carsForEveryFinger[i][j]);
+                    if (Condition.selectedCars[index].inUse < Condition.selectedCars[index].amount)
+                    {
+                        fingerCarNumber[i] = j;
+                        Condition.selectedCars[index].inUse++;
+                        //NotePad.DoLog(Condition.selectedCars[index].fullname());//debug
+                        break;
+                    }
+                }
+            }
+
+            int handrq = 0;
+            for (int x = 0; x < 5; x++)
+            {
+                handrq += Convert.ToInt32(carsForEveryFinger[x][fingerCarNumber[x]].rq);
+            }
+
+            int randomFinger;
+            Random r = new Random();
+            while (Condition.eventRQ - handrq < 0)
+            {
+                do
+                {
+                    randomFinger = r.Next(0, 5);
+                } while (fingerCarNumber[randomFinger] > (carsForEveryFinger[randomFinger].Count - 2));
+
+                int nextCarNumber = fingerCarNumber[randomFinger] + 1;
+                CarForExcel targetCar = carsForEveryFinger[randomFinger][nextCarNumber];
+                int index = Condition.selectedCars.IndexOf(targetCar);
+                if (Condition.selectedCars[index].amount > Condition.selectedCars[index].inUse)
+                {
+                    int previousIndex = Condition.selectedCars.IndexOf(carsForEveryFinger[randomFinger][fingerCarNumber[randomFinger]]);
+                    Condition.selectedCars[previousIndex].inUse--;
+                    Condition.selectedCars[index].inUse++;
+                    fingerCarNumber[randomFinger]++;
+                    handrq = 0;
+                    for (int x = 0; x < 5; x++)
+                    {
+                        handrq += Convert.ToInt32(carsForEveryFinger[x][fingerCarNumber[x]].rq);
+                    }
+                }
+                //NotePad.DoLog("RQ = " + handrq);//debug
+            }//сборка руки
+            NotePad.DoLog("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
+
+            CarForExcel[] resultedCars = new CarForExcel[5];
+            NotePad.DoLog("Подобранные тачки:");
+            for (int i = 0; i < 5; i++)
+            {
+                resultedCars[i] = carsForEveryFinger[i][fingerCarNumber[i]];
+                NotePad.DoLog(resultedCars[i].fullname() + " " + resultedCars[i].rq + "rq (в наличии: " + resultedCars[i].amount + ", использовано: " + resultedCars[i].inUse + ")");
+            }
+            return resultedCars;
+        }
+        */
+        //new
         public int[] ConditionHandling()
         {
             int[] rqclass = new int[] { 19, 29, 39, 49, 64, 79, 100 }; //рк для классов 
@@ -58,7 +134,6 @@ namespace Caitlyn_v1._0
             }
             return classcars;//порядок F,E,D,C,B,A,S
         }
-
         bool CheckForEventIsOn()
         {
             FastCheck fc = new FastCheck();
@@ -81,7 +156,6 @@ namespace Caitlyn_v1._0
             }
             return true;
         }
-
         public bool MakingHand()
         {
             FastCheck fc = new FastCheck();
@@ -168,7 +242,6 @@ namespace Caitlyn_v1._0
                 Rat.Clk(PointsAndRectangles.commonConditionCross);
             }
         }
-
         public bool CarFixed(int slot)
         {
             string path = "Check//";
@@ -180,7 +253,6 @@ namespace Caitlyn_v1._0
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "1");
             return MasterOfPictures.Verify(path + n[slot] + "0", path + n[slot] + "1");
         }
-
         public bool HandCarFixed()
         {
             string path = "Check//";
@@ -209,7 +281,6 @@ namespace Caitlyn_v1._0
             }
             return x;
         }
-
         public bool VerifyHand()
         {
             FastCheck fc = new FastCheck();
@@ -232,7 +303,6 @@ namespace Caitlyn_v1._0
 
             return handIsOk;
         }
-
         public int[] RememberHand()
         {
             string carsDB = "Finger";
@@ -319,7 +389,6 @@ namespace Caitlyn_v1._0
 
             return carsid;
         }
-
         private bool UseFilter(Point cls)
         {
             FastCheck fc = new FastCheck();
@@ -356,7 +425,6 @@ namespace Caitlyn_v1._0
 
             return true;
         }
-
         private bool Randomizer()
         {
             FastCheck fc = new FastCheck();
@@ -429,7 +497,6 @@ namespace Caitlyn_v1._0
 
             return true;
         }
-
         public int DragnDpopHand(int n, int uhl, int caCars)
         {
             //caCars - cond available cars

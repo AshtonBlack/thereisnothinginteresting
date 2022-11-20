@@ -55,7 +55,6 @@ namespace Caitlyn_v1._0
                 }
             }            
         }
-
         public bool Selection(int eventN)
         {
             SpecialEvents se = new SpecialEvents();
@@ -100,6 +99,12 @@ namespace Caitlyn_v1._0
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
                         eventIsOK = false;
                     }
+                    //new
+                    else
+                    {
+                        Condition.setDefaultTracks();
+                    }
+                    //new
                 }  
                 else eventIsOK = false;
             }
@@ -110,7 +115,6 @@ namespace Caitlyn_v1._0
 
             return eventIsOK;
         }
-
         int DefineEvevntConditionByPicture(int conditionNumber)
         {
             int x;
@@ -146,17 +150,14 @@ namespace Caitlyn_v1._0
 
             return x;
         }
-
         int DefineFirstEvevntConditionByPicture()
         {
             return DefineEvevntConditionByPicture(1);
         }
-
         int DefineSecondEvevntConditionByPicture()
         {
             return DefineEvevntConditionByPicture(2);
         }
-
         bool GotRQ()
         {
             bool isRqKnown = false;
@@ -198,7 +199,6 @@ namespace Caitlyn_v1._0
 
             return isRqKnown;
         }
-
         public string ConvertPictureToCond(int picture, int cond)
         {
             string name = "unknown";

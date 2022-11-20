@@ -34,7 +34,6 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
         public static void DoLog(string text)
         {
             try
@@ -51,7 +50,6 @@ namespace Caitlyn_v1._0
             }
 
         }
-
         public static void Saves(int[] carsid)
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, System.Text.Encoding.Default))//true для дописывания 
@@ -66,7 +64,6 @@ namespace Caitlyn_v1._0
                 sw.Close();
             }
         }
-
         public static string[] ReadSaves()
         {
             string[] a = new string[8];
@@ -80,7 +77,6 @@ namespace Caitlyn_v1._0
             }
             return a;
         }
-
         public static int[] ReadCars()
         {
             int[] cars = new int[5];
@@ -93,7 +89,6 @@ namespace Caitlyn_v1._0
 
             return cars;
         }
-
         public static string[] ReadConditions()
         {
             string[] conds = new string[2];
@@ -102,14 +97,12 @@ namespace Caitlyn_v1._0
             conds[1] = a[2];
             return conds;
         }
-
         public static int ReadRQ()
         {
             string[] a = ReadSaves();
             int rq = Convert.ToInt32(a[0]);
             return rq;
         }
-
         public static void ClearLog()
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", false, System.Text.Encoding.Default))//true для дописывания 
@@ -118,7 +111,6 @@ namespace Caitlyn_v1._0
                 sw.Close();
             }
         }
-
         public static void LastWeather(string weather)//merge with saves
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Weather.txt", false, System.Text.Encoding.Default))
@@ -127,7 +119,6 @@ namespace Caitlyn_v1._0
                 sw.Close();
             }
         }
-
         public static string FindWeather1()//merge with saves
         {
             string weather;
@@ -138,7 +129,6 @@ namespace Caitlyn_v1._0
             }
             return weather;
         }
-
         public static void LastCoverage(string coverage)//merge with saves
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Coverage.txt", false, System.Text.Encoding.Default))
@@ -147,7 +137,6 @@ namespace Caitlyn_v1._0
                 sw.Close();
             }
         }
-
         public static string FindCoverage1()//merge with saves
         {
             string coverage;
@@ -158,7 +147,6 @@ namespace Caitlyn_v1._0
             }
             return coverage;
         }
-
         public static int GetInfoFileLength(string path)
         {
             int length = 0;
