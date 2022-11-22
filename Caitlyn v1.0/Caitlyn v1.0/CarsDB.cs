@@ -16,7 +16,6 @@ namespace Caitlyn_v1._0
         public static int[] standartTyres { get; set; }
         public static int[] allseasonTyres { get; set; }
         public static int[] offroadTyres { get; set; }
-
         static CarsDB()
         {
             Fulltable();
@@ -71,9 +70,13 @@ namespace Caitlyn_v1._0
         public static void Fulltable()//формирование таблицы из исходных файлов
         {
             fulltablearray = ExcelParcer.Parse(excelFilePath);
+            fulltablearray.RemoveAt(0);
+            fulltablearray.Sort();
+            fulltablearray.Reverse();
             cashSR();
             PictureToNameTable();
         }
+        //legacy
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             List<int> rq;
@@ -147,6 +150,54 @@ namespace Caitlyn_v1._0
                 }
             }
         }
+        //legacy
+        /*new
+        public static void MakeCondAuto(string firstCond, string secondCond)
+        {
+            int carsAvailable = 0;
+            Condition.selectedCars = new List<CarForExcel>();
+            foreach (CarForExcel car in fulltablearray)
+            {
+                if (SatisfyCondition(firstCond, car) && SatisfyCondition(secondCond, car))
+                {
+                    car.inUse = 0;
+                    Condition.selectedCars.Add(car);
+                    carsAvailable += car.amount;
+                }
+            }
+            NotePad.DoLog("всего " + fulltablearray.Count + " машин");//debug
+            NotePad.DoLog("всего " + Condition.selectedCars.Count + " подходящих машин");//debug
+            NotePad.DoLog(carsAvailable + " подходящих машин в гараже");//debug
+            DefineMinRQ();
+        }//формирование списка машин под условие определенного события
+        static void DefineMinRQ()
+        {
+            Condition.minRQ = 0;
+            if (Condition.selectedCars.Count < 5)
+            {
+                NotePad.DoLog("Слишком мало подходящих машин");
+            }
+            else
+            {
+                //NotePad.DoLog("Минимальные машины:");//debug
+                int count = 0;
+                for (int i = Condition.selectedCars.Count - 1; count < 5; i--)
+                {
+                    for (int j = Condition.selectedCars[i].amount; j > 0; j--)
+                    {
+                        Condition.minRQ += Convert.ToInt32(Condition.selectedCars[i].rq);
+                        count++;
+                        //NotePad.DoLog(Condition.selectedCars[i].fullname());//debug
+                        if (count == 5)
+                        {
+                            break;
+                        }                        
+                    }
+                }
+                NotePad.DoLog("минимальное рк: " + Condition.minRQ);
+            }            
+        }
+        */
         public static bool SatisfyCondition(string cond, CarForExcel car)
         {
             bool x = false;

@@ -182,24 +182,14 @@ namespace Caitlyn_v1._0
                 if (mud) Condition.coverage = "Смешанное";
             }
             else Condition.coverage = "Бездорожье";
-            NotePad.LastCoverage(Condition.coverage);  
             Condition.weather = "ясно";
             if (wet)
             {
                 if (dry) Condition.weather = "с прояснением";
                 else Condition.weather = "дождь";
             }
-            NotePad.LastWeather(Condition.weather);
             //temporary
-            //new
-            /*
-            //legacy
-            TrackInfo ti = new TrackInfo();
-            int[] a1 = ti.Tracks();//Track info
-            int[] b1 = ti.Grounds();//Ground info
-            int[] c1 = ti.Weathers();//Weather info            
-            //legacy
-            */
+            //new            
             bool raceIsEnd = false;
             bool raceIsStart = false;
             int waiter = 0;
@@ -231,9 +221,6 @@ namespace Caitlyn_v1._0
                     NotePad.DoLog("загрузился экран расстановки");
                     Thread.Sleep(1000);
                     ga.Arrangement();
-                    /*legacy
-                    ga.Arrangement(a1, b1, c1);
-                    */
                     NotePad.DoLog("расстановка выполнена");
                 }
                 if (fc.RaceOn() && !raceIsStart)

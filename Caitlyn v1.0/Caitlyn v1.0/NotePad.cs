@@ -110,43 +110,7 @@ namespace Caitlyn_v1._0
                 sw.WriteLine("Начинаю новую сессию " + DateTime.Now.ToLongTimeString());
                 sw.Close();
             }
-        }
-        public static void LastWeather(string weather)//merge with saves
-        {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Weather.txt", false, System.Text.Encoding.Default))
-            {
-                sw.WriteLine(weather);
-                sw.Close();
-            }
-        }
-        public static string FindWeather1()//merge with saves
-        {
-            string weather;
-            using (StreamReader sr = new StreamReader(@"C:\Bot\Weather.txt", System.Text.Encoding.Default))
-            {
-                weather = sr.ReadLine();
-                sr.Close();
-            }
-            return weather;
-        }
-        public static void LastCoverage(string coverage)//merge with saves
-        {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Coverage.txt", false, System.Text.Encoding.Default))
-            {
-                sw.WriteLine(coverage);
-                sw.Close();
-            }
-        }
-        public static string FindCoverage1()//merge with saves
-        {
-            string coverage;
-            using (StreamReader sr = new StreamReader(@"C:\Bot\Coverage.txt", System.Text.Encoding.Default))
-            {
-                coverage = sr.ReadLine();
-                sr.Close();
-            }
-            return coverage;
-        }
+        }        
         public static int GetInfoFileLength(string path)
         {
             int length = 0;
@@ -166,13 +130,13 @@ namespace Caitlyn_v1._0
             int length = GetInfoFileLength(path);
             string[,] picturetoname = new string[length, 2];
 
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
                 for (int i = 0; i < length; i++)
                 {
                     string theline = sr.ReadLine();
-                    picturetoname[i, 0] = NotePad.GetWordFromString(theline, 1);
-                    picturetoname[i, 1] = NotePad.GetWordFromString(theline, 2);
+                    picturetoname[i, 0] = GetWordFromString(theline, 1);
+                    picturetoname[i, 1] = GetWordFromString(theline, 2);
                 }
                 sr.Close();
             }

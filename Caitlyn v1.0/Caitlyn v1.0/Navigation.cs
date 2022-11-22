@@ -6,7 +6,6 @@ namespace Caitlyn_v1._0
     class Navigation
     {
         ChooseEvent ce = new ChooseEvent();
-        FastCheck fc = new FastCheck();
         SpecialEvents se = new SpecialEvents();
         public void ToClubMap()
         {
@@ -25,31 +24,14 @@ namespace Caitlyn_v1._0
                 tu.CheckTime();
                 Thread.Sleep(2000);
                 int i = 0;
-                if (fc.ActiveEvent())
+                NotePad.DoLog("Подбираю эвент с одним условием");
+                ce.ChooseNormalEvent();
+                NotePad.DoLog("Вхожу в эвент " + Condition.eventrq + " рк");
+                Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter   
+                while (i < 100)
                 {
-                    NotePad.DoLog("вхожу в активный эвент");
-                    i = 1;
-                    Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter
-                    string[] conds = NotePad.ReadConditions();
-                    Condition.eventrq = NotePad.ReadRQ();
-                    Condition.MakeCondition(conds[0], conds[1]);
-                    while (i < 100)
-                    {
-                        i++;
-                        if (!PlayClubs(i)) break;
-                    }
-                }
-                else
-                {
-                    NotePad.DoLog("Подбираю эвент с одним условием");
-                    ce.ChooseNormalEvent();
-                    NotePad.DoLog("Вхожу в эвент " + Condition.eventrq + " рк");
-                    Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter   
-                    while (i < 100)
-                    {
-                        i++;
-                        if (!PlayClubs(i)) break;
-                    }
+                    i++;
+                    if (!PlayClubs(i)) break;
                 }
             }
         }

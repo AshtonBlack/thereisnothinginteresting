@@ -10,11 +10,9 @@ namespace Caitlyn_v1._0
         int accountLVL = Condition.accountLVL;
         FastCheck fc = new FastCheck();
         string RQPath = @"RQ\test";
-
         public void ChooseNormalEvent()
         {
             SpecialEvents se = new SpecialEvents();
-            NotePad.DoLog("Проверяю событие");
             if (fc.ActiveEvent())
             {
                 do
