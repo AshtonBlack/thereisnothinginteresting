@@ -1,6 +1,8 @@
-﻿namespace Caitlyn_v1._0
+﻿using System;
+
+namespace Caitlyn_v1._0
 {
-    internal class CarForExcel
+    internal class CarForExcel : IComparable<CarForExcel>, IEquatable<CarForExcel>
     {
         public string country { get; set; }
         public string manufacturer { get; set; }
@@ -21,9 +23,20 @@
         public string speed { get; set; }
         public string grip { get; set; }
         public string weight { get; set; }
+        public int inUse { get; set; }
         public string fullname()
         {
             return manufacturer + " " + model + " " + year;
+        }
+        public int CompareTo(CarForExcel another)
+        {
+            int ownRQ = Convert.ToInt32(this.rq);
+            int anotherRQ = Convert.ToInt32(another.rq);
+            return ownRQ.CompareTo(anotherRQ);
+        }
+        public bool Equals(CarForExcel other)
+        {
+            return this.fullname().Equals(other.fullname());
         }
     }
 }

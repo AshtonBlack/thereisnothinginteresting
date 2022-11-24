@@ -77,6 +77,7 @@ namespace Caitlyn_v1._0
             PictureToNameTable();
         }
         //legacy
+        
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             List<int> rq;
@@ -150,8 +151,10 @@ namespace Caitlyn_v1._0
                 }
             }
         }
+        
         //legacy
-        /*new
+        //new
+        /*        
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             int carsAvailable = 0;
@@ -197,7 +200,417 @@ namespace Caitlyn_v1._0
                 NotePad.DoLog("минимальное рк: " + Condition.minRQ);
             }            
         }
+        public static List<CarForExcel> DefinePreferedCarPull(TrackInfo trackInfo)//формирование списка машин под условие определенного трэка
+        {
+            List<CarForExcel> preferedCars = new List<CarForExcel>();
+            List<(CarForExcel, int)> CarWithPoints = new List<(CarForExcel, int)>();
+            int maxPoint = 0;            
+            foreach (CarForExcel car in Condition.selectedCars)
+            {
+                int points = CalculatePoints(car, trackInfo);
+                CarWithPoints.Add((car, points));
+                //NotePad.DoLog(car.fullname() + " имеет " + points + " очков");//debug
+                if (points > maxPoint)
+                {
+                    maxPoint = points;
+                }
+            }
+            for (int i = maxPoint; i > -1; i--)
+            {
+                //NotePad.DoLog("Тачки с " + i + " очков");//debug
+                foreach ((CarForExcel car, int points) car in CarWithPoints)
+                {
+                    //NotePad.DoLog(car.car.fullname() + " " + Convert.ToInt16(car.car.rq) + "rq имеется " + car.car.amount);//debug
+                    if (car.points == i && car.car.amount > 0)
+                    {
+                        preferedCars.Add(car.car);
+                        //NotePad.DoLog(car.car.fullname());//debug
+                    }                    
+                }
+            }            
+                        
+            return preferedCars;
+        }
+        static int CalculatePoints(CarForExcel car, TrackInfo trackInfo)
+        {
+            int points = 0;
+            switch (trackInfo.ground)
+            {
+                case "Асфальт":
+                    switch (trackInfo.weather)
+                    {
+                        case "Солнечно":
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 5;
+                                    break;
+                                case "per":
+                                    points += 5;
+                                    break;
+                                case "std":
+                                    points += 3;
+                                    break;
+                                case "all":
+                                    points += 2;
+                                    break;
+                                case "off":
+                                    points += 3;
+                                    break;
+                            }
+                            break;
+                        case "Дождь":
+                            if (car.drive == "4wd") points += 1;
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 0;
+                                    break;
+                                case "per":
+                                    points += 2;
+                                    break;
+                                case "std":
+                                    points += 5;
+                                    break;
+                                case "all":
+                                    points += 3;
+                                    break;
+                                case "off":
+                                    points += 1;
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case "Гравий":
+                    if (car.drive == "4wd") points += 2;
+                    switch (car.tires)
+                    {
+                        case "slick":
+                            points += 0;
+                            break;
+                        case "per":
+                            points += 1;
+                            break;
+                        case "std":
+                            points += 3;
+                            break;
+                        case "all":
+                            points += 3;
+                            break;
+                        case "off":
+                            points += 3;
+                            break;
+                    }
+                    break;
+                case "Грунт":
+                    switch (trackInfo.weather)
+                    {
+                        case "Солнечно":
+                            if (car.drive == "4wd") points += 1;
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 1;
+                                    break;
+                                case "per":
+                                    points += 2;
+                                    break;
+                                case "std":
+                                    points += 3;
+                                    break;
+                                case "all":
+                                    points += 5;
+                                    break;
+                                case "off":
+                                    points += 5;
+                                    break;
+                            }
+                            break;
+                        case "Дождь":
+                            if (car.drive == "4wd") points += 2;
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 0;
+                                    break;
+                                case "per":
+                                    points += 1;
+                                    break;
+                                case "std":
+                                    points += 2;
+                                    break;
+                                case "all":
+                                    points += 5;
+                                    break;
+                                case "off":
+                                    points += 7;
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case "Песок":
+                    if (car.drive == "4wd") points += 2;
+                    switch (car.tires)
+                    {
+                        case "slick":
+                            points += 0;
+                            break;
+                        case "per":
+                            points += 1;
+                            break;
+                        case "std":
+                            points += 2;
+                            break;
+                        case "all":
+                            points += 5;
+                            break;
+                        case "off":
+                            points += 7;
+                            break;
+                    }
+                    break;
+                case "Снег":
+                    if (car.drive == "4wd") points += 2;
+                    switch (car.tires)
+                    {
+                        case "slick":
+                            points += 0;
+                            break;
+                        case "per":
+                            points += 1;
+                            break;
+                        case "std":
+                            points += 2;
+                            break;
+                        case "all":
+                            points += 5;
+                            break;
+                        case "off":
+                            points += 7;
+                            break;
+                    }
+                    break;                
+                case "Трава":
+                    if (car.drive == "4wd") points += 2;
+                    switch (car.tires)
+                    {
+                        case "slick":
+                            points += 0;
+                            break;
+                        case "per":
+                            points += 1;
+                            break;
+                        case "std":
+                            points += 2;
+                            break;
+                        case "all":
+                            points += 5;
+                            break;
+                        case "off":
+                            points += 7;
+                            break;
+                    }
+                    break;
+                case "Лед":
+                    if (car.drive == "4wd") points += 2;
+                    switch (car.tires)
+                    {
+                        case "slick":
+                            points += 0;
+                            break;
+                        case "per":
+                            points += 2;
+                            break;
+                        case "std":
+                            points += 4;
+                            break;
+                        case "all":
+                            points += 7;
+                            break;
+                        case "off":
+                            points += 9;
+                            break;
+                    }
+                    break;
+            }
+            switch (trackInfo.track)
+            {
+                case "Городские улицы у океана":
+                case "Улица ср":
+                case "Улица мал":
+                    switch (car.clearance)
+                    {
+                        case "mid":
+                            points += 4;
+                            break;
+                        case "high":
+                            points += 2;
+                            break;
+                    }
+                    break;
+                case "Подъем на холм":
+                case "Трасса для мотокросса":
+                case "Горы подъем на холм":
+                    switch (car.clearance)
+                    {
+                        case "mid":
+                            points += 2;
+                            break;
+                        case "high":
+                            points += 4;
+                            break;
+                    }
+                    break;
+                case "Извилистая дорога":
+                    if(trackInfo.ground != "Асфальт")
+                    {
+                        switch (car.clearance)
+                        {
+                            case "mid":
+                                points += 2;
+                                break;
+                            case "high":
+                                points += 4;
+                                break;
+                        }
+                    }                    
+                    break;
+                case "Замерзшее озеро":
+                    if (car.drive == "4wd") points += 2;
+                    switch (car.tires)
+                    {
+                        case "slick":
+                            points += 0;
+                            break;
+                        case "per":
+                            points += 1;
+                            break;
+                        case "std":
+                            points += 2;
+                            break;
+                        case "all":
+                            points += 5;
+                            break;
+                        case "off":
+                            points += 7;
+                            break;
+                    }
+                    break;
+                case "Пляжный слалом у океана":
+                case "Каньон крутой холм":
+                case "Лесная переправа":
+                case "Ралли-кросс мал":
+                case "Ралли-кросс ср":
+                    switch (trackInfo.weather)
+                    {
+                        case "Солнечно":
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 0;
+                                    break;
+                                case "per":
+                                    points += 2;
+                                    break;
+                                case "std":
+                                    points += 2;
+                                    break;
+                                case "all":
+                                    points += 2;
+                                    break;
+                                case "off":
+                                    points += 2;
+                                    break;
+                            }
+                            break;
+                        case "Дождь":
+                            if (car.drive == "4wd") points += 1;
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 0;
+                                    break;
+                                case "per":
+                                    points += 2;
+                                    break;
+                                case "std":
+                                    points += 3;
+                                    break;
+                                case "all":
+                                    points += 5;
+                                    break;
+                                case "off":
+                                    points += 2;
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case "Каньон грунтовая дорога":
+                    switch (trackInfo.weather)
+                    {
+                        case "Солнечно":
+                            if (car.drive == "4wd") points += 1;
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 1;
+                                    break;
+                                case "per":
+                                    points += 2;
+                                    break;
+                                case "std":
+                                    points += 3;
+                                    break;
+                                case "all":
+                                    points += 5;
+                                    break;
+                                case "off":
+                                    points += 5;
+                                    break;
+                            }
+                            break;
+                        case "Дождь":
+                            if (car.drive == "4wd") points += 2;
+                            switch (car.tires)
+                            {
+                                case "slick":
+                                    points += 0;
+                                    break;
+                                case "per":
+                                    points += 1;
+                                    break;
+                                case "std":
+                                    points += 2;
+                                    break;
+                                case "all":
+                                    points += 5;
+                                    break;
+                                case "off":
+                                    points += 7;
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                default:
+                    switch (car.clearance)
+                    {
+                        case "low":
+                            points += 2;
+                            break;
+                        case "mid":
+                            points += 1;
+                            break;
+                    }
+                    break;
+            }
+            return points;
+        }
         */
+        //new
         public static bool SatisfyCondition(string cond, CarForExcel car)
         {
             bool x = false;

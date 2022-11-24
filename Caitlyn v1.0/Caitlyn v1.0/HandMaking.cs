@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Caitlyn_v1._0
 {
-    public class HandMaking
+    internal class HandMaking
     {
         bool eventIsNotEnd = true;
         //new
@@ -81,6 +81,45 @@ namespace Caitlyn_v1._0
                 NotePad.DoLog(resultedCars[i].fullname() + " " + resultedCars[i].rq + "rq (в наличии: " + resultedCars[i].amount + ", использовано: " + resultedCars[i].inUse + ")");
             }
             return resultedCars;
+        }
+        public List<(CarDescriptionForFilter description, int count)> GroupCars(CarForExcel[] car)
+        {
+            List<(CarDescriptionForFilter description, int count)> carsDescription = new List<(CarDescriptionForFilter description, int count)>();
+            carsDescription.Add((new CarDescriptionForFilter(car[0]), 1));   
+            for(int i = 1; i < car.Length; i++)
+            {
+                CarDescriptionForFilter additionalDescription = new CarDescriptionForFilter(car[i]);
+                for(int j = 0; j < carsDescription.Count; j++)      
+                {                    
+                    if(carsDescription[j].Equals(additionalDescription))
+                    {
+                        carsDescription[j] = (additionalDescription, carsDescription[j].count+1);
+                    }
+                    else
+                    {
+                        carsDescription.Add((additionalDescription, 1));
+                    }
+                }
+            }
+            return carsDescription;
+        }
+        public void MakingHand()
+        {
+            ActivateCondition();
+            int usedhandslots =0;
+            foreach(var carsDescriptions in GroupCars(ChooseCars()))
+            {
+                Randomizer();
+                UseFilter(carsDescriptions.description);
+                DragnDpopHand(carsDescriptions.count, usedhandslots);
+                usedhandslots+=carsDescriptions.count;
+            }//механизм расстановки
+
+            if (VerifyHand())
+            {
+                int[] carsid = RememberHand();
+                NotePad.Saves(carsid);
+            } //сохранение руки
         }
         */
         //new

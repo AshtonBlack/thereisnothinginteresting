@@ -1,10 +1,14 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 
 namespace Caitlyn_v1._0
 {
     static class Condition
     {
         //new
+        public static int eventRQ { get; set; }//рк эвента
+        public static int minRQ { get; set; }
+        public static List<CarForExcel> selectedCars { get; set; }
         public static TrackInfo[] previousTracks { get; set; }
         public static void setDefaultTracks()
         {
