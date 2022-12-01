@@ -19,6 +19,4 @@ D:\bot\thereisnothinginteresting\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.
 D:\bot\thereisnothinginteresting\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.exe
 D:\bot\thereisnothinginteresting\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.pdb
 C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.csproj.ResolveComReference.cache
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.csproj.AssemblyReference.cache
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.csproj.SuggestedBindingRedirects.cache
-C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.csproj.CoreCompileInputs.cache
+C:\Bot\Caitlyn v1.0\Caitlyn v1.0\obj\Debug\Caitlyn v1.0.csprojAssemblyReference.cache

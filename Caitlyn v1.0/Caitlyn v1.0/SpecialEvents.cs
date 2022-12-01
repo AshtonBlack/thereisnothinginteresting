@@ -115,6 +115,10 @@ namespace Caitlyn_v1._0
             {
                 Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
             }
+            if (fc.ConnectionInterrupted())
+            {
+                RestartBot();
+            }
             if (fc.ServerError())
             {
                 Thread.Sleep(5000);

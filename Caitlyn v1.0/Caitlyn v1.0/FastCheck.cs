@@ -24,6 +24,12 @@ namespace Caitlyn_v1._0
             return x;
         }
 
+        public bool ConnectionInterrupted()
+        {
+            bool x = MainFrame(PointsAndRectangles.connectionInterrupted, "ConnectionInterrupted");
+            return x;
+        }
+
         public bool MainFrameBW(Rectangle bounds, string name, int errors)
         {
             bool x = false;
