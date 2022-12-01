@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.IO.Ports;
+using System.Linq;
 using System.Threading;
 
 namespace Caitlyn_v1._0
@@ -9,8 +11,7 @@ namespace Caitlyn_v1._0
     internal class HandMaking
     {
         bool eventIsNotEnd = true;
-        //new
-        /*
+        //new        
         public CarForExcel[] ChooseCars()
         {
             List<CarForExcel>[] carsForEveryFinger = new List<CarForExcel>[5];
@@ -24,7 +25,7 @@ namespace Caitlyn_v1._0
             for (int i = 0; i < fingerCarNumber.Length; i++)
             {
                 //NotePad.DoLog("подбираю тачку в " + i + " слот");//debug
-                //NotePad.DoLog(carsForEveryFinger[i].Count + " отобранных тачек для первого слота");//debug
+                //NotePad.DoLog(carsForEveryFinger[i].Count + " отобранных тачек для " + i + " слота");//debug
                 for (int j = 0; j < carsForEveryFinger[i].Count; j++)
                 {
                     //NotePad.DoLog("Проверяю тачку" + carsForEveryFinger[i][j].fullname());//debug
@@ -82,16 +83,20 @@ namespace Caitlyn_v1._0
             }
             return resultedCars;
         }
-        public List<(CarDescriptionForFilter description, int count)> GroupCars(CarForExcel[] car)
+        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] car)
         {
-            List<(CarDescriptionForFilter description, int count)> carsDescription = new List<(CarDescriptionForFilter description, int count)>();
-            carsDescription.Add((new CarDescriptionForFilter(car[0]), 1));   
+            List<(CarForExcel description, int count)> carsDescription = new List<(CarForExcel description, int count)>();
+            carsDescription.Add((car[0], 1));   
             for(int i = 1; i < car.Length; i++)
             {
-                CarDescriptionForFilter additionalDescription = new CarDescriptionForFilter(car[i]);
-                for(int j = 0; j < carsDescription.Count; j++)      
+                CarForExcel additionalDescription = car[i];
+                for(int j = 0; j < carsDescription.Count; j++)
                 {                    
-                    if(carsDescription[j].Equals(additionalDescription))
+                    if(carsDescription[j].description.rarity == additionalDescription.rarity
+                    //&& carsDescription[j].description.drive == additionalDescription.drive
+                    //&& carsDescription[j].description.clearance == additionalDescription.clearance
+                    //&& carsDescription[j].description.country == additionalDescription.country
+                    && carsDescription[j].description.tires == additionalDescription.tires)
                     {
                         carsDescription[j] = (additionalDescription, carsDescription[j].count+1);
                     }
@@ -103,23 +108,26 @@ namespace Caitlyn_v1._0
             }
             return carsDescription;
         }
-        public void MakingHand()
+        /*
+        public bool MakingHand()
         {
-            ActivateCondition();
+            if (CheckForEventIsOn()) ActivateCondition(); else return false;
             int usedhandslots =0;
             foreach(var carsDescriptions in GroupCars(ChooseCars()))
             {
-                Randomizer();
-                UseFilter(carsDescriptions.description);
-                DragnDpopHand(carsDescriptions.count, usedhandslots);
-                usedhandslots+=carsDescriptions.count;
+                if (eventIsNotEnd) Randomizer(); else return false;
+                if (eventIsNotEnd) UseFilter(carsDescriptions.description); else return false;
+                if (eventIsNotEnd) DragnDropHand(carsDescriptions.count, usedhandslots); else return false;
+                usedhandslots +=carsDescriptions.count;
             }//механизм расстановки
 
-            if (VerifyHand())
+            if (eventIsNotEnd && VerifyHand())
             {
                 int[] carsid = RememberHand();
                 NotePad.Saves(carsid);
             } //сохранение руки
+            else return false;
+            return true;
         }
         */
         //new
@@ -195,6 +203,7 @@ namespace Caitlyn_v1._0
             }
             return true;
         }
+        //legacy
         public bool MakingHand()
         {
             FastCheck fc = new FastCheck();
@@ -242,12 +251,12 @@ namespace Caitlyn_v1._0
 
                     if (i == 0)//для серых нет возврата недобора
                     {
-                        DragnDpopHand(classcars[i], usedhandslots, conditionAvailableCars);
+                        DragnDropHand(classcars[i], usedhandslots, conditionAvailableCars);
                     }
                     else
                     {
                         emptycars = 0;
-                        emptycars += DragnDpopHand(classcars[i], usedhandslots, conditionAvailableCars);
+                        emptycars += DragnDropHand(classcars[i], usedhandslots, conditionAvailableCars);
                         usedhandslots += classcars[i] - emptycars;
                         classcars[i - 1] += emptycars;
                     }
@@ -264,6 +273,33 @@ namespace Caitlyn_v1._0
             
             return eventIsNotEnd;
         }
+        //legacy
+        //new
+        void ActivateCondition()
+        {
+            FastCheck fc = new FastCheck();
+            if (Condition.ConditionNumber1 != "empty"
+                && Condition.ConditionNumber1 != "обычная х3"
+                && !fc.ConditionActivated())
+            {
+                if (Condition.ConditionNumber2 == "empty")
+                {
+                    Rat.Clk(PointsAndRectangles.commonCondition);
+                }
+                else
+                {
+                    Rat.Clk(PointsAndRectangles.commonCondition);
+                    Thread.Sleep(1000);
+                    Rat.Clk(PointsAndRectangles.cond1);
+                    Thread.Sleep(200);
+                    Rat.Clk(PointsAndRectangles.cond2);
+                    Thread.Sleep(200);
+                    Rat.Clk(PointsAndRectangles.commonConditionCross);
+                }
+            }
+        }//включить фильтр условия события.
+        //new
+        //legacy
         void ActivateEventNativeCondition()
         {
             if (Condition.ConditionNumber2 == "empty")
@@ -281,6 +317,7 @@ namespace Caitlyn_v1._0
                 Rat.Clk(PointsAndRectangles.commonConditionCross);
             }
         }
+        //legacy
         public bool CarFixed(int slot)
         {
             string path = "Check//";
@@ -323,24 +360,16 @@ namespace Caitlyn_v1._0
         public bool VerifyHand()
         {
             FastCheck fc = new FastCheck();
-
-            bool handIsOk = true;
-
             Thread.Sleep(2000);
-
-            if (fc.AnyHandSlotIsEmpty()) handIsOk = false;
-
+            if (fc.AnyHandSlotIsEmpty()) return false;
             if (fc.RedReadytoRace())
             {
                 NotePad.DoLog("Рука не соответствует условию");
-                handIsOk = false;
+                return false;
             }
-            if (!CheckForEventIsOn())
-            {
-                handIsOk = false;
-            }
+            if (!CheckForEventIsOn()) return false;
 
-            return handIsOk;
+            return true;
         }
         public int[] RememberHand()
         {
@@ -380,7 +409,6 @@ namespace Caitlyn_v1._0
                         File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\" + carsid[i] + ".jpg");
                     }
                 }
-
                 else
                 {
                     for (int i2 = 1; i2 < lastcar; i2++)
@@ -397,7 +425,6 @@ namespace Caitlyn_v1._0
                             }
                         }
                     }
-
                     if (flag == true)
                     {
                         int emptySpaceForCar = 0;
@@ -427,7 +454,7 @@ namespace Caitlyn_v1._0
             }
 
             return carsid;
-        }
+        }//for refactoring
         private bool UseFilter(Point cls)
         {
             FastCheck fc = new FastCheck();
@@ -536,7 +563,7 @@ namespace Caitlyn_v1._0
 
             return true;
         }
-        public int DragnDpopHand(int n, int uhl, int caCars)
+        public int DragnDropHand(int n, int uhl, int caCars)
         {
             //caCars - cond available cars
             //n -needed cars

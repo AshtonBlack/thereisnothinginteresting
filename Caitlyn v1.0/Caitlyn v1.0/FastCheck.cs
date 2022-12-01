@@ -24,12 +24,6 @@ namespace Caitlyn_v1._0
             return x;
         }
 
-        public bool ConnectionInterrupted()
-        {
-            bool x = MainFrame(PointsAndRectangles.connectionInterrupted, "ConnectionInterrupted");
-            return x;
-        }
-
         public bool MainFrameBW(Rectangle bounds, string name, int errors)
         {
             bool x = false;
@@ -37,6 +31,11 @@ namespace Caitlyn_v1._0
             string originalPicture = "HeadPictures\\Original" + name;
             MasterOfPictures.BW2Capture(bounds, testPicture);
             if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors)) x = true;
+            return x;
+        }
+        public bool ConnectionInterrupted()
+        {
+            bool x = MainFrame(PointsAndRectangles.connectionInterrupted, "ConnectionInterrupted");
             return x;
         }
 
