@@ -459,8 +459,7 @@ namespace Caitlyn_v1._0
                 g.DrawImage(orig, dest, src, GraphicsUnit.Pixel);
             }
             return scaledImage;
-        }
-        
+        }        
         //new
         //legacy
         private bool UseFilter(Point cls)
