@@ -7,3 +7,14 @@ C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.Properties.Resources.resources
 C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.csproj.GenerateResource.cache
 C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.exe
 C:\Bot\NotNeural\NotNeural\obj\Debug\NotNeural.pdb
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\bin\Debug\NotNeural.exe.config
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\bin\Debug\NotNeural.exe
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\bin\Debug\NotNeural.pdb
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.csproj.AssemblyReference.cache
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.csproj.SuggestedBindingRedirects.cache
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.Form1.resources
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.Properties.Resources.resources
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.csproj.GenerateResource.cache
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.csproj.CoreCompileInputs.cache
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.exe
+C:\Bot\thereisnothinginteresting\NotNeural\NotNeural\obj\Debug\NotNeural.pdb

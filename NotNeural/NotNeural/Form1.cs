@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace NotNeural
@@ -13,6 +13,7 @@ namespace NotNeural
         }
         string botPhotoName;
         string originalPhotoName;
+        string originalsDirectory;
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -81,14 +82,14 @@ namespace NotNeural
                 + bestResult.leftTopCorner.X + " " + bestResult.leftTopCorner.Y + " начальная точка, отличие в "
                 + bestResult.difShades + " оттенков";
         }
-        public void BestScaleDoubleZoom()
+        public (int, Point) BestScaleDoubleZoom()
         {
             (int scalePercent, Point leftTopCorner, int difShades) bestResult = (0, new Point(0, 0), 5000000);
             Bitmap botPhoto1 = new Bitmap(botPhotoName);
             Bitmap botPhoto = new Bitmap(ZoomImage(botPhoto1, 20));
-            Stopwatch myTimer = new Stopwatch();
-            myTimer.Start();
-            
+            //Stopwatch myTimer = new Stopwatch();//debug
+            //myTimer.Start();//debug
+
             /* relevant for research
             for (int percent = 6; percent < 9; percent++)
             {
@@ -127,9 +128,10 @@ namespace NotNeural
             }
             originalPhoto.Dispose();
             botPhoto.Dispose();
-            myTimer.Stop();
-            Console.WriteLine(myTimer.ElapsedMilliseconds);
-            label3.Text = myTimer.ElapsedMilliseconds.ToString();
+            //myTimer.Stop();//debug
+            //Console.WriteLine(myTimer.ElapsedMilliseconds);//debug
+            //label3.Text = myTimer.ElapsedMilliseconds.ToString();//debug
+            /*debug
             Console.WriteLine("лучший результат: "
                 + bestResult.scalePercent + "% zoom, "
                 + bestResult.leftTopCorner.X + " " + bestResult.leftTopCorner.Y + " начальная точка, отличие в "
@@ -138,7 +140,10 @@ namespace NotNeural
                 + bestResult.scalePercent + "% zoom, "
                 + bestResult.leftTopCorner.X + " " + bestResult.leftTopCorner.Y + " начальная точка, отличие в "
                 + bestResult.difShades + " оттенков";
-            MapsofDifs(bestResult.scalePercent, bestResult.leftTopCorner);
+            */
+            //MapsofDifs(bestResult.scalePercent, bestResult.leftTopCorner);//debug
+
+            return (bestResult.difShades, bestResult.leftTopCorner);
         }
         public (Point leftTopCorner, int difShades) BestPiece(Bitmap scalableOriginalPhoto, Bitmap botPhoto)
         {           
@@ -147,9 +152,13 @@ namespace NotNeural
             int minshadesdifs = 5000000;
             if(scalableOriginalPhoto.Width >= botPhoto.Width && scalableOriginalPhoto.Height >= botPhoto.Height)
             {
-                for (int zeroposx = 0; zeroposx < scalableOriginalPhoto.Width - botPhoto.Width; zeroposx++)
+                //for (int zeroposx = 0; zeroposx < scalableOriginalPhoto.Width - botPhoto.Width; zeroposx++)
+                //for (int zeroposx = 0; zeroposx < 4; zeroposx++)//improved
+                for (int zeroposx = 3; zeroposx < 4; zeroposx++)//maximproved
                 {
-                    for (int zeroposy = 1; zeroposy < scalableOriginalPhoto.Height - botPhoto.Height; zeroposy++)//zeropos changed from 0 to 1 to avoid differences on edges
+                    //for (int zeroposy = 1; zeroposy < scalableOriginalPhoto.Height - botPhoto.Height; zeroposy++)//zeropos changed from 0 to 1 to avoid differences on edges
+                    //for (int zeroposy = 1; zeroposy < 4; zeroposy++)//improved
+                    for (int zeroposy = 1; zeroposy < 2; zeroposy++)//maximproved
                     {
                         int shadesdifs0 = 0;
                         for (int x1 = 0; x1 < botPhoto.Width; x1++)
@@ -174,11 +183,10 @@ namespace NotNeural
                     }
                 }
             }            
-            Console.WriteLine("наиболее подходящий кусок " + bestposx + " " + bestposy + " с отличием в " + minshadesdifs + " оттенков");
+            //Console.WriteLine("наиболее подходящий кусок " + bestposx + " " + bestposy + " с отличием в " + minshadesdifs + " оттенков");
             return (new Point(bestposx, bestposy), minshadesdifs);
         }
-
-        public void MapsofDifs(int zoom, Point startPoint)
+        public void MapsofDifs(int zoom, Point startPoint)//debug
         {
             Bitmap botPhoto = new Bitmap(botPhotoName);
             Bitmap scalableBotPhoto = new Bitmap(ZoomImage(botPhoto, 20));
@@ -215,7 +223,6 @@ namespace NotNeural
             scalableOriginalPhoto.Dispose();
             pictureBox1.Image = ZoomImage(Image.FromFile(@"C:\Bot\RGBmap.jpg"), 1000);
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -227,15 +234,49 @@ namespace NotNeural
 
             label2.Text = originalPhotoName;
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             BestScale();
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             BestScaleDoubleZoom();
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                label4.Text = folderDlg.SelectedPath;
+                originalsDirectory = folderDlg.SelectedPath;
+            }
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Image.FromFile(botPhotoName);
+            string theClosestOriginal = "none";
+            int bestShadesDif = 5000000;
+            Point leftTopCorner = new Point();
+            for (int originalPhoto = 0; originalPhoto<3100; originalPhoto++)
+            {
+                originalPhotoName = originalsDirectory + @"\" + originalPhoto + @".png";
+                if (File.Exists(originalPhotoName))
+                {
+                    (int, Point) result = BestScaleDoubleZoom();
+                    int currentShadesDif = result.Item1;
+                    if (currentShadesDif < bestShadesDif)
+                    {
+                        bestShadesDif = currentShadesDif;
+                        theClosestOriginal = originalPhotoName;
+                        leftTopCorner = result.Item2;
+                    }
+                }                
+            }
+            pictureBox3.Image = ZoomImage(Image.FromFile(theClosestOriginal), 35);
+            label5.Text = theClosestOriginal;
+            label6.Text = bestShadesDif.ToString() + " difShades";
+            label7.Text = "leftTopCorner " + leftTopCorner.X + " " + leftTopCorner.Y;
         }
     }
 }

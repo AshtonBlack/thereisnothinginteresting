@@ -4,13 +4,14 @@ namespace Caitlyn_v1._0
 {
     internal class CarForExcel : IComparable<CarForExcel>, IEquatable<CarForExcel>
     {
+        public string pictureId { get; set; }
         public string country { get; set; }
         public string manufacturer { get; set; }
         public string model { get; set; }
         public string year { get; set; }
         public int amount = 0;
         public string rq { get; set; }
-        public int pictureNumber { get; set; }
+        //public int pictureNumber { get; set; }
         public string rarity { get; set; }
         public string tires { get; set; }
         public string drive { get; set; }
@@ -23,7 +24,7 @@ namespace Caitlyn_v1._0
         public string speed { get; set; }
         public string grip { get; set; }
         public string weight { get; set; }
-        public int inUse { get; set; }
+        public int inUse { get; set; }        
         public string fullname()
         {
             return manufacturer + " " + model + " " + year;

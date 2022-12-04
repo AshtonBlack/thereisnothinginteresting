@@ -5,15 +5,15 @@ namespace Caitlyn_v1._0
 {
     public class Car
     {
-        public string carname = "unknown";
-        public int clearance = 1;
-        public int tires = 2;
-        public int drive = 2;
-        public double acceleration = 36;
-        public int maxSpeed = 100;
-        public int grip = 45;
-        public int weight = 2500;        
-
+        public string carname;
+        public int clearance;
+        public int tires;
+        public int drive;
+        public double acceleration;
+        public int maxSpeed;
+        public int grip;
+        public int weight;        
+        //legacy
         void IdentifyCar(int carPicture)
         {
             string path = @"C:\Bot\NewPL\PictureToCar.txt";
@@ -38,7 +38,7 @@ namespace Caitlyn_v1._0
                 NotePad.DoErrorLog(carPicture + " is unknown car");
             }
         }
-
+        /*
         public Car(int carPicture)
         {
             IdentifyCar(carPicture);
@@ -66,7 +66,36 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
+        */
+        //legacy
+        //new
+        public Car(int id)
+        {
+            foreach (CarForExcel car in CarsDB.fulltablearray)
+            {
+                if (car.pictureId == id.ToString())
+                {
+                    carname = car.fullname();
+                    NotePad.DoLog(carname);
+                    clearance = clearanceConverter(car.clearance);
+                    tires = tiresConverter(car.tires);
+                    drive = driveConverter(car.drive);
+                    try
+                    {
+                        acceleration = Convert.ToDouble(car.acceleration);
+                    }
+                    catch
+                    {
+                        NotePad.DoErrorLog("can not convert " + car.acceleration + " to double");
+                    }
+                    maxSpeed = Convert.ToInt32(car.speed);
+                    grip = Convert.ToInt32(car.grip);
+                    weight = Convert.ToInt32(car.weight);
+                    break;
+                }
+            }
+        }
+        //new
         int clearanceConverter(string stat)
         {
             switch (stat)
@@ -79,7 +108,6 @@ namespace Caitlyn_v1._0
                     return 3;
             }
         }
-
         int tiresConverter(string stat)
         {
             switch (stat)
@@ -96,7 +124,6 @@ namespace Caitlyn_v1._0
                     return 5;
             }
         }
-
         int driveConverter(string stat)
         {
             switch (stat)

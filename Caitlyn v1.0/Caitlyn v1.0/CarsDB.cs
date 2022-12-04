@@ -22,6 +22,7 @@ namespace Caitlyn_v1._0
         {
             Fulltable();
         }
+        /*Legacy
         static void PictureToNameTable()
         {
             using (StreamReader sr = new StreamReader(pictureToCarPath, System.Text.Encoding.Default))
@@ -44,6 +45,7 @@ namespace Caitlyn_v1._0
                 sr.Close();
             }
         }
+        */
         static void cashSR()
         {
             if (File.Exists(cashCarsPath))
@@ -76,7 +78,7 @@ namespace Caitlyn_v1._0
             fulltablearray.Sort();
             fulltablearray.Reverse();
             cashSR();
-            PictureToNameTable();
+            //PictureToNameTable();
         }
         //legacy
         
@@ -252,6 +254,27 @@ namespace Caitlyn_v1._0
         static int CalculatePoints(CarForExcel car, TrackInfo trackInfo)
         {
             int points = 0;
+            switch (car.rarity)
+            {
+                case "s":
+                    points += 15;
+                    break;
+                case "a":
+                    points += 12;
+                    break;
+                case "b":
+                    points += 8;
+                    break;
+                case "c":
+                    points += 6;
+                    break;
+                case "d":
+                    points += 4;
+                    break;
+                case "e":
+                    points += 2;
+                    break;
+            }
             switch (trackInfo.ground)
             {
                 case "Асфальт":

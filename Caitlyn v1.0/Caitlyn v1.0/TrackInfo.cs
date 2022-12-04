@@ -6,7 +6,6 @@ namespace Caitlyn_v1._0
 {
     public class TrackInfo
     {
-        //new
         public string ground { get; set; }
         public string weather { get; set; }
         public string track { get; set; }
@@ -134,7 +133,7 @@ namespace Caitlyn_v1._0
             Rectangle[] c = { PointsAndRectangles.Weather1, PointsAndRectangles.Weather2, PointsAndRectangles.Weather3, PointsAndRectangles.Weather4, PointsAndRectangles.Weather5 };
             MasterOfPictures.BW2Capture(c[position - 1], ("Weather" + position + "\\test"));
             int pictureCounter = 0;
-            for (int i = 1; i < 10; i++)
+            for (int i = 1; i < 100; i++)
             {
                 if (File.Exists(weatherDirectory + position + "\\" + i + ".jpg"))
                 {
@@ -156,7 +155,6 @@ namespace Caitlyn_v1._0
             File.Move(weatherDirectory + position + "\\test.jpg", weatherDirectory + position + "\\" + (pictureCounter + 1) + ".jpg");
             return 0;
         }
-        //new
         string trackDirectory = @"C:\Bot\Track";
         string groundDirectory = @"C:\Bot\Ground";
         string weatherDirectory = @"C:\Bot\Weather";        

@@ -97,12 +97,10 @@ namespace Caitlyn_v1._0
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
                         eventIsOK = false;
                     }
-                    //new
                     else
                     {
                         Condition.setDefaultTracks();
                     }
-                    //new
                 }  
                 else eventIsOK = false;
             }
