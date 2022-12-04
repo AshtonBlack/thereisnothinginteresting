@@ -11,7 +11,6 @@ namespace Caitlyn_v1._0
         public string year { get; set; }
         public int amount = 0;
         public string rq { get; set; }
-        //public int pictureNumber { get; set; }
         public string rarity { get; set; }
         public string tires { get; set; }
         public string drive { get; set; }

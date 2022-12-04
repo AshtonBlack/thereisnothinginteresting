@@ -297,7 +297,7 @@ namespace Caitlyn_v1._0
         public bool ConditionActivated()
         {
             bool x = false;
-            string active = "Color [A=255, R=4, G=4, B=5]";
+            string active = "Color [A=255, R=4, G=5, B=5]";
             Point p = new Point(415, 260);
             if (MasterOfPictures.PixelIndicator(p) == active) x = true;
             return x;

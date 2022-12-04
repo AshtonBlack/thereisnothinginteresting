@@ -8,7 +8,6 @@ namespace Caitlyn_v1._0
     {
         static string excelFilePath = @"C:\Bot\NewPL\cars.xlsx";
         static string cashCarsPath = @"C:\Bot\NewPL\CashCars.txt";
-        static string pictureToCarPath = @"C:\Bot\NewPL\PictureToCar.txt";
         public static List<CarForExcel> fulltablearray { get; set; }
         //legacy
         public static int[] lowestcars;
@@ -21,31 +20,7 @@ namespace Caitlyn_v1._0
         static CarsDB()
         {
             Fulltable();
-        }
-        /*Legacy
-        static void PictureToNameTable()
-        {
-            using (StreamReader sr = new StreamReader(pictureToCarPath, System.Text.Encoding.Default))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null && line != " " && line != "")
-                {
-                    string carname = NotePad.GetWordFromString(line, 2);
-                    int pictureNumber = Convert.ToInt32(NotePad.GetWordFromString(line, 1));
-
-                    foreach (CarForExcel car in fulltablearray)
-                    {
-                        if (car.fullname() == carname)
-                        {
-                            fulltablearray.Find(thecar => thecar.fullname() == carname).pictureNumber = pictureNumber;
-                            break;
-                        }
-                    }
-                }
-                sr.Close();
-            }
-        }
-        */
+        }        
         static void cashSR()
         {
             if (File.Exists(cashCarsPath))
@@ -78,7 +53,6 @@ namespace Caitlyn_v1._0
             fulltablearray.Sort();
             fulltablearray.Reverse();
             cashSR();
-            //PictureToNameTable();
         }
         //legacy
         

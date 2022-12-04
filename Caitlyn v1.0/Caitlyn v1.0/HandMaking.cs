@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace Caitlyn_v1._0
 {
@@ -279,7 +278,9 @@ namespace Caitlyn_v1._0
             FastCheck fc = new FastCheck();
             if (Condition.ConditionNumber1 != "empty"
                 && Condition.ConditionNumber1 != "обычная х3"
-                && !fc.ConditionActivated())
+                && !fc.ConditionActivated()
+                && eventIsNotEnd
+                && CheckForEventIsOn())
             {
                 if (Condition.ConditionNumber2 == "empty")
                 {
@@ -288,11 +289,11 @@ namespace Caitlyn_v1._0
                 else
                 {
                     Rat.Clk(PointsAndRectangles.commonCondition);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(1500);
                     Rat.Clk(PointsAndRectangles.cond1);
-                    Thread.Sleep(200);
+                    Thread.Sleep(500);
                     Rat.Clk(PointsAndRectangles.cond2);
-                    Thread.Sleep(200);
+                    Thread.Sleep(500);
                     Rat.Clk(PointsAndRectangles.commonConditionCross);
                 }
             }
@@ -369,97 +370,11 @@ namespace Caitlyn_v1._0
             if (!CheckForEventIsOn()) return false;
 
             return true;
-        }
-        //legacy
-        public int[] RememberHandOld()
-        {
-            string carsDB = "Finger";
-            int lastcar = 3000;
-            int[] carsid = new int[5];
-            bool flag;
-            Rectangle[] b = { PointsAndRectangles.HandSlot1, PointsAndRectangles.HandSlot2, PointsAndRectangles.HandSlot3, PointsAndRectangles.HandSlot4, PointsAndRectangles.HandSlot5 };
-
-            for (int i = 0; i < 5; i++)
-            {
-                MasterOfPictures.MakePicture(b[i], (carsDB + (i + 1) + "\\test"));
-                flag = true;
-
-                if (i == 0)//для первого пальца
-                {
-                    int emptySpaceForCar = 0;
-                    for (int i2 = 1; i2 < lastcar; i2++)
-                    {
-                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i2 + ".jpg"))
-                        {
-                            if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\" + i2), ("Finger" + (i + 1) + "\\test")))
-                            {
-                                NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " тачка");
-                                carsid[i] = i2;
-                                File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg");
-                                flag = false;
-                                break;
-                            }
-                        }
-                        else if (emptySpaceForCar == 0) emptySpaceForCar = i2;
-                    }
-                    if (flag == true)
-                    {
-                        NotePad.DoLog("Добавляю новую тачку");
-                        carsid[i] = emptySpaceForCar;
-                        File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\" + carsid[i] + ".jpg");
-                    }
-                }
-                else
-                {
-                    for (int i2 = 1; i2 < lastcar; i2++)
-                    {
-                        if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\" + i2 + ".jpg")) //поиск в сортированных
-                        {
-                            if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\" + i2), ("Finger" + (i + 1) + "\\test")))
-                            {
-                                NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " тачка");
-                                carsid[i] = i2;
-                                File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg");
-                                flag = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (flag == true)
-                    {
-                        int emptySpaceForCar = 0;
-                        for (int i2 = 1; i2 < lastcar; i2++)
-                        {
-                            if (File.Exists("C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + i2 + ".jpg")) //поиск в сортированных
-                            {
-                                if (MasterOfPictures.Verify(("Finger" + (i + 1) + "\\unsorted" + i2), ("Finger" + (i + 1) + "\\test")))
-                                {
-                                    NotePad.DoLog("На " + (i + 1) + " месте " + i2 + " неотсортированная тачка");
-                                    carsid[i] = 10000; //неотсортированная
-                                    File.Delete("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg");
-                                    flag = false;
-                                    break;
-                                }
-                            }
-                            else if (emptySpaceForCar == 0) emptySpaceForCar = i2;
-                        }
-                        if (flag == true)
-                        {
-                            NotePad.DoLog("Добавляю новую тачку");
-                            carsid[i] = 10000; //неотсортированная
-                            File.Move("C:\\Bot\\Finger" + (i + 1) + "\\test.jpg", "C:\\Bot\\Finger" + (i + 1) + "\\unsorted" + emptySpaceForCar + ".jpg");
-                        }
-                    }
-                }
-            }
-
-            return carsid;
-        }//for refactoring
-        //legacy
+        }        
         //new
         public int[] RememberHand()
         {
-            string originalsDirectory = @"TODO";
+            string originalsDirectory = @"C:\Bot\NewPL\CarOriginals";
             string currentHand = "CurrentHand";
             int lastCarInBase = 3100;
             int[] carsid = new int[5];
@@ -471,7 +386,7 @@ namespace Caitlyn_v1._0
 
             for (int finger = 0; finger < 5; finger++)
             {
-                MasterOfPictures.MakePicture(handSlots[finger], currentHand + "\\test" + finger + 1);
+                MasterOfPictures.MakePicture(handSlots[finger], currentHand + "\\test" + finger);
             }
             for(int finger = 0; finger < carsid.Length; finger++)
             {
@@ -481,7 +396,7 @@ namespace Caitlyn_v1._0
                     string originalPhotoName = originalsDirectory + @"\" + id + @".png";
                     if (File.Exists(originalPhotoName))
                     {
-                        int currentShadesDif = CalculateDifs(@"C:\Bot\CurrentHand\test" + finger + 1 + ".jpg", originalPhotoName);
+                        int currentShadesDif = CalculateDifs(@"C:\Bot\CurrentHand\test" + finger + ".jpg", originalPhotoName);
                         if (currentShadesDif < bestShadesDif)
                         {
                             bestShadesDif = currentShadesDif;
@@ -515,6 +430,8 @@ namespace Caitlyn_v1._0
                     difShades += shadesdifs1;
                 }
             }
+            botPhoto1.Dispose();
+            scalableOriginalPhoto.Dispose();
             originalPhoto.Dispose();
             botPhoto.Dispose();
 
