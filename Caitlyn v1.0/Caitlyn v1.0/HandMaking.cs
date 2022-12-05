@@ -466,6 +466,7 @@ namespace Caitlyn_v1._0
         private bool UseFilter(Point cls)
         {
             FastCheck fc = new FastCheck();
+            SpecialEvents se = new SpecialEvents();
             NotePad.DoLog("накладываю фильтры");
             do
             {
@@ -486,15 +487,18 @@ namespace Caitlyn_v1._0
             Thread.Sleep(500);
             Condition.ChooseTyres();
             Thread.Sleep(1000);
+            int timer = 0;
             do
             {
-                if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                if (timer == 20) se.RestartBot();
+                if (!CheckForEventIsOn() || !eventIsNotEnd)
                 {
                     return false;
                 }
                 Rat.Clk(PointsAndRectangles.accept);
                 Thread.Sleep(500);
-            } while (fc.FilterIsOpenned());//100% FilterCloser            
+                timer++;
+            } while (fc.FilterIsOpenned());//100% FilterCloser        
             Thread.Sleep(2000);
 
             return true;
