@@ -81,30 +81,31 @@ namespace Caitlyn_v1._0
             }
             return resultedCars;
         }
-        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] car)
+        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars)
         {
-            List<(CarForExcel description, int count)> carsDescription = new List<(CarForExcel description, int count)>();
-            carsDescription.Add((car[0], 1));   
-            for(int i = 1; i < car.Length; i++)
+            List<(CarForExcel description, int count)> carsDescriptions = new List<(CarForExcel description, int count)>
             {
-                CarForExcel additionalDescription = car[i];
-                for(int j = 0; j < carsDescription.Count; j++)
-                {                    
-                    if(carsDescription[j].description.rarity == additionalDescription.rarity
+                (cars[0], 0)//the first description is added by default
+            };
+            foreach(CarForExcel carDescription in cars)
+            {
+                for (int knownCarDescription = 0; knownCarDescription < carsDescriptions.Count; knownCarDescription++)
+                {
+                    if (carsDescriptions[knownCarDescription].description.rarity == carDescription.rarity
                     //&& carsDescription[j].description.drive == additionalDescription.drive
                     //&& carsDescription[j].description.clearance == additionalDescription.clearance
                     //&& carsDescription[j].description.country == additionalDescription.country
-                    && carsDescription[j].description.tires == additionalDescription.tires)
+                    && carsDescriptions[knownCarDescription].description.tires == carDescription.tires)
                     {
-                        carsDescription[j] = (additionalDescription, carsDescription[j].count+1);
+                        carsDescriptions[knownCarDescription] = (carDescription, carsDescriptions[knownCarDescription].count + 1);
                     }
                     else
                     {
-                        carsDescription.Add((additionalDescription, 1));
+                        carsDescriptions.Add((carDescription, 1));
                     }
                 }
             }
-            return carsDescription;
+            return carsDescriptions;
         }
         /*
         public bool MakingHand()
@@ -204,8 +205,6 @@ namespace Caitlyn_v1._0
         //legacy
         public bool MakingHand()
         {
-            FastCheck fc = new FastCheck();
-
             int[] classcars = ConditionHandling();
             NotePad.DoLog("Собираю " + classcars[0] + "F, "
                 + classcars[1] + "E, "
@@ -220,18 +219,15 @@ namespace Caitlyn_v1._0
             int conditionAvailableCars;
             int usedhandslots = 0;
 
-            if (Condition.ConditionNumber1 != "empty"
-                && Condition.ConditionNumber1 != "обычная х3"
-                && !fc.ConditionActivated()
-                && eventIsNotEnd)
-            {
-                if (CheckForEventIsOn())
-                {
-                    ActivateEventNativeCondition();
-                }                
-            } //включить фильтр условия события.
+            if(!ActivateCondition()) return false;//включить фильтр условия события.
 
-            Point[] cls = { PointsAndRectangles.f, PointsAndRectangles.e, PointsAndRectangles.d, PointsAndRectangles.c, PointsAndRectangles.b, PointsAndRectangles.a, PointsAndRectangles.s };
+            Point[] cls = { PointsAndRectangles.f,
+                PointsAndRectangles.e,
+                PointsAndRectangles.d,
+                PointsAndRectangles.c,
+                PointsAndRectangles.b,
+                PointsAndRectangles.a,
+                PointsAndRectangles.s };
             for (int i = 6; i > -1; i--)
             {
 
@@ -273,30 +269,35 @@ namespace Caitlyn_v1._0
         }
         //legacy
         //new
-        void ActivateCondition()
+        bool ActivateCondition()
         {
             FastCheck fc = new FastCheck();
             if (Condition.ConditionNumber1 != "empty"
                 && Condition.ConditionNumber1 != "обычная х3"
                 && !fc.ConditionActivated()
-                && eventIsNotEnd
-                && CheckForEventIsOn())
+                && CheckForEventIsOn()
+                && eventIsNotEnd)
             {
-                if (Condition.ConditionNumber2 == "empty")
+                if (fc.ItsGarage())
                 {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
+                    if (Condition.ConditionNumber2 == "empty")
+                    {
+                        Rat.Clk(PointsAndRectangles.commonCondition);
+                    }
+                    else
+                    {
+                        Rat.Clk(PointsAndRectangles.commonCondition);
+                        Thread.Sleep(1500);
+                        Rat.Clk(PointsAndRectangles.cond1);
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.cond2);
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.commonConditionCross);
+                    }
                 }
-                else
-                {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
-                    Thread.Sleep(1500);
-                    Rat.Clk(PointsAndRectangles.cond1);
-                    Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.cond2);
-                    Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.commonConditionCross);
-                }
+                else return false;
             }
+            return true;
         }//включить фильтр условия события.
         //new
         //legacy
@@ -468,7 +469,7 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("накладываю фильтры");
             do
             {
-                if (!CheckForEventIsOn() || !eventIsNotEnd)
+                if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
                 {
                     return false;
                 }
@@ -487,7 +488,7 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             do
             {
-                if (!CheckForEventIsOn() || !eventIsNotEnd)
+                if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
                 {
                     return false;
                 }
@@ -504,17 +505,19 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
 
-            Point[] a = new Point[] { PointsAndRectangles.r1, PointsAndRectangles.r2, PointsAndRectangles.r3, PointsAndRectangles.r4, PointsAndRectangles.r5, PointsAndRectangles.r6, PointsAndRectangles.r7, PointsAndRectangles.r8, PointsAndRectangles.r9, PointsAndRectangles.r10 };
+            Point[] a = new Point[] { PointsAndRectangles.r1,
+                PointsAndRectangles.r2,
+                PointsAndRectangles.r3,
+                PointsAndRectangles.r4,
+                PointsAndRectangles.r5,
+                PointsAndRectangles.r6,
+                PointsAndRectangles.r7,
+                PointsAndRectangles.r8,
+                PointsAndRectangles.r9,
+                PointsAndRectangles.r10 };
             Random rand = new Random();
             NotePad.DoLog("рандомизирование");
-            while (!fc.ItsGarage())
-            {
-                if (!CheckForEventIsOn() || !eventIsNotEnd)
-                {
-                    return false;
-                }
-                Thread.Sleep(2000);
-            }           
+            Thread.Sleep(1000);
 
             if ((Condition.ConditionNumber1 == "экстремальная" && Condition.eventrq < 320)//условие определееной редкости
             || (Condition.ConditionNumber1 == "редкостная" && Condition.eventrq < 195)
@@ -526,7 +529,7 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(200);
                 do
                 {
-                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
                     {
                         return false;
                     }
@@ -545,7 +548,7 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(200);
                 do
                 {
-                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
                     {
                         return false;
                     }
@@ -565,6 +568,7 @@ namespace Caitlyn_v1._0
             Thread.Sleep(500);
             do
             {
+                if (!fc.ItsGarage()) return false;
                 Rat.Clk(PointsAndRectangles.closesorting);//закрыть сортировку
                 Thread.Sleep(500);
             } while (fc.TypeIsOpenned());//100% SorterCloser            
@@ -606,7 +610,7 @@ namespace Caitlyn_v1._0
                 } //x имеет значение и при нуле
                 else
                 {
-                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
                     {
                         break;
                     }
