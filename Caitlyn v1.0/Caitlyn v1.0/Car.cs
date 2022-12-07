@@ -38,7 +38,6 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-        //new
         int clearanceConverter(string stat)
         {
             switch (stat)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Threading;
 
 namespace Caitlyn_v1._0
@@ -300,25 +299,6 @@ namespace Caitlyn_v1._0
             return true;
         }//включить фильтр условия события.
         //new
-        //legacy
-        void ActivateEventNativeCondition()
-        {
-            if (Condition.ConditionNumber2 == "empty")
-            {
-                Rat.Clk(PointsAndRectangles.commonCondition);
-            }
-            else
-            {
-                Rat.Clk(PointsAndRectangles.commonCondition);
-                Thread.Sleep(1500);
-                Rat.Clk(PointsAndRectangles.cond1);
-                Thread.Sleep(500);
-                Rat.Clk(PointsAndRectangles.cond2);
-                Thread.Sleep(500);
-                Rat.Clk(PointsAndRectangles.commonConditionCross);
-            }
-        }
-        //legacy
         public bool CarFixed(int slot)
         {
             string path = "Check//";
@@ -375,9 +355,9 @@ namespace Caitlyn_v1._0
         //new
         public int[] RememberHand()
         {
-            string originalsDirectory = @"C:\Bot\NewPL\CarOriginals";
+            //string originalsDirectory = @"C:\Bot\NewPL\CarOriginals\";
             string currentHand = "CurrentHand";
-            int lastCarInBase = 3100;
+            //int lastCarInBase = 3100;
             int[] carsid = new int[5];
             Rectangle[] handSlots = { PointsAndRectangles.HandSlot1, 
                 PointsAndRectangles.HandSlot2, 
@@ -389,12 +369,13 @@ namespace Caitlyn_v1._0
             {
                 MasterOfPictures.MakePicture(handSlots[finger], currentHand + "\\test" + finger);
             }
+            /*
             for(int finger = 0; finger < carsid.Length; finger++)
             {
                 int bestShadesDif = 5000000;
                 for (int id = 1; id < lastCarInBase; id++)
                 {
-                    string originalPhotoName = originalsDirectory + @"\" + id + @".png";
+                    string originalPhotoName = originalsDirectory + id + @".png";
                     if (File.Exists(originalPhotoName))
                     {
                         int currentShadesDif = CalculateDifs(@"C:\Bot\CurrentHand\test" + finger + ".jpg", originalPhotoName);
@@ -406,9 +387,17 @@ namespace Caitlyn_v1._0
                     }
                 }
             }            
-
+            */
+            //new
+            CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
+            for (int finger = 0; finger < carsid.Length; finger++)
+            {
+                carsid[finger] = carPictureDataBase.FindThePictureInCollection(finger);
+            }
+            //new
             return carsid;
         }
+        /*
         public int CalculateDifs(string botPhotoName,string originalPhotoName)
         {
             Bitmap botPhoto1 = new Bitmap(botPhotoName);
@@ -461,6 +450,7 @@ namespace Caitlyn_v1._0
             }
             return scaledImage;
         }        
+        */
         //new
         //legacy
         private bool UseFilter(Point cls)
@@ -504,7 +494,54 @@ namespace Caitlyn_v1._0
             return true;
         }
         //legacy
-        //new TBD
+        //new
+        bool UseFilter(CarForExcel carDescription)
+        {
+            FastCheck fc = new FastCheck();
+            SpecialEvents se = new SpecialEvents();
+            NotePad.DoLog("накладываю фильтры");
+            do
+            {
+                if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                {
+                    return false;
+                }
+                Rat.Clk(PointsAndRectangles.filter);
+                Thread.Sleep(1000);
+            } while (!fc.FilterIsOpenned());//100% FilterOpenner
+            Thread.Sleep(200);
+            Rat.Clk(PointsAndRectangles.clear);
+            Thread.Sleep(1000);
+            //Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);//legacy
+            Rat.Clk(PointsAndRectangles.rarity);
+            Thread.Sleep(1000);
+            Rat.Clk(PointsAndRectangles.rarityClasses[carDescription.rarity]);//выбрать класс
+            Thread.Sleep(1000);
+            Rat.Clk(PointsAndRectangles.tiresMenu);
+            Thread.Sleep(1000);
+            Rat.Clk(PointsAndRectangles.tires[carDescription.tires]);
+            Thread.Sleep(1000);
+            Rat.Clk(PointsAndRectangles.drive[carDescription.drive]);
+            Thread.Sleep(1000);
+            //TODO choose country
+            //TODO choose clearance
+            int timer = 0;
+            do
+            {
+                if (timer == 20) se.RestartBot();
+                if (!CheckForEventIsOn() || !eventIsNotEnd)
+                {
+                    return false;
+                }
+                Rat.Clk(PointsAndRectangles.accept);
+                Thread.Sleep(500);
+                timer++;
+            } while (fc.FilterIsOpenned());//100% FilterCloser               
+            Thread.Sleep(2000);
+
+            return true;
+        }
+        //new
         private bool Randomizer()
         {
             FastCheck fc = new FastCheck();

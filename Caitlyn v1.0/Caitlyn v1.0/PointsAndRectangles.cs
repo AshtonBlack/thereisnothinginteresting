@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 
 namespace Caitlyn_v1._0
@@ -8,13 +9,11 @@ namespace Caitlyn_v1._0
         public static int allpointslength { get; set; }
         public static string[,] allpoints { get; set; }
         public static string[,] allrectangles { get; set; }
-
         static PointsAndRectangles()
         {
             //AllpointsMakeTable();
             //AllrectanglesMakeTable();
         }
-
         public static void AllpointsMakeTable()
         {
             string commonpath = @"C:\Bot\NewPL\";
@@ -42,7 +41,6 @@ namespace Caitlyn_v1._0
                 sr.Close();
             }
         }
-
         static string Transform(string t, int wordN)
         {
             string forreturn;
@@ -80,7 +78,6 @@ namespace Caitlyn_v1._0
             }
             return forreturn;
         }
-
         public static void AllrectanglesMakeTable()
         {
 
@@ -185,6 +182,32 @@ namespace Caitlyn_v1._0
         public static Point clear = new Point(525, 785);
         public static Point accept = new Point(940, 785);
         public static Point rarity = new Point(200, 415);
+        //new
+        public static Dictionary<string, Point> rarityClasses = new Dictionary<string, Point>()
+        {
+            {"f", new Point(490, 450)},
+            {"e", new Point(700, 450)},
+            {"d", new Point(910, 450)},
+            {"c", new Point(1120, 450)},
+            {"b", new Point(490, 600)},
+            {"a", new Point(700, 600)},
+            {"s", new Point(910, 600)}
+        };
+        public static Dictionary<string, Point> tires = new Dictionary<string, Point>()
+        {
+            {"per", new Point(490, 450)},
+            {"std", new Point(700, 450)},
+            {"all", new Point(910, 450)},
+            {"off", new Point(1120, 450)},
+            {"slick", new Point(490, 600)}
+        };
+        public static Dictionary<string, Point> drive = new Dictionary<string, Point>()
+        {
+            {"fwd", new Point(700, 600)},
+            {"rwd", new Point(910, 600)},
+            {"awd", new Point(1120, 600)}
+        };
+        //new
         public static Point f = new Point(490, 450);
         public static Point e = new Point(700, 450);
         public static Point d = new Point(910, 450);
@@ -263,7 +286,7 @@ namespace Caitlyn_v1._0
         public static Point buttonStart = new Point(340, 600);
         public static Point noxRestartMessageAcceptance = new Point(820, 560);
         public static Point edgeOfTheScreen = new Point(1200, 0);
-        public static Point clkTheIcon = new Point(830, 375);
+        public static Point clkTheIcon = new Point(910, 375);
         public static Point fbFucksBrain = new Point(640, 640);
         public static Point reconnectionAfterLostConnection = new Point(785, 615);//new
         //public static Point brokenInterfaceAcceptance = new Point(380, 555);

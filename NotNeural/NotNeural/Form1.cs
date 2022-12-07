@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -10,7 +11,10 @@ namespace NotNeural
         public Form1()
         {
             InitializeComponent();
+            MakeDB();
+            Console.WriteLine("DB is built");
         }
+        public static Dictionary<int, byte[]> CarPictureDB = new Dictionary<int, byte[]>();
         string botPhotoName;
         string originalPhotoName;
         string originalsDirectory;
@@ -277,6 +281,82 @@ namespace NotNeural
             label5.Text = theClosestOriginal;
             label6.Text = bestShadesDif.ToString() + " difShades";
             label7.Text = "leftTopCorner " + leftTopCorner.X + " " + leftTopCorner.Y;
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Image.FromFile(botPhotoName);
+            pictureBox3.Image = ZoomImage(Image.FromFile(@"C:\Bot\png_cards_archive\" + FindThePictureInCollection() + @".png"), 35);
+        }        
+        public static byte[] ConvertImageToByteStream(Image image, int zeroposx, int zeroposy)
+        {
+            List<byte> byteStream = new List<byte>();
+            Bitmap photo = new Bitmap(image);
+            int botPhotoWidth = 23;
+            int botPhotoHeight = 13;
+            for (int x1 = 0; x1 < botPhotoWidth; x1++)
+            {
+                for (int y1 = 0; y1 < botPhotoHeight; y1++)
+                {
+                    var pixel = photo.GetPixel(x1 + zeroposx, y1 + zeroposy);
+                    byteStream.Add(pixel.R);
+                    byteStream.Add(pixel.G);
+                    byteStream.Add(pixel.B);
+                }
+            }
+            photo.Dispose();
+            return byteStream.ToArray();
+        }
+        void MakeDB()
+        {
+            //string originalsDirectory = @"C:\Bot\NewPL\CarOriginals\";
+            string originalsDirectory = @"C:\Bot\png_cards_archive\";
+            int lastCarInBase = 3100;
+            int percent = 7;
+            int zeroposx = 3;
+            int zeroposy = 1;
+            for (int id = 1; id < lastCarInBase; id++)
+            {
+                string originalPhotoName = originalsDirectory + id + @".png";
+                if (File.Exists(originalPhotoName))
+                {
+                    Bitmap originalPhoto = new Bitmap(originalPhotoName);
+                    CarPictureDB.Add(id, ConvertImageToByteStream(ZoomImage(originalPhoto, percent), zeroposx, zeroposy));
+                    originalPhoto.Dispose();
+                }
+            }            
+        }
+        int FindThePictureInCollection()
+        {
+            int pictureId = 0;
+            int bestShadesDif = 5000000;
+            //Bitmap botPhoto = new Bitmap(@"C:\Bot\CurrentHand\test" + finger + ".jpg");
+            Bitmap botPhoto = new Bitmap(botPhotoName);
+            byte[] fingerPictureArray = ConvertImageToByteStream(ZoomImage(botPhoto, 20), 0, 0);
+            foreach (var picture in CarPictureDB)
+            {
+                int currentShadesDif = CalculateDifs(fingerPictureArray, picture.Value);
+                if (currentShadesDif < bestShadesDif)
+                {
+                    bestShadesDif = currentShadesDif;
+                    pictureId = picture.Key;
+                }
+            }
+            botPhoto.Dispose();
+            return pictureId;
+        }        
+        public int CalculateDifs(byte[] firstImage, byte[] secondImage)
+        {
+            int difShades = 0;
+            if (firstImage.Length == secondImage.Length)
+            {
+
+                for (int cell = 0; cell < firstImage.Length; cell++)
+                {
+                    difShades += Math.Abs(firstImage[cell] - secondImage[cell]);
+                }
+            }
+            //else NotePad.DoLog("pictures are different: " + firstImage.Length + " and " + secondImage.Length);
+            return difShades;
         }
     }
 }
