@@ -383,6 +383,7 @@ namespace Caitlyn_v1._0
             weather = "с прояснением";
             coverage = "Смешанное";
             CarsDB.MakeCondAuto(number1, number2);
+            /*test
             lowestRqCars = CarsDB.lowestcars;
             slikTyres = CarsDB.slikTyres;
             dynamicTyres = CarsDB.dynamicTyres;
@@ -394,6 +395,7 @@ namespace Caitlyn_v1._0
             {
                 minrq += lowestRqCars[i];
             }
+            */
             MaxRq();
             NotePad.DoLog("Условия сформированы");
         }
