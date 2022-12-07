@@ -91,7 +91,7 @@ namespace Caitlyn_v1._0
                 for (int knownCarDescription = 0; knownCarDescription < carsDescriptions.Count; knownCarDescription++)
                 {
                     if (carsDescriptions[knownCarDescription].description.rarity == carDescription.rarity
-                    //&& carsDescription[j].description.drive == additionalDescription.drive
+                    && carsDescriptions[knownCarDescription].description.drive == carDescription.drive
                     //&& carsDescription[j].description.clearance == additionalDescription.clearance
                     //&& carsDescription[j].description.country == additionalDescription.country
                     && carsDescriptions[knownCarDescription].description.tires == carDescription.tires)
@@ -106,7 +106,7 @@ namespace Caitlyn_v1._0
             }
             return carsDescriptions;
         }
-        /*
+        
         public bool MakingHand()
         {
             if (CheckForEventIsOn()) ActivateCondition(); else return false;
@@ -115,7 +115,7 @@ namespace Caitlyn_v1._0
             {
                 if (eventIsNotEnd) Randomizer(); else return false;
                 if (eventIsNotEnd) UseFilter(carsDescriptions.description); else return false;
-                if (eventIsNotEnd) DragnDropHand(carsDescriptions.count, usedhandslots); else return false;
+                if (eventIsNotEnd) DragnDropHand(carsDescriptions.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carsDescriptions.description)); else return false;
                 usedhandslots +=carsDescriptions.count;
             }//механизм расстановки
 
@@ -127,7 +127,7 @@ namespace Caitlyn_v1._0
             else return false;
             return true;
         }
-        */
+        
         //new
         public int[] ConditionHandling()
         {
@@ -202,6 +202,7 @@ namespace Caitlyn_v1._0
             return true;
         }
         //legacy
+        /*
         public bool MakingHand()
         {
             int[] classcars = ConditionHandling();
@@ -266,6 +267,7 @@ namespace Caitlyn_v1._0
             
             return eventIsNotEnd;
         }
+        */
         //legacy
         //new
         bool ActivateCondition()
@@ -352,12 +354,9 @@ namespace Caitlyn_v1._0
 
             return true;
         }        
-        //new
         public int[] RememberHand()
         {
-            //string originalsDirectory = @"C:\Bot\NewPL\CarOriginals\";
             string currentHand = "CurrentHand";
-            //int lastCarInBase = 3100;
             int[] carsid = new int[5];
             Rectangle[] handSlots = { PointsAndRectangles.HandSlot1, 
                 PointsAndRectangles.HandSlot2, 
@@ -369,89 +368,14 @@ namespace Caitlyn_v1._0
             {
                 MasterOfPictures.MakePicture(handSlots[finger], currentHand + "\\test" + finger);
             }
-            /*
-            for(int finger = 0; finger < carsid.Length; finger++)
-            {
-                int bestShadesDif = 5000000;
-                for (int id = 1; id < lastCarInBase; id++)
-                {
-                    string originalPhotoName = originalsDirectory + id + @".png";
-                    if (File.Exists(originalPhotoName))
-                    {
-                        int currentShadesDif = CalculateDifs(@"C:\Bot\CurrentHand\test" + finger + ".jpg", originalPhotoName);
-                        if (currentShadesDif < bestShadesDif)
-                        {
-                            bestShadesDif = currentShadesDif;
-                            carsid[finger] = id;
-                        }
-                    }
-                }
-            }            
-            */
-            //new
+            
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             for (int finger = 0; finger < carsid.Length; finger++)
             {
                 carsid[finger] = carPictureDataBase.FindThePictureInCollection(finger);
             }
-            //new
             return carsid;
         }
-        /*
-        public int CalculateDifs(string botPhotoName,string originalPhotoName)
-        {
-            Bitmap botPhoto1 = new Bitmap(botPhotoName);
-            Bitmap botPhoto = new Bitmap(ZoomImage(botPhoto1, 20));
-            int percent = 7;
-            Bitmap originalPhoto = new Bitmap(originalPhotoName);
-            Bitmap scalableOriginalPhoto = new Bitmap(ZoomImage(originalPhoto, percent));
-            int zeroposx = 3;
-            int zeroposy = 1;
-            int difShades = 0;
-            for (int x1 = 0; x1 < botPhoto.Width; x1++)
-            {
-                for (int y1 = 0; y1 < botPhoto.Height; y1++)
-                {
-                    var colorValue0 = botPhoto.GetPixel(x1, y1);
-                    var colorValue1 = scalableOriginalPhoto.GetPixel(zeroposx + x1, zeroposy + y1);
-                    int shadesdifs1 = (Math.Abs((int)colorValue0.R - (int)colorValue1.R) +
-                        Math.Abs((int)colorValue0.G - (int)colorValue1.G) +
-                        Math.Abs((int)colorValue0.B - (int)colorValue1.B));
-                    difShades += shadesdifs1;
-                }
-            }
-            botPhoto1.Dispose();
-            scalableOriginalPhoto.Dispose();
-            originalPhoto.Dispose();
-            botPhoto.Dispose();
-
-            return difShades;
-        }
-        Image ZoomImage(Image orig, float percent)
-        {
-            Bitmap scaledImage;
-            /// Ширина и высота результирующего изображения
-            float w = orig.Width * percent / 100,
-                h = orig.Height * percent / 100;
-            scaledImage = new Bitmap((int)w, (int)h);
-            /// DPI результирующего изображения
-            scaledImage.SetResolution(orig.HorizontalResolution, orig.VerticalResolution);
-            /// Часть исходного изображения, для которой меняем масштаб.
-            /// В данном случае — всё изображение
-            Rectangle src = new Rectangle(0, 0, orig.Width, orig.Height);
-            /// Часть изображения, которую будем рисовать
-            /// В данном случае — всё изображение
-            RectangleF dest = new RectangleF(0, 0, w, h);
-            /// Прорисовка с изменённым масштабом
-            using (Graphics g = Graphics.FromImage(scaledImage))
-            {
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g.DrawImage(orig, dest, src, GraphicsUnit.Pixel);
-            }
-            return scaledImage;
-        }        
-        */
-        //new
         //legacy
         private bool UseFilter(Point cls)
         {
@@ -617,13 +541,10 @@ namespace Caitlyn_v1._0
 
             return true;
         }
-        //legacy
-        public int DragnDropHand(int n, int previouslyUsedHandSlots, int caCars)
+        public int DragnDropHand(int n, int previouslyUsedHandSlots, int availableCars)
         {
-            //caCars - cond available cars
             //n -needed cars
             FastCheck fc = new FastCheck();
-            HandMaking hm = new HandMaking();
 
             Point[] handSlots = new Point[] { PointsAndRectangles.pHandSlot1,
                 PointsAndRectangles.pHandSlot2,
@@ -645,7 +566,7 @@ namespace Caitlyn_v1._0
 
             while (n > 0)
             {
-                if (garageSlot == caCars)
+                if (garageSlot == availableCars)
                 {
                     break;
                 } //x имеет значение и при нуле
@@ -674,7 +595,7 @@ namespace Caitlyn_v1._0
                         break;
                     }//прерывание цикла в случае множества сломанных
 
-                    if (hm.CarFixed(garageSlot))
+                    if (CarFixed(garageSlot))
                     {                        
                         NotePad.DoLog("Тачка " + (garageSlot + 1) + " исправна");
                         while (!fc.ItsGarage())
@@ -700,60 +621,6 @@ namespace Caitlyn_v1._0
             int grayslots = fc.CheckHandSlot(previouslyUsedHandSlots + 1, previouslyUsedHandSlots + neededcars);
             NotePad.DoLog(grayslots + " слотов остались пустыми");
             return grayslots;
-        }
-        //legacy
-        //new
-        void DragnDropHand(int n, int usedhandslots)
-        {
-            FastCheck fc = new FastCheck();
-            HandMaking hm = new HandMaking();
-
-            Point[] a = new Point[] { PointsAndRectangles.pHandSlot1,
-                PointsAndRectangles.pHandSlot2,
-                PointsAndRectangles.pHandSlot3,
-                PointsAndRectangles.pHandSlot4,
-                PointsAndRectangles.pHandSlot5 };
-            Point[] b = new Point[] { PointsAndRectangles.GarageSlot1,
-                PointsAndRectangles.GarageSlot2,
-                PointsAndRectangles.GarageSlot3,
-                PointsAndRectangles.GarageSlot4,
-                PointsAndRectangles.GarageSlot5,
-                PointsAndRectangles.GarageSlot6,
-                PointsAndRectangles.GarageSlot7,
-                PointsAndRectangles.GarageSlot8 };
-            int drag = 0; //сдвиги            
-            int x = 0; //слот гаража
-
-            while (n > 0)
-            {
-                if (x > 3 && drag == 0)
-                {
-                    Rat.DragnDropSlow(PointsAndRectangles.ds1, PointsAndRectangles.de1, 5);
-                    drag = 1;
-                    Thread.Sleep(1000);
-                }//сдвиг
-                if (x > 5 && drag == 1)
-                {
-                    Rat.DragnDropSlow(PointsAndRectangles.ds2, PointsAndRectangles.de2, 5);
-                    drag = 2;
-                    Thread.Sleep(1000);
-                }//сдвиг
-
-                if (hm.CarFixed(x))
-                {
-                    NotePad.DoLog("Тачка " + (x + 1) + " исправна");
-                    while (!fc.ItsGarage()) Thread.Sleep(1000);
-                    Rat.DragnDropSlow(b[x], a[usedhandslots], 8);
-                    usedhandslots++;
-                    n--;
-                }
-                else
-                {
-                    NotePad.DoLog("Тачка " + x + " не готова");
-                }
-                x++;
-            }
-        }
-        //new
+        }        
     }
 }

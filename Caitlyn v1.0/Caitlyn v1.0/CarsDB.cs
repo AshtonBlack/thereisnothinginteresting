@@ -55,7 +55,7 @@ namespace Caitlyn_v1._0
             cashSR();
         }
         //legacy
-        
+        /*
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             List<int> rq;
@@ -129,10 +129,10 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-        
+        */
         //legacy
         //new
-        /*        
+             
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             int carsAvailable = 0;
@@ -151,7 +151,7 @@ namespace Caitlyn_v1._0
             NotePad.DoLog(carsAvailable + " подходящих машин в гараже");//debug
             DefineMinRQ();
         }//формирование списка машин под условие определенного события
-        */
+        
         static void DefineMinRQ()
         {
             Condition.minRQ = 0;
@@ -1201,6 +1201,25 @@ namespace Caitlyn_v1._0
                     break;
             }
             return x;
+        }
+        public static int SatisfyConditionAndDescription(CarForExcel carDescription)
+        {
+            int carCounter = 0;
+            foreach (CarForExcel car in fulltablearray)
+            {
+                if (SatisfyCondition(Condition.ConditionNumber1, car) && SatisfyCondition(Condition.ConditionNumber2, car))
+                {
+                    if (carDescription.rarity == car.rarity
+                    && carDescription.drive == car.drive
+                    //&& carsDescription[j].description.clearance == additionalDescription.clearance
+                    //&& carsDescription[j].description.country == additionalDescription.country
+                    && carDescription.tires == car.tires)
+                    {
+                        carCounter++;
+                    }
+                }
+            }
+            return carCounter;
         }
         public static bool SearchTag(CarForExcel car, string tag)
         {

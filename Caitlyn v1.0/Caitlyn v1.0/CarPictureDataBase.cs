@@ -44,6 +44,7 @@ namespace Caitlyn_v1._0
                     originalPhoto.Dispose();
                 }
             }
+            NotePad.DoLog("picture DB is created");
         }
         public int FindThePictureInCollection(int finger)
         {
