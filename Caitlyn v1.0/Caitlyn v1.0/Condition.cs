@@ -394,9 +394,9 @@ namespace Caitlyn_v1._0
             for (int i = 0; i < 5; i++)
             {
                 minrq += lowestRqCars[i];
-            }
-            */
+            }            
             MaxRq();
+            */
             NotePad.DoLog("Условия сформированы");
         }
     }

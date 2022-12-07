@@ -89,7 +89,7 @@ namespace Caitlyn_v1._0
                 Condition.MakeCondition(cond1, cond2);
                 NotePad.DoLog("Максимальное рк для события " + Condition.maxrq);
                 NotePad.DoLog("Минимальное рк для события " + Condition.minrq);
-                if (GotRQ() && (Condition.maxrq != 0))
+                if (GotRQ() && (Condition.minRQ != 0))
                 {
                     NotePad.DoLog("Требуемое рк для события " + Condition.eventrq);
                     if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
