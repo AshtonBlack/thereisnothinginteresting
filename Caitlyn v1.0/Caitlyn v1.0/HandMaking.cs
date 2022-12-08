@@ -15,14 +15,21 @@ namespace Caitlyn_v1._0
             for (int finger = 0; finger < 5; finger++)
             {
                 carsForEveryFinger[finger] = CarsDB.DefinePreferedCarPull(Condition.previousTracks[finger]);
+                /*debug
+                NotePad.DoLog("finger " + (finger+1) + ":");
+                foreach (CarForExcel car in carsForEveryFinger[finger])
+                {
+                    NotePad.DoLog(car.fullname());
+                }
+                */
             }
-
+            
             int[] fingerCarNumber = new int[5];
             NotePad.DoLog("максимальные авто:");//debug
             for (int finger = 0; finger < fingerCarNumber.Length; finger++)
             {
                 //NotePad.DoLog("подбираю тачку в " + i + " слот");//debug
-                //NotePad.DoLog(carsForEveryFinger[i].Count + " отобранных тачек для " + i + " слота");//debug
+                //NotePad.DoLog(carsForEveryFinger[finger].Count + " отобранных тачек для " + (finger+1) + " слота");//debug
                 for (int cardNumberInCollection = 0; cardNumberInCollection < carsForEveryFinger[finger].Count; cardNumberInCollection++)
                 {
                     //NotePad.DoLog("Проверяю тачку" + carsForEveryFinger[i][j].fullname());//debug
@@ -36,13 +43,14 @@ namespace Caitlyn_v1._0
                     }
                 }
             }
-
+            
             int handrq = 0;
             for (int finger = 0; finger < 5; finger++)
             {
-                handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);
+                handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);                
             }
-
+            //NotePad.DoLog("current RQ " + handrq);//debug
+            
             int randomFinger;
             Random r = new Random();
             while (Condition.eventRQ - handrq < 0)
@@ -50,7 +58,12 @@ namespace Caitlyn_v1._0
                 do
                 {
                     randomFinger = r.Next(0, 5);
-                } while (fingerCarNumber[randomFinger] > (carsForEveryFinger[randomFinger].Count - 2));//to be investigated
+                    /*
+                    NotePad.DoLog("случайный палец " + randomFinger);//debug
+                    NotePad.DoLog("текущая карта " + fingerCarNumber[randomFinger]);//debug
+                    NotePad.DoLog("всего карт " + carsForEveryFinger[randomFinger].Count);//debug
+                    */
+                } while (fingerCarNumber[randomFinger] == carsForEveryFinger[randomFinger].Count - 1);//to be investigated
 
                 int nextCarNumber = fingerCarNumber[randomFinger] + 1;
                 CarForExcel targetCar = carsForEveryFinger[randomFinger][nextCarNumber];
@@ -70,14 +83,16 @@ namespace Caitlyn_v1._0
                 //NotePad.DoLog("RQ = " + handrq);//debug
             }//сборка руки
             NotePad.DoLog("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
-
+            
             CarForExcel[] resultedCars = new CarForExcel[5];
+            
             NotePad.DoLog("Подобранные тачки:");
             for (int finger = 0; finger < 5; finger++)
             {
                 resultedCars[finger] = carsForEveryFinger[finger][fingerCarNumber[finger]];
                 NotePad.DoLog(resultedCars[finger].fullname() + " " + resultedCars[finger].rq + "rq (в наличии: " + resultedCars[finger].amount + ", использовано: " + resultedCars[finger].inUse + ")");
             }
+            
             return resultedCars;
         }
         public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars)

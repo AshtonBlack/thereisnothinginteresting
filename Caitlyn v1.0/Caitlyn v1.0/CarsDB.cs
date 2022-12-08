@@ -139,7 +139,7 @@ namespace Caitlyn_v1._0
             Condition.selectedCars = new List<CarForExcel>();
             foreach (CarForExcel car in fulltablearray)
             {
-                if (SatisfyCondition(firstCond, car) && SatisfyCondition(secondCond, car))
+                if (car.amount > 0 && SatisfyCondition(firstCond, car) && SatisfyCondition(secondCond, car))
                 {
                     car.inUse = 0;
                     Condition.selectedCars.Add(car);

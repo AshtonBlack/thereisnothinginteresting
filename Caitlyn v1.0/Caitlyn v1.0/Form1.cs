@@ -14,11 +14,39 @@ namespace Caitlyn_v1._0
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
             Navigation navigation = new Navigation();
             navigation.ToClubMap();
             navigation.InClubs();
+            
+            //ToDelete
+            /*
+            MyTest();
+            Application.Exit();
+            */
+        }
+        void MyTest()
+        {
+            NotePad.ClearLog();
+            Condition.eventRQ = 195;
+            /*
+            TrackInfo testTrack = new TrackInfo();
+            testTrack.weather = "Дождь";
+            testTrack.ground = "Грунт";
+            testTrack.track = "Подъем на холм";
+            Condition.previousTracks = new TrackInfo[5];
+            Condition.previousTracks[0] = testTrack;
+            Condition.previousTracks[1] = testTrack;
+            Condition.previousTracks[2] = testTrack;
+            Condition.previousTracks[3] = testTrack;
+            Condition.previousTracks[4] = testTrack;
+            */
+            Condition.setDefaultTracks();
+            CarsDB.MakeCondAuto("jaguar", "empty");
+            HandMaking hm = new HandMaking();
+            hm.ChooseCars();
         }
     }
 }
