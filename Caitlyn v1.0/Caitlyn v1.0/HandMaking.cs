@@ -18,7 +18,7 @@ namespace Caitlyn_v1._0
             }
 
             int[] fingerCarNumber = new int[5];
-            //NotePad.DoLog("максимальные авто:");//debug
+            NotePad.DoLog("максимальные авто:");//debug
             for (int finger = 0; finger < fingerCarNumber.Length; finger++)
             {
                 //NotePad.DoLog("подбираю тачку в " + i + " слот");//debug
@@ -31,7 +31,7 @@ namespace Caitlyn_v1._0
                     {
                         fingerCarNumber[finger] = cardNumberInCollection;
                         Condition.selectedCars[index].inUse++;
-                        //NotePad.DoLog(Condition.selectedCars[index].fullname());//debug
+                        NotePad.DoLog(Condition.selectedCars[index].fullname());//debug
                         break;
                     }
                 }
@@ -104,19 +104,20 @@ namespace Caitlyn_v1._0
                     }
                 }
             }
+            NotePad.DoLog("cars are grouped");
             return carsDescriptions;
-        }
-        
+        }        
         public bool MakingHand()
         {
             if (CheckForEventIsOn()) ActivateCondition(); else return false;
             int usedhandslots = 0;
-            foreach(var carsDescriptions in GroupCars(ChooseCars()))
+            List<(CarForExcel description, int count)> carsDescriptions = GroupCars(ChooseCars());
+            foreach (var carDescription in carsDescriptions)
             {
                 if (eventIsNotEnd) Randomizer(); else return false;
-                if (eventIsNotEnd) UseFilter(carsDescriptions.description); else return false;
-                if (eventIsNotEnd) DragnDropHand(carsDescriptions.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carsDescriptions.description)); else return false;
-                usedhandslots +=carsDescriptions.count;
+                if (eventIsNotEnd) UseFilter(carDescription.description); else return false;
+                if (eventIsNotEnd) DragnDropHand(carDescription.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carDescription.description)); else return false;
+                usedhandslots +=carDescription.count;
             }//механизм расстановки
 
             if (eventIsNotEnd && VerifyHand())
@@ -126,8 +127,7 @@ namespace Caitlyn_v1._0
             } //сохранение руки
             else return false;
             return true;
-        }
-        
+        }        
         //new
         public int[] ConditionHandling()
         {
@@ -269,7 +269,6 @@ namespace Caitlyn_v1._0
         }
         */
         //legacy
-        //new
         bool ActivateCondition()
         {
             FastCheck fc = new FastCheck();
@@ -300,7 +299,6 @@ namespace Caitlyn_v1._0
             }
             return true;
         }//включить фильтр условия события.
-        //new
         public bool CarFixed(int slot)
         {
             string path = "Check//";

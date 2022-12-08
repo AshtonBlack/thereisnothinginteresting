@@ -56,7 +56,10 @@ namespace Caitlyn_v1._0
         public bool Selection(int eventN)
         {
             SpecialEvents se = new SpecialEvents();
-            Point[] events = { PointsAndRectangles.eventN1, PointsAndRectangles.eventN2, PointsAndRectangles.eventN3, PointsAndRectangles.eventN4 };
+            Point[] events = { PointsAndRectangles.eventN1,
+                PointsAndRectangles.eventN2,
+                PointsAndRectangles.eventN3,
+                PointsAndRectangles.eventN4 };
 
             bool eventIsOK = false;
 
@@ -87,12 +90,12 @@ namespace Caitlyn_v1._0
             {
                 eventIsOK = true;
                 Condition.MakeCondition(cond1, cond2);
-                NotePad.DoLog("Максимальное рк для события " + Condition.maxrq);
-                NotePad.DoLog("Минимальное рк для события " + Condition.minrq);
+                //NotePad.DoLog("Максимальное рк для события " + Condition.maxrq);
+                //NotePad.DoLog("Минимальное рк для события " + Condition.minrq);
                 if (GotRQ() && (Condition.minRQ != 0))
                 {
                     NotePad.DoLog("Требуемое рк для события " + Condition.eventrq);
-                    if (Condition.minrq > Condition.eventrq || Condition.minrq > accountLVL)
+                    if (Condition.minRQ > Condition.eventrq || Condition.minRQ > accountLVL)
                     {
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
                         eventIsOK = false;
