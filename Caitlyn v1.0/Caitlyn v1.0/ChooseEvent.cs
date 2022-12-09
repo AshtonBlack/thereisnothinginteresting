@@ -159,7 +159,6 @@ namespace Caitlyn_v1._0
         }
         bool GotRQ()
         {
-            bool isRqKnown = false;
             Condition.eventRQ = 0;
             MasterOfPictures.MakePicture(PointsAndRectangles.RQBounds, RQPath);
             for (int i = 1; i < 501; i++)
@@ -170,7 +169,7 @@ namespace Caitlyn_v1._0
                     {
                         Condition.eventRQ = i;
                         NotePad.DoLog("рк =  " + Condition.eventRQ);
-                        break;
+                        if (Condition.eventRQ < 100) return false; else return true;//temporary
                     }
                 }
             }
@@ -194,9 +193,8 @@ namespace Caitlyn_v1._0
                     }
                 }
             }
-            else isRqKnown = true;
 
-            return isRqKnown;
+            return false;
         }
         public string ConvertPictureToCond(int picture, int cond)
         {

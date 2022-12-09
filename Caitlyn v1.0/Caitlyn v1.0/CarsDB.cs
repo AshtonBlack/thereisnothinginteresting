@@ -1124,7 +1124,7 @@ namespace Caitlyn_v1._0
                 {
                     if (carDescription.rarity == car.rarity
                     && carDescription.drive == car.drive
-                    //&& carsDescription[j].description.clearance == additionalDescription.clearance
+                    && carDescription.clearance == car.clearance
                     //&& carsDescription[j].description.country == additionalDescription.country
                     && carDescription.tires == car.tires)
                     {

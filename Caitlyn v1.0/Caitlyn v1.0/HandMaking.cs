@@ -96,7 +96,7 @@ namespace Caitlyn_v1._0
             }
             return 19;
         }
-        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars)
+        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars) //dependecies with CarsDB.SatisfyConditionAndDescription
         {
             List<(CarForExcel description, int count)> carsDescriptions = new List<(CarForExcel description, int count)>
             {
@@ -109,7 +109,7 @@ namespace Caitlyn_v1._0
                 {
                     if (carsDescriptions[knownCarDescription].description.rarity == carDescription.rarity
                     && carsDescriptions[knownCarDescription].description.drive == carDescription.drive
-                    //&& carsDescription[j].description.clearance == additionalDescription.clearance
+                    && carsDescriptions[knownCarDescription].description.clearance == carDescription.clearance
                     //&& carsDescription[j].description.country == additionalDescription.country
                     && carsDescriptions[knownCarDescription].description.tires == carDescription.tires)
                     {
@@ -305,7 +305,6 @@ namespace Caitlyn_v1._0
             Rat.Clk(PointsAndRectangles.drive[carDescription.drive]);
             Thread.Sleep(1000);
             //TODO choose country
-            //TODO choose clearance
             Rat.DragnDropSlow(PointsAndRectangles.filterEndStart, PointsAndRectangles.filterEndFinish, 8);//legacy
             Rat.Clk(PointsAndRectangles.others);
             Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс
