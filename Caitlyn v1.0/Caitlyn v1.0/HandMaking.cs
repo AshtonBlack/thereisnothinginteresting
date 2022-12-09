@@ -306,6 +306,9 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             //TODO choose country
             //TODO choose clearance
+            Rat.DragnDropSlow(PointsAndRectangles.filterEndStart, PointsAndRectangles.filterEndFinish, 8);//legacy
+            Rat.Clk(PointsAndRectangles.others);
+            Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс
             int timer = 0;
             do
             {

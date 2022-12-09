@@ -197,6 +197,15 @@ namespace Caitlyn_v1._0
             {"rwd", new Point(910, 600)},
             {"awd", new Point(1120, 600)}
         };
+        public static Point filterEndStart = new Point(200, 700);//сдвиг
+        public static Point filterEndFinish = new Point(200, 330);//сдвиг
+        public static Point others = new Point(200, 685);//
+        public static Dictionary<string, Point> clearance = new Dictionary<string, Point>()
+        {
+            {"low", new Point(490, 450)},
+            {"mid", new Point(700, 450)},
+            {"high", new Point(910, 450)}
+        };
         public static Point xy1 = new Point(180, 430);//сдвиг
         public static Point xy2 = new Point(180, 630);//сдвиг
         public static Point clearall = new Point(240, 795);//сброс
