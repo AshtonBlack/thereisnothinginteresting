@@ -87,7 +87,7 @@ namespace Caitlyn_v1._0
         {
             SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
-            NotePad.DoLog("Rq = " + Condition.eventrq
+            NotePad.DoLog("Rq = " + Condition.eventRQ
                 + ", условие 1: " + Condition.ConditionNumber1
                 + ", условие 2: " + Condition.ConditionNumber2
                 + " заезд: " + i);

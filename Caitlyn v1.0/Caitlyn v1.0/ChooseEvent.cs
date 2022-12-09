@@ -23,7 +23,7 @@ namespace Caitlyn_v1._0
                 NotePad.DoLog("вхожу в активный эвент");
                 Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter
                 string[] conds = NotePad.ReadConditions();
-                Condition.eventrq = NotePad.ReadRQ();
+                Condition.eventRQ = NotePad.ReadRQ();
                 Condition.MakeCondition(conds[0], conds[1]);
             }
             else
@@ -94,8 +94,8 @@ namespace Caitlyn_v1._0
                 //NotePad.DoLog("Минимальное рк для события " + Condition.minrq);
                 if (GotRQ() && (Condition.minRQ != 0))
                 {
-                    NotePad.DoLog("Требуемое рк для события " + Condition.eventrq);
-                    if (Condition.minRQ > Condition.eventrq || Condition.minRQ > accountLVL)
+                    NotePad.DoLog("Требуемое рк для события " + Condition.eventRQ);
+                    if (Condition.minRQ > Condition.eventRQ || Condition.minRQ > accountLVL)
                     {
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
                         eventIsOK = false;
@@ -160,7 +160,7 @@ namespace Caitlyn_v1._0
         bool GotRQ()
         {
             bool isRqKnown = false;
-            Condition.eventrq = 0;
+            Condition.eventRQ = 0;
             MasterOfPictures.MakePicture(PointsAndRectangles.RQBounds, RQPath);
             for (int i = 1; i < 501; i++)
             {
@@ -168,14 +168,14 @@ namespace Caitlyn_v1._0
                 {
                     if (MasterOfPictures.Verify(RQPath, @"RQ\" + i))
                     {
-                        Condition.eventrq = i;
-                        NotePad.DoLog("рк =  " + Condition.eventrq);
+                        Condition.eventRQ = i;
+                        NotePad.DoLog("рк =  " + Condition.eventRQ);
                         break;
                     }
                 }
             }
 
-            if (Condition.eventrq == 0)
+            if (Condition.eventRQ == 0)
             {
                 NotePad.DoLog("Unknown rq");
                 for (int x = 1; x < 500; x++)

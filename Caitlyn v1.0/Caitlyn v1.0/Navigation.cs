@@ -11,8 +11,8 @@ namespace Caitlyn_v1._0
         {
             NotePad.ClearLog();
             Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe"); //, "-clone:Nox_1"
-            Thread.Sleep(10000);
-
+            CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
+            carPictureDataBase.MakeDB();
             se.ToClubs();
         }
         public void InClubs()
@@ -26,7 +26,7 @@ namespace Caitlyn_v1._0
                 int i = 0;
                 NotePad.DoLog("Подбираю эвент с одним условием");
                 ce.ChooseNormalEvent();
-                NotePad.DoLog("Вхожу в эвент " + Condition.eventrq + " рк");
+                NotePad.DoLog("Вхожу в эвент " + Condition.eventRQ + " рк");
                 Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter   
                 while (i < 100)
                 {

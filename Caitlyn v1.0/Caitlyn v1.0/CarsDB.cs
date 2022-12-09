@@ -9,14 +9,6 @@ namespace Caitlyn_v1._0
         static string excelFilePath = @"C:\Bot\NewPL\cars.xlsx";
         static string cashCarsPath = @"C:\Bot\NewPL\CashCars.txt";
         public static List<CarForExcel> fulltablearray { get; set; }
-        //legacy
-        public static int[] lowestcars;
-        public static int[] slikTyres { get; set; }
-        public static int[] dynamicTyres { get; set; }
-        public static int[] standartTyres { get; set; }
-        public static int[] allseasonTyres { get; set; }
-        public static int[] offroadTyres { get; set; }
-        //legacy
         static CarsDB()
         {
             Fulltable();
@@ -54,85 +46,7 @@ namespace Caitlyn_v1._0
             fulltablearray.Reverse();
             cashSR();
         }
-        //legacy
-        /*
-        public static void MakeCondAuto(string firstCond, string secondCond)
-        {
-            List<int> rq;
-            slikTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            dynamicTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            standartTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            allseasonTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            offroadTyres = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            lowestcars = new int[5];
-            rq = new List<int>(0);
-            foreach (CarForExcel car in fulltablearray)
-            {
-                if (SatisfyCondition(firstCond, car) && SatisfyCondition(secondCond, car))
-                {
-                    int y;
-                    switch (car.rarity)
-                    {
-                        case "e":
-                            y = 1;
-                            break;
-                        case "d":
-                            y = 2;
-                            break;
-                        case "c":
-                            y = 3;
-                            break;
-                        case "b":
-                            y = 4;
-                            break;
-                        case "a":
-                            y = 5;
-                            break;
-                        case "s":
-                            y = 6;
-                            break;
-                        default:
-                            y = 0;
-                            break;
-                    }
-                    switch (car.tires)
-                    {
-                        case "per":
-                            dynamicTyres[y] += car.amount;
-                            break;
-                        case "std":
-                            standartTyres[y] += car.amount;
-                            break;
-                        case "all":
-                            allseasonTyres[y] += car.amount;
-                            break;
-                        case "off":
-                            offroadTyres[y] += car.amount;
-                            break;
-                        default:
-                            slikTyres[y] += car.amount;
-                            break;
-                    }
-                    for (int k = 0; k < car.amount; k++)
-                    {
-                        rq.Add(Convert.ToInt32(car.rq));
-                    }
-                }
-            }
-            if (rq.Count > 4)
-            {
-                NotePad.DoLog("Подходящих машин " + rq.Count);                
-                rq.Sort();
-                for (int k = 0; k < lowestcars.Length; k++)
-                {
-                    lowestcars[k] = rq[k];
-                }
-            }
-        }
-        */
-        //legacy
-        //new
-             
+        //new             
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             int carsAvailable = 0;
@@ -150,8 +64,7 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("всего " + Condition.selectedCars.Count + " подходящих машин");//debug
             NotePad.DoLog(carsAvailable + " подходящих машин в гараже");//debug
             DefineMinRQ();
-        }//формирование списка машин под условие определенного события
-        
+        }//формирование списка машин под условие определенного события        
         static void DefineMinRQ()
         {
             Condition.minRQ = 0;

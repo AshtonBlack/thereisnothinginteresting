@@ -54,7 +54,7 @@ namespace Caitlyn_v1._0
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, System.Text.Encoding.Default))//true для дописывания 
             {
-                sw.WriteLine(Condition.eventrq);
+                sw.WriteLine(Condition.eventRQ);
                 sw.WriteLine(Condition.ConditionNumber1);
                 sw.WriteLine(Condition.ConditionNumber2);
                 for (int i = 0; i < 5; i++)
