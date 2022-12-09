@@ -20,11 +20,8 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("максимальные авто:");//debug
             for (int finger = 0; finger < fingerCarNumber.Length; finger++)
             {
-                //NotePad.DoLog("подбираю тачку в " + i + " слот");//debug
-                //NotePad.DoLog(carsForEveryFinger[finger].Count + " отобранных тачек для " + (finger+1) + " слота");//debug
                 for (int cardNumberInCollection = 0; cardNumberInCollection < carsForEveryFinger[finger].Count; cardNumberInCollection++)
                 {
-                    //NotePad.DoLog("Проверяю тачку" + carsForEveryFinger[i][j].fullname());//debug
                     int index = Condition.selectedCars.IndexOf(carsForEveryFinger[finger][cardNumberInCollection]);
                     if (Condition.selectedCars[index].inUse < Condition.selectedCars[index].amount)
                     {
@@ -149,6 +146,10 @@ namespace Caitlyn_v1._0
             
             return true;
         }        
+        public void MakingHand1()//for test
+        {
+            GroupCars(ChooseCars());
+        }
         bool CheckForEventIsOn()
         {
             FastCheck fc = new FastCheck();

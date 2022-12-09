@@ -28,7 +28,7 @@ namespace Caitlyn_v1._0
             NotePad.ClearLog();
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
-            Condition.eventRQ = 195;
+            Condition.eventRQ = 350;
             /*
             TrackInfo testTrack = new TrackInfo();
             testTrack.weather = "Дождь";
@@ -42,10 +42,10 @@ namespace Caitlyn_v1._0
             Condition.previousTracks[4] = testTrack;
             */
             Condition.setDefaultTracks();
-            CarsDB.MakeCondAuto("jaguar", "empty");
+            CarsDB.MakeCondAuto("икона стиля", "empty");
             HandMaking hm = new HandMaking();
             //hm.ChooseCars();
-            hm.MakingHand();
+            hm.MakingHand1();
         }
     }
 }

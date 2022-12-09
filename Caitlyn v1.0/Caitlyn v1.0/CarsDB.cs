@@ -46,7 +46,6 @@ namespace Caitlyn_v1._0
             fulltablearray.Reverse();
             cashSR();
         }
-        //new             
         public static void MakeCondAuto(string firstCond, string secondCond)
         {
             int carsAvailable = 0;
@@ -95,6 +94,10 @@ namespace Caitlyn_v1._0
         public static List<CarForExcel> DefinePreferedCarPull(TrackInfo trackInfo)//формирование списка машин под условие определенного трэка
         {            
             List<(CarForExcel, int)> CarWithPoints = new List<(CarForExcel, int)>();
+            NotePad.DoLog("подбираю машину для трэка: " + 
+                trackInfo.track + " " + 
+                trackInfo.ground + " " + 
+                trackInfo.weather);
             foreach (CarForExcel car in Condition.selectedCars)
             {
                 int points = CalculatePoints(car, trackInfo);
@@ -456,7 +459,6 @@ namespace Caitlyn_v1._0
             }
             return points;
         }
-        //new
         public static bool SatisfyCondition(string cond, CarForExcel car)
         {
             bool x = false;
@@ -925,7 +927,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "икона стиля":
                     tag = "Style Icon";
-                    x = (SearchTag(car, tag));
+                    x = SearchTag(car, tag);
                     break;
                 case "2005-2009":
                     year = GetYear(car);

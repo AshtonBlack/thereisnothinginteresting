@@ -102,44 +102,33 @@ namespace Caitlyn_v1._0
                 else
                 {
                     wronghandnumber++;
-
                     if (i == 1)
                     {
-                        se.ClearHand();
-                        Thread.Sleep(500);
                         NotePad.DoLog("Собираю пробную руку");
-                        if (!hm.MakingHand())
-                        {
-                            return false;
-                        }
+                        return MakeHand();
                     }
-
                     if (i == 2)//пересборка по покрытию
                     {
-                        se.ClearHand();
-                        Thread.Sleep(500);
                         NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
-                        if (!hm.MakingHand())
-                        {
-                            return false;
-                        }
+                        return MakeHand();
                     }
-
-                    Thread.Sleep(5000);
-
+                    Thread.Sleep(4000);
                     if (!hm.HandCarFixed() || !hm.VerifyHand())
                     {
-                        se.ClearHand();
-                        Thread.Sleep(500);
                         NotePad.DoLog("Меняю руку");
-                        if (!hm.MakingHand())
-                        {
-                            return false;
-                        }
+                        return MakeHand();
                     }
                 }
             } while (!hm.VerifyHand());
             return true;
+        }
+        bool MakeHand()
+        {
+            SpecialEvents se = new SpecialEvents();
+            HandMaking hm = new HandMaking();
+            se.ClearHand();
+            Thread.Sleep(1000);
+            return hm.MakingHand();
         }
         public void TimeToRace()
         {
