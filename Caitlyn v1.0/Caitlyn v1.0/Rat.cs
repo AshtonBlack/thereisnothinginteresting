@@ -23,19 +23,16 @@ namespace Caitlyn_v1._0
             mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
         }
-
         public static void MoveMouse(int x, int y)
         {
             SetCursorPos(x + xCorrection, y + yCorrection);
         }
-
         private static void MoveMouse(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
             SetCursorPos(x + xCorrection, y + yCorrection);
         }
-
         public static void Clk(int dox, int doy)
         {
             MoveMouse(dox, doy);
@@ -43,7 +40,6 @@ namespace Caitlyn_v1._0
             DoMouseLeftClick(dox, doy);
             Thread.Sleep(100);
         }
-
         public static void Clk(Point p)
         {
             int dox = p.X;
@@ -53,31 +49,26 @@ namespace Caitlyn_v1._0
             DoMouseLeftClick(dox, doy);
             Thread.Sleep(100);
         }
-
         public static void LMBdown(int x, int y)
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
         }
-
         private static void LMBdown(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
             mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
         }
-
         public static void LMBup(int x, int y)
         {
             mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
         }
-
         private static void LMBup(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
             mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
         }
-
         public static void DragnDropFast(Point xy1, Point xy2)
         {
             SpecialEvents se = new SpecialEvents();
@@ -103,7 +94,6 @@ namespace Caitlyn_v1._0
                 error++;
             } while (x1 == x2);//переместил ли машину
         }
-
         public static void DragnDropSlow(Point xy1, Point xy2, int speed)
         {
             int dox1 = xy1.X;

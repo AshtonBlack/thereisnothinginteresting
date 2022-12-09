@@ -23,16 +23,9 @@ namespace Caitlyn_v1._0
         }
         //new
         public static int accountLVL = 500;
-        public static int maxrq { get; set; }
         public static int actualRQ { get; set; }
-        //to be deleted
-        public static string weather { get; set; }//погода эвента
-        public static string coverage { get; set; }//покрытия эвента
-        //to be deleted
-        // Tyres [0f, 1e, 2d, 3c, 4b, 5a, 6s]
         public static string ConditionNumber1 { get; set; }
         public static string ConditionNumber2 { get; set; }
-        static int[] lowestRqCars { get; set; } //записывать рк
         static Condition() { }
         public static int AvailableCars(int carClass)
         {
@@ -56,15 +49,12 @@ namespace Caitlyn_v1._0
         public static void ActualRQ()
         {
             actualRQ = eventRQ;
-            if (actualRQ > maxrq) actualRQ = maxrq;
             if (actualRQ > accountLVL) actualRQ = accountLVL;
         }
         public static void MakeCondition(string number1, string number2)
         {
             ConditionNumber1 = number1;
             ConditionNumber2 = number2;
-            weather = "с прояснением";
-            coverage = "Смешанное";
             CarsDB.MakeCondAuto(number1, number2);
             NotePad.DoLog("Условия сформированы");
         }

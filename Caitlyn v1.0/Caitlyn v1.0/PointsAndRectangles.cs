@@ -93,16 +93,6 @@ namespace Caitlyn_v1._0
         public static Point eventN3 = new Point(960, 750);
         public static Point eventN4 = new Point(960, 830);
         public static Point toeventlist = new Point(920, 270);
-        //Condition
-        public static Point tiresMenu = new Point(200, 635);
-        public static Point dynamic = new Point(490, 450);
-        public static Point standart = new Point(700, 450);
-        public static Point allseason = new Point(910, 450);
-        public static Point offroad = new Point(1120, 450);
-        public static Point slik = new Point(490, 600);
-        public static Point fwd = new Point(700, 600);
-        public static Point rwd = new Point(910, 600);
-        public static Point awd = new Point(1120, 600);
         //FastCheck
         public static Rectangle connectionInterrupted = new Rectangle(248, 445, 790, 60);//new
         public static Rectangle fbFuckBrain = new Rectangle(465, 670, 360, 48);
@@ -182,7 +172,6 @@ namespace Caitlyn_v1._0
         public static Point clear = new Point(525, 785);
         public static Point accept = new Point(940, 785);
         public static Point rarity = new Point(200, 415);
-        //new
         public static Dictionary<string, Point> rarityClasses = new Dictionary<string, Point>()
         {
             {"f", new Point(490, 450)},
@@ -193,6 +182,7 @@ namespace Caitlyn_v1._0
             {"a", new Point(700, 600)},
             {"s", new Point(910, 600)}
         };
+        public static Point tiresMenu = new Point(200, 635);
         public static Dictionary<string, Point> tires = new Dictionary<string, Point>()
         {
             {"per", new Point(490, 450)},
@@ -207,14 +197,6 @@ namespace Caitlyn_v1._0
             {"rwd", new Point(910, 600)},
             {"awd", new Point(1120, 600)}
         };
-        //new
-        public static Point f = new Point(490, 450);
-        public static Point e = new Point(700, 450);
-        public static Point d = new Point(910, 450);
-        public static Point c = new Point(1120, 450);
-        public static Point b = new Point(490, 600);
-        public static Point a = new Point(700, 600);
-        public static Point s = new Point(910, 600);
         public static Point xy1 = new Point(180, 430);//сдвиг
         public static Point xy2 = new Point(180, 630);//сдвиг
         public static Point clearall = new Point(240, 795);//сброс

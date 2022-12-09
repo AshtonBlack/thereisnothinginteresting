@@ -14,13 +14,6 @@ namespace Caitlyn_v1._0
             for (int finger = 0; finger < 5; finger++)
             {
                 carsForEveryFinger[finger] = CarsDB.DefinePreferedCarPull(Condition.previousTracks[finger]);
-                /*debug
-                NotePad.DoLog("finger " + (finger+1) + ":");
-                foreach (CarForExcel car in carsForEveryFinger[finger])
-                {
-                    NotePad.DoLog(car.fullname());
-                }
-                */
             }
             
             int[] fingerCarNumber = new int[5];
@@ -46,9 +39,9 @@ namespace Caitlyn_v1._0
             int handrq = 0;
             for (int finger = 0; finger < 5; finger++)
             {
-                handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);                
+                //handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);
+                handrq += RoundRQAccordingToClass(carsForEveryFinger[finger][fingerCarNumber[finger]].rarity);
             }
-            //NotePad.DoLog("current RQ " + handrq);//debug
             
             int randomFinger;
             Random r = new Random();
@@ -57,12 +50,7 @@ namespace Caitlyn_v1._0
                 do
                 {
                     randomFinger = r.Next(0, 5);
-                    /*
-                    NotePad.DoLog("случайный палец " + randomFinger);//debug
-                    NotePad.DoLog("текущая карта " + fingerCarNumber[randomFinger]);//debug
-                    NotePad.DoLog("всего карт " + carsForEveryFinger[randomFinger].Count);//debug
-                    */
-                } while (fingerCarNumber[randomFinger] == carsForEveryFinger[randomFinger].Count - 1);//to be investigated
+                } while (fingerCarNumber[randomFinger] == carsForEveryFinger[randomFinger].Count - 1);
 
                 int nextCarNumber = fingerCarNumber[randomFinger] + 1;
                 CarForExcel targetCar = carsForEveryFinger[randomFinger][nextCarNumber];
@@ -76,7 +64,8 @@ namespace Caitlyn_v1._0
                     handrq = 0;
                     for (int slot = 0; slot < 5; slot++)
                     {
-                        handrq += Convert.ToInt32(carsForEveryFinger[slot][fingerCarNumber[slot]].rq);
+                        //handrq += Convert.ToInt32(carsForEveryFinger[slot][fingerCarNumber[slot]].rq);
+                        handrq += RoundRQAccordingToClass(carsForEveryFinger[slot][fingerCarNumber[slot]].rarity);
                     }
                 }
                 //NotePad.DoLog("RQ = " + handrq);//debug
@@ -93,6 +82,19 @@ namespace Caitlyn_v1._0
             }
             
             return resultedCars;
+        }
+        int RoundRQAccordingToClass(string rarity)
+        {
+            switch (rarity)
+            {
+                case "s": return 100;
+                case "a": return 79;
+                case "b": return 64;
+                case "c": return 49;
+                case "d": return 39;
+                case "e": return 29;
+            }
+            return 19;
         }
         public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars)
         {
@@ -135,7 +137,7 @@ namespace Caitlyn_v1._0
                 if (eventIsNotEnd) Randomizer(); else return false;
                 if (eventIsNotEnd) UseFilter(carDescription.description); else return false;
                 if (eventIsNotEnd) DragnDropHand(carDescription.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carDescription.description)); else return false;
-                usedhandslots +=carDescription.count;
+                usedhandslots += carDescription.count;
             }//механизм расстановки
 
             if (eventIsNotEnd && VerifyHand())

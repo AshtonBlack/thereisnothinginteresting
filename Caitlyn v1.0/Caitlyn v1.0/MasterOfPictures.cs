@@ -22,7 +22,6 @@ namespace Caitlyn_v1._0
             indicator.Dispose();
             return pix;
         }
-
         public static void MakePicture(Rectangle bounds, string PATH)
         {
             PixelFormat format = PixelFormat.Format24bppRgb;
@@ -43,7 +42,6 @@ namespace Caitlyn_v1._0
             gdi.Dispose();
             captured.Dispose();
         }
-
         public static bool Verify(string PATH, string ORIGINALPATH)
         {
             bool flag1 = false;
@@ -76,7 +74,6 @@ namespace Caitlyn_v1._0
             else NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");
             return flag1;
         }
-
         public static void TrackCapture(Rectangle bounds, string PATH)
         {
             PixelFormat format = PixelFormat.Format24bppRgb;
@@ -102,7 +99,6 @@ namespace Caitlyn_v1._0
             captured.Dispose();
             BW.Dispose();
         }
-
         public static void BW2Capture(Rectangle bounds, string PATH)
         {
             PixelFormat format = PixelFormat.Format24bppRgb;
@@ -128,7 +124,6 @@ namespace Caitlyn_v1._0
             captured.Dispose();
             BW.Dispose();
         }
-
         public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
         {
             bool flag1 = false;

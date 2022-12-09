@@ -145,51 +145,12 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck(); 
 
-            //new
             TrackInfo[] tracksInfo = new TrackInfo[5];
             for (int i = 0; i < tracksInfo.Length; i++)
             {
                 tracksInfo[i]= new TrackInfo(i+1);
             }
             Condition.setPreviousTracks(tracksInfo);
-            //temporary for ground and weather
-            bool dry = false;
-            bool wet = false;
-            bool asphalt = false;
-            bool mud = false;
-            foreach (TrackInfo track in Condition.previousTracks)
-            {
-                if (track.weather == "Дождь")
-                {
-                    wet = true;
-                }
-                if (track.weather == "Солнечно")
-                {
-                    dry = true;
-                }
-                if (track.ground == "Асфальт")
-                {
-                    asphalt = true;
-                }
-                else
-                {
-                    mud = true;
-                }
-            }
-            if (asphalt)
-            {
-                Condition.coverage = "Асфальт";
-                if (mud) Condition.coverage = "Смешанное";
-            }
-            else Condition.coverage = "Бездорожье";
-            Condition.weather = "ясно";
-            if (wet)
-            {
-                if (dry) Condition.weather = "с прояснением";
-                else Condition.weather = "дождь";
-            }
-            //temporary
-            //new            
             bool raceIsEnd = false;
             bool raceIsStart = false;
             int waiter = 0;
