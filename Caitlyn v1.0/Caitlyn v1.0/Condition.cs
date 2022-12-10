@@ -34,7 +34,7 @@ namespace Caitlyn_v1._0
         {
             ConditionNumber1 = number1;
             ConditionNumber2 = number2;
-            CarsDB.MakeCondAuto(number1, number2);
+            CarsDB.MakeCondAuto(ConditionNumber1, ConditionNumber2);
             NotePad.DoLog("Условия сформированы");
         }
     }

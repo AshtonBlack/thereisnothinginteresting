@@ -10,6 +10,7 @@ namespace Caitlyn_v1._0
         bool eventIsNotEnd = true;
         public CarForExcel[] ChooseCars()
         {
+            CarsDB.MakeCondAuto(Condition.ConditionNumber1, Condition.ConditionNumber2);//для очистки параметра inUse
             List<CarForExcel>[] carsForEveryFinger = new List<CarForExcel>[5];
             for (int finger = 0; finger < 5; finger++)
             {
@@ -40,6 +41,14 @@ namespace Caitlyn_v1._0
                 handrq += RoundRQAccordingToClass(carsForEveryFinger[finger][fingerCarNumber[finger]].rarity);                
             }
             NotePad.DoLog("rq максимальных авто: " + handrq);//debug
+
+            //debug
+            int inUse = 0;
+            foreach(CarForExcel car in Condition.selectedCars)
+            {
+                inUse += car.inUse;
+            }
+            NotePad.DoLog("использованных авто: " + inUse);//debug
 
             int randomFinger;
             Random r = new Random();
