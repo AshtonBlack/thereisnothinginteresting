@@ -74,7 +74,6 @@
     <Compile Include="Rat.cs" />
     <Compile Include="SpecialEvents.cs" />
     <Compile Include="TimingUnit.cs" />
-    <Compile Include="TrackConditions.cs" />
     <Compile Include="TrackInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

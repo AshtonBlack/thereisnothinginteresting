@@ -50,6 +50,22 @@ namespace Caitlyn_v1._0
             }
 
         }
+        public static void DoLogWithoutTime(string text)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, Encoding.Default))//true для дописывания 
+                {
+                    sw.WriteLine(text);
+                    sw.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+        }
         public static void Saves(int[] carsid)
         {
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, Encoding.Default))//true для дописывания 

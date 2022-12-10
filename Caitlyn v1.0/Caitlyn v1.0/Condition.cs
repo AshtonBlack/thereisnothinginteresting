@@ -4,7 +4,6 @@ namespace Caitlyn_v1._0
 {
     static class Condition
     {
-        //new
         public static int eventRQ { get; set; }//рк эвента
         public static int minRQ { get; set; }
         public static List<CarForExcel> selectedCars { get; set; }
@@ -21,31 +20,11 @@ namespace Caitlyn_v1._0
         {
             previousTracks = trackInfo;
         }
-        //new
         public static int accountLVL = 500;
         public static int actualRQ { get; set; }
         public static string ConditionNumber1 { get; set; }
         public static string ConditionNumber2 { get; set; }
-        static Condition() { }
-        public static int AvailableCars(int carClass)
-        {
-            int number = 0;
-
-            if (number > 4)
-            {
-                if (number % 2 == 0)
-                {
-                    number -= 2;
-                    NotePad.DoLog("недостигаемы 2 машины");
-                }
-                else
-                {
-                    number -= 1;
-                    NotePad.DoLog("недостигаема 1 машина");
-                }
-            } //исключаем сломаные места            
-            return number;
-        } //доступные машины
+        static Condition() { }        
         public static void ActualRQ()
         {
             actualRQ = eventRQ;

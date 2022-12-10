@@ -116,7 +116,7 @@ namespace Caitlyn_v1._0
                     bestPointsForRQ[Convert.ToInt16(car.car.rq)] = car.points;
                 }
             }
-
+            /*
             int currentPoints = -100;
             for (int rq = 0; rq < bestPointsForRQ.Length; rq++)
             {
@@ -129,13 +129,15 @@ namespace Caitlyn_v1._0
                     currentPoints= bestPointsForRQ[rq];
                 }
             }
-
+            */
+            NotePad.DoLogWithoutTime("Prefered car list:");//debug
             List<CarForExcel> preferedCars = new List<CarForExcel>();
             foreach ((CarForExcel car, int points) car in CarWithPoints)
             {
                 if (bestPointsForRQ[Convert.ToInt16(car.car.rq)] == car.points)
                 {
                     preferedCars.Add(car.car);
+                    NotePad.DoLogWithoutTime(car.car.fullname() + " " + car.points);//debug
                 }
             }
 
@@ -442,17 +444,6 @@ namespace Caitlyn_v1._0
                                     points += 60;
                                     break;
                             }
-                            break;
-                    }
-                    break;
-                default:
-                    switch (car.clearance)
-                    {
-                        case "low":
-                            points += 20;
-                            break;
-                        case "mid":
-                            points += 10;
                             break;
                     }
                     break;
@@ -1134,8 +1125,25 @@ namespace Caitlyn_v1._0
                     }
                 }
             }
-            return carCounter;
+            return AvailableCars(carCounter);
         }
+        public static int AvailableCars(int number)
+        {
+            if (number > 4)
+            {
+                if (number % 2 == 0)
+                {
+                    number -= 2;
+                    NotePad.DoLog("недостигаемы 2 машины");
+                }
+                else
+                {
+                    number -= 1;
+                    NotePad.DoLog("недостигаема 1 машина");
+                }
+            } //исключаем сломаные места            
+            return number;
+        } //доступные машины
         public static bool SearchTag(CarForExcel car, string tag)
         {
             if(car.tags != null)

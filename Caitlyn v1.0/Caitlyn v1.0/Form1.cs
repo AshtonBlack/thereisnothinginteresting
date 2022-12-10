@@ -41,7 +41,16 @@ namespace Caitlyn_v1._0
             Condition.previousTracks[3] = testTrack;
             Condition.previousTracks[4] = testTrack;
             */
-            Condition.setDefaultTracks();
+
+            //Condition.setDefaultTracks();
+
+            TrackInfo[] tracksInfo = new TrackInfo[5];
+            tracksInfo[0] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
+            tracksInfo[1] = new TrackInfo("Асфальт", "Дождь", "1/2");
+            tracksInfo[2] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
+            tracksInfo[3] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
+            tracksInfo[4] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
+            Condition.setPreviousTracks(tracksInfo);
             CarsDB.MakeCondAuto("икона стиля", "empty");
             HandMaking hm = new HandMaking();
             //hm.ChooseCars();
