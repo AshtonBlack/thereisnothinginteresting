@@ -108,7 +108,7 @@ namespace Caitlyn_v1._0
             int[] bestPointsForRQ = new int[101];
             for(int rq = 0; rq < bestPointsForRQ.Length; rq++)
             {
-                bestPointsForRQ[rq] = -100;
+                bestPointsForRQ[rq] = -10000;
             }
             foreach ((CarForExcel car, int points) car in CarWithPoints)
             {

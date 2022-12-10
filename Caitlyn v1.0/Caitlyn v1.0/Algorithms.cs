@@ -1,398 +1,355 @@
-﻿namespace Caitlyn_v1._0
+﻿using System;
+
+namespace Caitlyn_v1._0
 {
     public class Algorithms
-    {
-        public double CalculateCompatibility(string track, string coverage, string weather, Car car)
+    {        
+        public int CalculatePoints(CarForExcel car, TrackInfo trackInfo)
+        {            
+            return (int)CalculateCompatibility(car, trackInfo);
+        }
+        public double CalculateCompatibility(CarForExcel car, TrackInfo trackInfo)
         {
             double x = 0;
-            switch (coverage)
+            switch (trackInfo.ground)
             {
                 case "Асфальт":
-                    switch (weather)
-                    {
-                        case "Солнечно":
-                            break;
-                        case "Дождь":
-                            if (car.drive == 4) x += 50;
-                            switch (car.tires)
-                            {
-                                case 1:
-                                    x -= 500;
-                                    break;
-                                case 2:
-                                    x -= 200;
-                                    break;
-                                case 3:
-                                    x += 0;
-                                    break;
-                                case 4:
-                                    x -= 100;
-                                    break;
-                                case 5:
-                                    x += 500;
-                                    break;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case "Гравий":
+                    if(trackInfo.weather == "Дождь")
+                        if (car.drive == "4wd") x += 50;
                     switch (car.tires)
                     {
-                        case 1:
-                            x -= 300;
-                            break;
-                        case 2:
-                            x -= 250;
-                            break;
-                        case 3:
-                            x += 100;
-                            break;
-                        case 4:
-                            x -= 50;
-                            break;
-                        case 5:
+                        case "slick":
                             x += 0;
                             break;
+                        case "per":
+                            x += 100;
+                            break;
+                        case "std":
+                            x += 300;
+                            break;
+                        case "all":
+                            x += 150;
+                            break;
+                        case "off":
+                            x += 30;
+                            break;
                     }
-                    if (car.drive == 4) x += 100;
+                    break;
+                case "Гравий":                    
+                    if (car.drive == "4wd") x += 200;
+                    switch (car.tires)
+                    {
+                        case "slick":
+                            x += 50;
+                            break;
+                        case "per":
+                            x += 100;
+                            break;
+                        case "std":
+                            x += 150;
+                            break;
+                        case "all":
+                            x += 200;
+                            break;
+                        case "off":
+                            x += 200;
+                            break;
+                    }
                     break;
                 case "Грунт":
-                    switch (weather)
+                    switch (trackInfo.weather)
                     {
                         case "Солнечно":
+                            if (car.drive == "4wd") x += 100;
                             switch (car.tires)
                             {
-                                case 1:
-                                    x -= 400;
-                                    break;
-                                case 2:
-                                    x -= 300;
-                                    break;
-                                case 3:
-                                    x -= 200;
-                                    break;
-                                case 4:
-                                    x -= 50;
-                                    break;
-                                case 5:
+                                case "slick":
                                     x += 0;
                                     break;
+                                case "per":
+                                    x += 50;
+                                    break;
+                                case "std":
+                                    x += 100;
+                                    break;
+                                case "all":
+                                    x += 200;
+                                    break;
+                                case "off":
+                                    x += 400;
+                                    break;
                             }
-                            if (car.drive == 4) x += 100;
                             break;
                         case "Дождь":
+                            if (car.drive == "4wd") x += 100;
                             switch (car.tires)
                             {
-                                case 1:
-                                    x -= 1000;
-                                    break;
-                                case 2:
-                                    x -= 800;
-                                    break;
-                                case 3:
-                                    x -= 300;
-                                    break;
-                                case 4:
-                                    x -= 100;
-                                    break;
-                                case 5:
+                                case "slick":
                                     x += 0;
                                     break;
+                                case "per":
+                                    x += 100;
+                                    break;
+                                case "std":
+                                    x += 200;
+                                    break;
+                                case "all":
+                                    x += 400;
+                                    break;
+                                case "off":
+                                    x += 600;
+                                    break;
                             }
-                            if (car.drive == 4) x += 200;
-                            break;
-                        default:
                             break;
                     }
                     break;
                 case "Песок":
+                    if (car.drive == "4wd") x += 100;
                     switch (car.tires)
                     {
-                        case 1:
-                            x -= 300;
-                            break;
-                        case 2:
-                            x -= 250;
-                            break;
-                        case 3:
-                            x -= 150;
-                            break;
-                        case 4:
-                            x -= 50;
-                            break;
-                        case 5:
+                        case "slick":
                             x += 0;
                             break;
+                        case "per":
+                            x += 100;
+                            break;
+                        case "std":
+                            x += 200;
+                            break;
+                        case "all":
+                            x += 400;
+                            break;
+                        case "off":
+                            x += 600;
+                            break;
                     }
-                    if (car.drive == 4) x += 100;
                     break;
                 case "Снег":
+                    if (car.drive == "4wd") x += 100;
                     switch (car.tires)
                     {
-                        case 1:
-                            x -= 1000;
-                            break;
-                        case 2:
-                            x -= 800;
-                            break;
-                        case 3:
-                            x -= 300;
-                            break;
-                        case 4:
-                            x -= 100;
-                            break;
-                        case 5:
+                        case "slick":
                             x += 0;
                             break;
+                        case "per":
+                            x += 100;
+                            break;
+                        case "std":
+                            x += 200;
+                            break;
+                        case "all":
+                            x += 400;
+                            break;
+                        case "off":
+                            x += 600;
+                            break;
                     }
-                    if (car.drive == 4) x += 150;
                     break;
                 case "Смешанное":
-                    switch (weather)
+                    if (car.drive == "4wd") x += 100;
+                    switch (trackInfo.weather)
                     {
                         case "Солнечно":
                             switch (car.tires)
                             {
-                                case 1:
-                                    x -= 300;
-                                    break;
-                                case 2:
-                                    x -= 200;
-                                    break;
-                                case 3:
-                                    x -= 0;
-                                    break;
-                                case 4:
-                                    x -= 0;
-                                    break;
-                                case 5:
+                                case "slick":
                                     x += 0;
+                                    break;
+                                case "per":
+                                    x += 50;
+                                    break;
+                                case "std":
+                                    x += 50;
+                                    break;
+                                case "all":
+                                    x += 100;
+                                    break;
+                                case "off":
+                                    x += 150;
                                     break;
                             }
                             break;
                         case "Дождь":
                             switch (car.tires)
                             {
-                                case 1:
-                                    x -= 1000;
+                                case "slick":
+                                    x += 0;
                                     break;
-                                case 2:
-                                    x -= 600;
+                                case "per":
+                                    x += 150;
                                     break;
-                                case 3:
-                                    x -= 300;
+                                case "std":
+                                    x += 250;
                                     break;
-                                case 4:
-                                    x -= 0;
+                                case "all":
+                                    x += 300;
                                     break;
-                                case 5:
-                                    x -= 300;
+                                case "off":
+                                    x += 150;
                                     break;
                             }
                             break;
-                        default:
-                            break;
                     }
-                    if (car.drive == 4) x += 200;
                     break;
                 case "Трава":
+                    if (car.drive == "4wd") x += 100;
                     switch (car.tires)
                     {
-                        case 1:
-                            x -= 1000;
-                            break;
-                        case 2:
-                            x -= 800;
-                            break;
-                        case 3:
-                            x -= 300;
-                            break;
-                        case 4:
-                            x -= 100;
-                            break;
-                        case 5:
+                        case "slick":
                             x += 0;
                             break;
+                        case "per":
+                            x += 150;
+                            break;
+                        case "std":
+                            x += 250;
+                            break;
+                        case "all":
+                            x += 400;
+                            break;
+                        case "off":
+                            x += 600;
+                            break;
                     }
-                    if (car.drive == 4) x += 150;
                     break;
                 case "Лед":
+                    if (car.drive == "4wd") x += 100;
                     switch (car.tires)
                     {
-                        case 1:
-                            x -= 1000;
-                            break;
-                        case 2:
-                            x -= 800;
-                            break;
-                        case 3:
-                            x -= 500;
-                            break;
-                        case 4:
-                            x -= 200;
-                            break;
-                        case 5:
+                        case "slick":
                             x += 0;
                             break;
+                        case "per":
+                            x += 150;
+                            break;
+                        case "std":
+                            x += 250;
+                            break;
+                        case "all":
+                            x += 400;
+                            break;
+                        case "off":
+                            x += 600;
+                            break;
                     }
-                    if (car.drive == 4) x += 150;
                     break;
             }
-            switch (track)
+            switch (trackInfo.track)
             {
                 case "Длинная трасса у океана":
                     x *= 2;
-                    x -= car.acceleration * 100;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed;
+                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x += Convert.ToInt16(car.speed);
                     break;
                 case "Короткая трасса у океана":
                     x *= 2;
-                    x -= car.acceleration * 120;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed / 2;
+                    x -= Convert.ToInt16(car.acceleration) * 120;
+                    x += Convert.ToInt16(car.speed) / 2;
                     break;
                 case "Магистраль у океана":
                     x *= 3;
-                    x += car.maxSpeed;
-                    x -= car.acceleration * 50;
-                    x += car.grip;
+                    x += Convert.ToInt16(car.speed);
+                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x += Convert.ToInt16(car.grip);
                     break;
                 case "Парковка у океана":
                 case "Пляжный слалом у океана":
                     x *= 4;
-                    x -= car.acceleration * 30;
-                    x += car.grip * 8;
-                    x -= car.weight;
+                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x += Convert.ToInt16(car.grip) * 8;
+                    x -= Convert.ToInt16(car.weight);
                     break;
                 case "Городские улицы у океана":
                 case "Улица ср":
                 case "Улица мал":
                     x *= 3;
-                    switch (car.clearance)
-                    {
-                        case 1:
-                            x += 0;
-                            break;
-                        case 2:
-                            x += 700;
-                            break;
-                        case 3:
-                            x += 300;
-                            break;
-                    }
+                    if(car.clearance != "low") x += 1000;
                     break;
                 case "Подъем на холм":
                     x *= 3;
-                    x -= car.acceleration * 50;
-                    if (coverage != "Асфальт")
+                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    if (trackInfo.ground != "Асфальт")
                     {
-                        if (car.drive == 4) x += 100;
+                        if (car.drive == "4wd") x += 200;
                         switch (car.clearance)
                         {
-                            case 1:
-                                x += 0;
+                            case "mid":
+                                x += 600;
                                 break;
-                            case 2:
-                                x += 200;
-                                break;
-                            case 3:
-                                x += 500;
+                            case "high":
+                                x += 1000;
                                 break;
                         }
                     }
                     break;
                 case "Трасса для мотокросса":
                     x *= 4;
-                    if (car.drive == 4) x += 50;
+                    if (car.drive == "4wd") x += 200;
                     switch (car.clearance)
                     {
-                        case 1:
-                            x += 0;
+                        case "mid":
+                            x += 400;
                             break;
-                        case 2:
-                            x += 200;
-                            break;
-                        case 3:
-                            x += 500;
+                        case "high":
+                            x += 1000;
                             break;
                     }
                     break;
                 case "50-150":
                     x *= 1;
-                    x -= car.acceleration * 100;
-                    x -= car.grip;
-                    x += car.weight / 10;
-                    x += car.maxSpeed * 10;
-                    if (car.maxSpeed < 150)
+                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x += Convert.ToInt16(car.speed) * 10;
+                    if (Convert.ToInt16(car.speed) < 150)
                     {
                         x -= 2000;
                     }
                     break;
                 case "75-125":
                     x *= 1;
-                    x -= car.acceleration * 150;
-                    x -= car.grip;
-                    x += car.weight / 10;
-                    x += car.maxSpeed * 5;
-                    if (car.maxSpeed < 130)
+                    x -= Convert.ToInt16(car.acceleration) * 150;
+                    x += Convert.ToInt16(car.speed) * 5;
+                    if (Convert.ToInt16(car.speed) < 130)
                     {
                         x -= 2000;
                     }
                     break;
                 case "0-100":
                     x *= 3;
-                    x -= car.acceleration * 200;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed * 2;
-                    if (car.maxSpeed < 105)
+                    x -= Convert.ToInt16(car.acceleration) * 200;
+                    x += Convert.ToInt16(car.speed) * 2;
+                    if (Convert.ToInt16(car.speed) < 105)
                     {
                         x -= 2000;
                     }
                     break;
                 case "0-100-0":
                     x *= 3.5;
-                    x -= car.acceleration * 100;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed * 2;
-                    if (car.maxSpeed < 105)
+                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x += Convert.ToInt16(car.speed) * 2;
+                    if (Convert.ToInt16(car.speed) < 105)
                     {
                         x -= 2000;
                     }
                     break;
                 case "1":
                     x *= 1.5;
-                    x -= car.acceleration * 80;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed * 3;
+                    x -= Convert.ToInt16(car.acceleration) * 80;
+                    x += Convert.ToInt16(car.speed) * 3;
                     break;
                 case "1/2":
                     x *= 2.5;
-                    x -= car.acceleration * 100;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed;
+                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x += Convert.ToInt16(car.speed);
                     break;
                 case "1/4":
                     x *= 3;
-                    x -= car.acceleration * 120;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed / 2;
+                    x -= Convert.ToInt16(car.acceleration) * 120;
+                    x += Convert.ToInt16(car.speed) / 2;
                     break;
                 case "0-60":
                     x *= 4;
-                    x -= car.acceleration * 120;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    if (car.maxSpeed < 60)
+                    x -= Convert.ToInt16(car.acceleration) * 120;
+                    if (Convert.ToInt16(car.speed) < 60)
                     {
                         x -= 2000;
                     }
@@ -400,21 +357,17 @@
                 case "Токио трасса":
                 case "Трасса набережная":
                     x *= 2;
-                    x -= car.acceleration * 100;
-                    x -= car.grip * 5;
-                    x += car.weight / 10;
-                    x += car.maxSpeed;
+                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x += Convert.ToInt16(car.speed);
                     break;
                 case "Тестовый круг":
                     x *= 1;
-                    x += car.maxSpeed * 5;
-                    x -= car.grip * 10;
-                    x += car.weight / 10;
+                    x += Convert.ToInt16(car.speed) * 5;
                     break;
                 case "Токио мостик":
                     x *= 3;
-                    x += car.maxSpeed * 3;
-                    x -= car.acceleration * 6;
+                    x += Convert.ToInt16(car.speed) * 3;
+                    x -= Convert.ToInt16(car.acceleration) * 6;
                     break;
                 case "Нюрбург 1":
                 case "Нюрбург 2":
@@ -422,227 +375,222 @@
                 case "Нюрбург 4":
                 case "Нюрбург 5":
                     x *= 2.5;
-                    x += car.maxSpeed * 3;
+                    x += Convert.ToInt16(car.speed) * 3;
                     break;
                 case "Токио петля":
                     x *= 2.5;
-                    x += car.maxSpeed * 2;
-                    x -= car.acceleration * 80;
+                    x += Convert.ToInt16(car.speed) * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 80;
                     break;
                 case "Замерзшее озеро":
-                    x *= 4;
-                    if (car.tires == 5)
+                    if (car.drive == "4wd") x += 100;
+                    switch (car.tires)
                     {
-                        x += 500;
-                    }
-                    if (car.tires == 4)
-                    {
-                        x += 200;
+                        case "slick":
+                            x += 0;
+                            break;
+                        case "per":
+                            x += 150;
+                            break;
+                        case "std":
+                            x += 250;
+                            break;
+                        case "all":
+                            x += 400;
+                            break;
+                        case "off":
+                            x += 600;
+                            break;
                     }
                     break;
                 case "Горы серпантин":
                     x *= 4;
-                    if (coverage != "Асфальт" || weather != "Солнечно")
+                    if (trackInfo.ground != "Асфальт" || trackInfo.weather != "Солнечно")
                     {
-                        if (car.drive == 4) x += 50;
+                        if (car.drive == "4wd") x += 50;
                     }
                     break;
                 case "Горы извилистая дорога":
                     x *= 4;
-                    x -= car.acceleration * 30;
-                    x += car.grip * 4;
+                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x += Convert.ToInt16(car.grip) * 4;
                     break;
                 case "Горы дорога с уклоном":
                     x *= 3;
-                    x += car.maxSpeed;
-                    x -= car.acceleration * 50;
-                    x += car.grip;
+                    x += Convert.ToInt16(car.speed);
+                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x += Convert.ToInt16(car.grip);
                     break;
                 case "Горы подъем на холм":
-                    x *= 3;
-                    switch (car.clearance)
+                    x *= 3;                    
+                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x += Convert.ToInt16(car.grip);
+                    if (trackInfo.ground != "Асфальт")
                     {
-                        case 1:
-                            x += 0;
-                            break;
-                        case 2:
-                            x += 200;
-                            break;
-                        case 3:
-                            x += 500;
-                            break;
-                    }
-                    x -= car.acceleration * 50;
-                    x += car.grip;
-                    if (coverage != "Асфальт")
-                    {
-                        if (car.drive == 4) x += 200;
+                        if (car.drive == "4wd") x += 200;
+                        switch (car.clearance)
+                        {
+                            case "mid":
+                                x += 600;
+                                break;
+                            case "high":
+                                x += 1000;
+                                break;
+                        }
                     }
                     break;
                 case "Горная экспедиция":
                     x *= 2.5;
-                    x += car.maxSpeed;
-                    x += car.grip / 2;
+                    x += Convert.ToInt16(car.speed);
+                    x += Convert.ToInt16(car.grip) / 2;
                     break;
                 case "Извилистая дорога":
                     x *= 4;
-                    if (coverage != "Асфальт")
+                    if (trackInfo.ground != "Асфальт")
                     {
+                        if (car.drive == "4wd") x += 100;
                         switch (car.clearance)
                         {
-                            case 1:
-                                x += 0;
+                            case "mid":
+                                x += 600;
                                 break;
-                            case 2:
-                                x += 200;
-                                break;
-                            case 3:
-                                x += 400;
+                            case "high":
+                                x += 1000;
                                 break;
                         }
-                        if (car.drive == 4) x += 50;
                     }
                     break;
                 case "Быстрая трасса":
                     x *= 2.5;
-                    x -= car.acceleration * 40;
-                    x -= car.grip / 2;
-                    x += car.weight / 5;
-                    x += car.maxSpeed * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 40;;
+                    x += Convert.ToInt16(car.speed) * 2;
                     break;
                 case "Highway":
                     x *= 2.5;
-                    x -= car.acceleration * 40;
-                    x += car.weight / 5;
-                    x += car.grip * 2;
-                    x += car.maxSpeed;
+                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x += Convert.ToInt16(car.grip) * 2;
+                    x += Convert.ToInt16(car.speed);
                     break;
                 case "Монако длинные городские улицы":
                     x *= 3;
-                    x -= car.acceleration * 40;
-                    x -= car.grip / 2;
-                    x += car.maxSpeed;
+                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x += Convert.ToInt16(car.speed);
                     break;
                 case "Каньон экспедиция":
                     x *= 2.5;
-                    x -= car.acceleration * 30;
-                    x -= car.grip / 4;
-                    x += car.maxSpeed;
+                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x += Convert.ToInt16(car.speed);
                     break;
                 case "Серпантин":
                 case "Монако серпантин":
                     x *= 3.5;
-                    x -= car.acceleration * 50;
-                    x += car.grip;
+                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x += Convert.ToInt16(car.grip);
                     break;
                 case "Извилистая трасса":
                     x *= 3;
-                    x -= car.acceleration * 20;
-                    x += car.grip * 10;
+                    x -= Convert.ToInt16(car.acceleration) * 20;
+                    x += Convert.ToInt16(car.grip) * 10;
                     break;
                 case "Токио мост":
                 case "Токио съезд":
                 case "Монако городские":
                     x *= 3;
-                    x += car.maxSpeed * 2;
-                    x -= car.acceleration * 50;
-                    x += car.grip;
+                    x += Convert.ToInt16(car.speed) * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x += Convert.ToInt16(car.grip);
                     break;
                 case "Обзор":
                     x *= 2.5;
-                    x += car.maxSpeed * 2;
-                    x -= car.acceleration * 50;
-                    x += car.grip;
+                    x += Convert.ToInt16(car.speed) * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x += Convert.ToInt16(car.grip);
                     break;
                 case "Каньон грунтовая дорога":
                     x *= 2.5;
-                    x -= car.acceleration * 40;
-                    x += car.grip * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Каньон крутой холм":
                     x *= 3;
-                    x -= car.acceleration * 40;
-                    x += car.grip * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Лесная переправа":
                     x *= 3;
-                    x -= car.acceleration * 40;
-                    x += car.grip * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Ралли-кросс мал":
                 case "Ралли-кросс ср":
                     x *= 3;
-                    x -= car.acceleration * 40;
-                    x += car.grip * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Лесная дорога":
                     x *= 3;
-                    x -= car.acceleration * 20;
-                    x += car.grip * 10;
+                    x -= Convert.ToInt16(car.acceleration) * 20;
+                    x += Convert.ToInt16(car.grip) * 10;
                     break;
                 case "Монако узкие улицы":
                     x *= 2.5;
-                    x -= car.acceleration * 40;
-                    x += car.grip * 5;
-                    x -= car.weight;
+                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x += Convert.ToInt16(car.grip) * 5;
+                    x -= Convert.ToInt16(car.weight);
                     break;
                 case "Монако тест на перегрузки":
                 case "Токио тест на перегрузки":
                     x *= 4.5;
-                    x -= car.acceleration * 30;
-                    x += car.grip * 8;
-                    x -= car.weight;
+                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x += Convert.ToInt16(car.grip) * 8;
+                    x -= Convert.ToInt16(car.weight);
                     break;
                 case "Трасса для картинга":
                     x *= 4.5;
-                    x -= car.acceleration * 25;
-                    x += car.grip * 10;
-                    x -= car.weight;
+                    x -= Convert.ToInt16(car.acceleration) * 25;
+                    x += Convert.ToInt16(car.grip) * 10;
+                    x -= Convert.ToInt16(car.weight);
                     break;
                 case "Парковка":
                     x *= 5;
-                    x -= car.acceleration * 20;
-                    x += car.grip * 10;
-                    x -= car.weight * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 20;
+                    x += Convert.ToInt16(car.grip) * 10;
+                    x -= Convert.ToInt16(car.weight) * 2;
                     break;
                 case "Лесной слалом":
                     x *= 5;
-                    x += car.grip * 10;
-                    x -= car.weight * 3;
+                    x += Convert.ToInt16(car.grip) * 10;
+                    x -= Convert.ToInt16(car.weight) * 3;
                     break;
                 case "Закрытый картинг":
                     x *= 5;
-                    x -= car.acceleration * 10;
-                    x += car.grip * 15;
-                    x -= car.weight * 3;
+                    x -= Convert.ToInt16(car.acceleration) * 10;
+                    x += Convert.ToInt16(car.grip) * 15;
+                    x -= Convert.ToInt16(car.weight) * 3;
                     break;
                 case "Горы слалом":
                     x *= 4.5;
-                    x += car.grip * 10;
-                    x -= car.weight * 3;
+                    x += Convert.ToInt16(car.grip) * 10;
+                    x -= Convert.ToInt16(car.weight) * 3;
                     break;
                 case "Слалом":
                     x *= 5;
-                    x += car.grip * 10;
-                    x -= car.weight * 3;
+                    x += Convert.ToInt16(car.grip) * 10;
+                    x -= Convert.ToInt16(car.weight) * 3;
                     break;
                 case "Перегрузка":
                     x *= 5;
-                    x -= car.acceleration * 10;
-                    x += car.grip * 15;
-                    x -= car.weight * 2;
+                    x -= Convert.ToInt16(car.acceleration) * 10;
+                    x += Convert.ToInt16(car.grip) * 15;
+                    x -= Convert.ToInt16(car.weight) * 2;
                     break;
                 case "Неизвестная трасса":
                     break;
                 default:
-                    NotePad.DoErrorLog("Написать логику для " + track);
+                    NotePad.DoErrorLog("Написать логику для " + trackInfo.track);
                     break;
             }
             return x;
-        }
-        public int CalculatePoints(CarForExcel car, TrackInfo trackInfo)
-        {            
-            return (int)CalculateCompatibility(trackInfo.track, trackInfo.ground, trackInfo.weather, new Car(car)); ;
         }
     }
 }

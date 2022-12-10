@@ -10,14 +10,13 @@ namespace Caitlyn_v1._0
         {
             Algorithms al = new Algorithms();
             int[] carpictures = NotePad.ReadCars();
-            List<Car> cars = new List<Car>();
+            List<CarForExcel> cars = new List<CarForExcel>();
             foreach (int carpicture in carpictures)
             {
-                cars.Add(new Car(carpicture));
+                cars.Add(new CarForExcel(carpicture));
             }                        
             int[] rightarranfement = new int[5];
-            double arrangementPoints = -1000000;            
-            //new
+            double arrangementPoints = -1000000; 
             for (int i1 = 0; i1 < 5; i1++)
             {
                 for (int i2 = 0; i2 < 5; i2++)
@@ -36,11 +35,11 @@ namespace Caitlyn_v1._0
                                         {
                                             if (i5 != i1 && i5 != i2 && i5 != i3 && i5 != i4)
                                             {
-                                                double point = al.CalculateCompatibility(Condition.previousTracks[0].track, Condition.previousTracks[0].ground, Condition.previousTracks[0].weather, cars[i1]) +
-                                                    al.CalculateCompatibility(Condition.previousTracks[1].track, Condition.previousTracks[1].ground, Condition.previousTracks[1].weather, cars[i2]) +
-                                                    al.CalculateCompatibility(Condition.previousTracks[2].track, Condition.previousTracks[2].ground, Condition.previousTracks[2].weather, cars[i3]) +
-                                                    al.CalculateCompatibility(Condition.previousTracks[3].track, Condition.previousTracks[3].ground, Condition.previousTracks[3].weather, cars[i4]) +
-                                                    al.CalculateCompatibility(Condition.previousTracks[4].track, Condition.previousTracks[4].ground, Condition.previousTracks[4].weather, cars[i5]);
+                                                double point = al.CalculateCompatibility(cars[i1], Condition.previousTracks[0]) +
+                                                    al.CalculateCompatibility(cars[i2], Condition.previousTracks[1]) +
+                                                    al.CalculateCompatibility(cars[i3], Condition.previousTracks[2]) +
+                                                    al.CalculateCompatibility(cars[i4], Condition.previousTracks[3]) +
+                                                    al.CalculateCompatibility(cars[i5], Condition.previousTracks[4]);
                                                 if (point > arrangementPoints)
                                                 {
                                                     rightarranfement = new int[] { i1, i2, i3, i4, i5 };
@@ -55,7 +54,6 @@ namespace Caitlyn_v1._0
                     }
                 }
             }
-            //new
             Point[] a = { PointsAndRectangles.Finger1, PointsAndRectangles.Finger2, PointsAndRectangles.Finger3, PointsAndRectangles.Finger4, PointsAndRectangles.Finger5 };
             Point[] b = { PointsAndRectangles.Track1position, PointsAndRectangles.Track2position, PointsAndRectangles.Track3position, PointsAndRectangles.Track4position, PointsAndRectangles.Track5position };
             for (int j = 0; j < 5; j++)//logic for dragndrop

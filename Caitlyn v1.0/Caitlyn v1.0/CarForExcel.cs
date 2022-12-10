@@ -23,7 +23,40 @@ namespace Caitlyn_v1._0
         public string speed { get; set; }
         public string grip { get; set; }
         public string weight { get; set; }
-        public int inUse { get; set; }        
+        public int inUse { get; set; }
+        public CarForExcel()
+        {
+
+        }
+        public CarForExcel(int id)
+        {
+            foreach (CarForExcel car in CarsDB.fulltablearray)
+            {
+                if (car.pictureId == id.ToString())
+                {
+                    pictureId = car.pictureId;
+                    country= car.country;
+                    manufacturer=car.manufacturer;
+                    model= car.model;
+                    year= car.year;
+                    amount= car.amount;
+                    rq= car.rq;
+                    rarity= car.rarity;
+                    tires= car.tires;
+                    drive= car.drive;
+                    fuel= car.fuel;
+                    body= car.body;
+                    seats= car.seats;
+                    tags= car.tags;
+                    clearance= car.clearance;
+                    acceleration= car.acceleration;
+                    speed= car.speed;
+                    grip= car.grip;
+                    weight= car.weight;
+                    inUse = car.inUse;
+                }
+            }
+        }
         public string fullname()
         {
             return manufacturer + " " + model + " " + year;
@@ -36,7 +69,7 @@ namespace Caitlyn_v1._0
         }
         public bool Equals(CarForExcel other)
         {
-            return this.fullname().Equals(other.fullname());
+            return fullname().Equals(other.fullname());
         }
     }
 }

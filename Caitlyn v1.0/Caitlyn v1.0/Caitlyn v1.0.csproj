@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Algorithms.cs" />
     <Compile Include="BreakTime.cs" />
-    <Compile Include="Car.cs" />
     <Compile Include="CarForExcel.cs" />
     <Compile Include="CarPictureDataBase.cs" />
     <Compile Include="CarsDB.cs" />
