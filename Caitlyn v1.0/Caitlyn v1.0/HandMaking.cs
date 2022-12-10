@@ -49,6 +49,7 @@ namespace Caitlyn_v1._0
                 {
                     randomFinger = r.Next(0, 5);
                 } while (fingerCarNumber[randomFinger] == carsForEveryFinger[randomFinger].Count - 1);
+                NotePad.DoLog("search vehicle for " + randomFinger);//debug
 
                 int nextCarNumber = fingerCarNumber[randomFinger] + 1;
                 CarForExcel targetCar = carsForEveryFinger[randomFinger][nextCarNumber];

@@ -53,7 +53,7 @@ namespace Caitlyn_v1._0
                     speed= car.speed;
                     grip= car.grip;
                     weight= car.weight;
-                    inUse = car.inUse;
+                    inUse = 0;
                 }
             }
         }
