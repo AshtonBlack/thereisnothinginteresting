@@ -29,7 +29,7 @@ namespace Caitlyn_v1._0
             NotePad.ClearLog();
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
-            Condition.eventRQ = 115;
+            Condition.eventRQ = 250;
             /*
             TrackInfo testTrack = new TrackInfo();
             testTrack.weather = "Дождь";
@@ -44,17 +44,18 @@ namespace Caitlyn_v1._0
             */
 
             //Condition.setDefaultTracks();
-
+            
             TrackInfo[] tracksInfo = new TrackInfo[5];
             tracksInfo[0] = new TrackInfo("Асфальт", "Дождь", "Городские улицы у океана");
             tracksInfo[1] = new TrackInfo("Асфальт", "Дождь", "Короткая трасса у океана");
             tracksInfo[2] = new TrackInfo("Асфальт", "Дождь", "Быстрая трасса");
             tracksInfo[3] = new TrackInfo("Асфальт", "Дождь", "Слалом");
-            tracksInfo[4] = new TrackInfo("Асфальт", "Дождь", "Магистраль у океана");
+            tracksInfo[4] = new TrackInfo("Асфальт", "Дождь", "Магистраль у океана");            
             Condition.setPreviousTracks(tracksInfo);
+
+            //Condition.MakeCondition("икона стиля", "empty");
             Condition.MakeCondition("передний привод", "empty");
             HandMaking hm = new HandMaking();
-            //hm.ChooseCars();
             hm.MakingHand1();
         }
     }

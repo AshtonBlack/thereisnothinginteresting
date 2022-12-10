@@ -46,10 +46,10 @@ namespace Caitlyn_v1._0
                                                     al.CalculateCompatibility(cars[i3], Condition.previousTracks[2]) +
                                                     al.CalculateCompatibility(cars[i4], Condition.previousTracks[3]) +
                                                     al.CalculateCompatibility(cars[i5], Condition.previousTracks[4]);
-                                                NotePad.DoLogWithoutTime(point.ToString());//debug
+                                                //NotePad.DoLogWithoutTime(point.ToString());//debug
                                                 if (point > arrangementPoints)
                                                 {
-                                                    NotePad.DoLogWithoutTime("the best points");//debug
+                                                    //NotePad.DoLogWithoutTime("the best points");//debug
                                                     rightarranfement = new int[] { i1, i2, i3, i4, i5 };
                                                     arrangementPoints = point;
                                                 }

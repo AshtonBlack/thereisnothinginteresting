@@ -94,7 +94,7 @@ namespace Caitlyn_v1._0
         public static List<CarForExcel> DefinePreferedCarPull(TrackInfo trackInfo)//формирование списка машин под условие определенного трэка
         {            
             List<(CarForExcel, int)> CarWithPoints = new List<(CarForExcel, int)>();
-            NotePad.DoLog("подбираю машину для трэка: " + 
+            NotePad.DoLogWithoutTime("подбираю машину для трэка: " + 
                 trackInfo.track + " " + 
                 trackInfo.ground + " " + 
                 trackInfo.weather);
@@ -116,21 +116,40 @@ namespace Caitlyn_v1._0
                 {
                     bestPointsForRQ[Convert.ToInt16(car.car.rq)] = car.points;
                 }
-            }
-            /*
-            int currentPoints = -100;
-            for (int rq = 0; rq < bestPointsForRQ.Length; rq++)
+            }            
+
+            int carCounter = 0;
+            foreach ((CarForExcel car, int points) car in CarWithPoints)
             {
-                if (bestPointsForRQ[rq] < currentPoints)
+                if (bestPointsForRQ[Convert.ToInt16(car.car.rq)] == car.points)
                 {
-                    bestPointsForRQ[rq] = -100;
-                }
-                else
-                {
-                    currentPoints= bestPointsForRQ[rq];
+                    carCounter += car.car.amount;
                 }
             }
-            */
+            NotePad.DoLogWithoutTime("Prefered car amount: " + carCounter);//debug
+
+            int deletedCars = 0;
+            for (int rq = 100; rq > 0; rq--)
+            {
+                if (carCounter - deletedCars > 15)//минимальное количество машин
+                {
+                    if (bestPointsForRQ[rq] != -10000)//не учитывать отсутствующие
+                    {
+                        for(int lowerRQ = rq - 1; lowerRQ > 0; lowerRQ--)
+                        {
+                            if (bestPointsForRQ[rq] < bestPointsForRQ[lowerRQ])
+                            {
+                                bestPointsForRQ[rq] = -10000;
+                                deletedCars++;
+                                break;
+                            }
+                        }                        
+                    }
+                }
+                else break;
+            }
+
+            int finalCarAmount = 0;
             //NotePad.DoLogWithoutTime("Prefered car list:");//debug
             List<CarForExcel> preferedCars = new List<CarForExcel>();
             foreach ((CarForExcel car, int points) car in CarWithPoints)
@@ -138,9 +157,11 @@ namespace Caitlyn_v1._0
                 if (bestPointsForRQ[Convert.ToInt16(car.car.rq)] == car.points)
                 {
                     preferedCars.Add(car.car);
+                    finalCarAmount += car.car.amount;
                     //NotePad.DoLogWithoutTime(car.car.fullname() + " " + car.points);//debug
                 }
             }
+            NotePad.DoLogWithoutTime("The best cars amount: " + finalCarAmount);//debug
 
             return preferedCars;
         }        

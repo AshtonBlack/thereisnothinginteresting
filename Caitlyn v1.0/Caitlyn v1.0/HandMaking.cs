@@ -18,7 +18,7 @@ namespace Caitlyn_v1._0
             }
             
             int[] fingerCarNumber = new int[5];
-            NotePad.DoLog("максимальные авто:");//debug
+            NotePad.DoLogWithoutTime("максимальные авто:");//debug
             for (int finger = 0; finger < fingerCarNumber.Length; finger++)
             {
                 for (int cardNumberInCollection = 0; cardNumberInCollection < carsForEveryFinger[finger].Count; cardNumberInCollection++)
@@ -40,7 +40,7 @@ namespace Caitlyn_v1._0
                 //handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);
                 handrq += RoundRQAccordingToClass(carsForEveryFinger[finger][fingerCarNumber[finger]].rarity);                
             }
-            NotePad.DoLog("rq максимальных авто: " + handrq);//debug
+            NotePad.DoLogWithoutTime("rq максимальных авто: " + handrq);//debug
 
             //debug
             int inUse = 0;
@@ -48,7 +48,7 @@ namespace Caitlyn_v1._0
             {
                 inUse += car.inUse;
             }
-            NotePad.DoLog("использованных авто: " + inUse);//debug
+            NotePad.DoLogWithoutTime("использованных авто: " + inUse);//debug
 
             int randomFinger;
             Random r = new Random();
@@ -77,15 +77,15 @@ namespace Caitlyn_v1._0
                 }
                 //NotePad.DoLog("RQ = " + handrq);//debug
             }//сборка руки
-            NotePad.DoLog("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
+            NotePad.DoLogWithoutTime("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
             
             CarForExcel[] resultedCars = new CarForExcel[5];
             
-            NotePad.DoLog("Подобранные тачки:");
+            NotePad.DoLogWithoutTime("Подобранные тачки:");
             for (int finger = 0; finger < 5; finger++)
             {
                 resultedCars[finger] = carsForEveryFinger[finger][fingerCarNumber[finger]];
-                NotePad.DoLog(resultedCars[finger].fullname() + " " + resultedCars[finger].rq + "rq (в наличии: " + resultedCars[finger].amount + ", использовано: " + resultedCars[finger].inUse + ")");
+                NotePad.DoLogWithoutTime(resultedCars[finger].fullname() + " " + resultedCars[finger].rq + "rq (в наличии: " + resultedCars[finger].amount + ", использовано: " + resultedCars[finger].inUse + ")");
             }
             
             return resultedCars;
