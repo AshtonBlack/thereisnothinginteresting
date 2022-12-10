@@ -195,7 +195,7 @@ namespace Caitlyn_v1._0
         {
             {"fwd", new Point(700, 600)},
             {"rwd", new Point(910, 600)},
-            {"awd", new Point(1120, 600)}
+            {"4wd", new Point(1120, 600)}
         };
         public static Point filterEndStart = new Point(200, 700);//сдвиг
         public static Point filterEndFinish = new Point(200, 330);//сдвиг
