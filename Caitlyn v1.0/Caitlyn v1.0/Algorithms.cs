@@ -240,7 +240,6 @@
                     if (car.drive == 4) x += 150;
                     break;
             }
-
             switch (track)
             {
                 case "Длинная трасса у океана":
@@ -639,8 +638,11 @@
                     NotePad.DoErrorLog("Написать логику для " + track);
                     break;
             }
-
             return x;
+        }
+        public int CalculatePoints(CarForExcel car, TrackInfo trackInfo)
+        {            
+            return (int)CalculateCompatibility(trackInfo.track, trackInfo.ground, trackInfo.weather, new Car(car)); ;
         }
     }
 }

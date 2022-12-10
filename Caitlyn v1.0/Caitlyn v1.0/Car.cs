@@ -38,6 +38,25 @@ namespace Caitlyn_v1._0
                 }
             }
         }
+        public Car(CarForExcel car)
+        {
+            carname = car.fullname();
+            NotePad.DoLog(carname);
+            clearance = clearanceConverter(car.clearance);
+            tires = tiresConverter(car.tires);
+            drive = driveConverter(car.drive);
+            try
+            {
+                acceleration = Convert.ToDouble(car.acceleration);
+            }
+            catch
+            {
+                NotePad.DoErrorLog("can not convert " + car.acceleration + " to double");
+            }
+            maxSpeed = Convert.ToInt32(car.speed);
+            grip = Convert.ToInt32(car.grip);
+            weight = Convert.ToInt32(car.weight);
+        }
         int clearanceConverter(string stat)
         {
             switch (stat)

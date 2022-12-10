@@ -2,7 +2,7 @@
 
 namespace Caitlyn_v1._0
 {
-    internal class CarForExcel : IComparable<CarForExcel>, IEquatable<CarForExcel>
+    public class CarForExcel : IComparable<CarForExcel>, IEquatable<CarForExcel>
     {
         public string pictureId { get; set; }
         public string country { get; set; }

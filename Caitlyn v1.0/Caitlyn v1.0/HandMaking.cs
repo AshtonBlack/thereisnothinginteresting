@@ -181,6 +181,22 @@ namespace Caitlyn_v1._0
                 && CheckForEventIsOn()
                 && eventIsNotEnd)
             {
+                NotePad.DoLog("Активирую условия события");
+                if (Condition.ConditionNumber2 == "empty")
+                {
+                    Rat.Clk(PointsAndRectangles.commonCondition);
+                }
+                else
+                {
+                    Rat.Clk(PointsAndRectangles.commonCondition);
+                    Thread.Sleep(1500);
+                    Rat.Clk(PointsAndRectangles.cond1);
+                    Thread.Sleep(500);
+                    Rat.Clk(PointsAndRectangles.cond2);
+                    Thread.Sleep(500);
+                    Rat.Clk(PointsAndRectangles.commonConditionCross);
+                }
+                /*
                 if (fc.ItsGarage())
                 {
                     if (Condition.ConditionNumber2 == "empty")
@@ -199,6 +215,7 @@ namespace Caitlyn_v1._0
                     }
                 }
                 else return false;
+                */
             }
             return true;
         }//включить фильтр условия события.
@@ -284,7 +301,8 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("накладываю фильтры");
             do
             {
-                if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                //if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                if (!CheckForEventIsOn() || !eventIsNotEnd)
                 {
                     return false;
                 }
@@ -318,7 +336,7 @@ namespace Caitlyn_v1._0
                     return false;
                 }
                 Rat.Clk(PointsAndRectangles.accept);
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 timer++;
             } while (fc.FilterIsOpenned());//100% FilterCloser               
             Thread.Sleep(2000);
@@ -353,7 +371,8 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(200);
                 do
                 {
-                    if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                    //if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                    if (!CheckForEventIsOn() || !eventIsNotEnd)
                     {
                         return false;
                     }
@@ -369,22 +388,22 @@ namespace Caitlyn_v1._0
             }
             else
             {
-                Thread.Sleep(200);
+                Thread.Sleep(500);
                 do
                 {
-                    if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                    //if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                    if (!CheckForEventIsOn() || !eventIsNotEnd)
                     {
                         return false;
                     }
                     Rat.Clk(PointsAndRectangles.sorting);//сортировка
                     Thread.Sleep(1000);
                 } while (!fc.TypeIsOpenned());//100% SorterOpenner
-                Thread.Sleep(200);
                 int r = rand.Next(10);
                 if (rand.Next(2) == 1)
                 {
                     Rat.Clk(a[r]);//выбрать условие
-                    Thread.Sleep(200);
+                    Thread.Sleep(500);
                 }
                 Rat.Clk(a[r]);//выбрать условие 
             }
@@ -394,7 +413,7 @@ namespace Caitlyn_v1._0
             {
                 if (!fc.ItsGarage()) return false;
                 Rat.Clk(PointsAndRectangles.closesorting);//закрыть сортировку
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             } while (fc.TypeIsOpenned());//100% SorterCloser            
             Thread.Sleep(4000);
 
