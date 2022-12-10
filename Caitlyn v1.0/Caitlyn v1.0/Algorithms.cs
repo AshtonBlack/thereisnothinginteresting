@@ -238,24 +238,24 @@ namespace Caitlyn_v1._0
             {
                 case "Длинная трасса у океана":
                     x *= 2;
-                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x -= Convert.ToDouble(car.acceleration) * 100;
                     x += Convert.ToInt16(car.speed);
                     break;
                 case "Короткая трасса у океана":
                     x *= 2;
-                    x -= Convert.ToInt16(car.acceleration) * 120;
+                    x -= Convert.ToDouble(car.acceleration) * 120;
                     x += Convert.ToInt16(car.speed) / 2;
                     break;
                 case "Магистраль у океана":
                     x *= 3;
                     x += Convert.ToInt16(car.speed);
-                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x -= Convert.ToDouble(car.acceleration) * 50;
                     x += Convert.ToInt16(car.grip);
                     break;
                 case "Парковка у океана":
                 case "Пляжный слалом у океана":
                     x *= 4;
-                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x -= Convert.ToDouble(car.acceleration) * 30;
                     x += Convert.ToInt16(car.grip) * 8;
                     x -= Convert.ToInt16(car.weight);
                     break;
@@ -267,7 +267,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "Подъем на холм":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x -= Convert.ToDouble(car.acceleration) * 50;
                     if (trackInfo.ground != "Асфальт")
                     {
                         if (car.drive == "4wd") x += 200;
@@ -297,7 +297,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "50-150":
                     x *= 1;
-                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x -= Convert.ToDouble(car.acceleration) * 100;
                     x += Convert.ToInt16(car.speed) * 10;
                     if (Convert.ToInt16(car.speed) < 150)
                     {
@@ -306,7 +306,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "75-125":
                     x *= 1;
-                    x -= Convert.ToInt16(car.acceleration) * 150;
+                    x -= Convert.ToDouble(car.acceleration) * 150;
                     x += Convert.ToInt16(car.speed) * 5;
                     if (Convert.ToInt16(car.speed) < 130)
                     {
@@ -315,7 +315,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "0-100":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 200;
+                    x -= Convert.ToDouble(car.acceleration) * 200;
                     x += Convert.ToInt16(car.speed) * 2;
                     if (Convert.ToInt16(car.speed) < 105)
                     {
@@ -324,7 +324,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "0-100-0":
                     x *= 3.5;
-                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x -= Convert.ToDouble(car.acceleration) * 100;
                     x += Convert.ToInt16(car.speed) * 2;
                     if (Convert.ToInt16(car.speed) < 105)
                     {
@@ -333,22 +333,22 @@ namespace Caitlyn_v1._0
                     break;
                 case "1":
                     x *= 1.5;
-                    x -= Convert.ToInt16(car.acceleration) * 80;
+                    x -= Convert.ToDouble(car.acceleration) * 80;
                     x += Convert.ToInt16(car.speed) * 3;
                     break;
                 case "1/2":
                     x *= 2.5;
-                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x -= Convert.ToDouble(car.acceleration) * 100;
                     x += Convert.ToInt16(car.speed);
                     break;
                 case "1/4":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 120;
+                    x -= Convert.ToDouble(car.acceleration) * 120;
                     x += Convert.ToInt16(car.speed) / 2;
                     break;
                 case "0-60":
                     x *= 4;
-                    x -= Convert.ToInt16(car.acceleration) * 120;
+                    x -= Convert.ToDouble(car.acceleration) * 120;
                     if (Convert.ToInt16(car.speed) < 60)
                     {
                         x -= 2000;
@@ -357,7 +357,7 @@ namespace Caitlyn_v1._0
                 case "Токио трасса":
                 case "Трасса набережная":
                     x *= 2;
-                    x -= Convert.ToInt16(car.acceleration) * 100;
+                    x -= Convert.ToDouble(car.acceleration) * 100;
                     x += Convert.ToInt16(car.speed);
                     break;
                 case "Тестовый круг":
@@ -367,7 +367,7 @@ namespace Caitlyn_v1._0
                 case "Токио мостик":
                     x *= 3;
                     x += Convert.ToInt16(car.speed) * 3;
-                    x -= Convert.ToInt16(car.acceleration) * 6;
+                    x -= Convert.ToDouble(car.acceleration) * 6;
                     break;
                 case "Нюрбург 1":
                 case "Нюрбург 2":
@@ -380,7 +380,7 @@ namespace Caitlyn_v1._0
                 case "Токио петля":
                     x *= 2.5;
                     x += Convert.ToInt16(car.speed) * 2;
-                    x -= Convert.ToInt16(car.acceleration) * 80;
+                    x -= Convert.ToDouble(car.acceleration) * 80;
                     break;
                 case "Замерзшее озеро":
                     if (car.drive == "4wd") x += 100;
@@ -412,18 +412,18 @@ namespace Caitlyn_v1._0
                     break;
                 case "Горы извилистая дорога":
                     x *= 4;
-                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x -= Convert.ToDouble(car.acceleration) * 30;
                     x += Convert.ToInt16(car.grip) * 4;
                     break;
                 case "Горы дорога с уклоном":
                     x *= 3;
                     x += Convert.ToInt16(car.speed);
-                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x -= Convert.ToDouble(car.acceleration) * 50;
                     x += Convert.ToInt16(car.grip);
                     break;
                 case "Горы подъем на холм":
                     x *= 3;                    
-                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x -= Convert.ToDouble(car.acceleration) * 50;
                     x += Convert.ToInt16(car.grip);
                     if (trackInfo.ground != "Асфальт")
                     {
@@ -462,34 +462,34 @@ namespace Caitlyn_v1._0
                     break;
                 case "Быстрая трасса":
                     x *= 2.5;
-                    x -= Convert.ToInt16(car.acceleration) * 40;;
+                    x -= Convert.ToDouble(car.acceleration) * 40;;
                     x += Convert.ToInt16(car.speed) * 2;
                     break;
                 case "Highway":
                     x *= 2.5;
-                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x -= Convert.ToDouble(car.acceleration) * 40;
                     x += Convert.ToInt16(car.grip) * 2;
                     x += Convert.ToInt16(car.speed);
                     break;
                 case "Монако длинные городские улицы":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x -= Convert.ToDouble(car.acceleration) * 40;
                     x += Convert.ToInt16(car.speed);
                     break;
                 case "Каньон экспедиция":
                     x *= 2.5;
-                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x -= Convert.ToDouble(car.acceleration) * 30;
                     x += Convert.ToInt16(car.speed);
                     break;
                 case "Серпантин":
                 case "Монако серпантин":
                     x *= 3.5;
-                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x -= Convert.ToDouble(car.acceleration) * 50;
                     x += Convert.ToInt16(car.grip);
                     break;
                 case "Извилистая трасса":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 20;
+                    x -= Convert.ToDouble(car.acceleration) * 20;
                     x += Convert.ToInt16(car.grip) * 10;
                     break;
                 case "Токио мост":
@@ -497,63 +497,63 @@ namespace Caitlyn_v1._0
                 case "Монако городские":
                     x *= 3;
                     x += Convert.ToInt16(car.speed) * 2;
-                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x -= Convert.ToDouble(car.acceleration) * 50;
                     x += Convert.ToInt16(car.grip);
                     break;
                 case "Обзор":
                     x *= 2.5;
                     x += Convert.ToInt16(car.speed) * 2;
-                    x -= Convert.ToInt16(car.acceleration) * 50;
+                    x -= Convert.ToDouble(car.acceleration) * 50;
                     x += Convert.ToInt16(car.grip);
                     break;
                 case "Каньон грунтовая дорога":
                     x *= 2.5;
-                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x -= Convert.ToDouble(car.acceleration) * 40;
                     x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Каньон крутой холм":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x -= Convert.ToDouble(car.acceleration) * 40;
                     x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Лесная переправа":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x -= Convert.ToDouble(car.acceleration) * 40;
                     x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Ралли-кросс мал":
                 case "Ралли-кросс ср":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x -= Convert.ToDouble(car.acceleration) * 40;
                     x += Convert.ToInt16(car.grip) * 2;
                     break;
                 case "Лесная дорога":
                     x *= 3;
-                    x -= Convert.ToInt16(car.acceleration) * 20;
+                    x -= Convert.ToDouble(car.acceleration) * 20;
                     x += Convert.ToInt16(car.grip) * 10;
                     break;
                 case "Монако узкие улицы":
                     x *= 2.5;
-                    x -= Convert.ToInt16(car.acceleration) * 40;
+                    x -= Convert.ToDouble(car.acceleration) * 40;
                     x += Convert.ToInt16(car.grip) * 5;
                     x -= Convert.ToInt16(car.weight);
                     break;
                 case "Монако тест на перегрузки":
                 case "Токио тест на перегрузки":
                     x *= 4.5;
-                    x -= Convert.ToInt16(car.acceleration) * 30;
+                    x -= Convert.ToDouble(car.acceleration) * 30;
                     x += Convert.ToInt16(car.grip) * 8;
                     x -= Convert.ToInt16(car.weight);
                     break;
                 case "Трасса для картинга":
                     x *= 4.5;
-                    x -= Convert.ToInt16(car.acceleration) * 25;
+                    x -= Convert.ToDouble(car.acceleration) * 25;
                     x += Convert.ToInt16(car.grip) * 10;
                     x -= Convert.ToInt16(car.weight);
                     break;
                 case "Парковка":
                     x *= 5;
-                    x -= Convert.ToInt16(car.acceleration) * 20;
+                    x -= Convert.ToDouble(car.acceleration) * 20;
                     x += Convert.ToInt16(car.grip) * 10;
                     x -= Convert.ToInt16(car.weight) * 2;
                     break;
@@ -564,7 +564,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "Закрытый картинг":
                     x *= 5;
-                    x -= Convert.ToInt16(car.acceleration) * 10;
+                    x -= Convert.ToDouble(car.acceleration) * 10;
                     x += Convert.ToInt16(car.grip) * 15;
                     x -= Convert.ToInt16(car.weight) * 3;
                     break;
@@ -580,7 +580,7 @@ namespace Caitlyn_v1._0
                     break;
                 case "Перегрузка":
                     x *= 5;
-                    x -= Convert.ToInt16(car.acceleration) * 10;
+                    x -= Convert.ToDouble(car.acceleration) * 10;
                     x += Convert.ToInt16(car.grip) * 15;
                     x -= Convert.ToInt16(car.weight) * 2;
                     break;
