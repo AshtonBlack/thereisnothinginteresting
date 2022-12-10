@@ -52,7 +52,7 @@ namespace Caitlyn_v1._0
             tracksInfo[3] = new TrackInfo("Асфальт", "Дождь", "Слалом");
             tracksInfo[4] = new TrackInfo("Асфальт", "Дождь", "Магистраль у океана");
             Condition.setPreviousTracks(tracksInfo);
-            CarsDB.MakeCondAuto("передний привод", "empty");
+            Condition.MakeCondition("передний привод", "empty");
             HandMaking hm = new HandMaking();
             //hm.ChooseCars();
             hm.MakingHand1();

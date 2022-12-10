@@ -46,13 +46,13 @@ namespace Caitlyn_v1._0
             fulltablearray.Reverse();
             cashSR();
         }
-        public static void MakeCondAuto(string firstCond, string secondCond)
+        public static void MakeCondAuto()
         {
             int carsAvailable = 0;
             Condition.selectedCars = new List<CarForExcel>();
             foreach (CarForExcel car in fulltablearray)
             {
-                if (car.amount > 0 && SatisfyCondition(firstCond, car) && SatisfyCondition(secondCond, car))
+                if (car.amount > 0 && SatisfyCondition(Condition.ConditionNumber1, car) && SatisfyCondition(Condition.ConditionNumber1, car))
                 {
                     car.inUse = 0;
                     Condition.selectedCars.Add(car);

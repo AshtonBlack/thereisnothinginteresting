@@ -7,7 +7,6 @@ namespace Caitlyn_v1._0
 {
     class ChooseEvent
     {
-        int accountLVL = Condition.accountLVL;
         FastCheck fc = new FastCheck();
         string RQPath = @"RQ\test";
         public void ChooseNormalEvent()
@@ -91,12 +90,10 @@ namespace Caitlyn_v1._0
             {
                 eventIsOK = true;
                 Condition.MakeCondition(cond1, cond2);
-                //NotePad.DoLog("Максимальное рк для события " + Condition.maxrq);
-                //NotePad.DoLog("Минимальное рк для события " + Condition.minrq);
                 if (GotRQ() && (Condition.minRQ != 0))
                 {
                     NotePad.DoLog("Требуемое рк для события " + Condition.eventRQ);
-                    if (Condition.minRQ > Condition.eventRQ || Condition.minRQ > accountLVL)
+                    if (Condition.minRQ > Condition.eventRQ)
                     {
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
                         eventIsOK = false;
@@ -170,7 +167,7 @@ namespace Caitlyn_v1._0
                     {
                         Condition.eventRQ = i;
                         NotePad.DoLog("рк =  " + Condition.eventRQ);
-                        if (Condition.eventRQ < 100) return false; else return true;//temporary
+                        if (Condition.eventRQ < 95) return false; else return true;//temporary
                     }
                 }
             }

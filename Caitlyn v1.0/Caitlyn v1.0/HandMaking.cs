@@ -10,7 +10,7 @@ namespace Caitlyn_v1._0
         bool eventIsNotEnd = true;
         public CarForExcel[] ChooseCars()
         {
-            CarsDB.MakeCondAuto(Condition.ConditionNumber1, Condition.ConditionNumber2);//для очистки параметра inUse
+            CarsDB.MakeCondAuto();//для очистки параметра inUse
             List<CarForExcel>[] carsForEveryFinger = new List<CarForExcel>[5];
             for (int finger = 0; finger < 5; finger++)
             {
@@ -58,7 +58,6 @@ namespace Caitlyn_v1._0
                 {
                     randomFinger = r.Next(0, 5);
                 } while (fingerCarNumber[randomFinger] == carsForEveryFinger[randomFinger].Count - 1);
-                NotePad.DoLog("search vehicle for " + randomFinger);//debug
 
                 int nextCarNumber = fingerCarNumber[randomFinger] + 1;
                 CarForExcel targetCar = carsForEveryFinger[randomFinger][nextCarNumber];
@@ -76,7 +75,7 @@ namespace Caitlyn_v1._0
                         handrq += RoundRQAccordingToClass(carsForEveryFinger[slot][fingerCarNumber[slot]].rarity);
                     }
                 }
-                NotePad.DoLog("RQ = " + handrq);//debug
+                //NotePad.DoLog("RQ = " + handrq);//debug
             }//сборка руки
             NotePad.DoLog("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
             
@@ -336,7 +335,9 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             //TODO choose country
             Rat.DragnDropSlow(PointsAndRectangles.filterEndStart, PointsAndRectangles.filterEndFinish, 8);//legacy
+            Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.others);
+            Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс
             int timer = 0;
             do

@@ -20,21 +20,14 @@ namespace Caitlyn_v1._0
         {
             previousTracks = trackInfo;
         }
-        public static int accountLVL = 500;
-        public static int actualRQ { get; set; }
         public static string ConditionNumber1 { get; set; }
         public static string ConditionNumber2 { get; set; }
-        static Condition() { }        
-        public static void ActualRQ()
-        {
-            actualRQ = eventRQ;
-            if (actualRQ > accountLVL) actualRQ = accountLVL;
-        }
+        static Condition() { }  
         public static void MakeCondition(string number1, string number2)
         {
             ConditionNumber1 = number1;
             ConditionNumber2 = number2;
-            CarsDB.MakeCondAuto(ConditionNumber1, ConditionNumber2);
+            CarsDB.MakeCondAuto();
             NotePad.DoLog("Условия сформированы");
         }
     }
