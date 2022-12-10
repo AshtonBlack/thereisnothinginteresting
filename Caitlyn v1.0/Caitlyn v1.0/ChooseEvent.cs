@@ -23,6 +23,7 @@ namespace Caitlyn_v1._0
                 NotePad.DoLog("вхожу в активный эвент");
                 Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter
                 string[] conds = NotePad.ReadConditions();
+                Condition.setDefaultTracks();
                 Condition.eventRQ = NotePad.ReadRQ();
                 Condition.MakeCondition(conds[0], conds[1]);
             }
