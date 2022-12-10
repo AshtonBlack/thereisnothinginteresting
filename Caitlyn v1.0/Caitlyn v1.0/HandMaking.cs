@@ -37,9 +37,10 @@ namespace Caitlyn_v1._0
             for (int finger = 0; finger < 5; finger++)
             {
                 //handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);
-                handrq += RoundRQAccordingToClass(carsForEveryFinger[finger][fingerCarNumber[finger]].rarity);
+                handrq += RoundRQAccordingToClass(carsForEveryFinger[finger][fingerCarNumber[finger]].rarity);                
             }
-            
+            NotePad.DoLog("rq максимальных авто: " + handrq);//debug
+
             int randomFinger;
             Random r = new Random();
             while (Condition.eventRQ - handrq < 0)
@@ -65,7 +66,7 @@ namespace Caitlyn_v1._0
                         handrq += RoundRQAccordingToClass(carsForEveryFinger[slot][fingerCarNumber[slot]].rarity);
                     }
                 }
-                //NotePad.DoLog("RQ = " + handrq);//debug
+                NotePad.DoLog("RQ = " + handrq);//debug
             }//сборка руки
             NotePad.DoLog("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
             

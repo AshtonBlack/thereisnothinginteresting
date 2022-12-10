@@ -14,6 +14,7 @@ namespace Caitlyn_v1._0
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             Navigation navigation = new Navigation();
             navigation.ToClubMap();
             navigation.InClubs();            
@@ -28,7 +29,7 @@ namespace Caitlyn_v1._0
             NotePad.ClearLog();
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
-            Condition.eventRQ = 350;
+            Condition.eventRQ = 115;
             /*
             TrackInfo testTrack = new TrackInfo();
             testTrack.weather = "Дождь";
@@ -45,13 +46,13 @@ namespace Caitlyn_v1._0
             //Condition.setDefaultTracks();
 
             TrackInfo[] tracksInfo = new TrackInfo[5];
-            tracksInfo[0] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
-            tracksInfo[1] = new TrackInfo("Асфальт", "Дождь", "1/2");
-            tracksInfo[2] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
-            tracksInfo[3] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
-            tracksInfo[4] = new TrackInfo("Грунт", "Дождь", "Подъем на холм");
+            tracksInfo[0] = new TrackInfo("Асфальт", "Дождь", "Городские улицы у океана");
+            tracksInfo[1] = new TrackInfo("Асфальт", "Дождь", "Короткая трасса у океана");
+            tracksInfo[2] = new TrackInfo("Асфальт", "Дождь", "Быстрая трасса");
+            tracksInfo[3] = new TrackInfo("Асфальт", "Дождь", "Слалом");
+            tracksInfo[4] = new TrackInfo("Асфальт", "Дождь", "Магистраль у океана");
             Condition.setPreviousTracks(tracksInfo);
-            CarsDB.MakeCondAuto("икона стиля", "empty");
+            CarsDB.MakeCondAuto("передний привод", "empty");
             HandMaking hm = new HandMaking();
             //hm.ChooseCars();
             hm.MakingHand1();

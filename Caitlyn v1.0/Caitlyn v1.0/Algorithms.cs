@@ -22,16 +22,16 @@ namespace Caitlyn_v1._0
                             x += 0;
                             break;
                         case "per":
-                            x += 100;
-                            break;
-                        case "std":
                             x += 300;
                             break;
+                        case "std":
+                            x += 500;
+                            break;
                         case "all":
-                            x += 150;
+                            x += 350;
                             break;
                         case "off":
-                            x += 30;
+                            x += 50;
                             break;
                     }
                     break;
