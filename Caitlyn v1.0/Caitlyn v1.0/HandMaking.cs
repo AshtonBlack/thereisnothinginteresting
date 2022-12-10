@@ -451,7 +451,7 @@ namespace Caitlyn_v1._0
                 PointsAndRectangles.GarageSlot8 };
             int drag = 0; //сдвиги            
             int garageSlot = 0; //слот гаража
-            int handSlot = 0; //слот руки, uhl использованные слоты в предыдущем подборе
+            int handSlot = 0;
             int neededcars = n;
 
             while (n > 0)
