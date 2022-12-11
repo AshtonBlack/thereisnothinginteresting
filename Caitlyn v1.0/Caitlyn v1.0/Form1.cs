@@ -17,8 +17,8 @@ namespace Caitlyn_v1._0
             
             Navigation navigation = new Navigation();
             navigation.ToClubMap();
-            navigation.InClubs();            
-            //ToDelete
+            navigation.InClubs();
+
             /*
             MyTest();
             Application.Exit();
@@ -29,7 +29,7 @@ namespace Caitlyn_v1._0
             NotePad.ClearLog();
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
-            Condition.eventRQ = 250;
+            Condition.eventRQ = 150;
             /*
             TrackInfo testTrack = new TrackInfo();
             testTrack.weather = "Дождь";
@@ -54,7 +54,7 @@ namespace Caitlyn_v1._0
             Condition.setPreviousTracks(tracksInfo);
 
             //Condition.MakeCondition("икона стиля", "empty");
-            Condition.MakeCondition("передний привод", "empty");
+            Condition.MakeCondition("бензиновые машины", "empty");
             HandMaking hm = new HandMaking();
             hm.MakingHand1();
         }
