@@ -36,6 +36,7 @@ namespace botDBUpdater
             for (int i = 0; i < rows; i++)
             {
                 Car car = new Car();
+                car.pictureId = fulltable[i + 1, 1].ToString();
                 car.country = fulltable[i + 1, 4].ToString();
                 car.manufacturer = fulltable[i + 1, 5].ToString();
                 car.model = fulltable[i + 1, 6].ToString();

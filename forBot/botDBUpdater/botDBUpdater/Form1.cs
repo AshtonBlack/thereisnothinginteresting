@@ -17,8 +17,7 @@ namespace botDBUpdater
         List<Car> fulltablearray { get; set; }        
         string excelFilePath = @"C:\projects\bot\cars.xlsx";
         string cashCarsPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt";
-        string pictureToCarPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\PictureToCar.txt";
-        string Finger1 = @"C:\Bot\";
+        string originalPicturesPath = @"C:\Bot\png_cards_archive\";
         void FullTable()
         {
             fulltablearray = ExcelParcer.Parse(excelFilePath);
@@ -117,6 +116,7 @@ namespace botDBUpdater
                 if (wantedcar == thecar)
                 {
                     label52.Text = car.amount.ToString();
+                    pictureBox1.Image = Image.FromFile(originalPicturesPath + car.pictureId + ".png");
                     break;
                 }
             }
@@ -184,29 +184,7 @@ namespace botDBUpdater
         void Form1_Load(object sender, EventArgs e)
         {
 
-        }
-        void PictureToNameTable()
-        {
-            using (StreamReader sr = new StreamReader(pictureToCarPath, System.Text.Encoding.Default))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null && line != " " && line != "")
-                {
-                    string carname = GetWordFromText(line, 2);
-                    int pictureNumber = Convert.ToInt32(GetWordFromText(line, 1));
-
-                    foreach (Car car in fulltablearray)
-                    {
-                        if (car.fullname() == carname)
-                        {
-                            fulltablearray.Find(thecar => thecar.fullname() == carname).pictureNumber = pictureNumber;
-                            break;
-                        }
-                    }
-                }
-                sr.Close();
-            }
-        }        
+        }   
         string GetWordFromText(string line, int wordN)
         {
             char[] word = line.Trim().ToCharArray();
@@ -241,54 +219,6 @@ namespace botDBUpdater
                 return new string(secondword);
             }
         }
-        void PictureToNameTableAdd()
-        {
-            string thecar = comboBox2.Text + " " + comboBox3.Text;
-            using (StreamWriter sw = new StreamWriter(pictureToCarPath, true, System.Text.Encoding.Default))
-            {
-                sw.WriteLine(textBox1.Text + " " + thecar);
-                sw.Close();
-            }
-            PictureToNameTable();
-            textBox1.Text = (Convert.ToInt32(textBox1.Text) + 1).ToString();
-        }          
-        void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            string path = Finger1;
-            //string path = @"C:\projects\bot\thereisnothinginteresting\Finger1\";
-            string ending = ".jpg";
-            if(File.Exists(path + textBox1.Text + ending))
-            {
-                pictureBox1.Image = Image.FromFile(path + textBox1.Text + ending);
-            }
-            else
-            {
-                pictureBox1.Image = null;
-            }
-
-            comboBox1.Text = "";
-            comboBox2.Text = "";
-            comboBox3.Text = "";
-
-            if (textBox1.Text != "")
-            {
-                int pictureNumber = Convert.ToInt32(textBox1.Text);
-                foreach (Car car in fulltablearray)
-                {
-                    if (pictureNumber == car.pictureNumber)
-                    {
-                        comboBox1.Text = car.country;
-                        comboBox2.Text = car.manufacturer;
-                        comboBox3.Text = car.model + " " + car.year;
-                        break;
-                    }
-                }
-            }            
-        }
-        void button2_Click(object sender, EventArgs e)
-        {            
-            PictureToNameTableAdd();
-        }
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -310,17 +240,6 @@ namespace botDBUpdater
             FullTable();
             comboBox1.Items.AddRange(CollectCountries());
             label18.Text = cashCarsPath;
-        }
-        private void button11_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = @"C:\";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                pictureToCarPath = openFileDialog.FileName;
-            }
-            PictureToNameTable();
-            label19.Text = pictureToCarPath;
         }
 
         //From bot.v.0.07 ====================================================
@@ -640,17 +559,6 @@ namespace botDBUpdater
                 picture.Dispose();
                 return result;
             }            
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                Finger1 = folderBrowserDialog.SelectedPath + @"\";
-            }
-            label2.Text = Finger1;
         }
     }
 }

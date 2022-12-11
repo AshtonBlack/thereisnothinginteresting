@@ -34,10 +34,12 @@ D:\bot\thereisnothinginteresting\forBot\botDBUpdater\botDBUpdater\obj\Debug\botD
 C:\Bot\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe.config
 C:\Bot\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.exe
 C:\Bot\forBot\botDBUpdater\botDBUpdater\bin\Debug\botDBUpdater.pdb
-C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csprojAssemblyReference.cache
 C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.ResolveComReference.cache
 C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Form1.resources
 C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.Properties.Resources.resources
 C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.GenerateResource.cache
 C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.exe
 C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.pdb
+C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.AssemblyReference.cache
+C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.SuggestedBindingRedirects.cache
+C:\Bot\forBot\botDBUpdater\botDBUpdater\obj\Debug\botDBUpdater.csproj.CoreCompileInputs.cache
