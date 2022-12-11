@@ -525,6 +525,29 @@ namespace Caitlyn_v1._0
                     x += Convert.ToInt16(car.speed) * 3; 
                     switch (trackInfo.ground)
                     {
+                        case "Асфальт":
+                            if (trackInfo.weather == "Дождь")
+                            {
+                                switch (car.tires)
+                                {
+                                    case "slick":
+                                        x += 0;
+                                        break;
+                                    case "per":
+                                        x += 300;
+                                        break;
+                                    case "std":
+                                        x += 300;
+                                        break;
+                                    case "all":
+                                        x += 300;
+                                        break;
+                                    case "off":
+                                        x += 100;
+                                        break;
+                                }
+                            }
+                            break;
                         case "Гравий":
                         case "Грунт":
                             switch (trackInfo.weather)
@@ -650,6 +673,29 @@ namespace Caitlyn_v1._0
                     x += Convert.ToInt16(car.speed) * 2;
                     switch (trackInfo.ground)
                     {
+                        case "Асфальт":
+                            if (trackInfo.weather == "Дождь")
+                            {
+                                switch (car.tires)
+                                {
+                                    case "slick":
+                                        x += 0;
+                                        break;
+                                    case "per":
+                                        x += 300;
+                                        break;
+                                    case "std":
+                                        x += 300;
+                                        break;
+                                    case "all":
+                                        x += 300;
+                                        break;
+                                    case "off":
+                                        x += 100;
+                                        break;
+                                }
+                            }
+                            break;
                         case "Гравий":
                         case "Грунт":
                             switch (trackInfo.weather)
@@ -766,6 +812,27 @@ namespace Caitlyn_v1._0
                     break;
                 case "Тестовый круг":
                     x += Convert.ToInt16(car.speed) * 5;
+                    if (trackInfo.ground != "Асфальт" || trackInfo.weather == "Дождь")
+                    {
+                        switch (car.tires)
+                        {
+                            case "slick":
+                                x += 0;
+                                break;
+                            case "per":
+                                x += 300;
+                                break;
+                            case "std":
+                                x += 300;
+                                break;
+                            case "all":
+                                x += 300;
+                                break;
+                            case "off":
+                                x += 100;
+                                break;
+                        }
+                    }
                     break;
                 case "Нюрбург 1":
                 case "Нюрбург 2":
