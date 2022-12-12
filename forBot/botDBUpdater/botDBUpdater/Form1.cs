@@ -18,6 +18,7 @@ namespace botDBUpdater
         string excelFilePath = @"C:\projects\bot\cars.xlsx";
         string cashCarsPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt";
         string originalPicturesPath = @"C:\Bot\png_cards_archive\";
+        string pictureForChange;
         void FullTable()
         {
             fulltablearray = ExcelParcer.Parse(excelFilePath);
@@ -387,7 +388,79 @@ namespace botDBUpdater
             }
         }
         public class DevKit
-        { 
+        {
+            public Image ZoomImage(Image orig, float percent)
+            {
+                Bitmap scaledImage;
+                /// Ширина и высота результирующего изображения
+                float w = orig.Width * percent / 100,
+                    h = orig.Height * percent / 100;
+                scaledImage = new Bitmap((int)w, (int)h);
+                /// DPI результирующего изображения
+                scaledImage.SetResolution(orig.HorizontalResolution, orig.VerticalResolution);
+                /// Часть исходного изображения, для которой меняем масштаб.
+                /// В данном случае — всё изображение
+                Rectangle src = new Rectangle(0, 0, orig.Width, orig.Height);
+                /// Часть изображения, которую будем рисовать
+                /// В данном случае — всё изображение
+                RectangleF dest = new RectangleF(0, 0, w, h);
+                /// Прорисовка с изменённым масштабом
+                using (Graphics g = Graphics.FromImage(scaledImage))
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(orig, dest, src, GraphicsUnit.Pixel);
+                }
+                return scaledImage;
+            }
+            public Image ZoomImage(Image orig)
+            {
+                Bitmap scaledImage;
+                /// Ширина и высота результирующего изображения
+                int w = 512;
+                int h = 318;
+                scaledImage = new Bitmap(w, h);
+                /// DPI результирующего изображения
+                scaledImage.SetResolution(orig.HorizontalResolution, orig.VerticalResolution);
+                /// Часть исходного изображения, для которой меняем масштаб.
+                /// В данном случае — всё изображение
+                Rectangle src = new Rectangle(0, 0, orig.Width, orig.Height);
+                /// Часть изображения, которую будем рисовать
+                /// В данном случае — всё изображение
+                RectangleF dest = new RectangleF(0, 0, w, h);
+                /// Прорисовка с изменённым масштабом
+                using (Graphics g = Graphics.FromImage(scaledImage))
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(orig, dest, src, GraphicsUnit.Pixel);
+                }
+                return scaledImage;
+            }
+            public void ChageColorDepth(Bitmap originalImage, string pathForResult, int depth)
+            {
+                ImageCodecInfo myImageCodecInfo;
+                Encoder myEncoder;
+                EncoderParameter myEncoderParameter;
+                EncoderParameters myEncoderParameters;
+                myImageCodecInfo = GetEncoderInfo("image/tiff");
+                myEncoder = Encoder.ColorDepth;
+                myEncoderParameters = new EncoderParameters(1);
+                myEncoderParameter = new EncoderParameter(myEncoder, depth);
+                myEncoderParameters.Param[0] = myEncoderParameter;
+                originalImage.Save(pathForResult, myImageCodecInfo, myEncoderParameters);
+            }
+            public ImageCodecInfo GetEncoderInfo(string mimeType)
+            {
+                int j = 0;
+                ImageCodecInfo[] encoders;
+                encoders = ImageCodecInfo.GetImageEncoders();
+                while (j < encoders.Length)
+                {
+                    if (encoders[j].MimeType == mimeType)
+                    { return encoders[j]; }
+                    j++;
+                }
+                return null;
+            }
             public void BestPiece()
             {
                 Bitmap picture = new Bitmap("C:\\Bot\\testcars1\\test1.jpg");
@@ -559,6 +632,29 @@ namespace botDBUpdater
                 picture.Dispose();
                 return result;
             }            
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = @"C:\";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                pictureForChange = openFileDialog.FileName;
+            }
+            label1.Text = pictureForChange;
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            DevKit dk = new DevKit();
+            Bitmap originalPhoto = new Bitmap(pictureForChange);
+            Bitmap scalableOriginalPhoto = new Bitmap(dk.ZoomImage(originalPhoto));
+            originalPhoto.Dispose();
+            string originalFileName = Path.GetFileNameWithoutExtension(pictureForChange);
+            string originalFilePath = Path.GetDirectoryName(pictureForChange);
+            string originalFileExtension = Path.GetExtension(pictureForChange);
+            File.Move(pictureForChange, originalFilePath + "\\" + originalFileName + ".old" + originalFileExtension);
+            dk.ChageColorDepth(scalableOriginalPhoto, pictureForChange, 24);
+            scalableOriginalPhoto.Dispose();
         }
     }
 }

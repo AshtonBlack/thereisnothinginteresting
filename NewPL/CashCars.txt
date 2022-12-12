@@ -244,9 +244,9 @@
 1 Audi S2 Coupe 1993
 0 Audi RS 6 Avant (delimited) 2013
 1 Audi RS 7 Sportback 2015
-0 Audi S8 plus 2016
+1 Audi S8 plus 2016
 0 Audi RS 3 Sportback 2015
-0 Audi TT RS plus Coupe 2010
+1 Audi TT RS plus Coupe 2010
 0 Audi SQ5 2015
 0 Audi RS 6 plus 2004
 0 Audi TTS Coupe 2015
@@ -261,12 +261,12 @@
 1 Audi S4 2004
 0 Audi S3 2006
 0 Audi R8 Coupe V10 plus 2015
-0 Audi Sport quattro S1 1985
+1 Audi Sport quattro S1 1985
 0 Audi R8 Spyder V10 2013
 0 Audi Cabriolet 2.3 1991
 0 Audi Coup? GT 5E (B2) 1983
 0 Audi A2 1.4 1999
-0 Audi TT 2.0 TDI (FV) 2015
+1 Audi TT 2.0 TDI (FV) 2015
 0 Audi A3 Saloon 1.8 TFSI (8V) 2013
 0 Audi A4 1.8T (B5) 1995
 0 Audi 200 quattro (C3) 1985
@@ -274,34 +274,34 @@
 0 Audi A1 1.4 TFSI (8X) 2010
 0 Audi 100 Avant quattro (C3) 1982
 0 Audi A1 30 TFSI (GB) 2018
-0 Audi TT 225 quattro (8N) 1998
-0 Audi TT Roadster 3.2 quattro (8N) 2003
-0 Audi A4 DTM Edition (B7) 2005
-0 Audi quattro 1983
-0 Audi 100 2.8 quattro (C4) 1990
-0 Audi A6 Saloon 40 TDI (C8) 2018
-0 Audi A6 Avant 40 TDI (C8) 2018
-0 Audi 80 1.8 E quattro (B3) 1987
-0 Audi A4 2.0 TFSI (B8) 2008
-0 Audi A1 quattro 2012
+1 Audi TT 225 quattro (8N) 1998
+1 Audi TT Roadster 3.2 quattro (8N) 2003
+1 Audi A4 DTM Edition (B7) 2005
+1 Audi quattro 1983
+1 Audi 100 2.8 quattro (C4) 1990
+1 Audi A6 Saloon 40 TDI (C8) 2018
+1 Audi A6 Avant 40 TDI (C8) 2018
+1 Audi 80 1.8 E quattro (B3) 1987
+1 Audi A4 2.0 TFSI (B8) 2008
+1 Audi A1 quattro 2012
 0 Audi S5 Cabriolet (B8) 2013
-0 Audi Q5 3.0 TDI (8R) 2008
-0 Audi A6 allroad quattro 2018
+1 Audi Q5 3.0 TDI (8R) 2008
+1 Audi A6 allroad quattro 2018
 0 Audi S4 Avant (B5) 1998
 0 Audi V8 quattro 4.2 (4C) 1992
 0 Audi Q2 2.0 TDI quattro 2018
-0 Audi S4 Cabriolet (B6) 2004
+1 Audi S4 Cabriolet (B6) 2004
 0 Audi S4 Cabriolet (B7) 2006
 0 Audi Q3 2018
-0 Audi S3 (8L) 1999
+1 Audi S3 (8L) 1999
 0 Audi S6 Plus (C4) 1997
-0 Audi V8 quattro 3.6 (4C) 1988
+1 Audi V8 quattro 3.6 (4C) 1988
 0 Audi A4 1.8T quattro Sport (B5) 1996
 0 Audi S6 Avant (C5) 2003
 0 Audi TT 3.2 quattro (8N) 2003
 0 Audi A7 Sportback 55 TFSI quattro 2018
 0 Audi R8 4.2 quattro 2008
-0 Audi R8 RWD 2020
+1 Audi R8 RWD 2020
 0 Audi RS5 (B8) 2013
 0 Audi SQ8 TDI 2019
 0 Audi SQ7 TDI 2018
@@ -312,10 +312,10 @@
 0 Audi S3 Sportback (8V) 2014
 0 Audi Sport quattro 1984
 0 Audi A8 50 TDI (D5) 2018
-0 Audi RS3 LMS TCR (8V) 2018
+1 Audi RS3 LMS TCR (8V) 2018
 0 Audi S5 Sportback TDI (B9.5) 2019
 0 Audi S5 Sportback (B8) 2013
-0 Audi SQ2 2019
+1 Audi SQ2 2019
 0 Audi S4 (B7) 2006
 0 Audi S6 TDI (C8) 2019
 0 Audi e-tron 2018
@@ -338,11 +338,11 @@
 0 Audi A3 Cabriolet (8V) 2018
 0 Audi 80 2.2 quattro (B2) 1983
 0 Audi 90 quattro 2.3 20V (B2) 1989
-0 Audi 100 S4 (C4) 1991
-0 Audi S8 (D2) 1997
-0 Audi A1 40 TFSI (GB) 2018
-0 Audi 90 quattro 2.2 (B2) 1984
-0 Audi Q7 3.0 TDI 2018
+1 Audi 100 S4 (C4) 1991
+1 Audi S8 (D2) 1997
+1 Audi A1 40 TFSI (GB) 2018
+1 Audi 90 quattro 2.2 (B2) 1984
+1 Audi Q7 3.0 TDI 2018
 0 Audi allroad quattro 4.2 (C5) 2000
 0 Audi Q5 2.0 TDI 2018
 0 Audi A3 Saloon 2.0 TDI quattro (8V) 2018
@@ -375,9 +375,9 @@
 0 Audi A8 L W12 6.3FSI quattro (D4) 2012
 0 Audi R8 5.2 FSI quattro 2010
 0 Audi R8 RWS 2018
-0 BMW 728i 1977
+1 BMW 728i 1977
 1 BMW Z3 2.2i 2000
-0 BMW 325i Convertible 1982
+1 BMW 325i Convertible 1982
 1 BMW 2002 turbo 1973
 0 BMW Z1 1989
 1 BMW 730d 2008
@@ -393,7 +393,7 @@
 1 BMW M3 1986
 1 BMW M5 1998
 1 BMW M Coupe 1998
-0 BMW Z8 2000
+1 BMW Z8 2000
 1 BMW 640d 2016
 1 BMW M3 2001
 1 BMW 530d 2004
@@ -402,17 +402,17 @@
 1 BMW 540i 1993
 1 BMW 530i 1996
 1 BMW M5 1994
-2 BMW X3 xDrive 28d 2016
+1 BMW X3 xDrive 28d 2016
 0 BMW M3 GTS 2010
-0 BMW M4 2016
+1 BMW M4 2016
 1 BMW X5 M50d 2016
 1 BMW M3 CRT 2011
 2 BMW M6 2016
-0 BMW M6 Gran Coupe 2016
-0 BMW 740d 2016
+1 BMW M6 Gran Coupe 2016
+2 BMW 740d 2016
 0 BMW 1-series M coupe 2011
 0 BMW M3 2008
-0 BMW M5 2016
+1 BMW M5 2016
 0 BMW M5 2004
 0 BMW 335d 2016
 1 BMW M135i 2012
@@ -427,16 +427,16 @@
 0 BMW Isetta 250 1955
 0 BMW 116d 2015
 0 BMW 730i 1986
-0 BMW 320d Touring 2010
-0 BMW 323i 1995
-0 BMW 325iX 1988
+1 BMW 320d Touring 2010
+1 BMW 323i 1995
+1 BMW 325iX 1988
 1 BMW 220d Active Tourer 2018
-0 BMW 525iX 1991
-0 BMW i3 S 2018
+1 BMW 525iX 1991
+1 BMW i3 S 2018
 0 BMW X1 2010
 0 BMW Z4 sDrive18i 2013
-0 BMW 320Si 2005
-0 BMW 635CSi 1980
+1 BMW 320Si 2005
+1 BMW 635CSi 1980
 1 BMW i3 2013
 1 BMW 220d xDrive Gran Tourer 2018
 1 BMW 750iL 1995
@@ -444,19 +444,19 @@
 1 BMW 850CSi 1992
 1 BMW 123d 2007
 1 BMW 325i Convertible 2009
-0 BMW 330i 2000
+1 BMW 330i 2000
 1 BMW 520d Touring 2017
 1 BMW 520d Touring 2012
 1 BMW 330d Touring 2014
-1 BMW 440i 2018
+2 BMW 440i 2018
 1 BMW 640i xDrive 2014
-2 BMW M6 Convertible 2006
+1 BMW M6 Convertible 2006
 1 BMW X1 2017
 1 BMW X6 2012
 1 BMW 535d Touring 2009
 1 BMW 650i Convertible 2012
 1 BMW X3 2006
-0 BMW X5 2008
+1 BMW X5 2008
 1 BMW Z4M Coupe 2006
 1 BMW 130i 2007
 1 BMW 328i Gran Turismo 2014
@@ -467,16 +467,16 @@
 1 BMW 135i Convertible 2008
 1 BMW 330d 2005
 1 BMW 330e 2016
-2 BMW 435i Gran Coupe 2014
+1 BMW 435i Gran Coupe 2014
 1 BMW 540i 1996
 1 BMW 645ci 2003
-0 BMW 650i Convertible 2005
-2 BMW H2R 2004
+1 BMW 650i Convertible 2005
+1 BMW H2R 2004
 1 BMW X5 4.4i 2000
 1 BMW 750d xDrive 2013
 0 BMW M3 CS 2018
 0 BMW M3 GTR 2001
-0 BMW M760Li xDrive V12 2017
+1 BMW M760Li xDrive V12 2017
 0 BMW M850i xDrive Convertible 2019
 2 BMW X3 M40i 2018
 0 BMW X6 50i 2015
@@ -485,7 +485,7 @@
 0 BMW i8 Roadster 2018
 1 BMW M1 Procar Group 4 1979
 0 BMW M2 Competition (delimited) 2019
-2 BMW 750Li 2009
+1 BMW 750Li 2009
 0 BMW M140i 2017
 1 BMW M2 (delimited) 2016
 1 BMW M240i 2017
@@ -499,7 +499,7 @@
 0 BMW X2 2018
 0 BMW M5 2018
 0 BMW M5 Competition (delimited) 2018
-0 BMW 640i xDrive Gran Turismo 2017
+1 BMW 640i xDrive Gran Turismo 2017
 0 BMW M8 GTE 2018
 0 BMW X6 M 2009
 0 BMW M4 GTS 2016
@@ -509,17 +509,17 @@
 0 BMW 530 MLE 1976
 0 BMW 528i 1981
 0 BMW 333i 1985
-0 BMW 525i 2000
+1 BMW 525i 2000
 0 BMW 530d 2000
-0 BMW 220d Gran Coupe 2019
+1 BMW 220d Gran Coupe 2019
 0 BMW 220i Gran Coupe 2019
 0 BMW 430i Convertible 2020
-0 BMW 523i 1996
+1 BMW 523i 1996
 0 BMW 635d 2006
 0 BMW 740i 1992
 0 BMW iX3 Premier Edition 2021
 0 BMW X5 3.0d 2001
-0 BMW Z4 sDrive20i 2019
+1 BMW Z4 sDrive20i 2019
 0 BMW 530e Saloon 2020
 0 BMW 760i 2002
 0 BMW M235i xDrive Gran Coupe 2019
@@ -534,7 +534,7 @@
 0 BMW 550i 2005
 0 BMW 430i Coupe 2020
 0 BMW 128ti 2020
-0 BMW 320d Touring 2019
+1 BMW 320d Touring 2019
 0 BMW 320i Touring 2019
 0 BMW Z4 sDrive30i 2019
 0 BMW 330d xDrive Touring 2019
@@ -2085,7 +2085,7 @@
 0 Austin Maxi 1969
 0 Austin Healey Sprite 1958
 1 Bentley Mulsanne S 1987
-0 Bentley Brooklands 1992
+1 Bentley Brooklands 1992
 0 Bentley Arnage 1999
 0 Bentley Azure 1995
 1 Bentley Mulsanne Turbo 1983
@@ -2095,15 +2095,15 @@
 1 Bentley Continental T 1999
 1 Bentley Continental R 1991
 1 Bentley Mulsanne Blue Train Limited Edition 2015
-1 Bentley Mulsanne Speed 2019
+2 Bentley Mulsanne Speed 2019
 1 Bentley Brooklands 2008
 1 Bentley Mulsanne 2019
 0 Bentley Mulsanne Design Series 2017
 1 Bentley Mulsanne Grand Convertible 2014
 1 Bentley Mulsanne W.O. Edition 2018
 1 Bentley Arnage FInal Series 2009
-0 Bentley Arnage T 2007
-0 Bentley Mulsanne Extended Wheelbase 2019
+1 Bentley Arnage T 2007
+1 Bentley Mulsanne Extended Wheelbase 2019
 1 Bentley Azure T 2009
 1 Bentley Continental GT Speed Coupe 2015
 1 Bentley Continental Supersports Convertible 2011
@@ -2111,12 +2111,12 @@
 1 Bentley Bentayga Diesel 2019
 0 Bentley Continental GT 2012
 0 Bentley Continental GT V8 S 2014
-0 Bentley Flying Spur V8 S 2018
+1 Bentley Flying Spur V8 S 2018
 0 Bentley Flying Spur W12 2018
 0 Bentley The Sir Peter Blake Continental GT 2016
 1 Bentley Continental Flying Spur 2005
 1 Bentley Continental GT 2006
-0 Bentley Continental GT 2003
+1 Bentley Continental GT 2003
 0 Bentley Flying Spur 2018
 1 Bentley Continental 24 2017
 0 Bentley Continental GT3 2013
@@ -2128,7 +2128,7 @@
 0 Bentley Continental GT 2019
 1 Bentley Continental GT Number 9 Edition by Mulliner 2019
 0 Bentley Continental GT Pikes Peak 2019
-0 Bentley Continental GT V8 2019
+1 Bentley Continental GT V8 2019
 0 Bentley Continental GT3-R 2015
 2 Bentley Continental Supersports 2010
 0 Bentley Continental Supersports Convertible ISR 2011
