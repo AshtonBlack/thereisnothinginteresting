@@ -52,7 +52,7 @@ namespace Caitlyn_v1._0
             Condition.selectedCars = new List<CarForExcel>();
             foreach (CarForExcel car in fulltablearray)
             {
-                if (car.amount > 0 && SatisfyCondition(Condition.ConditionNumber1, car) && SatisfyCondition(Condition.ConditionNumber1, car))
+                if (car.amount > 0 && SatisfyCondition(Condition.ConditionNumber1, car) && SatisfyCondition(Condition.ConditionNumber2, car))
                 {
                     car.inUse = 0;
                     Condition.selectedCars.Add(car);
@@ -485,6 +485,7 @@ namespace Caitlyn_v1._0
                         x = true;
                     }
                     break;
+                case "porsche x3":
                 case "porsche":
                     if (car.manufacturer == "Porsche")
                     {
