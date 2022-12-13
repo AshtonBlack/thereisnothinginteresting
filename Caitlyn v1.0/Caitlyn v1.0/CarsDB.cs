@@ -79,7 +79,8 @@ namespace Caitlyn_v1._0
                 {
                     for (int j = Condition.selectedCars[i].amount; j > 0; j--)
                     {
-                        Condition.minRQ += Convert.ToInt32(Condition.selectedCars[i].rq);
+                        //Condition.minRQ += Convert.ToInt32(Condition.selectedCars[i].rq);
+                        Condition.minRQ += RoundRQAccordingToClass(Condition.selectedCars[i].rarity);
                         count++;
                         //NotePad.DoLog(Condition.selectedCars[i].fullname());//debug
                         if (count == 5)
@@ -90,6 +91,19 @@ namespace Caitlyn_v1._0
                 }
                 NotePad.DoLog("минимальное рк: " + Condition.minRQ);
             }            
+        }
+        public static int RoundRQAccordingToClass(string rarity)
+        {
+            switch (rarity)
+            {
+                case "s": return 100;
+                case "a": return 79;
+                case "b": return 64;
+                case "c": return 49;
+                case "d": return 39;
+                case "e": return 29;
+            }
+            return 19;
         }
         public static List<CarForExcel> DefinePreferedCarPull(TrackInfo trackInfo)//формирование списка машин под условие определенного трэка
         {            
@@ -896,5 +910,6 @@ namespace Caitlyn_v1._0
                 return 0;
             }
         }
+
     }
 }

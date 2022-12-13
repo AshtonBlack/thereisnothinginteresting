@@ -14,22 +14,22 @@ namespace Caitlyn_v1._0
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            /*
             Navigation navigation = new Navigation();
             navigation.ToClubMap();
             navigation.InClubs();
-
-            /*
+            */
+            
             MyTest();
             Application.Exit();
-            */
+            
         }
         void MyTest()
         {
             NotePad.ClearLog();
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
-            Condition.eventRQ = 150;
+            Condition.eventRQ = 145;
             /*
             TrackInfo testTrack = new TrackInfo();
             testTrack.weather = "Дождь";
@@ -43,8 +43,9 @@ namespace Caitlyn_v1._0
             Condition.previousTracks[4] = testTrack;
             */
 
-            //Condition.setDefaultTracks();
+            Condition.setDefaultTracks();
             
+            /*
             TrackInfo[] tracksInfo = new TrackInfo[5];
             tracksInfo[0] = new TrackInfo("Асфальт", "Дождь", "Городские улицы у океана");
             tracksInfo[1] = new TrackInfo("Асфальт", "Дождь", "Короткая трасса у океана");
@@ -52,9 +53,9 @@ namespace Caitlyn_v1._0
             tracksInfo[3] = new TrackInfo("Асфальт", "Дождь", "Слалом");
             tracksInfo[4] = new TrackInfo("Асфальт", "Дождь", "Магистраль у океана");            
             Condition.setPreviousTracks(tracksInfo);
-
+            */
             //Condition.MakeCondition("икона стиля", "empty");
-            Condition.MakeCondition("бензиновые машины", "empty");
+            Condition.MakeCondition("необычная", "empty");
             HandMaking hm = new HandMaking();
             hm.MakingHand1();
         }
