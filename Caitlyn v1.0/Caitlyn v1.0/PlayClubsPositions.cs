@@ -105,18 +105,21 @@ namespace Caitlyn_v1._0
                     if (i == 1)
                     {
                         NotePad.DoLog("Собираю пробную руку");
-                        return MakeHand();
+                        //return MakeHand();
+                        MakeHand();
                     }
                     if (i == 2)//пересборка по покрытию
                     {
                         NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
-                        return MakeHand();
+                        //return MakeHand();
+                        MakeHand();
                     }
                     Thread.Sleep(4000);
                     if (!hm.HandCarFixed() || !hm.VerifyHand())
                     {
                         NotePad.DoLog("Меняю руку");
-                        return MakeHand();
+                        //return MakeHand();
+                        MakeHand();
                     }
                 }
             } while (!hm.VerifyHand());

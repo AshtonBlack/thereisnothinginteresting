@@ -59,7 +59,6 @@ namespace Caitlyn_v1._0
                 UniversalErrorDefense();
             } while (!nextstep);
         }
-
         public void UpgradeAdsKiller()//switch off ads watching
         {
             NotePad.DoLog("Пропускаю рекламу на прокачку");
@@ -67,7 +66,6 @@ namespace Caitlyn_v1._0
             Thread.Sleep(3000);
             UniversalErrorDefense();
         }
-
         public void ActivateClubBooster()
         {
             Rat.Clk(PointsAndRectangles.clubBoosterActivation);
@@ -75,7 +73,6 @@ namespace Caitlyn_v1._0
             Rat.Clk(PointsAndRectangles.clubBoosterAcceptance);
             Thread.Sleep(3000);
         }
-
         public void DragMap()
         {
             FastCheck fc = new FastCheck();
@@ -86,7 +83,6 @@ namespace Caitlyn_v1._0
             }
             Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
         }
-
         public void RestartBot()
         {
             Rat.Clk(PointsAndRectangles.noxClosing);//close Nox
@@ -96,7 +92,6 @@ namespace Caitlyn_v1._0
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             Process.GetCurrentProcess().Kill();
         }
-
         public void CarRepair()
         {
             FastCheck fc = new FastCheck();
@@ -106,7 +101,6 @@ namespace Caitlyn_v1._0
                 RestartBot();
             }
         }
-
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();
@@ -128,7 +122,6 @@ namespace Caitlyn_v1._0
                 }
             }
         }
-
         public void ClearHand()
         {
             FastCheck fc = new FastCheck();
@@ -150,7 +143,6 @@ namespace Caitlyn_v1._0
                 }                
             }
         }
-
         public bool UnavailableEvent()
         {
             FastCheck fc = new FastCheck();
@@ -201,7 +193,6 @@ namespace Caitlyn_v1._0
             }
             return x;
         }
-
         public void MissClick()
         {
             FastCheck fc = new FastCheck();
@@ -218,7 +209,6 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(1000);
             }
         }
-
         public void AcceptDailyBounty()
         {
             FastCheck fc = new FastCheck();
@@ -253,7 +243,6 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("принял ежедневку");
             RestartBot();
         }
-
         public void CheckConnection()
         {
             FastCheck fc = new FastCheck();
@@ -263,7 +252,6 @@ namespace Caitlyn_v1._0
                 RestartBot();
             }
         }
-
         public void ToClubs()
         {
             bool needToDragMap = false;

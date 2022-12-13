@@ -272,6 +272,7 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
             Thread.Sleep(2000);
+            if (!fc.ItsGarage()) return false; 
             if (fc.AnyHandSlotIsEmpty()) return false;
             if (fc.RedReadytoRace())
             {
@@ -311,8 +312,8 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("накладываю фильтры");
             do
             {
-                //if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
-                if (!CheckForEventIsOn() || !eventIsNotEnd)
+                if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                //if (!CheckForEventIsOn() || !eventIsNotEnd)
                 {
                     return false;
                 }
@@ -383,8 +384,8 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(200);
                 do
                 {
-                    //if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
-                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                    //if (!CheckForEventIsOn() || !eventIsNotEnd)
                     {
                         return false;
                     }
@@ -403,8 +404,8 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(500);
                 do
                 {
-                    //if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
-                    if (!CheckForEventIsOn() || !eventIsNotEnd)
+                    if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())
+                    //if (!CheckForEventIsOn() || !eventIsNotEnd)
                     {
                         return false;
                     }
