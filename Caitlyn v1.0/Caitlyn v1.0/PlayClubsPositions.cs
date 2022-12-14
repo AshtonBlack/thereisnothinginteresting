@@ -85,6 +85,7 @@ namespace Caitlyn_v1._0
         }
         public bool PrepareToRace(int i)
         {
+            FastCheck fc = new FastCheck();
             SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
             NotePad.DoLog("Rq = " + Condition.eventRQ
@@ -102,23 +103,25 @@ namespace Caitlyn_v1._0
                 else
                 {
                     wronghandnumber++;
+                    if (fc.ClubMap())
+                    {
+                        NotePad.DoLog("вылетел на карту при сборе руки");
+                        return false;
+                    }
                     if (i == 1)
                     {
                         NotePad.DoLog("Собираю пробную руку");
-                        //return MakeHand();
                         MakeHand();
                     }
                     if (i == 2)//пересборка по покрытию
                     {
                         NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
-                        //return MakeHand();
                         MakeHand();
                     }
                     Thread.Sleep(4000);
                     if (!hm.HandCarFixed() || !hm.VerifyHand())
                     {
                         NotePad.DoLog("Меняю руку");
-                        //return MakeHand();
                         MakeHand();
                     }
                 }

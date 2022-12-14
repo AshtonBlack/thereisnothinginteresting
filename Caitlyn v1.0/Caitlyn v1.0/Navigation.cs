@@ -42,13 +42,17 @@ namespace Caitlyn_v1._0
             PlayClubsPositions pcp = new PlayClubsPositions();
 
             bool eventisactive = pcp.PathToGarage();
+
             if (eventisactive)
             {
                 if (!pcp.PrepareToRace(i))//набор/проверка руки
                 {
                     eventisactive = false;
                 }
+            }
 
+            if (eventisactive)
+            {
                 bool foundplace = false;
                 int waiter = 0;
                 do
@@ -72,7 +76,6 @@ namespace Caitlyn_v1._0
                     if (fc.EnemyIsReady())
                     {
                         NotePad.DoLog("Выбор противника");
-                        eventisactive = true;
                         foundplace = true;
                         Thread.Sleep(1000);
                     }
@@ -91,71 +94,71 @@ namespace Caitlyn_v1._0
                     Thread.Sleep(1000);
                     waiter++;
                 } while (!foundplace);//ожидание противника
-                
-                if (eventisactive)
+            }
+
+            if (eventisactive)
+            {
+                pcp.TimeToRace();//расстановка
+                se.EndRace();//завершение заезда
+
+                bool foundplace = false;
+                int waiter = 0;
+                do
                 {
-                    pcp.TimeToRace();//расстановка
-                    se.EndRace();//завершение заезда
+                    if (waiter == 180) se.RestartBot();
+                    se.UniversalErrorDefense();
 
-                    foundplace = false;
-                    waiter = 0;
-                    do
+                    if (fc.Upgrade())
                     {
-                        if (waiter == 180) se.RestartBot();
-                        se.UniversalErrorDefense();
-
-                        if (fc.Upgrade())
-                        {
-                            NotePad.DoLog("реклама на апгрейд");
-                            se.UpgradeAdsKiller();
-                            Thread.Sleep(1000);
-                        }
-
-                        if (fc.Ending())
-                        {
-                            NotePad.DoLog("Таблица результатов");
-                            Rat.Clk(PointsAndRectangles.passTheTableAfterRace);//Table
-                            Thread.Sleep(1000);
-                        }
-
-                        if (fc.Bounty())
-                        {
-                            NotePad.DoLog("Получил награду за эвент");
-                            Thread.Sleep(1000);
-                        }
-
-                        if (fc.EventEnds())
-                        {
-                            NotePad.DoLog("Событие закончилось");
-                            Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                        }
-
-                        if (fc.ControlScreen())
-                        {
-                            NotePad.DoLog("Нахожусь на экране контроля");
-                            foundplace = true;
-                            Thread.Sleep(1000);
-                        }
-
-                        if (fc.BugControlScreen())
-                        {
-                            Thread.Sleep(500);
-                            NotePad.DoLog("Bug with Control Screen");
-                            Rat.Clk(PointsAndRectangles.backToClubMap);//Back
-                            Thread.Sleep(1000);
-                        }
-
-                        if (fc.ClubMap())
-                        {
-                            NotePad.DoLog("Нахожусь на карте");
-                            eventisactive = false;
-                            foundplace = true;
-                            Thread.Sleep(1000);
-                        }
+                        NotePad.DoLog("реклама на апгрейд");
+                        se.UpgradeAdsKiller();
                         Thread.Sleep(1000);
-                        waiter++;
-                    } while (!foundplace);//переход на экран контроля
-                }
+                    }
+
+                    if (fc.Ending())
+                    {
+                        NotePad.DoLog("Таблица результатов");
+                        Rat.Clk(PointsAndRectangles.passTheTableAfterRace);//Table
+                        Thread.Sleep(1000);
+                    }
+
+                    if (fc.Bounty())
+                    {
+                        NotePad.DoLog("Получил награду за эвент");
+                        Thread.Sleep(1000);
+                    }
+
+                    if (fc.EventEnds())
+                    {
+                        NotePad.DoLog("Событие закончилось");
+                        Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
+                    }
+
+                    if (fc.ControlScreen())
+                    {
+                        NotePad.DoLog("Нахожусь на экране контроля");
+                        foundplace = true;
+                        Thread.Sleep(1000);
+                    }
+
+                    if (fc.BugControlScreen())
+                    {
+                        Thread.Sleep(500);
+                        NotePad.DoLog("Bug with Control Screen");
+                        Rat.Clk(PointsAndRectangles.backToClubMap);//Back
+                        Thread.Sleep(1000);
+                    }
+
+                    if (fc.ClubMap())
+                    {
+                        NotePad.DoLog("Нахожусь на карте");
+                        eventisactive = false;
+                        foundplace = true;
+                        Thread.Sleep(1000);
+                    }
+                    Thread.Sleep(1000);
+                    waiter++;
+                } while (!foundplace);//переход на экран контроля
             }
 
             return eventisactive;
