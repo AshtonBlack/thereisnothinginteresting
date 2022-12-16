@@ -195,7 +195,7 @@ namespace Caitlyn_v1._0
                 && Condition.ConditionNumber1 != "обычная х3"
                 && !fc.ConditionActivated()
                 && CheckForEventIsOn()
-                && eventIsNotEnd)
+                && fc.ItsGarage())//itsGarage is for test
             {
                 NotePad.DoLog("Активирую условия события");
                 if (Condition.ConditionNumber2 == "empty")
@@ -212,26 +212,6 @@ namespace Caitlyn_v1._0
                     Thread.Sleep(500);
                     Rat.Clk(PointsAndRectangles.commonConditionCross);
                 }
-                /*
-                if (fc.ItsGarage())
-                {
-                    if (Condition.ConditionNumber2 == "empty")
-                    {
-                        Rat.Clk(PointsAndRectangles.commonCondition);
-                    }
-                    else
-                    {
-                        Rat.Clk(PointsAndRectangles.commonCondition);
-                        Thread.Sleep(1500);
-                        Rat.Clk(PointsAndRectangles.cond1);
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.cond2);
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.commonConditionCross);
-                    }
-                }
-                else return false;
-                */
             }
             return true;
         }//включить фильтр условия события.
@@ -239,7 +219,14 @@ namespace Caitlyn_v1._0
         {
             string path = "Check//";
 
-            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.Car1Bounds, PointsAndRectangles.Car2Bounds, PointsAndRectangles.Car3Bounds, PointsAndRectangles.Car4Bounds, PointsAndRectangles.Car5Bounds, PointsAndRectangles.Car6Bounds, PointsAndRectangles.Car7Bounds, PointsAndRectangles.Car8Bounds };
+            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.Car1Bounds,
+                PointsAndRectangles.Car2Bounds,
+                PointsAndRectangles.Car3Bounds,
+                PointsAndRectangles.Car4Bounds,
+                PointsAndRectangles.Car5Bounds,
+                PointsAndRectangles.Car6Bounds,
+                PointsAndRectangles.Car7Bounds,
+                PointsAndRectangles.Car8Bounds };
             string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
             Thread.Sleep(2000);
@@ -320,8 +307,7 @@ namespace Caitlyn_v1._0
             do
             {
                 attempts++;
-                if(attempts == 10) se.RestartBot();
-                //if (!CheckForEventIsOn() || !eventIsNotEnd || !fc.ItsGarage())                
+                if(attempts == 10) se.RestartBot();       
                 if (!CheckForEventIsOn())
                 {
                     return false;
@@ -386,7 +372,6 @@ namespace Caitlyn_v1._0
             do
             {
                 if (!CheckForEventIsOn() || !fc.ItsGarage())
-                //if (!CheckForEventIsOn() || !eventIsNotEnd)
                 {
                     return false;
                 }

@@ -42,7 +42,6 @@ namespace Caitlyn_v1._0
             PlayClubsPositions pcp = new PlayClubsPositions();
 
             bool eventisactive = pcp.PathToGarage();
-
             if (eventisactive)
             {
                 if (!pcp.PrepareToRace(i))//набор/проверка руки
@@ -50,7 +49,6 @@ namespace Caitlyn_v1._0
                     eventisactive = false;
                 }
             }
-
             if (eventisactive)
             {
                 bool foundplace = false;
@@ -95,7 +93,6 @@ namespace Caitlyn_v1._0
                     waiter++;
                 } while (!foundplace);//ожидание противника
             }
-
             if (eventisactive)
             {
                 pcp.TimeToRace();//расстановка

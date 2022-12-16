@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Caitlyn_v1._0
@@ -11,7 +14,6 @@ namespace Caitlyn_v1._0
 
             Opacity = 0;
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             
@@ -24,6 +26,7 @@ namespace Caitlyn_v1._0
             Application.Exit();
             */
         }
+        //tests
         void MyTest()
         {
             NotePad.ClearLog();
@@ -58,6 +61,43 @@ namespace Caitlyn_v1._0
             Condition.MakeCondition("необычная", "empty");
             HandMaking hm = new HandMaking();
             hm.MakingHand1();
+        }
+        void FindAllCases(List<int> array)
+        {            
+            foreach (var item in array.Select((x, i) => new { x, i }))
+            {
+                List<int> result = new List<int>
+                {
+                    item.x
+                };
+                List<int> list = new List<int>(array);
+                list.RemoveAt(item.i);
+                stuff(list, result);
+            }
+        }
+        void stuff(List<int> rest, List<int> result)
+        {
+            foreach (var item in rest.Select((x, i) => new { x, i }))
+            {
+                List<int> newresult = new List<int>(result)
+                {
+                    item.x
+                };
+                List<int> newrest = new List<int>(rest);
+                newrest.RemoveAt(item.i);
+                if (newrest.Count > 0)
+                {
+                    stuff(newrest, newresult);
+                }
+                else
+                {
+                    foreach(int number in newresult)
+                    {
+                        Console.Write(number);
+                    }
+                    Console.WriteLine();    
+                }
+            }
         }
     }
 }

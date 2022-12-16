@@ -32,14 +32,7 @@ namespace Caitlyn_v1._0
             int x = xy.X;
             int y = xy.Y;
             SetCursorPos(x + xCorrection, y + yCorrection);
-        }
-        public static void Clk(int dox, int doy)
-        {
-            MoveMouse(dox, doy);
-            Thread.Sleep(200);
-            DoMouseLeftClick(dox, doy);
-            Thread.Sleep(100);
-        }
+        }       
         public static void Clk(Point p)
         {
             int dox = p.X;
