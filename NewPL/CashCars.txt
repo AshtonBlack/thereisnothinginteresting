@@ -2137,7 +2137,7 @@
 0 Bentley Continental Breitling Jet Team Series Limited Edition 2016
 0 Bentley Continental GT Convertible 2019
 0 Bentley Continental GT Convertible Number 1 Edition by Mulliner 2019
-0 Bristol Arnolt-Bristol 1953
+1 Bristol Arnolt-Bristol 1953
 0 Bristol Zagato 406S 1959
 0 Bristol 406 1958
 0 Bristol 403 1953
@@ -2155,11 +2155,11 @@
 0 Bristol Fighter T 2006
 1 Caterham Seven 160 2013
 1 Caterham 21 1995
-2 Caterham Seven 270 2015
+1 Caterham Seven 270 2015
 1 Caterham Seven 360 2015
 1 Caterham Superlight R500 2008
-0 Caterham JPE 1992
-0 Caterham CSR 2005
+1 Caterham JPE 1992
+1 Caterham CSR 2005
 1 Caterham Seven 420 2015
 0 Caterham RST-V8 Levante 2008
 0 Caterham Seven 620R 2013
@@ -2577,31 +2577,31 @@
 1 Buick Verano 2012
 0 Buick Century Special Coupe 1973
 1 Buick LaCrosse CXL 2005
-0 Buick LeSabre 2000
+1 Buick LeSabre 2000
 0 Buick Park Avenue 2000
-0 Buick Reatta 1990
-2 Buick Regal GS 2012
+1 Buick Reatta 1990
+1 Buick Regal GS 2012
 1 Buick Regal Turbo 2011
-0 Buick Enclave 2008
+1 Buick Enclave 2008
 1 Buick GNX 1987
 0 Cadillac Seville 1980
 0 Cadillac Allante 1989
-0 Cadillac Eldorado 1979
+1 Cadillac Eldorado 1979
 0 Cadillac Eldorado 1991
 0 Cadillac Eldorado 1995
 1 Cadillac Sedan De Ville 2000
-2 Cadillac CTS 2008
+1 Cadillac CTS 2008
 1 Cadillac Escalade 2011
-2 Cadillac XLR roadster 2004
+1 Cadillac XLR roadster 2004
 1 Cadillac DTS 2006
 1 Cadillac SRX 2006
-2 Cadillac CTS Coupe 2014
+1 Cadillac CTS Coupe 2014
 0 Cadillac XT5 2017
 1 Cadillac STS 2005
 1 Cadillac XLR-V 2006
-0 Cadillac Escalade EXT 2011
+1 Cadillac Escalade EXT 2011
 1 Cadillac Escalade ESV 2016
-0 Cadillac CTS Sport Wagon 2014
+1 Cadillac CTS Sport Wagon 2014
 0 Cadillac CT6 2017
 1 Cadillac STS-V 2005
 0 Cadillac CTS-V 2016
@@ -2610,7 +2610,7 @@
 0 Cadillac Escalade 1999
 0 Cadillac Escalade 2002
 1 Cadillac ELR 2016
-0 Cadillac Elmiraj 2013
+1 Cadillac Elmiraj 2013
 0 Cadillac CTS Vsport 2015
 0 Cadillac CTS-V 2004
 0 Cadillac ATS-V 2016
@@ -2621,7 +2621,7 @@
 0 Chevrolet Spark 2009
 0 Chevrolet Bel Air 1957
 1 Chevrolet Caprice 1991
-0 Chevrolet Tahoe 1995
+1 Chevrolet Tahoe 1995
 0 Chevrolet Camaro berlinetta 1985
 0 Chevrolet Chevette 1976
 0 Chevrolet Corvette 1953
@@ -2651,7 +2651,7 @@
 0 Chevrolet Impala SS 1996
 1 Chevrolet Monte Carlo SS 454 1970
 1 Chevrolet SSR 2003
-0 Chevrolet Chevelle SS 454 1970
+1 Chevrolet Chevelle SS 454 1970
 1 Chevrolet Volt 2012
 1 Chevrolet Captiva 2007
 0 Chevrolet Blazer 2000
@@ -2663,7 +2663,7 @@
 1 Chevrolet HHR SS Turbocharged 2008
 1 Chevrolet Silverado SS 2006
 1 Chevrolet Camaro Z/28 1993
-2 Chevrolet Captiva LTX 2008
+1 Chevrolet Captiva LTX 2008
 1 Chevrolet Silverado 2016
 0 Chevrolet Camaro IROC-Z 1985
 1 Chevrolet K5 Blazer 5.7L 1972
@@ -2671,9 +2671,9 @@
 1 Chevrolet El Camino SS 454 1969
 1 Chevrolet Camaro SS Coupe 2010
 1 Chevrolet Camaro SS Convertible 2012
-1 Chevrolet Corvette C5 1997
+2 Chevrolet Corvette C5 1997
 1 Chevrolet Aerovette 1977
-0 Chevrolet Corvette Grand Sport 1996
+2 Chevrolet Corvette Grand Sport 1996
 1 Chevrolet Tahoe Custom 2018
 1 Chevrolet Trailblazer SS 2006
 1 Chevrolet Camaro Z28 SS 1999
@@ -2685,9 +2685,9 @@
 1 Chevrolet Camaro Z/28 2015
 1 Chevrolet Corvette 2009
 1 Chevrolet Corvette Grand Sport 2017
-0 Chevrolet Camaro SS 2019
+1 Chevrolet Camaro SS 2019
 0 Chevrolet Camaro ZL1 2015
-0 Chevrolet Camaro ZL1 2012
+2 Chevrolet Camaro ZL1 2012
 0 Chevrolet Copo Camaro 2018
 1 Chevrolet Corvette Z06 2001
 0 Chevrolet Camaro SS 2017
@@ -2697,7 +2697,7 @@
 0 Chevrolet Fleetline 1948
 1 Chevrolet Tru 140S 2012
 0 Chevrolet Code 130R 2012
-0 Chevrolet SSR 6.0L 2006
+1 Chevrolet SSR 6.0L 2006
 1 Chevrolet Cobalt SS Turbo 2009
 2 Chevrolet Colorado ZR2 2018
 0 Chevrolet COPO Camaro 2012
