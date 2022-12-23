@@ -287,6 +287,16 @@ namespace Caitlyn_v1._0
                         }
                     }
                     break;
+                case "german 90s x3":
+                    if (car.country == "Germany")
+                    {
+                        year = GetYear(car);
+                        if (year > 1989 && year < 2000)
+                        {
+                            x = true;
+                        }
+                    }
+                    break;
                 case "редкостная":
                     if (car.rarity == "d")
                     {
