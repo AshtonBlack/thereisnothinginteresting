@@ -30,7 +30,7 @@ namespace Caitlyn_v1._0
         public void MakeDB()
         {
             string originalsDirectory = @"C:\Bot\NewPL\CarOriginals\";
-            int lastCarInBase = 3100;
+            int lastCarInBase = 3200;
             int percent = 7;
             int zeroposx = 3;
             int zeroposy = 1;
