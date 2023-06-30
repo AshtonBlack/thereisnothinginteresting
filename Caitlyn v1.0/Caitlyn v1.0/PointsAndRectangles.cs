@@ -87,7 +87,7 @@ namespace Caitlyn_v1._0
         public static Rectangle Condition2Bounds = new Rectangle(1000, 418, 205, 20);//new
         public static Rectangle RQBounds = new Rectangle(1150, 367, 85, 18);//new
         public static Point clktoClubs = new Point(240, 500);
-        public static Point clkoutofClubs = new Point(62, 200);
+        public static Point clkoutofClubs = new Point(135, 200);
         public static Point eventN1 = new Point(960, 570);
         public static Point eventN2 = new Point(960, 660);
         public static Point eventN3 = new Point(960, 750);
@@ -180,7 +180,7 @@ namespace Caitlyn_v1._0
             {"a", new Point(700, 600)},
             {"s", new Point(910, 600)}
         };
-        public static Point tiresMenu = new Point(200, 635);
+        public static Point carAttributes = new Point(200, 580);//19.0
         public static Dictionary<string, Point> tires = new Dictionary<string, Point>()
         {
             {"per", new Point(490, 450)},
@@ -195,17 +195,17 @@ namespace Caitlyn_v1._0
             {"rwd", new Point(910, 600)},
             {"4wd", new Point(1120, 600)}
         };
-        public static Point filterEndStart = new Point(200, 700);//сдвиг
-        public static Point filterEndFinish = new Point(200, 330);//сдвиг
-        public static Point others = new Point(200, 685);//
+        public static Point toClearanceFilterStart = new Point(800, 680);//сдвиг 19.0
+        public static Point toClearanceFilterFinish = new Point(800, 545);//сдвиг 19.0
+        //public static Point others = new Point(200, 685);//legacy
         public static Dictionary<string, Point> clearance = new Dictionary<string, Point>()
         {
-            {"low", new Point(490, 450)},
-            {"mid", new Point(700, 450)},
-            {"high", new Point(910, 450)}
+            {"low", new Point(490, 600)},
+            {"mid", new Point(700, 600)},
+            {"high", new Point(910, 600)}
         };
-        public static Point xy1 = new Point(180, 430);//сдвиг
-        public static Point xy2 = new Point(180, 630);//сдвиг
+        //public static Point xy1 = new Point(180, 430);//сдвиг
+        //public static Point xy2 = new Point(180, 630);//сдвиг
         public static Point clearall = new Point(240, 795);//сброс
         public static Point sorting = new Point(1090, 265);//сортировка
         public static Point closesorting = new Point(840, 790);//закрыть сортировку

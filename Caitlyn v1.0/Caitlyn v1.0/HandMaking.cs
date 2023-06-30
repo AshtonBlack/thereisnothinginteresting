@@ -323,17 +323,17 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.rarityClasses[carDescription.rarity]);//выбрать класс
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.tiresMenu);
+            Rat.Clk(PointsAndRectangles.carAttributes);
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.tires[carDescription.tires]);
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.drive[carDescription.drive]);
             Thread.Sleep(1000);
             //TODO choose country
-            Rat.DragnDropSlow(PointsAndRectangles.filterEndStart, PointsAndRectangles.filterEndFinish, 8);//legacy
+            Rat.DragnDropSlow(PointsAndRectangles.toClearanceFilterStart, PointsAndRectangles.toClearanceFilterFinish, 8);//legacy
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.others);
-            Thread.Sleep(1000);
+            //Rat.Clk(PointsAndRectangles.others);
+            //Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс
             attempts = 0;
             do

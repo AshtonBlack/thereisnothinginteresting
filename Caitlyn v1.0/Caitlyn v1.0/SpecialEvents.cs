@@ -13,12 +13,18 @@ namespace Caitlyn_v1._0
             int flag2 = 0;
             int flag3 = 0;
             bool nextstep = false;
+            int counter = 0;
 
             do
             {
                 if (flag1 > 3 || flag2 > 3 || flag3 > 3)
                 {
                     NotePad.DoErrorLog("образовалась петля");
+                    RestartBot();
+                }
+                if(counter > 30)
+                {
+                    NotePad.DoErrorLog("Вероятно, вылет из игры");
                     RestartBot();
                 }
                 if (fc.RaceEnd())
@@ -50,6 +56,28 @@ namespace Caitlyn_v1._0
                 {
                     Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
                 }
+                //new functionality
+                if (fc.HeadPage())
+                {
+                    Rat.Clk(PointsAndRectangles.toEvents);//Events
+                    Thread.Sleep(2000);
+                }
+                bool needToDragMap = false;
+                if (fc.EventPage())
+                {
+                    if (fc.InCommonEvent())
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.buttonBack);//back
+                    }
+                    else
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
+                        needToDragMap = true;
+                    }
+                }
+                //end new functionality
                 Thread.Sleep(1500);
                 if(fc.EventEnds()) nextstep = true;
                 if (fc.Bounty()) nextstep = true;
@@ -57,6 +85,8 @@ namespace Caitlyn_v1._0
                 if (fc.Ending()) nextstep = true;
                 if (fc.Upgrade()) nextstep = true;
                 UniversalErrorDefense();
+                counter++;
+                if (needToDragMap) DragMap(); //for new functionality
             } while (!nextstep);
         }
         public void UpgradeAdsKiller()//switch off ads watching
@@ -81,7 +111,10 @@ namespace Caitlyn_v1._0
             {
                 Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
             }
-            Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
+            if (fc.ClubMap())
+            {
+                Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
+            }            
         }
         public void RestartBot()
         {

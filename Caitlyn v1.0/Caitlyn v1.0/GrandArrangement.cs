@@ -15,6 +15,11 @@ namespace Caitlyn_v1._0
             {
                 cars.Add(new CarForExcel(carpicture));
             }
+            NotePad.DoLogWithoutTime("Cars in the hand:");
+            foreach(CarForExcel car in cars)
+            {
+                NotePad.DoLogWithoutTime(car.fullname());
+            }
             int[] rightarranfement = new int[5];
             double arrangementPoints = -1000000; 
             for (int i1 = 0; i1 < 5; i1++)

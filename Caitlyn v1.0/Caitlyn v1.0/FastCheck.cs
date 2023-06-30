@@ -93,8 +93,10 @@ namespace Caitlyn_v1._0
         }
         public bool StartButton()
         {
-            bool x = MainFrame(PointsAndRectangles.startButton, "Start");
-            return x;
+            if (MainFrame(PointsAndRectangles.startButton, "Start")
+                || MainFrame(PointsAndRectangles.startButton, "Start1"))
+                return true;
+            return false;
         }
         public bool HeadPage()
         {

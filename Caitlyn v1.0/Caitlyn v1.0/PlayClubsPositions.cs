@@ -77,8 +77,32 @@ namespace Caitlyn_v1._0
                     NotePad.DoLog("Нахожусь в гараже");
                     continuegame = true;
                 }
+
+                //new functionality
+                if (fc.HeadPage())
+                {
+                    Rat.Clk(PointsAndRectangles.toEvents);//Events
+                    Thread.Sleep(2000);
+                }
+                bool needToDragMap = false;
+                if (fc.EventPage())
+                {
+                    if (fc.InCommonEvent())
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.buttonBack);//back
+                    }
+                    else
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
+                        needToDragMap = true;
+                    }
+                }
+                //end new functionality
                 Thread.Sleep(1000);
                 waiter++;
+                if (needToDragMap) se.DragMap(); //for new functionality
             } while (!positionflag);
 
             return continuegame;
@@ -103,6 +127,29 @@ namespace Caitlyn_v1._0
                 else
                 {
                     wronghandnumber++;
+                    //new functionality
+                    if (fc.HeadPage())
+                    {
+                        Rat.Clk(PointsAndRectangles.toEvents);//Events
+                        Thread.Sleep(2000);
+                    }
+                    bool needToDragMap = false;
+                    if (fc.EventPage())
+                    {
+                        if (fc.InCommonEvent())
+                        {
+                            Thread.Sleep(500);
+                            Rat.Clk(PointsAndRectangles.buttonBack);//back
+                        }
+                        else
+                        {
+                            Thread.Sleep(500);
+                            Rat.Clk(PointsAndRectangles.toClubs);//Clubs
+                            needToDragMap = true;
+                        }
+                    }
+                    //end new functionality
+                    if (needToDragMap) se.DragMap(); //for new functionality
                     if (fc.ClubMap())
                     {
                         NotePad.DoLog("вылетел на карту при сборе руки");
@@ -156,6 +203,29 @@ namespace Caitlyn_v1._0
                 if (waiter == 180) se.RestartBot();
                 se.UniversalErrorDefense();
                 se.MissClick();
+                //new functionality
+                if (fc.HeadPage())
+                {
+                    Rat.Clk(PointsAndRectangles.toEvents);//Events
+                    Thread.Sleep(2000);
+                }
+                bool needToDragMap = false;
+                if (fc.EventPage())
+                {
+                    if (fc.InCommonEvent())
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.buttonBack);//back
+                    }
+                    else
+                    {
+                        Thread.Sleep(500);
+                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
+                        needToDragMap = true;
+                    }
+                }
+                //end new functionality
+                if (needToDragMap) se.DragMap(); //for new functionality
                 if (fc.ClubMap())
                 {
                     NotePad.DoLog("вылетел из заезда");

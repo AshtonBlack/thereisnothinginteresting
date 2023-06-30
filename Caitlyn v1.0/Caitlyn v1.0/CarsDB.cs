@@ -241,6 +241,7 @@ namespace Caitlyn_v1._0
                         x = true;
                     }
                     break;
+                case "необычная х2":
                 case "необычная":
                     if (car.rarity == "e")
                     {
@@ -416,6 +417,7 @@ namespace Caitlyn_v1._0
                         x = true;
                     }
                     break;
+                case "французский ренессанс х3":
                 case "французский ренессанс":
                     tag = "French Renaissance";
                     x = SearchTag(car, tag);
@@ -468,6 +470,7 @@ namespace Caitlyn_v1._0
                         x = true;
                     }
                     break;
+                case "mazda x3":
                 case "mazda":
                     if (car.manufacturer == "Mazda")
                     {
@@ -780,6 +783,16 @@ namespace Caitlyn_v1._0
                     {
                         year = GetYear(car);
                         if (year > 2014 && year < 2020)
+                        {
+                            x = true;
+                        }
+                    }
+                    break;
+                case "german 2000s x3":
+                    if (car.country == "Germany")
+                    {
+                        year = GetYear(car);
+                        if (year > 1999 && year < 2010)
                         {
                             x = true;
                         }
