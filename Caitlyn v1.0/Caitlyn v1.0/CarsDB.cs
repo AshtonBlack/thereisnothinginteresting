@@ -119,7 +119,7 @@ namespace Caitlyn_v1._0
                 CarWithPoints.Add((car, points));
             }
 
-            int[] bestPointsForRQ = new int[101];
+            int[] bestPointsForRQ = new int[115]; //max rq + 1 ???
             for(int rq = 0; rq < bestPointsForRQ.Length; rq++)
             {
                 bestPointsForRQ[rq] = -10000;
