@@ -15,10 +15,9 @@ namespace Caitlyn_v1._0
             Opacity = 0;
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {            
             Navigation navigation = new Navigation();
-            navigation.ToClubMap();
+            navigation.InitialStart();
             navigation.InClubs();
             
             /*

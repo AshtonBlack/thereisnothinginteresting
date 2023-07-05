@@ -246,7 +246,6 @@ namespace Caitlyn_v1._0
         public static Point eventIsEnd = new Point(640, 580);//?
         public static Point closeCarCard = new Point(685, 280);
         public static Point controlScreenToGarage = new Point(820, 790);
-        public static Point bugwithControlScreen = new Point(70, 205);
         public static Point ChooseAnEnemy = new Point(640, 645);
         public static Point forceTheRace = new Point(180, 580);
         public static Point acceptSeasonEnd = new Point(635, 570);

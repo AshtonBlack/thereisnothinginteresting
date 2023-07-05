@@ -9,19 +9,13 @@ namespace Caitlyn_v1._0
         public void EndRace()
         {
             FastCheck fc = new FastCheck();
-            int flag1 = 0;
-            int flag2 = 0;
-            int flag3 = 0;
+            
             bool nextstep = false;
             int counter = 0;
 
             do
             {
-                if (flag1 > 3 || flag2 > 3 || flag3 > 3)
-                {
-                    NotePad.DoErrorLog("образовалась петля");
-                    RestartBot();
-                }
+                CommonLists.SkipAllSkipables();                
                 if(counter > 30)
                 {
                     NotePad.DoErrorLog("Вероятно, вылет из игры");
@@ -30,38 +24,11 @@ namespace Caitlyn_v1._0
                 if (fc.RaceEnd())
                 {
                     Rat.Clk(PointsAndRectangles.endOfTheFirstRace); //кнопка "пропустить"
-                    flag1++;
-                }
-                if (fc.AcceptThrow())
-                {
-                    Rat.Clk(PointsAndRectangles.acceptanceToThrowRaces);//подтвержение "пропуска"
-                    flag2++;
-                }
-                if (fc.WonSet())
-                {
-                    Rat.Clk(PointsAndRectangles.endOfRaceSet);//звезды 
-                    flag3++;
-                }
-                if (fc.LostSet())
-                {
-                    Rat.Clk(PointsAndRectangles.endOfRaceSet);//звезды 
-                    flag3++;
-                }
-                if (fc.DrawSet())
-                {
-                    Rat.Clk(PointsAndRectangles.endOfRaceSet);//звезды 
-                    flag3++;
-                }
+                }                
                 if (fc.EventEnds())
                 {
                     Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                }
-                //new functionality
-                if (fc.HeadPage())
-                {
-                    Rat.Clk(PointsAndRectangles.toEvents);//Events
-                    Thread.Sleep(2000);
-                }
+                }           
                 bool needToDragMap = false;
                 if (fc.EventPage())
                 {
@@ -77,24 +44,14 @@ namespace Caitlyn_v1._0
                         needToDragMap = true;
                     }
                 }
-                //end new functionality
                 Thread.Sleep(1500);
                 if(fc.EventEnds()) nextstep = true;
                 if (fc.Bounty()) nextstep = true;
                 if (fc.ClubMap()) nextstep = true;
-                if (fc.Ending()) nextstep = true;
-                if (fc.Upgrade()) nextstep = true;
                 UniversalErrorDefense();
                 counter++;
-                if (needToDragMap) DragMap(); //for new functionality
+                if (needToDragMap) DragMap();
             } while (!nextstep);
-        }
-        public void UpgradeAdsKiller()//switch off ads watching
-        {
-            NotePad.DoLog("Пропускаю рекламу на прокачку");
-            Rat.Clk(PointsAndRectangles.upgradeCancelation); //отменить просмотр
-            Thread.Sleep(3000);
-            UniversalErrorDefense();
         }
         public void ActivateClubBooster()
         {
@@ -137,15 +94,7 @@ namespace Caitlyn_v1._0
         public void UniversalErrorDefense()
         {
             FastCheck fc = new FastCheck();
-            CheckConnection();
-            if (fc.EventEnds())
-            {
-                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-            }
-            if (fc.ConnectionInterrupted())
-            {
-                RestartBot();
-            }
+            CommonLists.SkipAllSkipables();
             if (fc.ServerError())
             {
                 Thread.Sleep(5000);
@@ -180,36 +129,20 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
             bool x = true;
-
             UniversalErrorDefense();
             Thread.Sleep(3000);
-
             if (fc.WrongParty())
             {
                 NotePad.DoLog("Косячная рука");
                 RestartBot();
             }
-
             if (fc.EventEnds())
             {
                 NotePad.DoLog("эвент окончен");
                 Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//Accept Message
                 Thread.Sleep(3000);
-                //x = false;
             }
-
-            if (fc.EventIsNotAvailable())
-            {
-                NotePad.DoLog("эвент не доступен");
-                Rat.Clk(PointsAndRectangles.eventIsNotAvailableAcceptance);//Accept Message                    
-                Thread.Sleep(3000);
-                if (fc.ItsGarage())
-                {
-                    RestartBot();
-                }
-                x = false;
-            }
-
+            CommonLists.SkipAllSkipables();
             if (fc.EventisFull())
             {
                 NotePad.DoLog("эвент заполнен");
@@ -234,13 +167,7 @@ namespace Caitlyn_v1._0
                 Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
                 Thread.Sleep(2000);
             }
-            if (fc.MissClick())
-            {
-                NotePad.DoLog("Промах");
-                Rat.Clk(PointsAndRectangles.missClickCancelation);
-                NotePad.DoLog("Исправился");
-                Thread.Sleep(1000);
-            }
+            CommonLists.SkipAllSkipables();
         }
         public void AcceptDailyBounty()
         {
@@ -276,15 +203,6 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("принял ежедневку");
             RestartBot();
         }
-        public void CheckConnection()
-        {
-            FastCheck fc = new FastCheck();
-
-            if (fc.TimeIsOut())
-            {
-                RestartBot();
-            }
-        }
         public void ToClubs()
         {
             bool needToDragMap = false;
@@ -303,31 +221,9 @@ namespace Caitlyn_v1._0
                     Thread.Sleep(120000);
                     Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_1");
                 }//nox restart message
-                if (fc.StartIcon())//Icon
-                {
-                    Rat.Clk(PointsAndRectangles.clkTheIcon);
-                }
-                if (fc.LostConnection()) Rat.Clk(PointsAndRectangles.reconnectionAfterLostConnection);//reconnect
-                if (fc.FBcontinue()) Rat.Clk(PointsAndRectangles.fbFucksBrain);//fb fucks brain
-                if (fc.FbFuckBrain()) Rat.Clk(PointsAndRectangles.fbFuckBrainClick);
-                if (fc.StartButton())
-                {
-                    Rat.Clk(PointsAndRectangles.buttonStart);//Start game
-                    Thread.Sleep(5000);
-                }
-                if (fc.HeadPage())
-                {
-                    Rat.Clk(PointsAndRectangles.toEvents);//Events
-                    Thread.Sleep(2000);
-                }
+                CommonLists.SkipAllSkipables();                
                 if (fc.DailyBounty()) AcceptDailyBounty();
-                fc.Bounty();
-                if (fc.SeasonEndsBounty())
-                {
-                    Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.seasonEndAcceptance);
-                    NotePad.DoLog("получил награду за сезон");
-                }
+                fc.Bounty();                
                 UniversalErrorDefense();
                 if (fc.EventPage())
                 {

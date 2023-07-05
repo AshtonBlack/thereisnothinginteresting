@@ -14,6 +14,7 @@ namespace Caitlyn_v1._0
             do
             {
                 if (waiter == 120) se.RestartBot();
+                CommonLists.SkipAllSkipables();
                 se.UniversalErrorDefense();
                 se.MissClick();
                 if (fc.Bounty())
@@ -21,21 +22,6 @@ namespace Caitlyn_v1._0
                     NotePad.DoLog("получил награду");
                     positionflag = true;
                 }
-
-                if (fc.SeasonIsEnded())
-                {
-                    Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.acceptSeasonEnd);
-                    NotePad.DoLog("сезон окончен");
-                }
-
-                if (fc.SeasonEndsBounty())
-                {
-                    Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.bountyForSeason);
-                    NotePad.DoLog("получил награду за сезон");
-                }
-
                 if (fc.ClubMap())
                 {
                     Thread.Sleep(2000);
@@ -46,7 +32,6 @@ namespace Caitlyn_v1._0
                         positionflag = true;
                     }
                 }
-
                 if (fc.CarMenu())
                 {
                     Thread.Sleep(500);
@@ -54,35 +39,11 @@ namespace Caitlyn_v1._0
                     Rat.Clk(PointsAndRectangles.closeCarCard);
                     Thread.Sleep(1000);
                 }
-
-                if (fc.ControlScreen())
-                {
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Перехожу в гараж");
-                    Rat.Clk(PointsAndRectangles.controlScreenToGarage);//Play
-                    Thread.Sleep(1000);
-                }
-                
-                if (fc.BugControlScreen())
-                {
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Bug with Control Screen");
-                    Rat.Clk(PointsAndRectangles.bugwithControlScreen);//Back
-                    Thread.Sleep(1000);
-                }
-
                 if (fc.ItsGarage())
                 {
                     positionflag = true;
                     NotePad.DoLog("Нахожусь в гараже");
                     continuegame = true;
-                }
-
-                //new functionality
-                if (fc.HeadPage())
-                {
-                    Rat.Clk(PointsAndRectangles.toEvents);//Events
-                    Thread.Sleep(2000);
                 }
                 bool needToDragMap = false;
                 if (fc.EventPage())
@@ -99,7 +60,6 @@ namespace Caitlyn_v1._0
                         needToDragMap = true;
                     }
                 }
-                //end new functionality
                 Thread.Sleep(1000);
                 waiter++;
                 if (needToDragMap) se.DragMap(); //for new functionality
@@ -127,12 +87,7 @@ namespace Caitlyn_v1._0
                 else
                 {
                     wronghandnumber++;
-                    //new functionality
-                    if (fc.HeadPage())
-                    {
-                        Rat.Clk(PointsAndRectangles.toEvents);//Events
-                        Thread.Sleep(2000);
-                    }
+                    CommonLists.SkipAllSkipables();                    
                     bool needToDragMap = false;
                     if (fc.EventPage())
                     {
@@ -148,7 +103,6 @@ namespace Caitlyn_v1._0
                             needToDragMap = true;
                         }
                     }
-                    //end new functionality
                     if (needToDragMap) se.DragMap(); //for new functionality
                     if (fc.ClubMap())
                     {
@@ -201,14 +155,9 @@ namespace Caitlyn_v1._0
             do
             {
                 if (waiter == 180) se.RestartBot();
+                CommonLists.SkipAllSkipables();
                 se.UniversalErrorDefense();
-                se.MissClick();
-                //new functionality
-                if (fc.HeadPage())
-                {
-                    Rat.Clk(PointsAndRectangles.toEvents);//Events
-                    Thread.Sleep(2000);
-                }
+                se.MissClick();               
                 bool needToDragMap = false;
                 if (fc.EventPage())
                 {
@@ -224,8 +173,7 @@ namespace Caitlyn_v1._0
                         needToDragMap = true;
                     }
                 }
-                //end new functionality
-                if (needToDragMap) se.DragMap(); //for new functionality
+                if (needToDragMap) se.DragMap();
                 if (fc.ClubMap())
                 {
                     NotePad.DoLog("вылетел из заезда");

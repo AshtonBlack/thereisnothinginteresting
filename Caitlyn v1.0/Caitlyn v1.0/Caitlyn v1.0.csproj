@@ -52,6 +52,7 @@
     <Compile Include="CarPictureDataBase.cs" />
     <Compile Include="CarsDB.cs" />
     <Compile Include="ChooseEvent.cs" />
+    <Compile Include="CommonLists.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="ExcelParser.cs" />
     <Compile Include="FastCheck.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rat.cs" />
+    <Compile Include="ReasonForRestart.cs" />
+    <Compile Include="SkipableMoment.cs" />
     <Compile Include="SpecialEvents.cs" />
     <Compile Include="TimingUnit.cs" />
     <Compile Include="TrackInfo.cs" />

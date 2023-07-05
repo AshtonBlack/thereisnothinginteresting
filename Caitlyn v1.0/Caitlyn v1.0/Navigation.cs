@@ -7,13 +7,12 @@ namespace Caitlyn_v1._0
     {
         ChooseEvent ce = new ChooseEvent();
         SpecialEvents se = new SpecialEvents();
-        public void ToClubMap()
+        public void InitialStart()
         {
             NotePad.ClearLog();
             Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe"); //, "-clone:Nox_1"
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
-            se.ToClubs();
         }
         public void InClubs()
         {
@@ -24,7 +23,6 @@ namespace Caitlyn_v1._0
                 tu.CheckTime();
                 Thread.Sleep(2000);
                 int i = 0;
-                NotePad.DoLog("Подбираю эвент с одним условием");
                 ce.ChooseNormalEvent();
                 NotePad.DoLog("Вхожу в эвент " + Condition.eventRQ + " рк");
                 Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter   
@@ -48,7 +46,7 @@ namespace Caitlyn_v1._0
                 {
                     eventisactive = false;
                 }
-            }
+            } //проверить отказоустойчивость
             if (eventisactive)
             {
                 bool foundplace = false;
@@ -92,7 +90,7 @@ namespace Caitlyn_v1._0
                     Thread.Sleep(1000);
                     waiter++;
                 } while (!foundplace);//ожидание противника
-            }
+            } //проверить отказоустойчивость
             if (eventisactive)
             {
                 pcp.TimeToRace();//расстановка
@@ -102,50 +100,21 @@ namespace Caitlyn_v1._0
                 int waiter = 0;
                 do
                 {
-                    if (waiter == 180) se.RestartBot();
+                    //se.ToClubs();
+                    if (waiter == 100) se.RestartBot();
                     se.UniversalErrorDefense();
-
-                    if (fc.Upgrade())
-                    {
-                        NotePad.DoLog("реклама на апгрейд");
-                        se.UpgradeAdsKiller();
-                        Thread.Sleep(1000);
-                    }
-
-                    if (fc.Ending())
-                    {
-                        NotePad.DoLog("Таблица результатов");
-                        Rat.Clk(PointsAndRectangles.passTheTableAfterRace);//Table
-                        Thread.Sleep(1000);
-                    }
-
+                    CommonLists.SkipAllSkipables();                    
+                    
                     if (fc.Bounty())
                     {
                         NotePad.DoLog("Получил награду за эвент");
                         Thread.Sleep(1000);
                     }
-
                     if (fc.EventEnds())
                     {
                         NotePad.DoLog("Событие закончилось");
                         Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                    }
-
-                    if (fc.ControlScreen())
-                    {
-                        NotePad.DoLog("Нахожусь на экране контроля");
-                        foundplace = true;
-                        Thread.Sleep(1000);
-                    }
-
-                    if (fc.BugControlScreen())
-                    {
-                        Thread.Sleep(500);
-                        NotePad.DoLog("Bug with Control Screen");
-                        Rat.Clk(PointsAndRectangles.backToClubMap);//Back
-                        Thread.Sleep(1000);
-                    }
-
+                    }                    
                     if (fc.ClubMap())
                     {
                         NotePad.DoLog("Нахожусь на карте");
@@ -156,7 +125,7 @@ namespace Caitlyn_v1._0
                     Thread.Sleep(1000);
                     waiter++;
                 } while (!foundplace);//переход на экран контроля
-            }
+            } //проверить отказоустойчивость
 
             return eventisactive;
         }
