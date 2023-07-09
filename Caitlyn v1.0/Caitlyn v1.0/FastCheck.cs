@@ -1,11 +1,9 @@
 ﻿using System.Drawing;
-using System.Threading;
 
 namespace Caitlyn_v1._0
 {
     class FastCheck
     {
-        SpecialEvents se = new SpecialEvents();
         public bool AnyHandSlotIsEmpty()
         {
             bool x = false;
@@ -69,12 +67,7 @@ namespace Caitlyn_v1._0
         {
             bool x = MainFrame(PointsAndRectangles.readyToRace, "GarageRaceButton");
             return x;
-        }                        
-        public bool NoActiveBooster()
-        {
-            bool x = MainFrame(PointsAndRectangles.noActiveBooster, "Booster");
-            return x;
-        }        
+        }                                    
         public bool NoxRestartMessage()
         {
             bool x = MainFrame(PointsAndRectangles.noxRestartMessage, "NoxRestartMessage");
@@ -89,23 +82,7 @@ namespace Caitlyn_v1._0
         {
             bool x = MainFrame(PointsAndRectangles.filterIsOpenned, "FilterIsOpenned");
             return x;
-        }                                
-        public bool Bounty()
-        {
-            bool x = MainFrame(PointsAndRectangles.clubBounty, "ClubBounty");
-            if (x)
-            {
-                Thread.Sleep(1000);
-                if (NoActiveBooster())
-                {
-                    se.ActivateClubBooster();
-                }
-                Thread.Sleep(200);
-                Rat.Clk(PointsAndRectangles.acceptbounty);
-                x = true;
-            }
-            return x;
-        }//принимает награду
+        }                                       
         public bool ActiveEvent()
         {
             bool x = MainFrame(PointsAndRectangles.activeEvent, "ButtonToEvent");
@@ -135,29 +112,7 @@ namespace Caitlyn_v1._0
         {
             bool x = MainFrame(PointsAndRectangles.inGarage, "InGarage");
             return x;
-        }
-        public bool EventEnds()
-        {
-            if (MainFrame(PointsAndRectangles.eventEnds, "EventEnds"))
-            {
-                return true;
-            }
-            if (MainFrame(PointsAndRectangles.eventEnds, "EventEnds1"))
-            {
-                return true;
-            }
-            return false;
-        }                
-        public bool ServerError()
-        {
-            bool x = false;
-            bool x1 = MainFrameBW(PointsAndRectangles.error, "Error", 100);
-            bool x2 = MainFrameBW(PointsAndRectangles.error, "Error1", 100);
-            bool x3 = MainFrameBW(PointsAndRectangles.error, "Error2", 100);
-            bool x4 = MainFrameBW(PointsAndRectangles.error, "Error3", 100);
-            if (x1 || x2 || x3 || x4) x = true;
-            return x;
-        }
+        }                          
         public bool ConditionActivated()
         {
             bool x = false;
@@ -198,29 +153,6 @@ namespace Caitlyn_v1._0
                 NotePad.DoLog("первую трассу проехал, жму пропуск");
             }
             return x;
-        }                
-        public bool DailyBounty()
-        {
-            bool x = MainFrame(PointsAndRectangles.dailyBounty, "DailyBounty");
-            return x;
-        }
-        public bool DailyBountyEnd()
-        {
-            bool x = MainFrame(PointsAndRectangles.dailyBountyEnd, "DailyBountyEnd");
-            return x;
-        }
-        public bool EventPage()
-        {
-            return MainFrame(PointsAndRectangles.EventBounds, "Event");
-        }
-        public bool InCommonEvent()
-        {
-            bool x = MainFrameBW(PointsAndRectangles.inCommonEvent, "InCommonEvent", 10);
-            if (x)
-            {
-                NotePad.DoLog("Зашел в событие");
-            }
-            return x;
-        }
+        }                         
     }
 }

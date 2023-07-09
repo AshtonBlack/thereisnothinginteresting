@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
     <Compile Include="Algorithms.cs" />
     <Compile Include="BreakTime.cs" />
     <Compile Include="CarForExcel.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameState.cs" />
     <Compile Include="GrandArrangement.cs" />
     <Compile Include="HandMaking.cs" />
     <Compile Include="MasterOfPictures.cs" />
@@ -74,9 +76,14 @@
     <Compile Include="Rat.cs" />
     <Compile Include="ReasonForRestart.cs" />
     <Compile Include="SkipableMoment.cs" />
+    <Compile Include="SolveBounty.cs" />
+    <Compile Include="SolveDailyBounty.cs" />
+    <Compile Include="SolveEventPage.cs" />
+    <Compile Include="SolveServerError.cs" />
     <Compile Include="SpecialEvents.cs" />
     <Compile Include="TimingUnit.cs" />
     <Compile Include="TrackInfo.cs" />
+    <Compile Include="VisualCheck.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

@@ -24,50 +24,16 @@ namespace Caitlyn_v1._0
                 if (fc.RaceEnd())
                 {
                     Rat.Clk(PointsAndRectangles.endOfTheFirstRace); //кнопка "пропустить"
-                }                
-                if (fc.EventEnds())
-                {
-                    Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                }           
-                bool needToDragMap = false;
-                if (fc.EventPage())
-                {
-                    if (fc.InCommonEvent())
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.buttonBack);//back
-                    }
-                    else
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
-                        needToDragMap = true;
-                    }
-                }
-                Thread.Sleep(1500);
-                if(fc.EventEnds()) nextstep = true;
-                if (fc.Bounty()) nextstep = true;
+                } 
+                Thread.Sleep(1500); 
                 if (fc.ClubMap()) nextstep = true;
-                UniversalErrorDefense();
                 counter++;
-                if (needToDragMap) DragMap();
             } while (!nextstep);
-        }
-        public void ActivateClubBooster()
-        {
-            Rat.Clk(PointsAndRectangles.clubBoosterActivation);
-            Thread.Sleep(2000);
-            Rat.Clk(PointsAndRectangles.clubBoosterAcceptance);
-            Thread.Sleep(3000);
         }
         public void DragMap()
         {
             FastCheck fc = new FastCheck();
-            fc.Bounty();
-            if (fc.EventEnds())
-            {
-                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-            }
+            CommonLists.SkipAllSkipables();
             if (fc.ClubMap())
             {
                 Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
@@ -90,20 +56,7 @@ namespace Caitlyn_v1._0
             {
                 RestartBot();
             }
-        }
-        public void UniversalErrorDefense()
-        {
-            FastCheck fc = new FastCheck();
-            CommonLists.SkipAllSkipables();
-            if (fc.ServerError())
-            {
-                Thread.Sleep(5000);
-                if (fc.ServerError())
-                {
-                    RestartBot();
-                }
-            }
-        }
+        }        
         public void ClearHand()
         {
             FastCheck fc = new FastCheck();
@@ -129,19 +82,12 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
             bool x = true;
-            UniversalErrorDefense();
             Thread.Sleep(3000);
             if (fc.WrongParty())
             {
                 NotePad.DoLog("Косячная рука");
                 RestartBot();
-            }
-            if (fc.EventEnds())
-            {
-                NotePad.DoLog("эвент окончен");
-                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//Accept Message
-                Thread.Sleep(3000);
-            }
+            }            
             CommonLists.SkipAllSkipables();
             if (fc.EventisFull())
             {
@@ -158,51 +104,7 @@ namespace Caitlyn_v1._0
                 x = false;
             }
             return x;
-        }
-        public void MissClick()
-        {
-            FastCheck fc = new FastCheck();
-            if (fc.EventEnds())
-            {
-                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                Thread.Sleep(2000);
-            }
-            CommonLists.SkipAllSkipables();
-        }
-        public void AcceptDailyBounty()
-        {
-            FastCheck fc = new FastCheck();
-            bool bountyisavailable = false;
-
-            int clkcounter = 0;
-
-            NotePad.DoLog("принимаю ежедневку");
-            do
-            {
-                if (clkcounter > 25) RestartBot();
-                if (fc.DailyBounty())
-                {
-                    Rat.Clk(PointsAndRectangles.dailyBountyStart);
-                    bountyisavailable = true;
-                    Thread.Sleep(15000);
-                }
-                else
-                if (fc.DailyBountyEnd())
-                {
-                    Rat.Clk(PointsAndRectangles.confirmdailyBountyEnd);
-                    bountyisavailable = false;
-                    Thread.Sleep(15000);
-                }
-                else if (bountyisavailable)
-                {
-                    Rat.Clk(PointsAndRectangles.dailyBountyThrow);
-                    clkcounter++;
-                }
-                Thread.Sleep(15000);
-            } while (bountyisavailable);
-            NotePad.DoLog("принял ежедневку");
-            RestartBot();
-        }
+        }        
         public void ToClubs()
         {
             bool needToDragMap = false;
@@ -221,24 +123,7 @@ namespace Caitlyn_v1._0
                     Thread.Sleep(120000);
                     Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_1");
                 }//nox restart message
-                CommonLists.SkipAllSkipables();                
-                if (fc.DailyBounty()) AcceptDailyBounty();
-                fc.Bounty();                
-                UniversalErrorDefense();
-                if (fc.EventPage())
-                {
-                    if (fc.InCommonEvent())
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.buttonBack);//back
-                    }
-                    else
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
-                        needToDragMap = true;
-                    }
-                }
+                CommonLists.SkipAllSkipables(); 
                 if (fc.ClubMap()) flag = true;
                 Thread.Sleep(1500);
                 waiter++;

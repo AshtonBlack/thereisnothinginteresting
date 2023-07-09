@@ -13,12 +13,7 @@ namespace Caitlyn_v1._0
         {
             SpecialEvents se = new SpecialEvents();
             if (fc.ActiveEvent())
-            {
-                do
-                {
-                    se.MissClick();
-                    se.ToClubs();
-                } while (!fc.ClubMap());
+            {                
                 NotePad.DoLog("вхожу в активный эвент");
                 Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter
                 string[] conds = NotePad.ReadConditions();
@@ -35,7 +30,7 @@ namespace Caitlyn_v1._0
                     {
                         do
                         {
-                            se.MissClick();
+                            CommonLists.SkipAllSkipables();
                             se.ToClubs();
                         } while (!fc.ClubMap());
 
@@ -55,7 +50,6 @@ namespace Caitlyn_v1._0
         }
         public bool Selection(int eventN)
         {
-            SpecialEvents se = new SpecialEvents();
             Point[] events = { PointsAndRectangles.eventN1,
                 PointsAndRectangles.eventN2,
                 PointsAndRectangles.eventN3,
@@ -69,15 +63,8 @@ namespace Caitlyn_v1._0
                 flag = true;
                 NotePad.DoLog("Кликаю событие " + eventN);
                 Rat.Clk(events[eventN - 1]);
-                Thread.Sleep(4000);
-                if (fc.EventPage())
-                {
-                    NotePad.DoLog("Вылетел из клубов");
-                    Rat.Clk(PointsAndRectangles.clktoClubs);//Clubs
-                    flag = false;
-                    Thread.Sleep(15000);
-                }
-                se.UniversalErrorDefense();
+                Thread.Sleep(4000);                
+                CommonLists.SkipAllSkipables();
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
 

@@ -6,13 +6,17 @@ namespace Caitlyn_v1._0
     {
         static List<SkipableMoment> skipableMoments = new List<SkipableMoment>();
         static List<ReasonForRestart> reasonsForRestart = new List<ReasonForRestart>();
+        static List<Action> issueSolvations = new List<Action>();
         static CommonLists()
         {
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.lostConnection, "LostConnection"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.connectionInterrupted, "ConnectionInterrupted"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.eventisnotavailable, "EventIsNotAvailable"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.timeIsOut, "TimeIsOut"));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.EventBounds, "Event", PointsAndRectangles.clktoClubs));
+            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error", 100));
+            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error1", 100));
+            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error2", 100));
+            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error3", 100));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.startIcon, "Icon", PointsAndRectangles.clkTheIcon));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.startButton, "Start", PointsAndRectangles.buttonStart));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.headPage, "Head", PointsAndRectangles.toEvents));
@@ -29,6 +33,12 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.lostSet, "LostSet", PointsAndRectangles.endOfRaceSet));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.drawSet, "DrawSet", PointsAndRectangles.endOfRaceSet));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.ending, "PointsForRace", PointsAndRectangles.passTheTableAfterRace));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.eventEnds, "EventEnds", PointsAndRectangles.eventEndsAcceptance));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.eventEnds, "EventEnds1", PointsAndRectangles.eventEndsAcceptance));
+            issueSolvations.Add(new SolveServerError());
+            issueSolvations.Add(new SolveEventPage());
+            issueSolvations.Add(new SolveBounty());
+            issueSolvations.Add(new SolveDailyBounty());
         }
         public static void SkipAllSkipables()
         {
@@ -39,6 +49,10 @@ namespace Caitlyn_v1._0
             foreach(SkipableMoment skipableMoment in skipableMoments)
             {
                 skipableMoment.Skip();
+            }
+            foreach(Action issueSolvation in issueSolvations)
+            {
+                issueSolvation.SolveTheIssue();
             }
         }
     }

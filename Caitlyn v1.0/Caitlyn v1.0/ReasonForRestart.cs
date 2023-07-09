@@ -6,22 +6,24 @@ namespace Caitlyn_v1._0
 {
     internal class ReasonForRestart
     {
-        Rectangle bounds;
-        string name;
+        Rectangle bounds { get; set; }
+        string name { get; set; }
+        int errors { get; set; }
         public ReasonForRestart(Rectangle bounds, string name)
         {
             this.bounds = bounds;
             this.name = name;
-        }        
+            errors= 0;
+        }
+        public ReasonForRestart(Rectangle bounds, string name, int errors)
+        {
+            this.bounds = bounds;
+            this.name = name;
+            this.errors = errors;
+        }
         public void Check()
         {
-            string testPicture = @"HeadPictures\Test" + name;
-            string originalPicture = @"HeadPictures\Original" + name;
-            MasterOfPictures.MakePicture(bounds, testPicture);
-            if (MasterOfPictures.Verify(testPicture, originalPicture))
-            {
-                RestartBot();
-            }
+            if (VisualCheck.Check(bounds, name, errors)) RestartBot();
         }
         void RestartBot()
         {

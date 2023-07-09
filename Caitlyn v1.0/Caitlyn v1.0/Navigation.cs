@@ -55,14 +55,9 @@ namespace Caitlyn_v1._0
                 {
                     if (waiter == 120) se.RestartBot();
                     se.CarRepair();
-                    se.UniversalErrorDefense();
+                    CommonLists.SkipAllSkipables();
                     se.UnavailableEvent();
                     //se.CardBug();
-                    if (fc.EventEnds())
-                    {
-                        NotePad.DoLog("Событие закончилось");
-                        Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                    }
                     if (fc.ReadyToRace())
                     {
                         Rat.Clk(PointsAndRectangles.startTheRace);
@@ -73,11 +68,6 @@ namespace Caitlyn_v1._0
                     {
                         NotePad.DoLog("Выбор противника");
                         foundplace = true;
-                        Thread.Sleep(1000);
-                    }
-                    if (fc.Bounty())
-                    {
-                        NotePad.DoLog("Получил награду за эвент");
                         Thread.Sleep(1000);
                     }
                     if (fc.ClubMap())
@@ -102,19 +92,7 @@ namespace Caitlyn_v1._0
                 {
                     //se.ToClubs();
                     if (waiter == 100) se.RestartBot();
-                    se.UniversalErrorDefense();
-                    CommonLists.SkipAllSkipables();                    
-                    
-                    if (fc.Bounty())
-                    {
-                        NotePad.DoLog("Получил награду за эвент");
-                        Thread.Sleep(1000);
-                    }
-                    if (fc.EventEnds())
-                    {
-                        NotePad.DoLog("Событие закончилось");
-                        Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                    }                    
+                    CommonLists.SkipAllSkipables();
                     if (fc.ClubMap())
                     {
                         NotePad.DoLog("Нахожусь на карте");

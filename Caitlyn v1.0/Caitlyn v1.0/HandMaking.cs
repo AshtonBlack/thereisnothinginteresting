@@ -166,22 +166,10 @@ namespace Caitlyn_v1._0
         bool CheckForEventIsOn()
         {
             FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
-            se.MissClick();
-            if (fc.EventEnds())
-            {
-                NotePad.DoLog("Событие закончилось");
-                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                Thread.Sleep(2000);
-            }
+            CommonLists.SkipAllSkipables();
             if (fc.ClubMap())
             {
                 NotePad.DoLog("вылетел на карту");
-                eventIsNotEnd = false;
-                return false;
-            }
-            if (fc.Bounty())
-            {
                 eventIsNotEnd = false;
                 return false;
             }
