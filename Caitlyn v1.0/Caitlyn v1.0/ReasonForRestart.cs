@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Drawing;
-using System.Threading;
+﻿using System.Drawing;
 
 namespace Caitlyn_v1._0
 {
@@ -23,16 +21,7 @@ namespace Caitlyn_v1._0
         }
         public void Check()
         {
-            if (VisualCheck.Check(bounds, name, errors)) RestartBot();
-        }
-        void RestartBot()
-        {
-            Rat.Clk(PointsAndRectangles.noxClosing);//close Nox
-            Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.noxClosingAcceptance);//accept Nox close
-            Thread.Sleep(1000);
-            Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
-            Process.GetCurrentProcess().Kill();
+            if (VisualCheck.Check(bounds, name, errors)) SpecialEvents.RestartBot();
         }
     }
 }

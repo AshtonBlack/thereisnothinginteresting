@@ -6,10 +6,10 @@ namespace Caitlyn_v1._0
     {
         public DateTime breakStart;
         public DateTime breakEnd;
-        public BreakTime(DateTime breakStart, DateTime brakeEnd)
+        public BreakTime(DateTime breakStart, DateTime breakEnd)
         {
             this.breakStart = breakStart;
-            this.breakEnd = brakeEnd;
+            this.breakEnd = breakEnd;
         }
         public bool isTimeToBreak()
         {

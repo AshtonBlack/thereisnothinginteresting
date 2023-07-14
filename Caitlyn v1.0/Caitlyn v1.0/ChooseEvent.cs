@@ -11,7 +11,6 @@ namespace Caitlyn_v1._0
         string RQPath = @"RQ\test";
         public void ChooseNormalEvent()
         {
-            SpecialEvents se = new SpecialEvents();
             if (fc.ActiveEvent())
             {                
                 NotePad.DoLog("вхожу в активный эвент");
@@ -31,7 +30,7 @@ namespace Caitlyn_v1._0
                         do
                         {
                             CommonLists.SkipAllSkipables();
-                            se.ToClubs();
+                            SpecialEvents.ToClubs();
                         } while (!fc.ClubMap());
 
                         Thread.Sleep(500);

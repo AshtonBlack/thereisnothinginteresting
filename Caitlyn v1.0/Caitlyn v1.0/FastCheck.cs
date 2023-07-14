@@ -26,12 +26,7 @@ namespace Caitlyn_v1._0
             MasterOfPictures.BW2Capture(bounds, testPicture);
             if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors)) x = true;
             return x;
-        }
-        public bool CarMenu()
-        {
-            bool x = MainFrame(PointsAndRectangles.carMenu, "CarMenu");
-            return x;
-        }
+        }        
         public bool CarRepair()
         {
             bool x = MainFrame(PointsAndRectangles.carRepair, "CarRepair");
@@ -120,12 +115,7 @@ namespace Caitlyn_v1._0
             Point p = new Point(415, 260);
             if (MasterOfPictures.PixelIndicator(p) == active) x = true;
             return x;
-        }
-        public bool EventisFull()
-        {
-            bool x = MainFrame(PointsAndRectangles.eventisFull, "FullEvent");
-            return x;
-        }
+        }        
         public bool ArrangementWindow()
         {
             bool x = MainFrame(PointsAndRectangles.arrangementWindow, "Arrangement");

@@ -17,8 +17,7 @@ namespace Caitlyn_v1._0
                 if (bt.isTimeToBreak())
                 {
                     NotePad.DoLog("Time is over");
-                    SpecialEvents se = new SpecialEvents();
-                    se.RestartBot();
+                    SpecialEvents.RestartBot();
                 }
             }
         }

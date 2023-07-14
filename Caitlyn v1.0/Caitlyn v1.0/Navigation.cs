@@ -6,7 +6,6 @@ namespace Caitlyn_v1._0
     class Navigation
     {
         ChooseEvent ce = new ChooseEvent();
-        SpecialEvents se = new SpecialEvents();
         public void InitialStart()
         {
             NotePad.ClearLog();
@@ -18,7 +17,7 @@ namespace Caitlyn_v1._0
         {
             while (true)
             {
-                se.ToClubs();
+                SpecialEvents.ToClubs();
                 TimingUnit tu = new TimingUnit();
                 tu.CheckTime();
                 Thread.Sleep(2000);
@@ -35,7 +34,6 @@ namespace Caitlyn_v1._0
         }
         private bool PlayClubs(int i)
         {
-            SpecialEvents se = new SpecialEvents();
             FastCheck fc = new FastCheck();
             PlayClubsPositions pcp = new PlayClubsPositions();
 
@@ -53,10 +51,10 @@ namespace Caitlyn_v1._0
                 int waiter = 0;
                 do
                 {
-                    if (waiter == 120) se.RestartBot();
-                    se.CarRepair();
+                    if (waiter == 120) SpecialEvents.RestartBot();
+                    SpecialEvents.CarRepair();
                     CommonLists.SkipAllSkipables();
-                    se.UnavailableEvent();
+                    SpecialEvents.UnavailableEvent();
                     //se.CardBug();
                     if (fc.ReadyToRace())
                     {
@@ -84,14 +82,14 @@ namespace Caitlyn_v1._0
             if (eventisactive)
             {
                 pcp.TimeToRace();//расстановка
-                se.EndRace();//завершение заезда
+                SpecialEvents.EndRace();//завершение заезда
 
                 bool foundplace = false;
                 int waiter = 0;
                 do
                 {
                     //se.ToClubs();
-                    if (waiter == 100) se.RestartBot();
+                    if (waiter == 100) SpecialEvents.RestartBot();
                     CommonLists.SkipAllSkipables();
                     if (fc.ClubMap())
                     {

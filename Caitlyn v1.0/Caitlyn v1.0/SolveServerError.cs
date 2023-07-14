@@ -11,8 +11,7 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(4000);
                 if(IsError())
                 {
-                    SpecialEvents se = new SpecialEvents();
-                    se.RestartBot();
+                    SpecialEvents.RestartBot();
                 }                
             }
         }

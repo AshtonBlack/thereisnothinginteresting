@@ -4,9 +4,9 @@ using System.Threading;
 
 namespace Caitlyn_v1._0
 {
-    public class SpecialEvents
+    public static class SpecialEvents
     {
-        public void EndRace()
+        public static void EndRace()
         {
             FastCheck fc = new FastCheck();
             
@@ -18,7 +18,6 @@ namespace Caitlyn_v1._0
                 CommonLists.SkipAllSkipables();                
                 if(counter > 30)
                 {
-                    NotePad.DoErrorLog("Вероятно, вылет из игры");
                     RestartBot();
                 }
                 if (fc.RaceEnd())
@@ -30,7 +29,7 @@ namespace Caitlyn_v1._0
                 counter++;
             } while (!nextstep);
         }
-        public void DragMap()
+        public static void DragMap()
         {
             FastCheck fc = new FastCheck();
             CommonLists.SkipAllSkipables();
@@ -39,7 +38,7 @@ namespace Caitlyn_v1._0
                 Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
             }            
         }
-        public void RestartBot()
+        public static void RestartBot()
         {
             Rat.Clk(PointsAndRectangles.noxClosing);//close Nox
             Thread.Sleep(1000);
@@ -48,7 +47,7 @@ namespace Caitlyn_v1._0
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             Process.GetCurrentProcess().Kill();
         }
-        public void CarRepair()
+        public static void CarRepair()
         {
             FastCheck fc = new FastCheck();
 
@@ -57,7 +56,7 @@ namespace Caitlyn_v1._0
                 RestartBot();
             }
         }        
-        public void ClearHand()
+        public static void ClearHand()
         {
             FastCheck fc = new FastCheck();
             Point[] a = new Point[] { PointsAndRectangles.pHandSlot1,
@@ -78,34 +77,18 @@ namespace Caitlyn_v1._0
                 }                
             }
         }
-        public bool UnavailableEvent()
+        public static void UnavailableEvent()
         {
             FastCheck fc = new FastCheck();
-            bool x = true;
             Thread.Sleep(3000);
+            CommonLists.SkipAllSkipables();
             if (fc.WrongParty())
             {
                 NotePad.DoLog("Косячная рука");
                 RestartBot();
-            }            
-            CommonLists.SkipAllSkipables();
-            if (fc.EventisFull())
-            {
-                NotePad.DoLog("эвент заполнен");
-                Rat.Clk(PointsAndRectangles.eventIsFullAcceptance);//Accept Message
-
-                if (fc.ItsGarage())
-                {
-                    Rat.Clk(PointsAndRectangles.buttonBack);//back
-                    Thread.Sleep(2000);
-                    Rat.Clk(PointsAndRectangles.buttonBack);//back to club map
-                }
-                Thread.Sleep(3000);
-                x = false;
             }
-            return x;
         }        
-        public void ToClubs()
+        public static void ToClubs()
         {
             bool needToDragMap = false;
             FastCheck fc = new FastCheck();

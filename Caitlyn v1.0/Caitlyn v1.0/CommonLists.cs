@@ -13,10 +13,6 @@ namespace Caitlyn_v1._0
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.connectionInterrupted, "ConnectionInterrupted"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.eventisnotavailable, "EventIsNotAvailable"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.timeIsOut, "TimeIsOut"));
-            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error", 100));
-            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error1", 100));
-            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error2", 100));
-            reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.error, "Error3", 100));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.startIcon, "Icon", PointsAndRectangles.clkTheIcon));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.startButton, "Start", PointsAndRectangles.buttonStart));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.headPage, "Head", PointsAndRectangles.toEvents));
@@ -35,6 +31,9 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.ending, "PointsForRace", PointsAndRectangles.passTheTableAfterRace));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.eventEnds, "EventEnds", PointsAndRectangles.eventEndsAcceptance));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.eventEnds, "EventEnds1", PointsAndRectangles.eventEndsAcceptance));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.eventisFull, "FullEvent", PointsAndRectangles.eventIsFullAcceptance));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.carMenu, "CarMenu", PointsAndRectangles.closeCarCard));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.raceEnd, "RaceEnd", 220, PointsAndRectangles.endOfTheFirstRace));
             issueSolvations.Add(new SolveServerError());
             issueSolvations.Add(new SolveEventPage());
             issueSolvations.Add(new SolveBounty());

@@ -9,10 +9,7 @@ namespace Caitlyn_v1._0
         public string ground { get; set; }
         public string weather { get; set; }
         public string track { get; set; }
-        public TrackInfo()
-        {
-
-        }
+        public TrackInfo() { }
         public TrackInfo(int position)
         {
             IdentifyGround(position);

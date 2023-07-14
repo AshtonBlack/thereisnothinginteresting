@@ -64,7 +64,6 @@ namespace Caitlyn_v1._0
         }
         public static void DragnDropFast(Point xy1, Point xy2)
         {
-            SpecialEvents se = new SpecialEvents();
             int error = 0;
             string x1;
             string x2;
@@ -72,7 +71,7 @@ namespace Caitlyn_v1._0
             {
                 if (error == 3)
                 {
-                    se.RestartBot();
+                    SpecialEvents.RestartBot();
                 }
                 x1 = MasterOfPictures.PixelIndicator(xy1);//контрольный пиксель
                 MoveMouse(xy1);

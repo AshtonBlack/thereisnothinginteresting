@@ -9,11 +9,10 @@ namespace Caitlyn_v1._0
             FastCheck fc = new FastCheck();
             bool positionflag = false;
             bool continuegame = false;
-            SpecialEvents se = new SpecialEvents();
             int waiter = 0;
             do
             {
-                if (waiter == 120) se.RestartBot();
+                if (waiter == 120) SpecialEvents.RestartBot();
                 CommonLists.SkipAllSkipables();
                 if (fc.ClubMap())
                 {
@@ -24,13 +23,6 @@ namespace Caitlyn_v1._0
                         NotePad.DoLog("выкинуло на карту");
                         positionflag = true;
                     }
-                }
-                if (fc.CarMenu())
-                {
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Закрываю меню автомобиля");
-                    Rat.Clk(PointsAndRectangles.closeCarCard);
-                    Thread.Sleep(1000);
                 }
                 if (fc.ItsGarage())
                 {
@@ -46,8 +38,7 @@ namespace Caitlyn_v1._0
         }
         public bool PrepareToRace(int i)
         {
-            FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
+            FastCheck fc = new FastCheck();            
             HandMaking hm = new HandMaking();
             NotePad.DoLog("Rq = " + Condition.eventRQ
                 + ", условие 1: " + Condition.ConditionNumber1
@@ -59,7 +50,7 @@ namespace Caitlyn_v1._0
             {
                 if (wronghandnumber == 3)
                 {
-                    se.RestartBot();
+                    SpecialEvents.RestartBot();
                 }
                 else
                 {
@@ -92,9 +83,8 @@ namespace Caitlyn_v1._0
         }
         bool MakeHand()
         {
-            SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
-            se.ClearHand();
+            SpecialEvents.ClearHand();
             Thread.Sleep(1000);
             return hm.MakingHand();
         }
@@ -110,12 +100,11 @@ namespace Caitlyn_v1._0
             Condition.setPreviousTracks(tracksInfo);
             bool raceIsEnd = false;
             bool raceIsStart = false;
-            int waiter = 0;
-            SpecialEvents se = new SpecialEvents();
+            int waiter = 0;            
             GrandArrangement ga = new GrandArrangement();
             do
             {
-                if (waiter == 180) se.RestartBot();
+                if (waiter == 180) SpecialEvents.RestartBot();
                 CommonLists.SkipAllSkipables();                
                 if (fc.ClubMap())
                 {

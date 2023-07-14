@@ -52,14 +52,13 @@ namespace Caitlyn_v1._0
 
             int randomFinger;
             Random r = new Random();
-            SpecialEvents se = new SpecialEvents();
             while (Condition.eventRQ - handrq < 0)
             {
                 int attemptToRandomizeFinger = 0;
                 do
                 {
                     attemptToRandomizeFinger++;
-                    if (attemptToRandomizeFinger == 100) se.RestartBot();
+                    if (attemptToRandomizeFinger == 100) SpecialEvents.RestartBot();
                     randomFinger = r.Next(0, 5);
                 } while (fingerCarNumber[randomFinger] == carsForEveryFinger[randomFinger].Count - 1);
 
@@ -289,13 +288,12 @@ namespace Caitlyn_v1._0
         bool UseFilter(CarForExcel carDescription)
         {
             FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
             NotePad.DoLog("накладываю фильтры");
             int attempts = 0;
             do
             {
                 attempts++;
-                if(attempts == 10) se.RestartBot();       
+                if(attempts == 10) SpecialEvents.RestartBot();       
                 if (!CheckForEventIsOn())
                 {
                     return false;
@@ -327,7 +325,7 @@ namespace Caitlyn_v1._0
             do
             {
                 attempts++;
-                if (attempts == 10) se.RestartBot();
+                if (attempts == 10) SpecialEvents.RestartBot();
                 if (!CheckForEventIsOn())
                 {
                     return false;
