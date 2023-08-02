@@ -14,7 +14,7 @@ namespace Caitlyn_v1._0
             List<CarForExcel>[] carsForEveryFinger = new List<CarForExcel>[5];
             for (int finger = 0; finger < 5; finger++)
             {
-                carsForEveryFinger[finger] = CarsDB.DefinePreferedCarPull(Condition.previousTracks[finger]);
+                carsForEveryFinger[finger] = CarsDB.DefinePreferedCarPull(Condition.tracks[finger]);
             }
             
             int[] fingerCarNumber = new int[5];
@@ -182,7 +182,7 @@ namespace Caitlyn_v1._0
                 && Condition.ConditionNumber1 != "обычная х3"
                 && !fc.ConditionActivated()
                 && CheckForEventIsOn()
-                && fc.ItsGarage())//itsGarage is for test
+                && fc.ItsGarage())
             {
                 NotePad.DoLog("Активирую условия события");
                 if (Condition.ConditionNumber2 == "empty")
@@ -224,7 +224,6 @@ namespace Caitlyn_v1._0
         {
             string path = "Check//";
 
-            bool x = true;
             Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.HandSlot1, PointsAndRectangles.HandSlot2, PointsAndRectangles.HandSlot3, PointsAndRectangles.HandSlot4, PointsAndRectangles.HandSlot5 };
             string[] n = new string[] { "finger1", "finger2", "finger3", "finger4", "finger5" };
             for (int i = 0; i < 5; i++)
@@ -236,17 +235,15 @@ namespace Caitlyn_v1._0
             {
                 MasterOfPictures.MakePicture(bounds[j], path + n[j] + "1");
             }
-
             for (int k = 0; k < 5; k++)
             {
                 if (!MasterOfPictures.Verify(path + n[k] + "0", path + n[k] + "1"))
                 {
                     NotePad.DoLog("Тачка на " + (k + 1) + " месте неисправна");
-                    x = false;
-                    break;
+                    return false;
                 }
             }
-            return x;
+            return true;
         }
         public bool VerifyHand()
         {
@@ -304,7 +301,6 @@ namespace Caitlyn_v1._0
             Thread.Sleep(200);
             Rat.Clk(PointsAndRectangles.clear);
             Thread.Sleep(1000);
-            //Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);//legacy
             Rat.Clk(PointsAndRectangles.rarity);
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.rarityClasses[carDescription.rarity]);//выбрать класс
@@ -318,8 +314,6 @@ namespace Caitlyn_v1._0
             //TODO choose country
             Rat.DragnDropSlow(PointsAndRectangles.toClearanceFilterStart, PointsAndRectangles.toClearanceFilterFinish, 8);//legacy
             Thread.Sleep(1000);
-            //Rat.Clk(PointsAndRectangles.others);
-            //Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс
             attempts = 0;
             do

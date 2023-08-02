@@ -79,6 +79,7 @@
     <Compile Include="SolveBounty.cs" />
     <Compile Include="SolveDailyBounty.cs" />
     <Compile Include="SolveEventPage.cs" />
+    <Compile Include="SolveNoxRestartMessage.cs" />
     <Compile Include="SolveServerError.cs" />
     <Compile Include="SpecialEvents.cs" />
     <Compile Include="TimingUnit.cs" />

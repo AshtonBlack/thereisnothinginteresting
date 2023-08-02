@@ -6,9 +6,8 @@ namespace Caitlyn_v1._0
     {
         public bool AnyHandSlotIsEmpty()
         {
-            bool x = false;
-            if (CheckHandSlot(1, 5) > 0) x = true;
-            return x;
+            if (CheckHandSlot(1, 5) > 0) return true;
+            return false;
         }
         public bool MainFrame(Rectangle bounds, string name)
         {
@@ -26,48 +25,31 @@ namespace Caitlyn_v1._0
             MasterOfPictures.BW2Capture(bounds, testPicture);
             if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors)) x = true;
             return x;
-        }        
-        public bool CarRepair()
-        {
-            bool x = MainFrame(PointsAndRectangles.carRepair, "CarRepair");
-            return x;
-        }
+        }                
         public int CheckHandSlot(int startslot, int endslot)
         {
-            int x = 0;
+            int emptySlots = 0;
             Rectangle[] handSlots = { PointsAndRectangles.HandSlot1,
                 PointsAndRectangles.HandSlot2,
                 PointsAndRectangles.HandSlot3,
                 PointsAndRectangles.HandSlot4,
                 PointsAndRectangles.HandSlot5 };
 
-            for (int i = (startslot - 1); i < endslot; i++)
+            for (int i = startslot - 1; i < endslot; i++)
             {
-                bool y = MainFrame(handSlots[i], "CarSlot" + i);
-                if (y)
+                if (MainFrame(handSlots[i], "CarSlot" + i))
                 {
                     NotePad.DoLog("Тачка на " + (i + 1) + " позиции отсутствует");
-                    x++;
+                    emptySlots++;
                 }
             }
-
-            return x;
-        }        
-        public bool WrongParty()
-        {
-            bool x = MainFrame(PointsAndRectangles.wrongParty, "WrongParty");
-            return x;
-        }
+            return emptySlots;
+        }                
         public bool ReadyToRace()
         {
             bool x = MainFrame(PointsAndRectangles.readyToRace, "GarageRaceButton");
             return x;
-        }                                    
-        public bool NoxRestartMessage()
-        {
-            bool x = MainFrame(PointsAndRectangles.noxRestartMessage, "NoxRestartMessage");
-            return x;
-        }
+        }                                            
         public bool TypeIsOpenned()
         {
             bool x = MainFrame(PointsAndRectangles.typeIsOpenned, "TypeIsOpenned");
@@ -85,14 +67,8 @@ namespace Caitlyn_v1._0
         }        
         public bool ClubMap()
         {
-            if(MainFrameBW(PointsAndRectangles.clubMap, "ClubMap", 400))
-            {
-                return true;
-            }
-            if (ActiveEvent())
-            {
-                return true;
-            }
+            if(MainFrameBW(PointsAndRectangles.clubMap, "ClubMap", 400)) return true;
+            if (ActiveEvent()) return true;
             return false;
         }
         public bool RaceOn()
@@ -125,24 +101,6 @@ namespace Caitlyn_v1._0
         {
             bool x = MainFrame(PointsAndRectangles.readyToRace, "RedRaceButton");
             return x;
-        }
-        public bool EnemyIsReady()
-        {
-            bool x = MainFrameBW(PointsAndRectangles.chooseanEnemy, "ChooseanEnemy", 90);
-            if (x)
-            {
-                NotePad.DoLog("противник загрузился, готов фотать трассы");
-            }
-            return x;
-        }
-        public bool RaceEnd()
-        {
-            bool x = MainFrameBW(PointsAndRectangles.raceEnd, "RaceEnd", 220);
-            if (x)
-            {
-                NotePad.DoLog("первую трассу проехал, жму пропуск");
-            }
-            return x;
-        }                         
+        }                
     }
 }

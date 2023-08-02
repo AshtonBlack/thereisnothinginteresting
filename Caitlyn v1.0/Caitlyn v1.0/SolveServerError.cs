@@ -9,10 +9,7 @@ namespace Caitlyn_v1._0
             if (IsError())
             {
                 Thread.Sleep(4000);
-                if(IsError())
-                {
-                    SpecialEvents.RestartBot();
-                }                
+                if(IsError()) SpecialEvents.RestartBot();
             }
         }
         bool IsError()

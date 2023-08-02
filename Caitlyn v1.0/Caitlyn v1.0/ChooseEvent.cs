@@ -93,7 +93,7 @@ namespace Caitlyn_v1._0
             }
             if(!eventIsOK && eventN == 4)
             {
-                Rat.Clk(PointsAndRectangles.clkoutofClubs);
+                Rat.Clk(PointsAndRectangles.buttonBack);
             }
 
             return eventIsOK;

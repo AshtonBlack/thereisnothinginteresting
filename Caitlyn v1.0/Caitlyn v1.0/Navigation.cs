@@ -4,8 +4,7 @@ using System.Threading;
 namespace Caitlyn_v1._0
 {
     class Navigation
-    {
-        ChooseEvent ce = new ChooseEvent();
+    {        
         public void InitialStart()
         {
             NotePad.ClearLog();
@@ -15,17 +14,17 @@ namespace Caitlyn_v1._0
         }
         public void InClubs()
         {
+            ChooseEvent ce = new ChooseEvent();
             while (true)
             {
                 SpecialEvents.ToClubs();
                 TimingUnit tu = new TimingUnit();
-                tu.CheckTime();
-                Thread.Sleep(2000);
-                int i = 0;
+                tu.CheckTime();             
                 ce.ChooseNormalEvent();
                 NotePad.DoLog("Вхожу в эвент " + Condition.eventRQ + " рк");
                 Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter   
-                while (i < 100)
+                int i = 0;
+                while (true)
                 {
                     i++;
                     if (!PlayClubs(i)) break;
@@ -37,73 +36,26 @@ namespace Caitlyn_v1._0
             FastCheck fc = new FastCheck();
             PlayClubsPositions pcp = new PlayClubsPositions();
 
-            bool eventisactive = pcp.PathToGarage();
-            if (eventisactive)
+            if (!pcp.PathToGarage()) return false;
+            if (!pcp.PrepareToRace(i)) return false;//набор/проверка руки
+            GameState.antiLoopCounter = 0;
+            do
             {
-                if (!pcp.PrepareToRace(i))//набор/проверка руки
+                if (GameState.antiLoopCounter == 60) SpecialEvents.RestartBot();
+                CommonLists.SkipAllSkipables();
+                if (fc.ReadyToRace())
                 {
-                    eventisactive = false;
+                    Rat.Clk(PointsAndRectangles.startTheRace);
+                    NotePad.DoLog("Перехожу к гонке");
                 }
-            } //проверить отказоустойчивость
-            if (eventisactive)
-            {
-                bool foundplace = false;
-                int waiter = 0;
-                do
-                {
-                    if (waiter == 120) SpecialEvents.RestartBot();
-                    SpecialEvents.CarRepair();
-                    CommonLists.SkipAllSkipables();
-                    SpecialEvents.UnavailableEvent();
-                    //se.CardBug();
-                    if (fc.ReadyToRace())
-                    {
-                        Rat.Clk(PointsAndRectangles.startTheRace);
-                        NotePad.DoLog("Перехожу к гонке");
-                        Thread.Sleep(2000);
-                    }
-                    if (fc.EnemyIsReady())
-                    {
-                        NotePad.DoLog("Выбор противника");
-                        foundplace = true;
-                        Thread.Sleep(1000);
-                    }
-                    if (fc.ClubMap())
-                    {
-                        NotePad.DoLog("Нахожусь на карте");
-                        eventisactive = false;
-                        foundplace = true;
-                        Thread.Sleep(1000);
-                    }
-                    Thread.Sleep(1000);
-                    waiter++;
-                } while (!foundplace);//ожидание противника
-            } //проверить отказоустойчивость
-            if (eventisactive)
-            {
-                pcp.TimeToRace();//расстановка
-                SpecialEvents.EndRace();//завершение заезда
+                if (fc.ArrangementWindow()) break;
+                if (fc.ClubMap()) return false;
+                Thread.Sleep(1000);
+                GameState.antiLoopCounter++;
+            } while (true);//переход к расстановке
+            if(!pcp.TimeToRace()) return false;//расстановка
 
-                bool foundplace = false;
-                int waiter = 0;
-                do
-                {
-                    //se.ToClubs();
-                    if (waiter == 100) SpecialEvents.RestartBot();
-                    CommonLists.SkipAllSkipables();
-                    if (fc.ClubMap())
-                    {
-                        NotePad.DoLog("Нахожусь на карте");
-                        eventisactive = false;
-                        foundplace = true;
-                        Thread.Sleep(1000);
-                    }
-                    Thread.Sleep(1000);
-                    waiter++;
-                } while (!foundplace);//переход на экран контроля
-            } //проверить отказоустойчивость
-
-            return eventisactive;
+            return true;
         }
     }
 }

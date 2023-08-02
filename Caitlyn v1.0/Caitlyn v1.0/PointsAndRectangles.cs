@@ -87,7 +87,6 @@ namespace Caitlyn_v1._0
         public static Rectangle Condition2Bounds = new Rectangle(1000, 418, 205, 20);//new
         public static Rectangle RQBounds = new Rectangle(1150, 367, 85, 18);//new
         public static Point clktoClubs = new Point(240, 500);
-        public static Point clkoutofClubs = new Point(135, 200);
         public static Point eventN1 = new Point(960, 570);
         public static Point eventN2 = new Point(960, 660);
         public static Point eventN3 = new Point(960, 750);
@@ -240,7 +239,6 @@ namespace Caitlyn_v1._0
         public static Point clubEventEnter = new Point(1060, 800);
         public static Point startTheRace = new Point(1120, 800);
         public static Point passTheTableAfterRace = new Point(820, 730);
-        public static Point backToClubMap = new Point(70, 205);
         //PlayClubsPositions
         public static Point bountyForSeason = new Point(635, 660);
         public static Point eventIsEnd = new Point(640, 580);//?

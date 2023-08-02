@@ -7,34 +7,28 @@ namespace Caitlyn_v1._0
         public bool PathToGarage()
         {
             FastCheck fc = new FastCheck();
-            bool positionflag = false;
-            bool continuegame = false;
-            int waiter = 0;
+            GameState.antiLoopCounter = 0;
             do
             {
-                if (waiter == 120) SpecialEvents.RestartBot();
+                if (GameState.antiLoopCounter == 60) SpecialEvents.RestartBot();
                 CommonLists.SkipAllSkipables();
                 if (fc.ClubMap())
                 {
                     Thread.Sleep(2000);
-
                     if (fc.ClubMap())
                     {
                         NotePad.DoLog("выкинуло на карту");
-                        positionflag = true;
+                        return false;
                     }
                 }
                 if (fc.ItsGarage())
                 {
-                    positionflag = true;
-                    NotePad.DoLog("Нахожусь в гараже");
-                    continuegame = true;
+                    NotePad.DoLog("Нахожусь в гараже");    
+                    return true;
                 }                
                 Thread.Sleep(1000);
-                waiter++;
-            } while (!positionflag);
-
-            return continuegame;
+                GameState.antiLoopCounter++;
+            } while (true);
         }
         public bool PrepareToRace(int i)
         {
@@ -88,7 +82,7 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             return hm.MakingHand();
         }
-        public void TimeToRace()
+        public bool TimeToRace()
         {
             FastCheck fc = new FastCheck(); 
 
@@ -97,26 +91,19 @@ namespace Caitlyn_v1._0
             {
                 tracksInfo[i]= new TrackInfo(i+1);
             }
-            Condition.setPreviousTracks(tracksInfo);
-            bool raceIsEnd = false;
+            Condition.setTracks(tracksInfo);
             bool raceIsStart = false;
-            int waiter = 0;            
+            GameState.antiLoopCounter = 0;            
             GrandArrangement ga = new GrandArrangement();
             do
             {
-                if (waiter == 180) SpecialEvents.RestartBot();
+                if (GameState.antiLoopCounter == 120) SpecialEvents.RestartBot();
                 CommonLists.SkipAllSkipables();                
                 if (fc.ClubMap())
                 {
                     NotePad.DoLog("вылетел из заезда");
-                    raceIsEnd = true;
-                }
-                if (fc.EnemyIsReady())
-                {
-                    Thread.Sleep(1000);
-                    Rat.Clk(PointsAndRectangles.ChooseAnEnemy);//ChooseanEnemy
-                    NotePad.DoLog("противник выбран");
-                }
+                    return false;
+                }                
                 if (fc.ArrangementWindow())
                 {
                     NotePad.DoLog("загрузился экран расстановки");
@@ -134,11 +121,11 @@ namespace Caitlyn_v1._0
                 if (!fc.RaceOn() && raceIsStart)
                 {
                     NotePad.DoLog("заезд окончен");
-                    raceIsEnd = true;
+                    return true;
                 }
                 Thread.Sleep(1000);
-                waiter++;
-            } while (!raceIsEnd);
+                GameState.antiLoopCounter++;
+            } while (true);
         }
     }
 }
