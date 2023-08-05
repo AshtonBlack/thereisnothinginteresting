@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RoG+G/l6WT9PFtGzM3kOrRhKh8wLjeVP8k+H+KZHUQO00ueX9NwzhtgM+9gbUKRyU9hcmbWbeKyNRPY3qQCHrg==",
+  "dgSpecHash": "HyTs3YZ4XJEZhIonQFBn+P5FJ7wD5oMKp4X29wL+hAF67qlD/3BkXkM54MgFy7ZwOyYLG5xRzLTwlGb/Z58BlA==",
   "success": true,
-  "projectFilePath": "D:\\bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\admin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.23\\microsoft.netcore.app.host.win-x64.3.1.23.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

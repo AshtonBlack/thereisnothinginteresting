@@ -22,8 +22,7 @@ namespace Caitlyn_v1._0
             }
             else
             {
-                bool eventIsOK = false;
-                while (!eventIsOK)
+                while (true)
                 {
                     for (int i = 1; i < 5; i++)
                     {
@@ -35,14 +34,9 @@ namespace Caitlyn_v1._0
 
                         Thread.Sleep(500);
                         NotePad.DoLog("Проверяю условие " + i);
-                        eventIsOK = Selection(i);
-
-                        if (!eventIsOK)
-                        {
-                            Rat.Clk(PointsAndRectangles.toeventlist);//Back
-                            Thread.Sleep(3000);
-                        }
-                        else break;
+                        if(Selection(i)) break;
+                        Rat.Clk(PointsAndRectangles.toeventlist);//Back
+                        Thread.Sleep(3000);
                     }
                 }
             }            
@@ -53,8 +47,6 @@ namespace Caitlyn_v1._0
                 PointsAndRectangles.eventN2,
                 PointsAndRectangles.eventN3,
                 PointsAndRectangles.eventN4 };
-
-            bool eventIsOK = false;
 
             bool flag;
             do
@@ -74,7 +66,6 @@ namespace Caitlyn_v1._0
 
             if (cond1 != "unknown" && cond2 != "unknown")//Исключаю неизвестный
             {
-                eventIsOK = true;
                 Condition.MakeCondition(cond1, cond2);
                 if (GotRQ() && (Condition.minRQ != 0))
                 {
@@ -82,21 +73,21 @@ namespace Caitlyn_v1._0
                     if (Condition.minRQ > Condition.eventRQ)
                     {
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
-                        eventIsOK = false;
+                        if (eventN == 4) Rat.Clk(PointsAndRectangles.buttonBack);
+                        return false;
                     }
                     else
                     {
                         Condition.setDefaultTracks();
                     }
-                }  
-                else eventIsOK = false;
+                }
+                else
+                {
+                    if (eventN == 4) Rat.Clk(PointsAndRectangles.buttonBack); 
+                    return false;
+                }
             }
-            if(!eventIsOK && eventN == 4)
-            {
-                Rat.Clk(PointsAndRectangles.buttonBack);
-            }
-
-            return eventIsOK;
+            return true;
         }
         int DefineEvevntConditionByPicture(int conditionNumber)
         {

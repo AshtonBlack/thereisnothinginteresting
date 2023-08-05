@@ -11,7 +11,7 @@ namespace Caitlyn_v1._0
             MasterOfPictures.MakePicture(bounds, testPicture);
             if (MasterOfPictures.Verify(testPicture, originalPicture))
             {
-                NotePad.DoLog("Viasial matching with " + name);
+                NotePad.DoLog("Visual matching with " + name);
                 return true;
             }
             return false;
@@ -23,7 +23,7 @@ namespace Caitlyn_v1._0
             MasterOfPictures.BW2Capture(bounds, testPicture);
             if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors))
             {
-                NotePad.DoLog("Viasial matching with " + name);
+                NotePad.DoLog("Visual matching with " + name);
                 return true;
             }
             return false;

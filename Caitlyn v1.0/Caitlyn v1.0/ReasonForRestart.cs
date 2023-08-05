@@ -21,7 +21,8 @@ namespace Caitlyn_v1._0
         }
         public void Check()
         {
-            if (VisualCheck.Check(bounds, name, errors)) SpecialEvents.RestartBot();
+            if (errors == 0) { if (VisualCheck.Check(bounds, name)) SpecialEvents.RestartBot(); }
+            else if (VisualCheck.Check(bounds, name, errors)) SpecialEvents.RestartBot();            
         }
     }
 }

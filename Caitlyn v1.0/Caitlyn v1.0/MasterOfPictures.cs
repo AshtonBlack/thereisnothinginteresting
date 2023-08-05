@@ -44,35 +44,29 @@ namespace Caitlyn_v1._0
         }
         public static bool Verify(string PATH, string ORIGINALPATH)
         {
-            bool flag1 = false;
             if (File.Exists("C:\\Bot\\" + ORIGINALPATH + ".jpg"))
             {
-                if (File.Exists("C:\\Bot\\" + PATH + ".jpg"))
+                Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
+                Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                for (int x = 0; x < picturetest.Width; x++)
                 {
-                    flag1 = true;
-                    Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
-                    Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
-                    for (int x = 0; x < picturetest.Width; x++)
+                    for (int y = 0; y < picturetest.Height; y++)
                     {
-                        if (flag1 == true)
+                        if (picturetest.GetPixel(x, y) != picture.GetPixel(x, y))
                         {
-                            for (int y = 0; y < picturetest.Height; y++)
-                            {
-                                if (picturetest.GetPixel(x, y) != picture.GetPixel(x, y))
-                                {
-                                    flag1 = false;
-                                    break;
-                                }
-                            }
+                            return false;
                         }
                     }
-                    picturetest.Dispose();
-                    picture.Dispose();
                 }
-                else NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + PATH + ".jpg");
+                picturetest.Dispose();
+                picture.Dispose();
             }
-            else NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");
-            return flag1;
+            else
+            {
+                NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                return false;
+            }
+            return true;
         }
         public static void TrackCapture(Rectangle bounds, string PATH)
         {
@@ -118,7 +112,7 @@ namespace Caitlyn_v1._0
                 }
             }
 
-            BW.Save("C:\\Bot\\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black ad white image            
+            BW.Save("C:\\Bot\\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black and white image            
 
             gdi.Dispose();
             captured.Dispose();
@@ -126,27 +120,21 @@ namespace Caitlyn_v1._0
         }
         public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
         {
-            bool flag1 = false;
             if (File.Exists("C:\\Bot\\" + ORIGINALPATH + ".jpg"))
             {
-                flag1 = true;
                 int differences = 0;
                 Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
                 Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
                 for (int x = 0; x < picturetest.Width; x++)
                 {
-                    if (flag1 == true)
+                    for (int y = 0; y < picturetest.Height; y++)
                     {
-                        for (int y = 0; y < picturetest.Height; y++)
+                        if (Math.Abs((int)picturetest.GetPixel(x, y).R - (int)picture.GetPixel(x, y).R) >= 200)
                         {
-                            if (Math.Abs((int)picturetest.GetPixel(x, y).R - (int)picture.GetPixel(x, y).R) >= 200)
+                            differences++;
+                            if (differences == maxdiffernces)
                             {
-                                differences++;
-                                if (differences == maxdiffernces)
-                                {
-                                    flag1 = false;
-                                    break;
-                                }
+                                return false;
                             }
                         }
                     }
@@ -154,8 +142,12 @@ namespace Caitlyn_v1._0
                 picturetest.Dispose();
                 picture.Dispose();
             }
-            else NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");
-            return flag1;
+            else 
+            { 
+                NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                return false;
+            }
+            return true;
         }
     }
 }
