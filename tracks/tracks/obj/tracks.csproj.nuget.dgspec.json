@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj": {}
+    "C:\\Bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj": {}
   },
   "projects": {
-    "D:\\bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj": {
+    "C:\\Bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj",
+        "projectUniqueName": "C:\\Bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj",
         "projectName": "tracks",
-        "projectPath": "D:\\bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj",
+        "projectPath": "C:\\Bot\\thereisnothinginteresting\\tracks\\tracks\\tracks.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "D:\\bot\\thereisnothinginteresting\\tracks\\tracks\\obj\\",
+        "outputPath": "C:\\Bot\\thereisnothinginteresting\\tracks\\tracks\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,7 +29,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -42,7 +40,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -53,24 +50,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.10, 3.1.10]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.23, 3.1.23]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[3.1.0, 3.1.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[3.1.0, 3.1.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -79,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
