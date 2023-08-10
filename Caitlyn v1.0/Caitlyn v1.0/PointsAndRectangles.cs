@@ -262,7 +262,7 @@ namespace Caitlyn_v1._0
         public static Point missClickCancelation = new Point(1145, 240);
         public static Point eventEndsAcceptance = new Point(640, 580);//?
         public static Point eventIsFullAcceptance = new Point(645, 575);
-        public static Point buttonBack = new Point(85, 215);
+        public static Point buttonBack = new Point(60, 215);
         public static Point dailyBountyStart = new Point(640, 770);
         public static Point confirmdailyBountyEnd = new Point(630, 770);
         public static Point dailyBountyThrow = new Point(640, 510);

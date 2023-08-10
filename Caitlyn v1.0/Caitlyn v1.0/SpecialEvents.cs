@@ -20,7 +20,7 @@ namespace Caitlyn_v1._0
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             Process.GetCurrentProcess().Kill();
         }             
-        public static void ClearHand()
+        public static bool ClearHand()
         {
             FastCheck fc = new FastCheck();
             Point[] a = new Point[] { PointsAndRectangles.pHandSlot1,
@@ -35,8 +35,9 @@ namespace Caitlyn_v1._0
                     Point endPoint = new Point(a[i].X, a[i].Y - 270);
                     Rat.DragnDropSlow(a[i], endPoint, 10);
                 }
-                else break;    
+                else return false;    
             }
+            return true;
         }   
         public static void ToClubs()
         {

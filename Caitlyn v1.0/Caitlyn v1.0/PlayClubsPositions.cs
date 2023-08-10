@@ -78,7 +78,7 @@ namespace Caitlyn_v1._0
         bool MakeHand()
         {
             HandMaking hm = new HandMaking();
-            SpecialEvents.ClearHand();
+            if (!SpecialEvents.ClearHand()) return false;
             Thread.Sleep(1000);
             return hm.MakingHand();
         }
