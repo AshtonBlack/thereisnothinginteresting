@@ -45,14 +45,14 @@ namespace Caitlyn_v1._0
             GameState.antiLoopCounter = 0;
             do
             {
-                if (GameState.antiLoopCounter > 100) RestartBot();                
+                if (GameState.antiLoopCounter > 60) RestartBot();                
                 CommonLists.SkipAllSkipables(); 
                 if (fc.ClubMap())
                 {
                     if (GameState.needToDragMap) DragMap();
                     break;
                 }
-                Thread.Sleep(1500);
+                Thread.Sleep(1000);
                 GameState.antiLoopCounter++;
             } while (true);            
         }

@@ -6,8 +6,8 @@ namespace Caitlyn_v1._0
     {
         public static bool Check(Rectangle bounds, string name)
         {
-            string testPicture = "HeadPictures\\Test" + name;
-            string originalPicture = "HeadPictures\\Original" + name;
+            string testPicture = @"HeadPictures\Test" + name;
+            string originalPicture = @"HeadPictures\Original" + name;
             MasterOfPictures.MakePicture(bounds, testPicture);
             if (MasterOfPictures.Verify(testPicture, originalPicture))
             {
@@ -18,8 +18,8 @@ namespace Caitlyn_v1._0
         }
         public static bool Check(Rectangle bounds, string name, int errors)
         {
-            string testPicture = "HeadPictures\\Test" + name;
-            string originalPicture = "HeadPictures\\Original" + name;
+            string testPicture = @"HeadPictures\Test" + name;
+            string originalPicture = @"HeadPictures\Original" + name;
             MasterOfPictures.BW2Capture(bounds, testPicture);
             if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors))
             {

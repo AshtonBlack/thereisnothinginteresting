@@ -1,86 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 
 namespace Caitlyn_v1._0
 {
     static class PointsAndRectangles
     {
         public static int allpointslength { get; set; }
-        public static string[,] allpoints { get; set; }
-        public static string[,] allrectangles { get; set; }
+        public static List<(string pointName, Point point)> allpoints { get; set; }
+        public static List<(string rectangleName, Rectangle rectangle)> allrectangles { get; set; }
         static PointsAndRectangles()
         {
-            //AllpointsMakeTable();
-            //AllrectanglesMakeTable();
-        }
-        public static void AllpointsMakeTable()
-        {
-            string commonpath = @"C:\Bot\NewPL\";
-            string path = "PictureToCar.txt";
-            allpointslength = 0;
-            using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null && line != " " && line != "")
-                {
-                    allpointslength++;
-                }
-                sr.Close();
-            }
-            allpoints = new string[allpointslength, 3];
-
-            using (StreamReader sr = new StreamReader(commonpath + path, System.Text.Encoding.Default))
-            {
-                for (int i = 0; i < allpoints.Length; i++)
-                {
-                    string theline = sr.ReadLine();
-                    allpoints[i, 0] = Transform(theline, 1);
-                    allpoints[i, 1] = Transform(theline, 2);
-                }
-                sr.Close();
-            }
-        }
-        static string Transform(string t, int wordN)
-        {
-            string forreturn;
-            string a = t.Trim();
-            char[] word = a.ToCharArray();
-
-            int wordBlength = 0;
-            for (int i = 0; i < word.Length; i++)
-            {
-                if (word[i] != ' ')
-                {
-                    wordBlength++;
-                }
-                else break;
-            }
-            char[] wordB = new char[wordBlength];
-            for (int i = 0; i < wordB.Length; i++)
-            {
-                wordB[i] = word[i];
-            }
-
-            char[] wordC = new char[word.Length - wordBlength - 1];
-            for (int i = 0; i < wordC.Length; i++)
-            {
-                wordC[i] = word[i + wordBlength + 1];
-            }
-
-            if (wordN == 1)
-            {
-                forreturn = new string(wordB);
-            }
-            else
-            {
-                forreturn = new string(wordC);
-            }
-            return forreturn;
-        }
-        public static void AllrectanglesMakeTable()
-        {
-
+            //NotePad.ReadClkPoints();
+            //NotePad.ReadCaptureRectangles();
         }
         //ChooseEvent
         public static Rectangle Condition1Bounds = new Rectangle(1000, 392, 205, 20);//new

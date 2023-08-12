@@ -4,7 +4,7 @@ namespace Caitlyn_v1._0
 {
     internal class SolveDailyBounty: Action
     {
-        public override void SolveTheIssue()
+        public override bool SolveTheIssue()
         {
             if(VisualCheck.Check(PointsAndRectangles.dailyBounty, "DailyBounty"))
             {
@@ -21,6 +21,7 @@ namespace Caitlyn_v1._0
                 } while (bountyisavailable);          
                 SpecialEvents.RestartBot();
             }
+            return false;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Caitlyn_v1._0
 {
     internal class SolveNoxRestartMessage: Action
     {
-        public override void SolveTheIssue()
+        public override bool SolveTheIssue()
         {
             if (VisualCheck.Check(PointsAndRectangles.noxRestartMessage, "NoxRestartMessage"))
             {
@@ -15,7 +15,9 @@ namespace Caitlyn_v1._0
                 Thread.Sleep(120000);
                 //Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_1");
                 Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe");
+                return true;
             }
+            return false;
         }
     }
 }

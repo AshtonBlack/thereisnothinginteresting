@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 
 namespace Caitlyn_v1._0
 {
@@ -45,18 +46,29 @@ namespace Caitlyn_v1._0
         }
         public static void SkipAllSkipables()
         {
-            foreach(ReasonForRestart reason in reasonsForRestart)
+            while(true)
             {
+                if(SomethingWasSkipped() == false) break;
+            }
+        }
+        static bool SomethingWasSkipped()
+        {
+            foreach (ReasonForRestart reason in reasonsForRestart)
+            {
+                Thread.Sleep(20);
                 reason.Check();
             }
-            foreach(SkipableMoment skipableMoment in skipableMoments)
+            foreach (SkipableMoment skipableMoment in skipableMoments)
             {
-                skipableMoment.Skip();
+                Thread.Sleep(20);
+                if (skipableMoment.Skip()) return true;
             }
-            foreach(Action issueSolvation in issueSolvations)
+            foreach (Action issueSolvation in issueSolvations)
             {
-                issueSolvation.SolveTheIssue();
+                Thread.Sleep(20);
+                if (issueSolvation.SolveTheIssue()) return true;
             }
+            return false;
         }
     }
 }

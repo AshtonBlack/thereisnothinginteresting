@@ -4,13 +4,14 @@ namespace Caitlyn_v1._0
 {
     internal class SolveServerError : Action
     {
-        public override void SolveTheIssue()
+        public override bool SolveTheIssue()
         {
             if (IsError())
             {
                 Thread.Sleep(4000);
                 if(IsError()) SpecialEvents.RestartBot();
             }
+            return false;
         }
         bool IsError()
         {

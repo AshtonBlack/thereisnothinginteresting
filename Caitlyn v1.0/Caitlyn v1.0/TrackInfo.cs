@@ -88,7 +88,7 @@ namespace Caitlyn_v1._0
         int FindTrackPicture(int position)
         {
             Rectangle[] a = { PointsAndRectangles.Track1, PointsAndRectangles.Track2, PointsAndRectangles.Track3, PointsAndRectangles.Track4, PointsAndRectangles.Track5 };
-            MasterOfPictures.TrackCapture(a[position - 1], ("Track" + position + "\\test"));
+            MasterOfPictures.TrackCapture(a[position - 1], "Track" + position + "\\test");
             int pictureCounter = 0;
             for (int i = 1; i < 100; i++)
             {

@@ -67,7 +67,7 @@ namespace Caitlyn_v1._0
         }        
         public bool ClubMap()
         {
-            if(MainFrameBW(PointsAndRectangles.clubMap, "ClubMap", 400)) return true;
+            if (MainFrameBW(PointsAndRectangles.clubMap, "ClubMap", 400)) return true;
             if (ActiveEvent()) return true;
             return false;
         }

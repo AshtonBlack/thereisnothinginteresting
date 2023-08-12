@@ -2,6 +2,9 @@
 {
     internal abstract class Action
     {
-        public virtual void SolveTheIssue() { }
+        public virtual bool SolveTheIssue()
+        {
+            return false;
+        }
     }
 }

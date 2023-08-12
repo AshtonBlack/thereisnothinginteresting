@@ -9,7 +9,7 @@ namespace Caitlyn_v1._0
     {
         const int xCorrection = -3;//TEMPORARY
         const int yCorrection = 1;//TEMPORARY
-        private static Bitmap captured; //создаем объект Bitmap (растровое изображение), будет нужен как при самом получении изображения, так и при сохранении изображения
+        //private static Bitmap captured; //создаем объект Bitmap (растровое изображение), будет нужен как при самом получении изображения, так и при сохранении изображения
 
         public static string PixelIndicator(Point p)
         {
@@ -25,14 +25,14 @@ namespace Caitlyn_v1._0
         public static void MakePicture(Rectangle bounds, string PATH)
         {
             PixelFormat format = PixelFormat.Format24bppRgb;
-            captured = new Bitmap(bounds.Width, bounds.Height, format);
+            Bitmap captured = new Bitmap(bounds.Width, bounds.Height, format);
             Graphics gdi = Graphics.FromImage(captured);
             gdi.CopyFromScreen(bounds.Left + xCorrection, bounds.Top + yCorrection, 0, 0, bounds.Size);
             if (captured != null)
             {
                 try
                 {
-                    captured.Save("C:\\Bot\\" + PATH + ".jpg", ImageFormat.Jpeg);
+                    captured.Save(@"C:\Bot\" + PATH + ".jpg", ImageFormat.Jpeg);
                 }
                 catch (Exception ex)
                 {
@@ -44,10 +44,10 @@ namespace Caitlyn_v1._0
         }
         public static bool Verify(string PATH, string ORIGINALPATH)
         {
-            if (File.Exists("C:\\Bot\\" + ORIGINALPATH + ".jpg"))
+            if (File.Exists(@"C:\Bot\" + ORIGINALPATH + ".jpg"))
             {
-                Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
-                Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                Bitmap picturetest = new Bitmap(@"C:\Bot\" + PATH + ".jpg");
+                Bitmap picture = new Bitmap(@"C:\Bot\" + ORIGINALPATH + ".jpg");
                 for (int x = 0; x < picturetest.Width; x++)
                 {
                     for (int y = 0; y < picturetest.Height; y++)
@@ -63,7 +63,7 @@ namespace Caitlyn_v1._0
             }
             else
             {
-                NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                NotePad.DoErrorLog(@"Отсутствует C:\Bot\" + ORIGINALPATH + ".jpg");
                 return false;
             }
             return true;
@@ -71,7 +71,7 @@ namespace Caitlyn_v1._0
         public static void TrackCapture(Rectangle bounds, string PATH)
         {
             PixelFormat format = PixelFormat.Format24bppRgb;
-            captured = new Bitmap(bounds.Width, bounds.Height, format);
+            Bitmap captured = new Bitmap(bounds.Width, bounds.Height, format);
             Bitmap BW = new Bitmap(bounds.Width, bounds.Height, format);
             Graphics gdi = Graphics.FromImage(captured);
             gdi.CopyFromScreen(bounds.Left + xCorrection, bounds.Top + yCorrection, 0, 0, bounds.Size);
@@ -80,14 +80,21 @@ namespace Caitlyn_v1._0
                 for (int column = 0; column < captured.Height; column++) // Indicate column number
                 {
                     var colorValue = captured.GetPixel(row, column); // Get the color pixel                    
-                    var averageValue = ((int)colorValue.R + (int)colorValue.B + (int)colorValue.G) / 3; // get the average for black and white
+                    var averageValue = (colorValue.R + colorValue.B + colorValue.G) / 3; // get the average for black and white
                     if (averageValue > 220) averageValue = 255;
                     else averageValue = 0;
                     BW.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
                 }
             }
 
-            BW.Save("C:\\Bot\\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black and white image         
+            try
+            {
+                BW.Save(@"C:\Bot\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black and white image
+            }
+            catch (Exception ex)
+            {
+                NotePad.DoErrorLog("Unknown error with save picture");
+            }
 
             gdi.Dispose();
             captured.Dispose();
@@ -96,7 +103,7 @@ namespace Caitlyn_v1._0
         public static void BW2Capture(Rectangle bounds, string PATH)
         {
             PixelFormat format = PixelFormat.Format24bppRgb;
-            captured = new Bitmap(bounds.Width, bounds.Height, format);
+            Bitmap captured = new Bitmap(bounds.Width, bounds.Height, format);
             Bitmap BW = new Bitmap(bounds.Width, bounds.Height, format);
             Graphics gdi = Graphics.FromImage(captured);
             gdi.CopyFromScreen(bounds.Left + xCorrection, bounds.Top + yCorrection, 0, 0, bounds.Size);
@@ -105,14 +112,21 @@ namespace Caitlyn_v1._0
                 for (int column = 0; column < captured.Height; column++) // Indicate column number
                 {
                     var colorValue = captured.GetPixel(row, column); // Get the color pixel
-                    var averageValue = ((int)colorValue.R + (int)colorValue.B + (int)colorValue.G) / 3; // get the average for black and white
+                    var averageValue = (colorValue.R + colorValue.B + colorValue.G) / 3; // get the average for black and white
                     if (averageValue > 200) averageValue = 255;
                     else averageValue = 0;
                     BW.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
                 }
             }
-
-            BW.Save("C:\\Bot\\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black and white image            
+            
+            try
+            {
+                BW.Save(@"C:\Bot\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black and white image
+            }
+            catch (Exception ex)
+            {
+                NotePad.DoErrorLog("Unknown error with save picture");
+            }
 
             gdi.Dispose();
             captured.Dispose();
@@ -120,11 +134,11 @@ namespace Caitlyn_v1._0
         }
         public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
         {
-            if (File.Exists("C:\\Bot\\" + ORIGINALPATH + ".jpg"))
+            if (File.Exists(@"C:\Bot\" + ORIGINALPATH + ".jpg"))
             {
                 int differences = 0;
-                Bitmap picturetest = new Bitmap("C:\\Bot\\" + PATH + ".jpg");
-                Bitmap picture = new Bitmap("C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                Bitmap picturetest = new Bitmap(@"C:\Bot\" + PATH + ".jpg");
+                Bitmap picture = new Bitmap(@"C:\Bot\" + ORIGINALPATH + ".jpg");
                 for (int x = 0; x < picturetest.Width; x++)
                 {
                     for (int y = 0; y < picturetest.Height; y++)
@@ -144,7 +158,7 @@ namespace Caitlyn_v1._0
             }
             else 
             { 
-                NotePad.DoErrorLog("Отсутствует C:\\Bot\\" + ORIGINALPATH + ".jpg");
+                NotePad.DoErrorLog(@"Отсутствует C:\Bot\" + ORIGINALPATH + ".jpg");
                 return false;
             }
             return true;

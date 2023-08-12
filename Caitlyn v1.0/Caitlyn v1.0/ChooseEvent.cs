@@ -26,12 +26,7 @@ namespace Caitlyn_v1._0
                 {
                     for (int i = 1; i < 5; i++)
                     {
-                        do
-                        {
-                            CommonLists.SkipAllSkipables();
-                            SpecialEvents.ToClubs();
-                        } while (!fc.ClubMap());
-
+                        SpecialEvents.ToClubs();
                         Thread.Sleep(500);
                         NotePad.DoLog("Проверяю условие " + i);
                         if(Selection(i)) break;
