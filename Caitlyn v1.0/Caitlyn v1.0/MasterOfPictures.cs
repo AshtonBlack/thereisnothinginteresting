@@ -143,7 +143,7 @@ namespace Caitlyn_v1._0
                 {
                     for (int y = 0; y < picturetest.Height; y++)
                     {
-                        if (Math.Abs((int)picturetest.GetPixel(x, y).R - (int)picture.GetPixel(x, y).R) >= 200)
+                        if (Math.Abs(picturetest.GetPixel(x, y).R - picture.GetPixel(x, y).R) >= 200)
                         {
                             differences++;
                             if (differences == maxdiffernces)
