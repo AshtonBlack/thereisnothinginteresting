@@ -53,10 +53,11 @@ namespace Caitlyn_v1._0
         }
         static bool SomethingWasSkipped()
         {
-            foreach (ReasonForRestart reason in reasonsForRestart)
+            NotePad.DoLog("solving known issues");
+            foreach (ReasonForRestart reasonForRestart in reasonsForRestart)
             {
                 Thread.Sleep(20);
-                reason.Check();
+                reasonForRestart.Check();
             }
             foreach (SkipableMoment skipableMoment in skipableMoments)
             {

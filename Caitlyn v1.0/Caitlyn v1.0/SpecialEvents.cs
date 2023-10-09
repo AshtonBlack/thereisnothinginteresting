@@ -45,7 +45,8 @@ namespace Caitlyn_v1._0
             GameState.antiLoopCounter = 0;
             do
             {
-                if (GameState.antiLoopCounter > 60) RestartBot();                
+                NotePad.DoLog("Attempt to enter clubs number " + GameState.antiLoopCounter);
+                if (GameState.antiLoopCounter > 100) RestartBot();                
                 CommonLists.SkipAllSkipables(); 
                 if (fc.ClubMap())
                 {
@@ -54,6 +55,7 @@ namespace Caitlyn_v1._0
                 }
                 Thread.Sleep(1000);
                 GameState.antiLoopCounter++;
+                NotePad.DoLog("Attempt to enter clubs number failed");
             } while (true);            
         }
     }
