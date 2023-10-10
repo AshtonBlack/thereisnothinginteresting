@@ -25,7 +25,7 @@ namespace Caitlyn_v1._0
         public static Point toeventlist = new Point(920, 270);
         //FastCheck
         public static Rectangle connectionInterrupted = new Rectangle(248, 445, 790, 60);//new
-        public static Rectangle fbFuckBrain = new Rectangle(465, 670, 360, 48);
+        public static Rectangle fbFuckBrain = new Rectangle(548, 797, 185, 25);
         public static Point acceptbounty = new Point(635, 750);
         public static Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);//new
         public static Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);//new
