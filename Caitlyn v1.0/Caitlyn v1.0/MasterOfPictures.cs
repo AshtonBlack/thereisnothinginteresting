@@ -33,6 +33,7 @@ namespace Caitlyn_v1._0
                 try
                 {
                     captured.Save(@"C:\Bot\" + PATH + ".jpg", ImageFormat.Jpeg);
+                    NotePad.DoLog("Фото экрана сохранено в " + @"C:\Bot\" + PATH + ".jpg");
                 }
                 catch (Exception ex)
                 {
@@ -122,6 +123,7 @@ namespace Caitlyn_v1._0
             try
             {
                 BW.Save(@"C:\Bot\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black and white image
+                NotePad.DoLog("Черно-белое фото экрана сохранено в " + @"C:\Bot\" + PATH + ".jpg");
             }
             catch (Exception ex)
             {
