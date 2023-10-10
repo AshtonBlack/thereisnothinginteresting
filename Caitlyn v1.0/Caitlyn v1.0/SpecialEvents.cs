@@ -53,7 +53,7 @@ namespace Caitlyn_v1._0
                     if (GameState.needToDragMap) DragMap();
                     break;
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
                 GameState.antiLoopCounter++;
                 NotePad.DoLog("Attempt to enter clubs number failed");
             } while (true);            

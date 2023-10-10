@@ -56,17 +56,17 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("solving known issues");
             foreach (ReasonForRestart reasonForRestart in reasonsForRestart)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(50);
                 reasonForRestart.Check();
             }
             foreach (SkipableMoment skipableMoment in skipableMoments)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(50);
                 if (skipableMoment.Skip()) return true;
             }
             foreach (Action issueSolvation in issueSolvations)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(50);
                 if (issueSolvation.SolveTheIssue()) return true;
             }
             return false;
