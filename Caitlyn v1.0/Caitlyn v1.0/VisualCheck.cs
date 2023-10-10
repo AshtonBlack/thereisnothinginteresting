@@ -6,6 +6,7 @@ namespace Caitlyn_v1._0
     {
         public static bool Check(Rectangle bounds, string name)
         {
+            NotePad.DoLog("Проверка " + name + "с координатами" + bounds.ToString());
             string testPicture = @"HeadPictures\Test" + name;
             string originalPicture = @"HeadPictures\Original" + name;
             MasterOfPictures.MakePicture(bounds, testPicture);
@@ -18,6 +19,7 @@ namespace Caitlyn_v1._0
         }
         public static bool Check(Rectangle bounds, string name, int errors)
         {
+            NotePad.DoLog("Черно-белая проверка " + name + "с координатами" + bounds.ToString());
             string testPicture = @"HeadPictures\Test" + name;
             string originalPicture = @"HeadPictures\Original" + name;
             MasterOfPictures.BW2Capture(bounds, testPicture);
