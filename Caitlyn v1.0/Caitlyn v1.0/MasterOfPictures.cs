@@ -45,6 +45,7 @@ namespace Caitlyn_v1._0
         }
         public static bool Verify(string PATH, string ORIGINALPATH)
         {
+            bool verificationResult = true;
             if (File.Exists(@"C:\Bot\" + ORIGINALPATH + ".jpg"))
             {
                 Bitmap picturetest = new Bitmap(@"C:\Bot\" + PATH + ".jpg");
@@ -55,7 +56,7 @@ namespace Caitlyn_v1._0
                     {
                         if (picturetest.GetPixel(x, y) != picture.GetPixel(x, y))
                         {
-                            return false;
+                            verificationResult = false;
                         }
                     }
                 }
@@ -65,9 +66,9 @@ namespace Caitlyn_v1._0
             else
             {
                 NotePad.DoErrorLog(@"Отсутствует C:\Bot\" + ORIGINALPATH + ".jpg");
-                return false;
+                verificationResult = false;
             }
-            return true;
+            return verificationResult;
         }
         public static void TrackCapture(Rectangle bounds, string PATH)
         {
@@ -136,6 +137,7 @@ namespace Caitlyn_v1._0
         }
         public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
         {
+            bool verificationResult = true;
             if (File.Exists(@"C:\Bot\" + ORIGINALPATH + ".jpg"))
             {
                 int differences = 0;
@@ -150,7 +152,7 @@ namespace Caitlyn_v1._0
                             differences++;
                             if (differences == maxdiffernces)
                             {
-                                return false;
+                                verificationResult = false;
                             }
                         }
                     }
@@ -161,9 +163,9 @@ namespace Caitlyn_v1._0
             else 
             { 
                 NotePad.DoErrorLog(@"Отсутствует C:\Bot\" + ORIGINALPATH + ".jpg");
-                return false;
+                verificationResult = false;
             }
-            return true;
+            return verificationResult;
         }
     }
 }
