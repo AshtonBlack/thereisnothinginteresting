@@ -9,7 +9,7 @@ namespace Caitlyn_v1._0
     {
         FastCheck fc = new FastCheck();
         string RQPath = @"RQ\test";
-        public bool ChooseNormalEvent()
+        public void ChooseNormalEvent()
         {
             if (fc.ActiveEvent())
             {                
@@ -18,18 +18,18 @@ namespace Caitlyn_v1._0
                 Condition.setDefaultTracks();
                 Condition.eventRQ = NotePad.ReadRQ();
                 Condition.MakeCondition(conds[0], conds[1]);
-                return true;
             }
             else
             {
-                while (true)
+                bool eventIsOK = false;
+                while (!eventIsOK)
                 {
                     for (int i = 1; i < 5; i++)
                     {
                         SpecialEvents.ToClubs();
                         Thread.Sleep(500);
                         NotePad.DoLog("Проверяю условие " + i);
-                        if(Selection(i)) return true;
+                        if(eventIsOK = Selection(i)) break;
                         Rat.Clk(PointsAndRectangles.toeventlist);//Back
                         Thread.Sleep(3000);
                     }
