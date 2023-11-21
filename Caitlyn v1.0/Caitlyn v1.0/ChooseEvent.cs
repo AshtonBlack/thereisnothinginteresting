@@ -9,16 +9,16 @@ namespace Caitlyn_v1._0
     {
         FastCheck fc = new FastCheck();
         string RQPath = @"RQ\test";
-        public void ChooseNormalEvent()
+        public bool ChooseNormalEvent()
         {
             if (fc.ActiveEvent())
             {                
                 NotePad.DoLog("вхожу в активный эвент");
-                Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter
                 string[] conds = NotePad.ReadConditions();
                 Condition.setDefaultTracks();
                 Condition.eventRQ = NotePad.ReadRQ();
                 Condition.MakeCondition(conds[0], conds[1]);
+                return true;
             }
             else
             {
@@ -29,7 +29,7 @@ namespace Caitlyn_v1._0
                         SpecialEvents.ToClubs();
                         Thread.Sleep(500);
                         NotePad.DoLog("Проверяю условие " + i);
-                        if(Selection(i)) break;
+                        if(Selection(i)) return true;
                         Rat.Clk(PointsAndRectangles.toeventlist);//Back
                         Thread.Sleep(3000);
                     }
