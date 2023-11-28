@@ -22,18 +22,18 @@ namespace Caitlyn_v1._0
             else
             {
                 bool eventIsOK = false;
-                while (!eventIsOK)
+                do
                 {
                     for (int i = 1; i < 5; i++)
                     {
                         SpecialEvents.ToClubs();
                         Thread.Sleep(500);
                         NotePad.DoLog("Проверяю условие " + i);
-                        if(eventIsOK = Selection(i)) break;
+                        if (eventIsOK = Selection(i)) break;
                         Rat.Clk(PointsAndRectangles.toeventlist);//Back
                         Thread.Sleep(3000);
                     }
-                }
+                } while (!eventIsOK);
             }            
         }
         public bool Selection(int eventN)
