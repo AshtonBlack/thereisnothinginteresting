@@ -47,23 +47,19 @@ namespace Caitlyn_v1._0
         }                
         public bool ReadyToRace()
         {
-            bool x = MainFrame(PointsAndRectangles.readyToRace, "GarageRaceButton");
-            return x;
+            return MainFrame(PointsAndRectangles.readyToRace, "GarageRaceButton");
         }                                            
         public bool TypeIsOpenned()
         {
-            bool x = MainFrame(PointsAndRectangles.typeIsOpenned, "TypeIsOpenned");
-            return x;
+            return MainFrame(PointsAndRectangles.typeIsOpenned, "TypeIsOpenned");
         }
         public bool FilterIsOpenned()
         {
-            bool x = MainFrame(PointsAndRectangles.filterIsOpenned, "FilterIsOpenned");
-            return x;
+            return MainFrame(PointsAndRectangles.filterIsOpenned, "FilterIsOpenned");
         }                                       
         public bool ActiveEvent()
         {
-            bool x = MainFrame(PointsAndRectangles.activeEvent, "ButtonToEvent");
-            return x;
+            return MainFrame(PointsAndRectangles.activeEvent, "ButtonToEvent");
         }        
         public bool ClubMap()
         {
@@ -81,26 +77,23 @@ namespace Caitlyn_v1._0
         }        
         public bool ItsGarage()
         {
-            bool x = MainFrame(PointsAndRectangles.inGarage, "InGarage");
-            return x;
+            return MainFrame(PointsAndRectangles.inGarage, "InGarage");
         }                          
         public bool ConditionActivated()
         {
-            bool x = false;
             string active = "Color [A=255, R=4, G=5, B=5]";
+            string active1 = "Color [A=255, R=4, G=4, B=5]";
             Point p = new Point(415, 260);
-            if (MasterOfPictures.PixelIndicator(p) == active) x = true;
-            return x;
+            if (MasterOfPictures.PixelIndicator(p) == active || MasterOfPictures.PixelIndicator(p) == active1) return true;
+            return false;
         }        
         public bool ArrangementWindow()
         {
-            bool x = MainFrame(PointsAndRectangles.arrangementWindow, "Arrangement");
-            return x;
+            return MainFrame(PointsAndRectangles.arrangementWindow, "Arrangement");
         }
         public bool RedReadytoRace()
         {
-            bool x = MainFrame(PointsAndRectangles.readyToRace, "RedRaceButton");
-            return x;
+            return MainFrame(PointsAndRectangles.readyToRace, "RedRaceButton");
         }                
     }
 }

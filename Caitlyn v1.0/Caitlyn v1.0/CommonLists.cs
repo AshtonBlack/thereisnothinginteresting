@@ -43,6 +43,7 @@ namespace Caitlyn_v1._0
             issueSolvations.Add(new SolveBounty());
             issueSolvations.Add(new SolveDailyBounty());
             issueSolvations.Add(new SolveNoxRestartMessage());
+            issueSolvations.Add(new SolveEnemyIsReady());
         }
         public static void SkipAllSkipables()
         {
@@ -56,19 +57,17 @@ namespace Caitlyn_v1._0
             NotePad.DoLog("solving known issues");
             foreach (ReasonForRestart reasonForRestart in reasonsForRestart)
             {
-                Thread.Sleep(50);
                 reasonForRestart.Check();
             }
             foreach (SkipableMoment skipableMoment in skipableMoments)
             {
-                Thread.Sleep(50);
                 if (skipableMoment.Skip()) return true;
             }
             foreach (Action issueSolvation in issueSolvations)
             {
-                Thread.Sleep(50);
                 if (issueSolvation.SolveTheIssue()) return true;
             }
+            Thread.Sleep(1000);
             return false;
         }
     }

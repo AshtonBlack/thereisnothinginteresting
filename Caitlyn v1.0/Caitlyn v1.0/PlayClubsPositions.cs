@@ -84,15 +84,8 @@ namespace Caitlyn_v1._0
         }
         public bool TimeToRace()
         {
-            FastCheck fc = new FastCheck(); 
-
-            TrackInfo[] tracksInfo = new TrackInfo[5];
-            for (int i = 0; i < tracksInfo.Length; i++)
-            {
-                tracksInfo[i]= new TrackInfo(i+1);
-            }
-            Condition.setTracks(tracksInfo);
-            bool raceIsStart = false;
+            FastCheck fc = new FastCheck();            
+            bool raceIsStarted = false;
             GameState.antiLoopCounter = 0;            
             GrandArrangement ga = new GrandArrangement();
             do
@@ -111,14 +104,14 @@ namespace Caitlyn_v1._0
                     ga.Arrangement();
                     NotePad.DoLog("расстановка выполнена");
                 }
-                if (fc.RaceOn() && !raceIsStart)
+                if (fc.RaceOn() && !raceIsStarted)
                 {
-                    raceIsStart = true;
+                    raceIsStarted = true;
                     NotePad.DoLog("заезд начался");
                     Thread.Sleep(2000);
                     Rat.Clk(PointsAndRectangles.forceTheRace); //ускорить заезд, клик в пусой области
                 }
-                if (!fc.RaceOn() && raceIsStart)
+                if (!fc.RaceOn() && raceIsStarted)
                 {
                     NotePad.DoLog("заезд окончен");
                     return true;
