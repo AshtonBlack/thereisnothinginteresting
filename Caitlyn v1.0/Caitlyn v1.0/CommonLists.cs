@@ -53,7 +53,7 @@ namespace Caitlyn_v1._0
         }
         static bool SomethingWasSkipped()
         {
-            NotePad.DoLog("solving known issues");
+            //NotePad.DoLog("solving known issues");
             foreach (ReasonForRestart reasonForRestart in reasonsForRestart)
             {
                 reasonForRestart.Check();

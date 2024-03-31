@@ -43,16 +43,11 @@ namespace Caitlyn_v1._0
                 PointsAndRectangles.eventN3,
                 PointsAndRectangles.eventN4 };
 
-            bool flag;
-            do
-            {
-                flag = true;
-                NotePad.DoLog("Кликаю событие " + eventN);
-                Rat.Clk(events[eventN - 1]);
-                Thread.Sleep(4000);                
-                CommonLists.SkipAllSkipables();
-                Thread.Sleep(2000);
-            } while (flag == false);//клик эвента и обработка ошибок
+            NotePad.DoLog("Кликаю событие " + eventN);
+            Rat.Clk(events[eventN - 1]);
+            Thread.Sleep(4000);
+            CommonLists.SkipAllSkipables();
+            Thread.Sleep(2000);
 
             MasterOfPictures.MakePicture(PointsAndRectangles.Condition1Bounds, @"Condition1\test");
             MasterOfPictures.MakePicture(PointsAndRectangles.Condition2Bounds, @"Condition2\test");
@@ -82,6 +77,7 @@ namespace Caitlyn_v1._0
                     return false;
                 }
             }
+            else return false;
             return true;
         }
         int DefineEvevntConditionByPicture(int conditionNumber)
@@ -170,12 +166,12 @@ namespace Caitlyn_v1._0
         {
             string name = "unknown";
             int length = NotePad.GetInfoFileLength(@"C:\Bot\Condition" + cond + @"\info.txt");
-            string[,] theTable = NotePad.ReadInfoFromTXT(@"C:\Bot\Condition" + cond + @"\info.txt");
+            string[,] theConditionsTable = NotePad.ReadInfoFromTXT(@"C:\Bot\Condition" + cond + @"\info.txt");
             for (int i = 0; i < length; i++)
             {
-                if (picture == Convert.ToInt32(theTable[i, 0]))
+                if (picture == Convert.ToInt32(theConditionsTable[i, 0]))
                 {
-                    name = theTable[i, 1];
+                    name = theConditionsTable[i, 1];
                     NotePad.DoLog(cond + " условие: " + name);
                     break;
                 }
