@@ -72,6 +72,7 @@ namespace Caitlyn_v1._0
         public static Rectangle clubBounty = new Rectangle(525, 742, 240, 25);//new
         public static Rectangle carRepair = new Rectangle(208, 447, 870, 55);//new
         public static Rectangle eventisnotavailable = new Rectangle(564, 580, 156, 20);//new
+        public static Rectangle doubleDevice = new Rectangle(375, 463, 512, 55);
         //GrandArrangement
         public static Point Finger1 = new Point(350, 770);
         public static Point Finger2 = new Point(540, 770);

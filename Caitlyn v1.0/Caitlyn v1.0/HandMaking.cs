@@ -143,6 +143,7 @@ namespace Caitlyn_v1._0
             int usedhandslots = 0;
             foreach (var carDescription in carsDescriptions)
             {
+                //сохранить carDescription для каждой отдельной машины в руке 
                 if (!Randomizer()) return false;
                 if (!UseFilter(carDescription.description)) return false;
                 if (DragnDropHand(carDescription.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carDescription.description)) > 0) return false; //temporary
@@ -311,7 +312,6 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.drive[carDescription.drive]);
             Thread.Sleep(1000);
-            //TODO choose country
             Rat.DragnDropSlow(PointsAndRectangles.toClearanceFilterStart, PointsAndRectangles.toClearanceFilterFinish, 8);//legacy
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс

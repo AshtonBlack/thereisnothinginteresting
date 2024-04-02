@@ -43,6 +43,7 @@ namespace Caitlyn_v1._0
             issueSolvations.Add(new SolveDailyBounty());
             issueSolvations.Add(new SolveNoxRestartMessage());
             issueSolvations.Add(new SolveEnemyIsReady());
+            issueSolvations.Add(new SolveDoubleDevice());
         }
         public static void SkipAllSkipables()
         {

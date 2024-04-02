@@ -12,7 +12,7 @@ namespace Caitlyn_v1._0
                 Rat.Clk(PointsAndRectangles.noxRestartMessageAcceptance);
                 Thread.Sleep(1000);
                 Rat.Clk(PointsAndRectangles.edgeOfTheScreen);
-                Thread.Sleep(120000);
+                Thread.Sleep(2*60*1000);
                 //Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe", "-clone:Nox_1");
                 Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe");
                 return true;
