@@ -9,7 +9,6 @@ namespace Caitlyn_v1._0
     {
         const int xCorrection = -3;//TEMPORARY
         const int yCorrection = 1;//TEMPORARY
-        //private static Bitmap captured; //создаем объект Bitmap (растровое изображение), будет нужен как при самом получении изображения, так и при сохранении изображения
 
         public static string PixelIndicator(Point p)
         {

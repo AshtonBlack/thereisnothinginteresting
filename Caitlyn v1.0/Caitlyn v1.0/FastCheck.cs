@@ -80,12 +80,8 @@ namespace Caitlyn_v1._0
             return MainFrame(PointsAndRectangles.inGarage, "InGarage");
         }                          
         public bool ConditionActivated()
-        {
-            string active = "Color [A=255, R=4, G=5, B=5]";
-            string active1 = "Color [A=255, R=4, G=4, B=5]";
-            Point p = new Point(415, 260);
-            if (MasterOfPictures.PixelIndicator(p) == active || MasterOfPictures.PixelIndicator(p) == active1) return true;
-            return false;
+        {            
+            return MainFrame(PointsAndRectangles.conditionActivated, "ConditionActivated");
         }        
         public bool ArrangementWindow()
         {
