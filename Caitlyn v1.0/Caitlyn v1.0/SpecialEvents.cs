@@ -8,14 +8,14 @@ namespace Caitlyn_v1._0
     {        
         public static void DragMap()
         {
-            Rat.DragnDropSlow(PointsAndRectangles.dragMapS, PointsAndRectangles.dragMapE, 8);
+            Rat.DragnDropSlow(PointsAndRectangles.allpoints["dragMapS"], PointsAndRectangles.allpoints["dragMapE"], 8);
             GameState.needToDragMap = false;
         }
         public static void RestartBot()
         {
-            Rat.Clk(PointsAndRectangles.noxClosing);//close Nox
+            Rat.Clk(PointsAndRectangles.allpoints["noxClosing"]);//close Nox
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.noxClosingAcceptance);//accept Nox close
+            Rat.Clk(PointsAndRectangles.allpoints["noxClosingAcceptance"]);//accept Nox close
             Thread.Sleep(1000);
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             Process.GetCurrentProcess().Kill();
@@ -23,11 +23,11 @@ namespace Caitlyn_v1._0
         public static bool ClearHand()
         {
             FastCheck fc = new FastCheck();
-            Point[] a = new Point[] { PointsAndRectangles.pHandSlot1,
-                PointsAndRectangles.pHandSlot2,
-                PointsAndRectangles.pHandSlot3,
-                PointsAndRectangles.pHandSlot4,
-                PointsAndRectangles.pHandSlot5 };
+            Point[] a = new Point[] { PointsAndRectangles.allpoints["pHandSlot1"],
+                PointsAndRectangles.allpoints["pHandSlot2"],
+                PointsAndRectangles.allpoints["pHandSlot3"],
+                PointsAndRectangles.allpoints["pHandSlot4"],
+                PointsAndRectangles.allpoints["pHandSlot5"] };
             for (int i = 0; i < 5; i++)
             {
                 if (fc.ItsGarage())

@@ -43,7 +43,11 @@ namespace Caitlyn_v1._0
         }
         int FindGroundPicture(int position)
         {
-            Rectangle[] b = { PointsAndRectangles.Ground1, PointsAndRectangles.Ground2, PointsAndRectangles.Ground3, PointsAndRectangles.Ground4, PointsAndRectangles.Ground5 };
+            Rectangle[] b = { PointsAndRectangles.allrectangles["Ground1"],
+                PointsAndRectangles.allrectangles["Ground2"],
+                PointsAndRectangles.allrectangles["Ground3"], 
+                PointsAndRectangles.allrectangles["Ground4"],
+                PointsAndRectangles.allrectangles["Ground5"] };
             MasterOfPictures.BW2Capture(b[position - 1], ("Ground" + position + "\\test"));
             int pictureCounter = 0;
             for (int i = 1; i < 100; i++)
@@ -87,7 +91,11 @@ namespace Caitlyn_v1._0
         }
         int FindTrackPicture(int position)
         {
-            Rectangle[] a = { PointsAndRectangles.Track1, PointsAndRectangles.Track2, PointsAndRectangles.Track3, PointsAndRectangles.Track4, PointsAndRectangles.Track5 };
+            Rectangle[] a = { PointsAndRectangles.allrectangles["Track1"], 
+                PointsAndRectangles.allrectangles["Track2"], 
+                PointsAndRectangles.allrectangles["Track3"],
+                PointsAndRectangles.allrectangles["Track4"],
+                PointsAndRectangles.allrectangles["Track5"] };
             MasterOfPictures.TrackCapture(a[position - 1], "Track" + position + "\\test");
             int pictureCounter = 0;
             for (int i = 1; i < 100; i++)
@@ -131,7 +139,11 @@ namespace Caitlyn_v1._0
         }
         int FindWeatherPicture(int position)
         {
-            Rectangle[] c = { PointsAndRectangles.Weather1, PointsAndRectangles.Weather2, PointsAndRectangles.Weather3, PointsAndRectangles.Weather4, PointsAndRectangles.Weather5 };
+            Rectangle[] c = { PointsAndRectangles.allrectangles["Weather1"], 
+                PointsAndRectangles.allrectangles["Weather2"], 
+                PointsAndRectangles.allrectangles["Weather3"], 
+                PointsAndRectangles.allrectangles["Weather4"], 
+                PointsAndRectangles.allrectangles["Weather5"] };
             MasterOfPictures.BW2Capture(c[position - 1], ("Weather" + position + "\\test"));
             int pictureCounter = 0;
             for (int i = 1; i < 100; i++)

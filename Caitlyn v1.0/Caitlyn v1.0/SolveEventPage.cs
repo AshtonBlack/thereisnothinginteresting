@@ -4,11 +4,11 @@
     {
         public override bool SolveTheIssue()
         {
-            if(VisualCheck.Check(PointsAndRectangles.EventBounds, "Event"))
+            if(VisualCheck.Check(PointsAndRectangles.allrectangles["EventBounds"], "Event"))
             {
                 GameState.needToDragMap = true;
-                new SkipableMoment(PointsAndRectangles.inCommonEvent, "InCommonEvent", 10, PointsAndRectangles.buttonBack).Skip();
-                new SkipableMoment(PointsAndRectangles.EventBounds, "Event", PointsAndRectangles.toClubs).Skip();
+                new SkipableMoment(PointsAndRectangles.allrectangles["inCommonEvent"], "InCommonEvent", 10, PointsAndRectangles.allpoints["buttonBack"]).Skip();
+                new SkipableMoment(PointsAndRectangles.allrectangles["EventBounds"], "Event", PointsAndRectangles.allpoints["toClubs"]).Skip();
                 return true;
             }
             return false;

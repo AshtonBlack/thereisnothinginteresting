@@ -186,19 +186,15 @@ namespace Caitlyn_v1._0
                 && fc.ItsGarage())
             {
                 NotePad.DoLog("Активирую условия события");
-                if (Condition.ConditionNumber2 == "empty")
-                {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
-                }
-                else
-                {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
+                Rat.Clk(PointsAndRectangles.allpoints["commonCondition"]);
+                if (Condition.ConditionNumber2 != "empty")
+                {                    
                     Thread.Sleep(1500);
-                    Rat.Clk(PointsAndRectangles.cond1);
+                    Rat.Clk(PointsAndRectangles.allpoints["cond1"]);
                     Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.cond2);
+                    Rat.Clk(PointsAndRectangles.allpoints["cond2"]);
                     Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.commonConditionCross);
+                    Rat.Clk(PointsAndRectangles.allpoints["commonConditionCross"]);
                 }
             }
             return true;
@@ -207,14 +203,14 @@ namespace Caitlyn_v1._0
         {
             string path = "Check//";
 
-            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.Car1Bounds,
-                PointsAndRectangles.Car2Bounds,
-                PointsAndRectangles.Car3Bounds,
-                PointsAndRectangles.Car4Bounds,
-                PointsAndRectangles.Car5Bounds,
-                PointsAndRectangles.Car6Bounds,
-                PointsAndRectangles.Car7Bounds,
-                PointsAndRectangles.Car8Bounds };
+            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.allrectangles["Car1Bounds"],
+                PointsAndRectangles.allrectangles["Car2Bounds"],
+                PointsAndRectangles.allrectangles["Car3Bounds"],
+                PointsAndRectangles.allrectangles["Car4Bounds"],
+                PointsAndRectangles.allrectangles["Car5Bounds"],
+                PointsAndRectangles.allrectangles["Car6Bounds"],
+                PointsAndRectangles.allrectangles["Car7Bounds"],
+                PointsAndRectangles.allrectangles["Car8Bounds"] };
             string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
             Thread.Sleep(2000);
@@ -225,7 +221,11 @@ namespace Caitlyn_v1._0
         {
             string path = "Check//";
 
-            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.HandSlot1, PointsAndRectangles.HandSlot2, PointsAndRectangles.HandSlot3, PointsAndRectangles.HandSlot4, PointsAndRectangles.HandSlot5 };
+            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.allrectangles["HandSlot1"], 
+                PointsAndRectangles.allrectangles["HandSlot2"], 
+                PointsAndRectangles.allrectangles["HandSlot3"], 
+                PointsAndRectangles.allrectangles["HandSlot4"], 
+                PointsAndRectangles.allrectangles["HandSlot5"] };
             string[] n = new string[] { "finger1", "finger2", "finger3", "finger4", "finger5" };
             for (int i = 0; i < 5; i++)
             {
@@ -265,11 +265,11 @@ namespace Caitlyn_v1._0
         {
             string currentHand = "CurrentHand";
             int[] carsid = new int[5];
-            Rectangle[] handSlots = { PointsAndRectangles.HandSlot1, 
-                PointsAndRectangles.HandSlot2, 
-                PointsAndRectangles.HandSlot3, 
-                PointsAndRectangles.HandSlot4, 
-                PointsAndRectangles.HandSlot5 };
+            Rectangle[] handSlots = { PointsAndRectangles.allrectangles["HandSlot1"], 
+                PointsAndRectangles.allrectangles["HandSlot2"], 
+                PointsAndRectangles.allrectangles["HandSlot3"], 
+                PointsAndRectangles.allrectangles["HandSlot4"], 
+                PointsAndRectangles.allrectangles["HandSlot5"] };
 
             for (int finger = 0; finger < 5; finger++)
             {
@@ -296,25 +296,25 @@ namespace Caitlyn_v1._0
                 {
                     return false;
                 }
-                Rat.Clk(PointsAndRectangles.filter);
+                Rat.Clk(PointsAndRectangles.allpoints["filter"]);
                 Thread.Sleep(1000);
             } while (!fc.FilterIsOpenned());//100% FilterOpenner
             Thread.Sleep(200);
-            Rat.Clk(PointsAndRectangles.clear);
+            Rat.Clk(PointsAndRectangles.allpoints["clear"]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.rarity);
+            Rat.Clk(PointsAndRectangles.allpoints["rarity"]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.rarityClasses[carDescription.rarity]);//выбрать класс
+            Rat.Clk(PointsAndRectangles.allpoints["rarity" + carDescription.rarity]);//выбрать класс
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.carAttributes);
+            Rat.Clk(PointsAndRectangles.allpoints["carAttributes"]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.tires[carDescription.tires]);
+            Rat.Clk(PointsAndRectangles.allpoints["tires" + carDescription.tires]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.drive[carDescription.drive]);
+            Rat.Clk(PointsAndRectangles.allpoints["drive" + carDescription.drive]);
             Thread.Sleep(1000);
-            Rat.DragnDropSlow(PointsAndRectangles.toClearanceFilterStart, PointsAndRectangles.toClearanceFilterFinish, 8);//legacy
+            Rat.DragnDropSlow(PointsAndRectangles.allpoints["toClearanceFilterStart"], PointsAndRectangles.allpoints["toClearanceFilterFinish"], 8);//legacy
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс
+            Rat.Clk(PointsAndRectangles.allpoints["clearance" + carDescription.clearance]);
             attempts = 0;
             do
             {
@@ -324,7 +324,7 @@ namespace Caitlyn_v1._0
                 {
                     return false;
                 }
-                Rat.Clk(PointsAndRectangles.accept);
+                Rat.Clk(PointsAndRectangles.allpoints["accept"]);
                 Thread.Sleep(1000);
             } while (fc.FilterIsOpenned());//100% FilterCloser               
             Thread.Sleep(2000);
@@ -335,16 +335,16 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
 
-            Point[] a = new Point[] { PointsAndRectangles.r1,
-                PointsAndRectangles.r2,
-                PointsAndRectangles.r3,
-                PointsAndRectangles.r4,
-                PointsAndRectangles.r5,
-                PointsAndRectangles.r6,
-                PointsAndRectangles.r7,
-                PointsAndRectangles.r8,
-                PointsAndRectangles.r9,
-                PointsAndRectangles.r10 };
+            Point[] a = new Point[] { PointsAndRectangles.allpoints["sortrarity"],
+                PointsAndRectangles.allpoints["sortrq"],
+                PointsAndRectangles.allpoints["sortmaxspeed"],
+                PointsAndRectangles.allpoints["sortacceleratioin"],
+                PointsAndRectangles.allpoints["sorthandling"],
+                PointsAndRectangles.allpoints["sortwheelsdrive"],
+                PointsAndRectangles.allpoints["sortcountry"],
+                PointsAndRectangles.allpoints["sortwidth"],
+                PointsAndRectangles.allpoints["sortheight"],
+                PointsAndRectangles.allpoints["sortweight"] };
             Random rand = new Random();
             NotePad.DoLog("рандомизирование");
             Thread.Sleep(1000);
@@ -355,7 +355,7 @@ namespace Caitlyn_v1._0
                 {
                     return false;
                 }
-                Rat.Clk(PointsAndRectangles.sorting);//сортировка
+                Rat.Clk(PointsAndRectangles.allpoints["sorting"]);//сортировка
                 Thread.Sleep(1000);
             } while (!fc.TypeIsOpenned());//100% SorterOpenner
             int r = rand.Next(10);
@@ -370,7 +370,7 @@ namespace Caitlyn_v1._0
             do
             {
                 if (!fc.ItsGarage()) return false;
-                Rat.Clk(PointsAndRectangles.closesorting);//закрыть сортировку
+                Rat.Clk(PointsAndRectangles.allpoints["closesorting"]);//закрыть сортировку
                 Thread.Sleep(1000);
             } while (fc.TypeIsOpenned());//100% SorterCloser            
             Thread.Sleep(4000);
@@ -382,19 +382,19 @@ namespace Caitlyn_v1._0
             //n -needed cars
             FastCheck fc = new FastCheck();
 
-            Point[] handSlots = new Point[] { PointsAndRectangles.pHandSlot1,
-                PointsAndRectangles.pHandSlot2,
-                PointsAndRectangles.pHandSlot3,
-                PointsAndRectangles.pHandSlot4,
-                PointsAndRectangles.pHandSlot5 };
-            Point[] garageSlots = new Point[] { PointsAndRectangles.GarageSlot1,
-                PointsAndRectangles.GarageSlot2,
-                PointsAndRectangles.GarageSlot3,
-                PointsAndRectangles.GarageSlot4,
-                PointsAndRectangles.GarageSlot5,
-                PointsAndRectangles.GarageSlot6,
-                PointsAndRectangles.GarageSlot7,
-                PointsAndRectangles.GarageSlot8 };
+            Point[] handSlots = new Point[] { PointsAndRectangles.allpoints["pHandSlot1"],
+                PointsAndRectangles.allpoints["pHandSlot2"],
+                PointsAndRectangles.allpoints["pHandSlot3"],
+                PointsAndRectangles.allpoints["pHandSlot4"],
+                PointsAndRectangles.allpoints["pHandSlot5"] };
+            Point[] garageSlots = new Point[] { PointsAndRectangles.allpoints["GarageSlot1"],
+                PointsAndRectangles.allpoints["GarageSlot2"],
+                PointsAndRectangles.allpoints["GarageSlot3"],
+                PointsAndRectangles.allpoints["GarageSlot4"],
+                PointsAndRectangles.allpoints["GarageSlot5"],
+                PointsAndRectangles.allpoints["GarageSlot6"],
+                PointsAndRectangles.allpoints["GarageSlot7"],
+                PointsAndRectangles.allpoints["GarageSlot8"] };
             int drag = 0; //сдвиги            
             int garageSlot = 0; //слот гаража
             int handSlot = 0;
@@ -414,13 +414,13 @@ namespace Caitlyn_v1._0
                     }
                     if (garageSlot > 3 && drag == 0)
                     {
-                        Rat.DragnDropSlow(PointsAndRectangles.ds1, PointsAndRectangles.de1, 5);
+                        Rat.DragnDropSlow(PointsAndRectangles.allpoints["ds1"], PointsAndRectangles.allpoints["de1"], 5);
                         drag = 1;
                         Thread.Sleep(1000);
                     }//сдвиг
                     if (garageSlot > 5 && drag == 1)
                     {
-                        Rat.DragnDropSlow(PointsAndRectangles.ds2, PointsAndRectangles.de2, 5);
+                        Rat.DragnDropSlow(PointsAndRectangles.allpoints["ds2"], PointsAndRectangles.allpoints["de2"], 5);
                         drag = 2;
                         Thread.Sleep(1000);
                     }//сдвиг

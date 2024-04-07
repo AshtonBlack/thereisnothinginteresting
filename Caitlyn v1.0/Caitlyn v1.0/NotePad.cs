@@ -214,7 +214,9 @@ namespace Caitlyn_v1._0
                 string entry;
                 while ((entry = sr.ReadLine()) != null)
                 {
-                    PointsAndRectangles.allpoints.Add(ConvertStringToNamedPoint(entry.Split(' ')));
+                    (string pointName, Point point) pair = ConvertStringToNamedPoint(entry.Split(' '));
+
+                    PointsAndRectangles.allpoints.Add(pair.pointName, pair.point);
                 }
                 sr.Close();
             }
@@ -226,7 +228,8 @@ namespace Caitlyn_v1._0
                 string entry;
                 while ((entry = sr.ReadLine()) != null)
                 {
-                    PointsAndRectangles.allrectangles.Add(ConvertStringToNamedRectangle(entry.Split(' ')));
+                    (string pointName, Rectangle rectangle) pair = ConvertStringToNamedRectangle(entry.Split(' '));
+                    PointsAndRectangles.allrectangles.Add(pair.pointName, pair.rectangle);
                 }
                 sr.Close();
             }

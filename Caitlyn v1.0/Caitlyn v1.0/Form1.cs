@@ -15,7 +15,8 @@ namespace Caitlyn_v1._0
             Opacity = 0;
         }
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {
+            
             Navigation navigation = new Navigation();
             navigation.InitialStart();
             navigation.InClubs();
@@ -23,6 +24,12 @@ namespace Caitlyn_v1._0
             /*
             MyTest();
             Application.Exit();
+            
+
+            NotePad.DoLog("try to get Finger3");
+            NotePad.DoLog(PointsAndRectangles.allpoints["Finger3"].ToString());
+            NotePad.DoLog("try to get Finger3");
+            NotePad.DoLog(PointsAndRectangles.allrectangles["Condition1Bounds"].ToString());
             */
         }
         //tests

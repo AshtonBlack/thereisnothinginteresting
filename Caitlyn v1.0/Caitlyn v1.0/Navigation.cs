@@ -22,7 +22,7 @@ namespace Caitlyn_v1._0
                 tu.CheckTime();             
                 ce.ChooseNormalEvent();
                 NotePad.DoLog("Вхожу в эвент " + Condition.eventRQ + " рк");
-                Rat.Clk(PointsAndRectangles.clubEventEnter);//ClubEventEnter   
+                Rat.Clk(PointsAndRectangles.allpoints["clubEventEnter"]);//ClubEventEnter   
                 int i = 0;
                 while (true)
                 {
@@ -45,7 +45,7 @@ namespace Caitlyn_v1._0
                 CommonLists.SkipAllSkipables();
                 if (fc.ReadyToRace())
                 {
-                    Rat.Clk(PointsAndRectangles.startTheRace);
+                    Rat.Clk(PointsAndRectangles.allpoints["startTheRace"]);
                     NotePad.DoLog("Перехожу к гонке");
                 }
                 if (fc.ArrangementWindow()) break;

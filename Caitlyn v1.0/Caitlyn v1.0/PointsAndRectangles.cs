@@ -5,18 +5,20 @@ namespace Caitlyn_v1._0
 {
     static class PointsAndRectangles
     {
-        public static int allpointslength { get; set; }
-        public static List<(string pointName, Point point)> allpoints { get; set; }
-        public static List<(string rectangleName, Rectangle rectangle)> allrectangles { get; set; }
+        public static Dictionary<string, Point> allpoints { get; set; }
+        public static Dictionary<string, Rectangle> allrectangles { get; set; }
         static PointsAndRectangles()
         {
-            //NotePad.ReadClkPoints();
-            //NotePad.ReadCaptureRectangles();
+            allpoints = new Dictionary<string, Point>();
+            NotePad.ReadClkPoints();
+            allrectangles = new Dictionary<string, Rectangle>();
+            NotePad.ReadCaptureRectangles();
         }
+        /*
         //ChooseEvent
-        public static Rectangle Condition1Bounds = new Rectangle(1000, 392, 205, 20);//new
-        public static Rectangle Condition2Bounds = new Rectangle(1000, 418, 205, 20);//new
-        public static Rectangle RQBounds = new Rectangle(1150, 367, 85, 18);//new
+        public static Rectangle Condition1Bounds = new Rectangle(1000, 392, 205, 20);
+        public static Rectangle Condition2Bounds = new Rectangle(1000, 418, 205, 20);
+        public static Rectangle RQBounds = new Rectangle(1150, 367, 85, 18);
         public static Point clktoClubs = new Point(240, 500);
         public static Point eventN1 = new Point(960, 570);
         public static Point eventN2 = new Point(960, 660);
@@ -24,54 +26,54 @@ namespace Caitlyn_v1._0
         public static Point eventN4 = new Point(960, 830);
         public static Point toeventlist = new Point(920, 270);
         //FastCheck
-        public static Rectangle connectionInterrupted = new Rectangle(248, 445, 790, 60);//new
+        public static Rectangle connectionInterrupted = new Rectangle(248, 445, 790, 60);
         public static Rectangle fbFuckBrain = new Rectangle(548, 797, 185, 25);
         public static Point acceptbounty = new Point(635, 750);
-        public static Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);//new
-        public static Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);//new
-        public static Rectangle HandSlot3 = new Rectangle(475, 725, 115, 65);//new
-        public static Rectangle HandSlot4 = new Rectangle(669, 725, 115, 65);//new
-        public static Rectangle HandSlot5 = new Rectangle(864, 725, 115, 65);//new
-        public static Rectangle carMenu = new Rectangle(1085, 343, 62, 62);//new
-        public static Rectangle EventBounds = new Rectangle(196, 183, 134, 30);//for eventpage//new
-        public static Rectangle wrongParty = new Rectangle(838, 617, 150, 26);//new
-        public static Rectangle readyToRace = new Rectangle(1084, 796, 95, 20);//new
-        public static Rectangle startIcon = new Rectangle(884, 355, 50, 35);//new
-        public static Rectangle startButton = new Rectangle(291, 593, 85, 21);//new
-        public static Rectangle headPage = new Rectangle(196, 183, 124, 30);//new
-        public static Rectangle noActiveBooster = new Rectangle(1033, 658, 43, 19);//new
-        public static Rectangle lostConnection = new Rectangle(365, 380, 300, 35);//new
-        public static Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);//new
-        public static Rectangle typeIsOpenned = new Rectangle(1092, 247, 25, 20);//new
-        public static Rectangle filterIsOpenned = new Rectangle(943, 247, 25, 20);//new
-        public static Rectangle missClick = new Rectangle(1147, 227, 20, 20);//new
-        public static Rectangle fbcontinue = new Rectangle(575, 630, 140, 20);//new
-        public static Rectangle SeasonEndsBounds = new Rectangle(345, 463, 600, 25);//new
-        public static Rectangle SeasonEndBounty = new Rectangle(525, 645, 240, 25);//new
-        public static Rectangle activeEvent = new Rectangle(1064, 794, 20, 20);//new
-        public static Rectangle controlScreen = new Rectangle(796, 793, 85, 25);//new
-        public static Rectangle clubMap = new Rectangle(1093, 249, 140, 35);//new
-        public static Rectangle raceOn = new Rectangle(50, 175, 60, 60);//new
-        public static Rectangle ending = new Rectangle(730, 720, 189, 20);//new
-        public static Rectangle inGarage = new Rectangle(195, 183, 160, 30); //for itsgarage //new
+        public static Rectangle HandSlot1 = new Rectangle(85, 725, 115, 65);
+        public static Rectangle HandSlot2 = new Rectangle(280, 725, 115, 65);
+        public static Rectangle HandSlot3 = new Rectangle(475, 725, 115, 65);
+        public static Rectangle HandSlot4 = new Rectangle(669, 725, 115, 65);
+        public static Rectangle HandSlot5 = new Rectangle(864, 725, 115, 65);
+        public static Rectangle carMenu = new Rectangle(1085, 343, 62, 62);
+        public static Rectangle EventBounds = new Rectangle(196, 183, 134, 30);//for eventpage
+        public static Rectangle wrongParty = new Rectangle(838, 617, 150, 26);
+        public static Rectangle readyToRace = new Rectangle(1084, 796, 95, 20);
+        public static Rectangle startIcon = new Rectangle(884, 355, 50, 35);
+        public static Rectangle startButton = new Rectangle(291, 593, 85, 21);
+        public static Rectangle headPage = new Rectangle(196, 183, 124, 30);
+        public static Rectangle noActiveBooster = new Rectangle(1033, 658, 43, 19);
+        public static Rectangle lostConnection = new Rectangle(365, 380, 300, 35);
+        public static Rectangle noxRestartMessage = new Rectangle(427, 410, 475, 170);
+        public static Rectangle typeIsOpenned = new Rectangle(1092, 247, 25, 20);
+        public static Rectangle filterIsOpenned = new Rectangle(943, 247, 25, 20);
+        public static Rectangle missClick = new Rectangle(1147, 227, 20, 20);
+        public static Rectangle fbcontinue = new Rectangle(575, 630, 140, 20);
+        public static Rectangle SeasonEndsBounds = new Rectangle(345, 463, 600, 25);
+        public static Rectangle SeasonEndBounty = new Rectangle(525, 645, 240, 25);
+        public static Rectangle activeEvent = new Rectangle(1064, 794, 20, 20);
+        public static Rectangle controlScreen = new Rectangle(796, 793, 85, 25);
+        public static Rectangle clubMap = new Rectangle(1093, 249, 140, 35);
+        public static Rectangle raceOn = new Rectangle(50, 175, 60, 60);
+        public static Rectangle ending = new Rectangle(730, 720, 189, 20);
+        public static Rectangle inGarage = new Rectangle(195, 183, 160, 30); //for itsgarage 
         public static Rectangle eventEnds = new Rectangle(245, 450, 800, 150);//?
-        public static Rectangle upgrade = new Rectangle(427, 247, 135, 30);//new
-        public static Rectangle error = new Rectangle(548, 797, 185, 25);//new
+        public static Rectangle upgrade = new Rectangle(427, 247, 135, 30);
+        public static Rectangle error = new Rectangle(548, 797, 185, 25);
         public static Rectangle eventisFull = new Rectangle(560, 564, 156, 20);
-        public static Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);//new
-        public static Rectangle acceptThrow = new Rectangle(895, 615, 35, 25);//new
-        public static Rectangle wonSet = new Rectangle(370, 540, 230, 50);//new
-        public static Rectangle lostSet = new Rectangle(370, 540, 325, 45);//new
-        public static Rectangle drawSet = new Rectangle(370, 540, 195, 45);//new
-        public static Rectangle dailyBounty = new Rectangle(78, 195, 290, 30);//new
-        public static Rectangle dailyBountyEnd = new Rectangle(564, 763, 160, 20);//new
-        public static Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);//new
-        public static Rectangle chooseanEnemy = new Rectangle(148, 537, 35, 35);//new
-        public static Rectangle raceEnd = new Rectangle(546, 750, 190, 30);//new
-        public static Rectangle inCommonEvent = new Rectangle(944, 794, 90, 25);//new
-        public static Rectangle clubBounty = new Rectangle(525, 742, 240, 25);//new
-        public static Rectangle carRepair = new Rectangle(208, 447, 870, 55);//new
-        public static Rectangle eventisnotavailable = new Rectangle(564, 580, 156, 20);//new
+        public static Rectangle arrangementWindow = new Rectangle(75, 515, 5, 5);
+        public static Rectangle acceptThrow = new Rectangle(895, 615, 35, 25);
+        public static Rectangle wonSet = new Rectangle(370, 540, 230, 50);
+        public static Rectangle lostSet = new Rectangle(370, 540, 325, 45);
+        public static Rectangle drawSet = new Rectangle(370, 540, 195, 45);
+        public static Rectangle dailyBounty = new Rectangle(78, 195, 290, 30);
+        public static Rectangle dailyBountyEnd = new Rectangle(564, 763, 160, 20);
+        public static Rectangle timeIsOut = new Rectangle(565, 580, 155, 20);
+        public static Rectangle chooseanEnemy = new Rectangle(148, 537, 35, 35);
+        public static Rectangle raceEnd = new Rectangle(546, 750, 190, 30);
+        public static Rectangle inCommonEvent = new Rectangle(944, 794, 90, 25);
+        public static Rectangle clubBounty = new Rectangle(525, 742, 240, 25);
+        public static Rectangle carRepair = new Rectangle(208, 447, 870, 55);
+        public static Rectangle eventisnotavailable = new Rectangle(564, 580, 156, 20);
         public static Rectangle doubleDevice = new Rectangle(375, 463, 512, 55);
         public static Rectangle conditionActivated = new Rectangle(790, 247, 21, 21);
         
@@ -98,7 +100,7 @@ namespace Caitlyn_v1._0
         public static Point commonCondition = new Point(640, 265);
         public static Point cond1 = new Point(400, 300);
         public static Point cond2 = new Point(400, 390);
-        public static Point commonConditionCross = new Point(790, 260);//new
+        public static Point commonConditionCross = new Point(790, 260);
         public static Point filter = new Point(945, 265);
         public static Point clear = new Point(525, 785);
         public static Point accept = new Point(940, 785);
@@ -130,15 +132,12 @@ namespace Caitlyn_v1._0
         };
         public static Point toClearanceFilterStart = new Point(800, 680);//сдвиг 19.0
         public static Point toClearanceFilterFinish = new Point(800, 545);//сдвиг 19.0
-        //public static Point others = new Point(200, 685);//legacy
         public static Dictionary<string, Point> clearance = new Dictionary<string, Point>()
         {
             {"low", new Point(490, 600)},
             {"mid", new Point(700, 600)},
             {"high", new Point(910, 600)}
         };
-        //public static Point xy1 = new Point(180, 430);//сдвиг
-        //public static Point xy2 = new Point(180, 630);//сдвиг
         public static Point clearall = new Point(240, 795);//сброс
         public static Point sorting = new Point(1090, 265);//сортировка
         public static Point closesorting = new Point(840, 790);//закрыть сортировку
@@ -192,7 +191,7 @@ namespace Caitlyn_v1._0
         public static Point clubBoosterActivation = new Point(1025, 665);
         public static Point clubBoosterAcceptance = new Point(905, 610);
         public static Point noxClosing = new Point(1230, 150);
-        public static Point noxClosingAcceptance = new Point(675, 540);//new
+        public static Point noxClosingAcceptance = new Point(675, 540);
         public static Point missClickCancelation = new Point(1145, 240);
         public static Point eventEndsAcceptance = new Point(640, 580);//?
         public static Point eventIsFullAcceptance = new Point(645, 575);
@@ -208,24 +207,25 @@ namespace Caitlyn_v1._0
         public static Point edgeOfTheScreen = new Point(1200, 0);
         public static Point clkTheIcon = new Point(910, 375);
         public static Point fbFucksBrain = new Point(640, 640);
-        public static Point reconnectionAfterLostConnection = new Point(785, 615);//new
+        public static Point reconnectionAfterLostConnection = new Point(785, 615);
         public static Point googleNotificationAcceptance = new Point(890, 565);
-        public static Point eventIsNotAvailableAcceptance = new Point(640, 590);//new        
+        public static Point eventIsNotAvailableAcceptance = new Point(640, 590);        
         //TrackInfo
-        public static Rectangle Track1 = new Rectangle(148, 459, 165, 35);//new
-        public static Rectangle Track2 = new Rectangle(353, 459, 165, 35);//new
-        public static Rectangle Track3 = new Rectangle(563, 459, 165, 35);//new
-        public static Rectangle Track4 = new Rectangle(768, 459, 165, 35);//new
-        public static Rectangle Track5 = new Rectangle(973, 459, 165, 35);//new
-        public static Rectangle Ground1 = new Rectangle(196, 539, 115, 30);//new
-        public static Rectangle Ground2 = new Rectangle(399, 539, 115, 30);//new
-        public static Rectangle Ground3 = new Rectangle(613, 539, 115, 30);//new
-        public static Rectangle Ground4 = new Rectangle(816, 539, 115, 30);//new
-        public static Rectangle Ground5 = new Rectangle(1021, 539, 115, 30);//new
-        public static Rectangle Weather1 = new Rectangle(196, 496, 75, 34);//new
-        public static Rectangle Weather2 = new Rectangle(399, 496, 75, 34);//new
-        public static Rectangle Weather3 = new Rectangle(613, 496, 75, 34);//new
-        public static Rectangle Weather4 = new Rectangle(816, 496, 75, 34);//new
-        public static Rectangle Weather5 = new Rectangle(1021, 496, 75, 34);//new
+        public static Rectangle Track1 = new Rectangle(148, 459, 165, 35);
+        public static Rectangle Track2 = new Rectangle(353, 459, 165, 35);
+        public static Rectangle Track3 = new Rectangle(563, 459, 165, 35);
+        public static Rectangle Track4 = new Rectangle(768, 459, 165, 35);
+        public static Rectangle Track5 = new Rectangle(973, 459, 165, 35);
+        public static Rectangle Ground1 = new Rectangle(196, 539, 115, 30);
+        public static Rectangle Ground2 = new Rectangle(399, 539, 115, 30);
+        public static Rectangle Ground3 = new Rectangle(613, 539, 115, 30);
+        public static Rectangle Ground4 = new Rectangle(816, 539, 115, 30);
+        public static Rectangle Ground5 = new Rectangle(1021, 539, 115, 30);
+        public static Rectangle Weather1 = new Rectangle(196, 496, 75, 34);
+        public static Rectangle Weather2 = new Rectangle(399, 496, 75, 34);
+        public static Rectangle Weather3 = new Rectangle(613, 496, 75, 34);
+        public static Rectangle Weather4 = new Rectangle(816, 496, 75, 34);
+        public static Rectangle Weather5 = new Rectangle(1021, 496, 75, 34);
+        */
     }
 }

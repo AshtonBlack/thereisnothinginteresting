@@ -30,7 +30,7 @@ namespace Caitlyn_v1._0
                         Thread.Sleep(500);
                         NotePad.DoLog("Проверяю условие " + i);
                         if (eventIsOK = Selection(i)) break;
-                        Rat.Clk(PointsAndRectangles.toeventlist);//Back
+                        Rat.Clk(PointsAndRectangles.allpoints["toeventlist"]);//Back
                         Thread.Sleep(3000);
                     }
                 } while (!eventIsOK);
@@ -38,10 +38,10 @@ namespace Caitlyn_v1._0
         }
         public bool Selection(int eventN)
         {
-            Point[] events = { PointsAndRectangles.eventN1,
-                PointsAndRectangles.eventN2,
-                PointsAndRectangles.eventN3,
-                PointsAndRectangles.eventN4 };
+            Point[] events = { PointsAndRectangles.allpoints["eventN1"],
+                PointsAndRectangles.allpoints["eventN2"],
+                PointsAndRectangles.allpoints["eventN3"],
+                PointsAndRectangles.allpoints["eventN4"] };
 
             NotePad.DoLog("Кликаю событие " + eventN);
             Rat.Clk(events[eventN - 1]);
@@ -49,8 +49,8 @@ namespace Caitlyn_v1._0
             CommonLists.SkipAllSkipables();
             Thread.Sleep(2000);
 
-            MasterOfPictures.MakePicture(PointsAndRectangles.Condition1Bounds, @"Condition1\test");
-            MasterOfPictures.MakePicture(PointsAndRectangles.Condition2Bounds, @"Condition2\test");
+            MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition1Bounds"], @"Condition1\test");
+            MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition2Bounds"], @"Condition2\test");
             string cond1 = ConvertPictureToCond(DefineFirstEvevntConditionByPicture(), 1);
             string cond2 = ConvertPictureToCond(DefineSecondEvevntConditionByPicture(), 2);
 
@@ -63,7 +63,7 @@ namespace Caitlyn_v1._0
                     if (Condition.minRQ > Condition.eventRQ)
                     {
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
-                        if (eventN == 4) Rat.Clk(PointsAndRectangles.buttonBack);
+                        if (eventN == 4) Rat.Clk(PointsAndRectangles.allpoints["buttonBack"]);
                         return false;
                     }
                     else
@@ -73,7 +73,7 @@ namespace Caitlyn_v1._0
                 }
                 else
                 {
-                    if (eventN == 4) Rat.Clk(PointsAndRectangles.buttonBack); 
+                    if (eventN == 4) Rat.Clk(PointsAndRectangles.allpoints["buttonBack"]); 
                     return false;
                 }
             }
@@ -126,7 +126,7 @@ namespace Caitlyn_v1._0
         bool GotRQ()
         {
             Condition.eventRQ = 0;
-            MasterOfPictures.MakePicture(PointsAndRectangles.RQBounds, RQPath);
+            MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["RQBounds"], RQPath);
             for (int i = 1; i < 501; i++)
             {
                 if (File.Exists(@"C:\Bot\RQ\" + i + ".jpg"))

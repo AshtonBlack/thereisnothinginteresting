@@ -15,10 +15,10 @@ namespace Caitlyn_v1._0
         }
         bool IsError()
         {
-            if (VisualCheck.Check(PointsAndRectangles.error, "Error", 100)) return true;
-            if (VisualCheck.Check(PointsAndRectangles.error, "Error1", 100)) return true;
-            if (VisualCheck.Check(PointsAndRectangles.error, "Error2", 100)) return true;
-            if (VisualCheck.Check(PointsAndRectangles.error, "Error3", 100)) return true;
+            if (VisualCheck.Check(PointsAndRectangles.allrectangles["error"], "Error", 100)) return true;
+            if (VisualCheck.Check(PointsAndRectangles.allrectangles["error"], "Error1", 100)) return true;
+            if (VisualCheck.Check(PointsAndRectangles.allrectangles["error"], "Error2", 100)) return true;
+            if (VisualCheck.Check(PointsAndRectangles.allrectangles["error"], "Error3", 100)) return true;
             return false;
         }
     }

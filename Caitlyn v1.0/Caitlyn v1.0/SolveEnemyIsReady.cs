@@ -4,7 +4,7 @@
     {
         public override bool SolveTheIssue()
         {
-            if (VisualCheck.Check(PointsAndRectangles.chooseanEnemy, "ChooseanEnemy", 90))
+            if (VisualCheck.Check(PointsAndRectangles.allrectangles["chooseanEnemy"], "ChooseanEnemy", 90))
             {
                 NotePad.DoLog("противник загрузился, готов фотать трассы");
                 TrackInfo[] tracksInfo = new TrackInfo[5];
@@ -13,7 +13,7 @@
                     tracksInfo[i] = new TrackInfo(i + 1);
                 }
                 Condition.setTracks(tracksInfo);
-                Rat.Clk(PointsAndRectangles.ChooseAnEnemy);
+                Rat.Clk(PointsAndRectangles.allpoints["ChooseAnEnemy"]);
                 NotePad.DoLog("противник выбран");
                 return true;
             }

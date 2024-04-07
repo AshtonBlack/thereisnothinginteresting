@@ -29,11 +29,11 @@ namespace Caitlyn_v1._0
         public int CheckHandSlot(int startslot, int endslot)
         {
             int emptySlots = 0;
-            Rectangle[] handSlots = { PointsAndRectangles.HandSlot1,
-                PointsAndRectangles.HandSlot2,
-                PointsAndRectangles.HandSlot3,
-                PointsAndRectangles.HandSlot4,
-                PointsAndRectangles.HandSlot5 };
+            Rectangle[] handSlots = { PointsAndRectangles.allrectangles["HandSlot1"],
+                PointsAndRectangles.allrectangles["HandSlot2"],
+                PointsAndRectangles.allrectangles["HandSlot3"],
+                PointsAndRectangles.allrectangles["HandSlot4"],
+                PointsAndRectangles.allrectangles["HandSlot5"] };
 
             for (int i = startslot - 1; i < endslot; i++)
             {
@@ -47,49 +47,49 @@ namespace Caitlyn_v1._0
         }                
         public bool ReadyToRace()
         {
-            return MainFrame(PointsAndRectangles.readyToRace, "GarageRaceButton");
+            return MainFrame(PointsAndRectangles.allrectangles["readyToRace"], "GarageRaceButton");
         }                                            
         public bool TypeIsOpenned()
         {
-            return MainFrame(PointsAndRectangles.typeIsOpenned, "TypeIsOpenned");
+            return MainFrame(PointsAndRectangles.allrectangles["typeIsOpenned"], "TypeIsOpenned");
         }
         public bool FilterIsOpenned()
         {
-            return MainFrame(PointsAndRectangles.filterIsOpenned, "FilterIsOpenned");
+            return MainFrame(PointsAndRectangles.allrectangles["filterIsOpenned"], "FilterIsOpenned");
         }                                       
         public bool ActiveEvent()
         {
-            return MainFrame(PointsAndRectangles.activeEvent, "ButtonToEvent");
+            return MainFrame(PointsAndRectangles.allrectangles["activeEvent"], "ButtonToEvent");
         }        
         public bool ClubMap()
         {
-            if (MainFrameBW(PointsAndRectangles.clubMap, "ClubMap", 400)) return true;
+            if (MainFrameBW(PointsAndRectangles.allrectangles["clubMap"], "ClubMap", 400)) return true;
             if (ActiveEvent()) return true;
             return false;
         }
         public bool RaceOn()
         {
-            if (MainFrame(PointsAndRectangles.raceOn, "Race")
-                || MainFrame(PointsAndRectangles.raceOn, "Race1")
-                || MainFrame(PointsAndRectangles.raceOn, "Race2"))
+            if (MainFrame(PointsAndRectangles.allrectangles["raceOn"], "Race")
+                || MainFrame(PointsAndRectangles.allrectangles["raceOn"], "Race1")
+                || MainFrame(PointsAndRectangles.allrectangles["raceOn"], "Race2"))
                 return true;
             return false;
         }        
         public bool ItsGarage()
         {
-            return MainFrame(PointsAndRectangles.inGarage, "InGarage");
+            return MainFrame(PointsAndRectangles.allrectangles["inGarage"], "InGarage");
         }                          
         public bool ConditionActivated()
         {            
-            return MainFrame(PointsAndRectangles.conditionActivated, "ConditionActivated");
+            return MainFrame(PointsAndRectangles.allrectangles["conditionActivated"], "ConditionActivated");
         }        
         public bool ArrangementWindow()
         {
-            return MainFrame(PointsAndRectangles.arrangementWindow, "Arrangement");
+            return MainFrame(PointsAndRectangles.allrectangles["arrangementWindow"], "Arrangement");
         }
         public bool RedReadytoRace()
         {
-            return MainFrame(PointsAndRectangles.readyToRace, "RedRaceButton");
+            return MainFrame(PointsAndRectangles.allrectangles["readyToRace"], "RedRaceButton");
         }                
     }
 }
