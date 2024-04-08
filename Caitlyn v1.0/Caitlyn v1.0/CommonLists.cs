@@ -17,7 +17,7 @@ namespace Caitlyn_v1._0
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.allrectangles["carRepair"], "CarRepair"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.allrectangles["wrongParty"], "WrongParty"));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["startIcon"], "Icon", PointsAndRectangles.allpoints["clkTheIcon"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["startButton"], "Start", PointsAndRectangles.allpoints["buttonStart"]));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["startButton"], "Start", 40, PointsAndRectangles.allpoints["buttonStart"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["headPage"], "Head", PointsAndRectangles.allpoints["toEvents"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["missClick"], "WrongClick", PointsAndRectangles.allpoints["missClickCancelation"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbFuckBrain"], "fbFuckBrain", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
@@ -54,7 +54,6 @@ namespace Caitlyn_v1._0
         }
         static bool SomethingWasSkipped()
         {
-            //NotePad.DoLog("solving known issues");
             foreach (ReasonForRestart reasonForRestart in reasonsForRestart)
             {
                 reasonForRestart.Check();

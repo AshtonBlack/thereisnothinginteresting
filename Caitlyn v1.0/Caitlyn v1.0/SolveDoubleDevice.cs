@@ -9,7 +9,7 @@ namespace Caitlyn_v1._0
             if (VisualCheck.Check(PointsAndRectangles.allrectangles["doubleDevice"], "DoubleDevice", 800))
             {
                 NotePad.DoLog("Master is in game");
-                Thread.Sleep(20 * 60 * 1000);
+                Thread.Sleep(15 * 60 * 1000);
                 SpecialEvents.RestartBot();
                 return true;
             }

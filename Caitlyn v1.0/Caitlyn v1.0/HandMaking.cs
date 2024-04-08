@@ -37,7 +37,6 @@ namespace Caitlyn_v1._0
             int handrq = 0;
             for (int finger = 0; finger < 5; finger++)
             {
-                //handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);
                 handrq += RoundRQAccordingToClass(carsForEveryFinger[finger][fingerCarNumber[finger]].rarity);                
             }
             NotePad.DoLogWithoutTime("rq максимальных авто: " + handrq);//debug
@@ -106,7 +105,7 @@ namespace Caitlyn_v1._0
             }
             return 19;
         }
-        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars) //dependecies with CarsDB.SatisfyConditionAndDescription
+        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars)
         {
             List<(CarForExcel description, int count)> carsDescriptions = new List<(CarForExcel description, int count)>
             {
@@ -120,7 +119,6 @@ namespace Caitlyn_v1._0
                     if (carsDescriptions[knownCarDescription].description.rarity == carDescription.rarity
                     && carsDescriptions[knownCarDescription].description.drive == carDescription.drive
                     && carsDescriptions[knownCarDescription].description.clearance == carDescription.clearance
-                    //&& carsDescription[j].description.country == additionalDescription.country
                     && carsDescriptions[knownCarDescription].description.tires == carDescription.tires)
                     {
                         carsDescriptions[knownCarDescription] = (carsDescriptions[knownCarDescription].description, carsDescriptions[knownCarDescription].count + 1);

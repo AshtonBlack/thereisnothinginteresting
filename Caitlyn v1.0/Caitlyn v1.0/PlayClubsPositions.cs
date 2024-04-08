@@ -109,7 +109,6 @@ namespace Caitlyn_v1._0
                     raceIsStarted = true;
                     NotePad.DoLog("заезд начался");
                     Thread.Sleep(2000);
-                    //Rat.Clk(PointsAndRectangles.forceTheRace); //ускорить заезд, клик в пусой области
                     Rat.Clk(PointsAndRectangles.allpoints["forceTheRace"]);
                 }
                 if (!fc.RaceOn() && raceIsStarted)

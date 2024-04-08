@@ -73,16 +73,13 @@ namespace Caitlyn_v1._0
             }
             else
             {
-                //NotePad.DoLog("Минимальные машины:");//debug
                 int count = 0;
                 for (int i = Condition.selectedCars.Count - 1; count < 5; i--)
                 {
                     for (int j = Condition.selectedCars[i].amount; j > 0; j--)
                     {
-                        //Condition.minRQ += Convert.ToInt32(Condition.selectedCars[i].rq);
                         Condition.minRQ += RoundRQAccordingToClass(Condition.selectedCars[i].rarity);
                         count++;
-                        //NotePad.DoLog(Condition.selectedCars[i].fullname());//debug
                         if (count == 5)
                         {
                             break;
@@ -164,7 +161,6 @@ namespace Caitlyn_v1._0
             }
 
             int finalCarAmount = 0;
-            //NotePad.DoLogWithoutTime("Prefered car list:");//debug
             List<CarForExcel> preferedCars = new List<CarForExcel>();
             foreach ((CarForExcel car, int points) car in CarWithPoints)
             {
@@ -172,7 +168,6 @@ namespace Caitlyn_v1._0
                 {
                     preferedCars.Add(car.car);
                     finalCarAmount += car.car.amount;
-                    //NotePad.DoLogWithoutTime(car.car.fullname() + " " + car.points);//debug
                 }
             }
             NotePad.DoLogWithoutTime("The best cars amount: " + finalCarAmount);//debug
@@ -871,7 +866,6 @@ namespace Caitlyn_v1._0
                     if (carDescription.rarity == car.rarity
                     && carDescription.drive == car.drive
                     && carDescription.clearance == car.clearance
-                    //&& carsDescription[j].description.country == additionalDescription.country
                     && carDescription.tires == car.tires)
                     {
                         carCounter++;

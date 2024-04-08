@@ -206,7 +206,6 @@ namespace Caitlyn_v1._0
 
             return thetime;
         }
-        //new
         public static void ReadClkPoints()
         {
             using (StreamReader sr = new StreamReader(@"C:\Bot\ClkPoints.txt", Encoding.UTF8))
