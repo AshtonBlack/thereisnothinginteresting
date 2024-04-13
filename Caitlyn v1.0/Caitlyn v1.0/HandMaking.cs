@@ -120,6 +120,17 @@ namespace Caitlyn_v1._0
                     && carsDescriptions[knownCarDescription].description.clearance == carDescription.clearance
                     && carsDescriptions[knownCarDescription].description.tires == carDescription.tires)
                     {
+                        NotePad.DoLogWithoutTime("Машина со сходным описанием");//debug
+                        NotePad.DoLogWithoutTime("Образец: ");//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.rarity);//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.drive);//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.clearance);//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.tires);//debug
+                        NotePad.DoLogWithoutTime("Добавляемая: ");//debug
+                        NotePad.DoLogWithoutTime(carDescription.rarity);//debug
+                        NotePad.DoLogWithoutTime(carDescription.drive);//debug
+                        NotePad.DoLogWithoutTime(carDescription.clearance);//debug
+                        NotePad.DoLogWithoutTime(carDescription.tires);//debug
                         carsDescriptions[knownCarDescription] = (carsDescriptions[knownCarDescription].description, carsDescriptions[knownCarDescription].count + 1);
                         found = true;
                         break;
@@ -127,6 +138,11 @@ namespace Caitlyn_v1._0
                 }
                 if (!found)
                 {
+                    NotePad.DoLogWithoutTime("Добавляю новое описание");//debug
+                    NotePad.DoLogWithoutTime(carDescription.rarity);//debug
+                    NotePad.DoLogWithoutTime(carDescription.drive);//debug
+                    NotePad.DoLogWithoutTime(carDescription.clearance);//debug
+                    NotePad.DoLogWithoutTime(carDescription.tires);//debug
                     carsDescriptions.Add((carDescription, 1));
                 }
             }
@@ -141,14 +157,14 @@ namespace Caitlyn_v1._0
             List <int> carsid = new List<int>();
             NotePad.DoLogWithoutTime("тачки после группировки по фильтрам");//debug
             foreach (var carDescription in carsDescriptions)
-            {
-                NotePad.DoLogWithoutTime("Подбираю тачку " + carDescription.description.fullname());//debug
+            {                
                 if (!Randomizer()) return false;
                 if (!UseFilter(carDescription.description)) return false;
                 if (DragnDropHand(carDescription.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carDescription.description)) > 0) return false; //temporary
                 usedhandslots += carDescription.count;
                 for(int count = 0; count < carDescription.count; count++)
                 {
+                    NotePad.DoLogWithoutTime("Подобрал тачку с описанием похожим на: " + carDescription.description.fullname());//debug
                     carsid.Add(Convert.ToInt16(carDescription.description.pictureId));
                 }
             }//механизм расстановки
