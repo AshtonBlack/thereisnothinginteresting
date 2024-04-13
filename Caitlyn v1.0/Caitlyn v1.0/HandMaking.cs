@@ -73,11 +73,9 @@ namespace Caitlyn_v1._0
                     handrq = 0;
                     for (int slot = 0; slot < 5; slot++)
                     {
-                        //handrq += Convert.ToInt32(carsForEveryFinger[slot][fingerCarNumber[slot]].rq);
                         handrq += RoundRQAccordingToClass(carsForEveryFinger[slot][fingerCarNumber[slot]].rarity);
                     }
                 }
-                //NotePad.DoLog("RQ = " + handrq);//debug
             }//сборка руки
             NotePad.DoLogWithoutTime("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
             
@@ -111,6 +109,7 @@ namespace Caitlyn_v1._0
             {
                 (cars[0], 0)//the first description is added by default
             };
+
             foreach(CarForExcel carDescription in cars)
             {
                 bool found = false;
@@ -139,19 +138,25 @@ namespace Caitlyn_v1._0
             if (CheckForEventIsOn()) ActivateCondition(); else return false;            
             List<(CarForExcel description, int count)> carsDescriptions = GroupCars(ChooseCars());
             int usedhandslots = 0;
+            List <int> carsid = new List<int>();
+            NotePad.DoLogWithoutTime("тачки после группировки по фильтрам");//debug
             foreach (var carDescription in carsDescriptions)
             {
-                //сохранить carDescription для каждой отдельной машины в руке 
+                NotePad.DoLogWithoutTime("Подбираю тачку " + carDescription.description.fullname());//debug
                 if (!Randomizer()) return false;
                 if (!UseFilter(carDescription.description)) return false;
                 if (DragnDropHand(carDescription.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carDescription.description)) > 0) return false; //temporary
                 usedhandslots += carDescription.count;
+                for(int count = 0; count < carDescription.count; count++)
+                {
+                    carsid.Add(Convert.ToInt16(carDescription.description.pictureId));
+                }
             }//механизм расстановки
-
+            
             if (eventIsNotEnd && VerifyHand())
             {
-                int[] carsid = RememberHand();
-                NotePad.Saves(carsid);
+                //int[] carsid = RememberHand(); //Опеределение тачек по картинке будет временно отключено в связи с отсутствием актуальной базы картинок
+                NotePad.Saves(carsid.ToArray());
             } //сохранение руки            
             else return false;
             
