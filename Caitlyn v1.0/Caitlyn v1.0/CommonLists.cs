@@ -37,6 +37,8 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["eventisFull"], "FullEvent", PointsAndRectangles.allpoints["eventIsFullAcceptance"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["carMenu"], "CarMenu", PointsAndRectangles.allpoints["closeCarCard"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["raceEnd"], "RaceEnd", 220, PointsAndRectangles.allpoints["endOfTheFirstRace"]));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SpecialOffer"], "SpecialOffer1", PointsAndRectangles.allpoints["CrossForSpecialOffer"]));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SpecialOffer"], "SpecialOffer2", PointsAndRectangles.allpoints["CrossForSpecialOffer"]));
             issueSolvations.Add(new SolveServerError());
             issueSolvations.Add(new SolveEventPage());
             issueSolvations.Add(new SolveBounty());
