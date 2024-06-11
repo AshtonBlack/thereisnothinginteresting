@@ -83,7 +83,7 @@ namespace Caitlyn_v1._0
         int DefineEvevntConditionByPicture(int conditionNumber)
         {
             int x;
-            for (x = 0; x < 500; x++)
+            for (x = 0; x < 1000; x++)
             {
                 if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\C" + x + ".jpg"))
                 {
@@ -96,7 +96,7 @@ namespace Caitlyn_v1._0
                 else
                 {
                     NotePad.DoLog("Неизвестное условие");
-                    for (int i = 1; i < 500; i++)
+                    for (int i = 1; i < 1000; i++)
                     {
                         if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\UnknownCondition" + i + ".jpg"))
                         {
@@ -108,7 +108,7 @@ namespace Caitlyn_v1._0
                             break;
                         }
                     }
-                    x = 500;
+                    x = 1000;
                     break;
                 }
             }
