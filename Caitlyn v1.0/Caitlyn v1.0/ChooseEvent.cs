@@ -85,9 +85,15 @@ namespace Caitlyn_v1._0
             int x;
             for (x = 0; x < 1000; x++)
             {
+                //temporary function
                 if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\C" + x + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", ("Condition" + conditionNumber + @"\C" + x)))
+                    File.Move(@"C:\Bot\Condition" + conditionNumber + @"\C" + x + ".jpg", @"C:\Bot\Condition" + conditionNumber + @"\" + x + ".jpg");
+                }
+                //end
+                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + x + ".jpg"))
+                {
+                    if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + x))
                     {
                         NotePad.DoLog(conditionNumber + " условие: " + x);
                         break;
@@ -100,11 +106,11 @@ namespace Caitlyn_v1._0
                     {
                         if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\UnknownCondition" + i + ".jpg"))
                         {
-                            if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", ("Condition" + conditionNumber + @"\UnknownCondition" + i))) break;
+                            if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\UnknownCondition" + i)) break;
                         }
                         else
                         {
-                            File.Move(@"C:\Bot\" + "Condition" + conditionNumber + @"\test" + ".jpg", @"C:\Bot\Condition" + conditionNumber + @"\UnknownCondition" + i + ".jpg");
+                            File.Move(@"C:\Bot\Condition" + conditionNumber + @"\test" + ".jpg", @"C:\Bot\Condition" + conditionNumber + @"\UnknownCondition" + i + ".jpg");
                             break;
                         }
                     }
