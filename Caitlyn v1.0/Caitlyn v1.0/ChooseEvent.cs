@@ -85,12 +85,6 @@ namespace Caitlyn_v1._0
             int x;
             for (x = 0; x < 1000; x++)
             {
-                //temporary function
-                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\C" + x + ".jpg"))
-                {
-                    File.Move(@"C:\Bot\Condition" + conditionNumber + @"\C" + x + ".jpg", @"C:\Bot\Condition" + conditionNumber + @"\" + x + ".jpg");
-                }
-                //end
                 if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + x + ".jpg"))
                 {
                     if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + x))
