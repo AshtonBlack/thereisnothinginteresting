@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -140,23 +140,20 @@ namespace Caitlyn_v1._0
                 }
             }
 
-            if (Condition.eventRQ == 0)
+            NotePad.DoLog("Unknown rq");
+            for (int x = 1; x < 500; x++)
             {
-                NotePad.DoLog("Unknown rq");
-                for (int x = 1; x < 500; x++)
+                if (File.Exists(@"C:\Bot\RQ\UnknownRQ" + x + ".jpg"))
                 {
-                    if (File.Exists(@"C:\Bot\RQ\UnknownRQ" + x + ".jpg"))
+                    if (MasterOfPictures.Verify(RQPath, @"RQ\UnknownRQ" + x))
                     {
-                        if (MasterOfPictures.Verify(RQPath, (@"RQ\UnknownRQ" + x)))
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        File.Move(@"C:\Bot\" + RQPath + ".jpg", @"C:\Bot\RQ\UnknownRQ" + x + ".jpg");
                         break;
                     }
+                }
+                else
+                {
+                    File.Move(@"C:\Bot\" + RQPath + ".jpg", @"C:\Bot\RQ\UnknownRQ" + x + ".jpg");
+                    break;
                 }
             }
 
@@ -164,24 +161,32 @@ namespace Caitlyn_v1._0
         }
         public string ConvertPictureToCond(int picture, int cond)
         {
-            string name = "unknown";
+            /*
             int length = NotePad.GetInfoFileLength(@"C:\Bot\Condition" + cond + @"\info.txt");
             string[,] theConditionsTable = NotePad.ReadInfoFromTXT(@"C:\Bot\Condition" + cond + @"\info.txt");
             for (int i = 0; i < length; i++)
             {
                 if (picture == Convert.ToInt32(theConditionsTable[i, 0]))
+                {                    
+                    NotePad.DoLog(cond + " условие: " + theConditionsTable[i, 1]);
+                    return theConditionsTable[i, 1];
+                }
+            }            
+            NotePad.DoErrorLog("Неизвестное условие");
+            return "unknown";
+            */
+
+            List <(int number, string condName)> theConditionsTable = NotePad.ReadInfoFile(@"C:\Bot\Condition" + cond + @"\info.txt");            
+            foreach((int number, string condName) line in theConditionsTable)
+            {
+                if (picture == line.number)
                 {
-                    name = theConditionsTable[i, 1];
-                    NotePad.DoLog(cond + " условие: " + name);
-                    break;
+                    NotePad.DoLog(cond + " условие: " + line.condName);
+                    return line.condName;
                 }
             }
-            if (name == "unknown")
-            {
-                NotePad.DoErrorLog("Неизвестное условие");
-            }
-
-            return name;
+            NotePad.DoErrorLog("Неизвестное условие");
+            return "unknown";
         }
     }
 }

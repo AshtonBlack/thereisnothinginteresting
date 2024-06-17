@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -152,6 +153,23 @@ namespace Caitlyn_v1._0
                     string theline = sr.ReadLine();
                     picturetoname[i, 0] = GetWordFromString(theline, 1);
                     picturetoname[i, 1] = GetWordFromString(theline, 2);
+                }
+                sr.Close();
+            }
+
+            return picturetoname;
+        }
+        public static List<(int number, string name)> ReadInfoFile(string path)
+        {
+            int length = GetInfoFileLength(path);
+            List<(int, string)> picturetoname = new List<(int, string)>();
+
+            using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    string theline = sr.ReadLine();
+                    picturetoname.Add((Convert.ToInt16(GetWordFromString(theline, 1)), GetWordFromString(theline, 2)));
                 }
                 sr.Close();
             }
