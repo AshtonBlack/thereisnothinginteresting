@@ -55,6 +55,7 @@
     <Compile Include="ChooseEvent.cs" />
     <Compile Include="CommonLists.cs" />
     <Compile Include="Condition.cs" />
+    <Compile Include="ConditionDB.cs" />
     <Compile Include="ExcelParser.cs" />
     <Compile Include="FastCheck.cs" />
     <Compile Include="Form1.cs">

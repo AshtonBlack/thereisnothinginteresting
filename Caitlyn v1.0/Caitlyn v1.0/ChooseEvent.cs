@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Threading;
 
@@ -51,8 +50,9 @@ namespace Caitlyn_v1._0
 
             MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition1Bounds"], @"Condition1\test");
             MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition2Bounds"], @"Condition2\test");
-            string cond1 = ConvertPictureToCond(DefineFirstEvevntConditionByPicture(), 1);
-            string cond2 = ConvertPictureToCond(DefineSecondEvevntConditionByPicture(), 2);
+            string cond1 = ConditionDB.getFirstConditionByNumber(DefineFirstEvevntConditionByPicture());
+            string cond2 = ConditionDB.getSecondConditionByNumber(DefineSecondEvevntConditionByPicture());
+
 
             if (cond1 != "unknown" && cond2 != "unknown")//Исключаю неизвестный
             {
@@ -80,7 +80,7 @@ namespace Caitlyn_v1._0
             else return false;
             return true;
         }
-        int DefineEvevntConditionByPicture(int conditionNumber)
+        int DefineEventConditionByPicture(int conditionNumber)
         {
             int x;
             for (x = 0; x < 1000; x++)
@@ -117,11 +117,11 @@ namespace Caitlyn_v1._0
         }
         int DefineFirstEvevntConditionByPicture()
         {
-            return DefineEvevntConditionByPicture(1);
+            return DefineEventConditionByPicture(1);
         }
         int DefineSecondEvevntConditionByPicture()
         {
-            return DefineEvevntConditionByPicture(2);
+            return DefineEventConditionByPicture(2);
         }
         bool GotRQ()
         {
@@ -158,35 +158,6 @@ namespace Caitlyn_v1._0
             }
 
             return false;
-        }
-        public string ConvertPictureToCond(int picture, int cond)
-        {
-            /*
-            int length = NotePad.GetInfoFileLength(@"C:\Bot\Condition" + cond + @"\info.txt");
-            string[,] theConditionsTable = NotePad.ReadInfoFromTXT(@"C:\Bot\Condition" + cond + @"\info.txt");
-            for (int i = 0; i < length; i++)
-            {
-                if (picture == Convert.ToInt32(theConditionsTable[i, 0]))
-                {                    
-                    NotePad.DoLog(cond + " условие: " + theConditionsTable[i, 1]);
-                    return theConditionsTable[i, 1];
-                }
-            }            
-            NotePad.DoErrorLog("Неизвестное условие");
-            return "unknown";
-            */
-
-            List <(int number, string condName)> theConditionsTable = NotePad.ReadInfoFile(@"C:\Bot\Condition" + cond + @"\info.txt");            
-            foreach((int number, string condName) line in theConditionsTable)
-            {
-                if (picture == line.number)
-                {
-                    NotePad.DoLog(cond + " условие: " + line.condName);
-                    return line.condName;
-                }
-            }
-            NotePad.DoErrorLog("Неизвестное условие");
-            return "unknown";
-        }
+        }        
     }
 }
