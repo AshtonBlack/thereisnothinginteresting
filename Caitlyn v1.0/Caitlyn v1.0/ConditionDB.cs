@@ -7,40 +7,52 @@ namespace Caitlyn_v1._0
     static class ConditionDB
     {
         static List<(int number, string condName)> FirstConditions { get; set; }
+        static List<string> FirstConditionPictureNames { get; set; }
+        static List<string> FirstUnknownConditionPictureNames { get; set; }
         static List<(int number, string condName)> SecondConditions { get; set; }
         static ConditionDB()
         {
             FirstConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition1\info.txt");
             SecondConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition2\info.txt");
-            groupConditions();
+            GroupConditions();
+            CollectPictureNames();
         }
-        public static string getFirstConditionByNumber(int picture)
-        {            
-            foreach ((int number, string condName) line in FirstConditions)
-            {
-                if (picture == line.number)
-                {
-                    NotePad.DoLog("1 условие: " + line.condName);
-                    return line.condName;
-                }
-            }
-            NotePad.DoErrorLog("Неизвестное условие");
-            return "unknown";
-        }
-        public static string getSecondConditionByNumber(int picture)
+        static void CollectPictureNames()
         {
-            foreach ((int number, string condName) line in SecondConditions)
+            List<string> allFiles = new List<string>(Directory.GetFiles(@"C:\Bot\Condition1"));
+            foreach (string file in allFiles)
             {
-                if (picture == line.number)
+                if (!file.Contains("txt") && !file.Contains("test"))
                 {
-                    NotePad.DoLog("2 условие: " + line.condName);
-                    return line.condName;
+                    if (!file.ToLower().Contains("unknown"))
+                    {
+                        FirstConditionPictureNames.Add(file);
+                    } 
+                    else
+                    {
+                        FirstUnknownConditionPictureNames.Add(file);
+                    }
                 }
             }
-            NotePad.DoErrorLog("Неизвестное условие");
-            return "unknown";        
-        }        
-        static void groupConditions()
+
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CollectPictureNamesTest.txt", false, Encoding.UTF8))//true для дописывания
+            {
+                foreach (string line in FirstConditionPictureNames)
+                {
+                    sw.WriteLine(line);
+                }
+                sw.Close();
+            }
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CollectPictureNamesTest.txt", true, Encoding.UTF8))//true для дописывания
+            {
+                foreach (string line in FirstUnknownConditionPictureNames)
+                {
+                    sw.WriteLine(line);
+                }
+                sw.Close();
+            }
+        }
+        static void GroupConditions()
         {
             List<(int number, string condName)> updatedConditions = new List<(int number, string condName)>();
             List<string> handledConditionsList = new List<string>();
@@ -56,9 +68,9 @@ namespace Caitlyn_v1._0
                     handledConditionsList.Add(line.condName);
                 }
                 List<int> numbers = new List<int>();
-                foreach((int number, string condName) line1 in FirstConditions)
-                {                    
-                    if(line.condName == line1.condName)
+                foreach ((int number, string condName) line1 in FirstConditions)
+                {
+                    if (line.condName == line1.condName)
                     {
                         numbers.Add(line1.number);
                     }
@@ -72,6 +84,15 @@ namespace Caitlyn_v1._0
                 }
             }
 
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\uniqueCondTest.txt", false, Encoding.UTF8))//true для дописывания
+            {
+                foreach (string line in handledConditionsList)
+                {
+                    sw.WriteLine(line);
+                }
+                sw.Close();
+            }
+
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\updateCondTest.txt", false, Encoding.UTF8))//true для дописывания
             {
                 foreach ((int number, string condName) line in updatedConditions)
@@ -81,5 +102,31 @@ namespace Caitlyn_v1._0
                 sw.Close();
             }
         }
+        public static string GetFirstConditionByNumber(int picture)
+        {            
+            foreach ((int number, string condName) line in FirstConditions)
+            {
+                if (picture == line.number)
+                {
+                    NotePad.DoLog("1 условие: " + line.condName);
+                    return line.condName;
+                }
+            }
+            NotePad.DoErrorLog("Неизвестное условие");
+            return "unknown";
+        }
+        public static string GetSecondConditionByNumber(int picture)
+        {
+            foreach ((int number, string condName) line in SecondConditions)
+            {
+                if (picture == line.number)
+                {
+                    NotePad.DoLog("2 условие: " + line.condName);
+                    return line.condName;
+                }
+            }
+            NotePad.DoErrorLog("Неизвестное условие");
+            return "unknown";        
+        }                
     }
 }

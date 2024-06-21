@@ -50,8 +50,8 @@ namespace Caitlyn_v1._0
 
             MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition1Bounds"], @"Condition1\test");
             MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition2Bounds"], @"Condition2\test");
-            string cond1 = ConditionDB.getFirstConditionByNumber(DefineFirstEvevntConditionByPicture());
-            string cond2 = ConditionDB.getSecondConditionByNumber(DefineSecondEvevntConditionByPicture());
+            string cond1 = ConditionDB.GetFirstConditionByNumber(DefineFirstEvevntConditionByPicture());
+            string cond2 = ConditionDB.GetSecondConditionByNumber(DefineSecondEvevntConditionByPicture());
 
 
             if (cond1 != "unknown" && cond2 != "unknown")//Исключаю неизвестный
