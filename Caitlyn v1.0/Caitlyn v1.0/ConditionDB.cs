@@ -19,6 +19,8 @@ namespace Caitlyn_v1._0
         }
         static void CollectPictureNames()
         {
+            FirstConditionPictureNames = new List<string>();
+            FirstUnknownConditionPictureNames= new List<string>();
             List<string> allFiles = new List<string>(Directory.GetFiles(@"C:\Bot\Condition1"));
             foreach (string file in allFiles)
             {
