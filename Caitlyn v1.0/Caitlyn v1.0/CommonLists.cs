@@ -23,6 +23,9 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbFuckBrain"], "fbFuckBrain", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbcontinue"], "FBcontinue", PointsAndRectangles.allpoints["fbFucksBrain"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError1", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError2", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError3", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndBounty"], "SeasonEndBounty", PointsAndRectangles.allpoints["bountyForSeason"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndsBounds"], "SeasonEnds", PointsAndRectangles.allpoints["acceptSeasonEnd"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["controlScreen"], "ControlScreen", PointsAndRectangles.allpoints["controlScreenToGarage"]));
