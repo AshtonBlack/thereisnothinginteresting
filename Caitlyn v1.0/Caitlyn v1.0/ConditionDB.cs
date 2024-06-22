@@ -80,11 +80,6 @@ namespace Caitlyn_v1._0
                 }
                 numbers.Sort();
                 numbers.Reverse();
-                updatedConditions.Add((numbers[0], line.condName));
-                if (numbers.Count > 1)
-                {
-                    updatedConditions.Add((numbers[1], line.condName));
-                }
                 int index = 0;
                 foreach(int number in numbers)
                 {
@@ -94,7 +89,8 @@ namespace Caitlyn_v1._0
                 }
             }
 
-            if (!Directory.Exists(@"C:\Bot\Condition1\savedpictures")) Directory.CreateDirectory(@"C:\Bot\Condition1\savedpictures");
+            if (Directory.Exists(@"C:\Bot\Condition1\savedpictures")) Directory.Delete(@"C:\Bot\Condition1\savedpictures", true);
+            Directory.CreateDirectory(@"C:\Bot\Condition1\savedpictures");
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\savedpictures\updateCondTest.txt", false, Encoding.UTF8))//true для дописывания
             {
                 int index = 0;                
