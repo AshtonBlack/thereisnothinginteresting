@@ -54,10 +54,11 @@ namespace Caitlyn_v1._0
                 sw.Close();
             }
         }
-        static void GroupConditions()
+        public static void GroupConditions()
         {
             List<(int number, string condName)> updatedConditions = new List<(int number, string condName)>();
             List<string> handledConditionsList = new List<string>();
+            List<int> picturesToDelete= new List<int>();
             foreach ((int number, string condName) line in FirstConditions)
             {
                 if (handledConditionsList.Count == 0)
@@ -84,22 +85,35 @@ namespace Caitlyn_v1._0
                 {
                     updatedConditions.Add((numbers[1], line.condName));
                 }
+                int index = 0;
+                foreach(int number in numbers)
+                {
+                    if(index < 2) updatedConditions.Add((number, line.condName));
+                    else picturesToDelete.Add(number);
+                    index++;
+                }
             }
 
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\uniqueCondTest.txt", false, Encoding.UTF8))//true для дописывания
+            if (!Directory.Exists(@"C:\Bot\Condition1\savedpictures")) Directory.CreateDirectory(@"C:\Bot\Condition1\savedpictures");
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\savedpictures\updateCondTest.txt", false, Encoding.UTF8))//true для дописывания
             {
-                foreach (string line in handledConditionsList)
+                int index = 0;                
+                foreach ((int number, string condName) line in updatedConditions)
                 {
-                    sw.WriteLine(line);
+                    sw.WriteLine(index.ToString() + ' ' + line.condName);
+                    if (File.Exists(@"C:\Bot\Condition1\" + line.number + ".jpg"))
+                        File.Copy(@"C:\Bot\Condition1\" + line.number + ".jpg",
+                            @"C:\Bot\Condition1\savedpictures\" + index.ToString() + ".jpg");
+                    index++;
                 }
                 sw.Close();
             }
 
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\updateCondTest.txt", false, Encoding.UTF8))//true для дописывания
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\savedpictures\picturesToDelete.txt", false, Encoding.UTF8))//true для дописывания
             {
-                foreach ((int number, string condName) line in updatedConditions)
+                foreach (int pictureToDelete in picturesToDelete)
                 {
-                    sw.WriteLine(line.number + ' ' + line.condName);
+                    sw.WriteLine(pictureToDelete);
                 }
                 sw.Close();
             }
