@@ -316,9 +316,8 @@ namespace Caitlyn_v1._0
                     return false;
                 }
                 Rat.Clk(PointsAndRectangles.allpoints["filter"]);
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
             } while (!fc.FilterIsOpenned());//100% FilterOpenner
-            Thread.Sleep(200);
             Rat.Clk(PointsAndRectangles.allpoints["clear"]);
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.allpoints["rarity"]);
@@ -344,9 +343,8 @@ namespace Caitlyn_v1._0
                     return false;
                 }
                 Rat.Clk(PointsAndRectangles.allpoints["accept"]);
-                Thread.Sleep(1000);
-            } while (fc.FilterIsOpenned());//100% FilterCloser               
-            Thread.Sleep(2000);
+                Thread.Sleep(2000);
+            } while (fc.FilterIsOpenned());//100% FilterCloser  
 
             return true;
         }
