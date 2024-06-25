@@ -47,7 +47,7 @@ namespace Caitlyn_v1._0
         }                
         public bool ReadyToRace()
         {
-            return MainFrame(PointsAndRectangles.allrectangles["readyToRace"], "GarageRaceButton");
+            return MainFrameBW(PointsAndRectangles.allrectangles["readyToRace"], "GarageRaceButton", 40);
         }                                            
         public bool TypeIsOpenned()
         {
@@ -89,7 +89,7 @@ namespace Caitlyn_v1._0
         }
         public bool RedReadytoRace()
         {
-            return MainFrame(PointsAndRectangles.allrectangles["readyToRace"], "RedRaceButton");
+            return MainFrameBW(PointsAndRectangles.allrectangles["readyToRace"], "RedRaceButton", 40);
         }                
     }
 }
