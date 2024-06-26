@@ -132,6 +132,38 @@ namespace Caitlyn_v1._0
             captured.Dispose();
             BW.Dispose();
         }
+        public static void BW2CaptureWithBlackText(Rectangle bounds, string PATH)
+        {
+            PixelFormat format = PixelFormat.Format24bppRgb;
+            Bitmap captured = new Bitmap(bounds.Width, bounds.Height, format);
+            Bitmap BW = new Bitmap(bounds.Width, bounds.Height, format);
+            Graphics gdi = Graphics.FromImage(captured);
+            gdi.CopyFromScreen(bounds.Left + xCorrection, bounds.Top + yCorrection, 0, 0, bounds.Size);
+            for (int row = 0; row < captured.Width; row++) // Indicates row number
+            {
+                for (int column = 0; column < captured.Height; column++) // Indicate column number
+                {
+                    var colorValue = captured.GetPixel(row, column); // Get the color pixel
+                    var averageValue = (colorValue.R + colorValue.B + colorValue.G) / 3; // get the average for black and white
+                    if (averageValue > 50) averageValue = 255;
+                    else averageValue = 0;
+                    BW.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
+                }
+            }
+
+            try
+            {
+                BW.Save(@"C:\Bot\" + PATH + ".jpg", ImageFormat.Jpeg); // Save the black and white image
+            }
+            catch (Exception ex)
+            {
+                NotePad.DoErrorLog("Unknown error with save picture");
+            }
+
+            gdi.Dispose();
+            captured.Dispose();
+            BW.Dispose();
+        }
         public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
         {
             bool verificationResult = true;

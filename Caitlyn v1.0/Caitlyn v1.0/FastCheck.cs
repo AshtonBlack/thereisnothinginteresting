@@ -25,7 +25,16 @@ namespace Caitlyn_v1._0
             MasterOfPictures.BW2Capture(bounds, testPicture);
             if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors)) x = true;
             return x;
-        }                
+        }
+        public bool MainFrameBWWithBlackText(Rectangle bounds, string name, int errors)
+        {
+            bool x = false;
+            string testPicture = "HeadPictures\\Test" + name;
+            string originalPicture = "HeadPictures\\Original" + name;
+            MasterOfPictures.BW2CaptureWithBlackText(bounds, testPicture);
+            if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors)) x = true;
+            return x;
+        }
         public int CheckHandSlot(int startslot, int endslot)
         {
             int emptySlots = 0;
@@ -47,7 +56,7 @@ namespace Caitlyn_v1._0
         }                
         public bool ReadyToRace()
         {
-            return MainFrameBW(PointsAndRectangles.allrectangles["readyToRace"], "GarageRaceButton", 40);
+            return MainFrameBWWithBlackText(PointsAndRectangles.allrectangles["readyToRace"], "GarageRaceButton", 40);
         }                                            
         public bool TypeIsOpenned()
         {
