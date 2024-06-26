@@ -11,10 +11,10 @@ namespace Caitlyn_v1._0
         static List<string> FirstUnknownConditionPictureNames { get; set; }
         static List<(int number, string condName)> SecondConditions { get; set; }
         static ConditionDB()
-        {
-            FirstConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition1\info.txt");
+        {            
             SecondConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition2\info.txt");
             GroupConditions();
+            FirstConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition1\info.txt");
             CollectPictureNames();
         }
         static void CollectPictureNames()
@@ -56,10 +56,11 @@ namespace Caitlyn_v1._0
         }
         public static void GroupConditions()
         {
+            List<(int number, string condName)> initialConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition1\info.txt");
             List<(int number, string condName)> updatedConditions = new List<(int number, string condName)>();
             List<string> handledConditionsList = new List<string>();
             List<int> picturesToDelete= new List<int>();
-            foreach ((int number, string condName) line in FirstConditions)
+            foreach ((int number, string condName) line in initialConditions)
             {
                 if (handledConditionsList.Count == 0)
                 {
@@ -71,7 +72,7 @@ namespace Caitlyn_v1._0
                     handledConditionsList.Add(line.condName);
                 }
                 List<int> numbers = new List<int>();
-                foreach ((int number, string condName) line1 in FirstConditions)
+                foreach ((int number, string condName) line1 in initialConditions)
                 {
                     if (line.condName == line1.condName)
                     {
@@ -89,30 +90,28 @@ namespace Caitlyn_v1._0
                 }
             }
 
-            if (Directory.Exists(@"C:\Bot\Condition1\savedpictures")) Directory.Delete(@"C:\Bot\Condition1\savedpictures", true);
-            Directory.CreateDirectory(@"C:\Bot\Condition1\savedpictures");
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\savedpictures\updateCondTest.txt", false, Encoding.UTF8))//true для дописывания
+            foreach (int pictureToDelete in picturesToDelete)
+            {
+                if (File.Exists(@"C:\Bot\Condition1\" + pictureToDelete.ToString() + ".jpg"))
+                    File.Delete(@"C:\Bot\Condition1\" + pictureToDelete.ToString() + ".jpg");
+            }
+
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\info.txt", false, Encoding.UTF8))
             {
                 int index = 0;                
                 foreach ((int number, string condName) line in updatedConditions)
                 {
                     sw.WriteLine(index.ToString() + ' ' + line.condName);
-                    if (File.Exists(@"C:\Bot\Condition1\" + line.number + ".jpg"))
-                        File.Copy(@"C:\Bot\Condition1\" + line.number + ".jpg",
-                            @"C:\Bot\Condition1\savedpictures\" + index.ToString() + ".jpg");
+                    if (!index.ToString().Equals(line.number.ToString()))
+                    {
+                        if (File.Exists(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg"))
+                            File.Copy(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg",
+                                @"C:\Bot\Condition1\" + index.ToString() + ".jpg");
+                    }                    
                     index++;
                 }
                 sw.Close();
-            }
-
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\savedpictures\picturesToDelete.txt", false, Encoding.UTF8))//true для дописывания
-            {
-                foreach (int pictureToDelete in picturesToDelete)
-                {
-                    sw.WriteLine(pictureToDelete);
-                }
-                sw.Close();
-            }
+            }            
         }
         public static string GetFirstConditionByNumber(int picture)
         {            
