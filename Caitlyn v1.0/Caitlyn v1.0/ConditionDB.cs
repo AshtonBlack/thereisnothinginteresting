@@ -96,6 +96,9 @@ namespace Caitlyn_v1._0
                     File.Delete(@"C:\Bot\Condition1\" + pictureToDelete.ToString() + ".jpg");
             }
 
+            if (Directory.Exists(@"C:\Bot\Condition1\temp"))
+                Directory.Delete(@"C:\Bot\Condition1\temp", true);
+            Directory.CreateDirectory(@"C:\Bot\Condition1\temp");
             using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\info.txt", false, Encoding.UTF8))
             {
                 int index = 0;                
@@ -106,12 +109,18 @@ namespace Caitlyn_v1._0
                     {
                         if (File.Exists(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg"))
                             File.Move(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg",
-                                @"C:\Bot\Condition1\" + index.ToString() + ".jpg");
+                                @"C:\Bot\Condition1\temp\" + index.ToString() + ".jpg");
                     }                    
                     index++;
                 }
                 sw.Close();
-            }            
+            }
+
+            List<string> filesInTempDirectory = new List<string>(Directory.GetFiles(@"C:\Bot\Condition1\temp"));
+            foreach(string fileInTempDirectory in filesInTempDirectory)
+            {
+                File.Move(fileInTempDirectory, @"C:\Bot\Condition1\" + fileInTempDirectory.Substring(24));                
+            }
         }
         public static string GetFirstConditionByNumber(int picture)
         {            
