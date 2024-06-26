@@ -105,7 +105,7 @@ namespace Caitlyn_v1._0
                     if (!index.ToString().Equals(line.number.ToString()))
                     {
                         if (File.Exists(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg"))
-                            File.Copy(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg",
+                            File.Move(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg",
                                 @"C:\Bot\Condition1\" + index.ToString() + ".jpg");
                     }                    
                     index++;
