@@ -119,7 +119,7 @@ namespace Caitlyn_v1._0
             List<string> filesInTempDirectory = new List<string>(Directory.GetFiles(@"C:\Bot\Condition1\temp"));
             foreach(string fileInTempDirectory in filesInTempDirectory)
             {
-                File.Move(fileInTempDirectory, @"C:\Bot\Condition1\" + fileInTempDirectory.Substring(24));                
+                File.Move(fileInTempDirectory, @"C:\Bot\Condition1\" + fileInTempDirectory.Substring(23));                
             }
         }
         public static string GetFirstConditionByNumber(int picture)
