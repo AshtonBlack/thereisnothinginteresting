@@ -145,7 +145,7 @@ namespace Caitlyn_v1._0
                 {
                     var colorValue = captured.GetPixel(row, column); // Get the color pixel
                     var averageValue = (colorValue.R + colorValue.B + colorValue.G) / 3; // get the average for black and white
-                    if (averageValue > 50) averageValue = 255;
+                    if (averageValue > 75) averageValue = 255;
                     else averageValue = 0;
                     BW.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
                 }
