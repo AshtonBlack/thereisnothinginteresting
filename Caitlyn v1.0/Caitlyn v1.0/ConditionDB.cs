@@ -11,10 +11,11 @@ namespace Caitlyn_v1._0
         static List<string> FirstUnknownConditionPictureNames { get; set; }
         static List<(int number, string condName)> SecondConditions { get; set; }
         static ConditionDB()
-        {            
-            SecondConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition2\info.txt");
-            GroupConditions();
+        {                        
+            GroupConditions(1);
+            GroupConditions(2);
             FirstConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition1\info.txt");
+            SecondConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition2\info.txt");
             CollectPictureNames();
         }
         static void CollectPictureNames()
@@ -54,9 +55,10 @@ namespace Caitlyn_v1._0
                 sw.Close();
             }
         }
-        public static void GroupConditions()
+        static void GroupConditions(int cond)
         {
-            List<(int number, string condName)> initialConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition1\info.txt");
+            string basePath = @"C:\Bot\Condition" + cond.ToString() + @"\";
+            List<(int number, string condName)> initialConditions = NotePad.ReadInfoFile(basePath + "info.txt");
             List<(int number, string condName)> updatedConditions = new List<(int number, string condName)>();
             List<string> handledConditionsList = new List<string>();
             List<int> picturesToDelete= new List<int>();
@@ -92,14 +94,14 @@ namespace Caitlyn_v1._0
 
             foreach (int pictureToDelete in picturesToDelete)
             {
-                if (File.Exists(@"C:\Bot\Condition1\" + pictureToDelete.ToString() + ".jpg"))
-                    File.Delete(@"C:\Bot\Condition1\" + pictureToDelete.ToString() + ".jpg");
+                if (File.Exists(basePath + pictureToDelete.ToString() + ".jpg"))
+                    File.Delete(basePath + pictureToDelete.ToString() + ".jpg");
             }
 
-            if (Directory.Exists(@"C:\Bot\Condition1\temp"))
-                Directory.Delete(@"C:\Bot\Condition1\temp", true);
-            Directory.CreateDirectory(@"C:\Bot\Condition1\temp");
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Condition1\info.txt", false, Encoding.UTF8))
+            if (Directory.Exists(basePath + "temp"))
+                Directory.Delete(basePath + "temp", true);
+            Directory.CreateDirectory(basePath + "temp");
+            using (StreamWriter sw = new StreamWriter(basePath + "info.txt", false, Encoding.UTF8))
             {
                 int index = 0;                
                 foreach ((int number, string condName) line in updatedConditions)
@@ -107,19 +109,19 @@ namespace Caitlyn_v1._0
                     sw.WriteLine(index.ToString() + ' ' + line.condName);
                     if (!index.ToString().Equals(line.number.ToString()))
                     {
-                        if (File.Exists(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg"))
-                            File.Move(@"C:\Bot\Condition1\" + line.number.ToString() + ".jpg",
-                                @"C:\Bot\Condition1\temp\" + index.ToString() + ".jpg");
+                        if (File.Exists(basePath + line.number.ToString() + ".jpg"))
+                            File.Move(basePath + line.number.ToString() + ".jpg",
+                                basePath + @"temp\" + index.ToString() + ".jpg");
                     }                    
                     index++;
                 }
                 sw.Close();
             }
 
-            List<string> filesInTempDirectory = new List<string>(Directory.GetFiles(@"C:\Bot\Condition1\temp"));
+            List<string> filesInTempDirectory = new List<string>(Directory.GetFiles(basePath + "temp"));
             foreach(string fileInTempDirectory in filesInTempDirectory)
             {
-                File.Move(fileInTempDirectory, @"C:\Bot\Condition1\" + fileInTempDirectory.Substring(23));                
+                File.Move(fileInTempDirectory, basePath + fileInTempDirectory.Substring(23));                
             }
         }
         public static string GetFirstConditionByNumber(int picture)
