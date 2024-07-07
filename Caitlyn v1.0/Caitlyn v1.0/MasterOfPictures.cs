@@ -196,5 +196,24 @@ namespace Caitlyn_v1._0
             }
             return verificationResult;
         }
+        public static void TransformPictureIntoBW(string pictureName, string resultedPictureName)
+        {
+            Bitmap picture = new Bitmap(pictureName);
+            Bitmap resultedPicture = new Bitmap(picture.Width, picture.Height);
+            for (int row = 0; row < picture.Width; row++)
+            {
+                for (int column = 0; column < picture.Height; column++)
+                {
+                    var colorValue = picture.GetPixel(row, column);
+                    var averageValue = (colorValue.R + colorValue.B + colorValue.G) / 3;
+                    if (averageValue > 200) averageValue = 255;
+                    else averageValue = 0;
+                    resultedPicture.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue));
+                }
+            }
+            resultedPicture.Save(resultedPictureName);
+            picture.Dispose();
+            resultedPicture.Dispose();
+        }
     }
 }

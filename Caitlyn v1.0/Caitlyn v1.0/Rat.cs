@@ -15,9 +15,6 @@ namespace Caitlyn_v1._0
         const int MOUSEEVENTF_LEFTDOWN = 0X02;
         const int MOUSEEVENTF_LEFTUP = 0X04;
 
-        //const int xCorrection = -3;//TEMPORARY
-        //const int yCorrection = 1;//TEMPORARY
-
         private static void DoMouseLeftClick(int x, int y)
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);

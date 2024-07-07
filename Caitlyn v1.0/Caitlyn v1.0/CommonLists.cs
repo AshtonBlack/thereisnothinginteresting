@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 
 namespace Caitlyn_v1._0
 {
@@ -72,7 +71,6 @@ namespace Caitlyn_v1._0
             {
                 if (issueSolvation.SolveTheIssue()) return true;
             }
-            Thread.Sleep(1000);
             return false;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -184,7 +185,17 @@ namespace botDBUpdater
         }
         void Form1_Load(object sender, EventArgs e)
         {
-
+            List<string> allPictures = new List<string> (Directory.GetFiles(@"C:\Bot\thereisnothinginteresting\Condition1"));
+            Directory.CreateDirectory(@"C:\Bot\test");
+            int counter = 0;
+            foreach (string file in allPictures)
+            {
+                if (!file.Contains("txt"))
+                {
+                    MasterOfPictures.TransformPictureIntoBW(file, @"C:\Bot\test\" + counter.ToString() + ".jpg");
+                    counter++;
+                }                
+            }            
         }   
         string GetWordFromText(string line, int wordN)
         {
@@ -335,7 +346,7 @@ namespace botDBUpdater
                     for (int column = 0; column < captured.Height; column++) // Indicate column number
                     {
                         var colorValue = captured.GetPixel(row, column); // Get the color pixel
-                        var averageValue = ((int)colorValue.R + (int)colorValue.B + (int)colorValue.G) / 3; // get the average for black and white
+                        var averageValue = (colorValue.R + colorValue.B + colorValue.G) / 3; // get the average for black and white
                         if (averageValue > 200) averageValue = 255;
                         else averageValue = 0;
                         BW.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
@@ -386,6 +397,25 @@ namespace botDBUpdater
                 picture.Dispose();
                 return flag1;
             }
+            public static void TransformPictureIntoBW(string pictureName, string resultedPictureName)
+            {
+                Bitmap picture = new Bitmap(pictureName);
+                Bitmap resultedPicture = new Bitmap(picture.Width, picture.Height);                
+                for (int row = 0; row < picture.Width; row++)
+                {
+                    for (int column = 0; column < picture.Height; column++)
+                    {
+                        var colorValue = picture.GetPixel(row, column);
+                        var averageValue = (colorValue.R + colorValue.B + colorValue.G) / 3;
+                        if (averageValue > 200) averageValue = 255;
+                        else averageValue = 0;
+                        resultedPicture.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue));
+                    }
+                }
+                resultedPicture.Save(resultedPictureName);
+                picture.Dispose();
+                resultedPicture.Dispose();
+            }
         }
         public class DevKit
         {
@@ -435,7 +465,7 @@ namespace botDBUpdater
                 }
                 return scaledImage;
             }
-            public void ChageColorDepth(Bitmap originalImage, string pathForResult, int depth)
+            public void ChangeColorDepth(Bitmap originalImage, string pathForResult, int depth)
             {
                 ImageCodecInfo myImageCodecInfo;
                 Encoder myEncoder;
@@ -653,7 +683,7 @@ namespace botDBUpdater
             string originalFilePath = Path.GetDirectoryName(pictureForChange);
             string originalFileExtension = Path.GetExtension(pictureForChange);
             File.Move(pictureForChange, originalFilePath + "\\" + originalFileName + ".old" + originalFileExtension);
-            dk.ChageColorDepth(scalableOriginalPhoto, pictureForChange, 24);
+            dk.ChangeColorDepth(scalableOriginalPhoto, pictureForChange, 24);
             scalableOriginalPhoto.Dispose();
         }
     }

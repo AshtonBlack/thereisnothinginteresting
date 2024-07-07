@@ -84,6 +84,7 @@
     <Compile Include="SolveEventPage.cs" />
     <Compile Include="SolveNoxRestartMessage.cs" />
     <Compile Include="SolveServerError.cs" />
+    <Compile Include="SolveSpecialOffer.cs" />
     <Compile Include="SpecialEvents.cs" />
     <Compile Include="TimingUnit.cs" />
     <Compile Include="TrackInfo.cs" />
