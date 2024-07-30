@@ -27,7 +27,7 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError3", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndBounty"], "SeasonEndBounty", PointsAndRectangles.allpoints["bountyForSeason"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndsBounds"], "SeasonEnds", PointsAndRectangles.allpoints["acceptSeasonEnd"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["controlScreen"], "ControlScreen", PointsAndRectangles.allpoints["controlScreenToGarage"]));
+            //skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["controlScreen"], "ControlScreen", 20, PointsAndRectangles.allpoints["controlScreenToGarage"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["controlScreen"], "BugControlScreen", PointsAndRectangles.allpoints["buttonBack"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["upgrade"], "Upgrade", PointsAndRectangles.allpoints["upgradeCancelation"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["acceptThrow"], "AcceptThrow", PointsAndRectangles.allpoints["acceptanceToThrowRaces"]));
@@ -40,8 +40,6 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["eventisFull"], "FullEvent", PointsAndRectangles.allpoints["eventIsFullAcceptance"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["carMenu"], "CarMenu", PointsAndRectangles.allpoints["closeCarCard"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["raceEnd"], "RaceEnd", 220, PointsAndRectangles.allpoints["endOfTheFirstRace"]));
-            //skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SpecialOffer"], "SpecialOffer1", PointsAndRectangles.allpoints["CrossForSpecialOffer"]));
-            //skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SpecialOffer"], "SpecialOffer2", PointsAndRectangles.allpoints["CrossForSpecialOffer"]));
             issueSolvations.Add(new SolveServerError());
             issueSolvations.Add(new SolveEventPage());
             issueSolvations.Add(new SolveBounty());
@@ -50,6 +48,7 @@ namespace Caitlyn_v1._0
             issueSolvations.Add(new SolveEnemyIsReady());
             issueSolvations.Add(new SolveDoubleDevice());
             issueSolvations.Add(new SolveSpecialOffer());
+            issueSolvations.Add(new SolveControlScreen());
         }
         public static void SkipAllSkipables()
         {

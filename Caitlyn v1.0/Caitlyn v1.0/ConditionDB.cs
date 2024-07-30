@@ -9,6 +9,8 @@ namespace Caitlyn_v1._0
         static List<(int number, string condName)> FirstConditions { get; set; }
         static List<string> FirstConditionPictureNames { get; set; }
         static List<string> FirstUnknownConditionPictureNames { get; set; }
+        static List<string> SecondConditionPictureNames { get; set; }
+        static List<string> SecondUnknownConditionPictureNames { get; set; }
         static List<(int number, string condName)> SecondConditions { get; set; }
         static ConditionDB()
         {                        
@@ -16,44 +18,29 @@ namespace Caitlyn_v1._0
             GroupConditions(2);
             FirstConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition1\info.txt");
             SecondConditions = NotePad.ReadInfoFile(@"C:\Bot\Condition2\info.txt");
-            CollectPictureNames();
+            (FirstConditionPictureNames,FirstUnknownConditionPictureNames) = CollectPictureNames(1);
+            (SecondConditionPictureNames, SecondUnknownConditionPictureNames) = CollectPictureNames(2);
         }
-        static void CollectPictureNames()
+        static (List<string> known, List<string> unknown) CollectPictureNames(int cond)
         {
-            FirstConditionPictureNames = new List<string>();
-            FirstUnknownConditionPictureNames= new List<string>();
-            List<string> allFiles = new List<string>(Directory.GetFiles(@"C:\Bot\Condition1"));
+            List<string> knownConditionPictureNames = new List<string>();
+            List<string> unknownConditionPictureNames = new List<string>();
+            List<string> allFiles = new List<string>(Directory.GetFiles(@"C:\Bot\Condition" + cond.ToString()));
             foreach (string file in allFiles)
             {
                 if (!file.Contains("txt") && !file.Contains("test"))
                 {
                     if (!file.ToLower().Contains("unknown"))
                     {
-                        FirstConditionPictureNames.Add(file);
+                        knownConditionPictureNames.Add(file);
                     } 
                     else
                     {
-                        FirstUnknownConditionPictureNames.Add(file);
+                        unknownConditionPictureNames.Add(file);
                     }
                 }
             }
-
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CollectPictureNamesTest.txt", false, Encoding.UTF8))//true для дописывания
-            {
-                foreach (string line in FirstConditionPictureNames)
-                {
-                    sw.WriteLine(line);
-                }
-                sw.Close();
-            }
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\CollectPictureNamesTest.txt", true, Encoding.UTF8))//true для дописывания
-            {
-                foreach (string line in FirstUnknownConditionPictureNames)
-                {
-                    sw.WriteLine(line);
-                }
-                sw.Close();
-            }
+            return (knownConditionPictureNames, unknownConditionPictureNames);
         }
         static void GroupConditions(int cond)
         {

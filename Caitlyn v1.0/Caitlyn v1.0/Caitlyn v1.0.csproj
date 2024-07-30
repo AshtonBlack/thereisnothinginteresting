@@ -78,6 +78,7 @@
     <Compile Include="ReasonForRestart.cs" />
     <Compile Include="SkipableMoment.cs" />
     <Compile Include="SolveBounty.cs" />
+    <Compile Include="SolveControlScreen.cs" />
     <Compile Include="SolveDailyBounty.cs" />
     <Compile Include="SolveDoubleDevice.cs" />
     <Compile Include="SolveEnemyIsReady.cs" />
