@@ -22,7 +22,7 @@ namespace Caitlyn_v1._0
                 tu.CheckTime();             
                 ce.ChooseNormalEvent();
                 NotePad.DoLog("Вхожу в эвент " + Condition.eventRQ + " рк");
-                Rat.Clk(PointsAndRectangles.allpoints["clubEventEnter"]);//ClubEventEnter   
+                Rat.Clk(PointsAndRectangles.allpoints["clubEventEnter"]);
                 int i = 0;
                 while (true)
                 {

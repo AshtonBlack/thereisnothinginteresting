@@ -11,6 +11,12 @@
                 Rat.Clk(PointsAndRectangles.allpoints["controlScreenToGarage"]);
                 return true;
             }
+            if (MasterOfPictures.VerifyBW(@"HeadPictures\TestControlScreen", @"HeadPictures\OriginalBugControlScreen", 20))
+            {
+                NotePad.DoLog("Visual matching with BugControlScreen");
+                Rat.Clk(PointsAndRectangles.allpoints["buttonBack"]);
+                return true;
+            }
             return false;
         }
     }

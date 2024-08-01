@@ -28,7 +28,7 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndBounty"], "SeasonEndBounty", PointsAndRectangles.allpoints["bountyForSeason"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndsBounds"], "SeasonEnds", PointsAndRectangles.allpoints["acceptSeasonEnd"]));
             //skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["controlScreen"], "ControlScreen", 20, PointsAndRectangles.allpoints["controlScreenToGarage"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["controlScreen"], "BugControlScreen", PointsAndRectangles.allpoints["buttonBack"]));
+            //skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["controlScreen"], "BugControlScreen", PointsAndRectangles.allpoints["buttonBack"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["upgrade"], "Upgrade", PointsAndRectangles.allpoints["upgradeCancelation"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["acceptThrow"], "AcceptThrow", PointsAndRectangles.allpoints["acceptanceToThrowRaces"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["wonSet"], "WonSet", PointsAndRectangles.allpoints["endOfRaceSet"]));
