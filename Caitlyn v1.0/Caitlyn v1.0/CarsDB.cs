@@ -41,7 +41,7 @@ namespace Caitlyn_v1._0
         public static void Fulltable()//формирование таблицы из исходных файлов
         {
             fulltablearray = ExcelParcer.Parse(excelFilePath);
-            fulltablearray.RemoveAt(0);
+            //fulltablearray.RemoveAt(0);
             fulltablearray.Sort();
             fulltablearray.Reverse();
             cashSR();
