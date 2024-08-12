@@ -186,13 +186,13 @@ namespace Caitlyn_v1._0
                     x = true;
                     break;
                 case "задний привод":
-                    if (car.drive == "rwd")
+                    if (car.drive == "RWD")
                     {
                         x = true;
                     }
                     break;
                 case "передний привод":
-                    if (car.drive == "fwd")
+                    if (car.drive == "FWD")
                     {
                         x = true;
                     }
@@ -213,13 +213,13 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "бензиновые машины":
-                    if (car.fuel == "petrol")
+                    if (car.fuel == "Petrol")
                     {
                         x = true;
                     }
                     break;
                 case "дизели":
-                    if (car.fuel == "diesel")
+                    if (car.fuel == "Diesel")
                     {
                         x = true;
                     }
@@ -244,13 +244,13 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины японии":
-                    if (car.country == "Japan")
+                    if (car.country == "JP")
                     {
                         x = true;
                     }
                     break;
                 case "машины японии х3":
-                    if (car.country == "Japan")
+                    if (car.country == "JP")
                     {
                         x = true;
                     }
@@ -268,13 +268,13 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины сша":
-                    if (car.country == "United States")
+                    if (car.country == "US")
                     {
                         x = true;
                     }
                     break;
                 case "italian 60s-80s":
-                    if (car.country == "Italy")
+                    if (car.country == "IT")
                     {
                         year = GetYear(car);
                         if (year > 1959 && year < 1990)
@@ -283,8 +283,8 @@ namespace Caitlyn_v1._0
                         }
                     }
                     break;
-                case "german 90s x3":
-                    if (car.country == "Germany")
+                case "DE 90s x3":
+                    if (car.country == "DE")
                     {
                         year = GetYear(car);
                         if (year > 1989 && year < 2000)
@@ -313,13 +313,13 @@ namespace Caitlyn_v1._0
                     break;
                 case "standard tyres":
                 case "standard tires":
-                    if (car.tires == "std")
+                    if (car.tires == "STANDARD")
                     {
                         x = true;
                     }
                     break;
                 case "пикапы":
-                    bodytype = "pickup";
+                    bodytype = "Pickup";
                     x = SearchBody(car, bodytype);
                     break;
                 case "mercedes-benz":
@@ -353,13 +353,13 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "полный привод":
-                    if (car.drive == "4wd")
+                    if (car.drive == "4WD")
                     {
                         x = true;
                     }
                     break;
                 case "машины англии":
-                    if (car.country == "United Kingdom")
+                    if (car.country == "UK")
                     {
                         x = true;
                     }
@@ -418,19 +418,19 @@ namespace Caitlyn_v1._0
                     x = SearchTag(car, tag);
                     break;
                 case "машины франции":
-                    if (car.country == "France")
+                    if (car.country == "FR")
                     {
                         x = true;
                     }
                     break;
                 case "машины франции х2":
-                    if (car.country == "France")
+                    if (car.country == "FR")
                     {
                         x = true;
                     }
                     break;
                 case "all-surface tyres":
-                    if (car.tires == "all")
+                    if (car.tires == "ALL-SURFACE")
                     {
                         x = true;
                     }
@@ -454,7 +454,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины италии":
-                    if (car.country == "Italy")
+                    if (car.country == "IT")
                     {
                         x = true;
                     }
@@ -473,7 +473,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины германии":
-                    if (car.country == "Germany")
+                    if (car.country == "DE")
                     {
                         x = true;
                     }
@@ -534,13 +534,13 @@ namespace Caitlyn_v1._0
                     break;
                 case "2000s 4wd":
                     year = GetYear(car);
-                    if (car.drive == "4wd" && (year > 1999 && year < 2010))
+                    if (car.drive == "4WD" && (year > 1999 && year < 2010))
                     {
                         x = true;
                     }
                     break;
                 case "седаны":
-                    bodytype = "sedan";
+                    bodytype = "Saloon";
                     x = SearchBody(car, bodytype);
                     break;
                 case "горячий хэтчбек":
@@ -610,11 +610,11 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "немецкое возрождение":
-                    tag = "German Renaissance";
+                    tag = "german Renaissance";
                     x = (SearchTag(car, tag));
                     break;
                 case "немецкое возрождение х3":
-                    tag = "German Renaissance";
+                    tag = "german Renaissance";
                     x = (SearchTag(car, tag));
                     break;
                 case "fiat":
@@ -692,9 +692,9 @@ namespace Caitlyn_v1._0
                 case "отк.верх":
                     bool x1;
                     bool x2;
-                    bodytype = "roadster";
+                    bodytype = "Roadster";
                     x1 = SearchBody(car, bodytype);
-                    bodytype = "cabrio";
+                    bodytype = "Convertible";
                     x2 = SearchBody(car, bodytype);
                     if (x1 || x2)
                     {
@@ -709,7 +709,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "2000 rwd":
-                    if (car.drive == "rwd")
+                    if (car.drive == "RWD")
                     {
                         year = GetYear(car);
                         if (year > 1999 && year < 2010)
@@ -726,55 +726,55 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины италии х3":
-                    if (car.country == "Italy")
+                    if (car.country == "IT")
                     {
                         x = true;
                     }
                     break;
                 case "машины италии х2":
-                    if (car.country == "Italy")
+                    if (car.country == "IT")
                     {
                         x = true;
                     }
                     break;
                 case "машины франции х3":
-                    if (car.country == "France")
+                    if (car.country == "FR")
                     {
                         x = true;
                     }
                     break;
                 case "машины англии х3":
-                    if (car.country == "United Kingdom")
+                    if (car.country == "UK")
                     {
                         x = true;
                     }
                     break;
                 case "машины англии х2":
-                    if (car.country == "United Kingdom")
+                    if (car.country == "UK")
                     {
                         x = true;
                     }
                     break;
                 case "машины японии х2":
-                    if (car.country == "Japan")
+                    if (car.country == "JP")
                     {
                         x = true;
                     }
                     break;
                 case "машины германии х2":
-                    if (car.country == "Germany")
+                    if (car.country == "DE")
                     {
                         x = true;
                     }
                     break;
                 case "машины германии х3":
-                    if (car.country == "Germany")
+                    if (car.country == "DE")
                     {
                         x = true;
                     }
                     break;
                 case "german 2015-2019 x3":
-                    if (car.country == "Germany")
+                    if (car.country == "DE")
                     {
                         year = GetYear(car);
                         if (year > 2014 && year < 2020)
@@ -784,7 +784,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "german 2000s x3":
-                    if (car.country == "Germany")
+                    if (car.country == "DE")
                     {
                         year = GetYear(car);
                         if (year > 1999 && year < 2010)
@@ -794,13 +794,13 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины сша х2":
-                    if (car.country == "United States")
+                    if (car.country == "US")
                     {
                         x = true;
                     }
                     break;
                 case "машины сша х3":
-                    if (car.country == "United States")
+                    if (car.country == "US")
                     {
                         x = true;
                     }
@@ -830,7 +830,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "german 2010-2014 x3":
-                    if (car.country == "German")
+                    if (car.country == "DE")
                     {
                         year = GetYear(car);
                         if (year > 2009 && year < 2015)
@@ -840,7 +840,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "italian 90s x3":
-                    if (car.country == "Italy")
+                    if (car.country == "IT")
                     {
                         year = GetYear(car);
                         if (year > 1989 && year < 2000)

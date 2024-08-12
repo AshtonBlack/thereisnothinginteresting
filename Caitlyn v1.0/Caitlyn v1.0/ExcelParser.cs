@@ -77,13 +77,13 @@ namespace Caitlyn_v1._0
                 car.model = fulltable[i + 1, 3].ToString();
                 car.year = fulltable[i + 1, 4].ToString();
                 car.country = fulltable[i + 1, 5].ToString();
-                car.rarity = fulltable[i + 1, 6].ToString();
+                car.rarity = fulltable[i + 1, 6].ToString().ToLower();
                 car.rq = fulltable[i + 1, 7].ToString();
                 car.tires = fulltable[i + 1, 8].ToString();
                 car.speed = fulltable[i + 1, 9].ToString();
                 car.acceleration = fulltable[i + 1, 10].ToString();
                 car.grip = fulltable[i + 1, 11].ToString();
-                car.drive = fulltable[i + 1, 12].ToString().ToLower();
+                car.drive = fulltable[i + 1, 12].ToString();
                 car.clearance = fulltable[i + 1, 13].ToString();
                 car.weight = fulltable[i + 1, 14].ToString();
                 car.fuel = fulltable[i + 1, 15].ToString();                

@@ -16,22 +16,22 @@ namespace Caitlyn_v1._0
                 case "Асфальт":
                     if (trackInfo.weather == "Дождь")
                     {
-                        if (car.drive == "4wd") traction += 100;
+                        if (car.drive == "4WD") traction += 100;
                         switch (car.tires)
                         {
-                            case "slick":
+                            case "SLICK":
                                 traction -= 1000;
                                 break;
-                            case "per":
+                            case "PERFORMANCE":
                                 traction += 0;
                                 break;
-                            case "std":
+                            case "STANDARD":
                                 traction += 300;
                                 break;
-                            case "all":
+                            case "ALL-SURFACE":
                                 traction += 200;
                                 break;
-                            case "off":
+                            case "OFF-ROAD":
                                 traction -= 500;
                                 break;
                         }
@@ -42,43 +42,43 @@ namespace Caitlyn_v1._0
                     switch (trackInfo.weather)
                     {
                         case "Солнечно":
-                            if (car.drive == "4wd") traction += 100;
+                            if (car.drive == "4WD") traction += 100;
                             switch (car.tires)
                             {
-                                case "slick":
+                                case "SLICK":
                                     traction += 0;
                                     break;
-                                case "per":
+                                case "PERFORMANCE":
                                     traction += 100;
                                     break;
-                                case "std":
+                                case "STANDARD":
                                     traction += 200;
                                     break;
-                                case "all":
+                                case "ALL-SURFACE":
                                     traction += 300;
                                     break;
-                                case "off":
+                                case "OFF-ROAD":
                                     traction += 400;
                                     break;
                             }
                             break;
                         case "Дождь":
-                            if (car.drive == "4wd") traction += 100;
+                            if (car.drive == "4WD") traction += 100;
                             switch (car.tires)
                             {
-                                case "slick":
+                                case "SLICK":
                                     traction -= 1000;
                                     break;
-                                case "per":
+                                case "PERFORMANCE":
                                     traction += 0;
                                     break;
-                                case "std":
+                                case "STANDARD":
                                     traction += 200;
                                     break;
-                                case "all":
+                                case "ALL-SURFACE":
                                     traction += 600;
                                     break;
-                                case "off":
+                                case "OFF-ROAD":
                                     traction += 800;
                                     break;
                             }
@@ -86,22 +86,22 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "Песок":
-                    if (car.drive == "4wd") traction += 100;
+                    if (car.drive == "4WD") traction += 100;
                     switch (car.tires)
                     {
-                        case "slick":
+                        case "SLICK":
                             traction -= 200;
                             break;
-                        case "per":
+                        case "PERFORMANCE":
                             traction += 0;
                             break;
-                        case "std":
+                        case "STANDARD":
                             traction += 250;
                             break;
-                        case "all":
+                        case "ALL-SURFACE":
                             traction += 500;
                             break;
-                        case "off":
+                        case "OFF-ROAD":
                             traction += 800;
                             break;
                     }
@@ -109,22 +109,22 @@ namespace Caitlyn_v1._0
                 case "Снег":                    
                 case "Трава":
                 case "Лед":
-                    if (car.drive == "4wd") traction += 200;
+                    if (car.drive == "4WD") traction += 200;
                     switch (car.tires)
                     {
-                        case "slick":
+                        case "SLICK":
                             traction -= 1000;
                             break;
-                        case "per":
+                        case "PERFORMANCE":
                             traction += 0;
                             break;
-                        case "std":
+                        case "STANDARD":
                             traction += 200;
                             break;
-                        case "all":
+                        case "ALL-SURFACE":
                             traction += 500;
                             break;
-                        case "off":
+                        case "OFF-ROAD":
                             traction += 800;
                             break;
                     }
@@ -139,7 +139,7 @@ namespace Caitlyn_v1._0
                     points -= Convert.ToDouble(car.acceleration) * 3;
                     points += Convert.ToInt16(car.grip);
                     points += traction * 2;
-                    if (car.clearance != "low") points += 1000;                    
+                    if (car.clearance != "Low") points += 1000;                    
                     break;
                 case "Подъем на холм":
                     points -= Convert.ToDouble(car.acceleration) * 10;
@@ -148,10 +148,10 @@ namespace Caitlyn_v1._0
                     {
                         switch (car.clearance)
                         {
-                            case "mid":
+                            case "Med":
                                 points += 600;
                                 break;
-                            case "high":
+                            case "High":
                                 points += 1000;
                                 break;
                         }
@@ -161,13 +161,13 @@ namespace Caitlyn_v1._0
                     points -= Convert.ToDouble(car.acceleration) * 3;
                     points += Convert.ToInt16(car.grip);
                     points += traction * 2;
-                    if (car.drive == "4wd") points += 200;
+                    if (car.drive == "4WD") points += 200;
                     switch (car.clearance)
                     {
-                        case "mid":
+                        case "Med":
                             points += 400;
                             break;
-                        case "high":
+                        case "High":
                             points += 1000;
                             break;
                     }                    
@@ -233,22 +233,22 @@ namespace Caitlyn_v1._0
                 case "Замерзшее озеро":                    
                     points -= Convert.ToDouble(car.acceleration) * 2;
                     points += Convert.ToInt16(car.grip)*2;
-                    if (car.drive == "4wd") traction += 200;
+                    if (car.drive == "4WD") traction += 200;
                     switch (car.tires)
                     {
-                        case "slick":
+                        case "SLICK":
                             traction -= 1000;
                             break;
-                        case "per":
+                        case "PERFORMANCE":
                             traction += 0;
                             break;
-                        case "std":
+                        case "STANDARD":
                             traction += 200;
                             break;
-                        case "all":
+                        case "ALL-SURFACE":
                             traction += 500;
                             break;
-                        case "off":
+                        case "OFF-ROAD":
                             traction += 800;
                             break;
                     }
@@ -262,10 +262,10 @@ namespace Caitlyn_v1._0
                     {
                         switch (car.clearance)
                         {
-                            case "mid":
+                            case "Med":
                                 points += 600;
                                 break;
-                            case "high":
+                            case "High":
                                 points += 1000;
                                 break;
                         }
@@ -279,10 +279,10 @@ namespace Caitlyn_v1._0
                     {
                         switch (car.clearance)
                         {
-                            case "mid":
+                            case "Med":
                                 points += 600;
                                 break;
-                            case "high":
+                            case "High":
                                 points += 1000;
                                 break;
                         }
@@ -322,25 +322,25 @@ namespace Caitlyn_v1._0
                     switch (trackInfo.ground)
                     {                        
                         case "Смешанное":
-                            if (car.drive == "4wd") points += 100;
+                            if (car.drive == "4WD") points += 100;
                             switch (trackInfo.weather)
                             {
                                 case "Солнечно":
                                     switch (car.tires)
                                     {
-                                        case "slick":
+                                        case "SLICK":
                                             points += 0;
                                             break;
-                                        case "per":
+                                        case "PERFORMANCE":
                                             points += 100;
                                             break;
-                                        case "std":
+                                        case "STANDARD":
                                             points += 150;
                                             break;
-                                        case "all":
+                                        case "ALL-SURFACE":
                                             points += 200;
                                             break;
-                                        case "off":
+                                        case "OFF-ROAD":
                                             points += 300;
                                             break;
                                     }
@@ -348,19 +348,19 @@ namespace Caitlyn_v1._0
                                 case "Дождь":
                                     switch (car.tires)
                                     {
-                                        case "slick":
+                                        case "SLICK":
                                             points -= 1000;
                                             break;
-                                        case "per":
+                                        case "PERFORMANCE":
                                             points -= 100;
                                             break;
-                                        case "std":
+                                        case "STANDARD":
                                             points += 200;
                                             break;
-                                        case "all":
+                                        case "ALL-SURFACE":
                                             points += 500;
                                             break;
-                                        case "off":
+                                        case "OFF-ROAD":
                                             points += 100;
                                             break;
                                     }
