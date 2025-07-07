@@ -35,14 +35,15 @@ namespace Caytlin_v1._1
                     }
                     else break;
                 }
+
+                if(fc.ClubMap()) Rat.Clk(PointsAndRectangles.clkoutofClubs);//после проверке всех вариантов выйти из клубов для обновления списка (работает как защита от пустого списка)
             }
         }
         public bool Selection(int eventN)
         {
             SpecialEvents se = new SpecialEvents();
             Point[] events = { PointsAndRectangles.eventN1, PointsAndRectangles.eventN2, PointsAndRectangles.eventN3, PointsAndRectangles.eventN4 };
-
-            bool eventIsOK = false;
+            
             bool flag;
             do
             {
@@ -61,47 +62,40 @@ namespace Caytlin_v1._1
                 Thread.Sleep(2000);
             } while (flag == false);//клик эвента и обработка ошибок
 
-            MasterOfPictures.MakePicture(PointsAndRectangles.Condition1Bounds, @"Condition1\test");
-            MasterOfPictures.MakePicture(PointsAndRectangles.Condition2Bounds, @"Condition2\test");
+            MasterOfPictures.BW2Capture(PointsAndRectangles.Condition1Bounds, @"Condition1\test");
+            MasterOfPictures.BW2Capture(PointsAndRectangles.Condition2Bounds, @"Condition2\test");
+            MasterOfPictures.BW2Capture(PointsAndRectangles.RQBounds, RQPath);
+
             string cond1 = ConvertPictureToCond(DefineFirstEvevntConditionByPicture(), 1);
             string cond2 = ConvertPictureToCond(DefineSecondEvevntConditionByPicture(), 2);
+            Condition.setEventRQ(DefineRQByPicture());
 
-            if (cond1 != "unknown" && cond2 != "unknown")//Исключаю неизвестный
+            if (cond1 != "unknown" && cond2 != "unknown" && Condition.eventRQ != 0)//Исключаю неизвестный
             {
-                eventIsOK = true;
                 Condition.MakeCondition(cond1, cond2);
-                if (GotRQ() && Condition.minRQ != 0)
+                if (Condition.minRQ != 0)
                 {
                     NotePad.DoLog("Требуемое рк для события: " + Condition.eventRQ + ", минимальное: " + Condition.minRQ);
-                    if (Condition.minRQ > Condition.eventRQ)
-                    {
-                        NotePad.DoLog("Минимальное рк для события больше требуемого");
-                        eventIsOK = false;
-                    }
+                    if (Condition.minRQ > Condition.eventRQ) NotePad.DoLog("Минимальное рк для события больше требуемого");
                     else
                     {
                         Condition.setDefaultTracks();
+                        return true;
                     }
                 }
             }
-            if (!eventIsOK && eventN == 4)
-            {
-                Rat.Clk(PointsAndRectangles.clkoutofClubs);
-            }
-
-            return eventIsOK;
+            return false;
         }
         int DefineEvevntConditionByPicture(int conditionNumber)
         {
-            int x;
-            for (x = 0; x < 500; x++)
+            for (int x = 0; x < 500; x++)
             {
                 if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\C" + x + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", ("Condition" + conditionNumber + @"\C" + x)))
+                    if (MasterOfPictures.VerifyBW("Condition" + conditionNumber + @"\test", ("Condition" + conditionNumber + @"\C" + x), 12))
                     {
                         NotePad.DoLog(conditionNumber + " условие: " + x);
-                        break;
+                        return x;
                     }
                 }
                 else
@@ -118,13 +112,10 @@ namespace Caytlin_v1._1
                             File.Move(@"C:\Bot\" + "Condition" + conditionNumber + @"\test" + ".jpg", @"C:\Bot\Condition" + conditionNumber + @"\UnknownCondition" + i + ".jpg");
                             break;
                         }
-                    }
-                    x = 500;
-                    break;
+                    }                    
                 }
             }
-
-            return x;
+            return 500;
         }
         int DefineFirstEvevntConditionByPicture()
         {
@@ -134,46 +125,35 @@ namespace Caytlin_v1._1
         {
             return DefineEvevntConditionByPicture(2);
         }
-        bool GotRQ()
-        {
-            bool isRqKnown = false;
-            Condition.setEventRQ(0);
-            MasterOfPictures.MakePicture(PointsAndRectangles.RQBounds, RQPath);
-            for (int i = 1; i < 501; i++)
+        int DefineRQByPicture()
+        { 
+            for (int rq = 1; rq < 501; rq++)
             {
-                if (File.Exists(@"C:\Bot\RQ\" + i + ".jpg"))
+                if (File.Exists(@"C:\Bot\RQ\" + rq + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify(RQPath, @"RQ\" + i))
-                    {                        
-                        Condition.setEventRQ(i);
-                        NotePad.DoLog("рк =  " + Condition.eventRQ);
-                        break;
+                    if (MasterOfPictures.VerifyBW(RQPath, @"RQ\" + rq, 5))
+                    {   
+                        NotePad.DoLog("рк =  " + rq);
+                        return rq;
                     }
                 }
             }
 
-            if (Condition.eventRQ == 0)
+            NotePad.DoLog("Unknown rq");
+            for (int x = 1; x < 500; x++)
             {
-                NotePad.DoLog("Unknown rq");
-                for (int x = 1; x < 500; x++)
+                if (File.Exists(@"C:\Bot\RQ\UnknownRQ" + x + ".jpg"))
                 {
-                    if (File.Exists(@"C:\Bot\RQ\UnknownRQ" + x + ".jpg"))
-                    {
-                        if (MasterOfPictures.Verify(RQPath, (@"RQ\UnknownRQ" + x)))
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        File.Move(@"C:\Bot\" + RQPath + ".jpg", @"C:\Bot\RQ\UnknownRQ" + x + ".jpg");
-                        break;
-                    }
+                    if (MasterOfPictures.Verify(RQPath, (@"RQ\UnknownRQ" + x))) break;
+                }
+                else
+                {
+                    File.Move(@"C:\Bot\" + RQPath + ".jpg", @"C:\Bot\RQ\UnknownRQ" + x + ".jpg");
+                    break;
                 }
             }
-            else isRqKnown = true;
 
-            return isRqKnown;
+            return 0;
         }
         public string ConvertPictureToCond(int picture, int cond)
         {

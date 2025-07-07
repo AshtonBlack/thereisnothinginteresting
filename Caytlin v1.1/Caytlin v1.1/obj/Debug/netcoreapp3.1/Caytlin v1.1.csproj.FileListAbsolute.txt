@@ -17,3 +17,22 @@ D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.Cor
 D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.dll
 D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.pdb
 D:\bot\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.genruntimeconfig.cache
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.exe
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.deps.json
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.runtimeconfig.json
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.runtimeconfig.dev.json
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.dll
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Caytlin v1.1.pdb
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.AssemblyReference.cache
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.ResolveComReference.cache
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin_v1._1.Form1.resources
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.GenerateResource.cache
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.AssemblyInfoInputs.cache
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.AssemblyInfo.cs
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.csproj.CoreCompileInputs.cache
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.dll
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.pdb
+C:\Bot\thereisnothinginteresting\Caytlin v1.1\Caytlin v1.1\obj\Debug\netcoreapp3.1\Caytlin v1.1.genruntimeconfig.cache
