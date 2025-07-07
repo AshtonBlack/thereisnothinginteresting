@@ -16,9 +16,11 @@ namespace botDBUpdater
             InitializeComponent();
         }
         List<Car> fulltablearray { get; set; }        
-        string excelFilePath = @"C:\projects\bot\cars.xlsx";
-        string cashCarsPath = @"C:\projects\bot\thereisnothinginteresting\NewPL\CashCars.txt";
-        string originalPicturesPath = @"C:\Bot\png_cards_archive\";
+        //string excelFilePath = @"C:\projects\bot\cars.xlsx";
+        string excelFilePath = @"C:\Bot\TestExcel.xlsx";        
+        string cashCarsPath = @"C:\Bot\NewPL\CashCars.txt";
+        //string originalPicturesPath = @"C:\Bot\png_cards_archive\";
+        string originalPicturesPath = @"C:\Bot\images\";
         string pictureForChange;
         void FullTable()
         {
@@ -118,7 +120,7 @@ namespace botDBUpdater
                 if (wantedcar == thecar)
                 {
                     label52.Text = car.amount.ToString();
-                    pictureBox1.Image = Image.FromFile(originalPicturesPath + car.pictureId + ".png");
+                    pictureBox1.Image = Image.FromFile(originalPicturesPath + car.pictureId + ".jpg");
                     break;
                 }
             }

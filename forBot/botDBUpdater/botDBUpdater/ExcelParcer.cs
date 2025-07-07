@@ -20,7 +20,7 @@ namespace botDBUpdater
             var lastCell = ObjWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell);//последнюю ячейку
             rows = lastCell.Row;
             columns = lastCell.Column;
-            var arrData = (object[,])ObjWorkSheet.Range["A1:Z" + lastCell.Row].Value;
+            var arrData = (object[,])ObjWorkSheet.Range["A1:T" + lastCell.Row].Value;
             ObjWorkBook.Close(false, Type.Missing, Type.Missing); //закрыть не сохраняя
             ObjWorkExcel.Quit(); // выйти из Excel
             ObjWorkSheet = null;
@@ -37,10 +37,10 @@ namespace botDBUpdater
             {
                 Car car = new Car();
                 car.pictureId = fulltable[i + 1, 1].ToString();
-                car.country = fulltable[i + 1, 4].ToString();
-                car.manufacturer = fulltable[i + 1, 5].ToString();
-                car.model = fulltable[i + 1, 6].ToString();
-                car.year = fulltable[i + 1, 7].ToString();
+                car.country = fulltable[i + 1, 5].ToString();
+                car.manufacturer = fulltable[i + 1, 2].ToString();
+                car.model = fulltable[i + 1, 3].ToString();
+                car.year = fulltable[i + 1, 4].ToString();
                 usefultable.Add(car);
             }
 
