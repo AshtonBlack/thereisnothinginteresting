@@ -16,7 +16,7 @@ namespace BotRestarter
         }
         public void WaitForAvailableTime()
         {
-            CarSorter carsorter = new CarSorter();
+            //CarSorter carsorter = new CarSorter();
             bool itsTimeToPlay;
             do
             {
