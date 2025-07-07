@@ -29,7 +29,7 @@ namespace BotRestarter
                         itsTimeToPlay = false;
                         if (bt.isTimeToSortCars() && !CarSorter.started)
                         {
-                            carsorter.Sort();
+                            //carsorter.Sort();
                         }
                         Thread.Sleep(60000);
                         break;
