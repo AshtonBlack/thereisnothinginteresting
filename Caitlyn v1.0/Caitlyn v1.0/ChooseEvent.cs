@@ -30,8 +30,9 @@ namespace Caitlyn_v1._0
                         NotePad.DoLog("Проверяю условие " + i);
                         if (eventIsOK = Selection(i)) break;
                         Rat.Clk(PointsAndRectangles.allpoints["toeventlist"]);//Back
-                        Thread.Sleep(3000);
+                        Thread.Sleep(2000);
                     }
+                    if (fc.ClubMap() && !eventIsOK) Rat.Clk(PointsAndRectangles.allpoints["buttonBack"]);//после проверке всех вариантов выйти из клубов для обновления списка (работает как защита от пустого списка)
                 } while (!eventIsOK);
             }            
         }
@@ -44,53 +45,46 @@ namespace Caitlyn_v1._0
 
             NotePad.DoLog("Кликаю событие " + eventN);
             Rat.Clk(events[eventN - 1]);
-            Thread.Sleep(4000);
+            Thread.Sleep(1000);
             CommonLists.SkipAllSkipables();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
-            MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition1Bounds"], @"Condition1\test");
-            MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["Condition2Bounds"], @"Condition2\test");
+            MasterOfPictures.BW2Capture(PointsAndRectangles.allrectangles["Condition1Bounds"], @"Condition1\test");
+            MasterOfPictures.BW2Capture(PointsAndRectangles.allrectangles["Condition2Bounds"], @"Condition2\test");
+            MasterOfPictures.BW2Capture(PointsAndRectangles.allrectangles["RQBounds"], RQPath);
+
             string cond1 = ConditionDB.GetFirstConditionByNumber(DefineFirstEvevntConditionByPicture());
             string cond2 = ConditionDB.GetSecondConditionByNumber(DefineSecondEvevntConditionByPicture());
+            Condition.eventRQ = GotRQ();
 
-
-            if (cond1 != "unknown" && cond2 != "unknown")//Исключаю неизвестный
+            if (cond1 != "unknown" && cond2 != "unknown" && Condition.eventRQ != 0)//Исключаю неизвестный
             {
                 Condition.MakeCondition(cond1, cond2);
-                if (GotRQ() && (Condition.minRQ != 0))
+                if (Condition.minRQ != 0)
                 {
                     NotePad.DoLog("Требуемое рк для события " + Condition.eventRQ);
                     if (Condition.minRQ > Condition.eventRQ)
                     {
                         NotePad.DoLog("Минимальное рк для события больше требуемого");
-                        if (eventN == 4) Rat.Clk(PointsAndRectangles.allpoints["buttonBack"]);
                         return false;
                     }
-                    else
-                    {
-                        Condition.setDefaultTracks();
-                    }
+                    else Condition.setDefaultTracks();
                 }
-                else
-                {
-                    if (eventN == 4) Rat.Clk(PointsAndRectangles.allpoints["buttonBack"]); 
-                    return false;
-                }
+                else return false;
             }
             else return false;
             return true;
         }
         int DefineEventConditionByPicture(int conditionNumber)
-        {
-            int x;
-            for (x = 0; x < 1000; x++)
+        {            
+            for (int condNumber = 0; condNumber < 1000; condNumber++)
             {
-                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + x + ".jpg"))
+                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + condNumber + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + x))
+                    if (MasterOfPictures.VerifyBW("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + condNumber, 12))
                     {
-                        NotePad.DoLog(conditionNumber + " условие: " + x);
-                        break;
+                        NotePad.DoLog(conditionNumber + " условие: " + condNumber);
+                        return condNumber;
                     }
                 }
                 else
@@ -108,12 +102,10 @@ namespace Caitlyn_v1._0
                             break;
                         }
                     }
-                    x = 1000;
-                    break;
+                    break;                   
                 }
             }
-
-            return x;
+            return 1000;
         }
         int DefineFirstEvevntConditionByPicture()
         {
@@ -123,19 +115,18 @@ namespace Caitlyn_v1._0
         {
             return DefineEventConditionByPicture(2);
         }
-        bool GotRQ()
+        int GotRQ()
         {
-            Condition.eventRQ = 0;
-            MasterOfPictures.MakePicture(PointsAndRectangles.allrectangles["RQBounds"], RQPath);
-            for (int i = 1; i < 501; i++)
+            for (int rq = 1; rq < 501; rq++)
             {
-                if (File.Exists(@"C:\Bot\RQ\" + i + ".jpg"))
+                if (File.Exists(@"C:\Bot\RQ\" + rq + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify(RQPath, @"RQ\" + i))
+                    if (MasterOfPictures.VerifyBW(RQPath, @"RQ\" + rq, 5))
                     {
-                        Condition.eventRQ = i;
-                        NotePad.DoLog("рк =  " + Condition.eventRQ);
-                        if (Condition.eventRQ < 95) return false; else return true;//temporary
+                        if (rq < 95) return 0;//temporary
+                        NotePad.DoLog("рк =  " + rq);
+                        return rq;
+                        
                     }
                 }
             }
@@ -145,10 +136,7 @@ namespace Caitlyn_v1._0
             {
                 if (File.Exists(@"C:\Bot\RQ\UnknownRQ" + x + ".jpg"))
                 {
-                    if (MasterOfPictures.Verify(RQPath, @"RQ\UnknownRQ" + x))
-                    {
-                        break;
-                    }
+                    if (MasterOfPictures.Verify(RQPath, @"RQ\UnknownRQ" + x)) break;
                 }
                 else
                 {
@@ -157,7 +145,7 @@ namespace Caitlyn_v1._0
                 }
             }
 
-            return false;
+            return 0;
         }        
     }
 }
