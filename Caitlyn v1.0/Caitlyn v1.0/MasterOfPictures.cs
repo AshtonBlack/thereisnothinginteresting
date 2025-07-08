@@ -186,6 +186,7 @@ namespace Caitlyn_v1._0
                         }
                     }
                 }
+                NotePad.DoLogWithoutTime("различие в " + differences + " пикселей");//for debug
                 picturetest.Dispose();
                 picture.Dispose();
             }

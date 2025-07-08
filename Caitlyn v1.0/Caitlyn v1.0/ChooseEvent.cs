@@ -77,14 +77,14 @@ namespace Caitlyn_v1._0
         }
         int DefineEventConditionByPicture(int conditionNumber)
         {            
-            for (int condNumber = 0; condNumber < 1000; condNumber++)
+            for (int pictureNumber = 0; pictureNumber < 1000; pictureNumber++)
             {
-                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + condNumber + ".jpg"))
+                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + pictureNumber + ".jpg"))
                 {
-                    if (MasterOfPictures.VerifyBW("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + condNumber, 12))
+                    if (MasterOfPictures.VerifyBW("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + pictureNumber, 12))
                     {
-                        NotePad.DoLog(conditionNumber + " условие: " + condNumber);
-                        return condNumber;
+                        NotePad.DoLog(conditionNumber + " условие: " + pictureNumber);
+                        return pictureNumber;
                     }
                 }
                 else
