@@ -125,8 +125,7 @@ namespace Caitlyn_v1._0
                     {
                         if (rq < 95) return 0;//temporary
                         NotePad.DoLog("рк =  " + rq);
-                        return rq;
-                        
+                        return rq;                        
                     }
                 }
             }

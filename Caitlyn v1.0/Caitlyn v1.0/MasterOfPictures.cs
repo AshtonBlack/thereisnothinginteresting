@@ -167,11 +167,16 @@ namespace Caitlyn_v1._0
         public static bool VerifyBW(string PATH, string ORIGINALPATH, int maxdiffernces)
         {
             bool verificationResult = true;
+            NotePad.DoLogWithoutTime("Сравниваю следующие картинки");//for debug
+            NotePad.DoLogWithoutTime(@"C:\Bot\" + ORIGINALPATH + ".jpg");//for debug
+            NotePad.DoLogWithoutTime(@"C:\Bot\" + PATH + ".jpg");//for debug
             if (File.Exists(@"C:\Bot\" + ORIGINALPATH + ".jpg"))
             {
                 int differences = 0;
                 Bitmap picturetest = new Bitmap(@"C:\Bot\" + PATH + ".jpg");
+                NotePad.DoLogWithoutTime(@"Размеры картинки C:\Bot\" + PATH + ".jpg: " + picturetest.Width + " " + picturetest.Height);//for debug
                 Bitmap picture = new Bitmap(@"C:\Bot\" + ORIGINALPATH + ".jpg");
+                NotePad.DoLogWithoutTime(@"Размеры картинки C:\Bot\" + ORIGINALPATH + ".jpg: " + picture.Width + " " + picture.Height);//for debug
                 for (int x = 0; x < picturetest.Width; x++)
                 {
                     for (int y = 0; y < picturetest.Height; y++)
