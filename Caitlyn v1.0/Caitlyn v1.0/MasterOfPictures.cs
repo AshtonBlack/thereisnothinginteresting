@@ -204,8 +204,9 @@ namespace Caitlyn_v1._0
         }
         public static void TransformPictureIntoBW(string pictureName, string resultedPictureName)
         {
+            PixelFormat format = PixelFormat.Format24bppRgb;
             Bitmap picture = new Bitmap(pictureName);
-            Bitmap resultedPicture = new Bitmap(picture.Width, picture.Height);
+            Bitmap resultedPicture = new Bitmap(picture.Width, picture.Height, format);
             for (int row = 0; row < picture.Width; row++)
             {
                 for (int column = 0; column < picture.Height; column++)
