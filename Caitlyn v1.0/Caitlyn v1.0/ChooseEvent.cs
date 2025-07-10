@@ -76,12 +76,22 @@ namespace Caitlyn_v1._0
             return true;
         }
         int DefineEventConditionByPicture(int conditionNumber)
-        {            
+        {
+            if (!Directory.Exists(@"C:\Bot\Condition" + conditionNumber + @"\BW")) Directory.CreateDirectory(@"C:\Bot\Condition" + conditionNumber + @"\BW"); //temp
             for (int pictureNumber = 0; pictureNumber < 1000; pictureNumber++)
             {
                 if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + pictureNumber + ".jpg"))
                 {
-                    if (MasterOfPictures.VerifyBW("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + pictureNumber, 12))
+                    MasterOfPictures.TransformPictureIntoBW(@"C:\Bot\Condition" + conditionNumber + @"\" + pictureNumber + ".jpg", @"C:\Bot\Condition" + conditionNumber + @"\BW\" + pictureNumber + ".jpg"); //temp                    
+                }
+            }
+            
+            for (int pictureNumber = 0; pictureNumber < 1000; pictureNumber++)
+            {
+                if (File.Exists(@"C:\Bot\Condition" + conditionNumber + @"\" + pictureNumber + ".jpg"))
+                {
+                    //if (MasterOfPictures.VerifyBW("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\" + pictureNumber, 12))
+                    if (MasterOfPictures.VerifyBW("Condition" + conditionNumber + @"\test", "Condition" + conditionNumber + @"\BW\" + pictureNumber, 12)) //temp
                     {
                         NotePad.DoLog(conditionNumber + " условие: " + pictureNumber);
                         return pictureNumber;
