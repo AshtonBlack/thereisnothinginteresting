@@ -33,6 +33,7 @@ namespace Caitlyn_v1._0
                         Thread.Sleep(1000);
                     }
                     NotePad.DoLog("Среди событий пока нет подходящего");
+                    CommonLists.SkipAllSkipables();
                     if (fc.ClubMap() && !eventIsOK) Rat.Clk(PointsAndRectangles.allpoints["buttonBack"]);//после проверке всех вариантов выйти из клубов для обновления списка (работает как защита от пустого списка)
                 } while (!eventIsOK);
             }            
