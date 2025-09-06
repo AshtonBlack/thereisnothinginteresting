@@ -4,7 +4,7 @@
     {
         public override bool SolveTheIssue()
         {
-            if (VisualCheck.Check(PointsAndRectangles.allrectangles["chooseanEnemy"], "ChooseanEnemy", 90))
+            if (VisualCheck.Check(PointsAndRectangles.allrectangles["chooseanEnemy"], "ChooseanEnemy", 90, true))
             {
                 NotePad.DoLog("противник загрузился, готов фотать трассы");
                 TrackInfo[] tracksInfo = new TrackInfo[5];

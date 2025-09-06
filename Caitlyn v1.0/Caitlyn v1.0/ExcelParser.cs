@@ -50,28 +50,7 @@ namespace Caitlyn_v1._0
             for (int i = 0; i < rows; i++)
             {
                 CarForExcel car = new CarForExcel();
-                /*
-                car.pictureId = fulltable[i + 1, 1].ToString();
-                car.country = fulltable[i + 1, 4].ToString();
-                car.manufacturer = fulltable[i + 1, 5].ToString();
-                car.model = fulltable[i + 1, 6].ToString();
-                car.year = fulltable[i + 1, 7].ToString();
-                car.rarity = fulltable[i + 1, 2].ToString();
-                car.tires = fulltable[i + 1, 15].ToString();
-                car.rq = fulltable[i + 1, 3].ToString();
-                car.drive = fulltable[i + 1, 13].ToString().ToLower();
-                car.fuel = fulltable[i + 1, 23].ToString();
-                car.body = fulltable[i + 1, 24].ToString();
-                car.seats = fulltable[i + 1, 25].ToString();
-                if (fulltable[i + 1, 26] != null)
-                {
-                    car.tags = fulltable[i + 1, 26].ToString();
-                }    
-                car.clearance = fulltable[i + 1, 18].ToString();
-                car.acceleration = fulltable[i + 1, 9].ToString();
-                car.speed = fulltable[i + 1, 8].ToString();
-                car.grip = fulltable[i + 1, 12].ToString();
-                */
+                
                 car.pictureId = fulltable[i + 1, 1].ToString();
                 car.manufacturer = fulltable[i + 1, 2].ToString();
                 car.model = fulltable[i + 1, 3].ToString();

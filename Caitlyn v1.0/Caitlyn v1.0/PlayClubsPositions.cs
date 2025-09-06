@@ -8,22 +8,19 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
             GameState.antiLoopCounter = 0;
+            NotePad.DoLog("Пытаюсь попасть в гараж");
             do
             {
                 if (GameState.antiLoopCounter == 60) SpecialEvents.RestartBot();
                 CommonLists.SkipAllSkipables();
                 if (fc.ClubMap())
                 {
-                    Thread.Sleep(2000);
-                    if (fc.ClubMap())
-                    {
-                        NotePad.DoLog("выкинуло на карту");
-                        return false;
-                    }
+                    NotePad.DoLog("выкинуло на карту");
+                    return false;
                 }
                 if (fc.ItsGarage())
                 {
-                    NotePad.DoLog("Нахожусь в гараже");    
+                    NotePad.DoLog("Нахожусь в гараже");
                     return true;
                 }                
                 Thread.Sleep(1000);
@@ -60,7 +57,7 @@ namespace Caitlyn_v1._0
                         NotePad.DoLog("Собираю пробную руку");
                         MakeHand();
                     }
-                    if (i == 2)//пересборка по покрытию
+                    if (i == 2)
                     {
                         NotePad.DoLog("Меняю руку с учетом покрытия и погоды");
                         MakeHand();

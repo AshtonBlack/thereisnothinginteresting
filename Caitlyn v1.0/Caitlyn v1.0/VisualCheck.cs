@@ -28,5 +28,21 @@ namespace Caitlyn_v1._0
             }
             return false;
         }
+        public static bool Check(Rectangle bounds, string name, int errors, bool blackText)
+        {
+            if (blackText == true)
+            {
+                string testPicture = @"HeadPictures\Test" + name;
+                string originalPicture = @"HeadPictures\Original" + name;
+                MasterOfPictures.BW2CaptureWithBlackText(bounds, testPicture);
+                if (MasterOfPictures.VerifyBW(testPicture, originalPicture, errors))
+                {
+                    NotePad.DoLog("Visual matching with " + name);
+                    return true;
+                }
+                return false;
+            }
+            else return Check(bounds, name, errors);
+        }
     }
 }
