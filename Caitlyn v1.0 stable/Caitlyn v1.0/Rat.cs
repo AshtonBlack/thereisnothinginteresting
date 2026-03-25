@@ -15,23 +15,20 @@ namespace Caitlyn_v1._0
         const int MOUSEEVENTF_LEFTDOWN = 0X02;
         const int MOUSEEVENTF_LEFTUP = 0X04;
 
-        const int xCorrection = -3;//TEMPORARY
-        const int yCorrection = 1;//TEMPORARY
-
         private static void DoMouseLeftClick(int x, int y)
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
         public static void MoveMouse(int x, int y)
         {
-            SetCursorPos(x + xCorrection, y + yCorrection);
+            SetCursorPos(x, y);
         }
         private static void MoveMouse(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            SetCursorPos(x + xCorrection, y + yCorrection);
+            SetCursorPos(x, y);
         }       
         public static void Clk(Point p)
         {
@@ -44,27 +41,26 @@ namespace Caitlyn_v1._0
         }
         public static void LMBdown(int x, int y)
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
         }
         private static void LMBdown(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x + xCorrection, y + yCorrection, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
         }
         public static void LMBup(int x, int y)
         {
-            mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
         private static void LMBup(Point xy)
         {
             int x = xy.X;
             int y = xy.Y;
-            mouse_event(MOUSEEVENTF_LEFTUP, x + xCorrection, y + yCorrection, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
         public static void DragnDropFast(Point xy1, Point xy2)
         {
-            SpecialEvents se = new SpecialEvents();
             int error = 0;
             string x1;
             string x2;
@@ -72,7 +68,7 @@ namespace Caitlyn_v1._0
             {
                 if (error == 3)
                 {
-                    se.RestartBot();
+                    SpecialEvents.RestartBot();
                 }
                 x1 = MasterOfPictures.PixelIndicator(xy1);//контрольный пиксель
                 MoveMouse(xy1);

@@ -7,110 +7,32 @@ namespace Caitlyn_v1._0
         public bool PathToGarage()
         {
             FastCheck fc = new FastCheck();
-            bool positionflag = false;
-            bool continuegame = false;
-            SpecialEvents se = new SpecialEvents();
-            int waiter = 0;
+            GameState.antiLoopCounter = 0;
             do
             {
-                if (waiter == 120) se.RestartBot();
-                se.UniversalErrorDefense();
-                se.MissClick();
-                if (fc.Bounty())
-                {
-                    NotePad.DoLog("получил награду");
-                    positionflag = true;
-                }
-
-                if (fc.SeasonIsEnded())
-                {
-                    Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.acceptSeasonEnd);
-                    NotePad.DoLog("сезон окончен");
-                }
-
-                if (fc.SeasonEndsBounty())
-                {
-                    Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.bountyForSeason);
-                    NotePad.DoLog("получил награду за сезон");
-                }
-
+                if (GameState.antiLoopCounter == 60) SpecialEvents.RestartBot();
+                CommonLists.SkipAllSkipables();
                 if (fc.ClubMap())
                 {
                     Thread.Sleep(2000);
-
                     if (fc.ClubMap())
                     {
                         NotePad.DoLog("выкинуло на карту");
-                        positionflag = true;
+                        return false;
                     }
                 }
-
-                if (fc.CarMenu())
-                {
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Закрываю меню автомобиля");
-                    Rat.Clk(PointsAndRectangles.closeCarCard);
-                    Thread.Sleep(1000);
-                }
-
-                if (fc.ControlScreen())
-                {
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Перехожу в гараж");
-                    Rat.Clk(PointsAndRectangles.controlScreenToGarage);//Play
-                    Thread.Sleep(1000);
-                }
-                
-                if (fc.BugControlScreen())
-                {
-                    Thread.Sleep(500);
-                    NotePad.DoLog("Bug with Control Screen");
-                    Rat.Clk(PointsAndRectangles.bugwithControlScreen);//Back
-                    Thread.Sleep(1000);
-                }
-
                 if (fc.ItsGarage())
                 {
-                    positionflag = true;
-                    NotePad.DoLog("Нахожусь в гараже");
-                    continuegame = true;
-                }
-
-                //new functionality
-                if (fc.HeadPage())
-                {
-                    Rat.Clk(PointsAndRectangles.toEvents);//Events
-                    Thread.Sleep(2000);
-                }
-                bool needToDragMap = false;
-                if (fc.EventPage())
-                {
-                    if (fc.InCommonEvent())
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.buttonBack);//back
-                    }
-                    else
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
-                        needToDragMap = true;
-                    }
-                }
-                //end new functionality
+                    NotePad.DoLog("Нахожусь в гараже");    
+                    return true;
+                }                
                 Thread.Sleep(1000);
-                waiter++;
-                if (needToDragMap) se.DragMap(); //for new functionality
-            } while (!positionflag);
-
-            return continuegame;
+                GameState.antiLoopCounter++;
+            } while (true);
         }
         public bool PrepareToRace(int i)
         {
-            FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
+            FastCheck fc = new FastCheck();            
             HandMaking hm = new HandMaking();
             NotePad.DoLog("Rq = " + Condition.eventRQ
                 + ", условие 1: " + Condition.ConditionNumber1
@@ -122,34 +44,12 @@ namespace Caitlyn_v1._0
             {
                 if (wronghandnumber == 3)
                 {
-                    se.RestartBot();
+                    SpecialEvents.RestartBot();
                 }
                 else
                 {
                     wronghandnumber++;
-                    //new functionality
-                    if (fc.HeadPage())
-                    {
-                        Rat.Clk(PointsAndRectangles.toEvents);//Events
-                        Thread.Sleep(2000);
-                    }
-                    bool needToDragMap = false;
-                    if (fc.EventPage())
-                    {
-                        if (fc.InCommonEvent())
-                        {
-                            Thread.Sleep(500);
-                            Rat.Clk(PointsAndRectangles.buttonBack);//back
-                        }
-                        else
-                        {
-                            Thread.Sleep(500);
-                            Rat.Clk(PointsAndRectangles.toClubs);//Clubs
-                            needToDragMap = true;
-                        }
-                    }
-                    //end new functionality
-                    if (needToDragMap) se.DragMap(); //for new functionality
+                    CommonLists.SkipAllSkipables();
                     if (fc.ClubMap())
                     {
                         NotePad.DoLog("вылетел на карту при сборе руки");
@@ -177,71 +77,26 @@ namespace Caitlyn_v1._0
         }
         bool MakeHand()
         {
-            SpecialEvents se = new SpecialEvents();
             HandMaking hm = new HandMaking();
-            se.ClearHand();
+            if (!SpecialEvents.ClearHand()) return false;
             Thread.Sleep(1000);
             return hm.MakingHand();
         }
-        public void TimeToRace()
+        public bool TimeToRace()
         {
-            FastCheck fc = new FastCheck(); 
-
-            TrackInfo[] tracksInfo = new TrackInfo[5];
-            for (int i = 0; i < tracksInfo.Length; i++)
-            {
-                tracksInfo[i]= new TrackInfo(i+1);
-            }
-            Condition.setPreviousTracks(tracksInfo);
-            bool raceIsEnd = false;
-            bool raceIsStart = false;
-            int waiter = 0;
-            SpecialEvents se = new SpecialEvents();
+            FastCheck fc = new FastCheck();            
+            bool raceIsStarted = false;
+            GameState.antiLoopCounter = 0;            
             GrandArrangement ga = new GrandArrangement();
             do
             {
-                if (waiter == 180) se.RestartBot();
-                se.UniversalErrorDefense();
-                se.MissClick();
-                //new functionality
-                if (fc.HeadPage())
-                {
-                    Rat.Clk(PointsAndRectangles.toEvents);//Events
-                    Thread.Sleep(2000);
-                }
-                bool needToDragMap = false;
-                if (fc.EventPage())
-                {
-                    if (fc.InCommonEvent())
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.buttonBack);//back
-                    }
-                    else
-                    {
-                        Thread.Sleep(500);
-                        Rat.Clk(PointsAndRectangles.toClubs);//Clubs
-                        needToDragMap = true;
-                    }
-                }
-                //end new functionality
-                if (needToDragMap) se.DragMap(); //for new functionality
+                if (GameState.antiLoopCounter == 120) SpecialEvents.RestartBot();
+                CommonLists.SkipAllSkipables();                
                 if (fc.ClubMap())
                 {
                     NotePad.DoLog("вылетел из заезда");
-                    raceIsEnd = true;
-                }
-                if (fc.Bounty())
-                {
-                    NotePad.DoLog("вылетел из заезда");
-                    raceIsEnd = true;
-                }
-                if (fc.EnemyIsReady())
-                {
-                    Thread.Sleep(1000);
-                    Rat.Clk(PointsAndRectangles.ChooseAnEnemy);//ChooseanEnemy
-                    NotePad.DoLog("противник выбран");
-                }
+                    return false;
+                }                
                 if (fc.ArrangementWindow())
                 {
                     NotePad.DoLog("загрузился экран расстановки");
@@ -249,21 +104,21 @@ namespace Caitlyn_v1._0
                     ga.Arrangement();
                     NotePad.DoLog("расстановка выполнена");
                 }
-                if (fc.RaceOn() && !raceIsStart)
+                if (fc.RaceOn() && !raceIsStarted)
                 {
-                    raceIsStart = true;
+                    raceIsStarted = true;
                     NotePad.DoLog("заезд начался");
                     Thread.Sleep(2000);
-                    Rat.Clk(PointsAndRectangles.forceTheRace); //ускорить заезд, клик в пусой области
+                    Rat.Clk(PointsAndRectangles.allpoints["forceTheRace"]);
                 }
-                if (!fc.RaceOn() && raceIsStart)
+                if (!fc.RaceOn() && raceIsStarted)
                 {
                     NotePad.DoLog("заезд окончен");
-                    raceIsEnd = true;
+                    return true;
                 }
                 Thread.Sleep(1000);
-                waiter++;
-            } while (!raceIsEnd);
+                GameState.antiLoopCounter++;
+            } while (true);
         }
     }
 }

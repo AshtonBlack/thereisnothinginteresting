@@ -40,11 +40,11 @@ namespace Caitlyn_v1._0
                                         {
                                             if (i5 != i1 && i5 != i2 && i5 != i3 && i5 != i4)
                                             {
-                                                double point = al.CalculateCompatibility(cars[i1], Condition.previousTracks[0]) +
-                                                    al.CalculateCompatibility(cars[i2], Condition.previousTracks[1]) +
-                                                    al.CalculateCompatibility(cars[i3], Condition.previousTracks[2]) +
-                                                    al.CalculateCompatibility(cars[i4], Condition.previousTracks[3]) +
-                                                    al.CalculateCompatibility(cars[i5], Condition.previousTracks[4]);
+                                                double point = al.CalculateCompatibility(cars[i1], Condition.tracks[0]) +
+                                                    al.CalculateCompatibility(cars[i2], Condition.tracks[1]) +
+                                                    al.CalculateCompatibility(cars[i3], Condition.tracks[2]) +
+                                                    al.CalculateCompatibility(cars[i4], Condition.tracks[3]) +
+                                                    al.CalculateCompatibility(cars[i5], Condition.tracks[4]);
                                                 if (point > arrangementPoints)
                                                 {
                                                     rightarranfement = new int[] { i1, i2, i3, i4, i5 };
@@ -59,8 +59,16 @@ namespace Caitlyn_v1._0
                     }
                 }
             }
-            Point[] a = { PointsAndRectangles.Finger1, PointsAndRectangles.Finger2, PointsAndRectangles.Finger3, PointsAndRectangles.Finger4, PointsAndRectangles.Finger5 };
-            Point[] b = { PointsAndRectangles.Track1position, PointsAndRectangles.Track2position, PointsAndRectangles.Track3position, PointsAndRectangles.Track4position, PointsAndRectangles.Track5position };
+            Point[] a = { PointsAndRectangles.allpoints["Finger1"], 
+                PointsAndRectangles.allpoints["Finger2"], 
+                PointsAndRectangles.allpoints["Finger3"], 
+                PointsAndRectangles.allpoints["Finger4"], 
+                PointsAndRectangles.allpoints["Finger5"] };
+            Point[] b = { PointsAndRectangles.allpoints["Track1position"], 
+                PointsAndRectangles.allpoints["Track2position"], 
+                PointsAndRectangles.allpoints["Track3position"], 
+                PointsAndRectangles.allpoints["Track4position"], 
+                PointsAndRectangles.allpoints["Track5position"] };
             for (int j = 0; j < 5; j++)//logic for dragndrop
             {
                 Thread.Sleep(1000);

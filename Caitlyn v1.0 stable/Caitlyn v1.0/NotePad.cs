@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -11,7 +13,7 @@ namespace Caitlyn_v1._0
             bool match = false;
             if (File.Exists(@"C:\Bot\Errors.txt"))
             {
-                using (StreamReader sr = new StreamReader(@"C:\Bot\Errors.txt", Encoding.Default))
+                using (StreamReader sr = new StreamReader(@"C:\Bot\Errors.txt", Encoding.UTF8))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -27,7 +29,7 @@ namespace Caitlyn_v1._0
             }
             if (!match)
             {
-                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, Encoding.Default))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Errors.txt", true, Encoding.UTF8))//true для дописывания 
                 {
                     sw.WriteLine(text);
                     sw.Close();
@@ -38,7 +40,7 @@ namespace Caitlyn_v1._0
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, Encoding.Default))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, Encoding.UTF8))//true для дописывания 
                 {
                     sw.WriteLine(text + "  " + DateTime.Now.ToLongTimeString());
                     sw.Close();
@@ -48,13 +50,12 @@ namespace Caitlyn_v1._0
             {
 
             }
-
         }
         public static void DoLogWithoutTime(string text)
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, Encoding.Default))//true для дописывания 
+                using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", true, Encoding.UTF8))//true для дописывания 
                 {
                     sw.WriteLine(text);
                     sw.Close();
@@ -64,11 +65,10 @@ namespace Caitlyn_v1._0
             {
 
             }
-
         }
         public static void Saves(int[] carsid)
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, Encoding.Default))//true для дописывания 
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Saves.txt", false, Encoding.UTF8))//true для дописывания 
             {
                 sw.WriteLine(Condition.eventRQ);
                 sw.WriteLine(Condition.ConditionNumber1);
@@ -83,7 +83,7 @@ namespace Caitlyn_v1._0
         public static string[] ReadSaves()
         {
             string[] a = new string[8];
-            using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", Encoding.Default))
+            using (StreamReader sr = new StreamReader(@"C:\Bot\Saves.txt", Encoding.UTF8))
             {
                 for (int i = 0; i < a.Length; i++)
                 {
@@ -121,7 +121,7 @@ namespace Caitlyn_v1._0
         }
         public static void ClearLog()
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", false, Encoding.Default))//true для дописывания 
+            using (StreamWriter sw = new StreamWriter(@"C:\Bot\Log.txt", false, Encoding.UTF8))//true для дописывания 
             {
                 sw.WriteLine("Начинаю новую сессию " + DateTime.Now.ToLongTimeString());
                 sw.Close();
@@ -130,7 +130,7 @@ namespace Caitlyn_v1._0
         public static int GetInfoFileLength(string path)
         {
             int length = 0;
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null && line != " " && line != "")
@@ -146,13 +146,30 @@ namespace Caitlyn_v1._0
             int length = GetInfoFileLength(path);
             string[,] picturetoname = new string[length, 2];
 
-            using (StreamReader sr = new StreamReader(path, Encoding.Default))
+            using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
             {
                 for (int i = 0; i < length; i++)
                 {
                     string theline = sr.ReadLine();
                     picturetoname[i, 0] = GetWordFromString(theline, 1);
                     picturetoname[i, 1] = GetWordFromString(theline, 2);
+                }
+                sr.Close();
+            }
+
+            return picturetoname;
+        }
+        public static List<(int number, string name)> ReadInfoFile(string path)
+        {
+            int length = GetInfoFileLength(path);
+            List<(int, string)> picturetoname = new List<(int, string)>();
+
+            using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    string theline = sr.ReadLine();
+                    picturetoname.Add((Convert.ToInt16(GetWordFromString(theline, 1)), GetWordFromString(theline, 2)));
                 }
                 sr.Close();
             }
@@ -195,7 +212,7 @@ namespace Caitlyn_v1._0
         public static DateTime[] ReadTime()
         {
             DateTime[] thetime = new DateTime[GetInfoFileLength(timePath)];
-            using (StreamReader sr = new StreamReader(timePath, Encoding.Default))
+            using (StreamReader sr = new StreamReader(timePath, Encoding.UTF8))
             {
                 for (int i = 0; i < thetime.Length; i++)
                 {
@@ -206,6 +223,45 @@ namespace Caitlyn_v1._0
             }
 
             return thetime;
+        }
+        public static void ReadClkPoints()
+        {
+            using (StreamReader sr = new StreamReader(@"C:\Bot\ClkPoints.txt", Encoding.UTF8))
+            {
+                string entry;
+                while ((entry = sr.ReadLine()) != null)
+                {
+                    (string pointName, Point point) pair = ConvertStringToNamedPoint(entry.Split(' '));
+
+                    PointsAndRectangles.allpoints.Add(pair.pointName, pair.point);
+                }
+                sr.Close();
+            }
+        }
+        public static void ReadCaptureRectangles()
+        {
+            using (StreamReader sr = new StreamReader(@"C:\Bot\CaptureRectangles.txt", Encoding.UTF8))
+            {
+                string entry;
+                while ((entry = sr.ReadLine()) != null)
+                {
+                    (string pointName, Rectangle rectangle) pair = ConvertStringToNamedRectangle(entry.Split(' '));
+                    PointsAndRectangles.allrectangles.Add(pair.pointName, pair.rectangle);
+                }
+                sr.Close();
+            }
+        }
+        static (string, Point) ConvertStringToNamedPoint(string[] entry)
+        {
+            string pointName = entry[0];
+            Point point = new Point(Convert.ToInt16(entry[1]), Convert.ToInt16(entry[2]));
+            return (pointName, point);
+        }
+        static (string, Rectangle) ConvertStringToNamedRectangle(string[] entry)
+        {
+            string rectangleName = entry[0];
+            Rectangle rectangle = new Rectangle(Convert.ToInt16(entry[1]), Convert.ToInt16(entry[2]), Convert.ToInt16(entry[3]), Convert.ToInt16(entry[4]));
+            return (rectangleName, rectangle);
         }
     }
 }

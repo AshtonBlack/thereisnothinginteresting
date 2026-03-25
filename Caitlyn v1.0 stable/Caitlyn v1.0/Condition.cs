@@ -7,18 +7,18 @@ namespace Caitlyn_v1._0
         public static int eventRQ { get; set; }//рк эвента
         public static int minRQ { get; set; }
         public static List<CarForExcel> selectedCars { get; set; }
-        public static TrackInfo[] previousTracks { get; set; }
+        public static TrackInfo[] tracks { get; set; }
         public static void setDefaultTracks()
         {
-            previousTracks = new TrackInfo[5];
-            for (int i = 0; i < previousTracks.Length; i++)
+            tracks = new TrackInfo[5];
+            for (int i = 0; i < tracks.Length; i++)
             {
-                previousTracks[i] = new TrackInfo("Неизвестное покрытие", "Неизвестная погода", "Неизвестная трасса");
+                tracks[i] = new TrackInfo("Неизвестное покрытие", "Неизвестная погода", "Неизвестная трасса");
             }
         }
-        public static void setPreviousTracks(TrackInfo[] trackInfo)
+        public static void setTracks(TrackInfo[] trackInfo)
         {
-            previousTracks = trackInfo;
+            tracks = trackInfo;
         }
         public static string ConditionNumber1 { get; set; }
         public static string ConditionNumber2 { get; set; }

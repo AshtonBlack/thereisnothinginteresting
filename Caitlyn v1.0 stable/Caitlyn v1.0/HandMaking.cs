@@ -14,7 +14,7 @@ namespace Caitlyn_v1._0
             List<CarForExcel>[] carsForEveryFinger = new List<CarForExcel>[5];
             for (int finger = 0; finger < 5; finger++)
             {
-                carsForEveryFinger[finger] = CarsDB.DefinePreferedCarPull(Condition.previousTracks[finger]);
+                carsForEveryFinger[finger] = CarsDB.DefinePreferedCarPull(Condition.tracks[finger]);
             }
             
             int[] fingerCarNumber = new int[5];
@@ -37,7 +37,6 @@ namespace Caitlyn_v1._0
             int handrq = 0;
             for (int finger = 0; finger < 5; finger++)
             {
-                //handrq += Convert.ToInt32(carsForEveryFinger[finger][fingerCarNumber[finger]].rq);
                 handrq += RoundRQAccordingToClass(carsForEveryFinger[finger][fingerCarNumber[finger]].rarity);                
             }
             NotePad.DoLogWithoutTime("rq максимальных авто: " + handrq);//debug
@@ -52,14 +51,13 @@ namespace Caitlyn_v1._0
 
             int randomFinger;
             Random r = new Random();
-            SpecialEvents se = new SpecialEvents();
             while (Condition.eventRQ - handrq < 0)
             {
                 int attemptToRandomizeFinger = 0;
                 do
                 {
                     attemptToRandomizeFinger++;
-                    if (attemptToRandomizeFinger == 100) se.RestartBot();
+                    if (attemptToRandomizeFinger == 100) SpecialEvents.RestartBot();
                     randomFinger = r.Next(0, 5);
                 } while (fingerCarNumber[randomFinger] == carsForEveryFinger[randomFinger].Count - 1);
 
@@ -75,11 +73,9 @@ namespace Caitlyn_v1._0
                     handrq = 0;
                     for (int slot = 0; slot < 5; slot++)
                     {
-                        //handrq += Convert.ToInt32(carsForEveryFinger[slot][fingerCarNumber[slot]].rq);
                         handrq += RoundRQAccordingToClass(carsForEveryFinger[slot][fingerCarNumber[slot]].rarity);
                     }
                 }
-                //NotePad.DoLog("RQ = " + handrq);//debug
             }//сборка руки
             NotePad.DoLogWithoutTime("Требуемое рк: " + Condition.eventRQ + "; рк руки: " + handrq);
             
@@ -107,12 +103,13 @@ namespace Caitlyn_v1._0
             }
             return 19;
         }
-        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars) //dependecies with CarsDB.SatisfyConditionAndDescription
+        public List<(CarForExcel description, int count)> GroupCars(CarForExcel[] cars)
         {
             List<(CarForExcel description, int count)> carsDescriptions = new List<(CarForExcel description, int count)>
             {
                 (cars[0], 0)//the first description is added by default
             };
+
             foreach(CarForExcel carDescription in cars)
             {
                 bool found = false;
@@ -121,9 +118,19 @@ namespace Caitlyn_v1._0
                     if (carsDescriptions[knownCarDescription].description.rarity == carDescription.rarity
                     && carsDescriptions[knownCarDescription].description.drive == carDescription.drive
                     && carsDescriptions[knownCarDescription].description.clearance == carDescription.clearance
-                    //&& carsDescription[j].description.country == additionalDescription.country
                     && carsDescriptions[knownCarDescription].description.tires == carDescription.tires)
                     {
+                        NotePad.DoLogWithoutTime("Машина со сходным описанием");//debug
+                        NotePad.DoLogWithoutTime("Образец: ");//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.rarity);//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.drive);//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.clearance);//debug
+                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.tires);//debug
+                        NotePad.DoLogWithoutTime("Добавляемая: ");//debug
+                        NotePad.DoLogWithoutTime(carDescription.rarity);//debug
+                        NotePad.DoLogWithoutTime(carDescription.drive);//debug
+                        NotePad.DoLogWithoutTime(carDescription.clearance);//debug
+                        NotePad.DoLogWithoutTime(carDescription.tires);//debug
                         carsDescriptions[knownCarDescription] = (carsDescriptions[knownCarDescription].description, carsDescriptions[knownCarDescription].count + 1);
                         found = true;
                         break;
@@ -131,6 +138,11 @@ namespace Caitlyn_v1._0
                 }
                 if (!found)
                 {
+                    NotePad.DoLogWithoutTime("Добавляю новое описание");//debug
+                    NotePad.DoLogWithoutTime(carDescription.rarity);//debug
+                    NotePad.DoLogWithoutTime(carDescription.drive);//debug
+                    NotePad.DoLogWithoutTime(carDescription.clearance);//debug
+                    NotePad.DoLogWithoutTime(carDescription.tires);//debug
                     carsDescriptions.Add((carDescription, 1));
                 }
             }
@@ -142,18 +154,25 @@ namespace Caitlyn_v1._0
             if (CheckForEventIsOn()) ActivateCondition(); else return false;            
             List<(CarForExcel description, int count)> carsDescriptions = GroupCars(ChooseCars());
             int usedhandslots = 0;
+            List <int> carsid = new List<int>();
+            NotePad.DoLogWithoutTime("тачки после группировки по фильтрам");//debug
             foreach (var carDescription in carsDescriptions)
-            {
+            {                
                 if (!Randomizer()) return false;
                 if (!UseFilter(carDescription.description)) return false;
                 if (DragnDropHand(carDescription.count, usedhandslots, CarsDB.SatisfyConditionAndDescription(carDescription.description)) > 0) return false; //temporary
                 usedhandslots += carDescription.count;
+                for(int count = 0; count < carDescription.count; count++)
+                {
+                    NotePad.DoLogWithoutTime("Подобрал тачку с описанием похожим на: " + carDescription.description.fullname());//debug
+                    carsid.Add(Convert.ToInt16(carDescription.description.pictureId));
+                }
             }//механизм расстановки
-
+            
             if (eventIsNotEnd && VerifyHand())
             {
-                int[] carsid = RememberHand();
-                NotePad.Saves(carsid);
+                //int[] carsid = RememberHand(); //Опеределение тачек по картинке будет временно отключено в связи с отсутствием актуальной базы картинок
+                NotePad.Saves(carsid.ToArray());
             } //сохранение руки            
             else return false;
             
@@ -166,22 +185,10 @@ namespace Caitlyn_v1._0
         bool CheckForEventIsOn()
         {
             FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
-            se.MissClick();
-            if (fc.EventEnds())
-            {
-                NotePad.DoLog("Событие закончилось");
-                Rat.Clk(PointsAndRectangles.eventEndsAcceptance);//событие закончилось
-                Thread.Sleep(2000);
-            }
+            CommonLists.SkipAllSkipables();
             if (fc.ClubMap())
             {
                 NotePad.DoLog("вылетел на карту");
-                eventIsNotEnd = false;
-                return false;
-            }
-            if (fc.Bounty())
-            {
                 eventIsNotEnd = false;
                 return false;
             }
@@ -195,22 +202,18 @@ namespace Caitlyn_v1._0
                 && Condition.ConditionNumber1 != "обычная х3"
                 && !fc.ConditionActivated()
                 && CheckForEventIsOn()
-                && fc.ItsGarage())//itsGarage is for test
+                && fc.ItsGarage())
             {
                 NotePad.DoLog("Активирую условия события");
-                if (Condition.ConditionNumber2 == "empty")
-                {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
-                }
-                else
-                {
-                    Rat.Clk(PointsAndRectangles.commonCondition);
+                Rat.Clk(PointsAndRectangles.allpoints["commonCondition"]);
+                if (Condition.ConditionNumber2 != "empty")
+                {                    
                     Thread.Sleep(1500);
-                    Rat.Clk(PointsAndRectangles.cond1);
+                    Rat.Clk(PointsAndRectangles.allpoints["cond1"]);
                     Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.cond2);
+                    Rat.Clk(PointsAndRectangles.allpoints["cond2"]);
                     Thread.Sleep(500);
-                    Rat.Clk(PointsAndRectangles.commonConditionCross);
+                    Rat.Clk(PointsAndRectangles.allpoints["commonConditionCross"]);
                 }
             }
             return true;
@@ -219,14 +222,14 @@ namespace Caitlyn_v1._0
         {
             string path = "Check//";
 
-            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.Car1Bounds,
-                PointsAndRectangles.Car2Bounds,
-                PointsAndRectangles.Car3Bounds,
-                PointsAndRectangles.Car4Bounds,
-                PointsAndRectangles.Car5Bounds,
-                PointsAndRectangles.Car6Bounds,
-                PointsAndRectangles.Car7Bounds,
-                PointsAndRectangles.Car8Bounds };
+            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.allrectangles["Car1Bounds"],
+                PointsAndRectangles.allrectangles["Car2Bounds"],
+                PointsAndRectangles.allrectangles["Car3Bounds"],
+                PointsAndRectangles.allrectangles["Car4Bounds"],
+                PointsAndRectangles.allrectangles["Car5Bounds"],
+                PointsAndRectangles.allrectangles["Car6Bounds"],
+                PointsAndRectangles.allrectangles["Car7Bounds"],
+                PointsAndRectangles.allrectangles["Car8Bounds"] };
             string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
             Thread.Sleep(2000);
@@ -237,8 +240,11 @@ namespace Caitlyn_v1._0
         {
             string path = "Check//";
 
-            bool x = true;
-            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.HandSlot1, PointsAndRectangles.HandSlot2, PointsAndRectangles.HandSlot3, PointsAndRectangles.HandSlot4, PointsAndRectangles.HandSlot5 };
+            Rectangle[] bounds = new Rectangle[] { PointsAndRectangles.allrectangles["HandSlot1"], 
+                PointsAndRectangles.allrectangles["HandSlot2"], 
+                PointsAndRectangles.allrectangles["HandSlot3"], 
+                PointsAndRectangles.allrectangles["HandSlot4"], 
+                PointsAndRectangles.allrectangles["HandSlot5"] };
             string[] n = new string[] { "finger1", "finger2", "finger3", "finger4", "finger5" };
             for (int i = 0; i < 5; i++)
             {
@@ -249,17 +255,15 @@ namespace Caitlyn_v1._0
             {
                 MasterOfPictures.MakePicture(bounds[j], path + n[j] + "1");
             }
-
             for (int k = 0; k < 5; k++)
             {
                 if (!MasterOfPictures.Verify(path + n[k] + "0", path + n[k] + "1"))
                 {
                     NotePad.DoLog("Тачка на " + (k + 1) + " месте неисправна");
-                    x = false;
-                    break;
+                    return false;
                 }
             }
-            return x;
+            return true;
         }
         public bool VerifyHand()
         {
@@ -280,11 +284,11 @@ namespace Caitlyn_v1._0
         {
             string currentHand = "CurrentHand";
             int[] carsid = new int[5];
-            Rectangle[] handSlots = { PointsAndRectangles.HandSlot1, 
-                PointsAndRectangles.HandSlot2, 
-                PointsAndRectangles.HandSlot3, 
-                PointsAndRectangles.HandSlot4, 
-                PointsAndRectangles.HandSlot5 };
+            Rectangle[] handSlots = { PointsAndRectangles.allrectangles["HandSlot1"], 
+                PointsAndRectangles.allrectangles["HandSlot2"], 
+                PointsAndRectangles.allrectangles["HandSlot3"], 
+                PointsAndRectangles.allrectangles["HandSlot4"], 
+                PointsAndRectangles.allrectangles["HandSlot5"] };
 
             for (int finger = 0; finger < 5; finger++)
             {
@@ -301,53 +305,46 @@ namespace Caitlyn_v1._0
         bool UseFilter(CarForExcel carDescription)
         {
             FastCheck fc = new FastCheck();
-            SpecialEvents se = new SpecialEvents();
             NotePad.DoLog("накладываю фильтры");
             int attempts = 0;
             do
             {
                 attempts++;
-                if(attempts == 10) se.RestartBot();       
+                if(attempts == 10) SpecialEvents.RestartBot();       
                 if (!CheckForEventIsOn())
                 {
                     return false;
                 }
-                Rat.Clk(PointsAndRectangles.filter);
-                Thread.Sleep(1000);
+                Rat.Clk(PointsAndRectangles.allpoints["filter"]);
+                Thread.Sleep(2000);
             } while (!fc.FilterIsOpenned());//100% FilterOpenner
-            Thread.Sleep(200);
-            Rat.Clk(PointsAndRectangles.clear);
+            Rat.Clk(PointsAndRectangles.allpoints["clear"]);
             Thread.Sleep(1000);
-            //Rat.DragnDropSlow(PointsAndRectangles.xy1, PointsAndRectangles.xy2, 8);//legacy
-            Rat.Clk(PointsAndRectangles.rarity);
+            Rat.Clk(PointsAndRectangles.allpoints["rarity"]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.rarityClasses[carDescription.rarity]);//выбрать класс
+            Rat.Clk(PointsAndRectangles.allpoints["rarity" + carDescription.rarity]);//выбрать класс
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.carAttributes);
+            Rat.Clk(PointsAndRectangles.allpoints["carAttributes"]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.tires[carDescription.tires]);
+            Rat.Clk(PointsAndRectangles.allpoints["tires" + carDescription.tires]);
             Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.drive[carDescription.drive]);
+            Rat.Clk(PointsAndRectangles.allpoints["drive" + carDescription.drive]);
             Thread.Sleep(1000);
-            //TODO choose country
-            Rat.DragnDropSlow(PointsAndRectangles.toClearanceFilterStart, PointsAndRectangles.toClearanceFilterFinish, 8);//legacy
+            Rat.DragnDropSlow(PointsAndRectangles.allpoints["toClearanceFilterStart"], PointsAndRectangles.allpoints["toClearanceFilterFinish"], 8);//legacy
             Thread.Sleep(1000);
-            //Rat.Clk(PointsAndRectangles.others);
-            //Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.clearance[carDescription.clearance]);//выбрать класс
+            Rat.Clk(PointsAndRectangles.allpoints["clearance" + carDescription.clearance]);
             attempts = 0;
             do
             {
                 attempts++;
-                if (attempts == 10) se.RestartBot();
+                if (attempts == 10) SpecialEvents.RestartBot();
                 if (!CheckForEventIsOn())
                 {
                     return false;
                 }
-                Rat.Clk(PointsAndRectangles.accept);
-                Thread.Sleep(1000);
-            } while (fc.FilterIsOpenned());//100% FilterCloser               
-            Thread.Sleep(2000);
+                Rat.Clk(PointsAndRectangles.allpoints["accept"]);
+                Thread.Sleep(2000);
+            } while (fc.FilterIsOpenned());//100% FilterCloser  
 
             return true;
         }
@@ -355,16 +352,16 @@ namespace Caitlyn_v1._0
         {
             FastCheck fc = new FastCheck();
 
-            Point[] a = new Point[] { PointsAndRectangles.r1,
-                PointsAndRectangles.r2,
-                PointsAndRectangles.r3,
-                PointsAndRectangles.r4,
-                PointsAndRectangles.r5,
-                PointsAndRectangles.r6,
-                PointsAndRectangles.r7,
-                PointsAndRectangles.r8,
-                PointsAndRectangles.r9,
-                PointsAndRectangles.r10 };
+            Point[] a = new Point[] { PointsAndRectangles.allpoints["sortrarity"],
+                PointsAndRectangles.allpoints["sortrq"],
+                PointsAndRectangles.allpoints["sortmaxspeed"],
+                PointsAndRectangles.allpoints["sortacceleratioin"],
+                PointsAndRectangles.allpoints["sorthandling"],
+                PointsAndRectangles.allpoints["sortwheelsdrive"],
+                PointsAndRectangles.allpoints["sortcountry"],
+                PointsAndRectangles.allpoints["sortwidth"],
+                PointsAndRectangles.allpoints["sortheight"],
+                PointsAndRectangles.allpoints["sortweight"] };
             Random rand = new Random();
             NotePad.DoLog("рандомизирование");
             Thread.Sleep(1000);
@@ -375,7 +372,7 @@ namespace Caitlyn_v1._0
                 {
                     return false;
                 }
-                Rat.Clk(PointsAndRectangles.sorting);//сортировка
+                Rat.Clk(PointsAndRectangles.allpoints["sorting"]);//сортировка
                 Thread.Sleep(1000);
             } while (!fc.TypeIsOpenned());//100% SorterOpenner
             int r = rand.Next(10);
@@ -390,7 +387,7 @@ namespace Caitlyn_v1._0
             do
             {
                 if (!fc.ItsGarage()) return false;
-                Rat.Clk(PointsAndRectangles.closesorting);//закрыть сортировку
+                Rat.Clk(PointsAndRectangles.allpoints["closesorting"]);//закрыть сортировку
                 Thread.Sleep(1000);
             } while (fc.TypeIsOpenned());//100% SorterCloser            
             Thread.Sleep(4000);
@@ -402,19 +399,19 @@ namespace Caitlyn_v1._0
             //n -needed cars
             FastCheck fc = new FastCheck();
 
-            Point[] handSlots = new Point[] { PointsAndRectangles.pHandSlot1,
-                PointsAndRectangles.pHandSlot2,
-                PointsAndRectangles.pHandSlot3,
-                PointsAndRectangles.pHandSlot4,
-                PointsAndRectangles.pHandSlot5 };
-            Point[] garageSlots = new Point[] { PointsAndRectangles.GarageSlot1,
-                PointsAndRectangles.GarageSlot2,
-                PointsAndRectangles.GarageSlot3,
-                PointsAndRectangles.GarageSlot4,
-                PointsAndRectangles.GarageSlot5,
-                PointsAndRectangles.GarageSlot6,
-                PointsAndRectangles.GarageSlot7,
-                PointsAndRectangles.GarageSlot8 };
+            Point[] handSlots = new Point[] { PointsAndRectangles.allpoints["pHandSlot1"],
+                PointsAndRectangles.allpoints["pHandSlot2"],
+                PointsAndRectangles.allpoints["pHandSlot3"],
+                PointsAndRectangles.allpoints["pHandSlot4"],
+                PointsAndRectangles.allpoints["pHandSlot5"] };
+            Point[] garageSlots = new Point[] { PointsAndRectangles.allpoints["GarageSlot1"],
+                PointsAndRectangles.allpoints["GarageSlot2"],
+                PointsAndRectangles.allpoints["GarageSlot3"],
+                PointsAndRectangles.allpoints["GarageSlot4"],
+                PointsAndRectangles.allpoints["GarageSlot5"],
+                PointsAndRectangles.allpoints["GarageSlot6"],
+                PointsAndRectangles.allpoints["GarageSlot7"],
+                PointsAndRectangles.allpoints["GarageSlot8"] };
             int drag = 0; //сдвиги            
             int garageSlot = 0; //слот гаража
             int handSlot = 0;
@@ -434,13 +431,13 @@ namespace Caitlyn_v1._0
                     }
                     if (garageSlot > 3 && drag == 0)
                     {
-                        Rat.DragnDropSlow(PointsAndRectangles.ds1, PointsAndRectangles.de1, 5);
+                        Rat.DragnDropSlow(PointsAndRectangles.allpoints["ds1"], PointsAndRectangles.allpoints["de1"], 5);
                         drag = 1;
                         Thread.Sleep(1000);
                     }//сдвиг
                     if (garageSlot > 5 && drag == 1)
                     {
-                        Rat.DragnDropSlow(PointsAndRectangles.ds2, PointsAndRectangles.de2, 5);
+                        Rat.DragnDropSlow(PointsAndRectangles.allpoints["ds2"], PointsAndRectangles.allpoints["de2"], 5);
                         drag = 2;
                         Thread.Sleep(1000);
                     }//сдвиг

@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,12 +17,22 @@ namespace Caitlyn_v1._0
         {
             
             Navigation navigation = new Navigation();
-            navigation.ToClubMap();
+            navigation.InitialStart();
             navigation.InClubs();
             
             /*
+            ConditionDB.GroupConditions();
+            Application.Exit();
+            */
+            /*
             MyTest();
             Application.Exit();
+            
+
+            NotePad.DoLog("try to get Finger3");
+            NotePad.DoLog(PointsAndRectangles.allpoints["Finger3"].ToString());
+            NotePad.DoLog("try to get Finger3");
+            NotePad.DoLog(PointsAndRectangles.allrectangles["Condition1Bounds"].ToString());
             */
         }
         //tests

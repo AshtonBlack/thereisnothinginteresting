@@ -274,6 +274,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "italian 60s-80s":
+                case "italian 60s-80s x3":
                     if (car.country == "IT")
                     {
                         year = GetYear(car);
@@ -283,7 +284,7 @@ namespace Caitlyn_v1._0
                         }
                     }
                     break;
-                case "DE 90s x3":
+                case "german 90s x3":
                     if (car.country == "DE")
                     {
                         year = GetYear(car);
@@ -359,7 +360,7 @@ namespace Caitlyn_v1._0
                     }
                     break;
                 case "машины англии":
-                    if (car.country == "UK")
+                    if (car.country == "UK"||car.country == "GB")
                     {
                         x = true;
                     }

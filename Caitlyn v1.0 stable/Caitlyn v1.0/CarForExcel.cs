@@ -23,6 +23,8 @@ namespace Caitlyn_v1._0
         public string speed { get; set; }
         public string grip { get; set; }
         public string weight { get; set; }
+        public string abs { get; set; }
+        public string tcs { get; set; }
         public int inUse { get; set; }
         public CarForExcel()
         {
