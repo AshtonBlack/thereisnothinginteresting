@@ -19,12 +19,6 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["startButton"], "Start", 40, PointsAndRectangles.allpoints["buttonStart"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["headPage"], "Head", PointsAndRectangles.allpoints["toEvents"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["missClick"], "WrongClick", PointsAndRectangles.allpoints["missClickCancelation"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbFuckBrain"], "fbFuckBrain", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbcontinue"], "FBcontinue", PointsAndRectangles.allpoints["fbFucksBrain"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError1", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError2", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["fbError"], "fbError3", PointsAndRectangles.allpoints["fbFuckBrainClick"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndBounty"], "SeasonEndBounty", PointsAndRectangles.allpoints["bountyForSeason"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["SeasonEndsBounds"], "SeasonEnds", PointsAndRectangles.allpoints["acceptSeasonEnd"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["upgrade"], "Upgrade", PointsAndRectangles.allpoints["upgradeCancelation"]));

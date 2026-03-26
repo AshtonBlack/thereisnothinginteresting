@@ -31,16 +31,20 @@ namespace Caitlyn_v1._0
         }
         static void KillExcel()
         {
-            Process[] processes = Process.GetProcessesByName("Microsoft Excel");
-            foreach (Process process in processes)
+            string[] processnames = { "Microsoft Excel", "EXCEL" };
+            foreach (string name in processnames)
             {
-                try
+                Process[] processes = Process.GetProcessesByName(name);
+                foreach (Process process in processes)
                 {
-                    process.Kill();
-                }
-                catch (Exception)
-                {
+                    try
+                    {
+                        process.Kill();
+                    }
+                    catch (Exception)
+                    {
 
+                    }
                 }
             }
         }
