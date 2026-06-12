@@ -8,7 +8,7 @@ namespace Caitlyn_v1._0
         public void InitialStart()
         {
             NotePad.ClearLog();
-            Process.Start(@"C:\Program Files (x86)\Nox\bin\Nox.exe"); //, "-clone:Nox_1"
+            Process.Start(@"C:\LDPlayer\LDPlayer9\dnplayer.exe");
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
         }
