@@ -83,7 +83,6 @@
     <Compile Include="SolveDoubleDevice.cs" />
     <Compile Include="SolveEnemyIsReady.cs" />
     <Compile Include="SolveEventPage.cs" />
-    <Compile Include="SolveNoxRestartMessage.cs" />
     <Compile Include="SolveServerError.cs" />
     <Compile Include="SolveSpecialOffer.cs" />
     <Compile Include="SpecialEvents.cs" />

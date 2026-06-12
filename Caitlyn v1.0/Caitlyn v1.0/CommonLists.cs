@@ -15,7 +15,7 @@ namespace Caitlyn_v1._0
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.allrectangles["timeIsOut"], "TimeIsOut"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.allrectangles["carRepair"], "CarRepair"));
             reasonsForRestart.Add(new ReasonForRestart(PointsAndRectangles.allrectangles["wrongParty"], "WrongParty"));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["startIcon"], "Icon", PointsAndRectangles.allpoints["clkTheIcon"]));
+            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["startIcon"], "Icon", 10, PointsAndRectangles.allpoints["clkTheIcon"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["startButton"], "Start", 40, PointsAndRectangles.allpoints["buttonStart"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["headPage"], "Head", PointsAndRectangles.allpoints["toEvents"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["missClick"], "WrongClick", PointsAndRectangles.allpoints["missClickCancelation"]));
@@ -36,7 +36,6 @@ namespace Caitlyn_v1._0
             issueSolvations.Add(new SolveEventPage());
             issueSolvations.Add(new SolveBounty());
             issueSolvations.Add(new SolveDailyBounty());
-            issueSolvations.Add(new SolveNoxRestartMessage());
             issueSolvations.Add(new SolveEnemyIsReady());
             issueSolvations.Add(new SolveDoubleDevice());
             issueSolvations.Add(new SolveSpecialOffer());

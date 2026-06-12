@@ -11,6 +11,12 @@ namespace Caitlyn_v1._0
             Process.Start(@"C:\LDPlayer\LDPlayer9\dnplayer.exe");
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
+            Thread.Sleep(40000);
+            System.Windows.Forms.SendKeys.SendWait("{ESC}");
+            Thread.Sleep(500);
+            System.Windows.Forms.SendKeys.SendWait("{ESC}");
+            Thread.Sleep(500);
+            System.Windows.Forms.SendKeys.SendWait("{ESC}");
         }
         public void InClubs()
         {
