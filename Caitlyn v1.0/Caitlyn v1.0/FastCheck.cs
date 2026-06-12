@@ -89,9 +89,7 @@ namespace Caitlyn_v1._0
         }
         public bool RaceOn()
         {
-            if (MainFrame(PointsAndRectangles.allrectangles["raceOn"], "Race")
-                || MainFrame(PointsAndRectangles.allrectangles["raceOn"], "Race1")
-                || MainFrame(PointsAndRectangles.allrectangles["raceOn"], "Race2"))
+            if (MainFrame(PointsAndRectangles.allrectangles["raceOn"], "Race"))
                 return true;
             return false;
         }        

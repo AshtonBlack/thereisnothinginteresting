@@ -28,7 +28,6 @@ namespace Caitlyn_v1._0
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["drawSet"], "DrawSet", PointsAndRectangles.allpoints["endOfRaceSet"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["ending"], "PointsForRace", PointsAndRectangles.allpoints["passTheTableAfterRace"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["eventEnds"], "EventEnds", PointsAndRectangles.allpoints["eventEndsAcceptance"]));
-            skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["eventEnds"], "EventEnds1", PointsAndRectangles.allpoints["eventEndsAcceptance"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["eventisFull"], "FullEvent", PointsAndRectangles.allpoints["eventIsFullAcceptance"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["carMenu"], "CarMenu", PointsAndRectangles.allpoints["closeCarCard"]));
             skipableMoments.Add(new SkipableMoment(PointsAndRectangles.allrectangles["raceEnd"], "RaceEnd", 220, PointsAndRectangles.allpoints["endOfTheFirstRace"]));
