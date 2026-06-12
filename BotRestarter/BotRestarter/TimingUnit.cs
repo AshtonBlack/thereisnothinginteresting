@@ -40,22 +40,20 @@ namespace BotRestarter
         public void DefineNewBreakTimes()
         {
             NotePad np = new NotePad();
-            lastUpdateTime = DateTime.Now.Date;
-            string[] times = new string[8];
-            times[0] = DateTime.Today.ToShortDateString();
-            times[1] = DateTime.Today.AddHours(5.5).AddMinutes(AdditionalMinutes()).ToString();
-            times[2] = DateTime.Today.AddHours(8).AddMinutes(AdditionalMinutes()).ToString();
-            times[3] = DateTime.Today.AddHours(12.75).AddMinutes(AdditionalMinutes()).ToString();
-            times[4] = DateTime.Today.AddHours(17).AddMinutes(AdditionalMinutes()).ToString();
-            times[5] = DateTime.Today.AddHours(18).AddMinutes(AdditionalMinutes()).ToString();
-            times[6] = DateTime.Today.AddHours(23.25).AddMinutes(AdditionalMinutes()).ToString();
-            times[7] = DateTime.Today.AddHours(26).AddMinutes(AdditionalMinutes()).ToString();
-            timings[0] = lastUpdateTime;
-            for(int i = 1; i < timings.Length; i++)
-            {
-                timings[i] = Convert.ToDateTime(times[i - 1]);
-            }
-            np.WriteTime(timings);
+            DateTime[] times = new DateTime[12];
+            times[0] = DateTime.Today;
+            times[1] = DateTime.Today.AddHours(1);
+            times[2] = DateTime.Today.AddHours(7);
+            times[3] = DateTime.Today.AddHours(13);
+            times[4] = DateTime.Today.AddHours(15);
+            times[5] = DateTime.Today.AddHours(15.5);
+            times[6] = DateTime.Today.AddHours(16.5);
+            times[7] = DateTime.Today.AddHours(17);
+            times[8] = DateTime.Today.AddHours(18.5);
+            times[9] = DateTime.Today.AddHours(20);
+            times[10] = DateTime.Today.AddHours(22.25);
+            times[11] = DateTime.Today.AddHours(25);
+            np.WriteTime(times);
         }
         public bool IsUpDated()
         {

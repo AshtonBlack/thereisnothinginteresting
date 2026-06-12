@@ -10,12 +10,12 @@ namespace BotRestarter
         {
             using (StreamWriter sw = new StreamWriter(timePath, false, System.Text.Encoding.Default))
             {
-                sw.WriteLine(times[0]);
+                sw.WriteLine(DateTime.Today.ToShortDateString());
                 sw.Close();
             }
             using (StreamWriter sw = new StreamWriter(timePath, true, System.Text.Encoding.Default))
             {
-                for(int i = 1; i < times.Length; i++)
+                for(int i = 0; i < times.Length; i++)
                 {
                     sw.WriteLine(times[i]);
                 }                
