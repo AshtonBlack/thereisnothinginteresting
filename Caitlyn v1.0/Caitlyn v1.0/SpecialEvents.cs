@@ -14,9 +14,9 @@ namespace Caitlyn_v1._0
         public static void RestartBot()
         {
             Rat.Clk(PointsAndRectangles.allpoints["LDPlayerClosing"]);//close LDPlayer
-            Thread.Sleep(1000);
-            Rat.Clk(PointsAndRectangles.allpoints["LDPlayerClosingAcceptance"]);//accept LDPlayer close
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            //Rat.Clk(PointsAndRectangles.allpoints["LDPlayerClosingAcceptance"]);//accept LDPlayer close
+            //Thread.Sleep(1000);
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             Process.GetCurrentProcess().Kill();
         }             

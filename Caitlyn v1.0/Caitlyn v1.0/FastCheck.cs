@@ -71,11 +71,11 @@ namespace Caitlyn_v1._0
         }                                            
         public bool TypeIsOpenned()
         {
-            return MainFrame(PointsAndRectangles.allrectangles["typeIsOpenned"], "TypeIsOpenned");
+            return MainFrameBW(PointsAndRectangles.allrectangles["typeIsOpenned"], "TypeIsOpenned", 5);
         }
         public bool FilterIsOpenned()
         {
-            return MainFrame(PointsAndRectangles.allrectangles["filterIsOpenned"], "FilterIsOpenned");
+            return MainFrameBW(PointsAndRectangles.allrectangles["filterIsOpenned"], "FilterIsOpenned", 5);
         }                                       
         public bool ActiveEvent()
         {
@@ -95,11 +95,11 @@ namespace Caitlyn_v1._0
         }        
         public bool ItsGarage()
         {
-            return MainFrame(PointsAndRectangles.allrectangles["inGarage"], "InGarage");
+            return MainFrameBWWithBlackText(PointsAndRectangles.allrectangles["inGarage"], "InGarage", 20);
         }                          
         public bool ConditionActivated()
         {            
-            return MainFrame(PointsAndRectangles.allrectangles["conditionActivated"], "ConditionActivated");
+            return MainFrameBWWithBlackText(PointsAndRectangles.allrectangles["conditionActivated"], "ConditionActivated", 3);
         }        
         public bool ArrangementWindow()
         {
