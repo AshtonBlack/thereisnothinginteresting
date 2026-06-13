@@ -6,11 +6,11 @@
         {  
             string testPicture = @"HeadPictures\TestSpecialOffer";
             string originalPicture = @"HeadPictures\OriginalSpecialOffer";
-            MasterOfPictures.BW2CaptureWithBlackText(PointsAndRectangles.allrectangles["SpecialOffer"], testPicture);
+            MasterOfPictures.BW2Capture(PointsAndRectangles.allrectangles["SpecialOffer"], testPicture);
             if (MasterOfPictures.VerifyBW(testPicture, originalPicture, 20))
             {
                 NotePad.DoLog("Visual matching with SpecialOffer");
-                Rat.Clk(PointsAndRectangles.allpoints["CrossForSpecialOffer"]);
+                System.Windows.Forms.SendKeys.SendWait("{ESC}");
                 return true;
             }
             return false;
