@@ -324,6 +324,17 @@ namespace Caitlyn_v1._0
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.allpoints["rarity" + carDescription.rarity]);//выбрать класс
             Thread.Sleep(1000);
+            if(carDescription.rarity.ToLower() == "f"
+                || carDescription.rarity.ToLower() == "e"
+                || carDescription.rarity.ToLower() == "d"
+                || carDescription.rarity.ToLower() == "c"
+                || carDescription.rarity.ToLower() == "b")
+            {
+                Rat.Clk(PointsAndRectangles.allpoints["status"]);
+                Thread.Sleep(1000);
+                Rat.Clk(PointsAndRectangles.allpoints["fullUpgraded"]);
+                Thread.Sleep(1000);
+            }
             Rat.Clk(PointsAndRectangles.allpoints["carAttributes"]);
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.allpoints["tires" + carDescription.tires]);
