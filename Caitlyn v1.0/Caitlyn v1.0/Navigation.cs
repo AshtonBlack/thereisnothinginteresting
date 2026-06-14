@@ -11,7 +11,7 @@ namespace Caitlyn_v1._0
             Process.Start(@"C:\LDPlayer\LDPlayer9\dnplayer.exe");
             CarPictureDataBase carPictureDataBase = new CarPictureDataBase();
             carPictureDataBase.MakeDB();
-            Thread.Sleep(25000);
+            Thread.Sleep(35000);
             System.Windows.Forms.SendKeys.SendWait("{ESC}");
             Thread.Sleep(500);
             System.Windows.Forms.SendKeys.SendWait("{ESC}");
