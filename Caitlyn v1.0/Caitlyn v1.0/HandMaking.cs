@@ -120,17 +120,6 @@ namespace Caitlyn_v1._0
                     && carsDescriptions[knownCarDescription].description.clearance == carDescription.clearance
                     && carsDescriptions[knownCarDescription].description.tires == carDescription.tires)
                     {
-                        NotePad.DoLogWithoutTime("Машина со сходным описанием");//debug
-                        NotePad.DoLogWithoutTime("Образец: ");//debug
-                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.rarity);//debug
-                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.drive);//debug
-                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.clearance);//debug
-                        NotePad.DoLogWithoutTime(carsDescriptions[knownCarDescription].description.tires);//debug
-                        NotePad.DoLogWithoutTime("Добавляемая: ");//debug
-                        NotePad.DoLogWithoutTime(carDescription.rarity);//debug
-                        NotePad.DoLogWithoutTime(carDescription.drive);//debug
-                        NotePad.DoLogWithoutTime(carDescription.clearance);//debug
-                        NotePad.DoLogWithoutTime(carDescription.tires);//debug
                         carsDescriptions[knownCarDescription] = (carsDescriptions[knownCarDescription].description, carsDescriptions[knownCarDescription].count + 1);
                         found = true;
                         break;
@@ -138,11 +127,6 @@ namespace Caitlyn_v1._0
                 }
                 if (!found)
                 {
-                    NotePad.DoLogWithoutTime("Добавляю новое описание");//debug
-                    NotePad.DoLogWithoutTime(carDescription.rarity);//debug
-                    NotePad.DoLogWithoutTime(carDescription.drive);//debug
-                    NotePad.DoLogWithoutTime(carDescription.clearance);//debug
-                    NotePad.DoLogWithoutTime(carDescription.tires);//debug
                     carsDescriptions.Add((carDescription, 1));
                 }
             }
@@ -361,22 +345,44 @@ namespace Caitlyn_v1._0
         }
         private bool Randomizer()
         {
+            List<string> preferedStats = new List<string> {
+                "rarityAsc",
+                "rarityDesc",
+                //"rqAsc",
+                "rqDesc",
+                "maxspeedAsc",
+                "maxspeedDesc",
+                "acceleratioinAsc",
+                "acceleratioinDesc",
+                "handlingAsc",
+                "handlingDesc",
+                "wheelsdriveAsc",
+                "wheelsdriveDesc",
+                "countryAsc",
+                "countryDesc",
+                "widthAsc",
+                "widthDesc",
+                "heightAsc",
+                "heightDesc",
+                "weightAsc",
+                "weightDesc"
+                };
+
+            if(!Sorting(preferedStats)) return false;
+
+            return true;
+        }
+        private bool Sorting(List<string> preferedStats)
+        {         
+            if(!OpenSoring()) return false;
+            ChooseSorting(preferedStats);
+            if (!CloseSorting()) return false;
+            Thread.Sleep(4000);
+            return true;
+        }
+        public bool OpenSoring()
+        {
             FastCheck fc = new FastCheck();
-
-            Point[] a = new Point[] { PointsAndRectangles.allpoints["sortrarity"],
-                PointsAndRectangles.allpoints["sortrq"],
-                PointsAndRectangles.allpoints["sortmaxspeed"],
-                PointsAndRectangles.allpoints["sortacceleratioin"],
-                PointsAndRectangles.allpoints["sorthandling"],
-                PointsAndRectangles.allpoints["sortwheelsdrive"],
-                PointsAndRectangles.allpoints["sortcountry"],
-                PointsAndRectangles.allpoints["sortwidth"],
-                PointsAndRectangles.allpoints["sortheight"],
-                PointsAndRectangles.allpoints["sortweight"] };
-            Random rand = new Random();
-            NotePad.DoLog("рандомизирование");
-            Thread.Sleep(1000);
-
             do
             {
                 if (!CheckForEventIsOn() || !fc.ItsGarage())
@@ -386,23 +392,54 @@ namespace Caitlyn_v1._0
                 Rat.Clk(PointsAndRectangles.allpoints["sorting"]);//сортировка
                 Thread.Sleep(1000);
             } while (!fc.TypeIsOpenned());//100% SorterOpenner
-            int r = rand.Next(10);
-            if (rand.Next(2) == 1)
+            return true;
+        }
+        public void ChooseSorting(List<string> preferedStats)
+        {
+            string attr = preferedStats[new Random().Next(preferedStats.Count)];
+            switch (attr)
             {
-                Rat.Clk(a[r]);//выбрать условие
+                case "rarityAsc": SortBy("sortrarity"); break;
+                case "rarityDesc": SortBy("sortrarity", false); break;
+                case "rqAsc": SortBy("sortrq"); break;
+                case "rqDesc": SortBy("sortrq", false); break;
+                case "maxspeedAsc": SortBy("sortmaxspeed"); break;
+                case "maxspeedDesc": SortBy("sortmaxspeed", false); break;
+                case "acceleratioinAsc": SortBy("sortacceleratioin"); break;
+                case "acceleratioinDesc": SortBy("sortacceleratioin", false); break;
+                case "handlingAsc": SortBy("sorthandling"); break;
+                case "handlingDesc": SortBy("sorthandling", false); break;
+                case "wheelsdriveAsc": SortBy("sortwheelsdrive"); break;
+                case "wheelsdriveDesc": SortBy("sortwheelsdrive", false); break;
+                case "countryAsc": SortBy("sortcountry"); break;
+                case "countryDesc": SortBy("sortcountry", false); break;
+                case "widthAsc": SortBy("sortwidth"); break;
+                case "widthDesc": SortBy("sortwidth", false); break;
+                case "heightAsc": SortBy("sortheight"); break;
+                case "heightDesc": SortBy("sortheight", false); break;
+                case "weightAsc": SortBy("sortweight"); break;
+                case "weightDesc": SortBy("sortweight", false); break;
+            }
+        }
+        public void SortBy(string stat, bool asc = true)
+        {
+            if (asc)
+            {
+                Rat.Clk(PointsAndRectangles.allpoints[stat]);
                 Thread.Sleep(500);
             }
-            Rat.Clk(a[r]);//выбрать условие 
-
+            Rat.Clk(PointsAndRectangles.allpoints[stat]);
             Thread.Sleep(500);
+        }
+        public bool CloseSorting()
+        {
+            FastCheck fc = new FastCheck();
             do
             {
                 if (!fc.ItsGarage()) return false;
                 Rat.Clk(PointsAndRectangles.allpoints["closesorting"]);//закрыть сортировку
                 Thread.Sleep(1000);
-            } while (fc.TypeIsOpenned());//100% SorterCloser            
-            Thread.Sleep(4000);
-
+            } while (fc.TypeIsOpenned());//100% SorterCloser
             return true;
         }
         public int DragnDropHand(int n, int previouslyUsedHandSlots, int availableCars)
