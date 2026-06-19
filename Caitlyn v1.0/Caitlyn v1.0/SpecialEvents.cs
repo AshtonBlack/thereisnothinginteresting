@@ -8,15 +8,12 @@ namespace Caitlyn_v1._0
     {        
         public static void DragMap()
         {
-            Rat.DragnDropSlow(PointsAndRectangles.allpoints["dragMapS"], PointsAndRectangles.allpoints["dragMapE"], 8);
+            Rat.DragnDropSlow(PointsAndRectangles.allpoints["dragMapS"], PointsAndRectangles.allpoints["dragMapE"], 20);
             GameState.needToDragMap = false;
         }
         public static void RestartBot()
         {
             Rat.Clk(PointsAndRectangles.allpoints["LDPlayerClosing"]);//close LDPlayer
-            //Thread.Sleep(1000);
-            //Rat.Clk(PointsAndRectangles.allpoints["LDPlayerClosingAcceptance"]);//accept LDPlayer close
-            //Thread.Sleep(1000);
             Process.Start(@"C:\Bot\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe");
             Process.GetCurrentProcess().Kill();
         }             
@@ -33,7 +30,7 @@ namespace Caitlyn_v1._0
                 if (fc.ItsGarage())
                 {
                     Point endPoint = new Point(a[i].X, a[i].Y - 270);
-                    Rat.DragnDropSlow(a[i], endPoint, 10);
+                    Rat.DragnDropSlow(a[i], endPoint, 20);
                 }
                 else return false;    
             }

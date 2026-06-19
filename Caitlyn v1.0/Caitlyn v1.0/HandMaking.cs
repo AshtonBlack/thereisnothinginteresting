@@ -162,10 +162,6 @@ namespace Caitlyn_v1._0
             
             return true;
         }        
-        public void MakingHand1()//for test
-        {
-            GroupCars(ChooseCars());
-        }
         bool CheckForEventIsOn()
         {
             FastCheck fc = new FastCheck();
@@ -216,7 +212,7 @@ namespace Caitlyn_v1._0
                 PointsAndRectangles.allrectangles["Car8Bounds"] };
             string[] n = new string[] { "1car", "2car", "3car", "4car", "5car", "6car", "7car", "8car" };
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "0");
-            Thread.Sleep(2000);
+            Thread.Sleep(1500);
             MasterOfPictures.MakePicture(bounds[slot], path + n[slot] + "1");
             return MasterOfPictures.Verify(path + n[slot] + "0", path + n[slot] + "1");
         }
@@ -288,20 +284,8 @@ namespace Caitlyn_v1._0
         }
         bool UseFilter(CarForExcel carDescription)
         {
-            FastCheck fc = new FastCheck();
             NotePad.DoLog("накладываю фильтры");
-            int attempts = 0;
-            do
-            {
-                attempts++;
-                if(attempts == 10) SpecialEvents.RestartBot();       
-                if (!CheckForEventIsOn())
-                {
-                    return false;
-                }
-                Rat.Clk(PointsAndRectangles.allpoints["filter"]);
-                Thread.Sleep(2000);
-            } while (!fc.FilterIsOpenned());//100% FilterOpenner
+            if(!OpenFiltering()) return false;
             Rat.Clk(PointsAndRectangles.allpoints["clear"]);
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.allpoints["rarity"]);
@@ -328,7 +312,31 @@ namespace Caitlyn_v1._0
             Rat.DragnDropSlow(PointsAndRectangles.allpoints["toClearanceFilterStart"], PointsAndRectangles.allpoints["toClearanceFilterFinish"], 8);//legacy
             Thread.Sleep(1000);
             Rat.Clk(PointsAndRectangles.allpoints["clearance" + carDescription.clearance]);
-            attempts = 0;
+            if (!CloseFiltering()) return false;
+
+            return true;
+        }
+        private bool OpenFiltering()
+        {
+            FastCheck fc = new FastCheck();
+            int attempts = 0;
+            do
+            {
+                attempts++;
+                if (attempts == 10) SpecialEvents.RestartBot();
+                if (!CheckForEventIsOn())
+                {
+                    return false;
+                }
+                Rat.Clk(PointsAndRectangles.allpoints["filter"]);
+                Thread.Sleep(2000);
+            } while (!fc.FilterIsOpenned());//100% FilterOpenner
+            return true;
+        }
+        private bool CloseFiltering()
+        {
+            FastCheck fc = new FastCheck();
+            int attempts = 0;
             do
             {
                 attempts++;
@@ -340,7 +348,6 @@ namespace Caitlyn_v1._0
                 Rat.Clk(PointsAndRectangles.allpoints["accept"]);
                 Thread.Sleep(2000);
             } while (fc.FilterIsOpenned());//100% FilterCloser  
-
             return true;
         }
         private bool Randomizer()
@@ -380,7 +387,7 @@ namespace Caitlyn_v1._0
             Thread.Sleep(4000);
             return true;
         }
-        public bool OpenSoring()
+        private bool OpenSoring()
         {
             FastCheck fc = new FastCheck();
             do
@@ -394,7 +401,7 @@ namespace Caitlyn_v1._0
             } while (!fc.TypeIsOpenned());//100% SorterOpenner
             return true;
         }
-        public void ChooseSorting(List<string> preferedStats)
+        private void ChooseSorting(List<string> preferedStats)
         {
             string attr = preferedStats[new Random().Next(preferedStats.Count)];
             switch (attr)
@@ -421,7 +428,7 @@ namespace Caitlyn_v1._0
                 case "weightDesc": SortBy("sortweight", false); break;
             }
         }
-        public void SortBy(string stat, bool asc = true)
+        private void SortBy(string stat, bool asc = true)
         {
             if (asc)
             {
@@ -431,7 +438,7 @@ namespace Caitlyn_v1._0
             Rat.Clk(PointsAndRectangles.allpoints[stat]);
             Thread.Sleep(500);
         }
-        public bool CloseSorting()
+        private bool CloseSorting()
         {
             FastCheck fc = new FastCheck();
             do
@@ -442,7 +449,7 @@ namespace Caitlyn_v1._0
             } while (fc.TypeIsOpenned());//100% SorterCloser
             return true;
         }
-        public int DragnDropHand(int n, int previouslyUsedHandSlots, int availableCars)
+        private int DragnDropHand(int n, int previouslyUsedHandSlots, int availableCars)
         {
             //n -needed cars
             FastCheck fc = new FastCheck();

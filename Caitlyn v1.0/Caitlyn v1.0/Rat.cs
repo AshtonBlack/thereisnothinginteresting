@@ -72,11 +72,10 @@ namespace Caitlyn_v1._0
                 }
                 x1 = MasterOfPictures.PixelIndicator(xy1);//контрольный пиксель
                 MoveMouse(xy1);
-                Thread.Sleep(100);
                 LMBdown(xy1);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 MoveMouse(xy2);
-                Thread.Sleep(2500);
+                Thread.Sleep(1000);
                 LMBup(xy2);
                 Thread.Sleep(500);
                 x2 = MasterOfPictures.PixelIndicator(xy1);//контрольный пиксель фото 2
@@ -90,51 +89,44 @@ namespace Caitlyn_v1._0
             int dox2 = xy2.X;
             int doy2 = xy2.Y;
             MoveMouse(dox1, doy1);
-            Thread.Sleep(100);
             LMBdown(dox1, doy1);
-            Thread.Sleep(1000);
-
+            Thread.Sleep(500);
             if (doy1 < doy2)
             {
                 for (int i = doy1; i < doy2; i += speed)
                 {
                     MoveMouse(dox1, i);
-                    Thread.Sleep(60);
+                    Thread.Sleep(50);
                 }
             }
-
             if (doy1 > doy2)
             {
                 for (int i = doy1; i > doy2; i -= speed)
                 {
                     MoveMouse(dox1, i);
-                    Thread.Sleep(60);
+                    Thread.Sleep(50);
                 }
             }
-
             if (dox1 < dox2)
             {
                 for (int i = dox1; i < dox2; i += speed)
                 {
                     MoveMouse(i, doy2);
-                    Thread.Sleep(60);
+                    Thread.Sleep(50);
                 }
             }
-
             if (dox1 > dox2)
             {
                 for (int i = dox1; i > dox2; i -= speed)
                 {
                     MoveMouse(i, doy2);
-                    Thread.Sleep(60);
+                    Thread.Sleep(50);
                 }
             }
-
-            Thread.Sleep(100);
             MoveMouse(dox2, doy2);
-            Thread.Sleep(100);
+            Thread.Sleep(500);
             LMBup(dox2, doy2);
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
         }
     }
 }
