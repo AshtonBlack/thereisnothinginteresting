@@ -58,7 +58,7 @@ namespace Caitlyn_v1._0
         }        
         public bool ItsGarage()
         {
-            return VisualCheck.Check(PointsAndRectangles.allrectangles["inGarage"], "InGarage", 20, true);
+            return VisualCheck.Check(PointsAndRectangles.allrectangles["inGarage"], "InGarage");
         }                          
         public bool ConditionActivated()
         {            
